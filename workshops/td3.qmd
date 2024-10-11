@@ -218,7 +218,7 @@ WHERE l.countrycode IS NULL;
 ## Requêtes
 
 
-Quels sont les langues qui ne sont officielles dans aucun pays ? (355 lignes)
+1. Quels sont les langues qui ne sont officielles dans aucun pays ? (355 lignes)
 
 Écrivez une version avec `EXCEPT`, une avec `NOT IN` et une autre avec `LEFT JOIN`.
 
@@ -317,7 +317,7 @@ En calcul relationnel
 
 :::
 
-Quelles sont les régions où au moins deux pays ont la même forme de gouvernement ? (21 lignes)
+2. Quelles sont les régions où au moins deux pays ont la même forme de gouvernement ? (21 lignes)
 
 
 ::: {.content-visible when-profile="solution"}
@@ -355,7 +355,7 @@ FROM world.country AS c1 JOIN world.country AS c2
 :::
 
 
-Quels sont les films qui n'ont jamais été loués ? (42 lignes)
+3. Quels sont les films qui n'ont jamais été loués ? (42 lignes)
 
 
 
@@ -399,6 +399,7 @@ SELECT title,film_id FROM pagila.film
 
 :::::
 
+
 ::: {.callout-note }
 
 En calcul relationnel
@@ -423,7 +424,7 @@ qui possèdent la propriété dans la base.
 :::
 
 
-Quels sont les acteurs qui ont joué dans toutes les catégories de film ? (11 lignes)
+4. Quels sont les acteurs qui ont joué dans toutes les catégories de film ? (11 lignes)
 
 ::::: {.content-visible when-profile="solution"}
 
@@ -495,7 +496,7 @@ En comptant le nombre $n$ de catégories de films dans une première requête, o
 
 :::
 
-Existe-t-il des acteurs qui ne jouent avec aucun autre acteur ? (3 lignes ????)
+5. Existe-t-il des acteurs qui ne jouent avec aucun autre acteur ? (0 ligne)
 
 
 ::: {.content-visible when-profile="solution"}
@@ -504,23 +505,44 @@ Existe-t-il des acteurs qui ne jouent avec aucun autre acteur ? (3 lignes ????)
 
 ```{.sql}
 WITH Copain AS
-(SELECT R1.actor_id FROM pagila.film_actor as R1
-       JOIN pagila.film_actor as R2
-       ON (R1.film_id = R2.film_id AND R1.actor_id != R2.actor_id)
+  (SELECT 
+    R1.actor_id 
+   FROM 
+    pagila.film_actor as R1
+  JOIN 
+    pagila.film_actor as R2
+  ON 
+    (R1.film_id = R2.film_id AND 
+     R1.actor_id != R2.actor_id)
 )
-SELECT actor_id FROM pagila.actor
-    WHERE actor_id NOT IN (SELECT * FROM Copain);
+
+SELECT 
+  actor_id 
+FROM 
+  pagila.actor
+WHERE 
+  actor_id NOT IN (
+    SELECT * 
+    FROM Copain
+);
 ```
 
 ou avec `NOT EXISTS`
 
 
 ```{.sql}
-SELECT actor_id FROM pagila.actor a
-WHERE NOT EXISTS (
-  SELECT fa2.actor_id
-  FROM pagila.film_actor fa1 JOIN pagila.film_actor fa2
-  ON (fa1.actor_id=a.actor_id AND
+SELECT actor_id 
+FROM 
+  pagila.actor a
+WHERE 
+  NOT EXISTS (
+    SELECT fa2.actor_id
+    FROM 
+      pagila.film_actor fa1 
+    JOIN 
+      pagila.film_actor fa2
+    ON
+     (fa1.actor_id=a.actor_id AND
       fa2.actor_id<> a.actor_id AND
       fa1.film_id=fa2.film_id)
 )
@@ -530,7 +552,76 @@ WHERE NOT EXISTS (
 
 :::
 
-Nom, prénom  des clients  installés dans des villes sans magasin ? (599 lignes)
+
+
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+ChatGPT *fecit*:
+```{.sql}
+WITH ActorFilmCounts AS (
+    -- Pour chaque acteur, chaque film, nombre de co-acteurs dans le film
+    SELECT 
+        fa1.actor_id,
+        fa1.film_id,
+        COUNT(fa2.actor_id) AS other_actors_count
+    FROM 
+        film_actor fa1
+    LEFT JOIN 
+        film_actor fa2 
+    ON 
+        fa1.film_id = fa2.film_id 
+        AND fa1.actor_id <> fa2.actor_id
+    GROUP BY 
+        fa1.actor_id, fa1.film_id
+)
+SELECT 
+    a.actor_id,
+    a.first_name,
+    a.last_name
+FROM 
+    ActorFilmCounts afc
+JOIN 
+    actor a 
+ON 
+    afc.actor_id = a.actor_id
+GROUP BY 
+    a.actor_id, a.first_name, a.last_name
+HAVING 
+    -- garder les acteurs qui n'ont pas de co-acteurs
+    SUM(afc.other_actors_count) = 0;
+```
+
+::: 
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-caution title="Une erreur"}
+
+{{< fa radiation >}} La requête suivante ne répond pas à la question posée:
+```{.sql}
+SELECT 
+    fa.actor_id 
+FROM 
+    film_actor fa
+LEFT JOIN 
+    film_actor fa2 
+ON 
+  (fa.film_id = fa2.film_id AND fa.actor_id<>fa2.actor_id)
+WHERE 
+  fa2.actor_id IS NULL;
+```
+Elle liste les identifiants d'acteurs qui ont joué au moins une fois dans un film ne comportant qu'un seul acteur, alors qu'on ne cherche les acteurs qui n'ont joué que dans des films ne comportant qu'un seul acteur. 
+
+Cette requête renvoie 31 lignes. 
+::: 
+ 
+:::
+
+
+6. Nom, prénom  des clients  installés dans des villes sans magasin ? (599 lignes)
 
 
 
@@ -539,15 +630,39 @@ Nom, prénom  des clients  installés dans des villes sans magasin ? (599 lignes
 ::: {.callout-tip title="Solution"}
 
 ```{.sql}
-WITH CustomerCity AS
-(SELECT cu.first_name, cu.last_name,cu.customer_id, ad.city_id
-FROM pagila.customer cu JOIN pagila.address ad ON (cu.address_id=ad.address_id)),
-StoreCity AS
-(SELECT ad.city_id 
-FROM pagila.store st JOIN pagila.address ad ON (st.address_id= ad.address_id))
+WITH 
+  CustomerCity AS (
+    SELECT 
+      cu.first_name, 
+      cu.last_name,
+      cu.customer_id, 
+      ad.city_id
+    FROM 
+      pagila.customer cu 
+    JOIN 
+      pagila.address ad 
+    ON 
+      (cu.address_id=ad.address_id)),
+  StoreCity AS (
+    SELECT 
+      ad.city_id 
+    FROM 
+      pagila.store st 
+    JOIN p
+      agila.address ad 
+    ON 
+      (st.address_id= ad.address_id)
+)
 
-SELECT first_name,last_name FROM CustomerCity
-WHERE city_id NOT IN (SELECT * FROM StoreCity);
+SELECT 
+  first_name,
+  last_name 
+FROM 
+  CustomerCity
+WHERE 
+  city_id NOT IN (
+      SELECT * FROM StoreCity
+  );
 ```
 
 :::
@@ -555,7 +670,7 @@ WHERE city_id NOT IN (SELECT * FROM StoreCity);
 :::
 
 
- Lister les pays pour lesquels toutes les villes ont au moins un magasin. (1 ligne)
+7. Lister les pays pour lesquels toutes les villes ont au moins un magasin. (1 ligne)
 
 ::: {.content-visible when-profile="solution"}
 
@@ -578,7 +693,7 @@ WHERE NOT EXISTS (
 
 :::
 
-Déterminer la liste des films disponibles dans toutes les langues.
+8. Déterminer la liste des films disponibles dans toutes les langues.
 
 ::: {.content-visible when-profile="solution"}
 

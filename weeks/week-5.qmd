@@ -16,7 +16,7 @@ editor: source
 
 ## Préparer
 
-Finir requêtes du TD 3 [TD 4](/workshops/td4.html) 
+Finir requêtes du [TD 2](/workshops/td2.html) 
 
 ## Cours magistral : diapositives
 
@@ -24,15 +24,16 @@ Finir requêtes du TD 3 [TD 4](/workshops/td4.html)
 
 [Modélisation des contraintes](/slides/LDD_1.html)
 
-[Fonctions SQL, Vues et requêtes préparées](/slides/SQL_4.html)
 
-## Exercices : TD 4
+## Exercices : TD 3
 
-[html](/workshops/td4.html)  [pdf](/workshops/td4.pdf)
+[html](/workshops/td3.html)  [pdf](/workshops/td3.pdf)
 
-## Solutions du  TD 3  (Semaine 4)
+{{< fa hand-point-right >}} Construisez des *vues* à partir de vos requêtes  
 
-[html](/solutions/td3.html)  [pdf](/solutions/td3.pdf)
+## Solutions du  TD 2  (Semaine 4)
+
+[html](/solutions/td2.html)  [pdf](/solutions/td2.pdf)
 
 
 ## Travail personnel
