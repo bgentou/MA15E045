@@ -8,9 +8,9 @@ date: "2024-10-25"
 #| eval: false
 #| echo: false
 #| 
-library(DBI)
-db <- dbConnect(RSQLite::SQLite(), dbname = "sql.sqlite")
-knitr::opts_chunk$set(connection = "db")
+# library(DBI)
+# db <- dbConnect(RSQLite::SQLite(), dbname = "sql.sqlite")
+# knitr::opts_chunk$set(connection = "db")
 ```
 
   
@@ -23,7 +23,7 @@ knitr::opts_chunk$set(connection = "db")
 ## Schema de world
 
 
-![]('/images//bd_2023-world.png')
+![](/images//schema-world.png)
 
 
 
@@ -63,7 +63,7 @@ Ce ne sont pas les seules contraintes possibles
 
 - Les capitales de deux pays différents devraient être des villes différentes : `UNIQUE`
 
-- Deux pays différents ne peuvent avoir le même `code2`
+- Deux pays différents ne peuvent avoir le même `code2` : `UNIQUE`
 
 
 
@@ -94,7 +94,7 @@ Ce ne sont pas les seules contraintes possibles
 ```
 
 
-Un schéma de table ne se réduit pas 
+Un schéma de table ne se réduit pas à la données des noms et domaines  des colonnes
 
 
 ##  (continued)   {.smaller}
@@ -162,6 +162,7 @@ ALTER TABLE world.country ADD CONSTRAINT
   country_fk FOREIGN KEY (continent) REFERENCES world.code_continent(continent);
 ```
 
+{{< fa hand-point-right >}}
 Les contraintes `country_capital_fkey`  et `country_fk` sont émises par 
 la table `country`
 
@@ -189,7 +190,7 @@ contrainte `country_continent_check`
 
 - Si le domaine est de grande cardinalité, utiliser une table pour représenter le domaine, 
 et une contrainte référentielle
-- Si le domaine est de petite cardinalité, une contrainte `CHECK` est aussi pratique
+- Si le domaine est de petite cardinalité, une contrainte `CHECK` est aussi pratique (et sans doute plus efficace)
 
 . . .
 
@@ -203,8 +204,10 @@ Cette contrainte signifie que le résultat de la requête suivante est vide :
 
 ```{.sql}
 SELECT *
-FROM world.country c1 JOIN world.country c2 ON 
-  (c1.continent<> c2.continent AND c1.region=c2.region);
+FROM 
+  world.country c1 
+JOIN 
+  world.country c2 ON (c1.continent<> c2.continent AND c1.region=c2.region);
 ```
 
 . . .
@@ -219,7 +222,8 @@ $$\texttt{region} \longrightarrow \texttt{continent}$$
 
 On peut considérer qu'il s'agit d'une anomalie de schéma et **normaliser** le schéma
 
-On peut mettre en place une contrainte d'exclusion avec `EXCLUDE`
+
+{{< fa hand-point-right >}}  On peut mettre en place une contrainte d'exclusion avec `EXCLUDE`
 
 
 # Une contrainte d'exclusion   {background-color="#1c191c"}
@@ -229,8 +233,9 @@ On peut mettre en place une contrainte d'exclusion avec `EXCLUDE`
 
 
 
-# Normalisation de $\texttt{country}$   {background-color="#1c191c"}
 
+
+# Normalisation de $\texttt{country}$   {background-color="#1c191c"}
 
 
 ## Éclatement de la table `country`

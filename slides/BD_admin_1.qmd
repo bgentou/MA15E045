@@ -5,9 +5,9 @@ title: "BD V: Administration"
 ```{r}
 #| echo: false
 #| eval: false
-library(DBI)
-db <- dbConnect(RSQLite::SQLite(), dbname = "sql.sqlite")
-knitr::opts_chunk$set(connection = "db")
+# library(DBI)
+# db <- dbConnect(RSQLite::SQLite(), dbname = "sql.sqlite")
+# knitr::opts_chunk$set(connection = "db")
 ```
 
 
