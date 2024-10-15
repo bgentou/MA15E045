@@ -453,9 +453,9 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co">#| eval: false</span></span>
 <span id="cb1-2"><a></a><span class="co">#| echo: false</span></span>
 <span id="cb1-3"><a></a><span class="co">#| </span></span>
-<span id="cb1-4"><a></a><span class="fu">library</span>(DBI)</span>
-<span id="cb1-5"><a></a>db <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="at">dbname =</span> <span class="st">"sql.sqlite"</span>)</span>
-<span id="cb1-6"><a></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">connection =</span> <span class="st">"db"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a></a><span class="co"># library(DBI)</span></span>
+<span id="cb1-5"><a></a><span class="co"># db &lt;- dbConnect(RSQLite::SQLite(), dbname = "sql.sqlite")</span></span>
+<span id="cb1-6"><a></a><span class="co"># knitr::opts_chunk$set(connection = "db")</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section>
 <section id="revisiter-le-schéma-world" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -465,7 +465,7 @@
 <section id="schema-de-world" class="slide level2 center">
 <h2>Schema de world</h2>
 
-<img data-src="'/images//bd_2023-world.png'" class="r-stretch"></section>
+<img data-src="../images//schema-world.png" class="r-stretch"></section>
 <section id="conraintes-sur-la-table-country" class="slide level2 center">
 <h2>Conraintes sur la table <code>country</code></h2>
 <ul>
@@ -488,7 +488,7 @@
 <li><p>La capitale d’un pays devrait être une ville connue dans <code>city</code> : <code>REFERENCES</code></p></li>
 <li><p><strong>La capitale d’un pays devrait être une ville de ce pays</strong> : ???</p></li>
 <li><p>Les capitales de deux pays différents devraient être des villes différentes : <code>UNIQUE</code></p></li>
-<li><p>Deux pays différents ne peuvent avoir le même <code>code2</code></p></li>
+<li><p>Deux pays différents ne peuvent avoir le même <code>code2</code> : <code>UNIQUE</code></p></li>
 </ul>
 </section>
 <section id="examen-du-schema-de-country" class="slide level2 smaller center">
@@ -512,7 +512,7 @@
 <span id="cb2-17"><a></a>| capital            | <span class="dt">integer</span>       |           | plain    | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
 <span id="cb2-18"><a></a>| code2              | <span class="dt">character</span>(<span class="dv">2</span>)  |  <span class="kw">not</span> <span class="kw">null</span> | extended | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
 <span id="cb2-19"><a></a><span class="op">+</span><span class="co">--------------------+---------------+-----------+----------+--------------+-------------+</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Un schéma de table ne se réduit pas</p>
+<p>Un schéma de table ne se réduit pas à la données des noms et domaines des colonnes</p>
 </section>
 <section id="continued" class="slide level2 smaller center">
 <h2>(continued)</h2>
@@ -567,6 +567,7 @@
 <span id="cb5-5"><a></a></span>
 <span id="cb5-6"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
 <span id="cb5-7"><a></a>  country_fk <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (continent) <span class="kw">REFERENCES</span> world.code_continent(continent);</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i></p>
 <p>Les contraintes <code>country_capital_fkey</code> et <code>country_fk</code> sont émises par la table <code>country</code></p>
 </section>
 <section id="contraintes-ajoutées" class="slide level2 center">
@@ -583,7 +584,7 @@
 <p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> <strong>Conseil:</strong></p>
 <ul>
 <li>Si le domaine est de grande cardinalité, utiliser une table pour représenter le domaine, et une contrainte référentielle</li>
-<li>Si le domaine est de petite cardinalité, une contrainte <code>CHECK</code> est aussi pratique</li>
+<li>Si le domaine est de petite cardinalité, une contrainte <code>CHECK</code> est aussi pratique (et sans doute plus efficace)</li>
 </ul>
 </div>
 <div class="fragment">
@@ -594,8 +595,10 @@
 <h2>Une région n’appartient qu’à un continent</h2>
 <p>Cette contrainte signifie que le résultat de la requête suivante est vide :</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb7-2"><a></a><span class="kw">FROM</span> world.country c1 <span class="kw">JOIN</span> world.country c2 <span class="kw">ON</span> </span>
-<span id="cb7-3"><a></a>  (c1.continent<span class="op">&lt;&gt;</span> c2.continent <span class="kw">AND</span> c1.region<span class="op">=</span>c2.region);</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a></a><span class="kw">FROM</span> </span>
+<span id="cb7-3"><a></a>  world.country c1 </span>
+<span id="cb7-4"><a></a><span class="kw">JOIN</span> </span>
+<span id="cb7-5"><a></a>  world.country c2 <span class="kw">ON</span> (c1.continent<span class="op">&lt;&gt;</span> c2.continent <span class="kw">AND</span> c1.region<span class="op">=</span>c2.region);</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p>On <em>exclut</em> l’existence de deux lignes qui coïncideraient sur <code>region</code> mais pas sur <code>continent</code></p>
 <p>Nous postulons l’existence d’une <strong>dépendance fonctionnelle</strong></p>
@@ -603,7 +606,7 @@
 </div>
 <div class="fragment">
 <p>On peut considérer qu’il s’agit d’une anomalie de schéma et <strong>normaliser</strong> le schéma</p>
-<p>On peut mettre en place une contrainte d’exclusion avec <code>EXCLUDE</code></p>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> On peut mettre en place une contrainte d’exclusion avec <code>EXCLUDE</code></p>
 </div>
 </section></section>
 <section>

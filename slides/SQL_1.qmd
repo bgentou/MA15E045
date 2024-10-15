@@ -6,6 +6,8 @@ date: "2024-09-20"
 format: 
   revealjs:
     header: "Requêtes SQL simples"
+
+engine: knitr
 ---
 
 
@@ -150,29 +152,8 @@ FROM <liste de tables>
 :::::
 
 
-```{r}
-#| eval: true
-stopifnot(
-  require(DBI),
-  require(RPostgres)
-)
-```
 
-```{r}
-#| echo: false
-#| eval: false
-
-con <- DBI::dbConnect(
-  RPostgres::Postgres(),
-  dbname = 'bd_2023-24',
-  host = 'localhost',
-  port = 5436,
-  user = 'boucheron',
-  password = 'Tabor1959@lpma' # rstudioapi::askForPassword() # insert your password here
-)
-```
-
-```{sql}
+```{.sql}
 --| connection:  con
 --| eval: false
 SET search_path TO world ;
@@ -200,7 +181,7 @@ Piece(NomP, Prix, Couleur)
 
 
 
-```{sql}
+```{.sql}
 --| connection:  con
 --| eval: false
 --| echo: true
