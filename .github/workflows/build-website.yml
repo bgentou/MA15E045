@@ -41,7 +41,7 @@ jobs:
 
       - name: Set up tinytex
         uses: r-lib/actions/setup-tinytex@v2
-        run: tlmgr --version          
+       
 
       - name: Build site 🔧
         run: |
