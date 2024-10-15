@@ -42,6 +42,10 @@ jobs:
       - name: Build site 🔧
         run: |
           R -e 'quarto::quarto_render(".", as_job = FALSE)'
+          R -e 'quarto::quarto_render("slides", as_job = FALSE, profile = "slides", use_freezer=T, quarto_args = c("--no-clean"))'
+          R -e 'quarto::quarto_render("solutions", as_job = FALSE, profile = "solution", use_freezer=T, quarto_args = c("--no-clean"))'
+          R -e 'quarto::quarto_render("exams", as_job = FALSE, profile = "solution", use_freezer=T, quarto_args = c("--no-clean"))'
+                    
 
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
