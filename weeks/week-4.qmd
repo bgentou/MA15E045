@@ -33,7 +33,7 @@ Commencer
 
 [html](/solutions/td2.html)  [pdf](/solutions/td2.pdf)
 
-{{< fa hand-point-right >}} Construisez de *vues* à partir de vos requêtes  
+{{< fa hand-point-right >}} Construisez des *vues* à partir de vos requêtes  
 
 ## Travail personnel  {{< fa dumbbell >}}
 

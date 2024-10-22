@@ -733,12 +733,14 @@ On crée une vue avec `CREATE VIEW nom AS requete`. Étant donné que vous ne po
 
 ```{.sql}
 CREATE VIEW entid.VillesRepublic AS
-  SELECT B.* 
+  SELECT 
+    B.* 
   FROM 
-	world.country as A NATURAL JOIN 
-	world.city as B
+	  world.country as A 
+  NATURAL JOIN 
+	  world.city as B
   WHERE 
-	A.governmentform like '%Republic%';
+	  A.governmentform like '%Republic%';
 ```
 
 crée une vue dans votre schéma personnel. Désormais, si on veut sélectionner les villes qui sont dans une république et dont la population est supérieure à $1000000$, on pourra simplement écrire :
@@ -812,15 +814,19 @@ $$
 et l'usage 
 
 ```{.sql}
-CREATE OR REPLACE FUNCTION entid.film_id_cat(s text)
- RETURNS TABLE(film_id smallint) LANGUAGE sql
-AS $$
-	SELECT film_id 
+CREATE OR REPLACE FUNCTION 
+  entid.film_id_cat(s text)
+RETURNS TABLE(film_id smallint) AS 
+$$
+	SELECT fc.film_id 
 	FROM 
-		pagila.film_category NATURAL JOIN 
-		pagila.category
-	WHERE category.name=s ;
-$$ ;
+		pagila.film_category fc
+  JOIN 
+		pagila.category ca
+  ON (fc.category_id=ca.category_id)
+	WHERE 
+    ca.name=s ;
+$$ LANGUAGE sql ;
 ```
 
 
@@ -840,15 +846,19 @@ Les solutions sont données en utilisant la fonction suivante
 
 
 ```{.sql}
-CREATE OR REPLACE FUNCTION entid.film_id_cat(s text)
- RETURNS TABLE(film_id smallint) LANGUAGE sql
+CREATE OR REPLACE FUNCTION 
+  entid.film_id_cat(s pagila.category.name%TYPE)
+RETURNS TABLE(film_id pagila.film.film_id%TYPE) 
 AS $$
-SELECT film_id 
+SELECT fc.film_id 
 FROM 
-	pagila.film_category NATURAL JOIN 
-	pagila.category
-WHERE category.name=s ;
-$$ ;
+	pagila.film_category fc 
+JOIN 
+	pagila.category ca
+ON (fc.category_id=ca.category_id)
+WHERE 
+  ca.name=s ;
+$$ LANGUAGE sql;
 ```
 
 :::
@@ -865,13 +875,17 @@ $$ ;
 ```{.sql}
 SELECT DISTINCT ac.* 
 FROM 
-	pagila.actor ac NATURAL JOIN
-        (SELECT * 
-	 FROM pagila.film_actor
-         WHERE film_id IN
-                (SELECT * 
-		 FROM entid.film_id_cat('Horror'))
-         ) ;
+	pagila.actor ac 
+NATURAL JOIN
+  (SELECT fa.actor_id
+	 FROM 
+    pagila.film_actor fa
+   WHERE 
+    fa.film_id IN (
+      SELECT * 
+		  FROM entid.film_id_cat('Horror')
+    )
+  );
 ```
 
 :::
@@ -889,9 +903,11 @@ ou
 ```{.sql}
 SELECT DISTINCT ac.*
 FROM 
-     pagila.actor ac JOIN
-     pagila.film_actor NATURAL JOIN
-     entid.film_id_cat('Horror') ;
+  pagila.actor ac 
+JOIN
+  pagila.film_actor fa ON (ac.actor_id=fa.actor_id)
+NATURAL JOIN
+  entid.film_id_cat('Horror') ;
 ```
 (156 tuples renvoyés).
 
@@ -928,15 +944,19 @@ Une réponse correcte est
 
 ```{.sql}
 SELECT DISTINCT last_name, first_name
-FROM pagila.actor A1 
- WHERE NOT EXISTS 
-      (SELECT * 
-       FROM pagila.film_actor A2, (pagila.film_category JOIN pagila.category using (category_id)) C 
-       WHERE 
-	 A1.actor_id=A2.actor_id AND 
- 	name='Comedy' AND 
-	A2.film_id=C.film_id
-); 
+FROM 
+  pagila.actor A1 
+WHERE 
+  NOT EXISTS 
+  (SELECT * 
+  FROM 
+    pagila.film_actor A2, 
+    (pagila.film_category JOIN pagila.category using (category_id)) C 
+  WHERE 
+	  A1.actor_id=A2.actor_id AND 
+ 	  name='Comedy' AND 
+	  A2.film_id=C.film_id
+  ); 
 ```
 
 :::
@@ -950,14 +970,21 @@ ou encore
 ::: {.callout-tip title="Solution"}
 
 ```{.sql}
-SELECT DISTINCT ac.last_name, ac_first_name
-FROM pagila.actor ac
+SELECT 
+  DISTINCT ac.last_name, ac_first_name
+FROM 
+  pagila.actor ac
 WHERE NOT EXISTS
-     (SELECT * FROM pagila.film_actor fa
-      WHERE film_id IN
-        (SELECT * FROM entid.film_id_cat('Comedy'))
-      AND fa.actor_id = ac.actor_id
-     )  ;
+  (SELECT * 
+   FROM 
+    pagila.film_actor fa
+   WHERE film_id IN
+     (SELECT * 
+      FROM 
+        entid.film_id_cat('Comedy')
+     ) AND 
+    fa.actor_id = ac.actor_id
+  )  ;
 ```
 
 :::
@@ -1003,20 +1030,24 @@ Ici l'erreur la plus fréquente consiste à  écrire
 
 
 ```{.sql}
-SELECT actor_id 
-FROM pagila.film_actor AS fa
-WHERE fa.film_id IN (
-  SELECT * 
-  FROM entid.film_id_cat('Children')
-) AND fa.film_id IN (
-  SELECT * 
-  FROM entid.film_id_cat('Horror')
-);
+SELECT 
+  actor_id 
+FROM 
+  pagila.film_actor AS fa
+WHERE 
+  fa.film_id IN (
+    SELECT * 
+    FROM entid.film_id_cat('Children')
+  ) AND 
+  fa.film_id IN (
+    SELECT * 
+    FROM entid.film_id_cat('Horror')
+  );
 ```
 
-Le résultat est vide et la requête ne correspond pas à la question posée. Elle calcule les
-`actor_id` des acteurs qui ont dans au moins un film qui relève simultanément
-des catégories `Horror` et `Children` (ce genre de film est assez rare).
+Le résultat est vide et la requête ne correspond pas à la question posée. 
+
+Elle calcule les `actor_id` des acteurs qui ont dans au moins un film qui relève simultanément des catégories `Horror` et `Children` (ce genre de film est assez rare).
 
 Pour calculer un résultat correct, il faut pour chaque valeur $a$  de `actor_id`
 rechercher deux tuples (pas nécessairement distincts) de  `film_actor` où

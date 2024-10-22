@@ -122,8 +122,51 @@ Un paiement relie un employé à un client à propos d'une location.
 |---|---|---|
 |  | address_city_id_fkey | ( city\_id ) ref [pagila.city](#city) (city\_id) |
 
+{{< fa hand-point-right >}} Dans les tables `address`, `city`, `country`, `store`, `inventory`, `rental`, `actor`, `film`, `category`, 
+`language`, `payment`, on trouve une colonne nommée `nom de la table_id` qui est la clé primaire de la table. Cette colonne 
+est (en général) renseignée automatiquement : la valeur par défaut est calculée en invoquant la fonction `nextval()` sur la 
+séquence associée à la table. La clé primaire ne comporte d'information intéressante pour l'usager final, elle correspond à un 
+rang d'insertion dans la table. 
 
+{{< fa hand-point-right >}} Les tables de `pagila` comportent une colonne `last_update` (dernière mise-à-jour) de type `timestamp` (instant, nombre de secondes écoulées depuis le premier janvier 1970, origine des temps selon `Unix`). 
+Cette colonne est remplie (renseignée) automatiquement lors des insertions et mises à jour grâce à la valeur par défaut calculée
+par la fonction `now()`. 
 
+::: {.callout-caution}
+
+Les colonnes `last_update` des différentes tables de `pagila` n'ont rien à voir les unes avec les autres (vérifier l'absence 
+de contrainte référentielle au sujet de ces colonnes). Il n'est donc pas question (en général) d'utiliser ces colonnes `last_update`
+pour effectuer des jointures entre les tables de `pagila`. 
+
+La présence des colonnes `last_update` nous empêche de faire des jointures naturelles (`NATURAL JOIN`) entre `film`, `film_actor`, `actor`, etc.
+
+```{.sql}
+SELECT count(*) 
+FROM 
+  film
+JOIN
+  film_actor 
+USING(film_id) ;
+
+ count 
+-------
+  5462
+```
+alors que 
+
+```{.sql}
+SELECT count(*) 
+FROM 
+  film
+NATURAL JOIN
+  film_actor ;
+
+ count 
+-------
+     0
+```
+:::
+ 
 
 ## Table pagila.city 
 |Idx |Name |Data Type |
@@ -140,7 +183,8 @@ Un paiement relie un employé à un client à propos d'une location.
 |  | city_country_id_fkey | ( country\_id ) ref [pagila.country](#country) (country\_id) |
 
 
-
+{{< fa hand-point-right >}} On dit que la contrainte référentielle `city_country_id_fkey` est émise par l'attribut `country_id` de la table `city` vers l'attribut
+`country_id` de la  table `country`. Une ville n'appartient qu'à un seul pays, mais un pays peut comporter plusieurs villes.
 
 ## Table pagila.country 
 |Idx |Name |Data Type |
@@ -219,7 +263,8 @@ Un paiement relie un employé à un client à propos d'une location.
 |  | inventory_film_id_fkey | ( film\_id ) ref [pagila.film](#film) (film\_id) |
 
 
-
+Une instance d'`inventory` correspond à un support physique, quelque chose qui peut-être loué.
+Elle permet au client de voir une instance de `film`, soit un  film dans une certaine langue. 
 
 ## Table pagila.payment 
 |Idx |Name |Data Type |
@@ -239,7 +284,8 @@ Un paiement relie un employé à un client à propos d'une location.
 |  | payment_rental_id_fkey | ( rental\_id ) ref [pagila.rental](#rental) (rental\_id) |
 |  | payment_customer_id_fkey | ( customer\_id ) ref [pagila.customer](#customer) (customer\_id) |
 
-
+Un paiement (une ligne de `payment`) concerne une location (un tuple  de `rental`), d'où la contrainte référentielle `payment_rental_id_fkey`.
+un paiement concerne ausi un client (tuple de `customer`) et un employé (tuple de `staff`).
 
 
 ## Table pagila.rental 
