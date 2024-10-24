@@ -8,7 +8,7 @@ format:
     footer: "[MA15Y030](http://s-v-b.github.io/MA15Y030) -- Bases de Données -- L3 MIASHS -- UParis Cité"
 
     smaller: false
-    highlight-style: solarized
+    highlight-style: github
     
     code-fold: false
     code-link: true
