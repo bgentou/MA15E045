@@ -48,6 +48,11 @@
   date: "2022-11-13"
   path: "exams/cc3-2022-11-13.html"
   categories: [Aggrégation, Fenêtres, nycflights]
+- title: "CC 1 2024-25"
+  author: "Licence MIASHS UParis Cité"
+  date: "2024-10-25"
+  path: "exams/cc1-2024-10-25.html"
+  categories: [Requêtes simples, Aggrégation, pagila]
 
 
 

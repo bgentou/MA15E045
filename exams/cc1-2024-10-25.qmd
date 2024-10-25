@@ -1,0 +1,321 @@
+---
+format:
+  pdf:
+    code-annotations: below
+    code-fold: false
+    toc: false
+    output-file: cc1-2024-10-25.pdf
+    include-in-header:
+      - text: "\\lhead{{\\sf  Base de données (BD5) \\\\ CC 1 2024-10-25  17h00-18h15}}"
+  html:
+    standalone: true
+    code-fold: true
+    output-file: cc1-2024-10-25.html
+params:
+    year: 2024 
+    curriculum: "L3 MIASHS/Ingémath/METIS"
+    university: "Université Paris Cité"
+    homepage: "https://stephane-v-boucheron.fr/courses/bdd"
+    moodle: "https://moodle.u-paris.fr/course/view.php?id=2313"
+
+engine: knitr
+---
+
+
+
+
+::: {layout="[80,20]"}
+
+::: {#first-column}
+
+
+- **`r stringr::str_glue('{params$curriculum}')`**
+- **`r stringr::str_glue('[{params$university}](https://www.u-paris.fr)')`**
+- `r stringr::str_glue("Année {params$year}-{params$year+1}")`
+- `r stringr::str_glue("[Course Homepage]({params$homepage})")`  
+- `r stringr::str_glue("[Moodle]({params$moodle})")`
+
+::: 
+
+::: {#second-column}
+![](../images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
+:::
+
+:::
+
+::: {.content-hidden when-profile="solution"}
+::: {.callout-caution}
+
+- Pas de documents autorisés
+- Pas de téléphone portable 
+
+:::
+:::
+
+::: {.callout-warning}
+
+Toutes les questions portent sur le schéma `pagila` rappelé ci-dessous.
+
+Pour chaque question, proposer une requête écrite en algèbre relationnelle *OU* en `SQL`. 
+
+:::
+
+![Schéma `pagila`, films](../images/schemas-pagila-film.png){width=12cm}
+
+::: {.content-visible when-format="pdf"}
+
+\newpage 
+
+:::
+
+
+1. Donner pour chaque film au catalogue, le titre et les prénoms des acteurs qui jouent dans ce film. 
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT fi.title, string_agg(DISTINCT a.first_name, ', ') AS casting 
+FROM  
+   pagila.film fi  
+JOIN  
+   pagila.film_actor fa ON (fi.film_id=fa.film_id)  
+JOIN 
+   pagila.actor a ON (fa.actor_id=a.actor_id) 
+GROUP BY fi.film_id;   
+```
+
+:::
+:::
+
+
+2. Lister les titres de films qui ne sont disponibles que dans une seule langue
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT fi.title 
+FROM 
+  pagila.film fi 
+GROUP BY fi.title 
+HAVING COUNT (DISTINCT fi.language_id)=1 ;
+```
+
+:::
+:::
+
+
+3. Pour chaque langue originale (`original_language_id`), chaque langue de diffusion (`language_id`), compter le nombre de titres tournés dans la langue originale et traduits dans la langue de diffusion  (sans doublons).
+
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT 
+  original_language_id, 
+  language_id, 
+  count(title) 
+FROM 
+    pagila.film 
+GROUP BY 
+    original_language_id,
+    language_id ;
+```
+
+:::
+:::
+
+
+
+
+
+::: {.content-visible when-format="pdf"}
+
+\newpage 
+
+:::
+
+
+
+
+
+
+4. Donner pour chaque catégorie (de film), les noms des acteurs qui apparaissent dans le nombre maximal de films de la catégorie. 
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+WITH ActorFilmCount AS (
+    SELECT
+        c.name AS category_name,
+        a.actor_id,
+        a.first_name || ' ' || a.last_name AS actor_name,
+        COUNT(fa.film_id) AS film_count
+    FROM
+        actor a
+    JOIN
+        film_actor fa ON a.actor_id = fa.actor_id
+    JOIN
+        film f ON fa.film_id = f.film_id
+    JOIN
+        film_category fc ON f.film_id = fc.film_id
+    JOIN
+        category c ON fc.category_id = c.category_id
+    GROUP BY
+        c.name, a.actor_id, a.first_name, a.last_name
+),
+
+RankedActors AS (
+    SELECT
+        category_name,
+        actor_name,
+        film_count,
+        DENSE_RANK() OVER (PARTITION BY category_name ORDER BY film_count DESC) AS rank
+    FROM
+        ActorFilmCount
+)
+SELECT
+    category_name,
+    actor_name,
+    film_count
+FROM
+    RankedActors
+WHERE
+    rank = 1
+ORDER BY
+    category_name;
+```
+:::
+:::
+
+::: {.content-visible when-format="pdf"}
+
+\newpage 
+
+:::
+
+5. Lister sans doublons les paires d'acteurs qui n'ont jamais joué dans un même film.
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+WITH ActorPairs AS (
+    -- Generate all possible actor pairs (excluding pairing an actor with themselves)
+    SELECT
+        a1.actor_id AS actor1_id,
+        a2.actor_id AS actor2_id,
+        a1.first_name || ' ' || a1.last_name AS actor1_name,
+        a2.first_name || ' ' || a2.last_name AS actor2_name
+    FROM
+        actor a1
+    JOIN
+        actor a2 ON a1.actor_id < a2.actor_id  -- Ensure actor1_id < actor2_id to avoid duplicate pairs
+),
+ActorsTogether AS (
+    -- Find all actor pairs who have acted together in at least one film
+    SELECT
+        fa1.actor_id AS actor1_id,
+        fa2.actor_id AS actor2_id
+    FROM
+        film_actor fa1
+    JOIN
+        film_actor fa2 ON fa1.film_id = fa2.film_id
+    WHERE
+        fa1.actor_id < fa2.actor_id  -- Same condition to avoid duplicates
+),
+ActorsNotTogether AS (
+    -- Left JOIN all possible pairs with the pairs that acted together
+    SELECT
+        ap.actor1_name,
+        ap.actor2_name
+    FROM
+        ActorPairs ap
+    LEFT JOIN
+        ActorsTogether at ON ap.actor1_id = at.actor1_id AND ap.actor2_id = at.actor2_id
+    WHERE
+        at.actor1_id IS NULL  -- Only return pairs that do not exist in the ActorsTogether result
+)
+-- Final result
+SELECT
+    actor1_name,
+    actor2_name
+FROM
+    ActorsNotTogether
+ORDER BY
+    actor1_name, actor2_name;
+
+```
+:::
+:::
+
+::: {.content-visible when-format="pdf"}
+
+\newpage 
+
+:::
+
+6. Lister les acteurs (prénom, nom) qui ont joué dans des films tournés dans au moins deux langues différentes  (langue de tournage  : `original_language_id`) 
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT
+    a.actor_id,
+    a.first_name || ' ' || a.last_name AS actor_name,
+    STRING_AGG(DISTINCT l.name, ', ') AS languages
+FROM
+    actor a
+JOIN
+    film_actor fa ON a.actor_id = fa.actor_id
+JOIN
+    film f ON fa.film_id = f.film_id
+JOIN
+    language l ON f.original_language_id = l.language_id
+GROUP BY
+    a.actor_id, a.first_name, a.last_name
+HAVING
+    COUNT(DISTINCT f.original_language_id) > 1
+ORDER BY
+    actor_name;
+
+```
+
+:::
+:::
+
+
+
+7. Pour chaque magasin (désigné par `store_id`), chaque langue, donnez le nombre de DVDs (physiques) disponibles dans cette langue,
+dans ce magasin. 
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT
+    s.store_id,
+    l.name AS language_name,
+    COUNT(i.inventory_id) AS inventory_count
+FROM
+    store s
+JOIN
+    inventory i ON s.store_id = i.store_id
+JOIN
+    film f ON i.film_id = f.film_id
+JOIN
+    language l ON f.language_id = l.language_id
+WHERE
+    f.language_id IS NOT NULL
+GROUP BY
+    s.store_id, l.name
+ORDER BY
+    s.store_id, l.name;
+
+```
+:::
+:::
