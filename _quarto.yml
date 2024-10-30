@@ -13,7 +13,7 @@ website:
   announcement: 
     icon: emoji-surprise
     dismissable: false
-    content: "**Alerte** - Contrôle Continu I sur schéma pagila le vendredi 25 octobre 17h-18h15 Amphi A2 Halle aux Farines"
+    content: "**Alerte** - Contrôle Continu II le vendredi 15 novembre 17h-18h15 Amphi A2 Halle aux Farines"
     type: warning
     position: above-navbar
   page-navigation: true
