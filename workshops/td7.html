@@ -4710,8 +4710,8 @@ vertical-align: -.125em;
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <div id="quarto-announcement" data-announcement-id="96c666eb5f26765a935130418ed4bee4" class="alert alert-warning hidden"><i class="bi bi-emoji-surprise quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p><strong>Alerte</strong> - Contrôle Continu I sur schéma pagila le vendredi 25 octobre 17h-18h15 Amphi A2 Halle aux Farines</p>
+    <div id="quarto-announcement" data-announcement-id="8ffc29f6caea97af07edb5e20694b362" class="alert alert-warning hidden"><i class="bi bi-emoji-surprise quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Alerte</strong> - Contrôle Continu II le vendredi 15 novembre 17h-18h15 Amphi A2 Halle aux Farines</p>
 </div></div>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
@@ -4956,8 +4956,17 @@ vertical-align: -.125em;
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="td7.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+   
+  <ul class="collapse">
+  <li><a href="#contraintes-sql-suite" id="toc-contraintes-sql-suite" class="nav-link active" data-scroll-target="#contraintes-sql-suite">Contraintes SQL (suite)</a>
+  <ul class="collapse">
+  <li><a href="#schéma-pagila" id="toc-schéma-pagila" class="nav-link" data-scroll-target="#schéma-pagila">Schéma <code>pagila</code></a></li>
+  <li><a href="#schéma-nycflights" id="toc-schéma-nycflights" class="nav-link" data-scroll-target="#schéma-nycflights">Schéma <code>nycflights</code></a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/s-v-b/MA15Y030/edit/main/workshops/td7.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/s-v-b/MA15Y030/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="td7.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -4965,7 +4974,16 @@ vertical-align: -.125em;
 <div class="quarto-title">
 <h1 class="title">TD 7 : Contraintes (suite)</h1>
 <p class="subtitle lead">Définition de données et Contraintes</p>
-</div>
+  <div class="quarto-categories">
+    <div class="quarto-category">Contraintes</div>
+    <div class="quarto-category">Définition de Données</div>
+    <div class="quarto-category">Référemces</div>
+    <div class="quarto-category">Clés</div>
+    <div class="quarto-category">Exclusion</div>
+    <div class="quarto-category">pagila</div>
+    <div class="quarto-category">nycflights</div>
+  </div>
+  </div>
 
 
 
@@ -5007,8 +5025,151 @@ vertical-align: -.125em;
 </div>
 </div>
 </div>
+<div class="callout callout-style-simple callout-important callout-titled" title="Ojectifs">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Ojectifs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cette séance est consacrée à l’enrichissement des schémas <a href="../schemas/schema-pagila.html"><code>pagila</code></a> et <a href="../schemas/schema-nycflights.html"><code>nycflights</code></a>.</p>
+<p>L’objectif est d’ajouter des contraintes aux schémas, en particulier, des contraintes d’exclusion.</p>
+<p>Cette séance est l’occasion de se familiariser avec les types <code>timestamp</code> et <code>tsrange</code> et avec les opérateurs de recouvrement.</p>
+</div>
+</div>
+<section id="contraintes-sql-suite" class="level1">
+<h1>Contraintes SQL (suite)</h1>
+<section id="schéma-pagila" class="level2">
+<h2 class="anchored" data-anchor-id="schéma-pagila"><a href="../schemas/schema-pagila.html">Schéma <code>pagila</code></a></h2>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Imposer la contrainte suivante : un client ne peut emprunter plusieurs DVD simultanément.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Écrire d’abord une requête correspondant à la contrainte.</p>
+<p>La requête est facile à écrire si on est prêt à utiliser le type <code>tsrange</code>, l’opérateur de recouvrement <code>&amp;&amp;</code> (<code>overlap</code>).</p>
+<p><a href="https://www.postgresql.org/docs/current/rangetypes.html">Postgresql documentation on range types</a></p>
+<p>Dans l’instance du schéma <code>pagila</code> disponible sur le serveur <code>etu-pgsql</code>, la contrainte est-elle vérifiée ?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Imposer la contrainte : un film est identifié par son titre, son année de sortie et sa langue originale.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Imposer la contrainte : le prix de location doit être croissant en fonction de la durée du film</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Imposer la contrainte : un même DVD ne peut pas être loué simultanément à deux clients différents.</p>
+</div>
+</div>
+</section>
+<section id="schéma-nycflights" class="level2">
+<h2 class="anchored" data-anchor-id="schéma-nycflights"><a href="../schemas/schema-nycflights.html">Schéma <code>nycflights</code></a></h2>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Dans <code>flights</code> et <code>weather</code> imposer les contraintes</p>
+<pre><code>year, month, day, hour ⟶ time_hour
+time_hour  ⟶  year, month, day, hour</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Dans <code>flights</code> imposer la contrainte : un aéronef ne peut pas effectuer deux missions simultanément.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Dans <code>flights</code> imposer la contrainte : un aéronef ne peut pas être exploité par deux compagnies différentes à la même date.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Dans <code>planes</code>, imposer les contraintes <code>model ⟶ manufacturer</code> et <code>model ⟶ type</code></p>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -5588,7 +5749,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
        
-    <div class="toc-actions"><ul><li><a href="https://github.com/s-v-b/MA15Y030/edit/main/workshops/td7.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/s-v-b/MA15Y030/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/s-v-b/MA15Y030/edit/main/workshops/td7.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/s-v-b/MA15Y030/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with blood, sweat, tears, and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

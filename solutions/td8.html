@@ -4710,8 +4710,8 @@ vertical-align: -.125em;
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <div id="quarto-announcement" data-announcement-id="96c666eb5f26765a935130418ed4bee4" class="alert alert-warning hidden"><i class="bi bi-emoji-surprise quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p><strong>Alerte</strong> - Contrôle Continu I sur schéma pagila le vendredi 25 octobre 17h-18h15 Amphi A2 Halle aux Farines</p>
+    <div id="quarto-announcement" data-announcement-id="8ffc29f6caea97af07edb5e20694b362" class="alert alert-warning hidden"><i class="bi bi-emoji-surprise quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Alerte</strong> - Contrôle Continu II le vendredi 15 novembre 17h-18h15 Amphi A2 Halle aux Farines</p>
 </div></div>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
@@ -4956,8 +4956,18 @@ vertical-align: -.125em;
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="td8.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+   
+  <ul class="collapse">
+  <li><a href="#modélisation-entité-association-ea-ou-er" id="toc-modélisation-entité-association-ea-ou-er" class="nav-link active" data-scroll-target="#modélisation-entité-association-ea-ou-er">Modélisation Entité-Association (E/A ou E/R)</a>
+  <ul class="collapse">
+  <li><a href="#exercice-supermarché" id="toc-exercice-supermarché" class="nav-link" data-scroll-target="#exercice-supermarché">Exercice (Supermarché)</a></li>
+  <li><a href="#exercice-location-de-voitures" id="toc-exercice-location-de-voitures" class="nav-link" data-scroll-target="#exercice-location-de-voitures">Exercice (Location de voitures)</a></li>
+  <li><a href="#exercice-gestion-du-personnel-dune-entreprise" id="toc-exercice-gestion-du-personnel-dune-entreprise" class="nav-link" data-scroll-target="#exercice-gestion-du-personnel-dune-entreprise">Exercice (Gestion du personnel d’une entreprise)</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://github.com/s-v-b/MA15Y030/edit/main/solutions/td8.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/s-v-b/MA15Y030/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="td8.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -4965,7 +4975,12 @@ vertical-align: -.125em;
 <div class="quarto-title">
 <h1 class="title">TD 8 : Modélisation</h1>
 <p class="subtitle lead">Modélisation</p>
-</div>
+  <div class="quarto-categories">
+    <div class="quarto-category">Modélisation EA</div>
+    <div class="quarto-category">Pattes de corbeau</div>
+    <div class="quarto-category">Crowfoot notation</div>
+  </div>
+  </div>
 
 
 
@@ -5020,8 +5035,187 @@ Avec solutions
 </div>
 </div>
 </div>
+<div class="callout callout-style-simple callout-important callout-titled" title="Objectifs">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Objectifs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>L’objectif de cette séance est construire des modèles Entité-Association sur des problèmes miniatures.</p>
+</div>
+</div>
+<section id="modélisation-entité-association-ea-ou-er" class="level1">
+<h1>Modélisation Entité-Association (E/A ou E/R)</h1>
+<section id="exercice-supermarché" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-supermarché">Exercice (Supermarché)</h2>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Produire un schéma E/R qui décrit des informations concernant les produits d’un supermarché.</p>
+</div>
+</div>
+<p>Chaque <em>produit</em> a un <em>nom</em> et un <em>prix</em> et appartient à une <em>catégorie</em>.</p>
+<p>Le supermarché a plusieurs <em>rayons</em>, un rayon étant caractérisé par un <em>étage</em> et un <em>numéro de rangée</em>. On veut maintenir l’emplacement des produits dans les rayons. Les produits d’une même catégorie sont placés dans le même rayon, mais un rayon peut contenir des produits de plusieurs catégories.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Traduire le schéma EA dans le formalisme des pattes de corbeau</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Définir le schéma relationnel correspondant en SQL</p>
+</div>
+</div>
+</section>
+<section id="exercice-location-de-voitures" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-location-de-voitures">Exercice (Location de voitures)</h2>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Produire un schéma E/R qui décrit des informations concernant des voitures à louer.</p>
+</div>
+</div>
+<p>Chaque <em>voiture</em> a une plaque d’<em>immatriculation</em>, une <em>couleur</em> et une <em>marque</em>. Le <em>prix</em> de la location dépend de la <em>catégorie</em>, où chaque catégorie est identifiée par un nom.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Modifier ensuite le schéma pour représenter les modèles de voitures.</p>
+</div>
+</div>
+<p>Un <em>modèle</em> a un <em>nom</em>, une <em>marque</em> et un <em>nombre de sièges</em>.</p>
+<p>Toutes les voitures du même modèle doivent appartenir à la même catégorie de prix.</p>
+<p>De plus, on veut distinguer les voitures <em>disponibles</em> des voitures en <em>location</em>. Pour les voitures disponibles on représente l’<em>emplacement</em>. Pour les voitures en location on représente la <em>date</em> et la <em>durée de la location</em>, ainsi que le <em>nom du client</em>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Traduire le schéma EA dans le formalisme des pattes de corbeau</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Définir le schéma relationnel correspondant en SQL</p>
+</div>
+</div>
+</section>
+<section id="exercice-gestion-du-personnel-dune-entreprise" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-gestion-du-personnel-dune-entreprise">Exercice (Gestion du personnel d’une entreprise)</h2>
+<p>Dans une entreprise, chaque <em>employé</em> (identifié par un <em>numéro</em>) est attaché à un <em>département</em> de l’entreprise. Il occupe un <em>bureau</em> et participe à un ou plusieurs <em>projets</em> développés par l’entreprise.</p>
+<p>De chaque employé, on connait : le <em>nom</em>, le <em>prénom</em>, les <em>emplois</em> qu’il a occupés à différentes dates et les <em>salaires</em> qu’il a <em>perçus</em> dans ces emplois.</p>
+<p>Chaque <em>département</em> est identifié par un <em>numéro</em>, a son <em>budget</em> propre et est dirigé par un <em>directeur</em> faisant partie du personnel de l’entreprise.</p>
+<p>Chaque <em>bureau</em> est identifié par un <em>numéro</em>, est rattaché à un <em>département</em> et est caractérisé par sa <em>surface</em> en mètres carrés. Il possède un numéro de <em>téléphone</em> associé.</p>
+<p>Chaque <em>projet</em> est identifié par un <em>numéro</em>, possède un certain <em>budget</em> et <em>emploie</em> plusieurs <em>personnes</em> appartenant à différents <em>départements</em>. Chaque employé est <em>affecté</em> pour un <em>certain nombre d’heures</em> à un projet.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Donner un modèle entité-association correspondant à la description ci-dessus.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Modifier votre modélisation pour tenir compte de l’évolution dans le temps de la vie de l’entreprise : les projets ont des durées de vie limitées, chaque employé est affecté à un projet (mais aussi un département) pendant une certaines durée, etc</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Traduire le schéma EA dans le formalisme des pattes de corbeau</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Question
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Définir le schéma relationnel correspondant en SQL</p>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -5601,7 +5795,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
        
-    <div class="toc-actions"><ul><li><a href="https://github.com/s-v-b/MA15Y030/edit/main/solutions/td8.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/s-v-b/MA15Y030/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/s-v-b/MA15Y030/edit/main/solutions/td8.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/s-v-b/MA15Y030/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with blood, sweat, tears, and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

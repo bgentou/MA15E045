@@ -2,16 +2,12 @@
 title: "BD VII: Corriger le schéma World"
 subtitle: "Définition de données: Contraintes/Ingénieurie"
 date: "2024-10-25"
----
 
-```{.r}
-#| eval: false
-#| echo: false
-#| 
-# library(DBI)
-# db <- dbConnect(RSQLite::SQLite(), dbname = "sql.sqlite")
-# knitr::opts_chunk$set(connection = "db")
-```
+
+format: 
+  revealjs:
+    header: "Corriger et commenter un schéma"
+---
 
   
 
@@ -23,7 +19,7 @@ date: "2024-10-25"
 ## Schema de world
 
 
-![](/images//schema-world.png)
+![Schema World en pattes de corbeau](/images/schema-world.png)
 
 
 
@@ -45,7 +41,7 @@ date: "2024-10-25"
 - ...
 
 
-Ce ne sont pas les seules contraintes possibles 
+{{< fa hand-point-right >}} Ce ne sont pas les seules contraintes possibles 
 
 
 
@@ -67,7 +63,7 @@ Ce ne sont pas les seules contraintes possibles
 
 
 
-## Examen du schema de `country`   {.smaller}
+## Examen du schema de `country`   
 
 
 
@@ -94,10 +90,10 @@ Ce ne sont pas les seules contraintes possibles
 ```
 
 
-Un schéma de table ne se réduit pas à la données des noms et domaines  des colonnes
+{{< fa hand-point-right >}} Un schéma de table ne se réduit pas à la données des noms et domaines  des colonnes
 
 
-##  (continued)   {.smaller}
+##  (continued)   
 
 
 ```{.sql}
@@ -117,7 +113,7 @@ Foreign-key constraints:
 ```
 
 
-## DDL pour `country`   {.smaller}
+## DDL pour `country`  
 
 
 ```{.sql}
@@ -198,7 +194,9 @@ et une contrainte référentielle
 
 
 
-## Une région n'appartient qu'à un continent
+# Une contrainte d'exclusion   {background-color="#1c191c"}
+
+## Une région n'appartient qu'à un seul continent
 
 Cette contrainte signifie que le résultat de la requête suivante est vide :
 
@@ -218,25 +216,165 @@ Nous postulons l'existence d'une **dépendance fonctionnelle**
 
 $$\texttt{region} \longrightarrow \texttt{continent}$$
 
+## Deux attitudes 
+
+Dans sa forme actuelle, la table `country` de `world` contient des informations *redondantes*:
+on répète plusieurs fois que la région `Western Europe` est située dans le continent `Europe`
+
+Ces redondances représentent un gaspillage de mémoire (très modeste ici) et un risque pour le maintien
+de la cohérence de la base : chaque insertion, mise-à-jour est susceptible de mettre en défaut la 
+dépendance fonctionnelle
+
+On peut considérer qu'il s'agit d'une *anomalie* de schéma et **normaliser** le schéma. 
+
+La normalisation suppose une révision du schéma. Si le schéma est muni de vues et de fonctions,
+il faudra éventuellement réécrire ces vues et ces fonctions. 
+
 . . .
 
-On peut considérer qu'il s'agit d'une anomalie de schéma et **normaliser** le schéma
+{{< fa hand-point-right >}}  On peut mettre en place une contrainte d'exclusion avec `EXCLUDE`.
 
-
-{{< fa hand-point-right >}}  On peut mettre en place une contrainte d'exclusion avec `EXCLUDE`
-
-
-# Une contrainte d'exclusion   {background-color="#1c191c"}
-
-
-## Index pour la contrainte d'exclusion
+De cette façon, on ne touchera pas au schéma, les vues et les fonctions resteront utilisables. 
+La contrainte d'exclusion  permettra de maintenir la dépendance fonctionnelle.
 
 
 
+## Les contraintes d'exclusion
+
+::: {.callout-note}
+
+### Objectifs
+
+- Mise en place des dépendances fonctionnelles
+- Mise en place de contraintes de non-recouvrement (données spatiales ou temporelles)
+- Mise en place de contraintes très diverses 
+
+:::
+
+::: {.callout-note}
+
+### Comment ?
+
+L'ajout d'une contrainte d'exclusion crée automatiquement un index du type spécifié dans  déclaration de constrainte
+
+:::
+
+[Documentation](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-EXCLUSION)
+
+
+
+## Détails syntaxiques
+
+```{.sql}
+EXCLUDE 
+  [ USING index_method ] 
+  ( exclude_element WITH operator [, ... ] ) 
+  index_parameters 
+  [ WHERE ( predicate ) ] 
+```
+
+::: {.callout-note}
+
+La clause EXCLUDE définit une contrainte d'exclusion qui garantit que si *deux* lignes sont comparées sur la ou les colonnes spécifiées ou des expressions utilisant le ou les opérateurs spécifiés, seulement certaines de ces comparaisons, mais *pas toutes*, renverront TRUE. 
+
+:::
+
+
+## Remarques 
+
+Si tous les opérateurs spécifiés testent une égalité, ceci est équivalent à une contrainte UNIQUE bien qu'une contrainte unique ordinaire sera plus rapide. 
+
+Néanmoins, ces contraintes d'exclusion peuvent spécifier des contraintes qui sont plus générales qu'une simple égalité. 
+
+Vous pouvez spécifier qu'il n'y a pas deux lignes/tuples dans la table contenant des cercles se recouvrant surcharge en utilisant l'opérateur &&. 
+
+{{< fa hand-point-right >}} Le(s) opérateur(s) doivent être commutatif(s).
+
+
+## Mise en œuvre 
+
+Les contraintes d'exclusion sont implantées en utilisant un *index* qui a le même nom que la contrainte, donc chaque opérateur précisé doit être associé avec une classe d'opérateurs appropriée  pour la méthode d'accès par index, nommée `méthode_index`. 
+
+Chaque `élément_exclusion` définit une colonne de l'`index`, donc il peut spécifier en option une *collation*, une classe d'opérateur, des paramètres pour la classe d'opérateurs, et/ou des options de tri 
+
+En pratique, la méthode d'accès sera toujours `GiST` ou `SP-GiST` (`GIST` est un acronyme qui renvoie 
+à *Generalized Search Tree*). 
+
+
+## Zoologie des index  `B-tree`, `hash`, `GIN`
+
+Une stratégie d'indexation permet de gérer efficacement des conditions de la forme 
+
+```{.sql}
+<colonne indexée> <opérateur> <valeur de comparaison>
+```
+
+Les index de type `B-tree` sont appropriés pour les types ordonnés et les opérateurs `=`, `<=`, `=>`
+
+Les index de type `B-tree` sont souvent utilisés pour réaliser les équi-jointures.  
+
+## Méthodes d'accès (Index) `GiST`
+
+GiST: une infrastructure qui permet la mise en  œuvre de différentes stratégies d'indexation. 
+
+Les opérateurs susceptibles d'utiliser un index  GiST peuvent varier selon la stratégie d'indexation
+
+. . .
+
+La distribution standard de PostgreSQL comprend des classes d'opérateurs GiST pour plusieurs types de données géométriques (bidimensionnelles), qui permettent d'effectuer des requêtes indexées à l'aide de ces opérateurs 
+
+```{.sql}
+<<   &<   &>   >>   <<|   &<|   |&>   |>>   @>   <@   ~=   &&
+```
+
+
+
+## Dans `world.country`
+
+```{.sql}
+ALTER TABLE world.country
+ADD CONSTRAINT xcl_country_region_continent 
+EXCLUDE  USING GIST  (
+	region WITH =, 
+	continent with <>
+) ;
+```
+
+Avec cette contrainte d'exclusion, on interdit la présence de deux tuples dand la table `country`, coïncidant 
+sur la colonne `region` mais pas sur la colonne `continent`.
+
+## Autre exemple 
+
+
+```{.sql}
+CREATE TABLE public.zoo (
+  zoo_id INTEGER DEFAULT nextval('public.zoo_zoo_id_seq'::regclass) NOT NULL,
+  PRIMARY KEY, 
+  cage   INTEGER,
+  animal TEXT,
+  CONSTRAINT zoo_pkey PRIMARY KEY ( zoo_id )
+  EXCLUDE USING GIST (
+    cage WITH =, 
+    animal WITH <>)
+);
+```
+
+## Question 
+
+{{< fa hand-point-right >}} Comment utiliser les contraintes d'exclusion pour préciser que deux colonnes sont liées par une relation
+de monotonie ?
 
 
 # Normalisation de $\texttt{country}$   {background-color="#1c191c"}
 
+
+## 
+
+
+La normalisation des bases de données relationnelles est une activité en soi, guidée par des principes 
+codifiés et des algorithmes établis (voir [Normalisation I](/slides/DF_norm_1.qmd), [Normalisation II](/slides/DF_norm_3.qmd))
+
+Ici, nous profitons de la simplicité du schéma `world` pour normaliser `country` à la main. 
 
 ## Éclatement de la table `country`
 
@@ -268,8 +406,10 @@ ALTER TABLE monde.code_continent ADD CONSTRAINT
 
 ```{.sql}
 CREATE TABLE monde.region_continent AS 
-  SELECT DISTINCT region, continent 
-  FROM world.country c ;
+  SELECT DISTINCT 
+    region, continent 
+  FROM 
+    world.country c ;
 ```
 
 
@@ -277,8 +417,11 @@ La requête suivante renvoie une table vide:
 
 ```{.sql}
 SELECT * 
-FROM monde.region_continent rc1 JOIN 
-     monde.region_continent rc2 ON (
+FROM 
+  monde.region_continent rc1 
+JOIN 
+  monde.region_continent rc2 
+ON (
 	rc1.region=rc2.region AND 
   rc1.continent<> rc2.continent
 ) ;
@@ -300,11 +443,13 @@ ALTER TABLE mode.region_continent ADD CONSTRAINT
 
 ```{.sql}
 CREATE TABLE monde.country AS  
-  SELECT  countrycode, name_country, region, surfacearea, 
-          indepyear, population_country, 
-          lifeexpectancy, gnp, gnpold, localname,
-          governmentform, headofstate, capital,  code2            
-  FROM world.country ;
+  SELECT  
+    countrycode, name_country, region, surfacearea, 
+    indepyear, population_country, 
+    lifeexpectancy, gnp, gnpold, localname,
+    governmentform, headofstate, capital,  code2            
+  FROM 
+    world.country ;
 ```
 
 {{< fa hand-point-right >}} sans colonne `continent`
@@ -317,10 +462,13 @@ CREATE TABLE monde.country AS
 ```{.sql}
 ALTER TABLE monde.country ADD CONSTRAINT 
   country_pk PRIMARY KEY (countrycode);
-ALTER TABLE monde.country ADD CONSTRAINT c
-  ountry_un_name UNIQUE (name_country);
+
+ALTER TABLE monde.country ADD CONSTRAINT 
+  country_un_name UNIQUE (name_country);
+
 ALTER TABLE monde.country ADD CONSTRAINT 
   country_un_code2 UNIQUE (code2);
+
 ALTER TABLE monde.country ADD CONSTRAINT 
   country_un_capital UNIQUE (capital);
 ```
@@ -340,7 +488,8 @@ ALTER TABLE monde.country ADD CONSTRAINT country_fk
 ## Copie de `city`
 
 ```{.sql}
-CREATE TABLE monde.city AS TABLE world.city;
+CREATE TABLE monde.city AS 
+  TABLE world.city;
 ```
 
 {{< fa hand-point-right >}} On a copié le schéma a minima (sans les contraintes)
@@ -352,10 +501,13 @@ CREATE TABLE monde.city AS TABLE world.city;
 
 ```{.sql}
 SELECT *
-FROM monde.city c JOIN monde.city c2 
-	ON (c.name_city=c2.name_city AND 
-      c.countrycode = c2.countrycode  AND 
-      c.id<> c2.id) ;
+FROM 
+  monde.city c 
+JOIN 
+  monde.city c2 
+ON (c.name_city = c2.name_city AND 
+    c.countrycode = c2.countrycode  AND 
+    c.id <> c2.id) ;
 ```
 
 renvoie 48 lignes 
@@ -364,11 +516,14 @@ renvoie 48 lignes
 
 ```{.sql}
 SELECT *
-FROM monde.city c JOIN monde.city c2 
-	ON (c.name_city=c2.name_city AND 
-      c.countrycode = c2.countrycode  AND
-      c.district = c2.district  AND
-      c.id<> c2.id) ;
+FROM 
+  monde.city c 
+JOIN 
+  monde.city c2 
+ON (c.name_city = c2.name_city AND 
+    c.countrycode = c2.countrycode  AND
+    c.district = c2.district  AND
+    c.id <> c2.id) ;
 ```
 
 renvoie 2 lignes 
@@ -380,7 +535,12 @@ renvoie 2 lignes
 
 ```{.sql}
 SELECT c. countrycode, c.name_country, cc.name_city, cc.countrycode
-FROM world.country c JOIN world.city cc ON (c.capital=cc.id AND cc.countrycode <> c.countrycode) ;
+FROM 
+  world.country c 
+JOIN 
+  world.city cc 
+ON (c.capital = cc.id  AND 
+    cc.countrycode <> c.countrycode) ;
 ```
 
 renvoie 0 lignes {{< fa champagne-glasses >}}
@@ -409,11 +569,14 @@ ALTER TABLE monde.city
 
 
 
-## Table `countrylanguage`   {.smaller}
+## Table `countrylanguage` 
 
 ```{.sql}
-CREATE TABLE monde.countrylanguage  AS TABLE world.countrylanguage ;
+CREATE TABLE monde.countrylanguage  AS 
+  TABLE world.countrylanguage ;
 ```
+
+. . .
 
 
 ```{.sql}
@@ -434,10 +597,8 @@ ALTER TABLE monde.countrylanguage
 
 
 
----
 
-
-![](/images//bd_2023-monde.png)
+<!-- ![](/images//bd_2023-monde.png) -->
 
 
 
@@ -464,11 +625,31 @@ GROUP BY c.region ) ;
 
 ```{.sql}
 SELECT r.* 
-FROM monde.regionale r JOIN monde.region_continent rc 
-     ON (r.region=rc.region AND rc.continent='Europe') ;
+FROM 
+  monde.regionale r 
+JOIN 
+  monde.region_continent rc 
+ON (r.region=rc.region AND rc.continent='Europe') ;
 ```
 
+. . .
 
+```{.sql}
+SELECT r.* 
+FROM 
+  monde.regionale r 
+WHERE 
+  r.region IN (
+    SELECT 
+      region
+    FROM 
+      monde.region_continent
+    WHERE 
+      continent='Europe'
+  ) ;
+```
+
+. . .
 
 ```
 +----------------+-----------------+------------------+----------+-------------+
@@ -496,6 +677,8 @@ FROM monde.regionale r JOIN monde.region_continent rc
      ON (r.region=rc.region) 
 GROUP BY rc.continent;) ;
 ```
+
+. . .
 
 ```
 +-------------+----------+-----------+----------+----------+

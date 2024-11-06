@@ -14,29 +14,740 @@ format:
 
 # Introduction  {background-color="#1c191c"}
 
+## Entre modèle EA et modèle relationnel
+
+Dans le modèle EA
+
+- Plusieurs types de briques de bases : Entités (noms)  et Associations (verbes)
+- Pas a priori de moyen de représenter les schémas EA dans le formatlisme EA
+- Un formalisme accessible (en principe) aux usagers du système d'information
+  
+
+Dans le modèles relationnel
+
+- Une seule brique de base : les tables 
+- Un schéma est décrit par des tuples insérés dans les tables de la métabase
+
 # Modèle pattes de corbeaux {background-color="#1c191c"}
 
-## Objectifs et origine
+## Objectifs
+
+Une technique de traduction du formalisme EA vers le formalisme relationnel
+
+Traduction des associations selon l'arité et les cardinalités
+
+Visualisation des *contraintes référentielles* via les *pattes de corbeaux*
+
+Un formalisme graphique très proche du modèle relationnel
+
+Un formalisme graphique utilisé en rétro-ingénierie 
+
+Un formalisme graphique utilisé pour documenter les bases de données relationnelles 
+
+## Origines
+
+Créé par Gordon Everest (fin des années 1970) 
+
+Normalisé par Finkelstein et Martin
+
 
 ## Diagrammes
 
-## Liens non-identifiants
+::: {.callout-note}
+
+### Deux briques de base 
+
+Les diagrammes en pattes de corbeau sont formés de *tables*  et de *liens* entre tables.
+
+:::
+
+
+::: {.callout-note}
+
+### Les tables {{< fa table-list >}}
+
+représentent :
+
+- des entités fortes 
+- des entités faibles issues de la traduction d'associations $n$-aires et/ou d'associations plusieurs-vers-plusieurs
+
+:::
+
+::: {.callout-note}
+
+### Les liens {{< fa arrows-left-right-to-line >}}
+
+représentent des associations *binaires* un-un, ou un-vers-plusieurs 
+
+Les cardinalités sont visualisées par les extrémités des liens 
+
+:::
+
+## Les cardinalités
+
+
+<table><thead><tr><th style="text-align:center;">Symbole (gauche)</th><th style="text-align:center;">Symbole (droite)</th><th>Interprétation</th></tr></thead><tbody><tr><td style="text-align:center;"><code>|o</code></td><td style="text-align:center;"><code>o|</code></td><td>Zero ou un</td></tr><tr><td style="text-align:center;"><code>||</code></td><td style="text-align:center;"><code>||</code></td><td>Exactement un</td></tr><tr><td style="text-align:center;"><code>}o</code></td><td style="text-align:center;"><code>o{</code></td><td>Zero ou plus (pas de borne supérieure)</td></tr><tr><td style="text-align:center;"><code>}|</code></td><td style="text-align:center;"><code>|{</code></td><td>un ou plus (pas de borne supérieure)</td></tr></tbody></table>
+
+
+
+
+## Aliases   {.smaller}
+
+<table><thead><tr><th style="text-align:center;">Symbole (gauche)</th><th style="text-align:center;">Symbole (droite)</th><th>Alias for</th></tr></thead><tbody><tr><td style="text-align:center;">un or zero</td><td style="text-align:center;">un or zero</td><td>Zero ou un</td></tr><tr><td style="text-align:center;">zero ou un</td><td style="text-align:center;">zero ou un</td><td>Zero ou un</td></tr><tr><td style="text-align:center;">un ou plus</td><td style="text-align:center;">un ou plus</td><td>un ou plus</td></tr><tr><td style="text-align:center;">un or plusieurs</td><td style="text-align:center;">un or plusieurs</td><td>un ou plus</td></tr><tr><td style="text-align:center;">plusieurs(1)</td><td style="text-align:center;">plusieurs(1)</td><td>un ou plus</td></tr><tr><td style="text-align:center;">1+</td><td style="text-align:center;">1+</td><td>un ou plus</td></tr><tr><td style="text-align:center;">zero ou plus</td><td style="text-align:center;">zero ou plus</td><td>Zero ou plus</td></tr><tr><td style="text-align:center;">zero or plusieurs</td><td style="text-align:center;">zero or plusieurs</td><td>Zero ou plus</td></tr><tr><td style="text-align:center;">plusieurs(0)</td><td style="text-align:center;">plusieurs(0)</td><td>Zero ou plus</td></tr><tr><td style="text-align:center;">0+</td><td style="text-align:center;">0+</td><td>Zero ou plus</td></tr><tr><td style="text-align:center;">only un</td><td style="text-align:center;">only un</td><td>Exactement un</td></tr><tr><td style="text-align:center;">1</td><td style="text-align:center;">1</td><td>Exactement un</td></tr></tbody></table>
+
+
+## Liens non-identifiants : exemples
+
+::: {.columns}
+::: {.column}
+
+```{mermaid}
+%%| eval: true
+%%| echo: false
+erDiagram
+    COUNTRY ||..o{ CITY : contains
+    COUNTRY {
+      string(3) countrycode PK
+      string name_country
+      numeric population_country
+      integer capital  FK
+    }
+    CITY {
+      integer id PK
+      string(3) countrycode FK
+      string name
+      numeric population
+    }
+    CITY |o..o| COUNTRY : is-capital
+```
+
+:::
+::: {.column}
+
+- Une instance de `COUNTRY` contient entre $0$ et un nombre non borné d'instances de `CITY` (patte de corbeau côté `CITY`)
+
+- Une instance de `CITY`  est toujours située sur une et une seule instance de `COUNTRY`
+
+- Une instance de `CITY`  est la capitale de $0$ ou $1$ intance de `COUNTRY`
+
+- Une instance de `COUNTRY` possède $0$ ou $1$ capitale
+
+:::
+::: 
+
+
+---
+
+::: {.callout-caution}
+
+### Visualisation redondante
+
+En affichant un lien et en précisant qu'une attribut est une clé étrangère, 
+nous répétons deux fois/soulignons l'information de contrainte référentielle
+
+:::
+
+
+
 
 ## Liens identifiants
 
+::: {.callout-note}
+
+Un lien est *identifiant*  si la clé primaire de l'émetteur contient une référence à la clé
+primaire de la table destinataire. 
+
+:::
+
+. . .
+
+::: {.columns}
+::: {.column}
+Exemple
+: Dans le schéma `world` le lien entre `countrylanguage`  et `country` est *identifiant* : la clé primaire de `countrylanguage` est formée par `(countrycode, language)`. L'attribut `countrycode` de `countrylanguage` fait référence à l'attribut `countrycode` de `country` (clé primaire de `country`)   
+
+:::
+::: {.column}
+
+```{mermaid}
+%%| eval: true
+%%| echo: false
+erDiagram
+    COUNTRY ||--|{ COUNTRYLANGUAGE : speaks
+    COUNTRY {
+      string countrycode
+      string name_country
+      numeric population_country
+    }
+    COUNTRYLANGUAGE {
+      string countrycode
+      string language
+      boolean isofficial
+      numeric percentage
+    }
+```
+:::
+:::
+
+
+
+## Les pattes de corbeau comme variante du modèle Entité-Association ?
+
+::: {.callout-note}
+
+### Remarque
+
+La notation en pattes de corbeau est parfois/souvent présentée comme un variante de 
+la modélisation Entité-Association (de Chen)
+
+C'est le cas dans l'outil de dessin [`mermaid`](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
+
+:::
+
+. . .
+
+::: {.callout-warning}
+
+### Objection I :
+
+Un lien en notation pattes de corbeau définit une relation entre *deux* tables. Un lien en pattes de  corbeau ne peut pas représenter directement un association d'arité supérieure à 2
+
+:::
+
+. . .
+
+::: {.callout-warning}
+
+### Objection II :
+
+Un lien en notation pattes de corbeau ne porte pas d'attributs propres
+
+:::
+
+. . .
+
+::: {.callout-tip}
+
+### Convention 
+
+Dans ce cours, la notation en pattes de corbeau est utilisée pour visualiser le modèle relationnel. Les liens permettent de souligner/visualiser les contraintes référentielles
+
+:::
+
+
+
 # Traduction d'une association binaire *plusieurs-un* en pattes de corbeau {background-color="#1c191c"}
+
+## Exemple association binaire  *plusieurs-un*  dans schéma `world`
+
+
+```{dot}
+//| label: "er4-cardi"
+//| eval: true
+//| echo: false
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=fdp
+	node [shape=box]; country; city
+	node [shape=ellipse]; {node [label="name"] name0; name1;}
+		population; governmentForm; headOfState; {node [label=<<u>iso3</u>>] iso;};
+    {node [label=<<u>id</u>>] id;}; 
+  node [shape=diamond];  "is-in" ; 
+  
+	name0 -- country;
+	population -- country;
+  governmentForm -- country; 
+  headOfState -- country;
+	city -- name1;
+  country -- iso ;
+  city -- id ;
+  city -- "is-in"  [label="1:1",len=1.00]; 
+  "is-in" -- country [label="0:n",len=1.00] ;
+}
+```
+
+
+
+
+## Traduction 
+
+::: {.columns}
+::: {.column}
+
+```{mermaid}
+%%| eval: true
+%%| echo: false
+erDiagram
+    COUNTRY ||..o{ CITY : contains
+    COUNTRY {
+      string(3) iso3 PK
+      string name_country
+      numeric population_country
+      string governmentForm
+      string headOfState
+    }
+    CITY {
+      integer id PK
+      string(3) iso3 FK
+      string name
+      numeric population
+    }
+```
+
+:::
+
+
+::: {.column}
+
+Un lien *non-identifiant* depuis la table représentant l'entité de cardinalité $0:1$ (`CITY`) vers la table représentant la cardinalité $0:n$ (`COUNTRY`)
+
+Les éventuels attributs propres de l'association sont représentés par des attributs  de la table représentant l'entité de cardinalité $0:1$
+
+::: {.callout-caution}
+
+La patte de corbeau `0{` est placée du côté  de la table représentant l'entité de cardinalité $0:1$ (`CITY`)
+
+:::
+
+:::
+::: 
 
 # Traduction d'une association binaire *plusieurs-plusieurs* en pattes de corbeau {background-color="#1c191c"}
 
-## Transformation à l'aide d'une entité faible
+
+## Une association *plusieurs-plusieurs*
+
+```{dot}
+//| label: "er4-cardi"
+//| eval: true
+//| echo: false
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=fdp
+	node [shape=box]; country; language;
+	node [shape=ellipse]; {node [label="name"] name0; name2;}
+		population; governmentForm; headOfState; {node [label=<<u>iso3</u>>] iso;};
+    {node [label=<<u>iso</u>>] isol;} ; percentage ; isofficial 
+  node [shape=diamond]; "is-spoken-in" ; 
+  
+	name0 -- country;
+	population -- country;
+  governmentForm -- country; 
+  headOfState -- country;
+	language -- name2;
+  country -- iso ;
+  language -- isol ;
+  language -- "is-spoken-in"  [label="0:n",len=1.00] ;
+  "is-spoken-in" -- country  [label="0:n",len=1.00] ; 
+  "is-spoken-in" -- isofficial ;
+  "is-spoken-in" -- percentage ;
+}
+```
+
+
+## Transformation préalable à l'aide d'une entité faible
+
+
+
+```{dot}
+//| label: "er4-cardi"
+//| eval: true
+//| echo: false
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=fdp
+	node [shape=box]; country; language;
+	node [shape=ellipse]; {node [label="name"] name0; name2;}
+		population; governmentForm; headOfState; {node [label=<<u>iso3</u>>] iso;};
+    {node [label=<<u>iso</u>>] isol;} ; percentage ; isofficial 
+  node [shape=box, peripheries=2] ; countrylanguage
+  node [shape=diamond, peripheries=2]; speaks ;  "is-spoken" ;
+  
+	name0 -- country;
+	population -- country;
+  governmentForm -- country; 
+  headOfState -- country;
+	language -- name2;
+  country -- iso ;
+  language -- isol ;
+  language -- "is-spoken"  [label="0:n",len=1.00] ;
+  "is-spoken" -- "countrylanguage"   [label="1:1",len=1.00] ; 
+  country -- speaks [label="0:n", len=1.00];
+  speaks -- countrylanguage [label="1:1",len=1.00] ;
+  countrylanguage -- isofficial ;
+  countrylanguage -- percentage ;
+}
+```
+
+
+## Traduction 
+ 
+::: {.columns}
+::: {.column}
+
+```{mermaid}
+%%| eval: true
+%%| echo: false
+erDiagram
+    COUNTRY ||--o{ COUNTRYLANGUAGE : speaks
+    COUNTRY {
+      string(3) iso3 PK
+      string name_country
+      numeric population_country
+      string governmentForm
+      string headOfState
+    }
+    LANGUAGE ||--o{ COUNTRYLANGUAGE : is-spoken
+    LANGUAGE {
+      string(3) iso PK
+      string name
+    }
+    COUNTRYLANGUAGE {
+      string(3) iso PK, FK
+      string(3) iso3 PK, FK
+      boolean isofficial
+      numeric percentage
+    }
+```
+
+
+
+:::
+::: {.column}
+
+
+La table obtenue par traduction de l'entité faible est appelée *table intermédiaire*
+
+La table intermédiaire `COUNTRYLANGUAGE` comporte les attributs propres (`percentage`, `isofficial`) de l'association  originelle (qui sont aussi ceux de l'entité faible)
+
+Les deux associations faibles issues de l'entité faible sont traduites en *liens identifiants* entre l'entité intermédiaire et les tables traduisant les entités (ici 
+`COUNTRY`  et `LANGUAGE`)
+
+:::
+::: 
+
+
+## Liens identifiants 
+
+
+Les liens identifiants correspondent à des contraintes référentielles (comme les liens 
+non-identifiants). 
+
+Les liens identifiants témoignent du fait que les constituants de la clé
+primaire de la table intermédiaire (ici `iso3` et `isol`) font référence aux clés primaires des tables `COUNTRY` (`iso3`)  et `LANGUAGE` (`isol`).
 
 ## Table intermédiaire 
 
+::: {.columns}
+::: {.column}
+
+::: {.callout-note title="Caractérisation"}
+
+
+Les tables intermédiaires sont caractérisées par le fait que certaines composantes 
+de leur clé primaire sont la source de contraintes référentielles vers la clé primaire d'une autre table.
+
+:::
+
+:::
+
+
+::: {.column}
+
+::: {.callout-tip title="Usages"}
+
+- traduction des associations plusieurs-plusieurs
+- traduction des associations d'arité supérieure ou égale à 3
+- traduction des entités faibles 
+- traduction des spécialisations 
+
+:::
+
+:::
+
+::: 
+
 # Traduction d'une association $n$-aire ($n>2$) 
+
+## Exemple de l'association `flight`
+
+
+::: {layout="[80,20]"}
+
+::: {#first-column}
+
+```{dot}
+//| label: "nyc-quaternaire"
+//| eval: true
+//| echo: false
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=fdp
+	node [shape=box]; airport [pos="1,5!"]; plane [pos="7,3!"]; airline [pos="7,7!"];
+	node [shape=diamond]; flight [pos="5,5!"];
+	
+	airport -- flight [taillabel="0:n", label="orig"] ;
+	flight -- airport [headlabel="0:n", label="dest"] ;
+	flight -- airline  [headlabel="0:n"] ;
+	flight -- plane [headlabel="0:n"] ;
+}
+
+```
+
+:::
+
+::: {#second-column}
+
+
+:::
+
+::: 
+
+## Transformation de l'association quarternaire en quatre associations binaires (faibles) 
+
+
+::: {layout="[80,20]"}
+
+::: {#first-column}
+
+```{dot}
+//| label: "nyc-quaternaire"
+//| eval: true
+//| echo: false
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=fdp
+	node [shape=box]; airport [pos="1,5!"]; plane [pos="7,3!"]; airline [pos="7,7!"];
+	node [shape=box, peripheries="2"]; flight [pos="5,5!"];
+	node [shape=diamond, peripheries="2"] ; orig ; dest ; operates ; uses
+	airport -- orig [taillabel="0:n"] ;
+	airport -- dest [taillabel="0:n"] ;
+	orig -- flight [headlabel="1:1"] ;
+	dest -- flight [headlabel="1:1"]  ;
+	flight -- operates [taillabel="1:1"] ;
+	flight -- uses [taillabel="1:1"] ;
+	operates -- airline  [headlabel="0:n"] ;
+	uses -- plane [headlabel="0:n"] ;
+}
+
+```
+:::
+
+::: {#second-column}
+
+L'association quarternaire est transformée en 
+
+- une entité faible. Chaque instance de cette entité faible représente une  instance de 
+l'association quaternaire
+- quatre associations binaires faibles. Une instance de l'association binaire faible relie une instance de l'entité faible (association quaternaire) à l'instance de entité participante concernée
+
+Entre l'entité faible et une association faible, la cardinalité est toujours `1:1`
+
+:::
+
+:::
+
+## Traduction en pattes de corbeau 
+
+::: {layout="[65,35]" }
+
+::: {#first-column}
+
+```{mermaid}
+%%| eval: true
+%%| echo: false
+erDiagram
+    AIRPORT ||--o{ FLIGHT : takes-off
+    AIRPORT ||--o{ FLIGHT : lands-at
+    AIRLINE ||--o{ FLIGHT : operates
+    PLANE   ||--o{ FLIGHT : uses
+    AIRPORT {
+      string(3) faa PK
+      string name 
+      numeric lat
+      numeric lon
+    }
+    AIRLINE {
+      string(3) faa PK
+      string name 
+    }
+    PLANE {
+      string(3) tailnum PK 
+      string model
+      string manufacturer
+      int year
+    }
+    FLIGHT {
+      string(3) origin  PK, FK
+      string(3) dest PK, FK
+      string tailnum PK, FK
+      string carrier PK, FK
+      int num PK
+      datetime dep_time PK
+    }
+```
+:::
+
+::: {#second-column}
+
+- Une fois la transformation de l'association quaternaire en une entité faible et quatre 
+associations binaires *un-plusieurs*, la traduction ressemble à la traduction des   associations binaires *un-plusieurs*
+- L'entité faible est traduite en une table intermédiaire
+- Les associations faibles sont traduites en liens identifiants
+
+:::
+
+:::
 
 # Des pattes de corbeaux au relationnel {background-color="#1c191c"}
 
+## Un traduction immédiate {{< fa champagne-glasses >}}
+
+Chaque table du modèle en pattes de corbeau correspond à une table/relation
+du modèle relationnel. 
+
+Les liens du modèle en pattes de corbeau se traduisent en contraintes référentielles
+
+. . .
+
+{{< fa hand-point-right >}} La proximité entre le modèle relationnel et les diagrammes en pattes de corbeau  ouvrent la voie à la *rétro-ingénierie*
+
 # Du relationnel aux pattes de corbeau {background-color="#1c191c"}
+
+## Rétro-ingénierie (reverse engineering)
+
+L'ingénierie directe est normalement le processus de création 
+d'un nouveau système (d'information) à partir de rien. 
+
+La rétro-ingénierie est le processus d'analyse d'un système existant 
+pour comprendre sa conception et ses usages.
+
+. . .
+
+Un SGBD mémorise la définition des schémas comme `world` dans un schéma particulier la *métabase* 
+(`information_schema` + `pg_catalog`)
+
+La rétro-ingénierie consiste à construire un diagramme en pattes de corbeau à partir des
+données de la métabase 
+
+De nombreux outils (plus ou moins payants) sont disponibles 
+
+## Schéma `world`
+
+![schema `world`](/images/schema-better-world.png)
+
+
+## LDD `CREATE SCHEMA IF NOT EXISTS world;` {.smaller}
+
+```{.sql}
+CREATE  TABLE world.region_continent ( 
+	region               text  NOT NULL  ,
+	continent            text    ,
+	CONSTRAINT pk_region_continent PRIMARY KEY ( region )
+ );
+
+CREATE  TABLE world.city ( 
+	id                   integer  NOT NULL  ,
+	name                 text  NOT NULL  ,
+	countrycode          char(3)  NOT NULL  ,
+	district             text  ,
+	population           integer ,
+	CONSTRAINT city_pkey PRIMARY KEY ( id )
+ );
+
+```
+
+## Créations de tables (suite) {.smaller} 
+
+
+```{.sql}
+CREATE  TABLE world.country ( 
+	countrycode          char(3)  NOT NULL  ,
+	name_country         text  NOT NULL  ,
+	region               text  ,  
+	surfacearea          real   ,
+	indepyear            smallint    ,
+	population_country   integer     ,
+	lifeexpectancy       real    ,
+	gnp                  numeric(10,2)    ,
+	gnpold               numeric(10,2)    ,
+	localname            text  NOT NULL  ,
+	governmentform       text  NOT NULL  ,
+	headofstate          text    ,
+	capital              integer    ,
+	code2                char(2)  NOT NULL  ,
+	CONSTRAINT country_pkey PRIMARY KEY ( countrycode )
+ );
+
+
+CREATE  TABLE world.countrylanguage ( 
+	countrycode          char(3)  NOT NULL  ,
+	"language"           text  NOT NULL  ,
+	isofficial           boolean  NOT NULL  ,
+	percentage           real  NOT NULL  ,
+	CONSTRAINT countrylanguage_pkey PRIMARY KEY ( countrycode, "language" )
+ );
+```
+
+## Les contraintes référentielles {.smaller}
+
+
+```{.sql}
+ALTER TABLE world.city 
+  ADD CONSTRAINT city_country_fk 
+  FOREIGN KEY ( countrycode ) 
+  REFERENCES world.country( countrycode ) 
+  ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE;
+
+ALTER TABLE world.country 
+  ADD CONSTRAINT country_capital_fkey 
+  FOREIGN KEY ( capital ) REFERENCES world.city( id ) 
+  ON DELETE SET NULL ON UPDATE CASCADE;
+
+ALTER TABLE world.country 
+  ADD CONSTRAINT country_region_fk 
+  FOREIGN KEY ( region ) REFERENCES world.region_continent( region ) 
+  ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE;
+
+ALTER TABLE world.countrylanguage 
+  ADD CONSTRAINT countrylanguage_countrycode_fkey 
+  FOREIGN KEY ( countrycode ) 
+  REFERENCES world.country( countrycode );
+
+
+
+```
+
+
+# Au de delà des modèles EA et Relationnels  {background-color="#1c191c"}
+
+
+## La modélisation : un exercice très général
+
+En Informatique, la modélisation concerne aussi la conception des interfaces humains-machines, des sites WWW, des traitements divers, des entrepots de données, des lacs de données, ....
+
+Chaque situation a suscité une méthode apropriée 
+
+. . .
+
+Quelques exemples :
+
+- Modèles Relation-Objet (Object Relational Model ORM)
+- UML (Universal Modeling Language)
+  
+. . .
+
+Les modèles EA et pattes de corbeau ne sont que la partie émergée d'un iceberg
 
 
 # Fin  {background-color="#1c191c"}

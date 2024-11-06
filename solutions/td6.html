@@ -4883,8 +4883,8 @@ window.Quarto = {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <div id="quarto-announcement" data-announcement-id="96c666eb5f26765a935130418ed4bee4" class="alert alert-warning hidden"><i class="bi bi-emoji-surprise quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p><strong>Alerte</strong> - Contrôle Continu I sur schéma pagila le vendredi 25 octobre 17h-18h15 Amphi A2 Halle aux Farines</p>
+    <div id="quarto-announcement" data-announcement-id="8ffc29f6caea97af07edb5e20694b362" class="alert alert-warning hidden"><i class="bi bi-emoji-surprise quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Alerte</strong> - Contrôle Continu II le vendredi 15 novembre 17h-18h15 Amphi A2 Halle aux Farines</p>
 </div></div>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
@@ -5435,8 +5435,9 @@ Solution
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<div class="sourceCode" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> chaprot.td_countrylanguage <span class="kw">add</span> <span class="kw">unique</span> (countrycode,language)  ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>mais c’est inutile car (<code>countrycode,language</code>) est déjà une <code>PRIMARY KEY</code>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> chaprot.td_countrylanguage </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">add</span> <span class="kw">unique</span> (countrycode, language)  ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>mais c’est inutile car (<code>countrycode, language</code>) est déjà une <code>PRIMARY KEY</code>.</p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-note callout-titled" title="Question">
@@ -5466,16 +5467,24 @@ Solution
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>returns bigint</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>language sql <span class="kw">as</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">count</span> (<span class="op">*</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> chaprot.td_country a</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> a.region <span class="op">=</span> reg <span class="kw">and</span> <span class="kw">not</span> a.continent <span class="op">=</span> conti;</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="kw">Alter</span> <span class="kw">table</span> chaprot.td_country <span class="kw">add</span> <span class="kw">constraint</span> RegionContinent <span class="kw">check</span> (chaprot.check_reg (region, continent) <span class="op">=</span> <span class="dv">0</span>) ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">count</span> (<span class="op">*</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    chaprot.td_country a</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    a.region <span class="op">=</span> reg <span class="kw">and</span> </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">not</span> a.continent <span class="op">=</span> conti;</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="kw">Alter</span> <span class="kw">table</span> chaprot.td_country </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">add</span> <span class="kw">constraint</span> RegionContinent <span class="kw">check</span> (chaprot.check_reg (region, continent) <span class="op">=</span> <span class="dv">0</span>) ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>OU</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> chaprot.td_country </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> df_region_continent </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        EXCLUDE <span class="kw">USING</span> gist (region <span class="kw">WITH</span> <span class="op">=</span>, continent <span class="kw">WITH</span> <span class="op">&lt;&gt;</span>) ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        EXCLUDE <span class="kw">USING</span> gist (</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                region <span class="kw">WITH</span> <span class="op">=</span>, </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                continent <span class="kw">WITH</span> <span class="op">&lt;&gt;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>) ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>La seconde formulation de la contrainte souligne qu’il s’agit d’une contrainte de table et pas d’une contrainte de ligne.</p>
 </div>
 </div>
