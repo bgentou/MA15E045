@@ -13,28 +13,26 @@ editor: source
 -   {{< fa cal >}} [Emploi du temps Ingémaths/METIS](https://edt.math.univ-paris-diderot.fr/#/parcours/ingemath/l3)
 :::
 
-## Préparer
-
-Finir requêtes du TD 6 [TD 6](/workshops/td6.html) 
 
 ## Cours magistral : diapositives
 
-[Modélisation I]()
+[Modélisation I](/slides/Modelisation_1.qmd)
 
-[Modélisation II]()
+Modèle Entité-Association
 
-## Exercices : TD 7
+## Exercices : TD 5 et 6
 
-[html](/workshops/td7.html)  [pdf](/workshops/td7.pdf)
+- [html](/workshops/td5.html)  [pdf](/workshops/td5.pdf)
+- [html](/workshops/td6.html)  [pdf](/workshops/td6.pdf)
 
-## Solutions du  TD 6  (Semaine 7)
-
-[html](/solutions/td6.html)  [pdf](/solutions/td6.pdf)
+Contraintes
 
 
-## Travail personnel
+## Solutions du  TD 5  (Semaine 7)
 
-[CC 1 2023-24](/exams/cc1-2023-10-27.html)
+[html](/solutions/td5.html)  [pdf](/solutions/td5.pdf)
+
+
 
 <br><br>
 

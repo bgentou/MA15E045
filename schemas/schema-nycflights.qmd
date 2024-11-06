@@ -123,6 +123,13 @@ Ce jeu de données est construit à partir du package {{< fa brands r-project >}
 | * | time\_hour| timestamptz  |
 
 
+{{< fa hand-point-right >}} `distance` est la distance orthodromique  (*earth distance*) entre `origin`  et `dest` en miles (pas en miles nautiques). On peut le vérifier avec les fonctions de l'extension `earthdistance`. 
+
+{{< fa hand-point-right >}} le vol est effectué si `dep_time` n'est pas `NULL`
+
+{{< fa hand-point-right >}} `dep_time`, `sched_dep_time`, `arr_time`, `sched_arr_time` sont construits de la façon 
+
+
 ##### Foreign Keys
 |Type |Name |On |
 |---|---|---|
