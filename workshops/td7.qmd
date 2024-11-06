@@ -1,7 +1,7 @@
 ---
 title: "TD 7 : Contraintes (suite)"
 subtitle: "Définition de données et Contraintes"
-categories: []
+categories: [Contraintes, Définition de Données, Référemces, Clés, Exclusion, pagila, nycflights]
 date: "2024-11-08"
 
 
@@ -59,3 +59,546 @@ engine: knitr
 
 :::
 
+::: {.callout-important title="Ojectifs"}
+
+Cette séance est consacrée à l'enrichissement des schémas [`pagila`](/schemas/schema-pagila.qmd)
+et [`nycflights`](/schemas/schema-nycflights.qmd). 
+
+L'objectif est d'ajouter des contraintes aux schémas, en particulier, des contraintes d'exclusion.
+
+Cette séance est l'occasion de se familiariser avec les types `timestamp` et `tsrange` et avec les opérateurs de recouvrement. 
+
+:::
+
+# Contraintes SQL (suite)
+
+## [Schéma `pagila`](/schemas/schema-pagila.qmd)
+
+
+
+::: {.callout-note}
+
+### Question
+
+Imposer la contrainte suivante : un client ne peut emprunter plusieurs DVD simultanément.
+
+:::
+
+::: {.callout-tip}
+
+Écrire d'abord une requête correspondant à la contrainte. 
+
+La requête est facile à écrire si on est prêt à utiliser le type `tsrange`, l'opérateur de recouvrement `&&` (`overlap`).
+
+[Postgresql documentation on range types](https://www.postgresql.org/docs/current/rangetypes.html)
+
+Dans l'instance du schéma `pagila` disponible sur le serveur `etu-pgsql`, la contrainte est-elle vérifiée ?
+
+::: 
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+select 
+  r1.customer_id, 
+  r1.inventory_id,
+  r1.rental_date, 
+  r1.return_date, 
+  r2.inventory_id,
+  r2.rental_date, 
+  r2.return_date 
+from 
+  rental r1 
+join 
+  rental r2 
+on (r1.customer_id=r2.customer_id AND r1.rental_id<>r2.rental_id)  
+where 
+  tsrange(r1.rental_date, r1.return_date, '[)') && 
+  tsrange(r2.rental_date, r2.return_date, '[)') ;
+```
+
+{{< fa skull-crossbones >}} La contrainte n'est pas du tout satisfaite par l'instance de `pagila`
+
+
+```{.sql}
+ALTER TABLE 
+  pagila.rental 
+ADD CONSTRAINT 
+  xcl_simul_rental
+EXCLUDE USING gist (
+  customer_id with =,
+  rental_id with <>,
+  tsrange(rental_date, return_date) with &&
+) ;
+```
+
+{{< fa hand-point-right >}} Sur l'instance disponible de `pagila`, 
+cette contrainte ne peut pas être surimposée.
+
+```{.sql}
+ERROR:  could not create exclusion constraint "xcl_simul_rental"
+DETAIL:  Key (customer_id, rental_id, tsrange(rental_date, return_date))=(408, 3, ["2005-05-24 23:03:39","2005-06-01 22:12:39")) conflicts with key (customer_id, rental_id, tsrange(rental_date, return_date))=(408, 59, ["2005-05-25 08:56:42","2005-06-01 09:52:42")).
+```
+
+::: 
+
+:::
+
+::: {.callout-note}
+
+### Question
+
+Imposer la contrainte : un  film est identifié par son titre, son année de sortie et sa langue originale. 
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+La requête correspondante est
+
+```{.sql}
+SELECT 
+  COUNT(*)
+FROM 
+  pagila.film AS f1 
+JOIN 
+  pagila.film AS f2
+ON (
+    f1.title = f2.title AND
+    f1.release_year = f2.release_year AND 
+    f1.original_language_id = f2.original_language_id AND
+    f1.film_id < f2.film_id)
+```
+
+Il s'agit d'une contrainte d'unicité. Elle est satisfaite dans l'instance de `pagila`
+
+```{.sql}
+ALTER TABLE pagila.film
+ADD CONSTRAINT uq_film_title_release_year_original_language_id 
+UNIQUE (title, release_year, original_language_id) ;
+```
+
+La description du schéma de `pagila.film` (`\d pagila.film`) nous renvoie alors :
+
+```{.sql}
+...
+Indexes:
+    "film_pkey" PRIMARY KEY, btree (film_id)
+    "film_fulltext_idx" gist (fulltext)
+    "idx_fk_language_id" btree (language_id)
+    "idx_fk_original_language_id" btree (original_language_id)
+    "idx_title" btree (title)
+    "uq_film_title_release_year_original_language_id" UNIQUE CONSTRAINT, btree (title, release_year, original_language_id)
+...
+```
+::: 
+:::
+
+
+::: {.callout-note}
+
+### Question
+
+Imposer la contrainte : le prix de location doit être croissant en fonction de la durée du film
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT
+  COUNT(*)
+FROM
+  pagila.film AS f1 
+JOIN 
+  pagila.film AS f2
+ON (
+  f1.rental_rate < f2.rental_rate AND
+  f1.length > f2.length
+) ;
+```
+
+{{< fa skull-crossbones >}} La contrainte n'est pas satisfaite dans l'instance courante de `pagila`. 
+
+La contrainte devrait pouvoir être formulée comme une contrainte d'exclusion.
+
+```{.sql}
+ALTER TABLE 
+  pagila.film 
+ADD CONSTRAINT 
+  xcl_anomalous_rental_rate
+EXCLUDE USING gist (
+  "length" with <,
+  rental_rate with >
+) ;
+```
+
+mais :
+
+```{.sql}
+ERROR:  operator <(smallint,smallint) is not commutative
+DETAIL:  Only commutative operators can be used in exclusion constraints.
+```
+
+Est-ce que l'impossiblité d'utiliser un opérateur non-commutatif est de principe ou technique ? 
+
+{{< fa hand-point-right >}} On peut utiliser un contournement laborieux en utilisant une contrainte de ligne (`CHECK`) qui va simuler la contrainte de table (voir [td6](/solutions/td6.qmd)).
+
+::: 
+ 
+:::
+
+
+::: {.callout-note}
+
+### Question
+
+Imposer la contrainte : un même DVD ne peut pas être loué simultanément 
+à deux clients différents.
+
+:::
+
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+ALTER TABLE 
+  pagila.rental 
+ADD CONSTRAINT 
+  xcl_simul_rental_inventory
+EXCLUDE USING gist (
+  inventory_id with =,
+  rental_id with <>,
+  tsrange(rental_date, return_date) with &&
+) ;
+```
+
+L'examen de la deéfinition de la table `rental` nous révèle maintenant :
+
+```{.sql}
+Indexes:
+    "rental_pkey" PRIMARY KEY, btree (rental_id)
+    "idx_fk_inventory_id" btree (inventory_id)
+    "idx_unq_rental_rental_date_inventory_id_customer_id" UNIQUE, btree (rental_date, inventory_id, customer_id)
+    "xcl_simul_rental_inventory" EXCLUDE USING gist (inventory_id WITH =, rental_id WITH <>, tsrange(rental_date, return_da
+te) WITH &&)
+Foreign-key constraints:
+    "rental_customer_id_fkey" FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON UPDATE CASCADE ON DELETE RESTRICT
+    "rental_inventory_id_fkey" FOREIGN KEY (inventory_id) REFERENCES inventory(inventory_id) ON UPDATE CASCADE ON DELETE RESTRICT
+    "rental_staff_id_fkey" FOREIGN KEY (staff_id) REFERENCES staff(staff_id) ON UPDATE CASCADE ON DELETE RESTRICT
+```
+
+::: 
+ 
+:::
+
+## [Schéma `nycflights`](/schemas/schema-nycflights.qmd)
+
+::: {.callout-note}
+
+### Question
+
+Dans `flights`  et `weather` imposer les contraintes 
+```
+year, month, day, hour ⟶ time_hour
+time_hour  ⟶  year, month, day, hour
+```
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+
+```{.sql}
+ALTER TABLE nycflights_sandbox.weather 
+ADD CONSTRAINT weather_fd_1 
+EXCLUDE USING gist (
+  year WITH =,
+  month WITH =, 
+  day WITH =, 
+  hour WITH =,
+  time_hour WITH <>
+) ;
+```
+
+
+```{.sql}
+ALTER TABLE nycflights_sandbox.flights 
+ADD CONSTRAINT flights_fd_1 
+EXCLUDE USING gist (
+  year WITH =,
+  month WITH =, 
+  day WITH =, 
+  hour WITH =,
+  time_hour WITH <>
+) ;
+```
+
+
+{{< fa hand-point-right >}} Nous sommes dans une situation où une colonne peut être calculée à partir d'autres colonnes. PostgreSQL propose des [genrated columns](https://www.postgresql.org/docs/current/ddl-generated-columns.html) pour traîter ce genre de situations. 
+
+
+> Une colonne générée est une colonne spéciale qui est toujours calculée à partir d'autres colonnes. Elle est donc pour les colonnes ce qu'une vue est pour les tables. Il existe deux types de colonnes générées : les colonnes stockées et les colonnes virtuelles. Une colonne générée stockée est calculée lorsqu'elle est écrite (insérée ou mise à jour) et occupe l'espace de stockage comme s'il s'agissait d'une colonne normale. Une colonne générée virtuelle n'occupe pas d'espace de stockage et est calculée lorsqu'elle est lue. Ainsi, une colonne générée virtuelle est similaire à une vue et une colonne générée stockée est similaire à une vue matérialisée (sauf qu'elle est toujours mise à jour automatiquement). PostgreSQL n'implémente actuellement que les colonnes générées stockées.
+
+::: 
+
+
+:::
+
+::: {.callout-note}
+
+### Question
+
+Dans `flights` imposer la contrainte : un aéronef ne peut pas effectuer deux missions simultanément.
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+ALTER TABLE nycflights_sandbox.flights 
+ADD COLUMN t1 timestamp GENERATED ALWAYS AS (
+  make_timestamp(
+    year::int, 
+    month::int, 
+    day::int, 
+    hour::int, 
+    minute::int, 
+    0.0::float)
+) STORED ;
+```
+
+```{.sql}
+CREATE FUNCTION nycflights_sandbox.foo (
+  p_air_time float
+)
+RETURNS interval immutable 
+LANGUAGE SQL AS 
+$$
+  SELECT 
+    CASE WHEN p_air_time IS NULL THEN '0 minutes'::interval
+       ELSE (p_air_time::text || ' minutes')::interval 
+  END 
+$$ ;
+```
+
+```{.sql}
+ALTER TABLE nycflights_sandbox.flights 
+ADD COLUMN dtt interval GENERATED ALWAYS AS (
+  CASE WHEN air_time IS NULL THEN '0 minutes'::interval
+       ELSE (air_time::text || ' minutes')::interval 
+  END 
+) STORED ;
+```
+
+```{.sql}
+CREATE VIEW nycflights.flightspp AS (
+  SELECT 
+    f.*,
+    make_timestamp(
+      year::int, 
+      month::int, 
+      day::int, 
+      hour::int, 
+      minute::int, 
+      0.0::float)  as t1,
+    nycflights_sandbox.foo(air_time) as dt, 
+    tsrange( make_timestamp(
+      year::int, 
+      month::int, 
+      day::int, 
+      hour::int, 
+      minute::int, 
+      0.0::float),
+       make_timestamp(
+      year::int, 
+      month::int, 
+      day::int, 
+      hour::int, 
+      minute::int, 
+      0.0::float) + nycflights_sandbox.foo(air_time,
+      '[]')) as in_ze_air_time
+  FROM nycflights.flights f
+) ;
+```
+
+```{.sql}
+CREATE VIEW nycflights.flightspp AS (
+  SELECT 
+    f.*,
+    make_timestamp(
+      year::int, 
+      month::int, 
+      day::int, 
+      hour::int, 
+      minute::int, 
+      0.0::float)  as t1,
+    nycflights_sandbox.foo(air_time) as dt, 
+    tsrange( 
+      make_timestamp(
+        year::int, 
+        month::int, 
+        day::int, 
+        hour::int, 
+        minute::int, 
+        0.0::float),
+      make_timestamp(
+        year::int, 
+        month::int, 
+        day::int, 
+        hour::int, 
+        minute::int, 
+        0.0::float) + 
+      nycflights_sandbox.foo(air_time), '[]'
+      ) as in_ze_air_time
+  FROM nycflights.flights f
+) ;
+```
+
+```{.sql}
+ALTER TABLE nycflights_sandbox.flights 
+ADD CONSTRAINT xcl_simul_flights 
+EXCLUDE USING gist (
+  tailnum with =, 
+  tsrange(t1, t1+nycflights_sandbox.foo(air_time), '[]') with &&
+);
+```
+
+```{.sql}
+with r as (
+  select 
+    f.*, 
+    make_timestamp(f.year::int, f.month::int, f.day::int, f.hour::int, f.minute::int, 0.0::float) as t1, 
+    (f.air_time::text || ' minutes')::interval as dt  
+  from 
+    nycflights.flights f 
+)
+
+select 
+  r.t1, 
+  r.dt, 
+  tsrange(r.t1, r.t1+r.dt, '[]'), 
+  r.* 
+from 
+  r ;
+
+```
+```{.sql}
+ALTER TABLE nycflights_sandbox.flights 
+ADD CONSTRAINT flights_exclusivity
+EXCLUDE USING gist (
+  tailnum WITH =,
+  month WITH =, 
+  day WITH =, 
+  hour WITH =,
+  time_hour WITH <>
+) ;
+```
+
+:::
+ 
+:::
+
+::: {.callout-note}
+
+### Question
+
+Dans `flights` imposer la contrainte : un aéronef ne peut pas être exploité par deux compagnies différentes à la même date.
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+::: 
+ 
+:::
+
+::: {.callout-note}
+
+### Question
+
+Dans `planes`, imposer les contraintes `model ⟶ manufacturer` et 
+`model ⟶ type`
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+
+ 
+:::
+
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+create function nycflights.lldistance(
+  p_lat_1 float8, 
+  p_lon_1 float8, 
+  p_lat_2 float8, 
+  p_lon_2 float8
+) returns float8
+language SQL AS 
+$$
+select
+  earth_distance(
+    ll_to_earth(p_lat_1, p_lon_1),
+    ll_to_earth(p_lat_2, p_lon_2)
+  ) ;
+$$ ;
+```
+
+```{.sql}
+select
+  A_1.faa, A_2.faa, nycflights.lldistance(A_1.lat, A_1.lon, A_2.lat, A_2.lon) as dista
+from 
+  (select 
+    *
+  from 
+    nycflights.airports 
+  where 
+    faa in ('LGA', 'JFK', 'EWR')
+  ) A_1
+cross join 
+  (select 
+    *
+  from 
+    nycflights.airports 
+  where 
+    not faa in ('LGA', 'JFK', 'EWR')
+  ) A_2 ;
+```
+
+
+```{.sql}
+select 
+  a_1.faa, a_2.faa, 
+  (point(a_1.lon, a_1.lat) <@> point(a_2.lon, a_2.lat))/1.609   
+FROM 
+  nycflights.airports a_1 
+cross join 
+  nycflights.airports a_2 
+where 
+  a_1.faa in ('EWR', 'LGA', 'JFK')  AND 
+  a_2.faa in ('LAX', 'ATL') 
+ORDER BY a_2.faa, a_1.faa ;
+```
+::: 
+
+:::

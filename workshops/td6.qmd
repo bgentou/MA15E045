@@ -287,10 +287,11 @@ Ajouter la contrainte : Dans `chaprot.td_countrylanguage`, il n'y a pas deux lig
 ::::: {.callout-tip title="Solution"}
 
 ```{.sql}
-alter table chaprot.td_countrylanguage add unique (countrycode,language)  ;
+alter table chaprot.td_countrylanguage 
+	add unique (countrycode, language)  ;
 ```
 
-mais c'est inutile car (`countrycode,language`) est déjà une `PRIMARY KEY`.
+mais c'est inutile car (`countrycode, language`) est déjà une `PRIMARY KEY`.
 
 :::::
 
@@ -314,12 +315,17 @@ create or replace function chaprot.check_reg (reg text, conti text)
 returns bigint
 language sql as
 $$
-select count (*)
-from chaprot.td_country a
-where a.region = reg and not a.continent = conti;
+select 
+	count (*)
+from 
+	chaprot.td_country a
+where 
+	a.region = reg and 
+	not a.continent = conti;
 $$
 
-Alter table chaprot.td_country add constraint RegionContinent check (chaprot.check_reg (region, continent) = 0) ;
+Alter table chaprot.td_country 
+	add constraint RegionContinent check (chaprot.check_reg (region, continent) = 0) ;
 ```
 
 OU 
@@ -327,7 +333,10 @@ OU
 ```{.sql}
 ALTER TABLE chaprot.td_country 
 	ADD CONSTRAINT df_region_continent 
-		EXCLUDE USING gist (region WITH =, continent WITH <>) ;
+		EXCLUDE USING gist (
+				region WITH =, 
+				continent WITH <>
+) ;
 ```
 
 La seconde formulation de la contrainte souligne qu'il s'agit d'une contrainte de table et pas d'une contrainte de ligne. 
