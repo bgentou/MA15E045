@@ -1,12 +1,18 @@
 /.quarto/
 .Rproj.user
-
+.Rhistory
+MA15Y030.Rproj
+.vscode/
 
 _site/
 
 
 
 *.thm
+*.log
+*.xdv
+*.aux
+*.todo
 
 
 /_*.local
@@ -15,5 +21,14 @@ _site/
 
 /*/*_cache
 
-
 /*/*_files
+
+_gestion/
+
+_exercices/
+
+workshops/_*
+
+workshops-chatgpt/
+
+site_libs/
