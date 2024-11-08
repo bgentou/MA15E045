@@ -435,8 +435,8 @@
 <h1>Entités</h1>
 
 </section>
-<section id="definition" class="slide level2 center">
-<h2>Definition</h2>
+<section class="slide level2 center">
+
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -466,7 +466,7 @@
 </div>
 </section>
 <section id="exemple-dentités-world" class="slide level2 center">
-<h2>Exemple d’entités (<code>world</code>)</h2>
+<h2>Exemple d’entités : <code>world</code></h2>
 <p>Pour la constitution de la base de données de géographie politique <code>world</code>, la modélisation choisirait les entités :</p>
 <ul>
 <li><code>country</code>: les pays/territoires</li>
@@ -807,8 +807,8 @@
 <h1>Associations</h1>
 
 </section>
-<section id="section-2" class="slide level2 center">
-<h2></h2>
+<section class="slide level2 center">
+
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -2231,9 +2231,25 @@
 </section>
 <section id="définition-7" class="slide level2 center">
 <h2>Définition</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Une association qui relie une entité faible à une entité forte qui participe à l’identification des instances de l’entité faible est dite faible.</p>
+<p>Les instances de l’entité faible participentt à cette association faible avec une cardinalité 1:1</p>
+<p>Les instances de l’entité forte participent à l’association faible avec une cardinalitę 0:n</p>
+</div>
+</div>
+</div>
 </section>
-<section id="exemples" class="slide level2 center">
-<h2>Exemples</h2>
+<section id="exemple-1" class="slide level2 center">
+<h2>Exemple</h2>
+<p>Dans <code>nycflights</code>, si on représente les vols (<code>flight</code>) comme des entités faibles, les associations entre vols et aéroports (décolle de, atterrit à) sont des associations faibles, chaque instance de <code>flight</code> participe une fois exactement à chaque association faible.</p>
 </section></section>
 <section>
 <section id="transformations" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -2452,7 +2468,7 @@
 </div>
 </div>
 </section>
-<section id="exemple-1" class="slide level2 center">
+<section id="exemple-2" class="slide level2 center">
 <h2>Exemple</h2>
 <p>Un médecin peut exercer en mode libéral, au sein d’un cabinet, ou dans une clinique (ou les deux) ou exercer en milieu hospitalier.</p>
 <p>Il est aussi possible qu’un médecin partage son temps entre une activité hospitalière et une activité libérale.</p>
@@ -2569,6 +2585,10 @@
 </section>
 <section id="compléter-le-schéma" class="slide level2 center">
 <h2>Compléter le schéma</h2>
+<p>Le schéma/diagramme ne restitue pas toujours intégralement les informations récoltées pendant la phase de définition du système d’information</p>
+<p>Les contraintes de cardinalité ne sont pas les seules possibles</p>
+<p>Les autres contraintes rentrent dans la catégorie des contraintes dites externes (elles sont externes au diagramme)</p>
+<p>Les contraintes externes doivent être consignées et prises en compte ultérieurement lors de la traduction en modèle relationnel</p>
 </section>
 <section id="types-de-contraintes" class="slide level2 center">
 <h2>Types de contraintes</h2>
@@ -2577,17 +2597,13 @@
 </ul>
 <p>Dans <code>nycflights</code>, deux instances de l’association <code>flights</code> portant sur le même aéronef ne devraient pas se chevaucher dans le temps</p>
 <ul>
-<li>Contraintes de spécialisation</li>
+<li>Contraintes de spécialisation
+<ul>
+<li>Contrainte de spécialisation disjointe : une instance appartient à <em>au plus une</em> spécialisation</li>
+<li>Contrainte de spécialisation totale : une instance appartient à <em>au moins une</em> spécialisation</li>
+<li>Contrainte de spécialisation disjointe et totale : une instance appartient à <em>exactement une</em> spécialisation</li>
+</ul></li>
 </ul>
-</section>
-<section id="contrainte-de-spécialisation-disjointe" class="slide level2 center">
-<h2>Contrainte de spécialisation disjointe</h2>
-</section>
-<section id="contrainte-de-spécialisation-totale" class="slide level2 center">
-<h2>Contrainte de spécialisation totale</h2>
-</section>
-<section id="contrainte-de-spécialisation-disjointe-et-totale" class="slide level2 center">
-<h2>Contrainte de spécialisation disjointe et totale</h2>
 </section>
 <section id="restructuration-des-spécialisations" class="slide level2 center">
 <h2>Restructuration des spécialisations</h2>
@@ -2595,16 +2611,17 @@
 <div class="fragment">
 <p>Plusieurs manières de procéder:</p>
 <ul>
-<li><p>Éliminer les entités mères OU</p></li>
-<li><p>Éliminer les entités filles</p></li>
+<li>Éliminer les entités mères (spécialisation totale avec peu d’attributs propres à l’entié mère)</li>
+</ul>
+<p>OU</p>
+<ul>
+<li>Éliminer les entités filles (entités filles ont peu d’attributs propres, participent à peu d’associations)</li>
+</ul>
+<p>OU</p>
+<ul>
+<li>Simuler la spécialisation avec une association faible (les entités filles sont vues comme des entités faibles)</li>
 </ul>
 </div>
-</section>
-<section id="restructuration-des-spécialisations-avec-des-associations" class="slide level2 center">
-<h2>Restructuration des spécialisations avec des associations</h2>
-</section>
-<section id="rapport-des-contraintes" class="slide level2 center">
-<h2>Rapport des contraintes</h2>
 </section></section>
 <section>
 <section id="références" class="title-slide slide level1 center" data-background-color="#1c191c">
