@@ -85,6 +85,16 @@ JOIN
 GROUP BY fi.film_id;   
 ```
 
+
+{{< fa hand-point-right >}} Il n'est pas nécessaire d'effectuer un groupement et une aggrégation, mais c'est une occasion d'illustrer cette possibilité. `string_agg()`  est une fonction proposée par `PostgreSQL`, analogue à `paste()`  ou `stringr::str_c()` en `R`, ou à une invocation de `functools.reduce()` en `Python`: 
+
+```{.python}
+>>> reduce(lambda x,y : x + ', ' + y, ['Brad', 'Angelina', 'Romy', 'Ava'])
+'Brad, Angelina, Romy, Ava'
+```
+
+Des fonctions d'aggrégations comme `SUM(), MAX(), COUNT()` sont de cette forme. Des fonctions d'aggrégations comme `AVG()`, `VAR()`, `COUNT(DISTINCT ...)` sont un peu plus compliquées à réaliser mais relève du même genre de calcul.
+
 :::
 :::
 
@@ -101,9 +111,31 @@ FROM
 GROUP BY fi.title 
 HAVING COUNT (DISTINCT fi.language_id)=1 ;
 ```
+Il n'est pas indispensable de passer par un groupement/aggrégation. On peut obtenir le résultat en utilisant simplement sélection, projection, jointure, opérations ensemblistes ($∩, ∪, ∖$).
+
+```{.sql}
+(
+ SELECT 
+    DISTINCT title 
+ FROM 
+    pagila.film
+)
+EXCEPT 
+(
+ SELECT 
+     DISTINCT f1.title
+ FROM 
+     pagila.film f1 
+ JOIN 
+     pagila.film f2
+ ON (f1.title = f2.title AND f1.language_id < f2.language_id)
+)
+```
 
 :::
 :::
+
+{{< pagebreak >}}
 
 
 3. Pour chaque langue originale (`original_language_id`), chaque langue de diffusion (`language_id`), compter le nombre de titres tournés dans la langue originale et traduits dans la langue de diffusion  (sans doublons).
@@ -128,14 +160,9 @@ GROUP BY
 :::
 
 
+{{< pagebreak >}}
 
 
-
-::: {.content-visible when-format="pdf"}
-
-\newpage 
-
-:::
 
 
 
@@ -188,16 +215,109 @@ WHERE
 ORDER BY
     category_name;
 ```
-:::
-:::
-
-::: {.content-visible when-format="pdf"}
-
-\newpage 
 
 :::
 
-5. Lister sans doublons les paires d'acteurs qui n'ont jamais joué dans un même film.
+On peut se passer des fonctions fenêtres.
+
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+WITH ActorFilmCount AS (
+    SELECT
+        c.name AS category_name,
+        a.actor_id,
+        a.first_name || ' ' || a.last_name AS actor_name,
+        COUNT(fa.film_id) AS film_count
+    FROM
+        actor a
+    JOIN
+        film_actor fa ON a.actor_id = fa.actor_id
+    JOIN
+        film f ON fa.film_id = f.film_id
+    JOIN
+        film_category fc ON f.film_id = fc.film_id
+    JOIN
+        category c ON fc.category_id = c.category_id
+    GROUP BY
+        c.name, a.actor_id, a.first_name, a.last_name
+),
+
+
+MaxPerCat AS (
+    SELECT
+        category_name,
+        MAX(film_count) as m_film_count
+    FROM 
+        ActorFilmCount
+    GROUP BY 
+        category_name    
+),
+
+
+SELECT 
+    ac.category_name,
+    ac.actor_id,
+    ac.actor_name,
+    ac.film_count
+FROM 
+    ActorFilmCount  ac
+JOIN
+    MaxPerCat  mpc
+USING(category_name)
+WHERE 
+    ac.film_count=mpc.m_film_count
+ORDER BY
+    ac.category_name ;
+
+```
+
+:::
+ou encore 
+
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+WITH ActorFilmCount AS (
+    SELECT
+        c.name AS category_name,
+        a.actor_id,
+        a.first_name || ' ' || a.last_name AS actor_name,
+        COUNT(fa.film_id) AS film_count
+    FROM
+        actor a
+    JOIN
+        film_actor fa ON a.actor_id = fa.actor_id
+    JOIN
+        film f ON fa.film_id = f.film_id
+    JOIN
+        film_category fc ON f.film_id = fc.film_id
+    JOIN
+        category c ON fc.category_id = c.category_id
+    GROUP BY
+        c.name, a.actor_id, a.first_name, a.last_name
+)
+
+SELECT
+    afc.*
+FROM 
+    ActorFilmCount afc
+WHERE 
+    afc.film_count >= ALL (
+        SELECT 
+            a.film_count
+        FROM
+            ActorFilmCount a
+        WHERE 
+            a.category_name = afc.category_name
+    ) ;
+```
+:::
+:::
+
+{{< pagebreak >}}
+
+1. Lister sans doublons les paires d'acteurs qui n'ont jamais joué dans un même film.
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -252,13 +372,9 @@ ORDER BY
 :::
 :::
 
-::: {.content-visible when-format="pdf"}
+{{< pagebreak >}}
 
-\newpage 
-
-:::
-
-6. Lister les acteurs (prénom, nom) qui ont joué dans des films tournés dans au moins deux langues différentes  (langue de tournage  : `original_language_id`) 
+1. Lister les acteurs (prénom, nom) qui ont joué dans des films tournés dans au moins deux langues différentes  (langue de tournage  : `original_language_id`) 
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}

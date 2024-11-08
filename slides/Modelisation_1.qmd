@@ -52,7 +52,9 @@ Voir [La Sémantique selon wikipedia](https://fr.wikipedia.org/wiki/Sémantique)
 
 # Entités  {background-color="#1c191c"}
 
-## Definition
+
+
+---
 
 ::: {.callout-note}
 
@@ -74,7 +76,7 @@ C'est la décision de l'équipe de modélisation qui constitue les entités.
 :::
 
 
-## Exemple d'entités (`world`)
+## Exemple d'entités : `world`
 
 Pour la constitution de la base de données de géographie politique `world`, la modélisation choisirait les entités :
 
@@ -239,7 +241,7 @@ On singularise les identifiants en les soulignant.
 
 # Associations  {background-color="#1c191c"}
 
-## 
+---
 
 ::: {.callout-note}
 
@@ -719,9 +721,22 @@ graph ER {
 ## Définition
 
 
-## Exemples
+::: {.callout-note }
 
+Une association qui relie une entité faible à une entité forte qui participe à l'identification
+des instances de l'entité faible est dite faible. 
 
+Les instances de l'entité faible participentt à cette association faible avec une cardinalité  1:1
+
+Les instances de l'entité forte participent à l'association faible avec une cardinalitę 0:n 
+
+:::
+
+## Exemple
+
+Dans `nycflights`, si on représente les vols  (`flight`) comme des entités faibles,
+les associations entre vols et aéroports (décolle de, atterrit à) sont des associations 
+faibles, chaque instance de `flight` participe une fois exactement à chaque association faible. 
 
 # Transformations   {background-color="#1c191c"}
 
@@ -872,6 +887,16 @@ graph ER {
 
 ## Compléter le schéma
 
+Le schéma/diagramme ne restitue pas toujours intégralement les informations récoltées
+pendant la phase de définition du système d'information
+
+Les contraintes de cardinalité ne sont pas les seules possibles
+
+Les autres contraintes rentrent dans la catégorie des contraintes dites externes (elles sont externes au diagramme)
+
+Les contraintes externes doivent être consignées et prises en compte ultérieurement lors de la traduction en modèle relationnel
+
+
 ## Types de contraintes
 
 - Contraintes d'exclusion
@@ -880,14 +905,9 @@ Dans `nycflights`, deux instances de l'association `flights` portant sur le mêm
 
 
 - Contraintes de spécialisation
- 
-
-## Contrainte de spécialisation disjointe
-
-## Contrainte de spécialisation totale
-
-
-## Contrainte de spécialisation disjointe et totale 
+ 	+ Contrainte de spécialisation disjointe : une instance appartient à *au plus une* spécialisation
+	+ Contrainte de spécialisation totale : une instance appartient à *au moins une* spécialisation
+	+ Contrainte de spécialisation disjointe et totale : une instance appartient à *exactement une* spécialisation
 
 ## Restructuration des spécialisations
 
@@ -897,16 +917,17 @@ Pourquoi ?
 
 Plusieurs manières de procéder: 
 
-- Éliminer les entités mères OU 
+- Éliminer les entités mères (spécialisation totale avec peu d'attributs propres à l'entié mère)
+ 
+OU 
 
-- Éliminer les entités filles
+- Éliminer les entités filles (entités filles ont peu d'attributs propres, participent
+à peu d'associations)
 
+OU 
 
-## Restructuration des spécialisations avec des associations
+- Simuler la spécialisation avec une association faible (les entités filles sont vues comme des entités faibles)
 
-
-
-## Rapport des contraintes
 
 # Références {background-color="#1c191c"}
 
