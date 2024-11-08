@@ -89,7 +89,8 @@ GROUP BY fi.film_id;
 {{< fa hand-point-right >}} Il n'est pas nécessaire d'effectuer un groupement et une aggrégation, mais c'est une occasion d'illustrer cette possibilité. `string_agg()`  est une fonction proposée par `PostgreSQL`, analogue à `paste()`  ou `stringr::str_c()` en `R`, ou à une invocation de `functools.reduce()` en `Python`: 
 
 ```{.python}
->>> reduce(lambda x,y : x + ', ' + y, ['Brad', 'Angelina', 'Romy', 'Ava'])
+>>> foo = lambda x,y : x + ', ' + y if x else y
+>>> reduce(foo, ['Brad', 'Angelina', 'Romy', 'Ava'], '')
 'Brad, Angelina, Romy, Ava'
 ```
 

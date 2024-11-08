@@ -208,13 +208,17 @@ la ville la plus peuplée.
 ```{.sql}
 WITH R AS (
   SELECT  co.country, ci.id, ci.population_city
-  FROM world.country co JOIN world.city ci 
-  ON (co.capital=ci.id)
+  FROM 
+    world.country co
+  JOIN
+    world.city ci  ON (co.capital=ci.id)
 )
 
 SELECT R.countrycode, R.id, 
-FROM R co JOIN world.city ci 
-  ON (co.countrycode=ci.countrycode)
+FROM 
+  R co 
+JOIN 
+  world.city ci  ON (co.countrycode=ci.countrycode)
 GROUP BY R.id, R.countrycode 
 HAVING co.population_city >= MAX(ci.population_city);
 ```
@@ -240,9 +244,12 @@ $90\%$ de la population).
 
 
 ```{.sql}
-SELECT cl.countrycode
-FROM world.countrylanguage cl 
-WHERE cl.isofficial
+SELECT 
+  cl.countrycode
+FROM 
+  world.countrylanguage cl 
+WHERE 
+  cl.isofficial
 GROUP BY cl.countrycode
 HAVING SUM(cl.percentage) >= 90 ;
 ```

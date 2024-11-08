@@ -199,9 +199,12 @@ Créer une vue `cc_vue_5` des pays où au moins deux langues sont (chacunes) par
 ::: {.callout-tip}
 
 ```{.sql}
-SELECT countrycode, name_country  
-FROM username.cc_vue_5 
-WHERE region='Eastern Europe' ;
+SELECT 
+  countrycode, name_country  
+FROM 
+  username.cc_vue_5 
+WHERE 
+  region='Eastern Europe' ;
 ```
 
 
@@ -218,7 +221,16 @@ WHERE region='Eastern Europe' ;
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="solution"}
 
-TODO 
+```{.sql}
+SELECT 
+  countrycode 
+FROM 
+  countrylanguage
+WHERE 
+  percentage >= 10 
+GROUP BY countrycode
+HAVING COUNT(language) >= 2;
+```
 
 :::
 :::

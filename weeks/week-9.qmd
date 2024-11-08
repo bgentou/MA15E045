@@ -16,21 +16,29 @@ editor: source
 
 :::
 
+::: {.callout-caution title="CC 2 de 17h à 18h15"}
+
+- Requêtes aggrégation et fenêtres 
+- Schémas `world` et `pagila` (`pagila` au complet)
+
+:::
+
+
 ## Préparer
 
-Finir  TD 6 [TD 6](/workshops/td6.html) 
+TD 6 [TD 6](/workshops/td6.html) 
 
 ## Cours magistral : diapositives
 
-[Modélisation I](/slides/Modelisation_1.qmd)
+[Modélisation I](/slides/Modelisation_1.qmd) (entité-association)
 
-[Modélisation II](/slides/Modelisation_2.qmd)
+[Modélisation II](/slides/Modelisation_2.qmd) (pattes de corbeau)
 
 ## Exercices : TD 8
 
 [html](/workshops/td8.html)  [pdf](/workshops/td8.pdf)
 
-## Solutions du  TD 6  (Semaine 8)
+## Solutions du  TD 6  
 
 [html](/solutions/td6.html)  [pdf](/solutions/td6.pdf)
 

@@ -11,6 +11,15 @@ editor: source
 -   TD/TP MIASHS salles 2004-2005-2006 Étage 2 Sophie Germain Vendredi 15h45-18h15
 -   {{< fa cal >}} [Emploi du temps MIASHS](https://edt.math.univ-paris-diderot.fr/#/parcours/miashs/l3)
 -   {{< fa cal >}} [Emploi du temps Ingémaths/METIS](https://edt.math.univ-paris-diderot.fr/#/parcours/ingemath/l3)
+
+:::
+
+
+::: {.callout-caution title="CC 2 de 17h à 18h15 le 15 novembre/Semaine 9"}
+
+- Requêtes aggrégation et fenêtres 
+- Schémas `world` et `pagila` (`pagila` au complet)
+
 :::
 
 
@@ -18,20 +27,19 @@ editor: source
 
 [Modélisation I](/slides/Modelisation_1.qmd)
 
-Modèle Entité-Association
+Modèle Entité-Association (sauf les spécialisations)
 
-## Exercices : TD 5 et 6
+## Exercices : TD 5 
 
 - [html](/workshops/td5.html)  [pdf](/workshops/td5.pdf)
-- [html](/workshops/td6.html)  [pdf](/workshops/td6.pdf)
+<!-- - [html](/workshops/td6.html)  [pdf](/workshops/td6.pdf) -->
 
 Contraintes
 
+## Solutions complétées des TD 4 et 5 (Semaine 7) 
 
-## Solutions du  TD 5  (Semaine 7)
-
-[html](/solutions/td5.html)  [pdf](/solutions/td5.pdf)
-
+- [html](/solutions/td4.html)  [pdf](/solutions/td4.pdf) 
+- [html](/solutions/td5.html)  [pdf](/solutions/td5.pdf)
 
 
 <br><br>
