@@ -1,0 +1,7 @@
+project:
+  render:
+    - exams/
+
+website:
+  page-navigation: true
+

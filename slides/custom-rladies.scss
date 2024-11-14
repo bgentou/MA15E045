@@ -7,9 +7,12 @@
 @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
 @import url(https://fonts.googleapis.com/css?family=Helvetica+Neue:300,600,300italic);
 @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+@import 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap';
+
+// $font-family: "Atkinson Hyperlegible", sans-serif;
 
 // fonts
-$font-family-sans-serif: 'Helvetica Neue', Tahoma, sans-serif !default;
+$font-family-sans-serif: 'Atkinson Hyperlegible', 'Helvetica Neue', Tahoma, sans-serif !default;
 
 // headings
 $presentation-heading-font: 'Yanone Kaffeesatz',  Tahoma, sans-serif  !default;

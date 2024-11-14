@@ -106,12 +106,18 @@ Des fonctions d'aggrégations comme `SUM(), MAX(), COUNT()` sont de cette forme.
 ::: {.callout-tip title="Solution"}
 
 ```{.sql}
-SELECT fi.title 
+SELECT 
+  fi.title      -- <3>
 FROM 
   pagila.film fi 
-GROUP BY fi.title 
-HAVING COUNT (DISTINCT fi.language_id)=1 ;
+GROUP BY fi.title    -- <1>
+HAVING COUNT (DISTINCT fi.language_id)=1 ;  -- <2> 
 ```
+1. Partitionnement sur `title` 
+2. Filtration des classes de la partition à partir d'une condition sur l'aggrégat
+3. Projection sur l'attribut de partitionnement (pas d'aggrégat utile ici)
+
+
 Il n'est pas indispensable de passer par un groupement/aggrégation. On peut obtenir le résultat en utilisant simplement sélection, projection, jointure, opérations ensemblistes ($∩, ∪, ∖$).
 
 ```{.sql}
@@ -133,6 +139,10 @@ EXCEPT
 )
 ```
 
+{{< fa hand-point-right >}} on est parfois tenté de choisir comme condition de jointure 
+dans la seconde sous-requête `f1.film_id = f2.film_id AND f1.language_id < f2.language_id`. Cela conduira a un résultat sans intérêt. L'attribut `film_id`  est clé primaire (`primary key`) de `film` (cela fait partie du schéma, cette contrainte s'impose à toutes les instances du schéma). Quelle que soit l'instance, on ne pourra pas trouver dans la table `film`, deux tuples qui coïncident sur `film_id` et diffèrent sur `language_id`. 
+
+
 :::
 :::
 
@@ -147,16 +157,18 @@ EXCEPT
 
 ```{.sql}
 SELECT 
-  original_language_id, 
-  language_id, 
-  count(title) 
+  original_language_id, language_id,    -- <2>
+  count(title)                          -- <3>
 FROM 
     pagila.film 
 GROUP BY 
-    original_language_id,
-    language_id ;
+    original_language_id, language_id  -- <1>
+;
 ```
-
+1. Partitionnement sur le couple  d'attributs `original_language_id, language_id`
+2. Projection sur les attributs de partitionnement et
+3. sur la/les aggrégations
+   
 :::
 :::
 
@@ -170,7 +182,7 @@ GROUP BY
 
 
 
-4. Donner pour chaque catégorie (de film), les noms des acteurs qui apparaissent dans le nombre maximal de films de la catégorie. 
+1. Donner pour chaque catégorie (de film), les noms des acteurs qui apparaissent dans le nombre maximal de films de la catégorie. 
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
