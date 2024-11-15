@@ -20,9 +20,6 @@ params:
 ---
 
 
-```{r}
-#| include: false
-```
 
 
 ::: {layout="[80,20]"}
@@ -79,11 +76,16 @@ au moins 10 millions d'habitants.
 ::::: {.callout-tip title="Solution"}
 
 ```{.sql}
-SELECT ci.countrycode
-FROM world.city ci 
-WHERE ci.population_city > 10000000
-GROUP BY ci.countrycode 
-HAVING COUNT(ci.id) >= 10 ;
+SELECT 
+  ci.countrycode
+FROM 
+  world.city ci 
+WHERE 
+  ci.population_city > 10000000
+GROUP BY 
+  ci.countrycode 
+HAVING 
+  COUNT(ci.id) >= 10 ;
 ```
 
 :::::
@@ -104,14 +106,21 @@ Dans le schéma `world`, pour chaque pays, donner les trois langues les plus par
 
 ```{.sql}
 WITH R AS (
-  SELECT cl.countrycode, cl.language, RANK()   OVER w AS rnk 
-  FROM world.countrylanguage cl 
-  WINDOW w AS (PARTITION BY cl.countrycode ORDER   BY cl.percentage DESC)
+  SELECT 
+    cl.countrycode, cl.language, 
+    RANK() OVER w AS rnk 
+  FROM 
+    world.countrylanguage cl 
+  WINDOW 
+    w AS (PARTITION BY cl.countrycode ORDER BY cl.percentage DESC)
 )
 
-SELECT R.countrycode, R.language
-FROM R
-WHERE R.rnk <= 3 ;
+SELECT 
+  R.countrycode, R.language
+FROM 
+  R
+WHERE 
+  R.rnk <= 3 ;
 ```
 
 :::::
@@ -132,7 +141,17 @@ Dans le schéma `world`, lister les langues parlées sur tous les continents.
 
 
 ```{.sql}
-
+SELECT
+  language
+FROM
+  country co
+NATURAL JOIN
+  countrylanguage cl
+GROUP BY
+  cl.language
+HAVING COUNT(DISTINCT co.continent) = (
+  SELECT COUNT(DISTINCT c.continent) FROM country c
+) ;
 ```
 
 :::::
@@ -154,10 +173,17 @@ Dans le schéma `world`, lister par région le nombre de langues officielles dis
 
 
 ```{.sql}
-SELECT co.region, COUNT(DISTINCT cl.language) AS n
-FROM world.countrylanguage cl NATURAL JOIN world.country co 
-WHERE cl.isofficial
-GROUP BY co.region
+SELECT 
+  co.region, 
+  COUNT(DISTINCT cl.language) AS n
+FROM 
+  world.countrylanguage cl 
+NATURAL JOIN 
+  world.country co 
+WHERE 
+  cl.isofficial
+GROUP BY 
+  co.region
 ```
 
 :::::
@@ -179,10 +205,15 @@ Dans le schéma `world`, lister pour chaque forme de gouvernement, la population
 
 
 ```{.sql}
-SELECT co.governmentform, SUM(ci.population_city) AS pop
-FROM world.country co JOIN world.city ci 
-  ON (co.countrycode=ci.countrycode)
-GROUP BY co.governmentform ;
+SELECT 
+  co.governmentform, 
+  SUM(ci.population) AS pop
+FROM 
+  world.country co 
+JOIN 
+  world.city ci  USING (countrycode)
+GROUP BY 
+  co.governmentform ;
 ```
 
 :::::
@@ -207,22 +238,27 @@ la ville la plus peuplée.
 
 ```{.sql}
 WITH R AS (
-  SELECT  co.country, ci.id, ci.population_city
+  SELECT 
+    co.countrycode, co.name_country, ci. name, ci.id, ci.population,
+    (co.capital=ci.id) AS capitale, -- <1>
+    RANK() OVER (PARTITION BY co.countrycode ORDER BY ci.population DESC) AS rnk -- <2> 
   FROM 
-    world.country co
-  JOIN
-    world.city ci  ON (co.capital=ci.id)
+      world.country co
+    JOIN
+      world.city ci  USING (countrycode) 
 )
 
-SELECT R.countrycode, R.id, 
+SELECT 
+  R.name_country, R. name, R.population
 FROM 
-  R co 
-JOIN 
-  world.city ci  ON (co.countrycode=ci.countrycode)
-GROUP BY R.id, R.countrycode 
-HAVING co.population_city >= MAX(ci.population_city);
+  R 
+WHERE 
+  capitale AND rnk = 1   -- <3> 
+;  
 ```
-
+1. On note les villes qui sont capitales 
+2. On range les villes d'un pays par population décroissante
+3. On ne garde que les capitales qui sont aussi les villes les plus peuplées du royaume
 :::::
 
 :::
