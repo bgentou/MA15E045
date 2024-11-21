@@ -449,6 +449,7 @@
 <li><a href="#/décomposition-dune-relation" id="/toc-décomposition-dune-relation">Décomposition d’une relation</a></li>
 <li><a href="#/décomposition-sans-perte-dinformation" id="/toc-décomposition-sans-perte-dinformation">Décomposition sans perte d’information</a></li>
 <li><a href="#/algorithme-de-poursuite" id="/toc-algorithme-de-poursuite">Algorithme de poursuite</a></li>
+<li><a href="#/décomposition-fnbc-spi" id="/toc-décomposition-fnbc-spi">Décomposition FNBC SPI</a></li>
 <li><a href="#/fin" id="/toc-fin">Fin</a></li>
 </ul>
 </nav>
@@ -1232,7 +1233,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <div class="fragment">
 <p>Exemples</p>
 <ul>
-<li><p><span class="math inline">\(X\rightarrow A_1,...,A_n\)</span> est équivalent à <span class="math inline">\(X\rightarrow A_1\)</span>, …, <span class="math inline">\(X\rightarrow A_n\)</span>|</p></li>
+<li><p><span class="math inline">\(X\rightarrow A_1,...,A_n\)</span> est équivalent à <span class="math inline">\(X\rightarrow A_1\)</span>, …, <span class="math inline">\(X\rightarrow A_n\)</span></p></li>
 <li><p><span class="math inline">\(XY\rightarrow YZ\)</span> est équivalent à <span class="math inline">\(XY\rightarrow Z\)</span></p></li>
 </ul>
 </div>
@@ -1297,7 +1298,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div class="pseudocode-container quarto-float" data-line-number="true" data-indent-size="1.2em" data-no-end="false" data-caption-prefix="Algorithme" data-line-number-punc=":" data-pseudocode-number="1" data-comment-delimiter="//">
+<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-comment-delimiter="//" data-pseudocode-number="1" data-caption-prefix="Algorithme" data-no-end="false" data-line-number-punc=":" data-line-number="true">
 <div class="pseudocode">
 \begin{algorithm} \caption{Fermeture} \begin{algorithmic} \Procedure{Fermeture}{$X, Σ$} \State $X^c ← X$ \Repeat \State stop ← \True \For{$(Y → Z) ∈ Σ$} \If{$Y ⊆ X^c ∧ Z ⊄ X^c$} \State $X^c ← X^c ∪ Z$ \State stop ← \False \EndIf \EndFor \Until{stop} \Return $X^c$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -2257,6 +2258,49 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="décomposition-fnbc-spi" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Décomposition FNBC SPI</h1>
+
+</section>
+<section id="algorithme-1" class="slide level2 center">
+<h2>Algorithme</h2>
+<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-comment-delimiter="//" data-pseudocode-number="1" data-caption-prefix="Algorithme" data-no-end="false" data-line-number-punc=":" data-line-number="true">
+<div class="pseudocode">
+\begin{algorithm} \caption{Décomposition FNBC} \begin{algorithmic} \Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← \{\mathcal{A}\}$ \State \While{Exists some $\mathcal{B} \in D$ which is not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$} \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X$ \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$ \EndWhile \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
+</div>
+</div>
+</section>
+<section id="remarques" class="slide level2 center">
+<h2>Remarques</h2>
+<div title="Proposition">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Proposition</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>L’algorithme termine</p></li>
+<li><p>Les éléments de la décomposition finale sont en FNBC</p></li>
+<li><p>La décomposition est Sans Perte d’Information (SPI)</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="preuves" class="slide level2 center">
+<h2>Preuves <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></h2>
+<ul>
+<li><p>La terminaison est triviale : à chaque itération le nombre de parties de <span class="math inline">\(\mathcal{A}\)</span> dans <span class="math inline">\(D\)</span> augmente de <span class="math inline">\(1\)</span> et ce nombre ne peut dépasser <span class="math inline">\(\# \mathcal{A}\)</span></p></li>
+<li><p>La seconde propriété est triviale aussi</p></li>
+<li><p>La propriété SPI se vérifie avec l’algorithme de poursuite (et son analyse): chaque itération de la boucle <code>While</code> est SPI.</p></li>
+</ul>
 </section></section>
 <section id="fin" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Fin</h1>

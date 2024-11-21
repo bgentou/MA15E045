@@ -383,16 +383,74 @@
 <li><a href="#/couverture-irredondante-dun-ensemble-de-df" id="/toc-couverture-irredondante-dun-ensemble-de-df">Couverture irredondante d’un ensemble de DF</a></li>
 <li><a href="#/forme-normale-3-fn3" id="/toc-forme-normale-3-fn3">Forme Normale 3 (FN3)</a></li>
 <li><a href="#/algorithme-de-décomposition-en-fn3" id="/toc-algorithme-de-décomposition-en-fn3">Algorithme de Décomposition en FN3</a></li>
-<li><a href="#/au-delà-des-dfs" id="/toc-au-delà-des-dfs">Au delà des DFs</a></li>
 <li><a href="#/fin" id="/toc-fin">Fin</a></li>
 </ul>
 </nav>
 </section>
+<section>
 <section id="décompositions-rappels" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Décompositions : rappels</h1>
 
 </section>
+<section class="slide level2 center">
 
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation</p>
+<p>Un <em>décomposition</em> de <span class="math inline">\(\mathcal{A}\)</span> est un ensemble <span class="math inline">\(\{\mathcal{A}_1,..., \mathcal{A}_k\}\)</span> de sous-ensembles de <span class="math inline">\(\mathcal{A}\)</span> tel que</p>
+<p><span class="math display">\[\mathcal{A}_i\not=\emptyset, 1\le i\le k, \quad \text{ et } \quad \mathcal{A} = \bigcup_{i=1}^k \mathcal{A}_i\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 center">
+
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation et <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<p>Une décomposition <span class="math inline">\(\{\mathcal{A}_1,..., \mathcal{A}_k\}\)</span> est <em>sans perte d’information par rapport à</em> <span class="math inline">\(\Sigma\)</span> si pour toute relation <span class="math inline">\(R\)</span> de schéma <span class="math inline">\(\mathcal{A}\)</span> satisfaisant <span class="math inline">\(\Sigma\)</span> on a</p>
+<p><span class="math display">\[R= \pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="résultat-de-la-séance-précédente" class="slide level2 center">
+<h2>Résultat de la <a href="../slides/DF_norm_1.html#/décomposition-fnbc-spi">séance précédente</a></h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>On peut décomposer une relation <span class="math inline">\(\mathcal{A}\)</span> relativement à un ensemble de DF <span class="math inline">\(\Sigma\)</span> de façon à obtenir une décomposition :</p>
+<ul>
+<li><p>dont tous les membres sont en FNBC relativement à <span class="math inline">\(\Sigma\)</span></p></li>
+<li><p>SPI</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><i class="fa-solid fa-skull-crossbones" aria-label="skull-crossbones"></i> Ce résultat ne fournit pas toujours une solution complètement satisfaisante</p>
+</div>
+</section></section>
 <section>
 <section id="projection-dun-ensemble-de-dépendances-fonctionnelles" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Projection d’un ensemble de dépendances fonctionnelles</h1>
@@ -442,7 +500,7 @@
 <section id="calcul-de-pi_mathcala_1sigma" class="slide level2 center">
 <h2>Calcul de <span class="math inline">\(\pi_{{\mathcal{A}}_1}(\Sigma)\)</span></h2>
 <p>On calcule un ensemble de DF équivalent à <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span></p>
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-comment-delimiter="//" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-no-end="false" data-line-number="true">
+<div class="pseudocode-container quarto-float" data-no-end="false" data-pseudocode-number="1" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":">
 <div class="pseudocode">
 \begin{algorithm} \caption{Projection de DF} \begin{algorithmic} \Procedure{Projection}{$\mathcal{A}_1, Σ$} \State P ← ∅ \For{$X ⊂ \mathcal{A}_1$, $X ≠ ∅$, $X ≠ \mathcal{A}_1$} \State Y ← $X^+ ∩ \mathcal{A}_1$ \State P ← P ∪ $\{ X → Y\}$ \EndFor \Return P \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -511,10 +569,7 @@
 
 <aside><div>
 <p>Puisque <span class="math inline">\(\Sigma ⊧ \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)\)</span>, la décomposition préserve <span class="math inline">\(\Sigma\)</span> si et seulement si toutes les DF de <span class="math inline">\(\Sigma\)</span> sont impliquées par les DF locales</p>
-</div></aside></section>
-<section id="exemple-perte-de-dépendance-fonctionnelle" class="slide level2 center">
-<h2>Exemple : perte de dépendance fonctionnelle</h2>
-</section></section>
+</div></aside></section></section>
 <section>
 <section id="détection-de-perte-de-df" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Détection de perte de DF</h1>
@@ -522,10 +577,7 @@
 </section>
 <section id="algorithme-pour-tester-si-bigcup_i1k-pi_mathcala_isigma-models-x-rightarrow-y" class="slide level2 smaller center">
 <h2>Algorithme pour tester si <span class="math inline">\(\bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma) \models X \rightarrow Y\)</span></h2>
-</section>
-<section id="section" class="slide level2 smaller center">
-<h2></h2>
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-comment-delimiter="//" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-no-end="false" data-line-number="true">
+<div class="pseudocode-container quarto-float" data-no-end="false" data-pseudocode-number="1" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":">
 <div class="pseudocode">
 \begin{algorithm} \caption{X → Y est-elle impliquée par les dépendances projetées?} \begin{algorithmic} \Procedure{Implique}{$\left\{ \mathcal{A}_1,\dots, \mathcal{A}_k\right\}, Σ, X, Y$} \State Z ← X \State continuer ← \True \While{continuer} \State $W ← Z$ \For{i ∈ 1, ..., k} \State $W ← W ∪ \bigl((W ∩ \mathcal{A}_i)^+ ∩ \mathcal{A}_i\bigr)$ \EndFor \If{W ≠ Z} \State Z ← W \Else \State continuer ← \False \EndIf \EndWhile \If{Y ⊆ Z} \Return \True \Else \Return \False \EndIf \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -595,8 +647,8 @@
 <h1>Décomposition FNBC et pertes de DF</h1>
 
 </section>
-<section id="rappels" class="slide level2 center">
-<h2>Rappels</h2>
+<section id="rappels-séance-précédente-bis" class="slide level2 center">
+<h2>Rappels <a href="../slides/DF_norm_1.html#/décomposition-fnbc-spi">séance précédente</a> (bis)</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -606,10 +658,23 @@
 <p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
-<p>TODO</p>
+<p>Un schéma <span class="math inline">\(\mathcal{A}\)</span> est en FNBC par rapport à un ensemble de dépendances fonctionnelles <span class="math inline">\(\Sigma\)</span> sur <span class="math inline">\(\mathcal{A}\)</span></p>
+<p>si</p>
+<p>pour toute DF <span class="math inline">\(X\rightarrow Y\)</span> impliquée par <span class="math inline">\(\Sigma\)</span> avec <span class="math inline">\(Y\not\subset X\)</span>, <span class="math inline">\(X\)</span> est une super-clef</p>
 </div>
 </div>
 </div>
+</section>
+<section id="algorithme" class="slide level2 center">
+<h2>Algorithme</h2>
+<div class="pseudocode-container quarto-float" data-no-end="false" data-pseudocode-number="1" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":">
+<div class="pseudocode">
+\begin{algorithm} \caption{Décomposition FNBC} \begin{algorithmic} \Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← \{\mathcal{A}\}$ \State \While{Exists some $\mathcal{B} \in D$ which is not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$} \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X$ \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$ \EndWhile \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
+</div>
+</div>
+</section>
+<section class="slide level2 center">
+
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -619,7 +684,11 @@
 <p><strong>Proposition</strong></p>
 </div>
 <div class="callout-content">
-<p>TODO</p>
+<ul>
+<li><p>L’algorithme termine</p></li>
+<li><p>Les éléments de la décomposition finale sont en FNBC</p></li>
+<li><p>La décomposition est Sans Perte d’Information (SPI)</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -640,7 +709,7 @@
 </div>
 </div>
 </section>
-<section id="section-1" class="slide level2 smaller center">
+<section id="section" class="slide level2 smaller center">
 <h2></h2>
 <p><span class="math inline">\(\mathcal{A} =\)</span> <code>{Ville, Rue, Numéro, #Bureau_vote}</code></p>
 <p><code>Σ = { Ville, Nom, Rue → #Bureau_vote,  #Bureau_vote  →  Ville }</code></p>
@@ -658,8 +727,48 @@
 </section>
 <section id="limites-de-la-décomposition-fnbc-suite" class="slide level2 center">
 <h2>Limites de la décomposition FNBC (suite)</h2>
+<div title="À noter">
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>À noter</strong></p>
+</div>
+<div class="callout-content">
 <p>On peut vérifier que <em>toute</em> décomposition FNBC de <span class="math inline">\(\mathcal{A}\)</span> ne préserve pas les dépendances fonctionnelles.</p>
-<p><code>TODO</code></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="un-nouvel-objectif" class="slide level2 center">
+<h2>Un nouvel objectif</h2>
+<div title="Construire">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Construire</strong></p>
+</div>
+<div class="callout-content">
+<p>Une décomposition :</p>
+<ul>
+<li>SPI</li>
+<li>Sans perte de Dépendances Fonctionnelles</li>
+<li>dont les éléments sont en FN3 par rapports aux dépendances projetées</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="pour-réaliser-cet-objectif" class="slide level2 center">
+<h2>Pour réaliser cet objectif</h2>
+<p>Une étape cruciale : réécrire l’ensemble de DFs</p>
 </section></section>
 <section>
 <section id="couverture-irredondante-dun-ensemble-de-df" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -674,19 +783,57 @@
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Définition</strong></p>
+<p><strong>Définition de ls couverture irredondante d’un ensemble de DFs</strong></p>
 </div>
 <div class="callout-content">
 <p>Soit <span class="math inline">\(\Sigma\)</span> un ensemble de DF, une <em>couverture minimale/irredondante</em> de <span class="math inline">\(\Sigma\)</span> est un ensemble <span class="math inline">\(\Sigma'\)</span> de DF qui vérifie :</p>
 <ul>
 <li><p>Chaque DF de <span class="math inline">\(\Sigma'\)</span> est de la forme <span class="math inline">\(X → A\)</span>, où <span class="math inline">\(A\)</span> est un attribut</p></li>
 <li><p><span class="math inline">\(\Sigma'\)</span> et <span class="math inline">\(\Sigma\)</span> sont équivalents (<span class="math inline">\(\Sigma \models \Sigma'\)</span> et <span class="math inline">\(\Sigma' \models \Sigma\)</span>)</p></li>
-<li><p>Aucun sous-ensemble propre de <span class="math inline">\(\Sigma'\)</span> n’implique <span class="math inline">\(\Sigma\)</span></p></li>
-<li><p>Pour toute dépendance <span class="math inline">\(X → A\)</span> de <span class="math inline">\(\Sigma'\)</span>, il n’existe pas de sous-ensemble propre <span class="math inline">\(Ym\subset X\)</span> tel que <span class="math inline">\(\Sigma ⊧ Y→ A\)</span></p></li>
+<li><p>Aucun sous-ensemble <em>propre</em> de <span class="math inline">\(\Sigma'\)</span> n’implique <span class="math inline">\(\Sigma\)</span> (<span class="math inline">\(∀ \Sigma^{\prime\prime} ⊊ \Sigma^\prime, \Sigma^{\prime\prime} \not\models \Sigma\)</span>)</p></li>
+<li><p>Pour toute dépendance <span class="math inline">\(X → A\)</span> de <span class="math inline">\(\Sigma'\)</span>, <span class="math inline">\(\forall Y ⊊ X, \Sigma \not\models Y→ A\)</span></p></li>
 </ul>
 </div>
 </div>
 </div>
+</section>
+<section class="slide level2 center">
+
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Dans une couverture irredondante, toutes des DFs sont utiles, chaque DF est minimale (c’est vrai pour le membre droit comme pour le membre gauche)</p>
+<div class="fragment">
+<p><i class="fa-solid fa-brain" aria-label="brain"></i> <i class="fa-solid fa-mug-hot" aria-label="mug-hot"></i></p>
+<ul>
+<li><p>Existence de couvertures irredondantes</p></li>
+<li><p>Unicité</p></li>
+<li><p>Construction de couvertures irredondantes</p></li>
+<li><p>Si pas unicité des couvertures irredondantes, les couvertures irredondantes sont-elles toutes également intéressantes ?</p></li>
+</ul>
+</div>
+</section>
+<section id="algorithme-de-construction-de-couverture-irredondante" class="slide level2 scrollable center">
+<h2>Algorithme de construction de couverture irredondante</h2>
+<div class="pseudocode-container quarto-float" data-no-end="false" data-pseudocode-number="1" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":">
+<div class="pseudocode">
+\begin{algorithm} \caption{Couverture irredondante} \begin{algorithmic} \Procedure{MinCover}{$Σ$} \State Σ' ← ∅ \State \Comment{Normaliser les éléments de Σ} \For{$(X → Y) ∈ Σ$} \For{$y ∈ Y$} \State Σ' ← Σ' ∪ {X → y} \EndFor \EndFor \State \Comment{Éliminer les dépendances redondantes dans Σ'} \State \Comment{Miniser les dépendances dans Σ'} \Return Σ' \EndProcedure \end{algorithmic} \end{algorithm}
+</div>
+</div>
+</section>
+<section id="détails" class="slide level2 center">
+<h2>Détails</h2>
+<div class="columns">
+<div class="column">
+<div class="pseudocode-container quarto-float" data-no-end="false" data-pseudocode-number="1" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":">
+<div class="pseudocode">
+\begin{algorithm} \caption{Éliminer les dépendances redondantes dans Σ' (détail)} \begin{algorithmic} \Repeat \State s ← \True \For{$(X → y) ∈ Σ'$} \If{$Σ' \ {X → y} ⊧ X → y$} \State $Σ' ← Σ' \ {X → y}$ \State s ← \False \EndIf \EndFor \Until{s} \end{algorithmic} \end{algorithm}
+</div>
+</div>
+</div><div class="column">
+<div class="pseudocode-container quarto-float" data-no-end="false" data-pseudocode-number="1" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":">
+<div class="pseudocode">
+\begin{algorithm} \caption{Miniser les dépendances dans Σ' (détail)} \begin{algorithmic} \Repeat \State s ← \True \For{$(X → y) ∈ Σ'$} \For{$x ∈ X$} \If{$Σ' \ {X → y} ⊧ X \ {x} → y$} \State $Σ' ← (Σ' \ {X → y}) ∪ X \ {x} → y$ \State s ← \False \Break \EndIf \EndFor \EndFor \Until{s} \end{algorithmic} \end{algorithm}
+</div>
+</div>
+</div></div>
 </section></section>
 <section>
 <section id="forme-normale-3-fn3" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -758,16 +905,16 @@
 <h1>Algorithme de Décomposition en FN3</h1>
 
 </section>
-<section id="algorithme" class="slide level2 smaller center">
+<section id="algorithme-1" class="slide level2 smaller center">
 <h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-comment-delimiter="//" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-no-end="false" data-line-number="true">
+<div class="pseudocode-container quarto-float" data-no-end="false" data-pseudocode-number="1" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":">
 <div class="pseudocode">
-\begin{algorithm} \caption{Décomposition FN3} \begin{algorithmic} \Procedure{Décomposition_FN3}{$\mathcal{A}, Σ$} \EndProcedure \end{algorithmic} \end{algorithm}
+\begin{algorithm} \caption{Decomposition FN3} \begin{algorithmic} \Procedure{DecompositionFN3}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← ∅$ \State \Comment{Mise en forme des courverture minimale de Σ} \State Σ' ← \Call{MinCover}{$Σ$} \State \For{Each distinct determinant $X$ amongst FDs in Σ'} \State $Y ← \{y : X → y ∈ Σ'\}$ \State $D ← D \cup \{X \cup Y\}$ \Comment{ Ajouter $X \cup Y$ à $D$} \EndFor \State \State $\mathcal{B} ← $ Attributes in $\mathcal{A}$ that do not occur in $D$ \State $D ← D \cup \{\mathcal{B}\}$ \State \If{No component of $D$ includes a key for $\mathcal{A}, Σ$} \State $D ← D \cup $ some key for $\mathcal{A}, Σ$ \EndIf \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
 </div>
 </section>
-<section id="proposition-2" class="slide level2 center">
-<h2>Proposition</h2>
+<section class="slide level2 center">
+
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -788,23 +935,13 @@
 </div>
 </div>
 </section>
-<section id="preuve-terminaison" class="slide level2 center">
-<h2>Preuve (terminaison)</h2>
-</section>
-<section id="preuve-fn3" class="slide level2 center">
-<h2>Preuve (FN3)</h2>
-</section>
-<section id="preuve-sans-pi" class="slide level2 center">
-<h2>Preuve (sans PI)</h2>
-</section>
-<section id="preuve-sans-perte-de-df" class="slide level2 center">
-<h2>Preuve (sans perte de DF)</h2>
+<section id="preuves" class="slide level2 center">
+<h2>Preuves</h2>
+<h3 id="terminaison">Terminaison <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></h3>
+<h3 id="fn3">FN3 <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></h3>
+<h3 id="spi">SPI <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></h3>
+<h3 id="spdf">SPDF <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></h3>
 </section></section>
-<section id="au-delà-des-dfs" class="title-slide slide level1 center" data-background-color="#1c191c">
-<h1>Au delà des DFs</h1>
-
-</section>
-
 <section id="fin" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Fin</h1>
 
@@ -1038,6 +1175,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
