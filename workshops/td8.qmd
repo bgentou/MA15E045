@@ -121,7 +121,50 @@ Produire un schéma E/R qui décrit des informations concernant des voitures à 
 Chaque *voiture* a une plaque d'*immatriculation*, une
 *couleur* et une *marque*. Le *prix* de la location dépend de la *catégorie*, 
 où chaque catégorie est identifiée par un nom.
-   
+
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+
+```{dot}
+//| label: er1
+//| eval: true
+//| echo: false
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=neato
+	node [shape=box]; Voiture; Marque; Catégorie;
+	node [shape=ellipse]; {node [label=<<u>nom</u>>]  name1; name2;}
+		{node [label=<<u>immatriculation</u>>] immatriculation}; couleur; {node [label="prix location"] prix_location};
+  node [shape=diamond];  "fabriqué-par" ; "appartient-à" ;
+  
+	name2 -- Marque;
+  name1 -- Catégorie
+	immatriculation -- Voiture;
+  couleur -- Voiture; 
+  Catégorie -- prix_location;
+  Voiture -- "fabriqué-par" [label="1:1",len=1.00];
+  "fabriqué-par" -- Marque   [label="0:n",len=1.00] ;
+  Voiture -- "appartient-à"  [label="1:1",len=1.00] ;
+  "appartient-à" -- Catégorie  [label="0:n",len=1.00] ;
+  //	label = "\n\nEntity Relation Diagram\ndrawn by NEATO";
+//	fontsize=20;
+}
+```
+
+Pas d'entités faibles car chaque entité a son propre identifiant. 
+
+À discuter : pourrait-on utiliser un lien `est-un` ( ◃ ) pour modéliser le fait qu'un véhicule relève d'une catégorie ?
+
+::: 
+ 
+:::
+
+
 ::: {.callout-note}
 
 ### Question
@@ -136,11 +179,122 @@ Toutes les
 voitures du même modèle doivent appartenir à la même catégorie de
 prix. 
 
+
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+
+```{dot}
+//| label: er2
+//| eval: true
+//| echo: false
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=neato
+	node [shape=box]; Voiture; Marque; Catégorie; Modèle
+	node [shape=ellipse]; {node [label=<<u>nom</u>>]  name1; name2; name3}
+		{node [label=<<u>immatriculation</u>>] immatriculation}; couleur; {node [label="prix location"] prix_location};
+  {node [label="nombre de sièges"] nbre_sieges};
+  node [shape=diamond];  "fabriqué-par" ; "appartient-à" ; "relève-de" ;
+  
+  nbre_sieges -- Modèle [len=2.00]; 
+	name2 -- Marque;
+  name1 -- Catégorie ;
+  name3 -- Modèle ;
+	immatriculation -- Voiture;
+  couleur -- Voiture; 
+  Catégorie -- prix_location;
+
+  Voiture -- "relève-de" [label="1:1",len=1.00];
+  "relève-de" -- Modèle [label="0:n",len=1.00] ;
+  Modèle -- "fabriqué-par" [label="1:1",len=1.00];
+  "fabriqué-par" -- Marque   [label="0:n",len=1.00] ;
+  Modèle -- "appartient-à"  [label="1:1",len=2.00] ;
+  "appartient-à" -- Catégorie  [label="0:n",len=2.00] ;
+  //	label = "\n\nEntity Relation Diagram\ndrawn by NEATO";
+//	fontsize=20;
+}
+```
+
+
+::: 
+ 
+:::
+
+
+::: {.callout-note title="Question"}
+
 De plus, on veut distinguer les voitures *disponibles* des
 voitures en *location*. Pour les voitures disponibles on représente
 l'*emplacement*. Pour les voitures en location on représente la *date*
 et la *durée de la location*, ainsi que le *nom du client*.
 
+:::
+
+
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+
+```{dot}
+//| label: er3
+//| eval: true
+//| echo: false
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=neato
+	node [shape=box]; Voiture; Marque; Catégorie; Modèle ; Disponible ;  "En location" ;
+	node [shape=ellipse]; {node [label=<<u>nom</u>>]  name1; name2; name3}
+		{node [label=<<u>immatriculation</u>>] immatriculation}; couleur; {node [label="prix location"] prix_location};
+  {node [label="nombre de sièges"] nbre_sieges}; "nom client" ; emplacement ; date ; durée ;
+  node [shape=diamond];  "fabriqué-par" ; "appartient-à" ; "relève-de" ;
+  {node [shape=triangle, label="Est Un"] estun1 ; estun2 }; 
+
+  nbre_sieges -- Modèle [len=2.00]; 
+	name2 -- Marque;
+  name1 -- Catégorie ;
+  name3 -- Modèle ;
+	immatriculation -- Voiture;
+  couleur -- Voiture; 
+  Catégorie -- prix_location;
+  Disponible -- estun1 ;
+  estun1 -- Voiture ; 
+  "En location" -- estun2 ;
+  estun2 -- Voiture ; 
+  Disponible -- emplacement
+  "En location" -- date ;
+  "En location" -- durée ;
+  "En location" -- "nom client"
+
+  Voiture -- "relève-de" [label="1:1",len=1.00];
+  "relève-de" -- Modèle [label="0:n",len=1.00] ;
+  Modèle -- "fabriqué-par" [label="1:1",len=1.00];
+  "fabriqué-par" -- Marque   [label="0:n",len=1.00] ;
+  Modèle -- "appartient-à"  [label="1:1",len=2.00] ;
+  "appartient-à" -- Catégorie  [label="0:n",len=2.00] ;
+  //	label = "\n\nEntity Relation Diagram\ndrawn by NEATO";
+//	fontsize=20;
+}
+```
+
+On utilise ici les liens `Est Un` pour décrire le statut des voitures (spécialisation). 
+
+Il faudrait ajouter une  contrainte d'exclusion totale : une voiture est soit en location, soit disponible. 
+
+On pourrait aussi passer par des attributs `statut`, `emplacement` et une entité faible `Location`. 
+
+
+::: 
+ 
+:::
 
 ::: {.callout-note}
 
@@ -150,6 +304,74 @@ Traduire le schéma EA dans le formalisme des pattes de corbeau
 
 :::
 
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+```{mermaid}
+%%| eval: true
+%%| echo: false
+erDiagram
+    VOITURE
+    MODELE 
+    CATEGORIE
+    MARQUE
+    LOCATION
+    MODELE ||..o{ VOITURE : "releve de"
+    VOITURE {
+      string  immatriculation  PK
+      string couleur
+      boolean disponible 
+      string emplacement 
+      string nom_modele FK
+    }
+    MARQUE ||..o{ MODELE : "fabrique par"
+    MODELE {
+      string nom PK
+      integer nombre_de_sieges 
+      string nom_marque FK
+      string nom_categorie FK
+    }
+    MARQUE {
+      string nom PK
+    }
+    CATEGORIE ||..o{ MODELE : "appartient a"
+    CATEGORIE {
+      string nom PK
+      numeric prix_location
+    }
+    LOCATION |o--|| VOITURE : concerne
+    LOCATION {
+      string date 
+      integer immatriculation PK, FK
+      string duree
+      integer numero_client
+    }
+```
+
+Contraintes externes: 
+
+- Dans `VOITURE`, `disponible` si et seulement si `emplacement` est `NOT NULL`
+- Dans `VOITURE` et `LOCATION`, `NOT disponible` si et seulement si dans `LOCATION`, il existe une instance qui réfère à l'instance de `VOITURE`. 
+ 
+{{< fa brain >}} Trouver une meilleure modélisation pour la spécialisation `DISPONIBLE/EN LOCATION`.
+
+::: 
+ 
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution avec dbSchema"}
+
+![Schema Avis d'après dbSchema](/images/schema_avis.png)
+
+:::
+
+:::
+
+
 ::: {.callout-note}
 
 ### Question
@@ -157,6 +379,95 @@ Traduire le schéma EA dans le formalisme des pattes de corbeau
 Définir le schéma relationnel correspondant en SQL
 
 :::
+
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+CREATE SCHEMA IF NOT EXISTS schema_avis;
+
+CREATE  TABLE schema_avis.categorie ( 
+	nom                  text  NOT NULL  ,
+	prix_location        numeric    ,
+	CONSTRAINT pk_categorie PRIMARY KEY ( nom )
+ );
+
+CREATE  TABLE schema_avis.marque ( 
+	nom                  text  NOT NULL  ,
+	CONSTRAINT pk_marque PRIMARY KEY ( nom )
+ );
+
+CREATE  TABLE schema_avis.modele ( 
+	nom                  text  NOT NULL  ,
+	nombre_sieges        bigint    ,
+	nom_marque           text    ,
+	name_categorie       text    ,
+	CONSTRAINT pk_modele PRIMARY KEY ( nom )
+ );
+```
+
+:::
+
+::: {.callout-tip title="suite"}
+
+```{.sql}
+CREATE  TABLE schema_avis.voiture ( 
+	immatriculation      bigint  NOT NULL  ,
+	name_modele          text    ,
+	couleur              text    ,
+	disponible           boolean  NOT NULL  ,
+	emplacement          text    ,
+	CONSTRAINT pk_voiture PRIMARY KEY ( immatriculation )
+ );
+
+CREATE  TABLE schema_avis.location ( 
+	immatriculation      bigint  NOT NULL  ,
+	"date"               date  NOT NULL  ,
+	duree                bigint  NOT NULL  ,
+	numero_client        bigint  NOT NULL  ,
+	CONSTRAINT pk_location PRIMARY KEY ( immatriculation )
+ );
+
+```
+:::
+
+::: {.callout-tip title="suite"}
+
+```{.sql}
+
+ALTER TABLE schema_avis.location 
+ADD CONSTRAINT 
+  fk_location_voiture 
+FOREIGN KEY ( immatriculation ) 
+REFERENCES schema_avis.voiture( immatriculation );
+
+ALTER TABLE schema_avis.modele 
+ADD CONSTRAINT 
+  fk_modele_marque 
+FOREIGN KEY ( nom_marque ) 
+REFERENCES schema_avis.marque( nom ) 
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE schema_avis.modele 
+ADD CONSTRAINT 
+  fk_modele_categorie 
+FOREIGN KEY ( name_categorie ) 
+REFERENCES schema_avis.categorie( nom );
+
+ALTER TABLE schema_avis.voiture 
+ADD CONSTRAINT 
+  fk_voiture_modele 
+FOREIGN KEY ( name_modele ) 
+REFERENCES schema_avis.modele( nom ) 
+ON DELETE CASCADE ON UPDATE CASCADE;
+```
+
+::: 
+ 
+:::
+
 
 ## Exercice (Gestion du personnel d'une entreprise)
 

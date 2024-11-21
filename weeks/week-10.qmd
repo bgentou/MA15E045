@@ -20,21 +20,19 @@ Finir  TD 8 [TD 8](/workshops/td8.html)
 
 ## Cours magistral : diapositives
 
-[Normalisation I]()
+[Normalisation I](/slides/DF_norm_1.qmd)
 
 
-## Exercices : TD 9
+## Exercices : TD 8
 
-[html](/workshops/td9.html)  [pdf](/workshops/td9.pdf)
+[html](/workshops/td8.html)  [pdf](/workshops/td8.pdf)
 
-## Solutions du  TD 8  (Semaine 9)
+{{< fa hand-point-right >}} L'exercide 1 a été corrigé en Cours Magistral durant la semaine 9
+
+## Solutions du  TD 8 
 
 [html](/solutions/td8.html)  [pdf](/solutions/td8.pdf)
 
-
-## Travail personnel
-
-[CC 1 2023-24](/exams/cc1-2023-10-27.html)
 
 <br><br>
 
