@@ -6,10 +6,62 @@ date: "2024-11-29"
 format: 
   revealjs:
     header: "Pertes de Dépendances Fonctionnelles. Décomposition FN3"
+
+engine: knitr
 ---
 
 
 # Décompositions : rappels {background-color="#1c191c"}
+
+
+---
+
+::: {.callout-important}
+
+### Définition 
+
+Soit $\mathcal{A}$ un schéma de relation
+
+Un *décomposition* de $\mathcal{A}$ est un ensemble $\{\mathcal{A}_1,..., \mathcal{A}_k\}$
+de sous-ensembles de $\mathcal{A}$ tel que
+
+$$\mathcal{A}_i\not=\emptyset, 1\le i\le k, \quad \text{ et } \quad \mathcal{A} = \bigcup_{i=1}^k \mathcal{A}_i$$
+
+:::
+
+
+---
+
+
+
+::: {.callout-important}
+
+### Définition
+
+Soit $\mathcal{A}$ un schéma de relation et $\Sigma$ un ensemble de DF sur $\mathcal{A}$.
+
+Une décomposition $\{\mathcal{A}_1,..., \mathcal{A}_k\}$ est *sans perte d'information par rapport à* $\Sigma$
+si pour toute relation $R$  de schéma $\mathcal{A}$ satisfaisant $\Sigma$ on a
+
+$$R= \pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)$$
+
+:::
+
+## Résultat de la [séance précédente](/slides/DF_norm_1.qmd#/décomposition-fnbc-spi) 
+
+::: {.callout-important}
+
+On peut décomposer une relation $\mathcal{A}$ relativement à un ensemble de DF $\Sigma$ de façon à obtenir une décomposition :
+
+- dont tous les membres sont en FNBC relativement à $\Sigma$
+  
+- SPI
+
+:::
+
+. . .
+
+{{< fa skull-crossbones >}} Ce résultat ne fournit pas toujours une solution complètement satisfaisante
 
 
 # Projection d'un ensemble de dépendances fonctionnelles {background-color="#1c191c"}
@@ -165,16 +217,15 @@ préserve $\Sigma$ si et seulement si toutes les DF de $\Sigma$ sont impliquées
 :::
 
 
-## Exemple : perte de dépendance fonctionnelle
+
+
+
 
 
 # Détection de perte de DF {background-color="#1c191c"}
 
 
 ## Algorithme pour tester si  $\bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma) \models X \rightarrow Y$  {.smaller}
-
-
-##  {.smaller}
 
 
 ```pseudocode
@@ -290,21 +341,69 @@ Donc `Ville, Rue, Numero → CP` n'est pas préservée  {{< fa frown >}}
 # Décomposition FNBC et pertes de DF {background-color="#1c191c"}
 
 
-## Rappels 
+## Rappels  [séance précédente](/slides/DF_norm_1.qmd#/décomposition-fnbc-spi) (bis)
 
 ::: {.callout-important}
 
 ### Définition
 
-TODO 
+Un schéma $\mathcal{A}$ est en FNBC par rapport à un ensemble de dépendances fonctionnelles $\Sigma$ sur $\mathcal{A}$
+
+si
+
+pour toute DF $X\rightarrow Y$ impliquée par $\Sigma$ avec $Y\not\subset X$, $X$ est une super-clef
+
 
 :::
+
+
+
+
+## Algorithme 
+
+```pseudocode
+#| html-indent-size: "1.2em"
+#| html-comment-delimiter: "//"
+#| html-line-number: true
+#| html-line-number-punc: ":"
+#| html-no-end: false
+
+\begin{algorithm}
+\caption{Décomposition FNBC}
+\begin{algorithmic}
+\Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$}
+
+\State \Comment{Initialisation de la décomposition}
+\State $D ←  \{\mathcal{A}\}$
+
+
+\State
+\While{Exists some $\mathcal{B} \in D$ which is not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$}
+  \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X$ 
+  \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$
+\EndWhile
+\State
+\Return $D$
+
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+```
+
+---
+
 
 ::: {.callout-important}
 
 ### Proposition
 
-TODO
+- L'algorithme termine
+
+- Les éléments de la  décomposition finale sont en FNBC 
+
+- La décomposition est Sans Perte d'Information (SPI)
+
 
 :::
 
@@ -342,10 +441,31 @@ La décomposition préserve l'information (SPI) mais pas les dépendances foncti
 
 ## Limites de la décomposition FNBC (suite)
 
+::: {.callout-caution title="À noter"}
+
 On peut vérifier que *toute* décomposition FNBC de $\mathcal{A}$ ne préserve pas les dépendances fonctionnelles. 
 
+:::
 
-`TODO`
+
+## Un nouvel objectif
+
+
+::: {.callout-note title="Construire"}
+
+Une décomposition :
+
+- SPI
+- Sans perte de Dépendances Fonctionnelles
+- dont les éléments sont en FN3 par rapports aux dépendances projetées 
+
+:::
+
+## Pour réaliser cet objectif
+
+Une étape cruciale : réécrire l'ensemble de DFs
+
+
 
 
 # Couverture irredondante d'un ensemble de DF {background-color="#1c191c"}
@@ -355,7 +475,7 @@ On peut vérifier que *toute* décomposition FNBC de $\mathcal{A}$ ne préserve 
 
 ::: {.callout-important}
 
-### Définition
+### Définition de ls couverture irredondante d'un ensemble de DFs
 
 Soit  $\Sigma$ un ensemble de DF, une *couverture minimale/irredondante* de  $\Sigma$ est un ensemble $\Sigma'$ de DF qui vérifie :
 
@@ -363,11 +483,130 @@ Soit  $\Sigma$ un ensemble de DF, une *couverture minimale/irredondante* de  $\S
 
 - $\Sigma'$ et $\Sigma$ sont équivalents  ($\Sigma \models \Sigma'$  et $\Sigma' \models \Sigma$)
 
-- Aucun sous-ensemble propre de $\Sigma'$ n'implique $\Sigma$
+- Aucun sous-ensemble *propre* de $\Sigma'$ n'implique $\Sigma$  ($∀ \Sigma^{\prime\prime} ⊊ \Sigma^\prime, \Sigma^{\prime\prime} \not\models \Sigma$)
 
-- Pour toute dépendance $X → A$ de $\Sigma'$, il n'existe pas de sous-ensemble propre $Ym\subset X$ tel que $\Sigma ⊧ Y→ A$
+- Pour toute dépendance $X → A$ de $\Sigma'$, $\forall Y ⊊ X, \Sigma \not\models Y→ A$ 
 
 :::
+
+---
+
+
+{{< fa hand-point-right >}} Dans une couverture irredondante, toutes des DFs sont utiles, chaque DF est minimale (c'est vrai pour le membre droit comme pour le membre gauche)
+
+. . .
+
+{{< fa brain >}} {{< fa mug-hot >}}
+
+- Existence de couvertures irredondantes 
+
+- Unicité
+  
+- Construction de couvertures irredondantes 
+
+- Si pas unicité des couvertures irredondantes,  les couvertures irredondantes sont-elles toutes également intéressantes ?
+ 
+## Algorithme de construction de couverture irredondante  {.scrollable}
+
+```pseudocode
+#| html-indent-size: "1.2em"
+#| html-comment-delimiter: "//"
+#| html-line-number: true
+#| html-line-number-punc: ":"
+#| html-no-end: false
+
+\begin{algorithm}
+\caption{Couverture irredondante}
+\begin{algorithmic}
+\Procedure{MinCover}{$Σ$}
+\State Σ' ← ∅ 
+
+\State \Comment{Normaliser les éléments de Σ}
+
+\For{$(X → Y) ∈ Σ$}
+  \For{$y ∈ Y$}
+    \State Σ' ← Σ' ∪ {X → y}
+  \EndFor
+\EndFor
+
+\State \Comment{Éliminer les dépendances redondantes dans Σ'}
+
+\State \Comment{Miniser les dépendances  dans Σ'}
+
+\Return Σ'
+
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+```
+
+## Détails
+
+::: {.columns}
+::: {.column}
+
+```pseudocode
+#| html-indent-size: "1.2em"
+#| html-comment-delimiter: "//"
+#| html-line-number: true
+#| html-line-number-punc: ":"
+#| html-no-end: false
+
+\begin{algorithm}
+\caption{Éliminer les dépendances redondantes dans Σ' (détail)}
+\begin{algorithmic}
+
+\Repeat
+  \State s ← \True
+  \For{$(X → y) ∈ Σ'$}
+    \If{$Σ' \ {X → y} ⊧ X → y$}
+      \State $Σ' ← Σ' \ {X → y}$
+      \State s ← \False
+    \EndIf
+  \EndFor
+\Until{s}
+
+\end{algorithmic}
+\end{algorithm}
+```
+
+:::
+
+::: {.column}
+
+```pseudocode
+#| html-indent-size: "1.2em"
+#| html-comment-delimiter: "//"
+#| html-line-number: true
+#| html-line-number-punc: ":"
+#| html-no-end: false
+
+\begin{algorithm}
+\caption{Miniser les dépendances  dans Σ' (détail)}
+\begin{algorithmic}
+
+\Repeat
+  \State s ← \True
+  \For{$(X → y) ∈ Σ'$}
+    \For{$x ∈ X$}
+      \If{$Σ' \ {X → y} ⊧ X \ {x} → y$}
+        \State $Σ' ← (Σ' \ {X → y}) ∪ X \ {x} → y$
+        \State s ← \False
+        \Break
+      \EndIf
+    \EndFor
+  \EndFor
+\Until{s}
+
+\end{algorithmic}
+\end{algorithm}
+```
+
+:::
+::: 
+
+
+
 
 # Forme Normale 3 (FN3)   {background-color="#1c191c"}
 
@@ -432,9 +671,7 @@ Possibilité de décomposition SPI et sans perte de Dépendances Fonctionnelles
 
 # Algorithme de Décomposition en FN3  {background-color="#1c191c"}
 
-
-## Algorithme  {.smaller}
-
+## Algorithme {.smaller}
 
 ```pseudocode
 #| html-indent-size: "1.2em"
@@ -444,10 +681,29 @@ Possibilité de décomposition SPI et sans perte de Dépendances Fonctionnelles
 #| html-no-end: false
 
 \begin{algorithm}
-\caption{Décomposition FN3}
+\caption{Decomposition FN3}
 \begin{algorithmic}
-\Procedure{Décomposition_FN3}{$\mathcal{A}, Σ$}
+\Procedure{DecompositionFN3}{$\mathcal{A}, Σ$}
 
+\State \Comment{Initialisation de la décomposition}
+\State $D ←  ∅$
+
+\State \Comment{Mise en forme des courverture minimale de Σ}
+\State Σ' ← \Call{MinCover}{$Σ$}
+\State
+\For{Each distinct determinant $X$ amongst FDs in Σ'}
+  \State $Y ← \{y : X → y ∈ Σ'\}$
+  \State $D ← D \cup \{X \cup Y\}$ \Comment{    Ajouter $X \cup Y$ à $D$}
+\EndFor
+\State
+\State $\mathcal{B} ← $ Attributes in  $\mathcal{A}$  that do not occur in $D$ 
+\State $D ← D \cup \{\mathcal{B}\}$
+\State
+\If{No component of $D$ includes a key for $\mathcal{A}, Σ$}
+  \State $D ← D \cup $ some key for $\mathcal{A}, Σ$
+\EndIf
+\State
+\Return $D$
 
 \EndProcedure
 
@@ -455,7 +711,9 @@ Possibilité de décomposition SPI et sans perte de Dépendances Fonctionnelles
 \end{algorithm}
 ```
 
-## Proposition
+
+
+---
 
 
 ::: {.callout-important}
@@ -475,24 +733,15 @@ La décomposition produite par l'algorithme est
 :::
 
 
-## Preuve (terminaison)
+## Preuves 
 
+### Terminaison {{< fa person-chalkboard >}}
 
-## Preuve (FN3)
+### FN3 {{< fa person-chalkboard >}}
 
+### SPI {{< fa person-chalkboard >}}
 
-## Preuve (sans PI)
-
-
-
-## Preuve (sans perte de DF)
-
-
-
-# Au delà des DFs {background-color="#1c191c"}
-
-
-
+### SPDF {{< fa person-chalkboard >}}
 
 
 
