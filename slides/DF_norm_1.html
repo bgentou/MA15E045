@@ -636,9 +636,6 @@
 <li><p>des <em>techniques de normalisation</em> : passage d’un schéma arbitraire (mauvais) à un schéma en forme normale (obtenu typiquement par décomposition)</p></li>
 </ul>
 </div>
-</section>
-<section class="slide level2 center">
-
 </section></section>
 <section>
 <section id="dépendances-fonctionnelles" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -882,7 +879,7 @@
 <p><strong>Définition : dépendance élémentaire</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math inline">\(A_1,...,A_p \rightarrow Y\)</span> est une dépendance <em>élémentaire</em> si pour tout <span class="math inline">\(j\leq p\)</span> : <span class="math inline">\(A_1,...,A_{j-1},A_{j+1},...,A_p\not\rightarrow Y\)</span></p>
+<p><span class="math inline">\(A_1,...,A_p \rightarrow Y\)</span> est une dépendance <em>élémentaire</em> si pour tout <span class="math inline">\(j\leq p\)</span> : <span class="math inline">\(A_1,...,A_{j-1}, A_{j+1},..., A_p\not\rightarrow Y\)</span></p>
 </div>
 </div>
 </div>
@@ -979,7 +976,7 @@
 <p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
-<p>Un ensemble <span class="math inline">\(\Sigma\)</span> de DF <em>implique</em> une autre DF <span class="math inline">\(X\rightarrow Y\)</span> si toute relation qui satisfait <span class="math inline">\(\Sigma\)</span> satisfait également <span class="math inline">\(X\rightarrow Y\)</span>.</p>
+<p>Un ensemble <span class="math inline">\(\Sigma\)</span> de DF <em>implique</em> une autre DF <span class="math inline">\(X\rightarrow Y\)</span> si toute relation (instance) qui satisfait <span class="math inline">\(\Sigma\)</span> satisfait également <span class="math inline">\(X\rightarrow Y\)</span>.</p>
 <p>Notation pour <span class="math inline">\(\Sigma\)</span> implique <span class="math inline">\(X\rightarrow Y\)</span> :</p>
 <p><span class="math display">\[\Sigma \models X \rightarrow Y\]</span></p>
 </div>
@@ -1005,7 +1002,7 @@
 </section>
 <section class="slide level2 center">
 
-<p>Trois règles d’inférence (facile à vérifier) :</p>
+<p>Trois règles d’inférence (faciles à vérifier) :</p>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1023,6 +1020,98 @@
 </div>
 </div>
 </div>
+</section>
+<section id="vérification-de-la-transitivité" class="slide level2 center">
+<h2>Vérification de la transitivité</h2>
+<p>On se rammène à vérifier une règle du calcul propositionnel :<br>
+si p ⇒ q et q ⇒ r alors p ⇒ r</p>
+<p>Soit une instance <span class="math inline">\(\mathcal{R}\)</span> telle que :<br>
+<span class="math display">\[\forall s,t \in \mathcal{R} \qquad
+  \begin{cases}  \text{si } s.X =t.X &amp; \text{alors } s.Y= t.Y \\
+   \text{si } s.Y =t.Y &amp;  \text{alors } s.Z= t.Z
+\end{cases}
+\]</span> On a alors aussi <span class="math inline">\(\forall s,t \in \mathcal{R}\)</span>, si <span class="math inline">\(s.X =t.X\)</span> alors <span class="math inline">\(s.Z= t.Z\)</span></p>
+</section>
+<section id="tables-de-vérité" class="slide level2 center">
+<h2>Tables de vérité</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">p</th>
+<th style="text-align: left;">q</th>
+<th style="text-align: left;">r</th>
+<th style="text-align: left;">p ⇒ q</th>
+<th style="text-align: left;">q ⇒ r</th>
+<th style="text-align: left;">p ⇒ r</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section class="slide level2 center">
 
@@ -1140,12 +1229,13 @@
 </div>
 </div>
 </div>
-<p>–</p>
+<div class="fragment">
 <p>Exemples</p>
 <ul>
 <li><p><span class="math inline">\(X\rightarrow A_1,...,A_n\)</span> est équivalent à <span class="math inline">\(X\rightarrow A_1\)</span>, …, <span class="math inline">\(X\rightarrow A_n\)</span>|</p></li>
 <li><p><span class="math inline">\(XY\rightarrow YZ\)</span> est équivalent à <span class="math inline">\(XY\rightarrow Z\)</span></p></li>
 </ul>
+</div>
 </section></section>
 <section>
 <section id="fermeture-dun-ensemble-dattributs" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -1192,9 +1282,6 @@
 <li><span class="math inline">\(\Sigma=\{AB\rightarrow C, C\rightarrow D, E\rightarrow D\}\)</span></li>
 <li><span class="math inline">\(\{A,B\}^+=\{A,B,C,D\}\)</span></li>
 </ul>
-</section>
-<section class="slide level2 center">
-
 </section></section>
 <section>
 <section id="algorithme-pour-calculer-une-fermeture" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -1208,14 +1295,14 @@
 </section>
 <section id="section-2" class="slide level2 smaller center">
 <h2></h2>
-<div class="pseudocode-container quarto-float" data-line-number-punc=":" data-line-number="true" data-comment-delimiter="//" data-indent-size="1.2em" data-pseudocode-number="1" data-caption-prefix="Algorithme" data-no-end="false">
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="pseudocode-container quarto-float" data-line-number="true" data-indent-size="1.2em" data-no-end="false" data-caption-prefix="Algorithme" data-line-number-punc=":" data-pseudocode-number="1" data-comment-delimiter="//">
 <div class="pseudocode">
-\begin{algorithm} \caption{Fermeture} \begin{algorithmic} \Procedure{Fermeture}{$X, Σ$} \State $X^c ← X$ \Repeat \State stop ← \True \For{$(Y → Z) ∈ Σ$} \If{$Y ⊆ Z ∧ Z ⊄ X^c$} \State $X^c ← X^c ∪ Z$ \State stop ← \False \EndIf \EndFor \Until{stop} \Return $X^c$ \EndProcedure \end{algorithmic} \end{algorithm}
+\begin{algorithm} \caption{Fermeture} \begin{algorithmic} \Procedure{Fermeture}{$X, Σ$} \State $X^c ← X$ \Repeat \State stop ← \True \For{$(Y → Z) ∈ Σ$} \If{$Y ⊆ X^c ∧ Z ⊄ X^c$} \State $X^c ← X^c ∪ Z$ \State stop ← \False \EndIf \EndFor \Until{stop} \Return $X^c$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
 </div>
-</section>
-<section id="section-3" class="slide level2 center">
-<h2></h2>
+</div><div class="column" style="width:40%;">
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>Xc <span class="ot">&lt;-</span>  X</span>
 <span id="cb4-2"><a></a></span>
 <span id="cb4-3"><a></a><span class="cf">while</span> (exists Y <span class="ot">-&gt;</span> Z <span class="cf">in</span> Σ with Y ⊂ Xc and not Z ⊄ Xc) {</span>
@@ -1223,16 +1310,16 @@
 <span id="cb4-5"><a></a>}</span>
 <span id="cb4-6"><a></a></span>
 <span id="cb4-7"><a></a>return Xc</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<ul>
-<li><code>Xc</code> grandit à chaque itération</li>
-</ul>
+</div></div>
+</section>
+<section id="terminaison-de-lalgorithme" class="slide level2 center">
+<h2>Terminaison de l’algorithme</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> <code>Xc</code> grandit à chaque itération</p>
 <p>Comme <span class="math inline">\(\mathcal{A}\)</span> est fini, l’algorithme se termine en au plus <span class="math inline">\(|\mathcal{A}|\)</span> itérations</p>
-</div>
 </section>
 <section id="preuve-de-la-correction-de-lalgorithme-de-fermeture" class="slide level2 center">
 <h2>Preuve de la correction de l’algorithme de fermeture</h2>
-<h3 id="section-4"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></h3>
+<h3 id="section-3"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></h3>
 </section>
 <section id="exemple-de-calcul-de-fermeture" class="slide level2 center">
 <h2>Exemple de calcul de fermeture</h2>
@@ -1255,46 +1342,18 @@
 <section class="slide level2 center">
 
 <div class="proof">
-<p><span class="proof-title"><em>Preuve</em>. </span>Supposons que <span class="math inline">\(A\notin X_c\)</span> quand l’algorithme se termine</p>
-<p>La relation <span class="math inline">\(R=\{t_1,t_2\}\)</span> suivante (où <span class="math inline">\(c\neq d\)</span> )</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: center;"><span class="math inline">\(X_c\)</span></th>
-<th style="text-align: center;">A</th>
-<th style="text-align: center;">…</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><span class="math inline">\(t_1\)</span></td>
-<td style="text-align: center;">aa… a</td>
-<td style="text-align: center;">c</td>
-<td style="text-align: center;">cc… c</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="math inline">\(t_2\)</span></td>
-<td style="text-align: center;">aa… a</td>
-<td style="text-align: center;">d</td>
-<td style="text-align: center;">dd… d</td>
-</tr>
-</tbody>
-</table>
-<p>satisfait <span class="math inline">\(\Sigma\)</span></p>
-<p>car pour toute DF <span class="math inline">\(Y\rightarrow Z\)</span> telle que <span class="math inline">\(Y\subset X_c\)</span> on a <span class="math inline">\(Z\subset X_c\)</span>.</p>
-<p>Mais <span class="math inline">\(R\)</span> ne satisfait pas <span class="math inline">\(X\rightarrow A\)</span>. Donc <span class="math inline">\(A\notin X^+\)</span>.</p>
+<p><span class="proof-title"><em>Preuve</em>. </span><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></p>
 </div>
 </section>
 <section id="calcul-de-la-fermeture-transitive-exemple" class="slide level2 center">
 <h2>Calcul de la fermeture transitive : exemple</h2>
 <div class="columns">
-<div class="column">
+<div class="column" style="width:75%;">
 <p>Soit <span class="math inline">\(R\)</span> d’ensemble d’attributs</p>
 <p><span class="math display">\[\mathcal{A} =\{A,B,C,D,E,F,G\}\]</span></p>
 <p>Soit <span class="math inline">\(X=\{B,D\} \subset \mathcal{A}\)</span></p>
 <p>Et <span class="math inline">\(Σ\)</span> l’ensemble de dépendances fonctionnelles ci-contre</p>
-</div><div class="column">
+</div><div class="column" style="width:25%;">
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -1334,9 +1393,7 @@
 </div></div>
 <p>Montrer que <span class="math inline">\(X^+=\{A,B,C,D,E,G\}\)</span></p>
 <p>Donner une clef de <span class="math inline">\(R\)</span></p>
-</section>
-<section class="slide level2 center">
-
+<p><i class="fa-solid fa-person-chalkboards" aria-label="person-chalkboards"></i></p>
 </section></section>
 <section>
 <section id="forme-normale-de-boyce-codd" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -1510,17 +1567,15 @@
 </section>
 <section id="propriétés-dune-décomposition" class="slide level2 center">
 <h2>Propriétés d’une décomposition</h2>
-<p>On ne peut pas décomposer arbitrairement,</p>
+<p>On ne peut pas décomposer arbitrairement</p>
 <p>Toutes les décompositions ne sont pas intéressantes</p>
-<p>–</p>
+<div class="fragment">
 <h4 id="conditions-pour-une-décomposition-raisonnable">Conditions pour une décomposition <em>raisonnable</em> :</h4>
 <ul>
 <li><p>Décomposition <em>sans perte d’information</em></p></li>
 <li><p>Décomposition <em>sans perte de dépendance fonctionnelle</em></p></li>
 </ul>
-</section>
-<section class="slide level2 center">
-
+</div>
 </section></section>
 <section>
 <section id="décomposition-sans-perte-dinformation" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -1672,7 +1727,7 @@
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><strong>1</strong></td>
-<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: center;"><strong>2</strong></td>
 <td style="text-align: center;"><strong>5</strong></td>
 </tr>
 <tr class="even">
@@ -1805,7 +1860,7 @@
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Livraison</td>
-<td style="text-align: center;">.<span class="math inline">\(a\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(a\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(b_3\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(c_3\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(d\)</span></td>
@@ -1972,7 +2027,7 @@
 <li><p><strong>Sortie</strong> : Si on obtient une ligne sans valeur indicée, la décomposition est sans perte d’information, sinon il y a perte d’information</p></li>
 </ul>
 </section>
-<section id="section-5" class="slide level2 center">
+<section id="section-4" class="slide level2 center">
 <h2></h2>
 <div class="proof">
 <p><span class="proof-title"><em>Preuve</em> (<i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i>). </span></p>

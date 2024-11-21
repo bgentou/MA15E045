@@ -183,7 +183,7 @@
     "href": "workshops/td8.html#exercice-location-de-voitures",
     "title": "TD 8 : Modélisation",
     "section": "Exercice (Location de voitures)",
-    "text": "Exercice (Location de voitures)\n\n\n\n\n\n\nQuestion\n\n\n\nProduire un schéma E/R qui décrit des informations concernant des voitures à louer.\n\n\nChaque voiture a une plaque d’immatriculation, une couleur et une marque. Le prix de la location dépend de la catégorie, où chaque catégorie est identifiée par un nom.\n\n\n\n\n\n\nQuestion\n\n\n\nModifier ensuite le schéma pour représenter les modèles de voitures.\n\n\nUn modèle a un nom, une marque et un nombre de sièges.\nToutes les voitures du même modèle doivent appartenir à la même catégorie de prix.\nDe plus, on veut distinguer les voitures disponibles des voitures en location. Pour les voitures disponibles on représente l’emplacement. Pour les voitures en location on représente la date et la durée de la location, ainsi que le nom du client.\n\n\n\n\n\n\nQuestion\n\n\n\nTraduire le schéma EA dans le formalisme des pattes de corbeau\n\n\n\n\n\n\n\n\nQuestion\n\n\n\nDéfinir le schéma relationnel correspondant en SQL"
+    "text": "Exercice (Location de voitures)\n\n\n\n\n\n\nQuestion\n\n\n\nProduire un schéma E/R qui décrit des informations concernant des voitures à louer.\n\n\nChaque voiture a une plaque d’immatriculation, une couleur et une marque. Le prix de la location dépend de la catégorie, où chaque catégorie est identifiée par un nom.\n\n\n\n\n\n\nQuestion\n\n\n\nModifier ensuite le schéma pour représenter les modèles de voitures.\n\n\nUn modèle a un nom, une marque et un nombre de sièges.\nToutes les voitures du même modèle doivent appartenir à la même catégorie de prix.\n\n\n\n\n\n\nQuestion\n\n\n\nDe plus, on veut distinguer les voitures disponibles des voitures en location. Pour les voitures disponibles on représente l’emplacement. Pour les voitures en location on représente la date et la durée de la location, ainsi que le nom du client.\n\n\n\n\n\n\n\n\nQuestion\n\n\n\nTraduire le schéma EA dans le formalisme des pattes de corbeau\n\n\n\n\n\n\n\n\nQuestion\n\n\n\nDéfinir le schéma relationnel correspondant en SQL"
   },
   {
     "objectID": "workshops/td8.html#exercice-gestion-du-personnel-dune-entreprise",
@@ -1899,7 +1899,7 @@
     "href": "slides/DF_norm_1.html#implication-entre-df",
     "title": "Normalisation I",
     "section": "Implication entre DF",
-    "text": "Implication entre DF\n\n\n\n\n\n\nDéfinition\n\n\nUn ensemble \\(\\Sigma\\) de DF implique une autre DF \\(X\\rightarrow Y\\) si toute relation qui satisfait \\(\\Sigma\\) satisfait également \\(X\\rightarrow Y\\).\nNotation pour \\(\\Sigma\\) implique \\(X\\rightarrow Y\\) :\n\\[\\Sigma \\models X \\rightarrow Y\\]\n\n\n\n\n\n\n\n\n\n\nExemple\n\n\n\\(\\Sigma=\\{A\\rightarrow B, B\\rightarrow C\\}\\) implique\n\\(A\\rightarrow B\\), \\(B\\rightarrow C\\), \\(A\\rightarrow C\\), \\(A,B\\rightarrow C\\), …\nmais aussi les DF triviales \\(A\\rightarrow A\\), \\(AB\\rightarrow A\\), …"
+    "text": "Implication entre DF\n\n\n\n\n\n\nDéfinition\n\n\nUn ensemble \\(\\Sigma\\) de DF implique une autre DF \\(X\\rightarrow Y\\) si toute relation (instance) qui satisfait \\(\\Sigma\\) satisfait également \\(X\\rightarrow Y\\).\nNotation pour \\(\\Sigma\\) implique \\(X\\rightarrow Y\\) :\n\\[\\Sigma \\models X \\rightarrow Y\\]\n\n\n\n\n\n\n\n\n\n\nExemple\n\n\n\\(\\Sigma=\\{A\\rightarrow B, B\\rightarrow C\\}\\) implique\n\\(A\\rightarrow B\\), \\(B\\rightarrow C\\), \\(A\\rightarrow C\\), \\(A,B\\rightarrow C\\), …\nmais aussi les DF triviales \\(A\\rightarrow A\\), \\(AB\\rightarrow A\\), …"
   },
   {
     "objectID": "slides/DF_norm_1.html#preuve",
@@ -1941,7 +1941,7 @@
     "href": "slides/DF_norm_1.html#section-2",
     "title": "Normalisation I",
     "section": "",
-    "text": "\\begin{algorithm} \\caption{Fermeture} \\begin{algorithmic} \\Procedure{Fermeture}{$X, Σ$} \\State $X^c ← X$ \\Repeat \\State stop ← \\True \\For{$(Y → Z) ∈ Σ$} \\If{$Y ⊆ Z ∧ Z ⊄ X^c$} \\State $X^c ← X^c ∪ Z$ \\State stop ← \\False \\EndIf \\EndFor \\Until{stop} \\Return $X^c$ \\EndProcedure \\end{algorithmic} \\end{algorithm}"
+    "text": "\\begin{algorithm} \\caption{Fermeture} \\begin{algorithmic} \\Procedure{Fermeture}{$X, Σ$} \\State $X^c ← X$ \\Repeat \\State stop ← \\True \\For{$(Y → Z) ∈ Σ$} \\If{$Y ⊆ X^c ∧ Z ⊄ X^c$} \\State $X^c ← X^c ∪ Z$ \\State stop ← \\False \\EndIf \\EndFor \\Until{stop} \\Return $X^c$ \\EndProcedure \\end{algorithmic} \\end{algorithm}\n\n\n\nXc &lt;-  X\n\nwhile (exists Y -&gt; Z in Σ with Y ⊂ Xc and not Z ⊄ Xc) {\n  Xc &lt;- Xc ∪ Z\n}\n\nreturn Xc"
   },
   {
     "objectID": "slides/DF_norm_1.html#section-3",
@@ -2039,7 +2039,7 @@
     "href": "slides/DF_norm_1.html#propriétés-dune-décomposition",
     "title": "Normalisation I",
     "section": "Propriétés d’une décomposition",
-    "text": "Propriétés d’une décomposition\nOn ne peut pas décomposer arbitrairement,\nToutes les décompositions ne sont pas intéressantes\n–\nConditions pour une décomposition raisonnable :\n\nDécomposition sans perte d’information\nDécomposition sans perte de dépendance fonctionnelle"
+    "text": "Propriétés d’une décomposition\nOn ne peut pas décomposer arbitrairement\nToutes les décompositions ne sont pas intéressantes\n\nConditions pour une décomposition raisonnable :\n\nDécomposition sans perte d’information\nDécomposition sans perte de dépendance fonctionnelle"
   },
   {
     "objectID": "slides/DF_norm_1.html#décomposition-sans-perte-dinformation-1",
@@ -2074,7 +2074,7 @@
     "href": "slides/DF_norm_1.html#exemple-de-décomposition-avec-perte-dinformation",
     "title": "Normalisation I",
     "section": "Exemple de décomposition avec perte d’information",
-    "text": "Exemple de décomposition avec perte d’information\n\\(\\mathcal{A}=\\{A,B,C\\} \\quad  \\Sigma=\\{AB\\rightarrow C\\}\\)\nDécomposition \\(\\mathcal{A}_1=\\{A,B\\}  \\quad  \\mathcal{A}_2=\\{B,C\\}\\)\n\n\nSoit \\(R\\) la relation\n\n\n\nA\nB\nC\n\n\n\n\n1\n2\n3\n\n\n4\n2\n5\n\n\n\n\n\\(\\pi_{AB}(R)=\\)\n\n\n\nA\nB\n\n\n\n\n1\n2\n\n\n4\n2\n\n\n\n\n\\(\\pi_{BC}(R)=\\)\n\n\n\nB\nC\n\n\n\n\n2\n3\n\n\n2\n5\n\n\n\n\n\\(\\pi_{AB}(R) \\bowtie \\pi_{BC}(R)=\\)\n\n\n\nA\nB\nC\n\n\n\n\n1\n2\n3\n\n\n4\n2\n5\n\n\n1\n3\n5\n\n\n4\n2\n3"
+    "text": "Exemple de décomposition avec perte d’information\n\\(\\mathcal{A}=\\{A,B,C\\} \\quad  \\Sigma=\\{AB\\rightarrow C\\}\\)\nDécomposition \\(\\mathcal{A}_1=\\{A,B\\}  \\quad  \\mathcal{A}_2=\\{B,C\\}\\)\n\n\nSoit \\(R\\) la relation\n\n\n\nA\nB\nC\n\n\n\n\n1\n2\n3\n\n\n4\n2\n5\n\n\n\n\n\\(\\pi_{AB}(R)=\\)\n\n\n\nA\nB\n\n\n\n\n1\n2\n\n\n4\n2\n\n\n\n\n\\(\\pi_{BC}(R)=\\)\n\n\n\nB\nC\n\n\n\n\n2\n3\n\n\n2\n5\n\n\n\n\n\\(\\pi_{AB}(R) \\bowtie \\pi_{BC}(R)=\\)\n\n\n\nA\nB\nC\n\n\n\n\n1\n2\n3\n\n\n4\n2\n5\n\n\n1\n2\n5\n\n\n4\n2\n3"
   },
   {
     "objectID": "slides/DF_norm_1.html#algorithme-de-poursuite-1",
@@ -2095,7 +2095,7 @@
     "href": "slides/DF_norm_1.html#algorithme-de-poursuite-exemple-1",
     "title": "Normalisation I",
     "section": "Algorithme de poursuite : exemple",
-    "text": "Algorithme de poursuite : exemple\nSoit \\(t\\) un tuple dans la jointure\n\n\n\nV#\nVnom\nVville\nP#\nPnom\nPville\nQte\n\n\n\n\n\\(a\\)\n\\(b\\)\n\\(c\\)\n\\(d\\)\n\\(e\\)\n\\(f\\)\n\\(g\\)\n\n\n\n\n\\((a, b, c)\\in \\pi_{\\texttt{V\\#,Vnom,Vville}}(\\texttt{R})\\) donc il existe \\(e_1, f_1, g_1\\) tels que \\((a, b, c, d_1, e_1, f_1, g_1) \\in \\texttt{R}\\)\n\\((d,e,f) \\in \\pi_{\\texttt{P\\#,Pnom,Pville}}(\\texttt{R})\\) donc il existe \\(a_2, b_2, c_2, g_2\\) tels que \\((a_2, b_2, c_2, d, e, f, g_2)\\in \\texttt{R}\\)\n\\((a,d,g)\\in \\pi_{\\texttt{V\\#,P\\#,Qte}}(R)\\) donc il existe \\(b_3,c_3,e_3,f_3\\) tels que \\((a,b_3,c_3,d,e_3,f_3,g)\\in \\texttt{R}\\)\nOn peut le représenter comme ceci :\n\n\n\n\nV#\nVnom\nVville\nP#\nPnom\nPville\nQte\n\n\n\n\nVendeur\n\\(a\\)\n\\(b\\)\n\\(c\\)\n\\(d_1\\)\n\\(e_1\\)\n\\(f_1\\)\n\n\nProduit\n\\(a_2\\)\n\\(b_2\\)\n\\(c_2\\)\n\\(d\\)\n\\(e\\)\n\\(f\\)\n\n\nLivraison\n.\\(a\\)\n\\(b_3\\)\n\\(c_3\\)\n\\(d\\)\n\\(e_3\\)\n\\(f_3\\)"
+    "text": "Algorithme de poursuite : exemple\nSoit \\(t\\) un tuple dans la jointure\n\n\n\nV#\nVnom\nVville\nP#\nPnom\nPville\nQte\n\n\n\n\n\\(a\\)\n\\(b\\)\n\\(c\\)\n\\(d\\)\n\\(e\\)\n\\(f\\)\n\\(g\\)\n\n\n\n\n\\((a, b, c)\\in \\pi_{\\texttt{V\\#,Vnom,Vville}}(\\texttt{R})\\) donc il existe \\(e_1, f_1, g_1\\) tels que \\((a, b, c, d_1, e_1, f_1, g_1) \\in \\texttt{R}\\)\n\\((d,e,f) \\in \\pi_{\\texttt{P\\#,Pnom,Pville}}(\\texttt{R})\\) donc il existe \\(a_2, b_2, c_2, g_2\\) tels que \\((a_2, b_2, c_2, d, e, f, g_2)\\in \\texttt{R}\\)\n\\((a,d,g)\\in \\pi_{\\texttt{V\\#,P\\#,Qte}}(R)\\) donc il existe \\(b_3,c_3,e_3,f_3\\) tels que \\((a,b_3,c_3,d,e_3,f_3,g)\\in \\texttt{R}\\)\nOn peut le représenter comme ceci :\n\n\n\n\nV#\nVnom\nVville\nP#\nPnom\nPville\nQte\n\n\n\n\nVendeur\n\\(a\\)\n\\(b\\)\n\\(c\\)\n\\(d_1\\)\n\\(e_1\\)\n\\(f_1\\)\n\n\nProduit\n\\(a_2\\)\n\\(b_2\\)\n\\(c_2\\)\n\\(d\\)\n\\(e\\)\n\\(f\\)\n\n\nLivraison\n\\(a\\)\n\\(b_3\\)\n\\(c_3\\)\n\\(d\\)\n\\(e_3\\)\n\\(f_3\\)"
   },
   {
     "objectID": "slides/DF_norm_1.html#algorithme-de-poursuite-exemple-2",
@@ -5651,7 +5651,7 @@
     "href": "solutions/td8.html#exercice-location-de-voitures",
     "title": "TD 8 : Modélisation",
     "section": "Exercice (Location de voitures)",
-    "text": "Exercice (Location de voitures)\n\n\n\n\n\n\nQuestion\n\n\n\nProduire un schéma E/R qui décrit des informations concernant des voitures à louer.\n\n\nChaque voiture a une plaque d’immatriculation, une couleur et une marque. Le prix de la location dépend de la catégorie, où chaque catégorie est identifiée par un nom.\n\n\n\n\n\n\nQuestion\n\n\n\nModifier ensuite le schéma pour représenter les modèles de voitures.\n\n\nUn modèle a un nom, une marque et un nombre de sièges.\nToutes les voitures du même modèle doivent appartenir à la même catégorie de prix.\nDe plus, on veut distinguer les voitures disponibles des voitures en location. Pour les voitures disponibles on représente l’emplacement. Pour les voitures en location on représente la date et la durée de la location, ainsi que le nom du client.\n\n\n\n\n\n\nQuestion\n\n\n\nTraduire le schéma EA dans le formalisme des pattes de corbeau\n\n\n\n\n\n\n\n\nQuestion\n\n\n\nDéfinir le schéma relationnel correspondant en SQL"
+    "text": "Exercice (Location de voitures)\n\n\n\n\n\n\nQuestion\n\n\n\nProduire un schéma E/R qui décrit des informations concernant des voitures à louer.\n\n\nChaque voiture a une plaque d’immatriculation, une couleur et une marque. Le prix de la location dépend de la catégorie, où chaque catégorie est identifiée par un nom.\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\n\n\n\nER\n\n\n\nVoiture\n\nVoiture\n\n\n\nfabriqué-par\n\nfabriqué-par\n\n\n\nVoiture--fabriqué-par\n\n1:1\n\n\n\nappartient-à\n\nappartient-à\n\n\n\nVoiture--appartient-à\n\n1:1\n\n\n\nMarque\n\nMarque\n\n\n\nCatégorie\n\nCatégorie\n\n\n\nprix_location\n\nprix location\n\n\n\nCatégorie--prix_location\n\n\n\n\nname1\n\nnom\n\n\n\nname1--Catégorie\n\n\n\n\nname2\n\nnom\n\n\n\nname2--Marque\n\n\n\n\nimmatriculation\n\nimmatriculation\n\n\n\nimmatriculation--Voiture\n\n\n\n\ncouleur\n\ncouleur\n\n\n\ncouleur--Voiture\n\n\n\n\nfabriqué-par--Marque\n\n0:n\n\n\n\nappartient-à--Catégorie\n\n0:n\n\n\n\n\n\n\n\nPas d’entités faibles car chaque entité a son propre identifiant.\nÀ discuter : pourrait-on utiliser un lien est-un ( ◃ ) pour modéliser le fait qu’un véhicule relève d’une catégorie ?\n\n\n\n\n\n\n\n\nQuestion\n\n\n\nModifier ensuite le schéma pour représenter les modèles de voitures.\n\n\nUn modèle a un nom, une marque et un nombre de sièges.\nToutes les voitures du même modèle doivent appartenir à la même catégorie de prix.\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\n\n\n\nER\n\n\n\nVoiture\n\nVoiture\n\n\n\nrelève-de\n\nrelève-de\n\n\n\nVoiture--relève-de\n\n1:1\n\n\n\nMarque\n\nMarque\n\n\n\nCatégorie\n\nCatégorie\n\n\n\nprix_location\n\nprix location\n\n\n\nCatégorie--prix_location\n\n\n\n\nModèle\n\nModèle\n\n\n\nfabriqué-par\n\nfabriqué-par\n\n\n\nModèle--fabriqué-par\n\n1:1\n\n\n\nappartient-à\n\nappartient-à\n\n\n\nModèle--appartient-à\n\n1:1\n\n\n\nname1\n\nnom\n\n\n\nname1--Catégorie\n\n\n\n\nname2\n\nnom\n\n\n\nname2--Marque\n\n\n\n\nname3\n\nnom\n\n\n\nname3--Modèle\n\n\n\n\nimmatriculation\n\nimmatriculation\n\n\n\nimmatriculation--Voiture\n\n\n\n\ncouleur\n\ncouleur\n\n\n\ncouleur--Voiture\n\n\n\n\nnbre_sieges\n\nnombre de sièges\n\n\n\nnbre_sieges--Modèle\n\n\n\n\nfabriqué-par--Marque\n\n0:n\n\n\n\nappartient-à--Catégorie\n\n0:n\n\n\n\nrelève-de--Modèle\n\n0:n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nQuestion\n\n\n\nDe plus, on veut distinguer les voitures disponibles des voitures en location. Pour les voitures disponibles on représente l’emplacement. Pour les voitures en location on représente la date et la durée de la location, ainsi que le nom du client.\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\n\n\n\nER\n\n\n\nVoiture\n\nVoiture\n\n\n\nrelève-de\n\nrelève-de\n\n\n\nVoiture--relève-de\n\n1:1\n\n\n\nMarque\n\nMarque\n\n\n\nCatégorie\n\nCatégorie\n\n\n\nprix_location\n\nprix location\n\n\n\nCatégorie--prix_location\n\n\n\n\nModèle\n\nModèle\n\n\n\nfabriqué-par\n\nfabriqué-par\n\n\n\nModèle--fabriqué-par\n\n1:1\n\n\n\nappartient-à\n\nappartient-à\n\n\n\nModèle--appartient-à\n\n1:1\n\n\n\nDisponible\n\nDisponible\n\n\n\nemplacement\n\nemplacement\n\n\n\nDisponible--emplacement\n\n\n\n\nestun1\n\nEst Un\n\n\n\nDisponible--estun1\n\n\n\n\nEn location\n\nEn location\n\n\n\nnom client\n\nnom client\n\n\n\nEn location--nom client\n\n\n\n\ndate\n\ndate\n\n\n\nEn location--date\n\n\n\n\ndurée\n\ndurée\n\n\n\nEn location--durée\n\n\n\n\nestun2\n\nEst Un\n\n\n\nEn location--estun2\n\n\n\n\nname1\n\nnom\n\n\n\nname1--Catégorie\n\n\n\n\nname2\n\nnom\n\n\n\nname2--Marque\n\n\n\n\nname3\n\nnom\n\n\n\nname3--Modèle\n\n\n\n\nimmatriculation\n\nimmatriculation\n\n\n\nimmatriculation--Voiture\n\n\n\n\ncouleur\n\ncouleur\n\n\n\ncouleur--Voiture\n\n\n\n\nnbre_sieges\n\nnombre de sièges\n\n\n\nnbre_sieges--Modèle\n\n\n\n\nfabriqué-par--Marque\n\n0:n\n\n\n\nappartient-à--Catégorie\n\n0:n\n\n\n\nrelève-de--Modèle\n\n0:n\n\n\n\nestun1--Voiture\n\n\n\n\nestun2--Voiture\n\n\n\n\n\n\n\n\nOn utilise ici les liens Est Un pour décrire le statut des voitures (spécialisation).\nIl faudrait ajouter une contrainte d’exclusion totale : une voiture est soit en location, soit disponible.\nOn pourrait aussi passer par des attributs statut, emplacement et une entité faible Location.\n\n\n\n\n\n\n\n\nQuestion\n\n\n\nTraduire le schéma EA dans le formalisme des pattes de corbeau\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\n\n\nerDiagram\n    VOITURE\n    MODELE \n    CATEGORIE\n    MARQUE\n    LOCATION\n    MODELE ||..o{ VOITURE : \"releve de\"\n    VOITURE {\n      string  immatriculation  PK\n      string couleur\n      boolean disponible \n      string emplacement \n      string nom_modele FK\n    }\n    MARQUE ||..o{ MODELE : \"fabrique par\"\n    MODELE {\n      string nom PK\n      integer nombre_de_sieges \n      string nom_marque FK\n      string nom_categorie FK\n    }\n    MARQUE {\n      string nom PK\n    }\n    CATEGORIE ||..o{ MODELE : \"appartient a\"\n    CATEGORIE {\n      string nom PK\n      numeric prix_location\n    }\n    LOCATION |o--|| VOITURE : concerne\n    LOCATION {\n      string date \n      integer immatriculation PK, FK\n      string duree\n      integer numero_client\n    }\n\n\n\n\n\n\nContraintes externes:\n\nDans VOITURE, disponible si et seulement si emplacement est NOT NULL\nDans VOITURE et LOCATION, NOT disponible si et seulement si dans LOCATION, il existe une instance qui réfère à l’instance de VOITURE.\n\n Trouver une meilleure modélisation pour la spécialisation DISPONIBLE/EN LOCATION.\n\n\n\n\n\n\n\n\nSolution avec dbSchema\n\n\n\n\n\n\nSchema Avis d’après dbSchema\n\n\n\n\n\n\n\n\n\n\nQuestion\n\n\n\nDéfinir le schéma relationnel correspondant en SQL\n\n\n\n\n\n\n\n\nSolution\n\n\n\nCREATE SCHEMA IF NOT EXISTS schema_avis;\n\nCREATE  TABLE schema_avis.categorie ( \n    nom                  text  NOT NULL  ,\n    prix_location        numeric    ,\n    CONSTRAINT pk_categorie PRIMARY KEY ( nom )\n );\n\nCREATE  TABLE schema_avis.marque ( \n    nom                  text  NOT NULL  ,\n    CONSTRAINT pk_marque PRIMARY KEY ( nom )\n );\n\nCREATE  TABLE schema_avis.modele ( \n    nom                  text  NOT NULL  ,\n    nombre_sieges        bigint    ,\n    nom_marque           text    ,\n    name_categorie       text    ,\n    CONSTRAINT pk_modele PRIMARY KEY ( nom )\n );\n\n\n\n\n\n\n\n\nsuite\n\n\n\nCREATE  TABLE schema_avis.voiture ( \n    immatriculation      bigint  NOT NULL  ,\n    name_modele          text    ,\n    couleur              text    ,\n    disponible           boolean  NOT NULL  ,\n    emplacement          text    ,\n    CONSTRAINT pk_voiture PRIMARY KEY ( immatriculation )\n );\n\nCREATE  TABLE schema_avis.location ( \n    immatriculation      bigint  NOT NULL  ,\n    \"date\"               date  NOT NULL  ,\n    duree                bigint  NOT NULL  ,\n    numero_client        bigint  NOT NULL  ,\n    CONSTRAINT pk_location PRIMARY KEY ( immatriculation )\n );\n\n\n\n\n\n\n\n\nsuite\n\n\n\n\nALTER TABLE schema_avis.location \nADD CONSTRAINT \n  fk_location_voiture \nFOREIGN KEY ( immatriculation ) \nREFERENCES schema_avis.voiture( immatriculation );\n\nALTER TABLE schema_avis.modele \nADD CONSTRAINT \n  fk_modele_marque \nFOREIGN KEY ( nom_marque ) \nREFERENCES schema_avis.marque( nom ) \nON DELETE CASCADE ON UPDATE CASCADE;\n\nALTER TABLE schema_avis.modele \nADD CONSTRAINT \n  fk_modele_categorie \nFOREIGN KEY ( name_categorie ) \nREFERENCES schema_avis.categorie( nom );\n\nALTER TABLE schema_avis.voiture \nADD CONSTRAINT \n  fk_voiture_modele \nFOREIGN KEY ( name_modele ) \nREFERENCES schema_avis.modele( nom ) \nON DELETE CASCADE ON UPDATE CASCADE;"
   },
   {
     "objectID": "solutions/td8.html#exercice-gestion-du-personnel-dune-entreprise",
@@ -6002,5 +6002,55 @@
     "title": "MA15Y030 - Automne 2024",
     "section": "Schéma world ",
     "text": "Schéma world \n\nLister pour chaque pays, la proportion de la population qui utilise l’une des deux langues les plus populaires du pays,\n\n\n\n\n\n\n\nSolution\n\n\n\nWITH ranking AS (\n   SELECT \n     countrycode, name_country, language, percentage,\n     RANK() OVER win AS rnk\n   FROM \n     world.country co\n   JOIN \n     world.countrylanguage cl USING(countrycode)\n   WINDOW \n     win AS (PARTITION by countrycode ORDER BY percentage DESC)\n) \n\nSELECT\n  countrycode, name_country, \n  SUM(percentage) AS prop\nFROM \n  ranking\nWHERE \n  rnk &lt;= 2\nGROUP BY countrycode, name_country \nORDER BY prop DESC;\n\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\n\n\nLister pour chaque région (attribut region de country) les 10 villes les plus peuplées.\n\n\n\n\n\n\n\nSolution\n\n\n\nWITH R AS (\n   SELECT \n     co.countrycode, co.name_country,\n     ci.name,\n     RANK() OVER win AS rnk\n   FROM \n     world.country co\n   JOIN \n     world.city ci USING(countrycode)\n   WINDOW win AS (PARTITION BY co.countrycode ORDER BY ci.population DESC)\n )\n \nSELECT\n  name_country, \n  string_agg(name, ', ')\nFROM \n  R\nWHERE rnk &lt;= 2\nGROUP BY countrycode, name_country\n ;\n\n\n\n\nLister pour chaque langue, les deux pays où on trouve le plus grand nombre d’utilisateurs.\n\n\n\n\n\n\n\nSolution\n\n\n\nWITH R AS (\n   SELECT \n     language, \n     name_country, \n     percentage*population_country/100.0 AS pop_loc,\n     RANK() OVER win AS rnk \n   FROM \n     world.countrylanguage cl \n   NATURAL JOIN \n     world.country\n   WHERE \n     population_country IS NOT NULL\n   WINDOW win AS (PARTITION BY language ORDER BY percentage*population_country DESC)\n)\n\nSELECT \n  language, \n  string_agg(name_country, ', ') AS pays, SUM(pop_loc) AS loc \nFROM \n  R \nWHERE rnk &lt;=  2\nGROUP BY language ;\n\n\n\nLister les pays en donnant leur rang par gnp (pnb) par habitant décroissant et leur rang par espérance de vie à la naissance (lifeexpectancy) décroissante.\n\n\n\n\n\n\n\nSolution\n\n\n\nSELECT \n  name_country, \n  lifeexpectancy , \n  RANK() OVER win_gnp AS rnk_gnppercap,\n  RANK() OVER win_life AS rnk_lifeexp\nFROM \n  world.country\nWHERE \n  gnp IS NOT NULL AND \n  population_country IS NOT NULL AND \n  lifeexpectancy IS NOT NULL\nWINDOW \n  win_gnp AS (ORDER BY gnp/population_country DESC),\n  win_life AS (ORDER BY lifeexpectancy DESC)\nORDER BY lifeexpectancy DESC ;"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#terminaison-de-lalgorithme",
+    "href": "slides/DF_norm_1.html#terminaison-de-lalgorithme",
+    "title": "Normalisation I",
+    "section": "Terminaison de l’algorithme",
+    "text": "Terminaison de l’algorithme\n Xc grandit à chaque itération\nComme \\(\\mathcal{A}\\) est fini, l’algorithme se termine en au plus \\(|\\mathcal{A}|\\) itérations"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#section-4",
+    "href": "slides/DF_norm_1.html#section-4",
+    "title": "Normalisation I",
+    "section": "",
+    "text": "Preuve ()."
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#vérification-de-la-transitivité",
+    "href": "slides/DF_norm_1.html#vérification-de-la-transitivité",
+    "title": "Normalisation I",
+    "section": "Vérification de la transitivité",
+    "text": "Vérification de la transitivité\nOn se rammène à vérifier une règle du calcul propositionnel :\nsi p ⇒ q et q ⇒ r alors p ⇒ r\nSoit une instance \\(\\mathcal{R}\\) telle que :\n\\[\\forall s,t \\in \\mathcal{R} \\qquad\n  \\begin{cases}  \\text{si } s.X =t.X & \\text{alors } s.Y= t.Y \\\\\n   \\text{si } s.Y =t.Y &  \\text{alors } s.Z= t.Z\n\\end{cases}\n\\] On a alors aussi \\(\\forall s,t \\in \\mathcal{R}\\), si \\(s.X =t.X\\) alors \\(s.Z= t.Z\\)"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#tables-de-vérité",
+    "href": "slides/DF_norm_1.html#tables-de-vérité",
+    "title": "Normalisation I",
+    "section": "Tables de vérité",
+    "text": "Tables de vérité\n\n\n\np\nq\nr\np ⇒ q\nq ⇒ r\np ⇒ r\n\n\n\n\nTRUE\nTRUE\nTRUE\nTRUE\nTRUE\nTRUE\n\n\nFALSE\nTRUE\nTRUE\nTRUE\nTRUE\nTRUE\n\n\nTRUE\nFALSE\nTRUE\nFALSE\nTRUE\nTRUE\n\n\nFALSE\nFALSE\nTRUE\nTRUE\nTRUE\nTRUE\n\n\nTRUE\nTRUE\nFALSE\nTRUE\nFALSE\nFALSE\n\n\nFALSE\nTRUE\nFALSE\nTRUE\nFALSE\nTRUE\n\n\nTRUE\nFALSE\nFALSE\nFALSE\nTRUE\nFALSE\n\n\nFALSE\nFALSE\nFALSE\nTRUE\nTRUE\nTRUE"
+  },
+  {
+    "objectID": "weeks/week-10.html#exercices-td-8",
+    "href": "weeks/week-10.html#exercices-td-8",
+    "title": "Semaine 10",
+    "section": "Exercices : TD 8",
+    "text": "Exercices : TD 8\nhtml pdf\n L’exercide 1 a été corrigé en Cours Magistral durant la semaine 9",
+    "crumbs": [
+      "Journal",
+      "Semaine 10"
+    ]
+  },
+  {
+    "objectID": "weeks/week-10.html#solutions-du-td-8",
+    "href": "weeks/week-10.html#solutions-du-td-8",
+    "title": "Semaine 10",
+    "section": "Solutions du TD 8",
+    "text": "Solutions du TD 8\nhtml pdf\n\n\nretour à Agenda ⏎",
+    "crumbs": [
+      "Journal",
+      "Semaine 10"
+    ]
   }
 ]
