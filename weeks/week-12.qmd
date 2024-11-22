@@ -39,5 +39,5 @@ Finir  TD 10 [TD 10](/workshops/td10.html)
 <br><br>
 
 ::: {style="font-size: 0.875em;"}
-retour à [Agenda](/ "Agenda du cours") ⏎
+retour à [Agenda](/slides-listings.qmd) ⏎
 :::

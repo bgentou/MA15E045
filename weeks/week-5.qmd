@@ -43,5 +43,5 @@ Finir requêtes du [TD 2](/workshops/td2.html)
 <br><br>
 
 ::: {style="font-size: 0.875em;"}
-retour à [Agenda](/ "Agenda du cours") ⏎
+retour à [Agenda](/slides-listings.qmd) ⏎
 :::

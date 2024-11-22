@@ -43,5 +43,5 @@ sur la partie verte du schéma [pagila](/schemas/schema-pagila.qmd)
 <br><br>
 
 ::: {style="font-size: 0.875em;"}
-retour à [Agenda](/ "Agenda du cours") ⏎
+retour à [Agenda](/slides-listings.qmd) ⏎
 :::

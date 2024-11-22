@@ -52,5 +52,5 @@ Exercice de modélisation dans [CT de janvier 2024](/exams/ct-2024-01-08.qmd)
 <br><br>
 
 ::: {style="font-size: 0.875em;"}
-retour à [Agenda](/ "Agenda du cours") ⏎
+retour à [Agenda](/slides-listings.qmd) ⏎
 :::

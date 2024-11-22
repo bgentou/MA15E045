@@ -12,12 +12,8 @@ editor: source
 -   {{< fa cal >}} [Emploi du temps Ingémaths/METIS](https://edt.math.univ-paris-diderot.fr/#/parcours/ingemath/l3)
 
 
-
 :::
 
-## Préparer
-
-Finir  TD 11 [TD 11](/workshops/td11.html) 
 
 
 ## Exercices : TD 12
@@ -29,12 +25,15 @@ Finir  TD 11 [TD 11](/workshops/td11.html)
 [html](/solutions/td11.html)  [pdf](/solutions/td11.pdf)
 
 
-## Travail personnel
+## Contrôle Continu 3
 
-[CC 1 2023-24](/exams/cc1-2023-10-27.html)
+- Requêtes 
+- Contraintes 
+- Modélisation (EA et pattes de corbeau)
+- [Normalisation I](/slides/DF_norm_1.qmd) (pas FN3 et décomposition sans pertes de DFs)
 
 <br><br>
 
 ::: {style="font-size: 0.875em;"}
-retour à [Agenda](/ "Agenda du cours") ⏎
+retour à [Agenda](/schemas-listings.qmd) ⏎
 :::

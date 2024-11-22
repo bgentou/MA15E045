@@ -50,5 +50,5 @@ Vous pouvez aussi vous entrainer sur annales :
 <br><br>
 
 ::: {style="font-size: 0.875em;"}
-retour à [Agenda](/ "Agenda du cours") ⏎
+retour à [Agenda](/slides-listings.qmd) ⏎
 :::

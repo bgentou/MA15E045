@@ -13,7 +13,7 @@ website:
   announcement: 
     icon: emoji-surprise
     dismissable: false
-    content: "**Alerte** - Contrôle Continu II le vendredi 15 novembre 17h-18h15 Amphi A2 Halle aux Farines"
+    content: "**Alerte** - Contrôle Continu III le vendredi 13 décembre 17h-18h15 Amphi A2 Halle aux Farines"
     type: warning
     position: above-navbar
   page-navigation: true
