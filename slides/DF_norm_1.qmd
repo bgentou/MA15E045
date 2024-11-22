@@ -6,20 +6,16 @@ date: "2024-11-22"
 format: 
   revealjs:
     header: "Dépendances Fonctionnelles. Fermetures. Décomposition FNBC"
+
+engine: knitr
 ---
 
-```{r}
-#| echo: false
-# #| eval: false
-# library(DBI)
-# db <- dbConnect(RSQLite::SQLite(), dbname = "sql.sqlite")
-# knitr::opts_chunk$set(connection = "db")
-```
+
 
 
 # Introduction  {background-color="#1c191c"}
 
----
+
 
 
 ## Conception du modèle relationnel
@@ -366,7 +362,7 @@ $A\rightarrow C$, $BC\rightarrow D$, $AD\rightarrow E$ impliquent $AB\rightarrow
 ### Définition
 
 Un ensemble $\Sigma$ de DF *implique* une autre DF $X\rightarrow Y$ si
-toute relation qui satisfait $\Sigma$ satisfait également $X\rightarrow Y$.
+toute relation (instance) qui satisfait $\Sigma$ satisfait également $X\rightarrow Y$.
 
 Notation pour $\Sigma$ implique $X\rightarrow Y$ :
 
@@ -392,7 +388,7 @@ mais aussi les DF triviales $A\rightarrow A$, $AB\rightarrow A$, ...
 
 ---
 
-Trois règles d'inférence (facile à vérifier) :
+Trois règles d'inférence (faciles à vérifier) :
 
 ::: {.callout-important}
 
@@ -405,6 +401,34 @@ Trois règles d'inférence (facile à vérifier) :
 - *Réflexivité* : $\varnothing \models \{X,Y\}\rightarrow X$  (DF triviale)
 
 :::
+
+## Vérification de la transitivité
+
+On se rammène à vérifier une règle du calcul propositionnel :  
+si p ⇒ q et q ⇒ r alors p ⇒ r 
+
+Soit une instance $\mathcal{R}$ telle que :  
+$$\forall s,t \in \mathcal{R} \qquad 
+  \begin{cases}  \text{si } s.X =t.X & \text{alors } s.Y= t.Y \\
+   \text{si } s.Y =t.Y &  \text{alors } s.Z= t.Z
+\end{cases}
+$$
+On a alors aussi 
+$\forall s,t \in \mathcal{R}$, si $s.X =t.X$ alors $s.Z= t.Z$
+
+
+## Tables de vérité
+
+|p     |q     |r     | p ⇒ q    | q ⇒ r    | p ⇒ r |
+|:-----|:-----|:-----|:---------|:---------|:-----------------|
+|TRUE  |TRUE  |TRUE  |TRUE      |TRUE      |TRUE              |
+|FALSE |TRUE  |TRUE  |TRUE      |TRUE      |TRUE              |
+|TRUE  |FALSE |TRUE  |FALSE     |TRUE      |TRUE              |
+|FALSE |FALSE |TRUE  |TRUE      |TRUE      |TRUE              |
+|TRUE  |TRUE  |FALSE |TRUE      |FALSE     |FALSE             |
+|FALSE |TRUE  |FALSE |TRUE      |FALSE     |TRUE              |
+|TRUE  |FALSE |FALSE |FALSE     |TRUE      |FALSE             |
+|FALSE |FALSE |FALSE |TRUE      |TRUE      |TRUE              |
 
 
 ---
@@ -527,11 +551,11 @@ $\Sigma\models\Sigma'$ et $\Sigma'\models\Sigma$
 :::
 
 
---
+. . .
 
 Exemples
 
-- $X\rightarrow A_1,...,A_n$ est équivalent à $X\rightarrow A_1$, ..., $X\rightarrow A_n$|
+- $X\rightarrow A_1,...,A_n$ est équivalent à $X\rightarrow A_1$, ..., $X\rightarrow A_n$
 
 - $XY\rightarrow YZ$ est équivalent à $XY\rightarrow Z$
 
@@ -1335,7 +1359,59 @@ des tuples qui ne sont pas dans la relation originelle
 :::
 
 
+# Décomposition FNBC  SPI {background-color="#1c191c"}
 
 
+## Algorithme 
+
+```pseudocode
+#| html-indent-size: "1.2em"
+#| html-comment-delimiter: "//"
+#| html-line-number: true
+#| html-line-number-punc: ":"
+#| html-no-end: false
+
+\begin{algorithm}
+\caption{Décomposition FNBC}
+\begin{algorithmic}
+\Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$}
+
+\State \Comment{Initialisation de la décomposition}
+\State $D ←  \{\mathcal{A}\}$
+
+
+\State
+\While{Exists some $\mathcal{B} \in D$ which is not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$}
+  \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X$ 
+  \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$
+\EndWhile
+\State
+\Return $D$
+
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}
+```
+
+## Remarques 
+
+::: {.callout-important title="Proposition"}
+
+- L'algorithme termine
+
+- Les éléments de la  décomposition finale sont en FNBC 
+
+- La décomposition est Sans Perte d'Information (SPI)
+
+:::
+ 
+## Preuves  {{< fa person-chalkboard >}}
+
+- La terminaison est triviale : à chaque itération le nombre de parties de $\mathcal{A}$ dans  $D$ augmente de $1$ et ce nombre ne peut dépasser $\# \mathcal{A}$
+
+- La seconde propriété est triviale aussi
+
+- La propriété SPI se vérifie avec l'algorithme de poursuite (et son analyse): chaque itération de la boucle `While` est SPI. 
 
 # Fin   {background-color="#1c191c"}

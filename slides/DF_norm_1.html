@@ -1289,63 +1289,52 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <h1>Algorithme pour calculer une fermeture</h1>
 
 </section>
-<section class="slide level2 center">
-
-<p>Soit <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur un schéma <span class="math inline">\(\mathcal{A}\)</span> et <span class="math inline">\(X\subset\mathcal{A}\)</span></p>
-<h3 id="algorithme">Algorithme</h3>
-</section>
 <section id="section-2" class="slide level2 smaller center">
 <h2></h2>
+<p>Soit <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur un schéma <span class="math inline">\(\mathcal{A}\)</span> et <span class="math inline">\(X\subset\mathcal{A}\)</span></p>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-comment-delimiter="//" data-pseudocode-number="1" data-caption-prefix="Algorithme" data-no-end="false" data-line-number-punc=":" data-line-number="true">
+<div class="pseudocode-container quarto-float" data-no-end="false" data-comment-delimiter="//" data-pseudocode-number="1" data-line-number="true" data-indent-size="1.2em" data-line-number-punc=":" data-caption-prefix="Algorithme">
 <div class="pseudocode">
-\begin{algorithm} \caption{Fermeture} \begin{algorithmic} \Procedure{Fermeture}{$X, Σ$} \State $X^c ← X$ \Repeat \State stop ← \True \For{$(Y → Z) ∈ Σ$} \If{$Y ⊆ X^c ∧ Z ⊄ X^c$} \State $X^c ← X^c ∪ Z$ \State stop ← \False \EndIf \EndFor \Until{stop} \Return $X^c$ \EndProcedure \end{algorithmic} \end{algorithm}
+\begin{algorithm} \caption{Fermeture} \begin{algorithmic} \Procedure{Fermeture}{$X, Σ$} \State $X^c ← X$ \Repeat \State stop ← \True \Comment{Arrêt si Point Fixe atteint} \For{$(Y → Z) ∈ Σ$} \If{$Y ⊆ X^c ∧ ¬ Z ⊆ X^c$} \State $X^c ← X^c ∪ Z$ \State stop ← \False \Comment{Point Fixe pas atteint} \EndIf \EndFor \Until{stop} \Return $X^c$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
 </div>
 </div><div class="column" style="width:40%;">
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>Xc <span class="ot">&lt;-</span>  X</span>
 <span id="cb4-2"><a></a></span>
-<span id="cb4-3"><a></a><span class="cf">while</span> (exists Y <span class="ot">-&gt;</span> Z <span class="cf">in</span> Σ with Y ⊂ Xc and not Z ⊄ Xc) {</span>
+<span id="cb4-3"><a></a><span class="cf">while</span> (exists Y <span class="ot">-&gt;</span> Z <span class="cf">in</span> Σ with Y ⊂ Xc and not Z ⊂ Xc) {</span>
 <span id="cb4-4"><a></a>  Xc <span class="ot">&lt;-</span> Xc ∪ Z</span>
 <span id="cb4-5"><a></a>}</span>
 <span id="cb4-6"><a></a></span>
 <span id="cb4-7"><a></a>return Xc</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 </section>
-<section id="terminaison-de-lalgorithme" class="slide level2 center">
-<h2>Terminaison de l’algorithme</h2>
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> <code>Xc</code> grandit à chaque itération</p>
-<p>Comme <span class="math inline">\(\mathcal{A}\)</span> est fini, l’algorithme se termine en au plus <span class="math inline">\(|\mathcal{A}|\)</span> itérations</p>
-</section>
-<section id="preuve-de-la-correction-de-lalgorithme-de-fermeture" class="slide level2 center">
-<h2>Preuve de la correction de l’algorithme de fermeture</h2>
-<h3 id="section-3"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></h3>
-</section>
 <section id="exemple-de-calcul-de-fermeture" class="slide level2 center">
 <h2>Exemple de calcul de fermeture</h2>
 <p><span class="math inline">\(\mathcal{A}=\{ABCDEF\}\)</span> <span class="math inline">\(\Sigma=\{A\rightarrow C, BC\rightarrow D, AD\rightarrow E\}\)</span> <span class="math inline">\(X=\{A,B\}\)</span></p>
 <ul>
 <li><p><span class="math inline">\(X_c=\{A,B\}\)</span></p></li>
-<li><p><span class="math inline">\(A\rightarrow C\)</span> donc on obtient <span class="math inline">\(X_c=\{A,B,C\}\)</span></p></li>
-<li><p><span class="math inline">\(BC\rightarrow D\)</span> donc on obtient <span class="math inline">\(X_c=\{A,B,C,D\}\)</span></p></li>
-<li><p><span class="math inline">\(AD\rightarrow E\)</span> donc on obtient <span class="math inline">\(X_c=\{A,B,C,D, E\}\)</span></p></li>
+<li><p><span class="math inline">\(A\rightarrow C\)</span> donc on obtient <span class="math inline">\(X^cc=\{A,B,C\}\)</span></p></li>
+<li><p><span class="math inline">\(BC\rightarrow D\)</span> donc on obtient <span class="math inline">\(X^c=\{A,B,C,D\}\)</span></p></li>
+<li><p><span class="math inline">\(AD\rightarrow E\)</span> donc on obtient <span class="math inline">\(X^c=\{A,B,C,D, E\}\)</span></p></li>
 <li><p>On obtient <span class="math inline">\(X^+=\{A,B,C,D, E\}\)</span></p></li>
 </ul>
 </section>
+<section id="terminaison-de-lalgorithme" class="slide level2 center">
+<h2>Terminaison de l’algorithme</h2>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> <span class="math inline">\(X^c\)</span> grandit à chaque itération</p>
+<p>Comme <span class="math inline">\(\mathcal{A}\)</span> est fini, l’algorithme se termine en au plus <span class="math inline">\(|\mathcal{A}|\)</span> itérations</p>
+</section>
 <section id="correction-de-lalgorithme-de-fermeture" class="slide level2 center">
-<h2>Correction de l’algorithme de fermeture</h2>
+<h2>Correction de l’algorithme de fermeture <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></h2>
 <ul>
-<li><p>L’algorithme calcule uniquement des attributs dans la fermeture car on a toujours <span class="math inline">\(X_c\subset X^+\)</span></p></li>
+<li><p>L’algorithme calcule uniquement des attributs dans la fermeture car on a toujours <span class="math inline">\(X^c \subset X^+\)</span> (récurrence sur le nombre d’itérations de la boucle <code>repeat</code>)</p></li>
 <li><p>L’algorithme calcule tous les attributs dans la fermeture: <span class="math inline">\(X_c=X^+\)</span> quand l’algorithme se termine</p></li>
 </ul>
-</section>
-<section class="slide level2 center">
 
-<div class="proof">
-<p><span class="proof-title"><em>Preuve</em>. </span><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></p>
-</div>
-</section>
+<aside><div>
+<p>Le dernier point est le plus délicat. Que peut signifier le fait qu’il existe au moins un attribut <span class="math inline">\(Y\in X^+\)</span> qui n’appartienn pas à valeur terminale de <span class="math inline">\(X^c\)</span> ?</p>
+</div></aside></section>
 <section id="calcul-de-la-fermeture-transitive-exemple" class="slide level2 center">
 <h2>Calcul de la fermeture transitive : exemple</h2>
 <div class="columns">
@@ -1354,7 +1343,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p><span class="math display">\[\mathcal{A} =\{A,B,C,D,E,F,G\}\]</span></p>
 <p>Soit <span class="math inline">\(X=\{B,D\} \subset \mathcal{A}\)</span></p>
 <p>Et <span class="math inline">\(Σ\)</span> l’ensemble de dépendances fonctionnelles ci-contre</p>
-</div><div class="column" style="width:25%;">
+</div><p>. . .</p><div class="column" style="width:25%;">
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -1392,9 +1381,11 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </tbody>
 </table>
 </div></div>
+<div class="fragment">
 <p>Montrer que <span class="math inline">\(X^+=\{A,B,C,D,E,G\}\)</span></p>
 <p>Donner une clef de <span class="math inline">\(R\)</span></p>
-<p><i class="fa-solid fa-person-chalkboards" aria-label="person-chalkboards"></i></p>
+<p><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></p>
+</div>
 </section></section>
 <section>
 <section id="forme-normale-de-boyce-codd" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -1414,13 +1405,13 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <div class="callout-content">
 <p>Un schéma <span class="math inline">\(\mathcal{A}\)</span> est en FNBC par rapport à un ensemble de dépendances fonctionnelles <span class="math inline">\(\Sigma\)</span> sur <span class="math inline">\(\mathcal{A}\)</span></p>
 <p>si</p>
-<p>pour toute DF <span class="math inline">\(X\rightarrow Y\)</span> impliquée par <span class="math inline">\(\Sigma\)</span> avec <span class="math inline">\(Y\not\subset X\)</span>, <span class="math inline">\(X\)</span> est une super-clef</p>
+<p>pour toute DF non triviale <span class="math inline">\(X\rightarrow Y\)</span> impliquée par <span class="math inline">\(\Sigma\)</span> (Σ ⊧ X → Y avec <span class="math inline">\(¬ Y ⊂ X\)</span>), <span class="math inline">\(X\)</span> est une <em>super-clef</em></p>
 </div>
 </div>
 </div>
 <div class="fragment">
 <ul>
-<li><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> <span class="math inline">\((\mathcal{A},\Sigma)\)</span> est en FNBC si pour toute DF non triviale impliquée par <span class="math inline">\(\Sigma\)</span>, le membre de gauche est une super-clef</li>
+<li><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> <span class="math inline">\((\mathcal{A},\Sigma)\)</span> est en FNBC si pour toute DF non triviale impliquée par <span class="math inline">\(\Sigma\)</span>, le membre de gauche (le déterminant) est une super-clef</li>
 </ul>
 </div>
 </section>
@@ -1543,6 +1534,9 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </div>
 </div>
 </div>
+<div class="fragment">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Une décomposition n’est pas nécessairement une partition. On n’impose pas que les <span class="math inline">\(\mathcal{A}_i\)</span> soient deux à deux disjoints.</p>
+</div>
 </section>
 <section id="exemple-de-décomposition-i" class="slide level2 center">
 <h2>Exemple de décomposition I</h2>
@@ -1571,11 +1565,22 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p>On ne peut pas décomposer arbitrairement</p>
 <p>Toutes les décompositions ne sont pas intéressantes</p>
 <div class="fragment">
-<h4 id="conditions-pour-une-décomposition-raisonnable">Conditions pour une décomposition <em>raisonnable</em> :</h4>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Conditions pour une décomposition <em>raisonnable</em> :</strong></p>
+</div>
+<div class="callout-content">
 <ul>
 <li><p>Décomposition <em>sans perte d’information</em></p></li>
 <li><p>Décomposition <em>sans perte de dépendance fonctionnelle</em></p></li>
 </ul>
+</div>
+</div>
+</div>
 </div>
 </section></section>
 <section>
@@ -1744,18 +1749,18 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <h1>Algorithme de poursuite</h1>
 
 </section>
-<section id="algorithme-de-poursuite-1" class="slide level2 center">
-<h2>Algorithme de poursuite</h2>
+<section id="algorithme-de-poursuite-chase-algorithm" class="slide level2 center">
+<h2>Algorithme de poursuite (chase algorithm)</h2>
 <ul>
 <li><p>Comment déterminer si une décomposition est sans perte d’information?</p></li>
 <li><p>Si <span class="math inline">\(R\)</span> est une relation de schéma <span class="math inline">\(\mathcal{A}\)</span> on a toujours que</p></li>
 </ul>
-<p><span class="math display">\[R\subset \pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)\]</span></p>
+<p><span class="math display">\[R ⊆ \pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)\]</span></p>
 <p>par définition de la jointure naturelle et de la projection</p>
 <ul>
 <li>Le seul problème est que les jointures peuvent générer des tuples supplémentaires</li>
 <li>Mais comme <span class="math inline">\(R\)</span> est supposée vérifier les DF de <span class="math inline">\(\Sigma\)</span>, l’inclusion inverse est garantie dans <em>certains cas</em></li>
-<li>Pour le savoir, un algorithme simple existe appelé <em>algorithme de poursuite</em></li>
+<li>Pour le savoir, un algorithme simple existe appelé <em>algorithme de poursuite</em> <i class="fa-solid fa-champagne-glasses" aria-label="champagne-glasses"></i></li>
 </ul>
 </section>
 <section id="algorithme-de-poursuite-exemple" class="slide level2 center">
@@ -2028,10 +2033,28 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <li><p><strong>Sortie</strong> : Si on obtient une ligne sans valeur indicée, la décomposition est sans perte d’information, sinon il y a perte d’information</p></li>
 </ul>
 </section>
-<section id="section-4" class="slide level2 center">
-<h2></h2>
+<section id="commentaires-sur-lalgorithme-de-poursuite" class="slide level2 smaller center">
+<h2>Commentaires sur l’algorithme de poursuite</h2>
+<p>L’objectif de l’algorithme de poursuite est de vérifier que tout tuple de <span class="math inline">\(\pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)\)</span> est aussi un tuple de <span class="math inline">\(R\)</span></p>
+<p>À l’initialisation, on part d’un tuple de <span class="math inline">\(\pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)\)</span> qu’on note symboliquement <span class="math inline">\((a, b, c, \ldots)\)</span> avec des symboles non indicés</p>
+<p>Pour chaque <span class="math inline">\(i \leq k\)</span>, on utilise le fait que pour chaque tuple de <span class="math inline">\(\pi_{\mathcal{A}_i}(R)\)</span> il existe un ensemble de tuples de <span class="math inline">\(R\)</span> qui coïncident avec <span class="math inline">\((a, b, c, \ldots)\)</span> sur <span class="math inline">\(\mathcal{A}_i\)</span>. On note génériquement ces tuples de <span class="math inline">\(R\)</span> en indiçant les noms de variables par <span class="math inline">\(i\)</span> pour toutes les variables qui ne sont pas dans <span class="math inline">\(\mathcal{A}_i\)</span></p>
+<p>Chacun des sous-ensembles de tuples indicés par <span class="math inline">\(i \leq k\)</span> définit un sous-ensemble de tuples de <span class="math inline">\(R\)</span></p>
+<p>On veut se convaincre que <span class="math inline">\((a, b, c, \ldots)\)</span> appartient à l’un de ces sous-ensembles</p>
+<div class="fragment">
+<p>L’algorithme de poursuite utilise les DF de Σ, pour restreindre les <span class="math inline">\(k\)</span> sous-ensembles</p>
+</div>
+</section>
+<section id="commentaires-suite" class="slide level2 smaller center">
+<h2>Commentaires (suite)</h2>
+<p>L’algorithme de poursuite est un algorithme de <em>réécriture</em></p>
+<div class="fragment">
+<p>L’algorithme de poursuite est <em>non-déterministe</em> : à chaque étape, il est parfois possible d’invoquer plusieurs DFs pour réécrire une ou plusieurs lignes</p>
+</div>
+<div class="fragment">
+<p>Un point important de l’analyse de l’algorithme de poursuite consiste à vérifier que ce non-déterminisme n’est pas un problème : l’algorithme de poursuite termine par un succès ou un échec (blocage) quelle que soit la suite des choix effectués</p>
 <div class="proof">
 <p><span class="proof-title"><em>Preuve</em> (<i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i>). </span></p>
+</div>
 </div>
 </section>
 <section id="algorithme-de-poursuite-exemple-2-1" class="slide level2 smaller center">
@@ -2264,11 +2287,11 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <h1>Décomposition FNBC SPI</h1>
 
 </section>
-<section id="algorithme-1" class="slide level2 center">
+<section id="algorithme" class="slide level2 center">
 <h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-comment-delimiter="//" data-pseudocode-number="1" data-caption-prefix="Algorithme" data-no-end="false" data-line-number-punc=":" data-line-number="true">
+<div class="pseudocode-container quarto-float" data-no-end="false" data-comment-delimiter="//" data-pseudocode-number="1" data-line-number="true" data-indent-size="1.2em" data-line-number-punc=":" data-caption-prefix="Algorithme">
 <div class="pseudocode">
-\begin{algorithm} \caption{Décomposition FNBC} \begin{algorithmic} \Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← \{\mathcal{A}\}$ \State \While{Exists some $\mathcal{B} \in D$ which is not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$} \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X$ \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$ \EndWhile \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
+\begin{algorithm} \caption{Décomposition FNBC} \begin{algorithmic} \Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← \{\mathcal{A}\}$ \State \While{$\exists \mathcal{B} \in D$ not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$} \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X\qquad$ \Comment{DF non triviale! $Y \neq \emptyset$} \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$ \EndWhile \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
 </div>
 </section>

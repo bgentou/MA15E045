@@ -1941,14 +1941,14 @@
     "href": "slides/DF_norm_1.html#section-2",
     "title": "Normalisation I",
     "section": "",
-    "text": "\\begin{algorithm} \\caption{Fermeture} \\begin{algorithmic} \\Procedure{Fermeture}{$X, Σ$} \\State $X^c ← X$ \\Repeat \\State stop ← \\True \\For{$(Y → Z) ∈ Σ$} \\If{$Y ⊆ X^c ∧ Z ⊄ X^c$} \\State $X^c ← X^c ∪ Z$ \\State stop ← \\False \\EndIf \\EndFor \\Until{stop} \\Return $X^c$ \\EndProcedure \\end{algorithmic} \\end{algorithm}\n\n\n\nXc &lt;-  X\n\nwhile (exists Y -&gt; Z in Σ with Y ⊂ Xc and not Z ⊄ Xc) {\n  Xc &lt;- Xc ∪ Z\n}\n\nreturn Xc"
+    "text": "Soit \\(\\Sigma\\) un ensemble de DF sur un schéma \\(\\mathcal{A}\\) et \\(X\\subset\\mathcal{A}\\)\n\n\n\n\n\\begin{algorithm} \\caption{Fermeture} \\begin{algorithmic} \\Procedure{Fermeture}{$X, Σ$} \\State $X^c ← X$ \\Repeat \\State stop ← \\True \\Comment{Arrêt si Point Fixe atteint} \\For{$(Y → Z) ∈ Σ$} \\If{$Y ⊆ X^c ∧ ¬ Z ⊆ X^c$} \\State $X^c ← X^c ∪ Z$ \\State stop ← \\False \\Comment{Point Fixe pas atteint} \\EndIf \\EndFor \\Until{stop} \\Return $X^c$ \\EndProcedure \\end{algorithmic} \\end{algorithm}\n\n\n\nXc &lt;-  X\n\nwhile (exists Y -&gt; Z in Σ with Y ⊂ Xc and not Z ⊂ Xc) {\n  Xc &lt;- Xc ∪ Z\n}\n\nreturn Xc"
   },
   {
     "objectID": "slides/DF_norm_1.html#section-3",
     "href": "slides/DF_norm_1.html#section-3",
     "title": "Normalisation I",
     "section": "",
-    "text": "Xc &lt;-  X\n\nwhile (exists Y -&gt; Z in Σ with Y ⊂ Xc and not Z ⊄ Xc) {\n  Xc &lt;- Xc ∪ Z\n}\n\nreturn Xc\n\n\nXc grandit à chaque itération\n\nComme \\(\\mathcal{A}\\) est fini, l’algorithme se termine en au plus \\(|\\mathcal{A}|\\) itérations"
+    "text": "Preuve ()."
   },
   {
     "objectID": "slides/DF_norm_1.html#preuve-de-la-correction-de-lalgorithme-de-fermeture",
@@ -1962,28 +1962,28 @@
     "href": "slides/DF_norm_1.html#exemple-de-calcul-de-fermeture",
     "title": "Normalisation I",
     "section": "Exemple de calcul de fermeture",
-    "text": "Exemple de calcul de fermeture\n\\(\\mathcal{A}=\\{ABCDEF\\}\\) \\(\\Sigma=\\{A\\rightarrow C, BC\\rightarrow D, AD\\rightarrow E\\}\\) \\(X=\\{A,B\\}\\)\n\n\\(X_c=\\{A,B\\}\\)\n\\(A\\rightarrow C\\) donc on obtient \\(X_c=\\{A,B,C\\}\\)\n\\(BC\\rightarrow D\\) donc on obtient \\(X_c=\\{A,B,C,D\\}\\)\n\\(AD\\rightarrow E\\) donc on obtient \\(X_c=\\{A,B,C,D, E\\}\\)\nOn obtient \\(X^+=\\{A,B,C,D, E\\}\\)"
+    "text": "Exemple de calcul de fermeture\n\\(\\mathcal{A}=\\{ABCDEF\\}\\) \\(\\Sigma=\\{A\\rightarrow C, BC\\rightarrow D, AD\\rightarrow E\\}\\) \\(X=\\{A,B\\}\\)\n\n\\(X_c=\\{A,B\\}\\)\n\\(A\\rightarrow C\\) donc on obtient \\(X^cc=\\{A,B,C\\}\\)\n\\(BC\\rightarrow D\\) donc on obtient \\(X^c=\\{A,B,C,D\\}\\)\n\\(AD\\rightarrow E\\) donc on obtient \\(X^c=\\{A,B,C,D, E\\}\\)\nOn obtient \\(X^+=\\{A,B,C,D, E\\}\\)"
   },
   {
     "objectID": "slides/DF_norm_1.html#correction-de-lalgorithme-de-fermeture",
     "href": "slides/DF_norm_1.html#correction-de-lalgorithme-de-fermeture",
     "title": "Normalisation I",
-    "section": "Correction de l’algorithme de fermeture",
-    "text": "Correction de l’algorithme de fermeture\n\nL’algorithme calcule uniquement des attributs dans la fermeture car on a toujours \\(X_c\\subset X^+\\)\nL’algorithme calcule tous les attributs dans la fermeture: \\(X_c=X^+\\) quand l’algorithme se termine"
+    "section": "Correction de l’algorithme de fermeture ",
+    "text": "Correction de l’algorithme de fermeture \n\nL’algorithme calcule uniquement des attributs dans la fermeture car on a toujours \\(X^c \\subset X^+\\) (récurrence sur le nombre d’itérations de la boucle repeat)\nL’algorithme calcule tous les attributs dans la fermeture: \\(X_c=X^+\\) quand l’algorithme se termine\n\n\n\nLe dernier point est le plus délicat. Que peut signifier le fait qu’il existe au moins un attribut \\(Y\\in X^+\\) qui n’appartienn pas à valeur terminale de \\(X^c\\) ?"
   },
   {
     "objectID": "slides/DF_norm_1.html#calcul-de-la-fermeture-transitive-exemple",
     "href": "slides/DF_norm_1.html#calcul-de-la-fermeture-transitive-exemple",
     "title": "Normalisation I",
     "section": "Calcul de la fermeture transitive : exemple",
-    "text": "Calcul de la fermeture transitive : exemple\n\n\nSoit \\(R\\) d’ensemble d’attributs\n\\[\\mathcal{A} =\\{A,B,C,D,E,F,G\\}\\]\nSoit \\(X=\\{B,D\\} \\subset \\mathcal{A}\\)\nEt \\(Σ\\) l’ensemble de dépendances fonctionnelles ci-contre\n\n\n\n\n\\(\\Sigma\\)\n\n\n\n\n\\(A,B \\rightarrow C\\)\n\n\n\\(C \\rightarrow A\\)\n\n\n\\(B,C \\rightarrow D\\)\n\n\n\\(A,C,D \\rightarrow B\\)\n\n\n\\(F\\rightarrow A,C\\)\n\n\n\\(D \\rightarrow E,G\\)\n\n\n\\(B,E \\rightarrow C\\)\n\n\n\\(C,G \\rightarrow B,D\\)\n\n\n\\(C,E \\rightarrow A,G\\)\n\n\n\n\nMontrer que \\(X^+=\\{A,B,C,D,E,G\\}\\)\nDonner une clef de \\(R\\)"
+    "text": "Calcul de la fermeture transitive : exemple\n\n\nSoit \\(R\\) d’ensemble d’attributs\n\\[\\mathcal{A} =\\{A,B,C,D,E,F,G\\}\\]\nSoit \\(X=\\{B,D\\} \\subset \\mathcal{A}\\)\nEt \\(Σ\\) l’ensemble de dépendances fonctionnelles ci-contre\n. . .\n\n\n\n\\(\\Sigma\\)\n\n\n\n\n\\(A,B \\rightarrow C\\)\n\n\n\\(C \\rightarrow A\\)\n\n\n\\(B,C \\rightarrow D\\)\n\n\n\\(A,C,D \\rightarrow B\\)\n\n\n\\(F\\rightarrow A,C\\)\n\n\n\\(D \\rightarrow E,G\\)\n\n\n\\(B,E \\rightarrow C\\)\n\n\n\\(C,G \\rightarrow B,D\\)\n\n\n\\(C,E \\rightarrow A,G\\)\n\n\n\n\n\nMontrer que \\(X^+=\\{A,B,C,D,E,G\\}\\)\nDonner une clef de \\(R\\)"
   },
   {
     "objectID": "slides/DF_norm_1.html#forme-normale-de-boyce-codd-fnbc",
     "href": "slides/DF_norm_1.html#forme-normale-de-boyce-codd-fnbc",
     "title": "Normalisation I",
     "section": "Forme normale de Boyce-Codd (FNBC)",
-    "text": "Forme normale de Boyce-Codd (FNBC)\n\n\n\n\n\n\nDéfinition\n\n\nUn schéma \\(\\mathcal{A}\\) est en FNBC par rapport à un ensemble de dépendances fonctionnelles \\(\\Sigma\\) sur \\(\\mathcal{A}\\)\nsi\npour toute DF \\(X\\rightarrow Y\\) impliquée par \\(\\Sigma\\) avec \\(Y\\not\\subset X\\), \\(X\\) est une super-clef\n\n\n\n\n\n \\((\\mathcal{A},\\Sigma)\\) est en FNBC si pour toute DF non triviale impliquée par \\(\\Sigma\\), le membre de gauche est une super-clef"
+    "text": "Forme normale de Boyce-Codd (FNBC)\n\n\n\n\n\n\nDéfinition\n\n\nUn schéma \\(\\mathcal{A}\\) est en FNBC par rapport à un ensemble de dépendances fonctionnelles \\(\\Sigma\\) sur \\(\\mathcal{A}\\)\nsi\npour toute DF non triviale \\(X\\rightarrow Y\\) impliquée par \\(\\Sigma\\) (Σ ⊧ X → Y avec \\(¬ Y ⊂ X\\)), \\(X\\) est une super-clef\n\n\n\n\n\n \\((\\mathcal{A},\\Sigma)\\) est en FNBC si pour toute DF non triviale impliquée par \\(\\Sigma\\), le membre de gauche (le déterminant) est une super-clef"
   },
   {
     "objectID": "slides/DF_norm_1.html#fnbc-exemple-1",
@@ -2018,7 +2018,7 @@
     "href": "slides/DF_norm_1.html#décomposition-dun-schéma-de-relation",
     "title": "Normalisation I",
     "section": "Décomposition d’un schéma de relation",
-    "text": "Décomposition d’un schéma de relation\n\n\n\n\n\n\nDéfinition\n\n\nSoit \\(\\mathcal{A}\\) un schéma de relation\nUn décomposition de \\(\\mathcal{A}\\) est un ensemble \\(\\{\\mathcal{A}_1,..., \\mathcal{A}_k\\}\\) de sous-ensembles de \\(\\mathcal{A}\\) tel que\n\\[\\mathcal{A}_i\\not=\\emptyset, 1\\le i\\le k, \\quad \\text{ et } \\quad \\mathcal{A} = \\bigcup_{i=1}^k \\mathcal{A}_i\\]"
+    "text": "Décomposition d’un schéma de relation\n\n\n\n\n\n\nDéfinition\n\n\nSoit \\(\\mathcal{A}\\) un schéma de relation\nUn décomposition de \\(\\mathcal{A}\\) est un ensemble \\(\\{\\mathcal{A}_1,..., \\mathcal{A}_k\\}\\) de sous-ensembles de \\(\\mathcal{A}\\) tel que\n\\[\\mathcal{A}_i\\not=\\emptyset, 1\\le i\\le k, \\quad \\text{ et } \\quad \\mathcal{A} = \\bigcup_{i=1}^k \\mathcal{A}_i\\]\n\n\n\n\n Une décomposition n’est pas nécessairement une partition. On n’impose pas que les \\(\\mathcal{A}_i\\) soient deux à deux disjoints."
   },
   {
     "objectID": "slides/DF_norm_1.html#exemple-de-décomposition-i",
@@ -2039,7 +2039,7 @@
     "href": "slides/DF_norm_1.html#propriétés-dune-décomposition",
     "title": "Normalisation I",
     "section": "Propriétés d’une décomposition",
-    "text": "Propriétés d’une décomposition\nOn ne peut pas décomposer arbitrairement\nToutes les décompositions ne sont pas intéressantes\n\nConditions pour une décomposition raisonnable :\n\nDécomposition sans perte d’information\nDécomposition sans perte de dépendance fonctionnelle"
+    "text": "Propriétés d’une décomposition\nOn ne peut pas décomposer arbitrairement\nToutes les décompositions ne sont pas intéressantes\n\n\n\n\n\n\n\nConditions pour une décomposition raisonnable :\n\n\n\nDécomposition sans perte d’information\nDécomposition sans perte de dépendance fonctionnelle"
   },
   {
     "objectID": "slides/DF_norm_1.html#décomposition-sans-perte-dinformation-1",
@@ -2081,7 +2081,7 @@
     "href": "slides/DF_norm_1.html#algorithme-de-poursuite-1",
     "title": "Normalisation I",
     "section": "Algorithme de poursuite",
-    "text": "Algorithme de poursuite\n\nComment déterminer si une décomposition est sans perte d’information?\nSi \\(R\\) est une relation de schéma \\(\\mathcal{A}\\) on a toujours que\n\n\\[R\\subset \\pi_{\\mathcal{A}_1}(R) \\bowtie \\pi_{\\mathcal{A}_2}(R) \\bowtie...\\bowtie\\pi_{\\mathcal{A}_k}(R)\\]\npar définition de la jointure naturelle et de la projection\n\nLe seul problème est que les jointures peuvent générer des tuples supplémentaires\nMais comme \\(R\\) est supposée vérifier les DF de \\(\\Sigma\\), l’inclusion inverse est garantie dans certains cas\nPour le savoir, un algorithme simple existe appelé algorithme de poursuite"
+    "text": "Algorithme de poursuite\n\nComment déterminer si une décomposition est sans perte d’information?\nSi \\(R\\) est une relation de schéma \\(\\mathcal{A}\\) on a toujours que\n\n\\[R ⊆ \\pi_{\\mathcal{A}_1}(R) \\bowtie \\pi_{\\mathcal{A}_2}(R) \\bowtie...\\bowtie\\pi_{\\mathcal{A}_k}(R)\\]\npar définition de la jointure naturelle et de la projection\n\nLe seul problème est que les jointures peuvent générer des tuples supplémentaires\nMais comme \\(R\\) est supposée vérifier les DF de \\(\\Sigma\\), l’inclusion inverse est garantie dans certains cas\nPour le savoir, un algorithme simple existe appelé algorithme de poursuite"
   },
   {
     "objectID": "slides/DF_norm_1.html#algorithme-de-poursuite-exemple",
@@ -6008,7 +6008,7 @@
     "href": "slides/DF_norm_1.html#terminaison-de-lalgorithme",
     "title": "Normalisation I",
     "section": "Terminaison de l’algorithme",
-    "text": "Terminaison de l’algorithme\n Xc grandit à chaque itération\nComme \\(\\mathcal{A}\\) est fini, l’algorithme se termine en au plus \\(|\\mathcal{A}|\\) itérations"
+    "text": "Terminaison de l’algorithme\n \\(X^c\\) grandit à chaque itération\nComme \\(\\mathcal{A}\\) est fini, l’algorithme se termine en au plus \\(|\\mathcal{A}|\\) itérations"
   },
   {
     "objectID": "slides/DF_norm_1.html#section-4",
@@ -6136,5 +6136,51 @@
     "title": "Normalisation II : Décomposition FN3",
     "section": "Pour réaliser cet objectif",
     "text": "Pour réaliser cet objectif\nUne étape cruciale : réécrire l’ensemble de DFs"
+  },
+  {
+    "objectID": "weeks/week-13.html#contrôle-continu-3",
+    "href": "weeks/week-13.html#contrôle-continu-3",
+    "title": "Semaine 13",
+    "section": "Contrôle Continu 3",
+    "text": "Contrôle Continu 3\n\nRequêtes\nContraintes\nModélisation (EA et pattes de corbeau)\nNormalisation I (pas FN3 et décomposition sans pertes de DFs)\n\n\n\nretour à Agenda ⏎",
+    "crumbs": [
+      "Journal",
+      "Semaine 13"
+    ]
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#algorithme",
+    "href": "slides/DF_norm_1.html#algorithme",
+    "title": "Normalisation I",
+    "section": "Algorithme",
+    "text": "Algorithme\n\n\n\\begin{algorithm} \\caption{Décomposition FNBC} \\begin{algorithmic} \\Procedure{DecompositionFNBC}{$\\mathcal{A}, Σ$} \\State \\Comment{Initialisation de la décomposition} \\State $D ← \\{\\mathcal{A}\\}$ \\State \\While{$\\exists \\mathcal{B} \\in D$ not in BCNF w.r.t. $\\Sigma \\models X → X^+ \\cap \\mathcal{B}$, $X \\subsetneq \\mathcal{B}$} \\State $Y \\leftarrow X^+ \\cap \\mathcal{B} \\setminus X\\qquad$ \\Comment{DF non triviale! $Y \\neq \\emptyset$} \\State $D \\leftarrow D \\setminus \\{\\mathcal{B}\\} \\cup \\{ X \\cup Y, \\mathcal{B} \\setminus Y \\}$ \\EndWhile \\State \\Return $D$ \\EndProcedure \\end{algorithmic} \\end{algorithm}"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#algorithme-de-poursuite-chase-algorithm",
+    "href": "slides/DF_norm_1.html#algorithme-de-poursuite-chase-algorithm",
+    "title": "Normalisation I",
+    "section": "Algorithme de poursuite (chase algorithm)",
+    "text": "Algorithme de poursuite (chase algorithm)\n\nComment déterminer si une décomposition est sans perte d’information?\nSi \\(R\\) est une relation de schéma \\(\\mathcal{A}\\) on a toujours que\n\n\\[R ⊆ \\pi_{\\mathcal{A}_1}(R) \\bowtie \\pi_{\\mathcal{A}_2}(R) \\bowtie...\\bowtie\\pi_{\\mathcal{A}_k}(R)\\]\npar définition de la jointure naturelle et de la projection\n\nLe seul problème est que les jointures peuvent générer des tuples supplémentaires\nMais comme \\(R\\) est supposée vérifier les DF de \\(\\Sigma\\), l’inclusion inverse est garantie dans certains cas\nPour le savoir, un algorithme simple existe appelé algorithme de poursuite"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#commentaires",
+    "href": "slides/DF_norm_1.html#commentaires",
+    "title": "Normalisation I",
+    "section": "Commentaires",
+    "text": "Commentaires\nL’objectif de l’algorithme de poursuite est de vérifier que tout tuple de \\(\\pi_{\\mathcal{A}_1}(R) \\bowtie \\pi_{\\mathcal{A}_2}(R) \\bowtie...\\bowtie\\pi_{\\mathcal{A}_k}(R)\\) est aussi un tuple de \\(R\\)\nÀ l’initialisation, on part d’un tuple de \\(\\pi_{\\mathcal{A}_1}(R) \\bowtie \\pi_{\\mathcal{A}_2}(R) \\bowtie...\\bowtie\\pi_{\\mathcal{A}_k}(R)\\) qu’on note symboliquement \\((a, b, c, \\ldots)\\) avec des symboles non indicés\nPour chaque \\(i \\leq k\\), on utilise le fait que pour chaque tuple de \\(\\pi_{\\mathcal{A}_i}(R)\\) il existe un ensemble de tuples de \\(R\\) qui coïncident avec \\((a, b, c, \\ldots)\\) sur \\(\\mathcal{A}_i\\). On note génériquement ces tuples de \\(R\\) en indiçant les noms de variables par \\(i\\) pour toutes les variables qui ne sont pas dans \\(\\mathcal{A}_i\\)\nChacun des sous-ensembles de tuples indicés par \\(i \\leq k\\) définit un sous-ensemble de tuples de \\(R\\)\nOn veut se convaincre que \\((a, b, c, \\ldots)\\) appartient à l’un de ces sous-ensembles\n\nL’algorithme de poursuite utilise les DF de Σ, pour restreindre les \\(k\\) sous-ensembles"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#commentaires-suite",
+    "href": "slides/DF_norm_1.html#commentaires-suite",
+    "title": "Normalisation I",
+    "section": "Commentaires (suite)",
+    "text": "Commentaires (suite)\nL’algorithme de poursuite est un algorithme de réécriture\n\nL’algorithme de poursuite est non-déterministe : à chaque étape, il est parfois possible d’invoquer plusieurs DFs pour réécrire une ou plusieurs lignes\n\n\nUn point important de l’analyse de l’algorithme de poursuite consiste à vérifier que ce non-déterminisme n’est pas un problème : l’algorithme de poursuite termine par un succès ou un échec (blocage) quelle que soit la suite des choix effectués\n\nPreuve ()."
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#commentaires-sur-lalgorithme-de-poursuite",
+    "href": "slides/DF_norm_1.html#commentaires-sur-lalgorithme-de-poursuite",
+    "title": "Normalisation I",
+    "section": "Commentaires sur l’algorithme de poursuite",
+    "text": "Commentaires sur l’algorithme de poursuite\nL’objectif de l’algorithme de poursuite est de vérifier que tout tuple de \\(\\pi_{\\mathcal{A}_1}(R) \\bowtie \\pi_{\\mathcal{A}_2}(R) \\bowtie...\\bowtie\\pi_{\\mathcal{A}_k}(R)\\) est aussi un tuple de \\(R\\)\nÀ l’initialisation, on part d’un tuple de \\(\\pi_{\\mathcal{A}_1}(R) \\bowtie \\pi_{\\mathcal{A}_2}(R) \\bowtie...\\bowtie\\pi_{\\mathcal{A}_k}(R)\\) qu’on note symboliquement \\((a, b, c, \\ldots)\\) avec des symboles non indicés\nPour chaque \\(i \\leq k\\), on utilise le fait que pour chaque tuple de \\(\\pi_{\\mathcal{A}_i}(R)\\) il existe un ensemble de tuples de \\(R\\) qui coïncident avec \\((a, b, c, \\ldots)\\) sur \\(\\mathcal{A}_i\\). On note génériquement ces tuples de \\(R\\) en indiçant les noms de variables par \\(i\\) pour toutes les variables qui ne sont pas dans \\(\\mathcal{A}_i\\)\nChacun des sous-ensembles de tuples indicés par \\(i \\leq k\\) définit un sous-ensemble de tuples de \\(R\\)\nOn veut se convaincre que \\((a, b, c, \\ldots)\\) appartient à l’un de ces sous-ensembles\n\nL’algorithme de poursuite utilise les DF de Σ, pour restreindre les \\(k\\) sous-ensembles"
   }
 ]
