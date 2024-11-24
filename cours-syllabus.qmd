@@ -168,13 +168,13 @@ La note de session II (seconde chance) est égale à la note obtenue à l'épreu
 
 -   **Septembre 13:** Début du cours
 -   **Septembre 20:** Début des TD/TP
--   **Octobre 25:** Contrôle continu I
+-   **Octobre 25:** [Contrôle continu I](/weeks/week-7.qmd)
 -   **Octobre 26-Novembre 3:** Pause de la Toussaint
 -   **Novembre 8 :** Reprise des cours et TD
--   **Novembre 15**: Contrôle continu II
+-   **Novembre 15**: [Contrôle continu II](/weeks/week-9.qmd)
 -   **Décembre 6**: Fin du cours magistral
--   **Décembre 13**: Contrôle continu III 
--   **Janvier ??**: Contrôle terminal 
+-   **Décembre 13**: [Contrôle continu III](/weeks/week-13.qmd) 
+-   **Janvier 6** 13h30-16h30: [Contrôle terminal](https://edt.math.univ-paris-diderot.fr/#/parcours/miashs/l3). Halle aux Farines 3B et 470E
 -   **Juin ??**: Deuxième chance
    
 
