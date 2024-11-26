@@ -792,9 +792,12 @@ Traduire le schéma EA dans le formalisme des pattes de corbeau
 ::: {.callout-tip title="Solution"}
 
 
+::: {style="width: 600px"}
+
 ```{mermaid}
 %%| eval: true
 %%| echo: false
+%%| fig-width: 6
 erDiagram
     OCCUPE }o--|| EMPLOYE : employe_num 
     OCCUPE }o--|| EMPLOI  : emploi_num
@@ -877,6 +880,8 @@ erDiagram
 
 
 ```
+
+:::
 
 `MEMBRE` et `DIRIGE` ont en apparence le même schéma. Ce sont les contraintes qui distinguent les deux tables. 
 
