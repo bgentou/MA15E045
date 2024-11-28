@@ -28,17 +28,6 @@ params:
 engine: knitr
 ---
 
-::: {.content-visible when-profile='solution'} 
-
-::: {.callout-warning}
-
-### Avec solutions
-
-:::
-
-:::
-
-
 
 ::: {.content-visible when-profile='solution'} 
 
@@ -72,18 +61,6 @@ engine: knitr
 :::
 
 
-```{r}
-#| echo: false
-#| eval: false
-#| results: asis
-#| label: title_template
-stringr::str_glue('### {params$curriculum}\n\n',
-  "**{params$university}**\n\n",
-  "Academic Year {params$year}-{params$year+1}\n\n",
-  "[Course Homepage]({params$homepage})\n\n\n",
-  "[Moodle]({params$moodle})\n\n\n",
-  "---\n\n")
-```
 
 
 
@@ -98,7 +75,7 @@ Elle signifie que deux tuples ayant la même valeur sur $A_1,\ldots,A_k$ doivent
 
 La notion de dépendance est transitive : si $A \rightarrow B$ et $B \rightarrow C$ alors $A \rightarrow C$. 
 
-Un ensemble de dépendances fonctionnelles $\mathcal{F}$ est *1* si aucune dépendance ne peut être déduite des autres en utilisant les règles suivantes :
+Un ensemble de dépendances fonctionnelles $\mathcal{F}$ est *irréductible*  si aucune dépendance ne peut être déduite des autres en utilisant les règles suivantes :
 
 - trivialité : si $Y\subseteq X$ alors $X\rightarrow Y$
 - augmentation :  si $X\rightarrow Y$ alors $X,Z\rightarrow Y,Z$ pour toute suite  d'attributs $Z$. 
@@ -116,13 +93,12 @@ Un ensemble d'attributs $A_1,\ldots, A_k$ est une *super-clé pour une relation 
 
 Un schéma est en : 
 
-- $\text{FN}_1$ si tout attribut est atomique. 
-- $\text{FN}_2$ si un attribut ne fait pas partie d'une clef, il ne peut pas dépendre d'une partie stricte d'une clef. 
-- $\text{FN}_3$ Pour toute dépendance fonctionnelle non triviale, le membre de gauche contient une clef ou tout attribut du membre de droit appartient à une clef. 
+- $\text{FN}_3$ si pour toute dépendance fonctionnelle non triviale, le membre de gauche contient une clef ou tout attribut du membre de droit appartient à une clef. 
+- FNBC si pour toute dépendance fonctionnelle non triviale, le membre de gauche contient une clef.
  
-Un schéma et un ensemble de dépendances fonctionnelles peut se décomposer en une collection de schémas, dans le sens où chaque relation $R$ peut se décomposer en $R_1,\ldots, R_k$ tels que $R_i = \pi_i(R)$ pour une certaine projection $\pi_i$.
+Un schéma et un ensemble de dépendances fonctionnelles peut se *décomposer* en une collection de schémas, dans le sens où chaque relation $R$ peut se décomposer en $R_1,\ldots, R_k$ tels que $R_i = \pi_i(R)$ pour une certaine projection $\pi_i$.
  
-On dit cette décomposition \emph{sans perte d'information} si toute relation $R$ du schéma d'origine peut être retrouvée à partir des relations $R_1,\ldots, R_k$ : $R = \pi_1(R) \bowtie \ldots \bowtie \pi_k(R)$.
+On dit cette décomposition *sans perte d'information* si toute relation $R$ du schéma d'origine peut être retrouvée à partir des relations $R_1,\ldots, R_k$ : $R = \pi_1(R) \bowtie \ldots \bowtie \pi_k(R)$.
  
 On dit que cette décomposition *respecte les dépendances fonctionnelles* si celles-ci sont toujours satisfaites par la nouvelle décomposition. 
  
@@ -131,18 +107,21 @@ On dit que cette décomposition *respecte les dépendances fonctionnelles* si ce
 
 ### Exercice
 
-Soit une relation concernant des personnes en France avec les attributs suivants~:\\
-Nom, Numéro de sécurité sociale, Commune, Département, Code postal, Numéro de téléphone
+Soit une relation concernant des personnes en France avec les attributs suivants~:
 
-Quelles sont les dépendances fonctionnelles censées être satisfaites~?
+```
+Nom, Numéro de sécurité sociale, Commune, Département, Code postal, Numéro de téléphone
+```
+
+Quelles sont les dépendances fonctionnelles censées être satisfaites ?
 
 ::: {.content-visible when-profile="solution"}
 
 ::: {.callout-tip title="Solution"}
 
-- Numéro de sécurité sociale $\to$ Nom, Commune, Département, Code postal, Numéro de téléphone
-- Commune, Département $\longrightarrow$ Code postal 
-- Code postal $\to$  Département
+- `Numéro de sécurité sociale → Nom, Commune, Département, Code postal, Numéro de téléphone`
+- `Commune, Département → Code postal` 
+- `Code postal → Département`
 
 :::
 
@@ -168,7 +147,7 @@ Calculer le nombre de super-clefs (en fonction de $n$) dans les cas suivants~:
 
 
 - $2^{n-1}$
-- $2^{n-2} + 2^{n-2} + 2^{n-2}$
+- $3 \times 2^{n-2}$
 - $2^{n-4}\times 3\times 2 + 2^{n-4}$
 - $3\times 2^{n-3}$
 
@@ -183,7 +162,7 @@ Calculer le nombre de super-clefs (en fonction de $n$) dans les cas suivants~:
 ### Exercice
 
 Soit le schéma $\mathcal{A}=\{A,B,C,D\}$ et l'ensemble de dépendances fonctionnelles
-$$\Sigma = \{ A \longrightarrow B, B \longrightarrow C\} $$
+$$\Sigma = \{ A ⟶ B, B ⟶ C\} $$
 
 
 
@@ -199,9 +178,9 @@ Etape 1 : Il existe une DF dont la partie gauche est incluse dans $ X$ : $A \lon
 D'où $X  = \{A, B\}$
 
 Etape 2: Il existe une DF dont la partie gauche est incluse dans  $ X$ : $B \longrightarrow C$.  On rajoute les attributs en partie droite.
-D'où $X  = \{A,B,C\}$.
+D'où $X  = {A,B,C}$.
 
-C'est fini, plus de DF à utiliser. Conclusion $\{A\}^+=\{A,B,C\}$
+C'est fini, plus de DF à utiliser. Conclusion $\{A\}^+={A,B,C}$
 
 :::
 
@@ -214,7 +193,9 @@ C'est fini, plus de DF à utiliser. Conclusion $\{A\}^+=\{A,B,C\}$
 ::: {.callout-tip title="Solution"}
 
 Une clef doit contenir $\{A,D\}$ puisque ces deux attributs ne sont à droite d'aucune DF de $\Sigma$.
+
 De plus $\{A,D\}^+=\{A,B,C,D\}$.
+
 La seule clef est donc $\{A,D\}$.
 
 :::
@@ -226,7 +207,7 @@ La seule clef est donc $\{A,D\}$.
 ### Exercice
 
 Soit le schéma $\mathcal{A}=\{A,B,C,D,E,F\}$ et l'ensemble de dépendances fonctionnelles
- $$\Sigma = \Bigl\{ \{A,B\}\to C, \{B,C\}\to \{A,D\}, D\to E, \{C,F\}\to B \Bigr\}$$
+$$\Sigma = \Bigl\{ \{A,B\}\to C, \{B,C\}\to \{A,D\}, D\to E, \{C,F\}\to B \Bigr\}$$
 
 
 - Calculer la fermeture $\{A,B\}^+$ de $\{A,B\}$.
@@ -255,7 +236,7 @@ Soit le schéma $\mathcal{A}=\{A,B,C,D,E,F\}$ et l'ensemble de dépendances fonc
 
 ### Exercice
 
-Montrer que les assertions suivantes sont fausses~:
+Montrer que les assertions suivantes sont fausses :
 
 
 - $A\to B$ implique $B\to A$.
@@ -271,38 +252,32 @@ Montrer que les assertions suivantes sont fausses~:
 
 
 - La relation
-$$
-\begin{array}{|c|c|}
-\hline A & B \\\hline
-\hline 1 & 2  \\
-\hline 4 & 2  \\
-\hline
-\end{array}
-$$
+
+|   A  |   B   |
+|:----:|:-----:|
+| 1    | 2     | 
+| 4    | 2     |
+
 satisfait $A\to B$ mais pas $B\to A$.
+
 - La relation
-$$
-\begin{array}{|c|c|c|}
-\hline A & B & C\\\hline
-\hline 1 & 2 & 3 \\
-\hline 4 & 2 & 4  \\
-\hline
-\end{array}
-$$
+
+| A | B | C  | 
+|:----:|:-----:|:-----:|
+| 1 | 2 | 3  | 
+| 4 | 2 | 4  | 
+
 satisfait $\{A,B\}\to C$ et $A\to C$ mais pas $B\to C$.
+
 - La relation
-$$
-\begin{array}{|c|c|c|}
-\hline A & B & C\\\hline
-\hline 1 & 2 & 3 \\
-\hline 4 & 2 & 4  \\
-\hline 1 & 3 & 1 \\
-\hline
-\end{array}
-$$
+
+| A | B | C |
+|:-:|:-:|:-:|:-:|
+| 1 | 2 | 3 |
+| 4 | 2 | 4 |
+| 1 | 3 | 1 |
+
 satisfait $\{A,B\}\to C$ mais ni $A\to C$ ni $B\to C$.
-
-
 
 
 :::
@@ -318,7 +293,8 @@ satisfait $\{A,B\}\to C$ mais ni $A\to C$ ni $B\to C$.
 
 
 -  Soit le schéma $\mathcal{A}=\{A, B,C, D, E, F, G, H\}$ et soit
-$$\Sigma = \{AB \longrightarrow C; \ B \longrightarrow D;  \ CD \longrightarrow E;  \ CE \longrightarrow GH; \  G \longrightarrow A\} $$
+$$\Sigma = \{AB \longrightarrow C; \ B \longrightarrow D;  \ CD \longrightarrow E;  \ CE \longrightarrow GH; \  G \longrightarrow A\}$$
+
 Est-ce que les dépendances
 
 -  $A,B \longrightarrow E$
@@ -342,9 +318,7 @@ Pour la seconde, on a $\{B,G\}^+=\{A,B,C,D,E,G,H\}$.
 
 :::
 
-<!-- <!-- %-    Soit $\mathcal{F}_1 = \{A \longrightarrow B ; C,E \longrightarrow H ; C \longrightarrow E ; A \longrightarrow C,H\}$. L'ensemble $\mathcal{F}$ est-il minimal ? -->
-<!-- % -->
-<!-- % -->
+
 
 ::: {.content-visible when-profile="solution"} 
 
@@ -357,9 +331,9 @@ Pour que $\mathcal{F}$ soit minimale, il y a 3 conditions à remplir :
 - Aucune DF redondante à gauche.
 
 
-n'est pas minimale: $C,E \longrightarrow H $ est redondante à gauche. 
+n'est pas minimale: $C,E \longrightarrow H$ est redondante à gauche. 
 
-On la remplace par $C \longrightarrow H $. 
+On la remplace par $C \longrightarrow H$. 
 
 De même $A \longrightarrow H$ est redondante. 
 
@@ -373,7 +347,7 @@ $$\mathcal{F} = \{A \longrightarrow B ; C \longrightarrow H ; C \longrightarrow 
 
 
 -  Soit
-$$\Sigma_1 = \{A \longrightarrow B ; C,E \longrightarrow H ; C \longrightarrow E ; A \longrightarrow C,H\}$$
+$$\Sigma_1 = \{A ⟶ B ; C,E \longrightarrow H ; C \longrightarrow E ; A \longrightarrow C,H\}$$
 et $$\Sigma_2 = \{A \longrightarrow B,C ;  C \longrightarrow E,H\}$$
 Les deux ensembles de dépendances fonctionnelles $\Sigma_1$ et $\Sigma_2$ sont-ils équivalents ?
 
@@ -381,14 +355,20 @@ Les deux ensembles de dépendances fonctionnelles $\Sigma_1$ et $\Sigma_2$ sont-
 
 ::: {.callout-tip title="Solution"}
 
-Montrons que $\Sigma_1$ implique $\Sigma_2$.
+Montrons que $\Sigma_1$ implique $\Sigma_2$  ($\Sigma_1 \models \Sigma_2$).
+
 $A\to B$ et $C\to E$ sont dans $\Sigma_1$. $A\to C$ est impliqué par $A\to CH \in \Sigma_1$.
-Donc $A\to BC$ se déduit de $\Sigma_1$. De plus $\Sigma_1$ implique $C\to H$ (puisque $\Sigma_1$ contient $C\to E$ et $CE\to H$). Donc $\Sigma_1$ implique $C\to EH$. On a montré que toutes les DF de $\Sigma_2$ sont impliquées par $\Sigma_1$.\\
-Montrons que $\Sigma_2$ implique $\Sigma_1$.\\
-$\Sigma_2$ contient $A\to B$.\\
-$\Sigma_2$ contient $C\to EH$ qui implique $C\to H$ qui implique $CE\to H$.\\
-$\Sigma_2$ contient $C\to EH$ qui implique $C\to E$.\\
-$\Sigma_2$ implique $A\to CH$...
+
+Donc $A\to BC$ se déduit de $\Sigma_1$. De plus $\Sigma_1$ implique $C\to H$ (puisque $\Sigma_1$ contient $C\to E$ et $CE\to H$). 
+
+Donc $\Sigma_1$ implique $C\to EH$. On a montré que toutes les DF de $\Sigma_2$ sont impliquées par $\Sigma_1$.
+
+Montrons que $\Sigma_2$ implique $\Sigma_1$.
+
+- $\Sigma_2$ contient $A\to B$.
+- $\Sigma_2$ contient $C\to EH$ qui implique $C\to H$ qui implique $CE\to H$.
+- $\Sigma_2$ contient $C\to EH$ qui implique $C\to E$.
+- $\Sigma_2$ implique $A\to CH$ ...
 
 :::
 
@@ -403,7 +383,7 @@ $\Sigma_2$ implique $A\to CH$...
 
 
 
-- On considère le schéma de relation $\mathcal{A}=\{A,B,C\}$ et la dépendance fonctionnelle suivante:
+- On considère le schéma de relation $\mathcal{A}={A,B,C}$ et la dépendance fonctionnelle suivante:
 
 $$\Sigma=\{  A,B \longrightarrow C   \}.$$
 
@@ -414,14 +394,8 @@ $$\mathcal{A}_1=\{A,B\} , \quad \mathcal{A}_2=\{B,C\}$$
 en étudiant le cas de la table suivante :
 
 
-<!-- $$
-\begin{array}{|c|c|c|}
-\hline A & B & C \\\hline
-\hline 1 & 2 & 3 \\
-\hline 4 & 2 & 5 \\
-\hline
-\end{array}
-$$ -->
+
+
 
 | A | B | C |
 |:--:|:--:|:--:|
@@ -465,37 +439,37 @@ On doit montrer que :
 
 $R=\pi_{A,D}(R)\bowtie \pi_{A,B}(R)\bowtie \pi_{B,E}(R)\bowtie \pi_{C,D,E}(R) \bowtie \pi_{A,E}(R)$.
 
-On voit facilement que :
-$R \subseteq\pi_{A,D}(R)\bowtie \pi_{A,B}(R)\bowtie \pi_{B,E}(R)\bowtie \pi_{C,D,E}(R) \bowtie \pi_{A,E}(R)$
- et il faut montrer l'autre inclusion.\\
+On voit que :
+$$R \subseteq\pi_{A,D}(R)\bowtie \pi_{A,B}(R)\bowtie \pi_{B,E}(R)\bowtie \pi_{C,D,E}(R) \bowtie \pi_{A,E}(R)$$
+ et il faut montrer l'autre inclusion.
+
 On considère un tuple $t=(a,b,c,d,e)$ de la jointure naturelle.
+
 Pour $1\le i\le 5$, comme $\pi_{\mathcal{A}_i}(t) \in \pi_{\mathcal{A}_i}(R)$ il existe un tuple $t_i\in R$
 tel que $\pi_{\mathcal{A}_i}(t)=\pi_{\mathcal{A}_i}(t_i)$, ce que l'on représente par le tableau
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c_1& d & e_1 \\
-\hline a & b & c_2 & d_2 & e_2 \\
-\hline  a_3& b & c_3 & d_3 & e \\
-\hline  a_4 & b_4 & c & d & e \\
-\hline  a & b_5 & c_5 & d_5 & e \\
-\hline
-\end{array}
-$$
+
+
+ A  | B  | C  | D  | E |
+|:--:|:--:|:--:|:--:|:--:|
+| a  | $b_1$  |  $c_1$ | d  | $e_1$ |
+| a  | b  | $c_2$  | $d_2$  | $e_2$ |
+|  $a_3$ | b  | $c_3$  | $d_3$  | e |
+|  $a_4$  | $b_4$ |  c  | d  | e |
+|  a  | $b_5$  | $c_5$  | $d_5$  | e |
+
 
 Par la dépendance  $A \longrightarrow C$, on sait que deux tuples ayant la même valeur sur $A$, ont la même sur $C$. On remplace dans la table les valeurs indicées par la valeur $c$ quand c'est possible, ou on unifie simplement les valeurs indicées sinon (ici on prendra $c_1$).
 
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c_1& d & e_1 \\
-\hline a & b & c_1 & d_2 & e_2 \\
-\hline  a_3& b & c_3 & d_3 & e \\
-\hline  a_4 & b_4 & c & d & e \\
-\hline  a & b_5 & c_1 & d_5 & e \\
-\hline
-\end{array}
-$$
+
+
+| A | B | C | D | E |
+|:--:|:--:|:--:|:--:|:--:|
+| a  | $b_1$ |   $c_1$ |  d  |  $e_1$  |
+| a  | b |  $c_1$  |  $d_2$  |  $e_2$  |
+|  $a_3$ | b |  $c_3$  |  $d_3$  |  e  |
+|  $a_4$  | $b_4$ |  c  |  d  |  e  |
+|  a  | $b_5$ |  $c_1$  |  $d_5$  |  e  |
+
 
 :::
 
@@ -503,31 +477,26 @@ $$
 
 On traite maintenant $B \longrightarrow C$.
 
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c_1& d & e_1 \\
-\hline a & b & c_1 & d_2 & e_2 \\
-\hline  a_3& b & c_1 & d_3 & e \\
-\hline  a_4 & b_4 & c & d & e \\
-\hline  a & b_5 & c_1 & d_5 & e \\
-\hline
-\end{array}
-$$
+
+| A |  B | C | D | E  |
+|:--:|:--:|:--:|:--:|:--:|
+| a | $b_1$ |  $c_1$| d | $e_1$ |
+| a | b | $c_1$ | $d_2$ | $e_2$ |
+|  $a_3$| b | $c_1$ | $d_3$ | e |
+|  $a_4$ | $b_4$ | c | d | e |
+|  a | $b_5$ | $c_1$ | $d_5$ | e |
+
 
 Pour la dépendance $C \longrightarrow D$, on obtient :
 
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c_1& d & e_1 \\
-\hline a & b & c_1 & d & e_2 \\
-\hline  a_3& b & c_1 & d & e \\
-\hline  a_4 & b_4 & c & d & e \\
-\hline  a & b_5 & c_1 & d & e \\
-\hline
-\end{array}
-$$
+
+| A |  B | C | D | E  |
+|:--:|:--:|:--:|:--:|:--:|
+| a | $b_1$ |  $c_1$| d | $e_1$ |
+| a | b | $c_1$ | d | $e_2$ |
+|  $a_3$| b | $c_1$ | d | e |
+|  $a_4$ | $b_4$ | c | d | e |
+|  a | $b_5$ | $c_1$ | d | e |
 
 :::
 
@@ -535,34 +504,32 @@ $$
 
 Pour $D,E \longrightarrow C$, on a cette fois (notez qu'on remplace tous les $c_1$ du coup comme l'un d'entre eux devait l'être) :
 
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c& d & e_1 \\
-\hline a & b & c & d & e_2 \\
-\hline  a_3& b & c & d & e \\
-\hline  a_4 & b_4 & c & d & e \\
-\hline  a & b_5 & c & d & e \\
-\hline
-\end{array}
-$$
+
+| A |  B | C | D | E  |
+|:--:|:--:|:--:|:--:|:--:|
+| a |  $b_1$ |  c | d | $e_1$ |
+| a |  b | c  | d | $e_2$ |
+|  $a_3$|  b | c  | d | e |
+|  $a_4$ |  $b_4$ | c  | d | e |
+|  a |  $b_5$ | c  | d | e |
+
+
 
 Enfin, on termine avec $C,E \longrightarrow A$ :
 
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c& d & e_1 \\
-\hline a & b & c & d & e_2 \\
-\hline  a& b & c & d & e \\
-\hline  a & b_4 & c & d & e \\
-\hline  a & b_5 & c & d & e \\
-\hline
-\end{array}
-$$
+
+| A |  B | C | D | E  |
+|:--:|:--:|:--:|:--:|:--:|
+| a |  $b_1$ |  c | d | $e_1$ |
+| a |  b | c  | d | $e_2$ |
+|  a|  b | c  | d | e |
+|  a |  $b_4$ | c  | d | e |
+|  a |  $b_5$ | c  | d | e |
+
 
  On voit que le tuple $(a,b,c,d,e)$ apparait.
-<!-- % En faisant un tour supplémentaire, on pourrait forcer chacune des $5$ lignes à contenir ce tuple.  On est donc  parti  des projections de ce tuple (décrites par les schémas de $R_1$ à $R_5$) complétés arbitrairement sur le reste du schéma, par exemple $(a,b_1, c_1, d,e_1 )$ pour appartenir à la grande jointure. Puis, en utilisant les dépendances fonctionnelles,  on a réussi à déduire que $b_1=b$; $c_1=c$ et $e_1=e$. -->
+
+
 En d'autres termes :
  $R \supset\pi_{A,D}(R)\bowtie \pi_{A,B}(R)\bowtie \pi_{B,E}(R)\bowtie \pi_{C,D,E}(R) \bowtie \pi_{A,E}(R)$.
  La décomposition est donc SPI.
@@ -572,101 +539,93 @@ En d'autres termes :
 ::: {.callout-tip title="Solution (suite)"}
 
 
-La seconde décomposition n'est pas SPI~: l'algorithme de poursuite échoue.
-Le tableau de départ s'écrit~:
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c_1& d & e_1 \\
-\hline a & b & c_2 & d_2 & e_2 \\
-\hline  a_3& b & c_3 & d_3 & e \\
-\hline  a_4 & b_4 & c & d & e_4 \\
-\hline  a_5 & b_5 & c_5 & d & e \\
-\hline  a & b_6 & c_6 & d_6 & e \\
-\hline
-\end{array}
-$$
+La seconde décomposition n'est pas SPI: l'algorithme de poursuite échoue.
+
+Le tableau de départ s'écrit :
+
+| A |  B | C | D | E  |
+|:--:|:--:|:--:|:--:|:--:|
+| a |  $b_1$ |  $c_1$| d | $e_1$ |
+| a |  b | $c_2$ | $d_2$ | $e_2$ |
+|  $a_3$|  b | $c_3$ | $d_3$ | e |
+|  $a_4$ |  $b_4$ | c | d | $e_4$ |
+|  $a_5$ |  $b_5$ | $c_5$ | d | e |
+|  a |  $b_6$ | $c_6$ | $d_6$ | e |
+
 
 
 - $A\to C$ donc $c_1=c_2=c_6$
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c_1& d & e_1 \\
-\hline a & b & c_1 & d_2 & e_2 \\
-\hline  a_3& b & c_3 & d_3 & e \\
-\hline  a_4 & b_4 & c & d & e_4 \\
-\hline  a_5 & b_5 & c_5 & d & e \\
-\hline  a & b_6 & c_1 & d_6 & e \\
-\hline
-\end{array}
-$$
+
+| A |  B | C | D | E  |
+|:--:|:--:|:--:|:--:|:--:|
+| a |  $b_1$ |  $c_1$| d | $e_1$ |
+| a |  b | $c_1$ | $d_2$ | $e_2$ |
+|  $a_3$|  b | $c_3$ | $d_3$ | e |
+|  $a_4$ |  $b_4$ | c | d | $e_4$ |
+|  $a_5$ |  $b_5$ | $c_5$ | d | e |
+|  a |  $b_6$ | $c_1$ | $d_6$ | e |
+
 
 :::
 
 ::: {.callout-tip title="Solution (suite)"}
 
--
 $B\to C$ donc $c_3=c_1$
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c_1& d & e_1 \\
-\hline a & b & c_1 & d_2 & e_2 \\
-\hline  a_3& b & c_1 & d_3 & e \\
-\hline  a_4 & b_4 & c & d & e_4 \\
-\hline  a_5 & b_5 & c_5 & d & e \\
-\hline  a & b_6 & c_1 & d_6 & e \\
-\hline
-\end{array}
-$$
-- $C\to D$ donc $d_1=d_3=d_6=d$
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c_1& d & e_1 \\
-\hline a & b & c_1 & d & e_2 \\
-\hline  a_3& b & c_1 & d & e \\
-\hline  a_4 & b_4 & c & d & e_4 \\
-\hline  a_5 & b_5 & c_5 & d & e \\
-\hline  a & b_6 & c_1 & d & e \\
-\hline
-\end{array}
-$$
+
+| A |  B | C | D | E  |
+|:--:|:--:|:--:|:--:|:--:|
+| a |  $b_1$ |  $c_1$| d | $e_1$ |
+| a |  b | $c_1$ | $d_2$ | $e_2$ |
+|  $a_3$|  b | $c_1$ | $d_3$ | e |
+|  $a_4$ |  $b_4$ | c | d | $e_4$ |
+|  $a_5$ |  $b_5$ | $c_5$ | d | e |
+|  a |  $b_6$ | $c_1$ | $d_6$ | e |
+
+$C\to D$ donc $d_1=d_3=d_6=d$
+
+| A |  B | C | D | E  |
+|:--:|:--:|:--:|:--:|:--:|
+| a |  $b_1$ |  $c_1$| d | $e_1$ |
+| a |  b | $c_1$ | d | $e_2$ |
+|  $a_3$|  b | $c_1$ | d | e |
+|  $a_4$ |  $b_4$ | c | d | $e_4$ |
+|  $a_5$ |  $b_5$ | $c_5$ | d | e |
+|  a |  $b_6$ | $c_1$ | d | e |
+
 
 :::
 
 ::: {.callout-tip title="Solution (suite)"}
 
-- $DE\to C$ donc $c_5=c1$
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c_1& d & e_1 \\
-\hline a & b & c_1 & d & e_2 \\
-\hline  a_3& b & c_1 & d & e \\
-\hline  a_4 & b_4 & c & d & e_4 \\
-\hline  a_5 & b_5 & c_1 & d & e \\
-\hline  a & b_6 & c_1 & d & e \\
-\hline
-\end{array}
-$$
-- $CE\to A$ donc $a_3=a_5=a$
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline A & B & C & D & E \\\hline
-\hline a & b_1 &  c_1& d & e_1 \\
-\hline a & b & c_1 & d & e_2 \\
-\hline  a& b & c_1 & d & e \\
-\hline  a_4 & b_4 & c & d & e_4 \\
-\hline  a & b_5 & c_1 & d & e \\
-\hline  a & b_6 & c_1 & d & e \\
-\hline
-\end{array}
-$$
+$DE\to C$ donc $c_5=c1$
+
+| A |  B | C | D | E  |
+|:--:|:--:|:--:|:--:|:--:|
+| a |  $b_1$ |  $c_1$| d | $e_1$ |
+| a |  b | $c_1$ | d | $e_2$ |
+|  $a_3$|  b | $c_1$ | d | e |
+|  $a_4$ |  $b_4$ | c | d | $e_4$ |
+|  $a_5$ |  $b_5$ | $c_1$ | d | e |
+|  a |  $b_6$ | $c_1$ | d | e |
+
+$CE\to A$ donc $a_3=a_5=a$
+
+| A |  B | C | D | E  |
+|:--:|:--:|:--:|:--:|:--:|
+| a |  $b_1$ |  $c_1$| d | $e_1$ |
+| a |  b | $c_1$ | d | $e_2$ |
+|  a|  b | $c_1$ | d | e |
+|  $a_4$ |  $b_4$ | c | d | $e_4$ |
+|  a |  $b_5$ | $c_1$ | d | e |
+|  a |  $b_6$ | $c_1$ | d | e |
+
+
 Toutes les DF de $\Sigma$ sont satisfaites et aucune ligne n'est égale à $(a,b,c,d,e)$.
-Donc la décomposition n'est pas SPI.\\
+
+Donc la décomposition n'est pas SPI.
+
 Si on suppose que pour tout $1\le i\le 6$, $a_i\not=a$, $b_i\not=b$, $c_i\not=c$, $d_i\not=d$, $e_i\not=e$, ce dernier tableau fournit un exemple de relation strictement plus petite que la jointure naturelle des projections.
+
 En effet $\Sigma$ est satisfait et $(a,b,c,d,e)$ est clairement dans la jointure naturelles des projections.
 Or $(a,b,c,d,e)$ n'est pas dans la relation.
 
@@ -683,7 +642,7 @@ Or $(a,b,c,d,e)$ n'est pas dans la relation.
 ### Exercice
 
 Soit $\mathcal{A}=\{A,B,C,D,E\}$ un schéma et soit la décomposition $\{\mathcal{A}_1,\mathcal{A}_2,\mathcal{A}_3\}$ où
-$$\mathcal{A}_1=\{A,B,C\}\quad \mathcal{A}_2=\{B,C,D\}\quad \mathcal{A}_3=\{A,C,E\}$$
+$$\mathcal{A}_1={A,B,C}\quad \mathcal{A}_2={B,C,D}\quad \mathcal{A}_3={A,C,E}$$
 Pour chaque ensemble $\Sigma$ de dépendances fonctionnelles ci-dessous, appliquer l'algorithme de poursuite pour déterminer si la décomposition est sans perte d'information.
 Dans le cas où il y a perte d'information, donner une relation $R$ de schéma $\mathcal{A}$ satisfaisant $\Sigma$ et telle que
 $$ \pi_{\mathcal{A}_1}(R)\bowtie\pi_{\mathcal{A}_2}(R)\bowtie\pi_{\mathcal{A}_3}(R)\not\subset R$$
@@ -701,55 +660,55 @@ $$ \pi_{\mathcal{A}_1}(R)\bowtie\pi_{\mathcal{A}_2}(R)\bowtie\pi_{\mathcal{A}_3}
 ::: {.callout-tip title="Solution"}
 
 -
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline  & A & B & C & D & E \\\hline
-\hline \{A,B,C\}  & a & b &  c& d_1 & e_1 \\
-\hline  \{B,C,D\} & a_2 & b & c & d & e_2 \\
-\hline  \{A,C,E\} & a & b_3 & c & d_3 & e \\
-\hline
-\end{array}
-$$
+
+|  | A | B | C  | D | E   |
+|:---:|:---:|:---:|:---:|:---:|
+| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
+|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
+|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
+
 $B\to E$ donc $e_1=e_2$. Ensuite $CE\to A$ donc $a_2=a$. On obtient
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline  & A & B & C & D & E \\\hline
-\hline \{A,B,C\}  & a & b &  c& d_1 & e_1 \\
-\hline  \{B,C,D\} & a & b & c & d & e_1 \\
-\hline  \{A,C,E\} & a & b_3 & c & d_3 & e \\
-\hline
-\end{array}
-$$
+
+
+|  | A | B | C  | D | E   |
+|:---:|:---:|:---:|:---:|:---:|
+| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
+|  {B,C,D} | a | b | c  | d | $e_1$ |
+|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
+
 Toutes les DF de $\Sigma$ sont satisfaites. Donc il y a perte d'information.
 Ce dernier tableau est une relation $R$ qui satisfait $\Sigma$ et telle que
+
 $$\pi_{\mathcal{A}_1}(R)\bowtie\pi_{\mathcal{A}_2}(R)\bowtie\pi_{\mathcal{A}_3}(R)\not\subset R$$
+
 puisque $(a,b,c,d,e)\notin R$.
+
+
+
+
 
 :::
 
 
 ::: {.callout-tip title="Solution (suite)"}
 
--
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline  & A & B & C & D & E \\\hline
-\hline \{A,B,C\}  & a & b &  c& d_1 & e_1 \\
-\hline  \{B,C,D\} & a_2 & b & c & d & e_2 \\
-\hline  \{A,C,E\} & a & b_3 & c & d_3 & e \\
-\hline
-\end{array}
-$$
+
+|  | A | B | C  | D | E   |
+|:---:|:---:|:---:|:---:|:---:|
+| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
+|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
+|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
+
+
 $AC\to E$ donc $e_1=e$. Ensuite $BC\to D$ donc $d_1=d$. On obtient
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline  & A & B & C & D & E \\\hline
-\hline \{A,B,C\}  & a & b &  c& d & e \\
-\hline  \{B,C,D\} & a_2 & b & c & d & e_2 \\
-\hline  \{A,C,E\} & a & b_3 & c & d_3 & e \\
-\hline
-\end{array}
-$$
+
+
+|  | A | B | C  | D | E   |
+|:---:|:---:|:---:|:---:|:---:|
+| {A,B,C}  | a | b |  c | d | e |
+|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
+|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
+ 
 Le premier tuple est $(a,b,c,d,e)$. Donc la décomposition est SPI.
 
 :::
@@ -757,45 +716,40 @@ Le premier tuple est $(a,b,c,d,e)$. Donc la décomposition est SPI.
 ::: {.callout-tip title="Solution (suite)"}
 
 -
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline  & A & B & C & D & E \\\hline
-\hline \{A,B,C\}  & a & b &  c& d_1 & e_1 \\
-\hline  \{B,C,D\} & a_2 & b & c & d & e_2 \\
-\hline  \{A,C,E\} & a & b_3 & c & d_3 & e \\
-\hline
-\end{array}
-$$
+
+
+|  | A | B | C  | D | E |
+|:---:|:---:|:---:|:---:|:---:|
+| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
+|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
+|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
+
 $A\to D$ donc $d_3=d_1$.
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline  & A & B & C & D & E \\\hline
-\hline \{A,B,C\}  & a & b &  c& d_1 & e_1 \\
-\hline  \{B,C,D\} & a_2 & b & c & d & e_2 \\
-\hline  \{A,C,E\} & a & b_3 & c & d_1 & e \\
-\hline
-\end{array}
-$$
+
+
+|  | A | B | C  | D | E |
+|:---:|:---:|:---:|:---:|:---:|
+| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
+|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
+|  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
+
 $D\to E$ donc $e_1=e$
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline  & A & B & C & D & E \\\hline
-\hline \{A,B,C\}  & a & b &  c& d_1 & e \\
-\hline  \{B,C,D\} & a_2 & b & c & d & e_2 \\
-\hline  \{A,C,E\} & a & b_3 & c & d_1 & e \\
-\hline
-\end{array}
-$$
+
+|  | A | B | C  | D | E |
+|:---:|:---:|:---:|:---:|:---:|
+| {A,B,C}  | a | b |  c | $d_1$ | e |
+|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
+|  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
+
 $B\to D$ donc $d_1=d$
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline  & A & B & C & D & E \\\hline
-\hline \{A,B,C\}  & a & b &  c& d & e \\
-\hline  \{B,C,D\} & a_2 & b & c & d & e_2 \\
-\hline  \{A,C,E\} & a & b_3 & c & d_1 & e \\
-\hline
-\end{array}
-$$
+
+
+|  | A | B | C  | D | E |
+|:---:|:---:|:---:|:---:|:---:|
+| {A,B,C}  | a | b |  c | d | e |
+|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
+|  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
+
 La décomposition est donc SPI.
 
 :::
@@ -803,35 +757,29 @@ La décomposition est donc SPI.
 ::: {.callout-tip title="Solution (suite)"}
 
 -
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline  & A & B & C & D & E \\\hline
-\hline \{A,B,C\}  & a & b &  c& d_1 & e_1 \\
-\hline  \{B,C,D\} & a_2 & b & c & d & e_2 \\
-\hline  \{A,C,E\} & a & b_3 & c & d_3 & e \\
-\hline
-\end{array}
-$$
+
+|  | A | B | C  | D | E |
+|:---:|:---:|:---:|:---:|:---:|
+| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
+|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
+|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
+
 $A\to D$ donc $d_3=d_1$.
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline  & A & B & C & D & E \\\hline
-\hline \{A,B,C\}  & a & b &  c& d_1 & e_1 \\
-\hline  \{B,C,D\} & a_2 & b & c & d & e_2 \\
-\hline  \{A,C,E\} & a & b_3 & c & d_1 & e \\
-\hline
-\end{array}
-$$
+
+|  | A | B | C  | D | E |
+|:---:|:---:|:---:|:---:|:---:|
+| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
+|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
+|  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
+
 $CD\to E$ donc $e_1=e$.
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline  & A & B & C & D & E \\\hline
-\hline \{A,B,C\}  & a & b &  c& d_1 & e \\
-\hline  \{B,C,D\} & a_2 & b & c & d & e_2 \\
-\hline  \{A,C,E\} & a & b_3 & c & d_1 & e \\
-\hline
-\end{array}
-$$
+
+|  | A | B | C  | D | E |
+|:---:|:---:|:---:|:---:|:---:|
+| {A,B,C}  | a | b |  c | $d_1$ | e |
+|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
+|  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
+
 $E\to D$ est satisfaite ainsi que les deux premières DF.
 Donc la décomposition n'est pas SPI.
 
