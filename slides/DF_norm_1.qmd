@@ -646,6 +646,7 @@ Soit $\Sigma$ un ensemble de DF sur un schéma $\mathcal{A}$ et $X\subset\mathca
     \If{$Y ⊆ X^c ∧ ¬ Z ⊆ X^c$}
       \State $X^c ←  X^c ∪ Z$
       \State stop ← \False \Comment{Point Fixe pas atteint}
+      \Break
     \EndIf
   \EndFor
 \Until{stop}
@@ -728,7 +729,7 @@ Et $Σ$ l'ensemble de dépendances fonctionnelles ci-contre
 
 :::
 
-. . .
+
 
 ::: {.column width="25%"}
 
