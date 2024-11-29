@@ -1,0 +1,18 @@
+color:
+  palette:
+    dark-grey: "#222222"
+    blue: "#ddeaf1"
+    white: '#ffffff'
+  background: white
+  foreground: dark-grey
+  primary: black
+
+logo: 
+  medium: /images/UniversiteParis_monogramme_couleur_RVB.png
+
+typography:
+  fonts:
+    - family: "Atkinson Hyperlegible"
+      source: google
+  base: "Atkinson Hyperlegible"
+  headings: "Atkinson Hyperlegible"
