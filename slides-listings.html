@@ -83,9 +83,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-subtitle',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-title-sort'] },{ data: ['listing-date-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author"],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -421,14 +421,17 @@ window.Quarto = {
      <select id="listing-diapos-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-diapos'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
        <option value="" disabled="" selected="" hidden="">Order By</option>
        <option value="index" data-direction="asc">Default</option>
+         <option value="listing-title-sort" data-direction="asc">
+          Titre
+        </option>
          <option value="listing-date-sort" data-direction="asc">
           Date - Oldest
         </option>
          <option value="listing-date-sort" data-direction="desc">
           Date - Newest
         </option>
-         <option value="listing-title-sort" data-direction="asc">
-          Titre
+         <option value="listing-categories" data-direction="asc">
+          Description
         </option>
      </select>
   </div>
@@ -447,225 +450,165 @@ window.Quarto = {
 <a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Titre</a>
 </th>
 <th>
-Description
+<a class="sort" data-sort="listing-categories" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Description</a>
 </th>
 </tr>
 </thead>
 <tbody class="list">
-<tr data-index="0" data-listing-date-sort="1726178400000" data-listing-file-modified-sort="1725913683420" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1977" data-listing-title-sort="BD I: Introduction aux SGBD" data-listing-filename-sort="BD_intro.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="0" data-categories="QmFzZXMlMjBkZSUyMGRvbm4lQzMlQTllcyUyQ1N5c3QlQzMlQThtZXMlMjBkJ2luZm9ybWF0aW9uJTJDTW9kJUMzJUE4bGUlMjByZWxhdGlvbm5lbCUyQ09MVFAlMkNPTEFQ" data-listing-date-sort="1757714400000" data-listing-title-sort="Introduction aux Bases de Données" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Sep 13, 2024</span>
+<span class="listing-date">Sep 13, 2025</span>
 </td>
 <td>
-<a href="./slides/BD_intro.html" class="title listing-title">BD I: Introduction aux SGBD</a>
+<a href="slides/BD_intro.html" class="title listing-title">Introduction aux Bases de Données</a>
 </td>
 <td>
-<span class="listing-subtitle">Bases de Données Licences MIASHS et Mathématiques</span>
+<span class="listing-categories">Bases de données, Systèmes d’information, Modèle relationnel, OLTP, OLAP</span>
 </td>
 </tr>
-<tr data-index="1" data-listing-date-sort="1726178400000" data-listing-file-modified-sort="1726832377848" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="31" data-listing-word-count-sort="6163" data-listing-title-sort="BD I: Algèbre Relationnelle" data-listing-filename-sort="SQL_0.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="1" data-categories="QWxnJUMzJUE4YnJlJTIwcmVsYXRpb25uZWxsZSUyQ1MlQzMlQTlsZWN0aW9uJTJDUHJvamVjdGlvJTJDSm9pbnR1cmU=" data-listing-date-sort="1757714400000" data-listing-title-sort="Algèbre relationnelle" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Sep 13, 2024</span>
+<span class="listing-date">Sep 13, 2025</span>
 </td>
 <td>
-<a href="./slides/SQL_0.html" class="title listing-title">BD I: Algèbre Relationnelle</a>
+<a href="slides/SQL_0.html" class="title listing-title">Algèbre relationnelle</a>
 </td>
 <td>
-<span class="listing-subtitle">Cadre formel pour la manipulation de tables</span>
+<span class="listing-categories">Algèbre relationnelle, Sélection, Projectio, Jointure</span>
 </td>
 </tr>
-<tr data-index="2" data-listing-date-sort="1726783200000" data-listing-file-modified-sort="1728991780044" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1258" data-listing-title-sort="BD II: SQL I" data-listing-filename-sort="SQL_1.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="2" data-categories="QWxnJUMzJUE4YnJlJTIwcmVsYXRpb25uZWxsZSUyQ1NRTCUyQ1MlQzMlQTlsZWN0aW9uJTJDUHJvamVjdGlvbiUyQ0pvaW50dXJl" data-listing-date-sort="1758319200000" data-listing-title-sort="SQL : requêtes simples" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Sep 20, 2024</span>
+<span class="listing-date">Sep 20, 2025</span>
 </td>
 <td>
-<a href="./slides/SQL_1.html" class="title listing-title">BD II: SQL I</a>
+<a href="slides/SQL_1.html" class="title listing-title">SQL : requêtes simples</a>
 </td>
 <td>
-<span class="listing-subtitle">Langage Manipulation de Données 1</span>
+<span class="listing-categories">Algèbre relationnelle, SQL, Sélection, Projection, Jointure</span>
 </td>
 </tr>
-<tr data-index="3" data-listing-date-sort="1727388000000" data-listing-file-modified-sort="1727724426748" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1762" data-listing-title-sort="BD II: SQL II" data-listing-filename-sort="SQL_2.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="3" data-categories="UmVxdSVDMyVBQXRlcyUyMGltYnJpcXUlQzMlQTllcyUyQ0NURQ==" data-listing-date-sort="1758924000000" data-listing-title-sort="SQL : requêtes imbriquées" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Sep 27, 2024</span>
+<span class="listing-date">Sep 27, 2025</span>
 </td>
 <td>
-<a href="./slides/SQL_2.html" class="title listing-title">BD II: SQL II</a>
+<a href="slides/SQL_2.html" class="title listing-title">SQL : requêtes imbriquées</a>
 </td>
 <td>
-<span class="listing-subtitle">Langage Manipulation de Données 2 : requêtes imbriquées</span>
+<span class="listing-categories">Requêtes imbriquées, CTE</span>
 </td>
 </tr>
-<tr data-index="4" data-listing-date-sort="1727992800000" data-listing-file-modified-sort="1728033212476" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1859" data-listing-title-sort="BD II: SQL LDD" data-listing-filename-sort="LDD_0.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="4" data-categories="QWdnciVDMyVBOWdhdGlvbnMlMkNQYXJ0aXRpb25zJTJDRmVuJUMzJUFBdHJlcw==" data-listing-date-sort="1759528800000" data-listing-title-sort="SQL : Agrégations, Paritions, Fenêtres" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Oct 4, 2024</span>
+<span class="listing-date">Oct 4, 2025</span>
 </td>
 <td>
-<a href="./slides/LDD_0.html" class="title listing-title">BD II: SQL LDD</a>
+<a href="slides/SQL_3.html" class="title listing-title">SQL : Agrégations, Paritions, Fenêtres</a>
 </td>
 <td>
-<span class="listing-subtitle">Définition de données</span>
+<span class="listing-categories">Aggrégations, Partitions, Fenêtres</span>
 </td>
 </tr>
-<tr data-index="5" data-listing-date-sort="1727992800000" data-listing-file-modified-sort="1728030697760" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="36" data-listing-word-count-sort="7173" data-listing-title-sort="BD IV: SQL III" data-listing-filename-sort="SQL_3.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="5" data-categories="Q3IlQzMlQTlhdGlvbiUyMGRlJTIwdGFibGVzJTJDSW5zZXJ0aW9uJTJDU3VwcHJlc3Npb24lMkNNaXNlcyUyMCVDMyVBMCUyMGpvdXI=" data-listing-date-sort="1760133600000" data-listing-title-sort="SQL : Définition de données" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Oct 4, 2024</span>
+<span class="listing-date">Oct 11, 2025</span>
 </td>
 <td>
-<a href="./slides/SQL_3.html" class="title listing-title">BD IV: SQL III</a>
+<a href="slides/LDD_0.html" class="title listing-title">SQL : Définition de données</a>
 </td>
 <td>
-<span class="listing-subtitle">Langage Manipulation de Données 3 : Aggrégation/Fenêtres/Partitions</span>
+<span class="listing-categories">Création de tables, Insertion, Suppression, Mises à jour</span>
 </td>
 </tr>
-<tr data-index="6" data-listing-date-sort="1728597600000" data-listing-file-modified-sort="1728921017419" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2475" data-listing-title-sort="BD : Contraintes" data-listing-filename-sort="LDD_1.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="6" data-categories="Q29udHJhaW50ZXMlMkNDaGVjayUyQ1ByaW1hcnklMjBLZXklMkNGb3JlaWduJTIwS2V5" data-listing-date-sort="1760738400000" data-listing-title-sort="SQL : Définition de données, Contraintes simples" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Oct 11, 2024</span>
+<span class="listing-date">Oct 18, 2025</span>
 </td>
 <td>
-<a href="./slides/LDD_1.html" class="title listing-title">BD : Contraintes</a>
+<a href="slides/LDD_1.html" class="title listing-title">SQL : Définition de données, Contraintes simples</a>
 </td>
 <td>
-<span class="listing-subtitle">Définition de données: Contraintes</span>
+<span class="listing-categories">Contraintes, Check, Primary Key, Foreign Key</span>
 </td>
 </tr>
-<tr data-index="7" data-listing-date-sort="1729202400000" data-listing-file-modified-sort="1728921023789" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2366" data-listing-title-sort="Fonctions SQL et Vues" data-listing-filename-sort="SQL_4.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="7" data-categories="Q29udHJhaW50ZXMlMkMlQzMlODl0dWRlJTIwZGUlMjBjYXMlMkNFeGNsdWRlJTJDQ29udHJhaW50ZXMlMjBtdWx0aXRhYmxlcw==" data-listing-date-sort="1761343200000" data-listing-title-sort="SQL : Définition de données, Contraintes d'exclusion" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Oct 18, 2024</span>
+<span class="listing-date">Oct 25, 2025</span>
 </td>
 <td>
-<a href="./slides/SQL_4.html" class="title listing-title">Fonctions SQL et Vues</a>
+<a href="slides/LDD_2.html" class="title listing-title">SQL : Définition de données, Contraintes d’exclusion</a>
 </td>
 <td>
-<span class="listing-subtitle">Fonctions SQL. Vues</span>
+<span class="listing-categories">Contraintes, Étude de cas, Exclude, Contraintes multitables</span>
 </td>
 </tr>
-<tr data-index="8" data-listing-date-sort="1729807200000" data-listing-file-modified-sort="1729756335905" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3276" data-listing-title-sort="BD VII: Corriger le schéma World" data-listing-filename-sort="LDD_2.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="8" data-categories="TW9kJUMzJUE5bGlzYXRpb24lMkNFbnRpdCVDMyVBOS1Bc3NvY2lhdGlvbiUyQ0NhcmRpbmFsaXQlQzMlQTlzJTJDU3AlQzMlQTljaWFsaXNhdGlvbiUyRkclQzMlQTluJUMzJUE5cmFsaXNhdGlvbg==" data-listing-date-sort="1762556400000" data-listing-title-sort="Modélisation : Entité-Association" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Oct 25, 2024</span>
+<span class="listing-date">Nov 8, 2025</span>
 </td>
 <td>
-<a href="./slides/LDD_2.html" class="title listing-title">BD VII: Corriger le schéma World</a>
+<a href="slides/Modelisation_1.html" class="title listing-title">Modélisation : Entité-Association</a>
 </td>
 <td>
-<span class="listing-subtitle">Définition de données: Contraintes/Ingénieurie</span>
+<span class="listing-categories">Modélisation, Entité-Association, Cardinalités, Spécialisation/Généralisation</span>
 </td>
 </tr>
-<tr data-index="9" data-listing-date-sort="1731020400000" data-listing-file-modified-sort="1731086274397" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18" data-listing-word-count-sort="3436" data-listing-title-sort="Modélisation I : Entité/Association" data-listing-filename-sort="Modelisation_1.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="9" data-categories="TW9kJUMzJUE5bGlzYXRpb24lMkNQYXR0ZXMlMjBkZSUyMGNvcmJlYXV4JTJDUiVDMyVBOXRyby1pbmclQzMlQTluaWVyaWU=" data-listing-date-sort="1763161200000" data-listing-title-sort="Modélisation : Pattes de corbeaux" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Nov 8, 2024</span>
+<span class="listing-date">Nov 15, 2025</span>
 </td>
 <td>
-<a href="./slides/Modelisation_1.html" class="title listing-title">Modélisation I : Entité/Association</a>
+<a href="slides/Modelisation_2.html" class="title listing-title">Modélisation : Pattes de corbeaux</a>
 </td>
 <td>
-<span class="listing-subtitle">Modélisation Entité/Association (ER)</span>
+<span class="listing-categories">Modélisation, Pattes de corbeaux, Rétro-ingénierie</span>
 </td>
 </tr>
-<tr data-index="10" data-listing-date-sort="1731625200000" data-listing-file-modified-sort="1730901093780" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15" data-listing-word-count-sort="2821" data-listing-title-sort="Modélisation II :" data-listing-filename-sort="Modelisation_2.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="10" data-categories="Tm9ybWFsaXNhdGlvbiUyQ0QlQzMlQTlwZW5kYW5jZXMlMjBmb25jdGlvbm5lbGxlcyUyQ0ltcGxpY2F0aW9uJTJDRmVybWV0dXJlJTJDQ2wlQzMlQTlz" data-listing-date-sort="1763766000000" data-listing-title-sort="Normalisation : Dépendances fonctionnelles, Fermetures" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Nov 15, 2024</span>
+<span class="listing-date">Nov 22, 2025</span>
 </td>
 <td>
-<a href="./slides/Modelisation_2.html" class="title listing-title">Modélisation II :</a>
+<a href="slides/DF_norm_1.html" class="title listing-title">Normalisation : Dépendances fonctionnelles, Fermetures</a>
 </td>
 <td>
-<span class="listing-subtitle">Traduction des modèles ER: Pattes de corbeaux, Relationnel</span>
+<span class="listing-categories">Normalisation, Dépendances fonctionnelles, Implication, Fermeture, Clés</span>
 </td>
 </tr>
-<tr data-index="11" data-listing-date-sort="1732230000000" data-listing-file-modified-sort="1732295697297" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="24" data-listing-word-count-sort="4605" data-listing-title-sort="Normalisation I" data-listing-filename-sort="DF_norm_1.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="11" data-categories="Tm9ybWFsaXNhdGlvbiUyQ0QlQzMlQTlwZW5kYW5jZXMlMjBmb25jdGlvbm5lbGxlcyUyQ0ltcGxpY2F0aW9uJTJDRmVybWV0dXJlJTJDQ2wlQzMlQTlz" data-listing-date-sort="1764370800000" data-listing-title-sort="Normalisation: FNBC, Décomposition SPI, Poursuite" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Nov 22, 2024</span>
+<span class="listing-date">Nov 29, 2025</span>
 </td>
 <td>
-<a href="./slides/DF_norm_1.html" class="title listing-title">Normalisation I</a>
+<a href="slides/DF_norm_1.html" class="title listing-title">Normalisation: FNBC, Décomposition SPI, Poursuite</a>
 </td>
 <td>
-<span class="listing-subtitle">Dépendances Fonctionnelles. Décomposition FNBC</span>
+<span class="listing-categories">Normalisation, Dépendances fonctionnelles, Implication, Fermeture, Clés</span>
 </td>
 </tr>
-<tr data-index="12" data-listing-date-sort="1732834800000" data-listing-file-modified-sort="1732227498434" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1935" data-listing-title-sort="Normalisation II : Décomposition FN3" data-listing-filename-sort="DF_norm_3.qmd" onclick="href = this.querySelector('a').getAttribute('href');
+<tr data-index="12" data-categories="Tm9ybWFsaXNhdGlvbiUyQ0ZOMyUyQ0QlQzMlQTlwZW5kYW5jZXMlMjBwcm9qZXQlQzMlQTlzJTJDUGVydGUlMjBkZSUyMERGJTJDQ291dmVydHVyZSUyMGlyciVDMyVBOWR1Y3RpYmxl" data-listing-date-sort="1764975600000" data-listing-title-sort="Normalisation: FN3, Décomposition SPI et sans perte de DF" onclick="href = this.querySelector('a').getAttribute('href');
  if (href) { window.location=href ; return false; }">
 <td>
-<span class="listing-date">Nov 29, 2024</span>
+<span class="listing-date">Dec 6, 2025</span>
 </td>
 <td>
-<a href="./slides/DF_norm_3.html" class="title listing-title">Normalisation II : Décomposition FN3</a>
+<a href="slides/DF_norm_2.html" class="title listing-title">Normalisation: FN3, Décomposition SPI et sans perte de DF</a>
 </td>
 <td>
-<span class="listing-subtitle">Pertes de Dépendances Fonctionnelles. Décomposition FN3</span>
-</td>
-</tr>
-<tr data-index="13" data-listing-date-sort="1738278000000" data-listing-file-modified-sort="1720538235368" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3342" data-listing-title-sort="BD : Fonctions et extension PlpgSQL de SQL" data-listing-filename-sort="SQL_5.qmd" onclick="href = this.querySelector('a').getAttribute('href');
- if (href) { window.location=href ; return false; }">
-<td>
-<span class="listing-date">Jan 31, 2025</span>
-</td>
-<td>
-<a href="./slides/SQL_5.html" class="title listing-title">BD : Fonctions et extension PlpgSQL de SQL</a>
-</td>
-<td>
-<span class="listing-subtitle">&nbsp;</span>
-</td>
-</tr>
-<tr data-index="14" data-listing-date-sort="1743202800000" data-listing-file-modified-sort="1728920979339" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="11" data-listing-title-sort="BD : Transactions" data-listing-filename-sort="SQL_6.qmd" onclick="href = this.querySelector('a').getAttribute('href');
- if (href) { window.location=href ; return false; }">
-<td>
-<span class="listing-date">Mar 29, 2025</span>
-</td>
-<td>
-<a href="./slides/SQL_6.html" class="title listing-title">BD : Transactions</a>
-</td>
-<td>
-<span class="listing-subtitle">&nbsp;</span>
-</td>
-</tr>
-<tr data-index="15" data-listing-date-sort="1743372000000" data-listing-file-modified-sort="1727901381517" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="25" data-listing-word-count-sort="4981" data-listing-title-sort="BD : `dplyr` une mise oeuvre de l'Algèbre Relationnelle" data-listing-filename-sort="SQL_7.qmd" onclick="href = this.querySelector('a').getAttribute('href');
- if (href) { window.location=href ; return false; }">
-<td>
-<span class="listing-date">Mar 31, 2025</span>
-</td>
-<td>
-<a href="./slides/SQL_7.html" class="title listing-title">BD : <code>dplyr</code> une mise oeuvre de l’Algèbre Relationnelle</a>
-</td>
-<td>
-<span class="listing-subtitle">Bases de Données Licences MIASHS et Mathématiques</span>
-</td>
-</tr>
-<tr data-index="16" data-listing-file-modified-sort="1728920948823" data-listing-reading-time-sort="1" data-listing-word-count-sort="40" data-listing-title-sort="BD V: Administration" data-listing-filename-sort="BD_admin_1.qmd" onclick="href = this.querySelector('a').getAttribute('href');
- if (href) { window.location=href ; return false; }">
-<td>
-<span class="listing-date">&nbsp;</span>
-</td>
-<td>
-<a href="./slides/BD_admin_1.html" class="title listing-title">BD V: Administration</a>
-</td>
-<td>
-<span class="listing-subtitle">&nbsp;</span>
-</td>
-</tr>
-<tr data-index="17" data-listing-file-modified-sort="1719499735456" data-listing-reading-time-sort="9" data-listing-word-count-sort="1633" data-listing-title-sort="BD VII: Administration et Droits" data-listing-filename-sort="BD_admin_2.qmd" onclick="href = this.querySelector('a').getAttribute('href');
- if (href) { window.location=href ; return false; }">
-<td>
-<span class="listing-date">&nbsp;</span>
-</td>
-<td>
-<a href="./slides/BD_admin_2.html" class="title listing-title">BD VII: Administration et Droits</a>
-</td>
-<td>
-<span class="listing-subtitle">&nbsp;</span>
+<span class="listing-categories">Normalisation, FN3, Dépendances projetés, Perte de DF, Couverture irréductible</span>
 </td>
 </tr>
 </tbody>

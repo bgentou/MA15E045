@@ -1095,7 +1095,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p>Soit <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur un schéma <span class="math inline">\(\mathcal{A}\)</span> et <span class="math inline">\(X\subset\mathcal{A}\)</span></p>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div class="pseudocode-container quarto-float" data-no-end="false" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-line-number="true" data-comment-delimiter="//" data-indent-size="1.2em">
+<div class="pseudocode-container quarto-float" data-line-number-punc=":" data-caption-prefix="Algorithme" data-indent-size="1.2em" data-pseudocode-number="1" data-line-number="true" data-no-end="false" data-comment-delimiter="//">
 <div class="pseudocode">
 \begin{algorithm} \caption{Fermeture} \begin{algorithmic} \Procedure{Fermeture}{$X, Σ$} \State $X^c ← X$ \Repeat \State stop ← \True \Comment{Arrêt si Point Fixe atteint} \For{$(Y → Z) ∈ Σ$} \If{$Y ⊆ X^c ∧ ¬ Z ⊆ X^c$} \State $X^c ← X^c ∪ Z$ \State stop ← \False \Comment{Point Fixe pas atteint} \Break \EndIf \EndFor \Until{stop} \Return $X^c$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -1634,9 +1634,20 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <li><p><span class="math inline">\((a,d,g)\in \pi_{\texttt{V\#,P\#,Qte}}(R)\)</span> donc il existe <span class="math inline">\(b_3,c_3,e_3,f_3\)</span> tels que <span class="math inline">\((a,b_3,c_3,d,e_3,f_3,g)\in \texttt{R}\)</span></p></li>
 <li><p>On peut le représenter comme ceci :</p></li>
 </ul>
-<table class="caption-top">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
 <thead>
 <tr class="header">
+<th style="text-align: center;"></th>
 <th style="text-align: center;"><code>V#</code></th>
 <th style="text-align: center;"><code>Vnom</code></th>
 <th style="text-align: center;"><code>Vville</code></th>
@@ -1655,6 +1666,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d_1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e_1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g_1\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Produit</td>
@@ -1664,6 +1676,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g_2\)</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Livraison</td>
@@ -1673,15 +1686,30 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e_3\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f_3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g\)</span></td>
 </tr>
 </tbody>
 </table>
-</section>
+
+<aside><div>
+<p>Vendeur (resp. Produit, Livraison) désigne l’ensemble des tuples de <span class="math inline">\(R\)</span> qui se projettent sur <span class="math inline">\(a,b,c\)</span> (resp. <span class="math inline">\(d,e,f\)</span> et <span class="math inline">\(a,d,g\)</span>) lorsque on projette <span class="math inline">\(R\)</span> sur <code>V#,Vnom,Vville</code> (resp. <code>P#, Pnom, Pville</code> et <code>V#, P#, Qte</code>)</p>
+</div></aside></section>
 <section id="algorithme-de-poursuite-exemple-2" class="slide level2 smaller center">
 <h2>Algorithme de poursuite : exemple</h2>
-<table class="caption-top">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
 <thead>
 <tr class="header">
+<th style="text-align: center;"></th>
 <th style="text-align: center;"><code>V#</code></th>
 <th style="text-align: center;"><code>Vnom</code></th>
 <th style="text-align: center;"><code>Vville</code></th>
@@ -1700,6 +1728,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d_1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e_1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g_1\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Produit</td>
@@ -1709,6 +1738,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g_2\)</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Livraison</td>
@@ -1718,15 +1748,15 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e_3\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f_3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g\)</span></td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li><code>V#</code> ⟶ <code>Vnom</code>, <code>Vville</code> donc <span class="math inline">\(b_3=b\)</span> et <span class="math inline">\(c_3=c\)</span></li>
-</ul>
+<p><code>V#</code> ⟶ <code>Vnom</code>, <code>Vville</code> donc <span class="math inline">\(b_3=b\)</span> et <span class="math inline">\(c_3=c\)</span></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
+<th style="text-align: center;"></th>
 <th style="text-align: center;"><code>V#</code></th>
 <th style="text-align: center;"><code>Vnom</code></th>
 <th style="text-align: center;"><code>Vville</code></th>
@@ -1745,6 +1775,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d_1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e_1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g_1\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Produit</td>
@@ -1754,6 +1785,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g_2\)</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Livraison</td>
@@ -1763,18 +1795,18 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e_3\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f_3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g\)</span></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="algorithme-de-poursuite-exemple-suite" class="slide level2 smaller center">
 <h2>Algorithme de poursuite : exemple (suite)</h2>
-<ul>
-<li><code>P#⟶ Pnom, Pville</code> donc <span class="math inline">\(e_3=e\)</span> et <span class="math inline">\(f_3=f\)</span></li>
-</ul>
+<p><code>P#⟶ Pnom, Pville</code> donc <span class="math inline">\(e_3=e\)</span> et <span class="math inline">\(f_3=f\)</span></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
+<th style="text-align: center;"></th>
 <th style="text-align: center;"><code>V#</code></th>
 <th style="text-align: center;"><code>Vnom</code></th>
 <th style="text-align: center;"><code>Vville</code></th>
@@ -1793,6 +1825,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d_1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e_1\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g_1\)</span></td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Produit</td>
@@ -1802,6 +1835,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g_2\)</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Livraison</td>
@@ -1811,13 +1845,12 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <td style="text-align: center;"><span class="math inline">\(d\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(e\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(f\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(g\)</span></td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li>On a obtenu une ligne égale au tuple <span class="math inline">\(t=(a,b,c,d,e,f,g)\)</span> donc <span class="math inline">\(t\in \texttt{R}\)</span>.</li>
-</ul>
-<p>On en déduit que la décomposition est Sans Perte d’Information (SPI)</p>
+<p>On a obtenu une ligne égale au tuple <span class="math inline">\(t=(a,b,c,d,e,f,g)\)</span> donc <span class="math inline">\(t\in \texttt{R}\)</span> (tous les tuples qui se projettent sur <span class="math inline">\(a,f,g\)</span> coïncident avec <span class="math inline">\(t\)</span>)</p>
+<p>On en déduit que la décomposition est Sans Perte d’Information (SPI) <i class="fa-solid fa-champagne-glasses" aria-label="champagne-glasses"></i></p>
 </section>
 <section id="algorithme-de-poursuite-cas-général" class="slide level2 smaller center">
 <h2>Algorithme de poursuite : cas général</h2>
@@ -2090,7 +2123,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </section>
 <section id="algorithme" class="slide level2 center">
 <h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-no-end="false" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-line-number="true" data-comment-delimiter="//" data-indent-size="1.2em">
+<div class="pseudocode-container quarto-float" data-line-number-punc=":" data-caption-prefix="Algorithme" data-indent-size="1.2em" data-pseudocode-number="1" data-line-number="true" data-no-end="false" data-comment-delimiter="//">
 <div class="pseudocode">
 \begin{algorithm} \caption{Décomposition FNBC} \begin{algorithmic} \Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← \{\mathcal{A}\}$ \State \While{$\exists \mathcal{B} \in D$ not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$} \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X\qquad$ \Comment{DF non triviale! $Y \neq \emptyset$} \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$ \EndWhile \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
