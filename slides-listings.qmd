@@ -3,15 +3,16 @@ title: "Diapositives"
 listing:
   - id: "diapos"
     contents: 
-      - "slides/*.qmd"
+#      - "slides/*.qmd"
+      - slides-listings.yaml
     type: table  
     table-striped: true
     table-hover: true
     sort: date
-    fields: [date, title, subtitle] 
+    fields: [date, title, categories] 
     field-display-names: 
       title: "Titre"
-      subtitle: "Description"
+      categories: "Description"
 ---
 
 Les diapositives fournissent le canevas du cours. Vous pouvez les utiliser pour vous familiariser avec le matériel du prochain cours, pour revoir les cours passés et, pour réviser.

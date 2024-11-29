@@ -119,8 +119,8 @@ Quelles sont les dépendances fonctionnelles censées être satisfaites ?
 
 ::: {.callout-tip title="Solution"}
 
-- `Numéro de sécurité sociale → Nom, Commune, Département, Code postal, Numéro de téléphone`
-- `Commune, Département → Code postal` 
+- `Numéro de sécurité sociale → Nom, Commune, Département, Code postal`
+- `Commune, Département → Code postal`  (presque : Paris est une commune et un département. Paris possède plusieurs codes postaux )
 - `Code postal → Département`
 
 :::
@@ -287,12 +287,10 @@ satisfait $\{A,B\}\to C$ mais ni $A\to C$ ni $B\to C$.
 
 
 
-### Exercice
+### Exercice : déductions  de DF
 
+Soit le schéma $\mathcal{A}=\{A, B,C, D, E, F, G, H\}$ et soit
 
-
-
--  Soit le schéma $\mathcal{A}=\{A, B,C, D, E, F, G, H\}$ et soit
 $$\Sigma = \{AB \longrightarrow C; \ B \longrightarrow D;  \ CD \longrightarrow E;  \ CE \longrightarrow GH; \  G \longrightarrow A\}$$
 
 Est-ce que les dépendances
@@ -303,7 +301,7 @@ Est-ce que les dépendances
 
 - $A,B \longrightarrow G$
 
-sont déductibles de $\Sigma$~?
+sont déductibles de $\Sigma$ ?
 
 ::: {.content-visible when-profile="solution"}
 
@@ -318,20 +316,25 @@ Pour la seconde, on a $\{B,G\}^+=\{A,B,C,D,E,G,H\}$.
 
 :::
 
+$\Sigma$ est elle irréductible/minimale ? 
+
+
+::: {.callout-tip title="Rappel"}
+
+Pour que $\Sigma$ soit minimale, il y a 3 conditions à remplir : 
+
+- $\Sigma$ est sous forme canonique, un seul attribut à droite. 
+- Aucune DF redondante , i.e. aucune DF ne peut être déduite des autres.
+- Aucune DF redondante à gauch, .i.e. les déterminants sont minimaux
+
+:::
 
 
 ::: {.content-visible when-profile="solution"} 
 
 ::: {.callout-tip title="Solution"}
 
-Pour que $\mathcal{F}$ soit minimale, il y a 3 conditions à remplir : 
-
-- F est sous forme canonique, un seul attribut à droite. 
-- Aucune DF redondante , i.e. ne pouvant être déduite des autres.
-- Aucune DF redondante à gauche.
-
-
-n'est pas minimale: $C,E \longrightarrow H$ est redondante à gauche. 
+$\Sigma$ n'est pas minimale/irréductible : $C,E \longrightarrow H$ est redondante à gauche. 
 
 On la remplace par $C \longrightarrow H$. 
 
@@ -345,11 +348,13 @@ $$\mathcal{F} = \{A \longrightarrow B ; C \longrightarrow H ; C \longrightarrow 
 
 :::
 
+### Exercice : équivalence  d'ensembles de DFs 
+
 
 -  Soit
 $$\Sigma_1 = \{A ⟶ B ; C,E \longrightarrow H ; C \longrightarrow E ; A \longrightarrow C,H\}$$
 et $$\Sigma_2 = \{A \longrightarrow B,C ;  C \longrightarrow E,H\}$$
-Les deux ensembles de dépendances fonctionnelles $\Sigma_1$ et $\Sigma_2$ sont-ils équivalents ?
+Les deux ensembles de dépendances fonctionnelles $\Sigma_1$ et $\Sigma_2$ sont-ils *équivalents* ?
 
 ::: {.content-visible when-profile="solution"}
 
@@ -417,6 +422,8 @@ Donc il y a perte d'information.
 :::
 
 :::
+
+### Exercice : poursuite
 
 - On considère le schéma de relation $\mathcal{A}=\{A,B,C,D,E\}$ et les dépendances fonctionnelles suivantes:
 
@@ -527,12 +534,13 @@ Enfin, on termine avec $C,E \longrightarrow A$ :
 |  a |  $b_5$ | c  | d | e |
 
 
- On voit que le tuple $(a,b,c,d,e)$ apparait.
+On voit que le tuple $(a,b,c,d,e)$ apparait.
 
 
 En d'autres termes :
- $R \supset\pi_{A,D}(R)\bowtie \pi_{A,B}(R)\bowtie \pi_{B,E}(R)\bowtie \pi_{C,D,E}(R) \bowtie \pi_{A,E}(R)$.
- La décomposition est donc SPI.
+
+$R \supset\pi_{A,D}(R)\bowtie \pi_{A,B}(R)\bowtie \pi_{B,E}(R)\bowtie \pi_{C,D,E}(R) \bowtie \pi_{A,E}(R)$.
+La décomposition est donc SPI.
 
 :::
 
@@ -662,7 +670,7 @@ $$ \pi_{\mathcal{A}_1}(R)\bowtie\pi_{\mathcal{A}_2}(R)\bowtie\pi_{\mathcal{A}_3}
 -
 
 |  | A | B | C  | D | E   |
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
 |  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
 |  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
@@ -671,7 +679,7 @@ $B\to E$ donc $e_1=e_2$. Ensuite $CE\to A$ donc $a_2=a$. On obtient
 
 
 |  | A | B | C  | D | E   |
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
 |  {B,C,D} | a | b | c  | d | $e_1$ |
 |  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
@@ -694,7 +702,7 @@ puisque $(a,b,c,d,e)\notin R$.
 
 
 |  | A | B | C  | D | E   |
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
 |  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
 |  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
@@ -704,7 +712,7 @@ $AC\to E$ donc $e_1=e$. Ensuite $BC\to D$ donc $d_1=d$. On obtient
 
 
 |  | A | B | C  | D | E   |
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | {A,B,C}  | a | b |  c | d | e |
 |  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
 |  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
@@ -719,7 +727,7 @@ Le premier tuple est $(a,b,c,d,e)$. Donc la décomposition est SPI.
 
 
 |  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
 |  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
 |  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
@@ -728,7 +736,7 @@ $A\to D$ donc $d_3=d_1$.
 
 
 |  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
 |  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
 |  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
@@ -736,7 +744,7 @@ $A\to D$ donc $d_3=d_1$.
 $D\to E$ donc $e_1=e$
 
 |  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | {A,B,C}  | a | b |  c | $d_1$ | e |
 |  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
 |  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
@@ -745,7 +753,7 @@ $B\to D$ donc $d_1=d$
 
 
 |  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | {A,B,C}  | a | b |  c | d | e |
 |  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
 |  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
@@ -759,7 +767,7 @@ La décomposition est donc SPI.
 -
 
 |  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
 |  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
 |  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
@@ -767,7 +775,7 @@ La décomposition est donc SPI.
 $A\to D$ donc $d_3=d_1$.
 
 |  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
 |  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
 |  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
@@ -775,7 +783,7 @@ $A\to D$ donc $d_3=d_1$.
 $CD\to E$ donc $e_1=e$.
 
 |  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 | {A,B,C}  | a | b |  c | $d_1$ | e |
 |  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
 |  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
