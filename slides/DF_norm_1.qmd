@@ -1181,32 +1181,36 @@ $(a,b_3,c_3,d,e_3,f_3,g)\in \texttt{R}$
 
 - On peut le représenter comme ceci :
 
-| `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pville` |  `Qte` |
-|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|       | `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pville` |  `Qte` |
+:------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |Vendeur | $a$  | $b$  | $c$  | $d_1$ | $e_1$ | $f_1$ | $g_1$ |
 |Produit | $a_2$ | $b_2$ | $c_2$ | $d$  | $e$  | $f$  | $g_2$ |
 |Livraison | $a$  | $b_3$ | $c_3$ | $d$  | $e_3$ | $f_3$ | $g$  |
 
 
 
+::: {.aside}
 
+Vendeur (resp. Produit, Livraison)  désigne l'ensemble des tuples de $R$ qui se projettent sur $a,b,c$ (resp. $d,e,f$ et $a,d,g$) lorsque on projette $R$ sur `V#,Vnom,Vville` (resp. `P#, Pnom, Pville` et `V#, P#, Qte`)
+
+:::
 
 
 ## Algorithme de poursuite : exemple   {.smaller}
 
 
-| `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pville` |  `Qte` |
-|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|         | `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pville` |  `Qte` |
+|:------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |Vendeur | $a$  | $b$  | $c$  | $d_1$ | $e_1$ | $f_1$ | $g_1$ |
 |Produit | $a_2$ | $b_2$ | $c_2$ | $d$  | $e$  | $f$  | $g_2$ |
 |Livraison | $a$  | $b_3$ | $c_3$ | $d$  | $e_3$ | $f_3$ | $g$  |
 
 
 
-- `V#` ⟶ `Vnom`, `Vville` donc $b_3=b$ et $c_3=c$
+`V#` ⟶ `Vnom`, `Vville` donc $b_3=b$ et $c_3=c$
 
-| `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pville` |  `Qte` |
-|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| | `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pville` |  `Qte` |
+|:------: |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |Vendeur | $a$  | $b$  | $c$  | $d_1$ | $e_1$ | $f_1$ | $g_1$ |
 |Produit | $a_2$ | $b_2$ | $c_2$ | $d$  | $e$  | $f$  | $g_2$ |
 |Livraison | $a$  | $b$ | $c$ | $d$  | $e_3$ | $f_3$ | $g$  |
@@ -1215,18 +1219,18 @@ $(a,b_3,c_3,d,e_3,f_3,g)\in \texttt{R}$
 
 ## Algorithme de poursuite : exemple (suite)  {.smaller}
 
-- `P#⟶ Pnom, Pville` donc $e_3=e$ et $f_3=f$
+`P#⟶ Pnom, Pville` donc $e_3=e$ et $f_3=f$
 
 
-| `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pville` |  `Qte` |
-|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| | `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pville` |  `Qte` |
+|:------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 |Vendeur | $a$  | $b$  | $c$  | $d_1$ | $e_1$ | $f_1$ | $g_1$ |
 |Produit | $a_2$ | $b_2$ | $c_2$ | $d$  | $e$  | $f$  | $g_2$ |
 |Livraison | $a$  | $b$ | $c$ | $d$  | $e$ | $f$ | $g$  |
 
-- On a obtenu une ligne égale au tuple $t=(a,b,c,d,e,f,g)$ donc $t\in \texttt{R}$.
+On a obtenu une ligne égale au tuple $t=(a,b,c,d,e,f,g)$ donc $t\in \texttt{R}$ (tous les tuples qui se projettent sur $a,f,g$ coïncident avec $t$)
 
-On en déduit que la décomposition est Sans Perte d'Information (SPI)
+On en déduit que la décomposition est Sans Perte d'Information (SPI) {{< fa champagne-glasses >}}
 
 
 ## Algorithme de poursuite : cas général  {.smaller}
