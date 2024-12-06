@@ -4096,7 +4096,7 @@
     "href": "slides/DF_norm_3.html#limites-de-la-décomposition-fnbc",
     "title": "Normalisation II : Décomposition FN3",
     "section": "Limites de la décomposition FNBC",
-    "text": "Limites de la décomposition FNBC\n\n\n\n\n\n\nNote\n\n\nIl existe des couples schéma/Ensemble de DFs (\\(\\mathcal{A}, \\Sigma\\)) pour lesquels toute décomposition FNBC entraine une perte de Dépendance Fonctionnell"
+    "text": "Limites de la décomposition FNBC\n\n\n\n\n\n\nNote\n\n\nIl existe des couples schéma/Ensemble de DFs (\\(\\mathcal{A}, \\Sigma\\)) pour lesquels toute décomposition FNBC entraine une perte de dépendances fonctionnelles"
   },
   {
     "objectID": "slides/DF_norm_3.html#section",
@@ -4110,14 +4110,14 @@
     "href": "slides/DF_norm_3.html#limites-de-la-décomposition-fnbc-suite",
     "title": "Normalisation II : Décomposition FN3",
     "section": "Limites de la décomposition FNBC (suite)",
-    "text": "Limites de la décomposition FNBC (suite)\n\n\n\n\n\n\n\nÀ noter\n\n\nOn peut vérifier que toute décomposition FNBC de \\(\\mathcal{A}\\) ne préserve pas les dépendances fonctionnelles."
+    "text": "Limites de la décomposition FNBC (suite)\n\n\n\n\n\n\n\nÀ noter\n\n\nOn peut vérifier qu’aucune décomposition FNBC de \\(\\mathcal{A}\\) ne préserve toutes les dépendances fonctionnelles."
   },
   {
     "objectID": "slides/DF_norm_3.html#un-nouvel-objectif",
     "href": "slides/DF_norm_3.html#un-nouvel-objectif",
     "title": "Normalisation II : Décomposition FN3",
     "section": "Un nouvel objectif",
-    "text": "Un nouvel objectif\n\n\n\n\n\n\n\nConstruire\n\n\nUne décomposition :\n\nSPI\nSans perte de Dépendances Fonctionnelles\ndont les éléments sont en FN3 par rapports aux dépendances projetées"
+    "text": "Un nouvel objectif\n\n\n\n\n\n\n\nConstruire\n\n\nUne décomposition :\n\nSans Perte d’Information (SPI)\nSans perte de Dépendances Fonctionnelles\nDont les éléments sont en FN3 par rapports aux dépendances projetées"
   },
   {
     "objectID": "slides/DF_norm_3.html#pour-réaliser-cet-objectif",
@@ -4138,7 +4138,7 @@
     "href": "slides/DF_norm_3.html#détails",
     "title": "Normalisation II : Décomposition FN3",
     "section": "Détails",
-    "text": "Détails\n\n\n\n\n\\begin{algorithm} \\caption{Éliminer les dépendances redondantes dans Σ' (détail)} \\begin{algorithmic} \\Repeat \\State s ← \\True \\For{$(X → y) ∈ Σ'$} \\If{$Σ' \\ {X → y} ⊧ X → y$} \\State $Σ' ← Σ' \\ {X → y}$ \\State s ← \\False \\EndIf \\EndFor \\Until{s} \\end{algorithmic} \\end{algorithm}\n\n\n\n\n\n\\begin{algorithm} \\caption{Miniser les dépendances dans Σ' (détail)} \\begin{algorithmic} \\Repeat \\State s ← \\True \\For{$(X → y) ∈ Σ'$} \\For{$x ∈ X$} \\If{$Σ' \\ {X → y} ⊧ X \\ {x} → y$} \\State $Σ' ← (Σ' \\ {X → y}) ∪ X \\ {x} → y$ \\State s ← \\False \\Break \\EndIf \\EndFor \\EndFor \\Until{s} \\end{algorithmic} \\end{algorithm}"
+    "text": "Détails\n\n\n\n\n\\begin{algorithm} \\caption{Éliminer les dépendances redondantes dans Σ' (détail)} \\begin{algorithmic} \\Repeat \\State s ← \\True \\For{$(X → y) ∈ Σ'$} \\If{$Σ' \\setminus {X → y} ⊧ X → y$} \\State $Σ' ← Σ' \\setminus {X → y}$ \\State s ← \\False \\EndIf \\EndFor \\Until{s} \\end{algorithmic} \\end{algorithm}\n\n\n\n\n\n\\begin{algorithm} \\caption{Miniser les dépendances dans Σ' (détail)} \\begin{algorithmic} \\Repeat \\State s ← \\True \\For{$(X → y) ∈ Σ'$} \\For{$x ∈ X$} \\If{$Σ' \\setminus {X → y} ⊧ X \\setminus {x} → y$} \\State $Σ' ← (Σ' \\setminus {X → y}) ∪ X \\setminus {x} → y$ \\State s ← \\False \\Break \\EndIf \\EndFor \\EndFor \\Until{s} \\end{algorithmic} \\end{algorithm}"
   },
   {
     "objectID": "slides/DF_norm_3.html#définition-forme-normale-3-fn3",
