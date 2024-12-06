@@ -411,7 +411,7 @@ pour toute DF $X\rightarrow Y$ impliquée par $\Sigma$ avec $Y\not\subset X$, $X
   
 ::: {.callout-note}
 
-Il existe des couples schéma/Ensemble de DFs ($\mathcal{A}, \Sigma$) pour lesquels toute décomposition FNBC entraine une perte de Dépendance Fonctionnell
+Il existe des couples schéma/Ensemble de DFs ($\mathcal{A}, \Sigma$) pour lesquels toute décomposition FNBC entraine une perte de dépendances fonctionnelles
 
 :::
 
@@ -443,7 +443,7 @@ La décomposition préserve l'information (SPI) mais pas les dépendances foncti
 
 ::: {.callout-caution title="À noter"}
 
-On peut vérifier que *toute* décomposition FNBC de $\mathcal{A}$ ne préserve pas les dépendances fonctionnelles. 
+On peut vérifier qu'*aucune* décomposition FNBC de $\mathcal{A}$ ne préserve toutes les dépendances fonctionnelles. 
 
 :::
 
@@ -455,9 +455,9 @@ On peut vérifier que *toute* décomposition FNBC de $\mathcal{A}$ ne préserve 
 
 Une décomposition :
 
-- SPI
+- Sans Perte d'Information (SPI)
 - Sans perte de Dépendances Fonctionnelles
-- dont les éléments sont en FN3 par rapports aux dépendances projetées 
+- Dont les éléments sont en FN3 par rapports aux dépendances projetées 
 
 :::
 
@@ -475,7 +475,7 @@ Une étape cruciale : réécrire l'ensemble de DFs
 
 ::: {.callout-important}
 
-### Définition de ls couverture irredondante d'un ensemble de DFs
+### Définition de la couverture irredondante d'un ensemble de DFs
 
 Soit  $\Sigma$ un ensemble de DF, une *couverture minimale/irredondante* de  $\Sigma$ est un ensemble $\Sigma'$ de DF qui vérifie :
 
@@ -543,7 +543,7 @@ Soit  $\Sigma$ un ensemble de DF, une *couverture minimale/irredondante* de  $\S
 ## Détails
 
 ::: {.columns}
-::: {.column}
+::: {.column width="45%"}
 
 ```pseudocode
 #| html-indent-size: "1.2em"
@@ -559,8 +559,8 @@ Soit  $\Sigma$ un ensemble de DF, une *couverture minimale/irredondante* de  $\S
 \Repeat
   \State s ← \True
   \For{$(X → y) ∈ Σ'$}
-    \If{$Σ' \ {X → y} ⊧ X → y$}
-      \State $Σ' ← Σ' \ {X → y}$
+    \If{$Σ' \setminus {X → y} ⊧ X → y$}
+      \State $Σ' ← Σ' \setminus {X → y}$
       \State s ← \False
     \EndIf
   \EndFor
@@ -572,7 +572,7 @@ Soit  $\Sigma$ un ensemble de DF, une *couverture minimale/irredondante* de  $\S
 
 :::
 
-::: {.column}
+::: {.column width="55%"}
 
 ```pseudocode
 #| html-indent-size: "1.2em"
@@ -589,8 +589,8 @@ Soit  $\Sigma$ un ensemble de DF, une *couverture minimale/irredondante* de  $\S
   \State s ← \True
   \For{$(X → y) ∈ Σ'$}
     \For{$x ∈ X$}
-      \If{$Σ' \ {X → y} ⊧ X \ {x} → y$}
-        \State $Σ' ← (Σ' \ {X → y}) ∪ X \ {x} → y$
+      \If{$Σ' \setminus {X → y} ⊧ X \setminus {x} → y$}
+        \State $Σ' ← (Σ' \setminus {X → y}) ∪ X \setminus {x} → y$
         \State s ← \False
         \Break
       \EndIf
