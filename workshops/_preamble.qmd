@@ -1,25 +1,28 @@
 
-
 ::: {.content-visible when-profile='solution'} 
 
 ::: {.callout-warning}
 
 ### Avec solutions
 
-::: 
+:::
 
 :::
+
+
 
 ::: {layout="[80,20]"}
 
 ::: {#first-column}
 
+|                            |
+|:---------------------------|
+| {{< var curriculum >}}     |
+| {{< var university >}}     |
+| [Année {{< var year >}}]() |
+| {{< var homepage >}}       |
+| {{< var moodle >}}         |
 
-- **`r stringr::str_glue('{params$curriculum}')`**
-- **`r stringr::str_glue('[{params$university}](https://www.u-paris.fr)')`**
-- `r stringr::str_glue("Année {params$year}-{params$year+1}")`
-- `r stringr::str_glue("[Course Homepage]({params$homepage})")`
-- `r stringr::str_glue("[Moodle]({params$moodle})")`
 
 ::: 
 
@@ -28,3 +31,4 @@
 :::
 
 :::
+

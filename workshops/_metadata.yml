@@ -1,7 +1,6 @@
 website:
   page-navigation: true
 
-
 toc: true
 toc-depth: 2
 toc-collapse: 1
@@ -25,7 +24,11 @@ format:
   html:
     highlight-style: zenburn
     embed-resources: true
+    code-fold: true
   pdf:
+    code-annotations: below
+    code-fold: false
+    toc: false
     highlight-style: arrow
     documentclass: exam
     classoption: [10pt,titlepage=false]
@@ -36,3 +39,4 @@ format:
       - text: "\\renewcommand{\\contentsname}{}"
 
 prefer-html: true
+
