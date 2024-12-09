@@ -30,8 +30,9 @@ editor: source
 - Requêtes 
 - Contraintes 
 - Modélisation (EA et pattes de corbeau)
-- [Normalisation I](/slides/DF_norm_1.qmd) (pas FN3 et décomposition sans pertes de DFs)
-
+- [Normalisation I](/slides/DF_norm_1.qmd) (pas FN3 ni décomposition sans pertes de DFs)
+- TDs jusqu'au TD 9 
+  
 <br><br>
 
 ::: {style="font-size: 0.875em;"}

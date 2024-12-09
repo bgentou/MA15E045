@@ -14,20 +14,17 @@ editor: source
 
 :::
 
-## Préparer
-
-Finir  TD 10 [TD 10](/workshops/td10.html) 
 
 ## Cours magistral : diapositives
 
-[Normalisation III](/slides/DF_norm_3.html)
+[Normalisation Fin](/slides/DF_norm_3.html)
 
 
 ## Exercices : TD 11
 
 [html](/workshops/td11.html)  [pdf](/workshops/td11.pdf)
 
-## Solutions du  TD 9  (Semaine 10)
+## Solutions du  TD 9  (Semaine 10 et 11)
 
 [html](/solutions/td10.html)  [pdf](/solutions/td10.pdf)
 

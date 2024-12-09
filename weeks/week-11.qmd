@@ -20,7 +20,9 @@ Finir  TD 9 [TD 9](/workshops/td9.html)
 
 ## Cours magistral : diapositives
 
-[Normalisation II](/slides/DF_norm_2.html)
+[Normalisation](/slides/DF_norm_1.html)
+
+[Normalisation Suite](/slides/DF_norm_3.html)
 
 
 ## Exercices : TD 10
