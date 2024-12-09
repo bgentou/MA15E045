@@ -424,22 +424,11 @@
     ]
   },
   {
-    "objectID": "weeks/week-12.html#préparer",
-    "href": "weeks/week-12.html#préparer",
-    "title": "Semaine 12",
-    "section": "Préparer",
-    "text": "Préparer\nFinir TD 10 TD 10",
-    "crumbs": [
-      "Journal",
-      "Semaine 12"
-    ]
-  },
-  {
     "objectID": "weeks/week-12.html#cours-magistral-diapositives",
     "href": "weeks/week-12.html#cours-magistral-diapositives",
     "title": "Semaine 12",
     "section": "Cours magistral : diapositives",
-    "text": "Cours magistral : diapositives\nNormalisation III",
+    "text": "Cours magistral : diapositives\nNormalisation Fin",
     "crumbs": [
       "Journal",
       "Semaine 12"
@@ -457,11 +446,11 @@
     ]
   },
   {
-    "objectID": "weeks/week-12.html#solutions-du-td-9-semaine-10",
-    "href": "weeks/week-12.html#solutions-du-td-9-semaine-10",
+    "objectID": "weeks/week-12.html#solutions-du-td-9-semaine-10-et-11",
+    "href": "weeks/week-12.html#solutions-du-td-9-semaine-10-et-11",
     "title": "Semaine 12",
-    "section": "Solutions du TD 9 (Semaine 10)",
-    "text": "Solutions du TD 9 (Semaine 10)\nhtml pdf",
+    "section": "Solutions du TD 9 (Semaine 10 et 11)",
+    "text": "Solutions du TD 9 (Semaine 10 et 11)\nhtml pdf",
     "crumbs": [
       "Journal",
       "Semaine 12"
@@ -1322,7 +1311,7 @@
     "href": "weeks/week-11.html#cours-magistral-diapositives",
     "title": "Semaine 11",
     "section": "Cours magistral : diapositives",
-    "text": "Cours magistral : diapositives\nNormalisation II",
+    "text": "Cours magistral : diapositives\nNormalisation\nNormalisation Suite",
     "crumbs": [
       "Journal",
       "Semaine 11"
@@ -1399,7 +1388,7 @@
     "href": "weeks/week-13.html#contrôle-continu-3",
     "title": "Semaine 13",
     "section": "Contrôle Continu 3",
-    "text": "Contrôle Continu 3\n\nRequêtes\nContraintes\nModélisation (EA et pattes de corbeau)\nNormalisation I (pas FN3 et décomposition sans pertes de DFs)\n\n\n\nretour à Agenda ⏎",
+    "text": "Contrôle Continu 3\n\nRequêtes\nContraintes\nModélisation (EA et pattes de corbeau)\nNormalisation I (pas FN3 ni décomposition sans pertes de DFs)\nTDs jusqu’au TD 9\n\n\n\nretour à Agenda ⏎",
     "crumbs": [
       "Journal",
       "Semaine 13"
