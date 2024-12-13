@@ -1,0 +1,414 @@
+---
+format:
+  pdf:
+    code-annotations: below
+    code-fold: false
+    toc: false
+    output-file: cc3-2024-12-13.pdf
+    include-in-header:
+      - text: "\\lhead{{\\sf  Base de données (BD5) \\\\ CC 3 2024-12-13  17h00-18h15}}"
+  html:
+    standalone: true
+    code-fold: true
+    output-file: cc3-2024-12-13.html
+params:
+    year: 2024 
+    curriculum: "L3 MIASHS/Ingémath/METIS"
+    university: "Université Paris Cité"
+    homepage: "https://stephane-v-boucheron.fr/courses/bdd"
+    moodle: "https://moodle.u-paris.fr/course/view.php?id=2313"
+
+engine: knitr
+---
+
+
+
+
+::: {layout="[80,20]"}
+
+::: {#first-column}
+
+
+- **`r stringr::str_glue('{params$curriculum}')`**
+- **`r stringr::str_glue('[{params$university}](https://www.u-paris.fr)')`**
+- `r stringr::str_glue("Année {params$year}-{params$year+1}")`
+- `r stringr::str_glue("[Course Homepage]({params$homepage})")`  
+- `r stringr::str_glue("[Moodle]({params$moodle})")`
+
+::: 
+
+::: {#second-column}
+![](../images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
+:::
+
+:::
+
+::: {.content-hidden when-profile="solution"}
+::: {.callout-caution}
+
+- Pas de documents autorisés
+- Pas de téléphone portable 
+- Merci d'écrire vos requêtes en respectant les habitudes  d'indentation et de mise en page suivies en cours et dans les documents.
+
+:::
+:::
+
+
+
+Dans une métropole,  un exploitant  de vélos partagés cherche à archiver des informations 
+concernant les vélos et les stations.
+
+Chaque vélo est identifié par un numéro. Un vélo possède une date de mise en service, un type (électrique/mécanique). Un vélo possède éventuellement une date de retrait de service. 
+
+Une station est identifiée par un numéro. Une station possède un nom. Une station possède une position (lattitude, longitude) et une altitude. Une station possède un nombre de fixe de bornes d'accrochages. 
+
+Un trajet est effectué par un vélo entre un instant (`timestamp`) de départ et un instant d'arrivée. Un trajet part d'une station et arrive à une station (pas toujours différente). 
+
+
+
+
+::: {.callout-note title="Question"}
+
+Proposer un diagrammme entité-association correspondant à cette modélisation.
+
+:::
+
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{dot}
+//| label: er1
+//| eval: true
+//| echo: false
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=neato
+	node [shape=box]; Velo; Station ; 
+	node [shape=ellipse]; {node [label=<<u>numero</u>>]  num1; num2;} ;
+    type ; "date-service" ; "date-retrait" ; "debut" ; "fin" ;  lattitude ; longitude ; nom ;
+  node [shape=diamond];  "trajet"  ;
+  
+	num1 -- Velo ;
+  num2 -- Station ; 
+  type -- Velo ;
+  "date-service" -- Velo ;
+  "date-retrait" -- Velo ;
+  "debut" --  trajet ;
+  "fin" -- trajet ;
+  lattitude -- Station ;
+  longitude -- Station ;
+  nom -- Station ;
+  Velo -- trajet [label="0:n",len=1.00] ;
+  Station -- trajet [label="0:n  origine", len=2.00] ;
+  Station -- trajet [label="0:n  destination", len=2.00] ;
+  
+  
+    //	label = "\n\nEntity Relation Diagram\ndrawn by NEATO";
+//	fontsize=20;
+}
+```
+
+`trajet`  est une association *ternaire* avec des cardinalités `0:n`. C'est une association
+*plusieurs-plusieurs*.  
+
+::: 
+
+{{< pagebreak >}}
+
+:::
+
+
+::: {.callout-note title="Question"}
+
+Si besoin, transformez votre schéme de façon à ce qu'il ne comporte 
+plus d'associations d'arité supérieure ou égale à 3, ou d'associations plusieurs-plusieurs 
+(0:n pour plusieurs entités participantes).  
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"} 
+
+```{dot}
+//| label: er2
+//| eval: true
+//| echo: false
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=neato
+	node [shape=box]; Velo; Station ; 
+	node [shape=ellipse]; {node [label=<<u>numero</u>>]  num1; num2;} ;
+    type ; "date-service" ; "date-retrait" ; {node [label=<<u>debut</u>>] "debut" }; "fin" ;  lattitude ; longitude ; nom ;
+  node [shape=box, peripheries=2];  "trajet"  ;
+  node [shape=diamond, peripheries=2]; 
+  {node [label="utilise"] many1};  
+  {node [label="origine"] many2} ;  
+  {node [label="destination"] many3}  ; 
+	num1 -- Velo ;
+  num2 -- Station ; 
+  type -- Velo ;
+  "date-service" -- Velo ;
+  "date-retrait" -- Velo ;
+  "debut" --  trajet ;
+  "fin" -- trajet ;
+  lattitude -- Station ;
+  longitude -- Station ;
+  nom -- Station ;
+  
+  Velo -- many1 [label="0:n",len=1.00] ;
+  many1 -- trajet [label="1:1", len=1.00] ;
+  
+  Station -- many2 [label="0:n", len=1.00] ;
+  many2 -- trajet [label="1:1", len=1.00] ;
+
+  Station -- many3 [label="0:n", len=1.00] ;
+  many3 -- trajet [label="1:1", len=1.00] ;
+  
+    //	label = "\n\nEntity Relation Diagram\ndrawn by NEATO";
+//	fontsize=20;
+}
+``` 
+
+
+
+:::
+
+{{< pagebreak >}}
+
+:::
+
+::: {.callout-note title="Question"}
+
+Proposer une traduction en pattes de corbeau du diagramme EA proposé en réponse   
+à la première question. 
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+```{mermaid}
+%%| label: crow1
+%%| eval: true
+%%| echo: false
+%%| fig-width: 6
+erDiagram
+    TRAJET }o--|| VELO : velo_num 
+    TRAJET }o--|| STATION  : origin_num
+    TRAJET }o--|| STATION : dest_num 
+
+  VELO {
+    integer num PK
+    text type 
+    date mise_service_date
+    date retrait-date  
+  }
+
+  STATION {
+    integer num PK
+    numeric lat
+    numeric long
+    text name
+    integer docks 
+  }
+
+  TRAJET {
+    integer velo_num PK, FK
+    integer origin_num PK, FK
+    integer dest_num FK
+    timestamp start PK
+    timestamp end 
+  }
+```
+
+::: 
+:::
+
+
+::: {.callout-note title="Question"}
+
+Explicitez d'éventuelles contraintes externes (si vous l'avez déjà fait en marge du diagramme entité-association, contentez-vous d'un renvoi).
+
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+1. La date de retrait de service d'un vélo ne peut pas précéder sa mise en service (`CHECK`)
+2. Un vélo ne peut pas être utilisé pour un trajet s'il nest pas en service (contrainte *multitable*, réalisable avec une fonction qui renvoie l'intervalle pendant lequel un vélo est en service et une contrainte `CHECK` qui vérifie que `(start,end )` est inclus dans l'intervalle de service)
+3. Le début d'un trajet doit précéder sa fin  (`CHECK`)
+4. Un même vélo ne peut pas effectuer deux trajets simultanément  (`EXCLUDE`)
+  
+
+:::
+
+:::
+
+::: {.callout-warning title="Attention"}
+
+Dans la suite, vous formulerez les requêtes dans le schéma relationnel défini 
+par votre schéma en pattes de corbeau. 
+
+:::
+
+::: {.callout-note title="Question"}
+
+Pour chaque station, chaque heure de la journée, comptez le nombre de trajets partis de la station. 
+
+:::
+
+::: {.callout-tip}
+
+PostgreSQL propose un type `timestamp` (qui permet de représenter les instants à la microseconde près). 
+PostgreSQL propose  une fonction fonction  `date_part(text, timestamp)` qui permet d'extraire les 
+différents composants d'un objet de type `timestamp`. `date_part('month', timestamp)` extrait le mois grégorien (un entier 
+de 1 à 12), `date_part('hour', timestamp)` extrait l'heure du jour  (un entier de 0 à 23). 
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT 
+  tr.origin_num, date_part('hour', start) AS heure,
+  count(*) AS n_trajet
+FROM 
+  trajet tr
+GROUP BY 
+  tr.origin_num, date_part('hour', start) ;
+```
+
+::: 
+
+:::
+
+::: {.callout-note title="Question"}
+
+Pour chaque vélo, comptez le nombre de trajets de plus d'une heure effectués. 
+
+:::
+
+::: {.callout-tip}
+
+En PostgreSQL, la différence de deux objets de type `timestamp` est un objet de type `interval` (durée). Pour 
+définir une constante correspondant à une durée d'un jour, d'un mois, d'une heure, vous pouvez utiliser 
+la syntaxe `'1 day'::interval`, `'1 month'::interval`, `'1 hour'::interval`. 
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT
+  tr.velo_num,
+  count(*) AS nb_trajets
+FROM 
+  trajet tr
+WHERE 
+  (tr.end IS NOT NULL AND (tr.start - tr.end) > '1 hour'::interval)   OR
+  (tr.end IS NULL AND (current_timestamp - tr.start) > '1 hour'::interval)
+GROUP BY 
+  tr.velo_num ;
+```
+
+::: 
+
+:::
+
+::: {.callout-note title="Question"}
+
+Pour chaque jour de la semaine,  listez les quatre couples (station de départ, station d'arrivée) utilisés 
+par le plus  grand nombre de trajets ce jour de la semaine là.
+
+:::
+
+::: {.callout-tip}
+
+En PostgreSQL, pour extraire le jour de la semaine d'un objet `ts` de type `timestamp`, vous pouvez utiliser 
+`EXTRACT(DOW FROM ts)`. Le résultat est un entier entre 0 et 6, 0 pour dimanche, 1 pour lundi, ..., 7 pour samedi.  
+
+```{.sql}
+postgres=# SELECT 
+  current_timestamp as maintenant , 
+  EXTRACT(DOW FROM current_timestamp + '1 day'::interval) as dow_demain ;
+
+          maintenant           | dow_demain 
+-------------------------------+------------
+ 2024-12-08 10:55:05.672936+01 |          1
+```
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+WITH R AS 
+(
+   SELECT 
+     EXTRACT(DOW FROM tr.start) AS jds, 
+     tr.origin_num,  tr.dest_num, 
+     COUNT(*) AS nb_trajets
+   FROM 
+     trajet tr 
+   GROUP BY
+     EXTRACT(DOW FROM tr.start), 
+     tr.origin_num, 
+     tr.dest_num
+), S AS 
+(
+  SELECT 
+    R.*, 
+    RANK() OVER (PARTITION BY R.jds ORDER BY R.nb_trajets DESC) AS rnk
+  FROM 
+    R
+)
+
+SELECT 
+  S.*
+FROM 
+  S
+WHERE S.rnk <= 4 ;
+```
+
+::: 
+
+:::
+
+
+::: {.callout-note title="Question"}
+
+Soit $\mathcal{A} = \{\texttt{A, B, C, D, E, H, S, T}\}$ un schéma. 
+
+Soit Σ = {`{A, E}` $⟶$ `{H}`, `{S, T}` $⟶$ `{C, E}`, `{S}` $⟶$ `{A}`, `{B}` $⟶$ `{T}`}
+
+- Quelle est la fermeture de `{B, S, E}` ?
+- Quelles sont les clés de $\mathcal{A}, \Sigma$ ?
+- $\mathcal{A}, \Sigma$ est elle forme normale de Boyce-Codd ?
+
+:::
+
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+- $\texttt{[B, S, E]}_{\Sigma}^+ = \{ \texttt{B, S, E, T, C, A, H}\} = \{ \texttt{A, B, C, E, H, S, T}\}$
+- Toute clé contient $\texttt{B, D, S}$ qui est une super-clé $[\texttt{B, D, S}]^+_\Sigma = \{\texttt{B, D, S, A, T, C, E, H}\}$. C'est la seule clé.
+- Le schéma n'est pas en FNBC, toutes les DF de Σ ont un déterminant qui n'est pas une super-clé.
+  
+::: 
+:::

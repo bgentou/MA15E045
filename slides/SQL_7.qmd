@@ -1,8 +1,6 @@
 ---
 title: "BD : `dplyr` une mise oeuvre de l'Algèbre Relationnelle"
 subtitle: "Bases de Données Licences MIASHS et Mathématiques"
-author: "Équipe BD"
-institute: "Université de Paris"
 date: "2025-03-31"
 
 execute: 

@@ -58,6 +58,10 @@
   date: "2024-11-15"
   path: "exams/cc2-2024-11-15.html"
   categories: [Requêtes, Aggrégation, Fenêtres, pagila, world]
-
+- title: "CC 3 2024-25"
+  author: "Licence MIASHS UParis Cité"
+  date: "2024-12-13"
+  path: "exams/cc3-2024-12-13.html"
+  categories: [Modélisation, Entité-Association, Pattes de corbeaux, Requêtes, Dépendances fonctionnelles]
 
 
