@@ -117,6 +117,21 @@ graph ER {
 
 ::: 
 
+::: {.callout-note}
+
+### Remarque(s) 
+
+Ce schéma ressemble beaucoup à celui des vols dans `nycflights` [voir diapositives](/slides/Modelisation_2.html#/transformation-de-lassociation-quarternaire-en-quatre-associations-binaires-faibles). Dans les deux schémas, une entité (aéroport, station) participe avec deux rôles distincts à une association 
+
+
+En science des données on parle de schéma en étoile (*star schéma*): un vol, une mission, un trajet 
+est un *événement* (*event*) auquel participent des objets (vélo, avion, aéroport, station de vélib, etc). L'événement est --à première vue-- une instance d'association. Cette association est  dans les deux cas une association plusieurs-plusieurs et son *arité* est supérieure ou égale à trois.
+
+Il n'est pas utile de définir une entité position munie deux attributs lattitude et longitude. Pour
+lier position et station on est conduit à définir une association avec des cardinalités 1:1 (côté station) et 0:1 (côté position). Ce genre d'association gagne à être représenté par des attributs (rester simple, invoquer le rasoir d'Occam). 
+
+:::
+
 {{< pagebreak >}}
 
 :::
@@ -177,7 +192,17 @@ graph ER {
 ``` 
 
 
+::: {.callout-note}
 
+### Remarque
+
+Considérer `Trajet` comme une entité est assez tentant. Si on le fait d'emblée, il faut se demander ce qui identifie les instances de cette entité. Beaucoup sont tentés d'introduire un 
+identifiant artificiel `trajet_id` (de fait ce genre d'identifiant artificiel est facile à introduire lors de l'implémentation en PostGres, en MySQL, ou autre). On perd de vue que 
+ce qui identifie un trajet, c'est un vélo, une station de départ et une heure de départ.
+Vu comme cela, `Trajet` apparaît comme une association ternaire plusieurs-plusieurs, qu'on se dépêche de transformer en entité faible. L'heure de départ est un identifiant relatif. 
+
+
+:::
 :::
 
 {{< pagebreak >}}
@@ -203,7 +228,7 @@ Proposer une traduction en pattes de corbeau du diagramme EA proposé en répons
 erDiagram
     TRAJET }o--|| VELO : velo_num 
     TRAJET }o--|| STATION  : origin_num
-    TRAJET }o--|| STATION : dest_num 
+    TRAJET }o..|| STATION : dest_num 
 
   VELO {
     integer num PK
@@ -228,8 +253,16 @@ erDiagram
     timestamp end 
   }
 ```
+:::
 
-::: 
+::: {.callout-note}
+
+### Remarque 
+
+Le lien qui correspond à la contrainte référentielle entre `TRAJET.dest_num` et `STATION.num`
+n'est pas identifiant.
+
+:::
 :::
 
 
@@ -250,6 +283,13 @@ Explicitez d'éventuelles contraintes externes (si vous l'avez déjà fait en ma
 4. Un même vélo ne peut pas effectuer deux trajets simultanément  (`EXCLUDE`)
   
 
+:::
+
+::: {.callout-note}
+
+### Remarque
+
+Les contraintes référentielles, les contraintes de clé sont déjà décrites par le diagramme. Il est inutile de les répéter. Ce ne sont pas des contraintes externes.
 :::
 
 :::
