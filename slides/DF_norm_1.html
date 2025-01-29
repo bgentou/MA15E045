@@ -6,7 +6,7 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-697306ee647f3aecb60be57249203282.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-86daaaaad7353f9cc0c554efc1dd6d94.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.js" defer="true"></script>
 <link href="../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/grid-htext-1.0.0/grid_htext.css" rel="stylesheet">
@@ -14,7 +14,7 @@
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.37">
+  <meta name="generator" content="quarto-1.6.40">
 
   <meta name="author" content="Équipe BD">
   <meta name="dcterms.date" content="2024-11-22">
@@ -1095,7 +1095,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p>Soit <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur un schéma <span class="math inline">\(\mathcal{A}\)</span> et <span class="math inline">\(X\subset\mathcal{A}\)</span></p>
 <div class="columns">
 <div class="column" style="width:60%;">
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-no-end="false" data-comment-delimiter="//" data-line-number-punc=":" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number="true">
+<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-indent-size="1.2em" data-line-number-punc=":" data-comment-delimiter="//" data-no-end="false" data-line-number="true" data-pseudocode-number="1">
 <div class="pseudocode">
 \begin{algorithm} \caption{Fermeture} \begin{algorithmic} \Procedure{Fermeture}{$X, Σ$} \State $X^c ← X$ \Repeat \State stop ← \True \Comment{Arrêt si Point Fixe atteint} \For{$(Y → Z) ∈ Σ$} \If{$Y ⊆ X^c ∧ ¬ Z ⊆ X^c$} \State $X^c ← X^c ∪ Z$ \State stop ← \False \Comment{Point Fixe pas atteint} \Break \EndIf \EndFor \Until{stop} \Return $X^c$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -2123,7 +2123,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </section>
 <section id="algorithme" class="slide level2 center">
 <h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-no-end="false" data-comment-delimiter="//" data-line-number-punc=":" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number="true">
+<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-indent-size="1.2em" data-line-number-punc=":" data-comment-delimiter="//" data-no-end="false" data-line-number="true" data-pseudocode-number="1">
 <div class="pseudocode">
 \begin{algorithm} \caption{Décomposition FNBC} \begin{algorithmic} \Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← \{\mathcal{A}\}$ \State \While{$\exists \mathcal{B} \in D$ not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$} \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X\qquad$ \Comment{DF non triviale! $Y \neq \emptyset$} \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$ \EndWhile \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
