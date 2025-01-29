@@ -11,10 +11,10 @@ project:
 
 website:
   announcement: 
-    icon: emoji-surprise
-    dismissable: false
-    content: "**Alerte** - Contrôle terminal le lundi 6 janvier 13h30-16h30 Halle aux Farines"
-    type: warning
+    icon: emoji-smile
+    dismissable: true
+    content: "**Cours terminé pour 2024-25**  Résultats affichés sur Moodle"
+    type: info
     position: above-navbar
   page-navigation: true
   title: "MA15Y030 - Automne 2024"
