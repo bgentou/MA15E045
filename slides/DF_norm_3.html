@@ -6,7 +6,7 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-86daaaaad7353f9cc0c554efc1dd6d94.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.js" defer="true"></script>
 <link href="../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/grid-htext-1.0.0/grid_htext.css" rel="stylesheet">
@@ -14,11 +14,11 @@
 <link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.40">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Équipe BD">
   <meta name="dcterms.date" content="2024-11-29">
-  <title>MA15Y030 - Automne 2024 – Normalisation II : Décomposition FN3</title>
+  <title>MA15Y030 - Automne 2025 – Normalisation II : Décomposition FN3</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -37,7 +37,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-cb79326eba50a944be95e10322ca0540.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-a0e9f6e2a14e00a96c07cb57dafc560e.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -148,9 +148,9 @@
   };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-<meta property="og:title" content="Normalisation II : Décomposition FN3 – MA15Y030 - Automne 2024">
+<meta property="og:title" content="Normalisation II : Décomposition FN3 – MA15Y030 - Automne 2025">
 <meta property="og:description" content="Pertes de Dépendances Fonctionnelles. Décomposition FN3">
-<meta property="og:site_name" content="MA15Y030 - Automne 2024">
+<meta property="og:site_name" content="MA15Y030 - Automne 2025">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -301,7 +301,7 @@
 <section id="calcul-de-pi_mathcala_1sigma" class="slide level2 center">
 <h2>Calcul de <span class="math inline">\(\pi_{{\mathcal{A}}_1}(\Sigma)\)</span></h2>
 <p>On calcule un ensemble de DF équivalent à <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span></p>
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-line-number="true" data-comment-delimiter="//" data-indent-size="1.2em" data-no-end="false" data-caption-prefix="Algorithme" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{Projection de DF} \begin{algorithmic} \Procedure{Projection}{$\mathcal{A}_1, Σ$} \State P ← ∅ \For{$X ⊂ \mathcal{A}_1$, $X ≠ ∅$, $X ≠ \mathcal{A}_1$} \State Y ← $X^+ ∩ \mathcal{A}_1$ \State P ← P ∪ $\{ X → Y\}$ \EndFor \Return P \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -378,7 +378,7 @@
 </section>
 <section id="algorithme-pour-tester-si-bigcup_i1k-pi_mathcala_isigma-models-x-rightarrow-y" class="slide level2 smaller center">
 <h2>Algorithme pour tester si <span class="math inline">\(\bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma) \models X \rightarrow Y\)</span></h2>
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-line-number="true" data-comment-delimiter="//" data-indent-size="1.2em" data-no-end="false" data-caption-prefix="Algorithme" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{X → Y est-elle impliquée par les dépendances projetées?} \begin{algorithmic} \Procedure{Implique}{$\left\{ \mathcal{A}_1,\dots, \mathcal{A}_k\right\}, Σ, X, Y$} \State Z ← X \State continuer ← \True \While{continuer} \State $W ← Z$ \For{i ∈ 1, ..., k} \State $W ← W ∪ \bigl((W ∩ \mathcal{A}_i)^+ ∩ \mathcal{A}_i\bigr)$ \EndFor \If{W ≠ Z} \State Z ← W \Else \State continuer ← \False \EndIf \EndWhile \If{Y ⊆ Z} \Return \True \Else \Return \False \EndIf \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -404,14 +404,12 @@
 </div>
 <div class="fragment">
 <p>Commencer avec <span class="math inline">\(Z ← \{D\}\)</span></p>
-<div>
 <ol type="1">
 <li class="fragment"><p><span class="math inline">\((\{D\}∩\{CD\})^+ ∩ \{CD\}=\{D\}^+ ∩\{CD\}=\{DABC\} ∩ \{CD\}=\{CD\}\)</span>, ajouter <span class="math inline">\(C\)</span></p></li>
 <li class="fragment"><p><span class="math inline">\((\{DC\}∩ \{BC\})^+ ∩ \{BC\}=\{C\}^+ ∩ \{BC\}=\{CDAB\}∩ \{BC=B\}\)</span>, ajouter <span class="math inline">\(B\)</span></p></li>
 <li class="fragment"><p><span class="math inline">\((\{DCB\}∩ \{AB\})^+ ∩ \{AB\}=\{B\}^+ ∩ \{AB\}=\{BCDA\} ∩ \{AB\}\)</span>, ajouter <span class="math inline">\(A\)</span></p></li>
 <li class="fragment"><p><span class="math inline">\(\{DCBA\}\)</span> contient <span class="math inline">\(A\)</span> donc <span class="math inline">\(D\to A\)</span> est préservée</p></li>
 </ol>
-</div>
 </div>
 </section>
 <section id="exemple-ii" class="slide level2 smaller center scrollable">
@@ -468,7 +466,7 @@
 </section>
 <section id="algorithme" class="slide level2 center">
 <h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-line-number="true" data-comment-delimiter="//" data-indent-size="1.2em" data-no-end="false" data-caption-prefix="Algorithme" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{Décomposition FNBC} \begin{algorithmic} \Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← \{\mathcal{A}\}$ \State \While{Exists some $\mathcal{B} \in D$ which is not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$} \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X$ \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$ \EndWhile \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -613,7 +611,7 @@
 </section>
 <section id="algorithme-de-construction-de-couverture-irredondante" class="slide level2 scrollable center">
 <h2>Algorithme de construction de couverture irredondante</h2>
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-line-number="true" data-comment-delimiter="//" data-indent-size="1.2em" data-no-end="false" data-caption-prefix="Algorithme" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{Couverture irredondante} \begin{algorithmic} \Procedure{MinCover}{$Σ$} \State Σ' ← ∅ \State \Comment{Normaliser les éléments de Σ} \For{$(X → Y) ∈ Σ$} \For{$y ∈ Y$} \State Σ' ← Σ' ∪ {X → y} \EndFor \EndFor \State \Comment{Éliminer les dépendances redondantes dans Σ'} \State \Comment{Miniser les dépendances dans Σ'} \Return Σ' \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -623,13 +621,13 @@
 <h2>Détails</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-line-number="true" data-comment-delimiter="//" data-indent-size="1.2em" data-no-end="false" data-caption-prefix="Algorithme" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{Éliminer les dépendances redondantes dans Σ' (détail)} \begin{algorithmic} \Repeat \State s ← \True \For{$(X → y) ∈ Σ'$} \If{$Σ' \setminus {X → y} ⊧ X → y$} \State $Σ' ← Σ' \setminus {X → y}$ \State s ← \False \EndIf \EndFor \Until{s} \end{algorithmic} \end{algorithm}
 </div>
 </div>
 </div><div class="column" style="width:55%;">
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-line-number="true" data-comment-delimiter="//" data-indent-size="1.2em" data-no-end="false" data-caption-prefix="Algorithme" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{Miniser les dépendances dans Σ' (détail)} \begin{algorithmic} \Repeat \State s ← \True \For{$(X → y) ∈ Σ'$} \For{$x ∈ X$} \If{$Σ' \setminus {X → y} ⊧ X \setminus {x} → y$} \State $Σ' ← (Σ' \setminus {X → y}) ∪ X \setminus {x} → y$ \State s ← \False \Break \EndIf \EndFor \EndFor \Until{s} \end{algorithmic} \end{algorithm}
 </div>
@@ -708,7 +706,7 @@
 </section>
 <section id="algorithme-1" class="slide level2 smaller center">
 <h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-line-number="true" data-comment-delimiter="//" data-indent-size="1.2em" data-no-end="false" data-caption-prefix="Algorithme" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-pseudocode-number="1" data-line-number-punc=":" data-comment-delimiter="//" data-line-number="true" data-indent-size="1.2em" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{Decomposition FN3} \begin{algorithmic} \Procedure{DecompositionFN3}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← ∅$ \State \Comment{Mise en forme des courverture minimale de Σ} \State Σ' ← \Call{MinCover}{$Σ$} \State \For{Each distinct determinant $X$ amongst FDs in Σ'} \State $Y ← \{y : X → y ∈ Σ'\}$ \State $D ← D \cup \{X \cup Y\}$ \Comment{ Ajouter $X \cup Y$ à $D$} \EndFor \State \State $\mathcal{B} ← $ Attributes in $\mathcal{A}$ that do not occur in $D$ \State $D ← D \cup \{\mathcal{B}\}$ \State \If{No component of $D$ includes a key for $\mathcal{A}, Σ$} \State $D ← D \cup $ some key for $\mathcal{A}, Σ$ \EndIf \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -1017,349 +1015,331 @@
     </script>
 
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
-          }
-        }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copié");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copié");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
-          }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
         });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp("https:\/\/s-v-b\.github\.io\/MA15Y030\/");
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-        }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
             }
-              // target, if specified
-              link.setAttribute("target", "_blank");
-              if (link.getAttribute("rel") === null) {
-                link.setAttribute("rel", "noopener");
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copié");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copié");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
               }
-              // default icon
-              link.classList.add("external");
-          }
+            }
+            return codeEl.innerText;
         }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
         });
-      }
-          let selectedAnnoteEl;
-          const selectorForAnnotation = ( cell, annotation) => {
-            let cellAttr = 'data-code-cell="' + cell + '"';
-            let lineAttr = 'data-code-annotation="' +  annotation + '"';
-            const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-            return selector;
-          }
-          const selectCodeLines = (annoteEl) => {
-            const doc = window.document;
-            const targetCell = annoteEl.getAttribute("data-target-cell");
-            const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-            const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-            const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-            const lineIds = lines.map((line) => {
-              return targetCell + "-" + line;
-            })
-            let top = null;
-            let height = null;
-            let parent = null;
-            if (lineIds.length > 0) {
-                //compute the position of the single el (top and bottom and make a div)
-                const el = window.document.getElementById(lineIds[0]);
-                top = el.offsetTop;
-                height = el.offsetHeight;
-                parent = el.parentElement.parentElement;
-              if (lineIds.length > 1) {
-                const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-                const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-                height = bottom - top;
-              }
-              if (top !== null && height !== null && parent !== null) {
-                // cook up a div (if necessary) and position it 
-                let div = window.document.getElementById("code-annotation-line-highlight");
-                if (div === null) {
-                  div = window.document.createElement("div");
-                  div.setAttribute("id", "code-annotation-line-highlight");
-                  div.style.position = 'absolute';
-                  parent.appendChild(div);
-                }
-                div.style.top = top - 2 + "px";
-                div.style.height = height + 4 + "px";
-                div.style.left = 0;
-                let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-                if (gutterDiv === null) {
-                  gutterDiv = window.document.createElement("div");
-                  gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                  gutterDiv.style.position = 'absolute';
-                  const codeCell = window.document.getElementById(targetCell);
-                  const gutter = codeCell.querySelector('.code-annotation-gutter');
-                  gutter.appendChild(gutterDiv);
-                }
-                gutterDiv.style.top = top - 2 + "px";
-                gutterDiv.style.height = height + 4 + "px";
-              }
-              selectedAnnoteEl = annoteEl;
-            }
-          };
-          const unselectCodeLines = () => {
-            const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-            elementsIds.forEach((elId) => {
-              const div = window.document.getElementById(elId);
-              if (div) {
-                div.remove();
-              }
-            });
-            selectedAnnoteEl = undefined;
-          };
-            // Handle positioning of the toggle
-        window.addEventListener(
-          "resize",
-          throttle(() => {
-            elRect = undefined;
-            if (selectedAnnoteEl) {
-              selectCodeLines(selectedAnnoteEl);
-            }
-          }, 10)
-        );
-        function throttle(fn, ms) {
-        let throttle = false;
-        let timer;
-          return (...args) => {
-            if(!throttle) { // first call gets through
-                fn.apply(this, args);
-                throttle = true;
-            } else { // all the others get throttled
-                if(timer) clearTimeout(timer); // cancel #2
-                timer = setTimeout(() => {
-                  fn.apply(this, args);
-                  timer = throttle = false;
-                }, ms);
-            }
-          };
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
         }
-          const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
-          for (let i=0; i<annoteTargets.length; i++) {
-            const annoteTarget = annoteTargets[i];
-            const targetCell = annoteTarget.getAttribute("data-target-cell");
-            const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
-            const contentFn = () => {
-              const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-              if (content) {
-                const tipContent = content.cloneNode(true);
-                tipContent.classList.add("code-annotation-tip-content");
-                return tipContent.outerHTML;
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/s-v-b\.github\.io\/MA15Y030\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
               }
-            }
-            const config = {
-              allowHTML: true,
-              content: contentFn,
-              onShow: (instance) => {
-                selectCodeLines(instance.reference);
-                instance.reference.classList.add('code-annotation-active');
-                window.tippy.hideAll();
-              },
-              onHide: (instance) => {
-                unselectCodeLines();
-                instance.reference.classList.remove('code-annotation-active');
-              },
-              maxWidth: 300,
-              delay: [50, 0],
-              duration: [200, 0],
-              offset: [5, 10],
-              arrow: true,
-              appendTo: function(el) {
-                return el.parentElement.parentElement.parentElement;
-              },
-              interactive: true,
-              interactiveBorder: 10,
-              theme: 'light-border',
-              placement: 'right',
-              popperOptions: {
-                modifiers: [
-                {
-                  name: 'flip',
-                  options: {
-                    flipVariations: false, // true by default
-                    allowedAutoPlacements: ['right'],
-                    fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
-                  },
-                },
-                {
-                  name: 'preventOverflow',
-                  options: {
-                    mainAxis: false,
-                    altAxis: false
-                  }
+                // target, if specified
+                link.setAttribute("target", "_blank");
+                if (link.getAttribute("rel") === null) {
+                  link.setAttribute("rel", "noopener");
                 }
-                ]        
-              }      
-            };
-            window.tippy(annoteTarget, config); 
+                // default icon
+                link.classList.add("external");
+            }
           }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
           }
-        } else {
-          return undefined;
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
         }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
-              }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+            let selectedAnnoteEl;
+            const selectorForAnnotation = ( cell, annotation) => {
+              let cellAttr = 'data-code-cell="' + cell + '"';
+              let lineAttr = 'data-code-annotation="' +  annotation + '"';
+              const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+              return selector;
+            }
+            const selectCodeLines = (annoteEl) => {
+              const doc = window.document;
+              const targetCell = annoteEl.getAttribute("data-target-cell");
+              const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+              const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+              const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+              const lineIds = lines.map((line) => {
+                return targetCell + "-" + line;
+              })
+              let top = null;
+              let height = null;
+              let parent = null;
+              if (lineIds.length > 0) {
+                  //compute the position of the single el (top and bottom and make a div)
+                  const el = window.document.getElementById(lineIds[0]);
+                  top = el.offsetTop;
+                  height = el.offsetHeight;
+                  parent = el.parentElement.parentElement;
+                if (lineIds.length > 1) {
+                  const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                  const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                  height = bottom - top;
+                }
+                if (top !== null && height !== null && parent !== null) {
+                  // cook up a div (if necessary) and position it 
+                  let div = window.document.getElementById("code-annotation-line-highlight");
+                  if (div === null) {
+                    div = window.document.createElement("div");
+                    div.setAttribute("id", "code-annotation-line-highlight");
+                    div.style.position = 'absolute';
+                    parent.appendChild(div);
+                  }
+                  div.style.top = top - 2 + "px";
+                  div.style.height = height + 4 + "px";
+                  div.style.left = 0;
+                  let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                  if (gutterDiv === null) {
+                    gutterDiv = window.document.createElement("div");
+                    gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                    gutterDiv.style.position = 'absolute';
+                    const codeCell = window.document.getElementById(targetCell);
+                    const gutter = codeCell.querySelector('.code-annotation-gutter');
+                    gutter.appendChild(gutterDiv);
+                  }
+                  gutterDiv.style.top = top - 2 + "px";
+                  gutterDiv.style.height = height + 4 + "px";
+                }
+                selectedAnnoteEl = annoteEl;
+              }
+            };
+            const unselectCodeLines = () => {
+              const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+              elementsIds.forEach((elId) => {
+                const div = window.document.getElementById(elId);
+                if (div) {
+                  div.remove();
+                }
+              });
+              selectedAnnoteEl = undefined;
+            };
+              // Handle positioning of the toggle
+          window.addEventListener(
+            "resize",
+            throttle(() => {
+              elRect = undefined;
+              if (selectedAnnoteEl) {
+                selectCodeLines(selectedAnnoteEl);
+              }
+            }, 10)
+          );
+          function throttle(fn, ms) {
+          let throttle = false;
+          let timer;
+            return (...args) => {
+              if(!throttle) { // first call gets through
+                  fn.apply(this, args);
+                  throttle = true;
+              } else { // all the others get throttled
+                  if(timer) clearTimeout(timer); // cancel #2
+                  timer = setTimeout(() => {
+                    fn.apply(this, args);
+                    timer = throttle = false;
+                  }, ms);
+              }
+            };
+          }
+            const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+            for (let i=0; i<annoteTargets.length; i++) {
+              const annoteTarget = annoteTargets[i];
+              const targetCell = annoteTarget.getAttribute("data-target-cell");
+              const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+              const contentFn = () => {
+                const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                if (content) {
+                  const tipContent = content.cloneNode(true);
+                  tipContent.classList.add("code-annotation-tip-content");
+                  return tipContent.outerHTML;
+                }
+              }
+              const config = {
+                allowHTML: true,
+                content: contentFn,
+                onShow: (instance) => {
+                  selectCodeLines(instance.reference);
+                  instance.reference.classList.add('code-annotation-active');
+                  window.tippy.hideAll();
+                },
+                onHide: (instance) => {
+                  unselectCodeLines();
+                  instance.reference.classList.remove('code-annotation-active');
+                },
+                maxWidth: 300,
+                delay: [50, 0],
+                duration: [200, 0],
+                offset: [5, 10],
+                arrow: true,
+                appendTo: function(el) {
+                  return el.parentElement.parentElement.parentElement;
+                },
+                interactive: true,
+                interactiveBorder: 10,
+                theme: 'light-border',
+                placement: 'right',
+                popperOptions: {
+                  modifiers: [
+                  {
+                    name: 'flip',
+                    options: {
+                      flipVariations: false, // true by default
+                      allowedAutoPlacements: ['right'],
+                      fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+                    },
+                  },
+                  {
+                    name: 'preventOverflow',
+                    options: {
+                      mainAxis: false,
+                      altAxis: false
+                    }
+                  }
+                  ]        
+                }      
+              };
+              window.tippy(annoteTarget, config); 
+            }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
         <script type="text/javascript">
         (function(d) {
           d.querySelectorAll(".pseudocode-container").forEach(function(el) {

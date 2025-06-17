@@ -17,11 +17,15 @@
     ]
   },
   {
-    "listing": "/corriges-tds.html",
+    "listing": "/journal-listings.html",
     "items": []
   },
   {
     "listing": "/exams-listings.html",
+    "items": []
+  },
+  {
+    "listing": "/corriges-tds.html",
     "items": []
   },
   {
