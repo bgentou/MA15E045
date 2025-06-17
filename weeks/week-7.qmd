@@ -2,6 +2,7 @@
 title: "Semaine 7"
 subtitle: "LDD retour sur le Schéma `world`"
 editor: source
+draft: true
 ---
 
 ::: callout-important

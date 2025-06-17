@@ -68,5 +68,10 @@
   date: "2025-01-06"
   path: "exams/ct-2025-01-06.html"
   categories: [Modélisation, Entité-Association, Pattes de corbeaux, Requêtes, Dépendances fonctionnelles, Normalisation]
+- title: "CT 2 2024-25"
+  author: "Licence MIASHS UParis Cité"
+  date: "2025-06-06"
+  path: "exams/ct-2025-06-06.html"
+  categories: [Modélisation, Entité-Association, Pattes de corbeaux, Requêtes, Dépendances fonctionnelles, Normalisation]
 
 

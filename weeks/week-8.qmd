@@ -2,6 +2,7 @@
 title: "Semaine 8"
 subtitle: "Modélisation"
 editor: source
+draft: true
 ---
 
 ::: callout-important

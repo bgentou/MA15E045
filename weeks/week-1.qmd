@@ -2,12 +2,15 @@
 title: "Semaine 1"
 subtitle: "Introduction aux Bases de Données/Algèbre relationnelle"
 editor: source
+
+engine: knitr
 ---
+
 
 ::: callout-important
 
 -   Cours magistral en Amphi 2 Olympe de Gouges 
--   Vendredi 13 septembre 2024 de 14h à 15h30
+-   Vendredi 12 septembre 2025 de 14h à 15h30
 -   {{< fa cal >}} [Emploi du temps](https://edt.math.univ-paris-diderot.fr/#/parcours/miashs/l3)
 
 :::
@@ -30,9 +33,9 @@ Vous pouvez commencer à aborder les questions de la première feuille de TD
 
 ## Logistique
 
-{{< fa bullhorn >}} Pensez à activer votre compte ENT (suivre les instructions sur [Moodle](https://moodle.u-paris.fr/course/view.php?id=2313)). Vous en aurez besoin pour accéder au serveur PostGres utilisé en TP/TD à partir du 20 octobre.
+{{< fa bullhorn >}} Pensez à activer votre compte ENT (suivre les instructions sur [Moodle](https://moodle.u-paris.fr/course/view.php?id=2313)). Vous en aurez besoin pour accéder au serveur PostGres utilisé en TP/TD à partir du 15 septembre.
 
-Il faut réaliser cette activation le plus tôt possible, idéalement avant le 17 septembre.
+Il faut réaliser cette activation le plus tôt possible, idéalement avant le 15 septembre.
 
 Si vous le pouvez, installez sur votre machine un des clients décrits sur [cette page](/computing-access.qmd).
 
