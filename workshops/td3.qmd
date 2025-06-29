@@ -2,7 +2,7 @@
 title: "TD 3: SQL"
 subtitle: "SQL Interrogation de données, requêtes complexes"
 categories: [pagila, world, SQL, VIEW, FUNCTION, requêtes imbriquées]
-date: "2024-10-04"
+date: "2025-10-03"
 
 
 format:

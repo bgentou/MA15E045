@@ -2,7 +2,7 @@
 title: "TD 11: Normalisation et dépendances"
 subtitle: "Normalisation et dépendances"
 categories: [Normalisation, Perte de DF, "Perte d'Information", FNBC, FN3]
-date: "2024-12-06"
+date: "2025-12-05"
 
 format:
   pdf:

@@ -2,7 +2,7 @@
 title: "TD 7 : Contraintes (suite)"
 subtitle: "Définition de données et Contraintes"
 categories: [Contraintes, Définition de Données, Référemces, Clés, Exclusion, pagila, nycflights]
-date: "2024-11-08"
+date: "2025-11-07"
 
 
 format:

@@ -2,7 +2,7 @@
 title: "TD 1: Algèbre relationnelle"
 categories: [Algèbre relationnelle, world, psql, pgcli, SQL]
 subtitle: "Logistique et Algèbre relationnelle"
-date: "2024-09-20"
+date: "2025-09-19"
 
 format:
   pdf:

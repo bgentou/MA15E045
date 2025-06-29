@@ -2,7 +2,7 @@
 title: "TD 10: Normalisation"
 subtitle: "Normalisation, Perte de DF, Perte d'Information, FNBC, FN3"
 categories: [Normalisation, Perte de DF, "Perte d'Information", FNBC, FN3]
-date: "2024-11-29"
+date: "2025-11-28"
 
 
 format:

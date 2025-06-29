@@ -11,11 +11,11 @@ title: "MA15Y030 Syllabus"
 
 |           | Jour       | Horaire              | Lieu                       |  Début |
 |:---------:|:-----------:|:-------------------:|:--------------------------------|:--------|
-| Cours     | Vendredi  | 14:00  - 15:30  | Olympe de Gouges Amphi II      | 2024-09-13 |
-| TD/TP 1  MIASHS | Vendredi  | 15:45  - 18:15  | Sophie Germain 2004          | 2024-09-20 |
-| TD/TP 2   MIASHS | Vendredi  | 15:45  - 18:15  | Sophie Germain 2005          | 2024-09-20 |
-| TD/TP 3   MIASHS | Vendredi  | 15:45  - 18:15  | Sophie Germain 2006          | 2024-09-20 |
-| TD/TP IngeMaths/METIS   | Jeudi  | 13:30  - 16:00  | Sophie Germain 2006            | 2024-09-26 | -->
+| Cours     | Vendredi  | 14:00  - 15:30  | Olympe de Gouges Amphi II      | 2025-09-12 |
+| TD/TP 1  MIASHS | Vendredi  | 15:45  - 18:15  | Sophie Germain 2004          | 2025-09-19 |
+| TD/TP 2   MIASHS | Vendredi  | 15:45  - 18:15  | Sophie Germain 2005          | 2025-09-19 |
+| TD/TP 3   MIASHS | Vendredi  | 15:45  - 18:15  | Sophie Germain 2006          | 2025-09-19 |
+| TD/TP IngeMaths/METIS   | Jeudi  | 13:30  - 16:00  | Sophie Germain 2006            | 2025-09-18 | -->
 
 ### [{{< fa cal >}}](https://edt.math.univ-paris-diderot.fr/#/parcours/miashs/l3)
 
@@ -166,15 +166,15 @@ La note de session II (seconde chance) est égale à la note obtenue à l'épreu
 
 ### Sauvez les  dates !  {{< fa calendar >}}
 
--   **Septembre 13:** Début du cours
--   **Septembre 20:** Début des TD/TP
--   **Octobre 25:** [Contrôle continu I](/weeks/week-7.qmd)
--   **Octobre 26-Novembre 3:** Pause de la Toussaint
--   **Novembre 8 :** Reprise des cours et TD
--   **Novembre 15**: [Contrôle continu II](/weeks/week-9.qmd)
+-   **Septembre 12:** Début du cours
+-   **Septembre 18:** Début des TD/TP
+-   **Octobre 24:** [Contrôle continu I](/weeks/week-7.qmd)
+-   **Octobre 25-Novembre 2:** Pause de la Toussaint
+-   **Novembre 7 :** Reprise des cours et TD
+-   **Novembre 14**: [Contrôle continu II](/weeks/week-9.qmd)
 -   **Décembre 6**: Fin du cours magistral
--   **Décembre 13**: [Contrôle continu III](/weeks/week-13.qmd) 
--   **Janvier 6** 13h30-16h30: [Contrôle terminal](https://edt.math.univ-paris-diderot.fr/#/parcours/miashs/l3). Halle aux Farines 3B et 470E
+-   **Décembre 12**: [Contrôle continu III](/weeks/week-13.qmd) 
+-   **Janvier ** : [Contrôle terminal](https://edt.math.univ-paris-diderot.fr/#/parcours/miashs/l3). 
 -   **Juin ??**: Deuxième chance
    
 

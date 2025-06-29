@@ -2,7 +2,7 @@
 title: "TD 2: SQL"
 subtitle: "SQL Interrogation de données"
 categories: [Algèbre relationnelle, world, psql, pgcli, WITH, SQL]
-date: "2024-09-27"
+date: "2025-09-26"
 
 
 format:

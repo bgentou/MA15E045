@@ -1,7 +1,7 @@
 ---
 title: "BD II: SQL I"
 subtitle: "Langage Manipulation de Données 1"
-date: "2024-09-20"
+date: "2025-09-19"
 
 format: 
   revealjs:

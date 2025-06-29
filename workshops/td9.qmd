@@ -2,7 +2,7 @@
 title: "TD 9: Normalisation et dépendances"
 subtitle: "Dépendances fonctionnelles"
 categories: [Normalisation, Dépendances fonctionnelles, BCNF, Fermeture, Poursuite, Décomposition, Perte Information]
-date: "2024-11-22"
+date: "2025-11-21"
 
 
 format:
