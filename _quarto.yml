@@ -76,8 +76,8 @@ website:
         text: Diapositives
       - href: td-listings.qmd
         text: Exercices
-      - href: corriges-tds.qmd
-        text: Corrections  
+      # - href: corriges-tds.qmd
+      #   text: Corrections  
       - href: schemas-listings.qmd
         htext: Schémas
       - href: exams-listings.qmd
