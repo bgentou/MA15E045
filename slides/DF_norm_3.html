@@ -301,7 +301,7 @@
 <section id="calcul-de-pi_mathcala_1sigma" class="slide level2 center">
 <h2>Calcul de <span class="math inline">\(\pi_{{\mathcal{A}}_1}(\Sigma)\)</span></h2>
 <p>On calcule un ensemble de DF équivalent à <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span></p>
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-line-number="true" data-pseudocode-number="1" data-no-end="false" data-line-number-punc=":" data-caption-prefix="Algorithme" data-comment-delimiter="//">
+<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-no-end="false" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-pseudocode-number="1" data-comment-delimiter="//">
 <div class="pseudocode">
 \begin{algorithm} \caption{Projection de DF} \begin{algorithmic} \Procedure{Projection}{$\mathcal{A}_1, Σ$} \State P ← ∅ \For{$X ⊂ \mathcal{A}_1$, $X ≠ ∅$, $X ≠ \mathcal{A}_1$} \State Y ← $X^+ ∩ \mathcal{A}_1$ \State P ← P ∪ $\{ X → Y\}$ \EndFor \Return P \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -378,7 +378,7 @@
 </section>
 <section id="algorithme-pour-tester-si-bigcup_i1k-pi_mathcala_isigma-models-x-rightarrow-y" class="slide level2 smaller center">
 <h2>Algorithme pour tester si <span class="math inline">\(\bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma) \models X \rightarrow Y\)</span></h2>
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-line-number="true" data-pseudocode-number="1" data-no-end="false" data-line-number-punc=":" data-caption-prefix="Algorithme" data-comment-delimiter="//">
+<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-no-end="false" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-pseudocode-number="1" data-comment-delimiter="//">
 <div class="pseudocode">
 \begin{algorithm} \caption{X → Y est-elle impliquée par les dépendances projetées?} \begin{algorithmic} \Procedure{Implique}{$\left\{ \mathcal{A}_1,\dots, \mathcal{A}_k\right\}, Σ, X, Y$} \State Z ← X \State continuer ← \True \While{continuer} \State $W ← Z$ \For{i ∈ 1, ..., k} \State $W ← W ∪ \bigl((W ∩ \mathcal{A}_i)^+ ∩ \mathcal{A}_i\bigr)$ \EndFor \If{W ≠ Z} \State Z ← W \Else \State continuer ← \False \EndIf \EndWhile \If{Y ⊆ Z} \Return \True \Else \Return \False \EndIf \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -466,7 +466,7 @@
 </section>
 <section id="algorithme" class="slide level2 center">
 <h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-line-number="true" data-pseudocode-number="1" data-no-end="false" data-line-number-punc=":" data-caption-prefix="Algorithme" data-comment-delimiter="//">
+<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-no-end="false" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-pseudocode-number="1" data-comment-delimiter="//">
 <div class="pseudocode">
 \begin{algorithm} \caption{Décomposition FNBC} \begin{algorithmic} \Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← \{\mathcal{A}\}$ \State \While{Exists some $\mathcal{B} \in D$ which is not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$} \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X$ \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$ \EndWhile \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -611,7 +611,7 @@
 </section>
 <section id="algorithme-de-construction-de-couverture-irredondante" class="slide level2 scrollable center">
 <h2>Algorithme de construction de couverture irredondante</h2>
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-line-number="true" data-pseudocode-number="1" data-no-end="false" data-line-number-punc=":" data-caption-prefix="Algorithme" data-comment-delimiter="//">
+<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-no-end="false" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-pseudocode-number="1" data-comment-delimiter="//">
 <div class="pseudocode">
 \begin{algorithm} \caption{Couverture irredondante} \begin{algorithmic} \Procedure{MinCover}{$Σ$} \State Σ' ← ∅ \State \Comment{Normaliser les éléments de Σ} \For{$(X → Y) ∈ Σ$} \For{$y ∈ Y$} \State Σ' ← Σ' ∪ {X → y} \EndFor \EndFor \State \Comment{Éliminer les dépendances redondantes dans Σ'} \State \Comment{Miniser les dépendances dans Σ'} \Return Σ' \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -621,13 +621,13 @@
 <h2>Détails</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-line-number="true" data-pseudocode-number="1" data-no-end="false" data-line-number-punc=":" data-caption-prefix="Algorithme" data-comment-delimiter="//">
+<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-no-end="false" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-pseudocode-number="1" data-comment-delimiter="//">
 <div class="pseudocode">
 \begin{algorithm} \caption{Éliminer les dépendances redondantes dans Σ' (détail)} \begin{algorithmic} \Repeat \State s ← \True \For{$(X → y) ∈ Σ'$} \If{$Σ' \setminus {X → y} ⊧ X → y$} \State $Σ' ← Σ' \setminus {X → y}$ \State s ← \False \EndIf \EndFor \Until{s} \end{algorithmic} \end{algorithm}
 </div>
 </div>
 </div><div class="column" style="width:55%;">
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-line-number="true" data-pseudocode-number="1" data-no-end="false" data-line-number-punc=":" data-caption-prefix="Algorithme" data-comment-delimiter="//">
+<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-no-end="false" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-pseudocode-number="1" data-comment-delimiter="//">
 <div class="pseudocode">
 \begin{algorithm} \caption{Miniser les dépendances dans Σ' (détail)} \begin{algorithmic} \Repeat \State s ← \True \For{$(X → y) ∈ Σ'$} \For{$x ∈ X$} \If{$Σ' \setminus {X → y} ⊧ X \setminus {x} → y$} \State $Σ' ← (Σ' \setminus {X → y}) ∪ X \setminus {x} → y$ \State s ← \False \Break \EndIf \EndFor \EndFor \Until{s} \end{algorithmic} \end{algorithm}
 </div>
@@ -706,7 +706,7 @@
 </section>
 <section id="algorithme-1" class="slide level2 smaller center">
 <h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-line-number="true" data-pseudocode-number="1" data-no-end="false" data-line-number-punc=":" data-caption-prefix="Algorithme" data-comment-delimiter="//">
+<div class="pseudocode-container quarto-float" data-indent-size="1.2em" data-no-end="false" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-pseudocode-number="1" data-comment-delimiter="//">
 <div class="pseudocode">
 \begin{algorithm} \caption{Decomposition FN3} \begin{algorithmic} \Procedure{DecompositionFN3}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← ∅$ \State \Comment{Mise en forme des courverture minimale de Σ} \State Σ' ← \Call{MinCover}{$Σ$} \State \For{Each distinct determinant $X$ amongst FDs in Σ'} \State $Y ← \{y : X → y ∈ Σ'\}$ \State $D ← D \cup \{X \cup Y\}$ \Comment{ Ajouter $X \cup Y$ à $D$} \EndFor \State \State $\mathcal{B} ← $ Attributes in $\mathcal{A}$ that do not occur in $D$ \State $D ← D \cup \{\mathcal{B}\}$ \State \If{No component of $D$ includes a key for $\mathcal{A}, Σ$} \State $D ← D \cup $ some key for $\mathcal{A}, Σ$ \EndIf \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
