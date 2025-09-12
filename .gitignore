@@ -32,3 +32,4 @@ workshops/_*
 workshops-chatgpt/
 
 site_libs/
+**/*.quarto_ipynb
