@@ -10,24 +10,24 @@ project:
   output-dir: _site
 
 website:
-  announcement: 
-    icon: emoji-smile
-    dismissable: true
-    type: info
-    content: "Bonne vacances"
-    position: above-navbar
+  #announcement: 
+    # icon: emoji-smile
+    # dismissable: true
+    # type: info
+    # content: "Bonne vacances"
+    # position: above-navbar
   page-navigation: true
   title: "MA15Y030 - Automne 2025"
   description: "Page maison pour MA15Y030 - Bases de données, Licence MIASHS Automne  2025."
-  site-url: "https://s-v-b.github.io/MA15Y030/"
-  repo-url: "https://github.com/s-v-b/MA15Y030"
+  site-url: "https://bgentou.github.io/MA15E045/"
+  repo-url: "https://github.com/bgentou/MA15E045"
   repo-actions: [edit, issue]
 
   open-graph: true
 
   page-footer:
     right: "This page is built with blood, sweat, tears, and [Quarto](https://quarto.org/)."
-    left: "&copy; Copyright 2024, Stéphane Boucheron"
+    left: "&copy; Copyright 2025, Stéphane Boucheron & Bertrand Gentou"
     background: "#D9E3E4"
 
   sidebar:
@@ -37,7 +37,7 @@ website:
     align: center
     tools:
       - icon: github
-        href: https://github.com/s-v-b/MA15Y030
+        href: https://github.com/bgentou/MA15E045
         text: "GitHub organization"
       - icon: person-fill
         href: https://moodle.u-paris.fr/course/view.php?id=2313
