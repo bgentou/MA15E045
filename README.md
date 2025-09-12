@@ -1,6 +1,6 @@
 # MA15Y030
 
-Site Ouèbe du cours *Bases de données* MA15Y030 Université Paris Cité UFR de Mathématiques
+Site Ouèbe du cours *Bases de données* L3 Miashs Université Paris Cité UFR de Mathématiques
 
 ```{.bash}
 $ git clone https://github.com/bgentou/MA15E045.git  chemin
