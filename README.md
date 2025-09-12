@@ -37,3 +37,5 @@ Pour construire les solutions en pdf
 ```{.bash}
 $ quarto render solutions --to pdf --profile solution --no-clean
 ```
+
+test
