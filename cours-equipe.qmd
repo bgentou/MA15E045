@@ -8,7 +8,7 @@ title: "Équipe enseignante"
 
 <!-- [**S. Boucheron**](http://stephane-v-boucheron.fr/)  Professeur de Mathématiques à l'Université Paris Cité/[Laboratoire de Probabilités, Statistiques et Modélisatiion LPSM](https://www.lpsm.paris). -->
 
-[Bertrand Gentou](https://www.bertrandguide.com)
+[Bertrand Gentou]()
 
 
 ## {{< fa laptop-code >}} Travaux dirigés

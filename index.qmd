@@ -19,28 +19,33 @@ about:
 
 ### {{< fa database >}} 
 
-Le cours MA15Y030: *Introduction aux Bases de Données*  
-de la Licence MIASHS (L3) de l'[Université Paris Cité](https:/r/www.u-paris.fr) est une initiation à l'usage des *données tabulaires*. Ce cours est conçu pour des étudiantes intéressées par l'analyse de données au sens large. Cela va de l'alimentation, la maintenance de bases de données tabulaires à la statistique descriptive classique, à l'apprentissage machine et à la statistique prédictive.
+Ce site contient des informations techniques et le matériel du cours [MA15E045: *Bases de Données*](https://moodle.u-pariscite.fr/course/view.php?id=2313) de la Licence MIASHS (L3) de l'[Université Paris Cité](https://www.u-paris.fr).
+
+Pour les informations pédagogiques (résumé du cours, références, évaluations), il faut se reporter à la page Moodle : [MA15E045: *Bases de Données*](https://moodle.u-pariscite.fr/course/view.php?id=2313)
+
+<!-- est une initiation à l'usage des *données tabulaires*. Ce cours est conçu pour des étudiantes intéressées par l'analyse de données au sens large. Cela va de l'alimentation, la maintenance de bases de données tabulaires à la statistique descriptive classique, à l'apprentissage machine et à la statistique prédictive.
+
+
 
 ### {{< fa user-graduate >}} 
 
-Au travers de ce cours, vous allez 
+Au travers de ce cours, vous allez :
 
 - Apprendre à interroger une base de données relationnelle
 - Apprendre à lire un schéma  de base de données 
 - Apprendre à concevoir une base de données
 - Apprendre à améliorer une base de données 
+-->
 
 ### {{< fa server >}} 
 
-Le cours s'appuiera sur un serveur [PostGres](https://www.postgresql.org) 
+Le cours s'appuie sur un serveur [PostGres](https://www.postgresql.org) dont l'adresse est `etu-pgsql.math.univ-paris-diderot.fr`. 
 
 :::
 
-Vous trouverez sur ce site information et matériel
-
-#- [Un syllabus](/cours-syllabus.qmd)
-#- [L'équipe enseignante](/cours-equipe.qmd)
+Vous trouverez sur ce site :
+<!-- - [Un syllabus](/cours-syllabus.qmd)
+- [L'équipe enseignante](/cours-equipe.qmd) -->
 - [Les clients utilisables](/computing-access.qmd)
 - [Les diapositives du cours magistral](/slides-listings.qmd)
 - [Les feuilles d'exercices](/td-listings.qmd)

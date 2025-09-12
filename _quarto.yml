@@ -54,14 +54,16 @@ website:
     search: true
     collapse-level: 1
     contents:
-      - section: "Informations générales"
-        contents:
-          - href: index.qmd
-            text: Aperçu
-          - href: cours-syllabus.qmd
-            text: Syllabus
-          - href: cours-equipe.qmd
-            text: Équipe
+      - href: index.qmd
+        text: Informations générales
+      # - section: "Informations générales"
+      #   contents:
+      #     - href: index.qmd
+      #       text: Aperçu
+      #     - href: cours-syllabus.qmd
+      #       text: Syllabus
+      #     - href: cours-equipe.qmd
+      #       text: Équipe
       - section: "Support"
         contents:
           - href: computing-access.qmd
