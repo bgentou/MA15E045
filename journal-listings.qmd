@@ -16,15 +16,8 @@ listing:
 
 Le journal décrit la progression du cours et des séances d'exercice.
 
-
-
-
 ::: {#journal}
-
-
 
 <!--::: {.callout-note}
 ### Mode d'emploi
 -->
-
-:::
