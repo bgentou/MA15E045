@@ -1,12 +1,12 @@
 ---
-title: "MA15Y030: Introduction  aux Bases de données"
+title: "MA15E045: Introduction  aux Bases de données"
 ---
 
 L'agenda sera sans doute ajusté au cours du semestre.
 
 ```{r}
 #| echo: false
-debut <- lubridate::as_date("2024-09-13")
+debut <- lubridate::as_date("2025-09-15")
 sem <- lubridate::duration(1, "weeks")
 ```
 

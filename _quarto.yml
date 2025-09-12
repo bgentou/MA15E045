@@ -17,8 +17,8 @@ website:
     # content: "Bonne vacances"
     # position: above-navbar
   page-navigation: true
-  title: "MA15Y030 - Automne 2025"
-  description: "Page maison pour MA15Y030 - Bases de données, Licence MIASHS Automne  2025."
+  title: "MA15E045 - Automne 2025"
+  description: "Page maison pour MA15E045 - Bases de données, Licence MIASHS Automne  2025."
   site-url: "https://bgentou.github.io/MA15E045/"
   repo-url: "https://github.com/bgentou/MA15E045"
   repo-actions: [edit, issue]

@@ -1,27 +1,27 @@
 - title: "Semaine  1"
   subtitle: "Données tabulaires"
   author: "Licence MIASHS UParis Cité"
-  date: "2025-09-08"
+  date: "2025-09-15"
   path: "weeks/week-1.html"
   categories: ["`world`", "Algèbre relationnelle"]
 - title: "Semaine  2"
   subtitle: "SQL LMD I"
-  date: "2025-09-15"
+  date: "2025-09-22"
   path: "weeks/week-2.html"
   categories: ["`dellstore`", "SQL" , "Interrogation"]
 - title: "Semaine 3"
   author: "Licence MIASHS UParis Cité"
   subtitle: "SQL LMD II"
-  date: "2025-09-22"
+  date: "2025-09-29"
   path: "weeks/week-3.html"
   categories: ["`babynames`", "SQL", "Interrogation"]
 - title: "Semaine 4"
   author: "Licence MIASHS UParis Cité"
-  date: "2025-09-29"
+  date: "2025-10-06"
   path: "weeks/week-4.html"
   categories: ["`nycflights13`", "SQL", "Manipulation"]
 - title: "Semaine 5"
   author: "Licence MIASHS UParis Cité"
-  date: "2025-10-06"
+  date: "2025-10-13"
   path: "weeks/week-5.html"
   categories: ["`pagila`", "SQL", "Définition"]

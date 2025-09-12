@@ -5,7 +5,7 @@ format:
   revealjs:
     theme: [default, "custom-rladies.scss"]
     # logo: /images/logo.png
-    footer: "[MA15Y030](http://s-v-b.github.io/MA15Y030) -- Bases de Données -- L3 MIASHS -- UParis Cité"
+    footer: "[MA15E045](http://bgentou.github.io/MA15E045) -- Bases de Données -- L3 MIASHS -- UParis Cité"
 
     smaller: false
     highlight-style: github
@@ -23,7 +23,7 @@ format:
     controls-tutorial: true
     lang: fr-FR
 
-    subtitle: "[Bases de Données Licences MIASHS et Mathématiques](https://s-v-b.github.io/MA15Y030/)"
+    subtitle: "[Bases de Données Licences MIASHS et Mathématiques](https://bgentou.github.io/MA15E045/)"
     author: Équipe BD 
     institute: "[LPSM Université Paris-Cité](https://u-paris.fr)"
 
@@ -88,9 +88,9 @@ center: true
 params:
   title: "Introduction aux SGBD"
   # curriculum: "Licence MIASHS"
-  coursetitle: "Bases de Données MA15Y030"
+  coursetitle: "Bases de Données MA15E045"
   lecturer: "Equipe BD"
-  homepage: "http://s-v-b.gitub.io/MA15Y030/"
+  homepage: "http://bgentou.gitub.io/MA15E045/"
   curriculum_homepage: "https://licence.math.univ-paris-diderot.fr/"
 
 

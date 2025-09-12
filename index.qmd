@@ -1,5 +1,5 @@
 ---
-title: "MA15Y030: Introduction aux Bases de Données"
+title: "MA15E045: Introduction aux Bases de Données"
 about:
   id: hero-heading
   template: trestles

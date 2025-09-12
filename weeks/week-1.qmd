@@ -9,9 +9,7 @@ engine: knitr
 
 ::: callout-important
 
--   Cours magistral en Amphi 2 Olympe de Gouges 
--   Vendredi 12 septembre 2025 de 14h à 15h30
--   {{< fa cal >}} [Emploi du temps](https://edt.math.univ-paris-diderot.fr/#/parcours/miashs/l3)
+{{< fa cal >}} [Emploi du temps](https://edt.math.univ-paris-diderot.fr/#/parcours/miashs/l3)
 
 :::
 

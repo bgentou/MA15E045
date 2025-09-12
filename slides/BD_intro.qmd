@@ -13,7 +13,7 @@ format:
 
 # Données ? {background-color="#1c191c"}
 
-## Situation du cours Bases de Données (MA15Y030) dans la [Licence MIASHS](https://licence.math.u-paris.fr/formations/miashs/)
+## Situation du cours Bases de Données (MA15E045) dans la [Licence MIASHS](https://licence.math.u-paris.fr/formations/miashs/)
 
 - Troisième cours tourné vers l'informatique 
   - *Initiation* (L1, S1)

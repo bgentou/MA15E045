@@ -23,8 +23,8 @@ Le journal décrit la progression du cours et des séances d'exercice.
 :::
 
 
-::: {.callout-note}
+<!--::: {.callout-note}
 ### Mode d'emploi
-
+-->
 
 :::
