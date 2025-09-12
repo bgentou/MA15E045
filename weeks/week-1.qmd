@@ -31,9 +31,9 @@ Vous pouvez commencer à aborder les questions de la première feuille de TD
 
 ## Logistique
 
-{{< fa bullhorn >}} Pensez à activer votre compte ENT (suivre les instructions sur [Moodle](https://moodle.u-paris.fr/course/view.php?id=2313)). Vous en aurez besoin pour accéder au serveur PostGres utilisé en TP/TD à partir du 15 septembre.
+{{< fa bullhorn >}} Pensez à activer votre compte ENT (suivre les instructions sur [Moodle](https://moodle.u-paris.fr/course/view.php?id=2313)). Vous en aurez besoin pour accéder au serveur PostGres utilisé en TP/TD à partir du 22 septembre.
 
-Il faut réaliser cette activation le plus tôt possible, idéalement avant le 15 septembre.
+Il faut réaliser cette activation le plus tôt possible, le 22 septembre au plus tard.
 
 Si vous le pouvez, installez sur votre machine un des clients décrits sur [cette page](/computing-access.qmd).
 
