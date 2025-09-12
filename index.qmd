@@ -39,8 +39,8 @@ Le cours s'appuiera sur un serveur [PostGres](https://www.postgresql.org)
 
 Vous trouverez sur ce site information et matériel
 
-- [Un syllabus](/cours-syllabus.qmd)
-- [L'équipe enseignante](/cours-equipe.qmd)
+#- [Un syllabus](/cours-syllabus.qmd)
+#- [L'équipe enseignante](/cours-equipe.qmd)
 - [Les clients utilisables](/computing-access.qmd)
 - [Les diapositives du cours magistral](/slides-listings.qmd)
 - [Les feuilles d'exercices](/td-listings.qmd)

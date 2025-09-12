@@ -24,7 +24,7 @@ Pour publier le site
 $ quarto publish gh-pages --no-render 
 ```
 
-[https://s-v-b.github.io/MA15Y030/](https://s-v-b.github.io/MA15Y030/)
+[https://bgentou.github.io/MA15E045/](https://bgentou.github.ioMA15E045/)
 
 Pour construire les sujets de TD en pdf
 
