@@ -3,7 +3,7 @@
 Site Ouèbe du cours *Bases de données* MA15Y030 Université Paris Cité UFR de Mathématiques
 
 ```{.bash}
-$ git clone https://github.com/s-v-b/MA15Y030.git  chemin
+$ git clone https://github.com/bgentou/MA15E045.git  chemin
 $ cd chemin
 $ git lfs pull 
 
