@@ -3,10 +3,10 @@
 .Rhistory
 MA15E045.Rproj
 .vscode/
-
+MA15E045.code-workspace
 _site/
 
-
+*.bat
 
 *.thm
 *.log
