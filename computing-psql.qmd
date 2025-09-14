@@ -1,9 +1,5 @@
 ---
 title: "Client psql"
-
-format:
-  html:
-    highlight-style: zenburn
 ---
 
 ::: {.callout-note}

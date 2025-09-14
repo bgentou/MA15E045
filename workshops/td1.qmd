@@ -55,7 +55,7 @@ bd_2023-24> \d
 ```
 
 
-[Vue d'ensemble du schéma `world`](/schemas/schema-world.qmd)
+[Vue d'ensemble du schéma `world`](/schemas/schema-world.html)
 
 
 ## Suggestion

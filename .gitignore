@@ -1,4 +1,5 @@
 /.quarto/
+.Rdata
 .Rproj.user
 .Rhistory
 MA15E045.Rproj

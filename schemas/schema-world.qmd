@@ -32,8 +32,6 @@ engine: knitr
 
 Présentation du schéma `world`, pour l'entrainement à PostGres. 
 
--
-
 ::: 
 
 

@@ -1,9 +1,5 @@
 ---
 title: "Client dbeaver"
-
-format:
-  html:
-    highlight-style: zenburn
 ---
 
 

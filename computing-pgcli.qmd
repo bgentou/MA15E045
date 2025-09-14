@@ -1,9 +1,5 @@
 ---
 title: "Client pgcli"
-
-format:
-  html:
-    highlight-style: zenburn
 ---
 
 ::: {.callout-note}
