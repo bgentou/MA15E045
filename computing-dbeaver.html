@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-0187cf44a22ab0306f654f998808193f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-d36ef4219b479d418cf5f417a0c5fd30.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-dark-868ba8607aae7445b9cf907beed3b202.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="site_libs/bootstrap/bootstrap-0187cf44a22ab0306f654f998808193f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
@@ -356,7 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./computing-access.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Accès Informatique</span></a>
+ <span class="menu-text">Connexion au serveur</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -403,12 +403,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Annales</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./journal-listings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Journal</span></a>
-  </div>
-</li>
     </ul>
     </div>
 </nav>
@@ -421,15 +415,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#installer" id="toc-installer" class="nav-link active" data-scroll-target="#installer">Installer</a></li>
   <li><a href="#survol" id="toc-survol" class="nav-link" data-scroll-target="#survol">Survol</a></li>
-  <li><a href="#utiliser-une-connexion" id="toc-utiliser-une-connexion" class="nav-link" data-scroll-target="#utiliser-une-connexion">Utiliser une connexion</a></li>
   <li><a href="#définir-et-utiliser-un-projet" id="toc-définir-et-utiliser-un-projet" class="nav-link" data-scroll-target="#définir-et-utiliser-un-projet">Définir et utiliser un <em>projet</em></a>
   <ul class="collapse">
-  <li><a href="#connections" id="toc-connections" class="nav-link" data-scroll-target="#connections">Connections</a></li>
-  <li><a href="#bookmarkssignets" id="toc-bookmarkssignets" class="nav-link" data-scroll-target="#bookmarkssignets">Bookmarks/Signets</a></li>
-  <li><a href="#diagrammes-er" id="toc-diagrammes-er" class="nav-link" data-scroll-target="#diagrammes-er">Diagrammes ER</a></li>
-  <li><a href="#scripts" id="toc-scripts" class="nav-link" data-scroll-target="#scripts">Scripts</a></li>
+  <li><a href="#connection" id="toc-connection" class="nav-link" data-scroll-target="#connection"><code>Connection</code></a></li>
+  <li><a href="#bookmarkssignets" id="toc-bookmarkssignets" class="nav-link" data-scroll-target="#bookmarkssignets"><code>Bookmarks</code>/Signets</a></li>
+  <li><a href="#dashboardstableaux-de-bord" id="toc-dashboardstableaux-de-bord" class="nav-link" data-scroll-target="#dashboardstableaux-de-bord"><code>Dashboards</code>/Tableaux de bord</a></li>
+  <li><a href="#diagrams" id="toc-diagrams" class="nav-link" data-scroll-target="#diagrams"><code>Diagrams</code></a></li>
+  <li><a href="#scripts" id="toc-scripts" class="nav-link" data-scroll-target="#scripts"><code>Scripts</code></a></li>
   </ul></li>
-  <li><a href="#renseignements-utiles" id="toc-renseignements-utiles" class="nav-link" data-scroll-target="#renseignements-utiles">Renseignements utiles</a></li>
+  <li><a href="#editeur-sql" id="toc-editeur-sql" class="nav-link" data-scroll-target="#editeur-sql">Editeur SQL</a></li>
+  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/bgentou/MA15E045/edit/main/computing-dbeaver.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/bgentou/MA15E045/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -456,36 +451,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="installer" class="level1">
-<h1>Installer</h1>
-<p>À partir de <a href="https://dbeaver.io/download/">Dbeaver community edition</a></p>
-<iframe width="780" height="500" src="https://dbeaver.io/download/" title="Dbeaver CE"></iframe>
-</section>
-<section id="survol" class="level1">
-<h1>Survol</h1>
-<p><i class="fa-brands fa-youtube" aria-label="youtube"></i> <a href="https://www.youtube.com/watch?v=qWhCmvg_Sqc">Explorer les possibilités du client</a></p>
-<div class="callout callout-style-default callout-tip callout-empty-content callout-titled">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Configurer une connexion
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-
+<p>Guide pour utiliser le client <em>dBeaver</em> avec un tunnel <code>ssh</code></p>
 </div>
 </div>
+<section id="installer" class="level1">
+<h1>Installer</h1>
+<p>À partir de <a href="https://dbeaver.io/download/">Dbeaver community edition</a></p>
+</section>
+<section id="survol" class="level1">
+<h1>Survol</h1>
+<p><i class="fa-brands fa-youtube" aria-label="youtube"></i> <a href="https://www.youtube.com/watch?v=qWhCmvg_Sqc">Explorer les possibilités du client dBeaver</a></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Ouvrir un tunnel <code>ssh</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Vous utiliserez <em>dBeaver</em> pour interroger le serveur Postgre via un tunnel <code>ssh</code>. Pour établir ce tunnel reportez-vous à la page <a href="./computing-access.html">Connexion au serveur</a></p>
+</div>
+</div>
+</section>
+<section id="définir-et-utiliser-un-projet" class="level1">
+<h1>Définir et utiliser un <em>projet</em></h1>
+<p>Dans l’onglet <code>Projets</code> (Menu <code>Fenêtres</code>-&gt;<code>Projet</code>), apparaît le projet <code>Général</code>. Vous pouvez le renommer en faisant un clic droit.</p>
+<p>Pour ce module, vous pouvez vous contenter d’utiliser un unique projet.</p>
+<p>Si vous avez plusieurs projets, choisissez le projet actif en faisant un clic droit puis <code>Définir le projet actif</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Lors de la création d’un projet, décochez <code>Utiliser l'emplacement par défaut</code> et choisissez le répertoire ou seront enregistrés vos scripts, c.a.d. vos requêtes SQL.</p>
+</div>
+</div>
+<p>Dans votre projet apparaissent les éléments :</p>
 <ul>
-<li>Onglet <code>Main</code>
+<li><code>Connection</code></li>
+<li><code>Bookmarks</code></li>
+<li><code>Dashboards</code></li>
+<li><code>Diagrams</code></li>
+<li><code>Scripts</code></li>
+</ul>
+<section id="connection" class="level2">
+<h2 class="anchored" data-anchor-id="connection"><code>Connection</code></h2>
+<p>La première étape après la création d’un projet est la création d’une connexion à un serveur de bases de données.</p>
+<p>Pour cet enseignement, vous devez d’abord créer un tunnel <code>ssh</code> avec le serveur <code>etu-pgsql.math.univ-paris-diderot.fr</code> avec une redirection de port (cf.&nbsp;<a href="./computing-access.html">Connexion au serveur</a>).</p>
+<p>Nous supposons par la suite que vous avez établi un tunnel en redirigeant le port local <code>5436</code> vers le port distant <code>5432</code>.</p>
+<p>Il faut ensuite sélectionner votre projet dans l’onglet <code>Projets</code> puis faire une clic droit et <code>Créer</code>-&gt;<code>Connexion</code>, choisir le pilote PostgreSQL (regarder les icônes), puis <code>Suivant</code> et saisir dans le formulaire les informations suivantes :</p>
+<ul>
+<li>Onglet <code>Main</code> ou <code>Général</code>
 <ul>
 <li>Connect by <code>Host</code>,
 <ul>
 <li>Host: <code>localhost</code>,</li>
 <li>Port: <code>5436</code> (le nom du port local utilisé par votre tunnel ssh)</li>
-<li>Database: bd_2023-24</li>
-<li>Décocher `Show all databases</li>
+<li>Database: <code>bd_2023-24</code></li>
+<li>Décocher <code>Show all databases</code></li>
 </ul></li>
 <li>Authentification: <code>Database Native</code>
 <ul>
@@ -493,41 +533,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Password: xxxxxxx (ENT)</li>
 <li>Cocher <code>Save password</code></li>
 </ul></li>
-<li></li>
 </ul></li>
 </ul>
-</section>
-<section id="utiliser-une-connexion" class="level1">
-<h1>Utiliser une connexion</h1>
-<p>Après avoir ouvert un tunnel <code>ssh</code> dans une fenêtre terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ssh username@etu-pgsql.math.univ-paris-diderot.fr <span class="at">-L</span> 5436:localhost:5432 <span class="at">-N</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">username@etu-pgsql.math.univ-paris-diderot.fr</span><span class="kw">)</span> <span class="ex">Password</span> for username@etu-pgsql.math.univ-paris-diderot.fr:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>dans l’IDE <code>dbeaver</code>:</p>
-<p>Double cliquer sur la connexion et saisissez le mot de passe demandé (si nécessaire).</p>
-</section>
-<section id="définir-et-utiliser-un-projet" class="level1">
-<h1>Définir et utiliser un <em>projet</em></h1>
-<div class="callout callout-style-default callout-warning callout-titled">
+<p>Puis cliquer sur <code>Terminer</code>. Eventuellement, dBeaver demandera à installer le pilote ‘PostgreSQL’.</p>
+<p>Maintenant la connexion <code>bd_2023-24</code> apparaît dans votre projet. Elle apparaît également dans le <code>Navigateur de Bases de données</code> (<code>Fenêtres</code>-&gt;<code>Navigateur de Bases de données</code>).</p>
+<p>En déroulant la connexion <code>bd_2023-24</code>-&gt;<code>Bases de données</code>-&gt;<code>bd_2023-2024</code>-&gt;<code>Schémas</code>, vous pouvez visualiser la liste des schémas existants sur le serveur.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Durant le semestre, un <code>projet</code> unique devrait suffire à vos besoins.</p>
-<p>Utiliser un <code>projet</code> doit vous aider à organiser votre travail, en particulier à retrouver facilement les travaux des semaines précédentes.</p>
+<p>Si vous créez un nouveau projet avec une connexion déjà définie dans un autre, il vous suffit de copier-coller la connexion entre les projets ou depuis le <code>Navigateur de Bases de données</code>.</p>
 </div>
 </div>
-<section id="connections" class="level2">
-<h2 class="anchored" data-anchor-id="connections">Connections</h2>
-<p>Vous devrez créer une connection avec le serveur au sein de votre projet. Vous pouvez en créer d’autres avec d’autres serveurs, possiblement un serveur PostGres hébergé sur votre propre machine.</p>
 </section>
 <section id="bookmarkssignets" class="level2">
-<h2 class="anchored" data-anchor-id="bookmarkssignets">Bookmarks/Signets</h2>
-<p><a href="https://github.com/dbeaver/dbeaver/wiki/Bookmarks">Documentation sur les signets</a></p>
+<h2 class="anchored" data-anchor-id="bookmarkssignets"><code>Bookmarks</code>/Signets</h2>
+<p>Vous pouvez jeter un coup d’oeil à cette <a href="https://github.com/dbeaver/dbeaver/wiki/Bookmarks">documentation sur les signets</a>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -541,26 +568,96 @@ Tip
 <p>Vous pouvez créer des signets pour retrouver facilement les schémas sur lesquels vous travaillez, ou avez travaillé.</p>
 </div>
 </div>
-<!-- ## Dashboards/Tableaux de bord -->
 </section>
-<section id="diagrammes-er" class="level2">
-<h2 class="anchored" data-anchor-id="diagrammes-er">Diagrammes ER</h2>
-<p><code>dbeaver</code> permet de faire un peu de rétro-ingénieurie et de visualiser (partiellement) un schéma. Outil utile quand on veut retoucher un schéma ou simplement le comprendre.</p>
+<section id="dashboardstableaux-de-bord" class="level2">
+<h2 class="anchored" data-anchor-id="dashboardstableaux-de-bord"><code>Dashboards</code>/Tableaux de bord</h2>
+<p>Ils servent à superviser l’utilisation des ressources. Cela ne vous sera pas utile pour cet enseignement.</p>
+</section>
+<section id="diagrams" class="level2">
+<h2 class="anchored" data-anchor-id="diagrams"><code>Diagrams</code></h2>
+<p><em>dBeaver</em> permet de faire un peu de rétro-ingénieurie et de visualiser (partiellement) un schéma. Outil utile quand on veut retoucher un schéma ou simplement le comprendre.</p>
 </section>
 <section id="scripts" class="level2">
-<h2 class="anchored" data-anchor-id="scripts">Scripts</h2>
+<h2 class="anchored" data-anchor-id="scripts"><code>Scripts</code></h2>
 <ul>
-<li>Un script pour chaque séance de TD/TP</li>
-<li>Nommer le script de façon utile (avec <code>rename</code>)</li>
-<li>Commenter le script</li>
-<li>Séparer les requêtes par des lignes blanches et une ligne de commentaire blanche <code>--</code></li>
-<li>Utiliser le reformattage pour rendre votre code plus lisible</li>
+<li>Créer un dossier de script pour chaque TP puis un script pour chaque exercice,</li>
+<li>Nommer le script de façon utile (avec <code>rename</code>),</li>
+<li>Commenter le script,</li>
+<li>Séparer les requêtes par des lignes blanches et une ligne de commentaire blanche <code>--</code>,</li>
+<li>Utiliser le reformattage pour rendre votre code plus lisible.</li>
 </ul>
 </section>
 </section>
-<section id="renseignements-utiles" class="level1">
-<h1>Renseignements utiles</h1>
-<p><a href="https://github.com/dbeaver/dbeaver/wiki">wiki</a></p>
+<section id="editeur-sql" class="level1">
+<h1>Editeur SQL</h1>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://dbeaver.com/docs/dbeaver/SQL-Editor/">Documentation éditeur SQL dBeaver</a></p>
+</div>
+</div>
+<p>Pour écrire vos requètes, il faut utiliser l’éditeur SQL.</p>
+<p>Supposons que vous vouliez écrire une requète sur le schéma <code>world</code>.</p>
+<p>Dans votre projet, une fois créé le tunnel <code>ssh</code>, faire un clic droit sur la connexion de votre projet puis <code>Se connecter</code>. Si la connexion est réussie, une coche verte apparaît.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si votre connexion échoue, c’est certainement parce que votre tunnel <code>ssh</code> a été coupé à cause d’un temps d’inactivité trop long (erreur <code>timed out</code>). Il faut revenir dans le terminal de la commande <code>ssh</code>, faire un <code>Ctrl C</code> si le prompt <code>ssh</code> est toujours présent pour “tuer” le processus <code>ssh</code> puis relancer la commande <code>ssh</code> en utilisant l’historique des commandes du terminal (flèche vers le haut), enfin ressaisir votre mot de passe.</p>
+<p>Vous pouvez éventuellement allonger le <em>time out</em> ssh en ajoutant l’option <code>-o ConnectTimeout=1000</code> à la commande <code>ssh</code>, ici le délai sera de 1000s (environ 15min).</p>
+</div>
+</div>
+<p>Dans <code>Connections</code>, vous pouvez dérouler <code>bd_2023-24</code>-&gt;<code>Bases de données</code>-&gt;<code>bd_2023-2024</code>-&gt;<code>Schémas</code>.</p>
+<p>Dans la liste que vous avez déroulée, vous devez retrouver le schéma <code>world</code> et double cliquer sur celui-ci. Cela vous permet d’afficher le schéma graphiquement ce qui vous aidera à écrire votre requète SQL.</p>
+<p>Puis il faut aller dans le menu haut et cliquer sur <code>Editeur SQL</code>-&gt;<code>Context</code>-&gt;<code>Définir la connexion active</code>. Choisissez la connexion de votre projet et valider en cliquant sur <code>Select</code>.</p>
+<p>Cliquez ensuite sur <code>Editeur SQL</code>-&gt;<code>Nouveau script</code>. Vous avez créé un nouveau fichier de script d’extension <code>.sql</code> dans le répertoire par défaut de votre projet. Ce fichier apparaît dans dBeaver parmi les scripts du projet.</p>
+<p>Vous pouvez maintenant écrire votre première requête.</p>
+<p>En utilisant le schéma <code>world</code>, on peut par exemple écrire une projection de la table <code>country</code> sur les attributs <code>name_country</code> et <code>continent</code> :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Requête de projection</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name_country, continent</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> world.country </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ici, comme nous n’avons pas défini un schéma par défaut, il est nécessaire de le préciser avec le nom de la table : <code>world.country</code>.</p>
+<p>Vous pouvez alors exécuter votre requète en cliquant sur le triangle orange ou avec un clic droit sur le code de la requête.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pour alléger l’écriture des requêtes, il est préférable de commencer par écrire une requète qui définit le schéma par défaut :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Requête de définition du schéma par défaut</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> search_path <span class="kw">TO</span> world;</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Requête de projection </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name_country, continent</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>L’inconvénient est alors que des tips infondés d’erreurs de nom de table apparaissent car l’éditeur ne peut pas savoir si vous avez exécuté la requète <code>SET search_path</code>. Pour supprimer les tips d’erreur de nom de table de l’éditeur SQL, il faut aller dans <code>Fenêtres</code>-&gt;<code>Préférences</code> et décocher l’option <code>Editors</code>-&gt;<code>Editeur SQL</code>-&gt; <code>Code editor</code>-&gt;<code>Read database table/columns for smeantic analysis</code>.</p>
+</div>
+</div>
+</section>
+<section id="documentation" class="level1">
+<h1>Documentation</h1>
+<ul>
+<li><a href="https://dbeaver.com/docs/dbeaver/Application-Window-Overview/">Documentation dBeaver</a></li>
+<li><a href="https://github.com/dbeaver/dbeaver/wiki">wiki</a></li>
+</ul>
 
 
 </section>
@@ -986,8 +1083,8 @@ Tip
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./computing-access.html" class="pagination-link" aria-label="Accès Informatique">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Accès Informatique</span>
+      <a href="./computing-access.html" class="pagination-link" aria-label="Connexion au serveur">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Connexion au serveur</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
