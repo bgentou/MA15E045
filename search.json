@@ -650,7 +650,7 @@
     "href": "computing-psql.html",
     "title": "Client psql",
     "section": "",
-    "text": "Note\n\n\n\nGuide pour utiliser le client psql avec un tunnel ssh\n\n\n\nInstaller psql\nÀ partir de Télécharger le fichier d’installation.\nLe fichier d’installation contient l’installation du serveur et d’un outil d’administration du serveur.\nNous n’avez besoin que du client en ligne de commande. Lors de l’installation, décocher tout sauf Command Line Tool.\n\n\nUtiliser psql\n\n\n\n\n\n\nTipOuvrir un tunnel ssh\n\n\n\nVous utiliserez psql pour interroger le serveur PostgreSQL via un tunnel ssh. Pour établir ce tunnel reportez-vous à la page Connexion au serveur\n\n\n\nConnexion au serveur PostGreSQL\nUtilisez votre tunnel SSH pour accéder au serveur PostGreSQL.\nDans une autre fenêtre terminal, lancez la commande suivante et saisissez à nouveau votre mot de passe.\n$ psql -p 5436 -U id_ent -W -h localhost -d bd_2023-24\nPassword for id_ent: \nVous êtes maintenant dans une session sur le serveur PostGreSQL. Vous êtes connecté au catalogue bd_2023-24.\nVous pouvez utiliser une grande partie des commandes magiques de psql.\n\n\nChoisir un schéma par défaut (ici world)\nbd_2023-24=# SET search_path TO world ;\nSET\n\n\nLister les tables du schéma par défaut\nbd_2023-24=# \\d\n+--------+-----------------+-------+-----------+\n| Schema | Name            | Type  | Owner     |\n|--------+-----------------+-------+-----------|\n| world  | city            | table | boucheron |\n| world  | country         | table | boucheron |\n| world  | countrylanguage | table | boucheron |\n+--------+-----------------+-------+-----------+\n(3 rows)\n\n\nSchéma d’une table\nbd_2023-24=# \\d city\n \n+-------------+--------------+-----------+\n| Column      | Type         | Modifiers |\n|-------------+--------------+-----------|\n| id          | integer      |  not null |\n| name        | text         |  not null |\n| countrycode | character(3) |  not null |\n| district    | text         |  not null |\n| population  | integer      |  not null |\n+-------------+--------------+-----------+\nIndexes:\n    \"city_pkey\" PRIMARY KEY, btree (id)\nForeign-key constraints:\n    \"city_country_fk\" FOREIGN KEY (countrycode) REFERENCES country(countrycode) ON UPDATE CASCADE ON DELETE SET NULL DEFE&gt;\nReferenced by:\n    TABLE \"country\" CONSTRAINT \"country_capital_fkey\" FOREIGN KEY (capital) REFERENCES city(id)\n\n\nInformations de connexion\nbd_2023-24=# \\conninfo\nYou are connected to database \"bd_2023-24\" as user \"id_end\" on host \"localhost\"  (address \"127.0.0.1\") at port \"5436\".\n\n\nEditer, sauvegarder et exécuter des requêtes\nDans le répertoire Documents, vous créez un répertoire bdd puis un sous répertoire tp1.\nDans un éditeur de texte, vous saisissez votre requête :\nSELECT *\nFROM world.city ci\nWHERE ci.countrycode='FRA' ;\nsauvegardée dans le répertoire tp1 sous le nom requete1.sql.\nDans la session sur bd_2023-24, vous pouvez maintenant inclure et exécuter cette requête.\nbd_2023-24&gt; \\i ~/Documents/bdd/tp1/requete1.sql\n+------+----------------------+-------------+----------------------+------------+\n| id   | name                 | countrycode | district             | population |\n|------+----------------------+-------------+----------------------+------------|\n| 2974 | Paris                | FRA         | Île-de-France        | 2125246    |\n| 2975 | Marseille            | FRA         | Provence-Alpes-Côte  | 798430     |\n| 2976 | Lyon                 | FRA         | Rhône-Alpes          | 445452     |\n| 2977 | Toulouse             | FRA         | Midi-Pyrénées        | 390350     |\n| 2978 | Nice                 | FRA         | Provence-Alpes-Côte  | 342738     |\n...\nVous faîtes défiler l’affichage avec les touches flèches puis vous sortez du pager avec la commande q.\nNote : vous pouvez lancer aussi l’édition d’une requête depuis psql :\nbd_2023-24=# \\e \n\nSelect an editor.  To change later, run 'select-editor'.\n  1. /bin/nano        &lt;---- easiest\n  2. /usr/bin/vim.basic\n  3. /usr/bin/code\n  4. /bin/ed\nChoose 1-4 [1]: 3\n\n\n\nDocumentation\nDocumentation psql)",
+    "text": "Note\n\n\n\nGuide pour utiliser le client psql avec un tunnel ssh\n\n\n\nInstaller psql\nÀ partir de Télécharger le fichier d’installation.\nLe fichier d’installation contient l’installation du serveur et d’un outil d’administration du serveur.\nVous n’avez besoin que du client en ligne de commande. Lors de l’installation, décochez tout sauf Command Line Tool.\n\n\nUtiliser psql\n\n\n\n\n\n\nTipOuvrir un tunnel ssh\n\n\n\nVous utiliserez psql pour interroger le serveur PostgreSQL via un tunnel ssh. Pour établir ce tunnel reportez-vous à la page Connexion au serveur\n\n\n\nConnexion au serveur PostGreSQL\nUtilisez votre tunnel SSH pour accéder au serveur PostGreSQL.\nDans une autre fenêtre terminal, lancez la commande suivante et saisissez à nouveau votre mot de passe.\n$ psql -p 5436 -U id_ent -W -h localhost -d bd_2023-24\nPassword for id_ent: \nVous êtes maintenant dans une session sur le serveur PostGreSQL. Vous êtes connecté au catalogue bd_2023-24.\nVous pouvez utiliser une grande partie des commandes magiques de psql.\n\n\nChoisir un schéma par défaut (ici world)\nbd_2023-24=# SET search_path TO world ;\nSET\n\n\nLister les tables du schéma par défaut\nbd_2023-24=# \\d\n+--------+-----------------+-------+-----------+\n| Schema | Name            | Type  | Owner     |\n|--------+-----------------+-------+-----------|\n| world  | city            | table | boucheron |\n| world  | country         | table | boucheron |\n| world  | countrylanguage | table | boucheron |\n+--------+-----------------+-------+-----------+\n(3 rows)\n\n\nSchéma d’une table\nbd_2023-24=# \\d city\n \n+-------------+--------------+-----------+\n| Column      | Type         | Modifiers |\n|-------------+--------------+-----------|\n| id          | integer      |  not null |\n| name        | text         |  not null |\n| countrycode | character(3) |  not null |\n| district    | text         |  not null |\n| population  | integer      |  not null |\n+-------------+--------------+-----------+\nIndexes:\n    \"city_pkey\" PRIMARY KEY, btree (id)\nForeign-key constraints:\n    \"city_country_fk\" FOREIGN KEY (countrycode) REFERENCES country(countrycode) ON UPDATE CASCADE ON DELETE SET NULL DEFE&gt;\nReferenced by:\n    TABLE \"country\" CONSTRAINT \"country_capital_fkey\" FOREIGN KEY (capital) REFERENCES city(id)\n\n\nInformations de connexion\nbd_2023-24=# \\conninfo\nYou are connected to database \"bd_2023-24\" as user \"id_end\" on host \"localhost\"  (address \"127.0.0.1\") at port \"5436\".\n\n\nEditer, sauvegarder et exécuter des requêtes\nDans le répertoire Documents, vous créez un répertoire bdd puis un sous répertoire tp1.\nDans un éditeur de texte, vous saisissez votre requête :\nSELECT *\nFROM world.city ci\nWHERE ci.countrycode='FRA' ;\nsauvegardée dans le répertoire tp1 sous le nom requete1.sql.\nDans la session sur bd_2023-24, vous pouvez maintenant inclure et exécuter cette requête.\nbd_2023-24&gt; \\i ~/Documents/bdd/tp1/requete1.sql\n+------+----------------------+-------------+----------------------+------------+\n| id   | name                 | countrycode | district             | population |\n|------+----------------------+-------------+----------------------+------------|\n| 2974 | Paris                | FRA         | Île-de-France        | 2125246    |\n| 2975 | Marseille            | FRA         | Provence-Alpes-Côte  | 798430     |\n| 2976 | Lyon                 | FRA         | Rhône-Alpes          | 445452     |\n| 2977 | Toulouse             | FRA         | Midi-Pyrénées        | 390350     |\n| 2978 | Nice                 | FRA         | Provence-Alpes-Côte  | 342738     |\n...\nVous faîtes défiler l’affichage avec les touches flèches puis vous sortez du pager avec la commande q.\nNote : vous pouvez lancer aussi l’édition d’une requête depuis psql :\nbd_2023-24=# \\e \n\nSelect an editor.  To change later, run 'select-editor'.\n  1. /bin/nano        &lt;---- easiest\n  2. /usr/bin/vim.basic\n  3. /usr/bin/code\n  4. /bin/ed\nChoose 1-4 [1]: 3\n\n\n\nDocumentation\nDocumentation psql)",
     "crumbs": [
       "Support",
       "Client psql"
@@ -2169,7 +2169,7 @@
     "href": "slides/SQL_1.html#plusieurs-fois-normalisés-par-liso",
     "title": "BD II: SQL I",
     "section": "Plusieurs fois normalisés par l’ISO …",
-    "text": "Plusieurs fois normalisés par l’ISO …\n\nSQL-86,\nSQL-89,\nSQL-92,\nSQL-99.\n…\nSQL-2003\nSQL-2008\nSQL-2011\nSQL-2016\n…\n\nNous utiliserons le dialecte PostgreSQL\nA standard is reviewed every 5 years (roughly)\nISO/IEC 9075 from www.iso.org"
+    "text": "Plusieurs fois normalisés par l’ISO …\n\nSQL-86, SQL-89, SQL-92, SQL-99,\n…\nSQL-2003, SQL-2008, SQL-2011, SQL-2016,\n…\n\nNous utiliserons le dialecte PostgreSQL\nLa norme est révisée environ tous les 5 ans.\nISO/IEC 9075 from www.iso.org"
   },
   {
     "objectID": "slides/SQL_1.html#sql",
@@ -2190,7 +2190,7 @@
     "href": "slides/SQL_1.html#requêtes-simples-sur-exemple-jouet",
     "title": "BD II: SQL I",
     "section": "Requêtes simples sur exemple jouet",
-    "text": "Requêtes simples sur exemple jouet\n\n\nEmploye(Nu, NomE, Annee, Tel, Nudept)\n\nFournisseur (NomF, Ville, Adresse)\n\nPiece(NomP, Prix, Couleur)\n\n--| connection:  con\n--| eval: false\n--| echo: true\n\nSELECT co.name_country, co.region\nFROM country co\nWHERE co.continent='Europe' \nLIMIT 5 ;\nEquivalent à :\n\\[\\Pi_{\\text{NomF, region}}(\\text{country})\\]"
+    "text": "Requêtes simples sur exemple jouet\n\n\nEmploye(Nu, NomE, Annee, Tel, Nudept)\n\nFournisseur (NomF, Ville, Adresse)\n\nPiece(NomP, Prix, Couleur)\n\n--| connection:  con\n--| eval: false\n--| echo: true\n\nSELECT co.name_country, co.region\nFROM country co\nWHERE co.continent='Europe' \nLIMIT 5 ;\n. . .\nEquivalent à :\n\\[\\Pi (\\text{country}, \\text{NomF, region})\\]"
   },
   {
     "objectID": "slides/SQL_1.html#structure-de-base",
@@ -2207,25 +2207,25 @@
     "text": "Syntaxe de la condition de filtrage (WHERE ...)\nUne condition se construit à l’aide des opérations suivantes :\n\n\nComparaison avec opérateurs : =, &lt;&gt;, &gt;,&lt;, &gt;=, &lt;=\n\n\nSELECT *\n\nFROM Employe\n\nWHERE NomE &lt;&gt;'Durand'  ;"
   },
   {
-    "objectID": "slides/SQL_1.html#syntaxe-de-la-condition-de-filtrage-where-...-1",
-    "href": "slides/SQL_1.html#syntaxe-de-la-condition-de-filtrage-where-...-1",
+    "objectID": "slides/SQL_1.html#syntaxe-de-la-condition-de-filtrage-where-...---suite",
+    "href": "slides/SQL_1.html#syntaxe-de-la-condition-de-filtrage-where-...---suite",
     "title": "BD II: SQL I",
-    "section": "Syntaxe de la condition de filtrage (WHERE ...)",
-    "text": "Syntaxe de la condition de filtrage (WHERE ...)\nCombinaison de conditions à l’aide des opérateurs logiques: AND, OR, NOT\nSELECT DISTINCT NomF\n\nFROM Fournisseur\n\nWHERE (Ville='Londres') OR (Ville='Paris');  \n Attention aux priorités dans l’évaluation des expressions logiques\n Attention aux valeurs manquantes"
+    "section": "Syntaxe de la condition de filtrage (WHERE ...) - suite",
+    "text": "Syntaxe de la condition de filtrage (WHERE ...) - suite\nCombinaison de conditions à l’aide des opérateurs logiques: AND, OR, NOT\nSELECT DISTINCT NomF\n\nFROM Fournisseur\n\nWHERE (Ville='Londres') OR (Ville='Paris');  \n Attention aux priorités dans l’évaluation des expressions logiques\n Attention aux valeurs manquantes"
   },
   {
     "objectID": "slides/SQL_1.html#syntaxe-de-la-condition-where-...-suite",
     "href": "slides/SQL_1.html#syntaxe-de-la-condition-where-...-suite",
     "title": "BD II: SQL I",
     "section": "Syntaxe de la condition WHERE ... (suite)",
-    "text": "Syntaxe de la condition WHERE ... (suite)\nTest BETWEEN permettant de vérifier si la valeur d’un attribut est comprise entre deux constantes\nSELECT NomE\n\nFROM Employe\n\nWHERE Annee BETWEEN '22/06/03' AND '25/09/03';   \n Éviter de manipuler les dates et heures comme des chaînes de caractères"
+    "text": "Syntaxe de la condition WHERE ... (suite)\nTest BETWEEN permet de vérifier si la valeur d’un attribut est comprise entre deux constantes\nSELECT NomE\n\nFROM Employe\n\nWHERE Annee BETWEEN '22/06/03' AND '25/09/03';   \n Éviter de manipuler les dates et heures comme des chaînes de caractères"
   },
   {
     "objectID": "slides/SQL_1.html#syntaxe-de-la-condition-where-...-suite-1",
     "href": "slides/SQL_1.html#syntaxe-de-la-condition-where-...-suite-1",
     "title": "BD II: SQL I",
     "section": "Syntaxe de la condition WHERE ... (suite)",
-    "text": "Syntaxe de la condition WHERE ... (suite)\n\nTest à NULL signifiant que la valeur est égale à NULL (c-à-d est inconnue)\n\nSELECT *\n\nFROM Employe\n\nWHERE Tel IS NULL;    \n Attention aux valeurs manquantes"
+    "text": "Syntaxe de la condition WHERE ... (suite)\n\nTest IS NULL vérifie si une valeur est égale à NULL (c-à-d est inconnue)\n\nSELECT *\n\nFROM Employe\n\nWHERE Tel IS NULL;    \n Attention aux valeurs manquantes"
   },
   {
     "objectID": "slides/SQL_1.html#syntaxe-de-la-condition-where-...-suite-2",
@@ -2239,7 +2239,7 @@
     "href": "slides/SQL_1.html#syntaxe-de-la-condition-where-...-suite-3",
     "title": "BD II: SQL I",
     "section": "Syntaxe de la condition WHERE ... (suite)",
-    "text": "Syntaxe de la condition WHERE ... (suite)\nTest LIKE permettant de vérifier si un attribut de type chaîne de caractères contient une ou plusieurs sous-chaînes\n\\(\\_\\) : remplace n’importe quel caractère\n\\(\\%\\) : remplace n’importe quelle chaîne de caractères.\nSELECT Ville\n\nFROM Fournisseur\n\nWHERE Ville LIKE 'Saint%';"
+    "text": "Syntaxe de la condition WHERE ... (suite)\nTest LIKE permettant de vérifier si un attribut de type chaîne de caractères contient une ou plusieurs sous-chaînes\n\\(\\_\\) : remplace n’importe quel caractère\n\\(\\%\\) : remplace n’importe quelle chaîne de caractères.\nSELECT Ville\n\nFROM Fournisseur\n\nWHERE Ville LIKE 'Saint%';\nCette requête sélectionne les noms de ville commençant par ‘Saint’."
   },
   {
     "objectID": "slides/SQL_1.html#requêtes-multi-relations-1",
@@ -2302,28 +2302,28 @@
     "href": "slides/SQL_1.html#syntaxe-normalisée-pour-les-jointures-join-et-on",
     "title": "BD II: SQL I",
     "section": "Syntaxe normalisée pour les jointures : JOIN et ON\n",
-    "text": "Syntaxe normalisée pour les jointures : JOIN et ON\n\nQuels sont les pays qui portent le même nom que leur capitale ?\nSELECT name_country\n\nFROM country JOIN city   \n\nON capital=id    \n\nWHERE name_country=name_city;\nqui correspond à\n\\[\\pi_{\\text{name\\_country}}(\\sigma_{\\text{capital}=id \\wedge  \\text{name\\_country}=\\text{name\\_city}}(\\text{country} \\times \\text{city}))\\]"
+    "text": "Syntaxe normalisée pour les jointures : JOIN et ON\n\nQuels sont les pays qui portent le même nom que leur capitale ?\n\nSELECT name_country\n\nFROM country JOIN city   \n\nON capital=id    \n\nWHERE name_country=name_city;\nqui correspond à\n\\[\\pi_{\\text{name\\_country}}(\\sigma_{\\text{capital}=id \\wedge  \\text{name\\_country}=\\text{name\\_city}}(\\text{country} \\times \\text{city}))\\]"
   },
   {
     "objectID": "slides/SQL_1.html#renommage",
     "href": "slides/SQL_1.html#renommage",
     "title": "BD II: SQL I",
     "section": "Renommage",
-    "text": "Renommage\nSi on veut faire une jointure d’une table avec elle-même, on utilise AS pour obtenir deux tables de noms différents\n\nQuels sont les noms de ville qui apparaissent dans deux pays différents~?\n\nSELECT DISTINCT c1.name_city, c1.countrycode, c2.countrycode\n\nFROM city AS c1 JOIN city AS c2   \n\n  ON c1.countrycode!=c2.countrycode AND c1.name_city=c2.name_city  \n\nORDER BY c1.name_city;"
+    "text": "Renommage\nSi on veut faire une jointure d’une table avec elle-même, on utilise AS pour obtenir deux tables de noms différents\n\nQuels sont les noms de ville qui apparaissent dans deux pays différents?\n\n\nSELECT DISTINCT c1.name_city, c1.countrycode, c2.countrycode\n\nFROM city AS c1 JOIN city AS c2   \n\n  ON c1.countrycode!=c2.countrycode AND c1.name_city=c2.name_city  \n\nORDER BY c1.name_city;"
   },
   {
     "objectID": "slides/SQL_1.html#jointure-naturelle",
     "href": "slides/SQL_1.html#jointure-naturelle",
     "title": "BD II: SQL I",
     "section": "Jointure naturelle",
-    "text": "Jointure naturelle\nQuels sont les noms des pays où le français est parlé ?\nSELECT name_country\n\nFROM country, countrylanguage\n\nWHERE country.countrycode=countrylanguage.countrycode\n      AND language='French';\nSyntaxe normalisée pour la jointure naturelle~: NATURAL JOIN\nSELECT name_country\n\nFROM country NATURAL JOIN countrylanguage    \n\nWHERE language='French';"
+    "text": "Jointure naturelle\nQuels sont les noms des pays où le français est parlé ?\n\nSELECT name_country\n\nFROM country, countrylanguage\n\nWHERE country.countrycode=countrylanguage.countrycode\n      AND language='French';\nSyntaxe normalisée pour la jointure naturelle : NATURAL JOIN\nSELECT name_country\n\nFROM country NATURAL JOIN countrylanguage    \n\nWHERE language='French';"
   },
   {
     "objectID": "slides/SQL_1.html#jointure-naturelle-suite",
     "href": "slides/SQL_1.html#jointure-naturelle-suite",
     "title": "BD II: SQL I",
     "section": "Jointure naturelle (suite)",
-    "text": "Jointure naturelle (suite)\nQuels sont les pays dont une ville a le même nom qu’une langue parlée dans ce pays~?\nSELECT DISTINCT name_country, name_city, language\n\nFROM country NATURAL JOIN  \n     city natural JOIN     \n     countrylanguage       \n\nWHERE language=name_city;"
+    "text": "Jointure naturelle (suite)\nQuels sont les pays dont une ville a le même nom qu’une langue parlée dans ce pays ?\nSELECT DISTINCT name_country, name_city, language\n\nFROM country NATURAL JOIN  \n     city natural JOIN     \n     countrylanguage       \n\nWHERE language=name_city;"
   },
   {
     "objectID": "slides/SQL_1.html#jointure-externe",
@@ -2337,7 +2337,7 @@
     "href": "slides/SQL_1.html#exemple-de-jointure-externe",
     "title": "BD II: SQL I",
     "section": "Exemple de jointure externe",
-    "text": "Exemple de jointure externe\n\nCertains pays n’ont pas de capitale : la requête\n\nSELECT name_country\n\nFROM country\n\nWHERE capital IS NULL;\nrenvoie 8 lignes.\n\nQuels sont les pays qui n’ont pas de capitale ou portent le même nom que leur capitale~?\n\nSELECT name_country, name_city\n\nFROM country LEFT OUTER JOIN city   \n     ON capital=id                  \n\nWHERE name_city IS NULL OR name_country=name_city ;"
+    "text": "Exemple de jointure externe\n\n\nCertains pays n’ont pas de capitale : la requête\n. . .\n\n\nSELECT name_country\n\nFROM country\n\nWHERE capital IS NULL;\nrenvoie 8 lignes.\n\nQuels sont les pays qui n’ont pas de capitale ou portent le même nom que leur capitale ?\n\nSELECT name_country, name_city\n\nFROM country LEFT OUTER JOIN city   \n     ON capital=id                  \n\nWHERE name_city IS NULL OR name_country=name_city ;"
   },
   {
     "objectID": "slides/Modelisation_2.html#entre-modèle-ea-et-modèle-relationnel",
@@ -4262,21 +4262,21 @@
     "href": "slides/SQL_0.html#un-peu-de-formalisation",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Un peu de formalisation",
-    "text": "Un peu de formalisation\nRappel sur la notion de relation (au sens classique)\n\n\n\n\n\n\nDefinition : Domaine\n\n\nUn ensemble d’éléments\n\n\n\n\nExemples : entiers \\(\\mathbb{Z}\\), flottants, chaines de caractères \\(\\mathcal{A}^*\\), date, …\nLes types d’un langage de programmation comme C, Java, …"
+    "text": "Un peu de formalisation\nRappel sur la notion de relation (au sens classique).\n\n\n\n\n\n\nDefinition : Domaine\n\n\nUn ensemble d’éléments.\n\n\n\n\nExemples : entiers \\(\\mathbb{Z}\\), flottants, chaines de caractères \\(\\mathcal{A}^*\\), date, …\nLes types d’un langage de programmation comme C, Java, …"
   },
   {
     "objectID": "slides/SQL_0.html#remarque",
     "href": "slides/SQL_0.html#remarque",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Remarque",
-    "text": "Remarque\n\n\nUn domaine peut se définir :\n\nen extension (en donnant la liste de toutes les valeurs possibles) ou\nen intention (en donnant une propriété caractéristique)."
+    "text": "Remarque\nUn domaine peut se définir :\n\nen extension (en donnant la liste de toutes les valeurs possibles) ou\nen intention (en donnant une propriété caractéristique)."
   },
   {
     "objectID": "slides/SQL_0.html#produit-cartésien",
     "href": "slides/SQL_0.html#produit-cartésien",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Produit cartésien",
-    "text": "Produit cartésien\n\n\n\n\n\n\nDéfinition : Produit cartésien\n\n\nLe Produit cartésien d’une liste de domaines \\(D_1, D_2, \\dots, D_k\\), noté\n\\[D_1 \\times D_2 \\times \\dots \\times D_k\\]\nest l’ensemble\n\\[\\Bigl\\{(t_1,t_2,\\dots,t_k);\\ t_i\\in D_i \\text{ pour } i=1,\\dots,k\\Bigr\\}\\]\nUn élément \\(t=(t_1,t_2,\\dots,t_k)\\in D_1 \\times D_2 \\times \\dots \\times  D_k\\) est appelé \\(k\\) -uplet"
+    "text": "Produit cartésien\n\n\n\n\n\n\nDéfinition : Produit cartésien d’ensembles/domaines\n\n\nLe Produit cartésien d’une liste de domaines \\(D_1, D_2, \\dots, D_k\\), noté\n\\[D_1 \\times D_2 \\times \\dots \\times D_k\\]\nest l’ensemble\n\\[\\Bigl\\{(t_1,t_2,\\dots,t_k);\\ t_i\\in D_i \\text{ pour } i=1,\\dots,k\\Bigr\\}\\]\nUn élément \\(t=(t_1,t_2,\\dots,t_k)\\in D_1 \\times D_2 \\times \\dots \\times  D_k\\) est appelé \\(k\\)-uplet."
   },
   {
     "objectID": "slides/SQL_0.html#exemple",
@@ -4290,7 +4290,7 @@
     "href": "slides/SQL_0.html#relations-classiques",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Relations (classiques)",
-    "text": "Relations (classiques)\nDans ce cours, toutes les relations ont un nombre fini d’éléments !"
+    "text": "Relations (classiques)\nDans ce cours, toutes les relations ont un nombre fini d’éléments !\n\n\n\n\n\n\nDéfinition : Cardinalité de la relation \\(R\\): \\(|R|\\)\n\n\nOn appelle cardinalité d’une relation \\(R\\), notée \\(|R|\\), le nombre d’éléments de \\(R\\).\n\n\n\n\n\n\n\n\n\n\nDéfinition : Arité de la relation \\(R\\)\n\n\nSoit \\(R\\subset D_1\\times D_2\\times \\cdots \\times D_k\\), l’entier \\(k\\) est appelé arité de \\(R\\).\n\n\n\n\n\nOn parle parfois aussi de degré d’une relation.\n\n\nUne relation binaire est une relation d’arité \\(2\\)"
   },
   {
     "objectID": "slides/SQL_0.html#relations-et-schémas",
@@ -4304,28 +4304,21 @@
     "href": "slides/SQL_0.html#schéma-dune-relation",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Schéma d’une relation",
-    "text": "Schéma d’une relation\n\n\n\n\n\n\nDéfinition : schéma\n\n\nLe Schéma d’une relation \\(R\\) est la donnée des attributs et domaines de la relation\n\n\n\nLe schéma peut se noter\n\\[R(A_1\\! :\\! D_1,A_2\\! :\\! D_2,\\dots,A_k\\! :\\! D_k)\\]\noù \\(A_i\\) : attribut et \\(D_i\\) : domaine."
+    "text": "Schéma d’une relation\n\n\n\n\n\n\nDéfinition : schéma\n\n\nLe Schéma d’une relation \\(R\\) est la donnée des attributs et domaines de la relation.\n\n\n\nLe schéma peut se noter\n\\[R(A_1\\! :\\! D_1,A_2\\! :\\! D_2,\\dots,A_k\\! :\\! D_k)\\]\noù \\(A_i\\) : attribut et \\(D_i\\) : domaine."
   },
   {
     "objectID": "slides/SQL_0.html#exemple-de-schéma-table-bebes-dans-babynames",
     "href": "slides/SQL_0.html#exemple-de-schéma-table-bebes-dans-babynames",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Exemple de schéma : table bebes dans babynames\n",
-    "text": "Exemple de schéma : table bebes dans babynames\n\n\n\nbd_2023-24&gt; \\dt\n+-----------+-------+-------+-----------+\n| Schema    | Name  | Type  | Owner     |\n|-----------+-------+-------+-----------|\n| babynames | bebes | table | boucheron |\n+-----------+-------+-------+-----------+\n\nbd_2023-24&gt; \\d bebes\n+--------+------------------------+-----------+\n| Column | Type                   | Modifiers |\n|--------+------------------------+-----------|\n| sexe   | integer                |           |\n| prenom | character varying(500) |           |\n| annee  | integer                |           |\n| nombre | integer                |           |\n+--------+------------------------+-----------+\n\\[\\left((\\textsf{sexe}, \\mathbb{Z}), (\\textsf{prenom}, \\texttt{char}), (\\texttt{annee}, \\mathbb{Z}), (\\texttt{nombre}, \\mathbb{Z})\\right)\\]\n\nDonnées INSEE. Une ligne de la table bébés nous informe qu’en France (héxagone?), pendant une annee, le nombre de naissances de sexe sexe, ayant reçu le prénom prenom est donnée par la colonne nombre.\nbd_2023-24&gt; SELECT * \nFROM bebes \nWHERE sexe=1 AND annee=2000 AND prenom='THÉO' ;\n\n+------+--------+-------+--------+\n| sexe | prenom | annee | nombre |\n|------+--------+-------+--------|\n| 1    | THÉO   | 2000  | 7961   |\n+------+--------+-------+--------+\nL’arité de bebes est \\(4\\), sa cardinalité est \\(648 614\\)."
+    "text": "Exemple de schéma : table bebes dans babynames\n\n\n\n\nbd_2023-24&gt; \\d bebes\n+--------+------------------------+-----------+\n| Column | Type                   | Modifiers |\n|--------+------------------------+-----------|\n| sexe   | integer                |           |\n| prenom | character varying(500) |           |\n| annee  | integer                |           |\n| nombre | integer                |           |\n+--------+------------------------+-----------+\nLa relation bebes a donc pour schéma : \\(\\left((\\textsf{sexe}, \\mathbb{Z}), (\\textsf{prenom}, \\texttt{string}), (\\texttt{annee}, \\mathbb{Z}), (\\texttt{nombre}, \\mathbb{Z})\\right)\\)\n\nDonnées INSEE. Une ligne de la table bebes nous informe qu’en France (héxagone?), pendant une annee, le nombre de naissances de sexe sexe, ayant reçu le prénom prenom est donnée par la colonne nombre.\nbd_2023-24&gt; SELECT * \nFROM bebes \nWHERE sexe=1 AND annee=2000 AND prenom='THÉO' ;\n\n+------+--------+-------+--------+\n| sexe | prenom | annee | nombre |\n|------+--------+-------+--------|\n| 1    | THÉO   | 2000  | 7961   |\n+------+--------+-------+--------+\nL’arité de bebes est \\(4\\), sa cardinalité est \\(648 614\\)."
   },
   {
-    "objectID": "slides/SQL_0.html#formalisation-alternative",
-    "href": "slides/SQL_0.html#formalisation-alternative",
+    "objectID": "slides/SQL_0.html#particularité-de-la-définition-orientée-bdd-dune-relation",
+    "href": "slides/SQL_0.html#particularité-de-la-définition-orientée-bdd-dune-relation",
     "title": "BD I: Algèbre Relationnelle",
-    "section": "Formalisation alternative",
-    "text": "Formalisation alternative\n\nEn BD, l’ordre des éléments et l’ordre des colonnes n’a pas d’importance (on désigne les membres d’un \\(k\\)-uplet par leur nom plutôt que par leur position/rang)\nLa définition formelle diffère donc de celle d’une relation classique\nSoient \\(\\{A_1,...,A_k\\}\\) un ensemble fini et \\(D_1,...,D_k\\) suite de domaines.\n\n\n\n\n\n\n\nNotation\n\n\nUne relation \\(R\\) de schéma \\(R(A_1\\! :\\! D_1,A_2\\! :\\! D_2,\\dots,A_k\\! :\\! D_k)\\) est la donnée d’un ensemble d’éléments, noté \\(\\mathcal{R}\\) et de \\(k\\) fonctions \\(\\mathcal{A}_1: \\mathcal{R}\\rightarrow D_1\\), …, \\(\\mathcal{A}_k: \\mathcal{R}\\rightarrow D_k\\).\nPour tout \\(t\\in \\mathcal{R}\\) et \\(i\\leq k\\), on note \\(t.A_i=\\mathcal{A}_i(t)\\) l’image par \\(\\mathcal{A}_i\\) de \\(t\\).\nUn élément \\(t\\) de \\(\\mathcal{R}\\) est appelé tuple de la relation \\(R\\)"
-  },
-  {
-    "objectID": "slides/SQL_0.html#relations-et-schémas-formalisation",
-    "href": "slides/SQL_0.html#relations-et-schémas-formalisation",
-    "title": "BD I: Algèbre Relationnelle",
-    "section": "Relations et schémas : formalisation",
-    "text": "Relations et schémas : formalisation\n\n\nbd_2023-24&gt; SELECT * \nFROM bebes \nWHERE sexe=1 AND \n  annee&gt; 1960 AND \n  prenom LIKE 'THEODULE' ;\n+------+----------+-------+--------+\n| sexe | prenom   | annee | nombre |\n|------+----------+-------+--------|\n| 1    | THEODULE | 1961  | 4      |\n| 1    | THEODULE | 1962  | 4      |\n| 1    | THEODULE | 1965  | 4      |\n| 1    | THEODULE | 1969  | 4      |\n+------+----------+-------+--------+\n\nQuatre tuples de bebes : \\(t_1, t_2, t_3, t_4\\).\n\\[\\begin{align*}\nt_1.\\text{sexe} & =  1 \\\\\nt_1.\\text{prenom} & = \\texttt{THEODULE} \\\\\nt_1.\\text{annee} & = 1961 \\\\\nt_1.\\text{nombre} & = 4\n\\end{align*}\\]"
+    "section": "Particularité de la définition orientée BDD d’une relation \n",
+    "text": "Particularité de la définition orientée BDD d’une relation \n\nEn BD, l’ordre des colonnes n’a pas d’importance car on désigne chaque composante d’un \\(k\\)-uplet par son nom d’attribut et non par sa position/rang."
   },
   {
     "objectID": "slides/SQL_0.html#résumé-informel",
@@ -4339,21 +4332,21 @@
     "href": "slides/SQL_0.html#langage-de-manipulation-de-données",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Langage de manipulation de données",
-    "text": "Langage de manipulation de données\nL’algèbre relationnelle est un système de calcul sur les tables\nElle est formée d’une collection d’opérateurs qui prennent en argument des tables et retournent des tables\n\n\n\n\n\n\nRemarque:\n\n\nLes opérateurs prennent en général des arguments supplémentaires qui ne sont pas des tables. La notion d’algèbre relationnelle est inspirée par les structures algébriques comme les groupes, les anneaux, les corps où des opérations internes opèrent sur une ensemble (par exemple \\((\\mathbb{R}, +, \\times)\\)), mais elle ne rentre pas exactement dans le cadre.\n\n\n\nL’algèbre n’est pas aussi expressive qu’un langage de programmatoin classique (comme Python). C’est cela qui rend ce modèle de calcul intéressant : il permet de faire des choses pas triviales, mais il est plus facile à utiliser qu’un langage de programmation."
+    "text": "Langage de manipulation de données\nL’algèbre relationnelle est un système de calcul sur des tables.\nElle est formée d’une collection d’opérateurs qui prennent en argument des tables et retournent des tables.\n\n\n\n\n\n\nRemarque :\n\n\nLes opérateurs prennent en général des arguments supplémentaires qui ne sont pas des tables. La notion d’algèbre relationnelle est inspirée par les structures algébriques comme les groupes, les anneaux, les corps où des opérations internes opèrent sur un ensemble (par exemple \\((\\mathbb{R}, +, \\times)\\)), mais elle ne rentre pas exactement dans le cadre.\n\n\n\n\nL’algèbre n’est pas aussi expressive qu’un langage de programmation classique (comme Python). C’est cela qui rend ce modèle de calcul intéressant : il permet de faire des choses pas triviales, mais il est plus facile à utiliser qu’un langage de programmation."
   },
   {
     "objectID": "slides/SQL_0.html#opérateurs-de-base",
     "href": "slides/SQL_0.html#opérateurs-de-base",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Opérateurs de base",
-    "text": "Opérateurs de base\n\n\n\n\n\n\nListe des opérateurs\n\n\nL’algèbre relationnelle est d’abord un *Langage de Manipulation de Données& (LMD)}.\n\nUnion: \\(\\Large{\\cup}\\)\nIntersection: \\(\\Large{\\cap}\\)\nDifférence: \\(\\Large{\\backslash}\\)\nProjection: \\(\\Large{\\Pi}\\)\nSélection: \\(\\Large{\\sigma}\\)\nProduit cartésien: \\(\\Large{\\times}\\)\nRenommage: \\(\\Large{\\rho}\\)\n\ns’appliquent à des relations pour produire d’autres relations (le résultat)."
+    "text": "Opérateurs de base\n\n\n\n\n\n\nListe des opérateurs\n\n\nL’algèbre relationnelle est d’abord un Langage de Manipulation de Données (LMD).\n\nUnion: \\(\\Large{\\cup}\\)\nIntersection: \\(\\Large{\\cap}\\)\nDifférence: \\(\\Large{\\backslash}\\)\nProjection: \\(\\Large{\\Pi}\\)\nSélection: \\(\\Large{\\sigma}\\)\nProduit cartésien: \\(\\Large{\\times}\\)\nRenommage: \\(\\Large{\\rho}\\)\n\nCes opérateurs s’appliquent à des relations pour produire d’autres relations (le résultat)."
   },
   {
     "objectID": "slides/SQL_0.html#union-cup-et-intersection-cap",
     "href": "slides/SQL_0.html#union-cup-et-intersection-cap",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Union \\(\\cup\\) et intersection \\(\\cap\\)\n",
-    "text": "Union \\(\\cup\\) et intersection \\(\\cap\\)\n\n\n\n\n\n\n\nDéfinition\n\n\n\nL’union et l’intersection sont des opérations portant sur deux relations \\(R_1\\) et \\(R_2\\) de même schéma\n\\(T=R_1\\cup R_2\\) est constituée des tuples appartenant à \\(R_1\\) ou à \\(R_2\\).\n\\(T=R_1\\cap R_2\\) est constituée des tuples appartenant à \\(R_1\\) et à \\(R_2\\).\nLes Schémas de \\(R_1\\cup R_2\\), \\(R_1\\cap R_2\\) sont les mêmes que ceux de \\(R_1\\) et \\(R_2\\)"
+    "text": "Union \\(\\cup\\) et intersection \\(\\cap\\)\n\n\n\n\n\n\n\nDéfinition\n\n\n\nL’union et l’intersection sont des opérations portant sur deux relations \\(R_1\\) et \\(R_2\\) de même schéma,\n\\(T=R_1\\cup R_2\\) est constituée des tuples appartenant à \\(R_1\\) ou à \\(R_2\\),\n\\(T=R_1\\cap R_2\\) est constituée des tuples appartenant à \\(R_1\\) et à \\(R_2\\).\nLes schémas de \\(R_1\\cup R_2\\), \\(R_1\\cap R_2\\) sont les mêmes que ceux de \\(R_1\\) et \\(R_2\\)."
   },
   {
     "objectID": "slides/SQL_0.html#union-exemple",
@@ -4374,7 +4367,7 @@
     "href": "slides/SQL_0.html#différence",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Différence",
-    "text": "Différence\n\n\n\n\n\n\nDéfinition\n\n\n\nLa différence de deux relations \\(R_1\\) et \\(R_2\\) (de même schéma) est une relation \\(T\\)\nde même schéma que \\(R_1\\) et \\(R_2\\)\nconstituée des tuples appartenant à \\(R_1\\) et n’appartenant pas à \\(R_2\\).\nOn note \\(T = R_1 - R_2\\).\n\n\n\n\n\n\n\n\n\n\n\nOpération non commutative !\n\n\n\\(R_1 - R_2\\neq  R_2 - R_1\\) (en général)."
+    "text": "Différence\n\n\n\n\n\n\nDéfinition\n\n\n\nLa différence de deux relations \\(R_1\\) et \\(R_2\\) (de même schéma) est une relation \\(T\\),\nde même schéma que \\(R_1\\) et \\(R_2\\),\nconstituée des tuples appartenant à \\(R_1\\) et n’appartenant pas à \\(R_2\\).\nOn note \\(T = R_1 - R_2\\) ou \\(T = R_1 \\setminus R_2\\).\n\n\n\n\n\n\n\n\n\n\n\nOpération non commutative !\n\n\n\\(R_1 - R_2\\neq  R_2 - R_1\\) (en général)."
   },
   {
     "objectID": "slides/SQL_0.html#différence-exemple",
@@ -4388,49 +4381,42 @@
     "href": "slides/SQL_0.html#produit-cartésien-1",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Produit Cartésien",
-    "text": "Produit Cartésien\n\n\n\n\n\n\nDéfinition\n\n\n\n\nSoient:\n\n\n\\(R_1\\) de schéma \\(R_1(A_1,A_2,...,A_k)\\)\n\n\n\\(R_2\\) de schéma \\(R_2(B_1,B_2,...,B_\\ell)\\)\n\navec \\(A_i\\neq B_j\\), pour tout \\(i=1,...,k\\), \\(j=1,..,\\ell\\)\n\n\n\nDans le contexte “classique” : \\(R_1 \\times R_2= \\{(e_1,e_2): e_1\\in R_1, e_2\\in R_2\\}\\)\n\\(R=R_1 \\times R_2\\) de schéma \\(R(A_1,A_2,...,A_k,B_1,B_2,...,B_\\ell)\\). Le schéma de \\(R\\) est l’union des schémas de \\(R_1\\) et \\(R_2\\)\n\n\n\n\n\n\n\n\n\n\nAttention\n\n\nEn algèbre relationnelle, cette opération est commutative ( \\(R_1\\times R_2 = R_2\\times R_1\\) ) et associative"
+    "text": "Produit Cartésien\n\n\n\n\n\n\nDéfinition\n\n\nSoient \\(R_1\\) et \\(R_2\\) dont les schémas \\(R_1(A_1,A_2,...,A_k)\\) et \\(R_2(B_1,B_2,...,B_\\ell)\\) n’ont pas d’attributs communs.\n\nDans le contexte “classique” : \\(R_1 \\times R_2= \\{(e_1,e_2): e_1\\in R_1, e_2\\in R_2\\}\\).\nDans le contexte BDD, \\(R_1 \\times R_2\\) contient tous les tuples formés par concaténation d’un tuple de \\(R_1\\) et d’un tuple de \\(R_2\\).\nLe schéma de \\(R=R_1 \\times R_2\\) est \\(R(A_1,A_2,...,A_k,B_1,B_2,...,B_\\ell)\\) obtenu par concaténation des schémas de \\(R_1\\) et \\(R_2\\).\n\n\nLa condition sur les schémas est indispensable pour que le schéma du résultat n’ait pas deux attributs identiques. On peut contourner ce problème avec un renommage (voir plus loin).\n\n\n\n\n\n\n\n\n\n\nAttention\n\n\nEn algèbre relationnelle, on ne tient pas compte de l’ordre des attributs dans le schéma d’une relation puisque que les attributs ont des noms deux à deux distincts. De ce fait, le produit cartésien est commutatif ( \\(R_1\\times R_2 = R_2\\times R_1\\) ce qui n’est pas vrai classiquement) et associatif."
   },
   {
     "objectID": "slides/SQL_0.html#produit-cartésien-2",
     "href": "slides/SQL_0.html#produit-cartésien-2",
     "title": "BD I: Algèbre Relationnelle",
-    "section": "Produit cartésien :",
-    "text": "Produit cartésien :\n\n\n\n\n\n\nDéfinition formelle\n\n\n\\(R=R_1\\times R_2\\) est la relation de schéma \\(R(A_1,A_2,...,A_k,B_1,B_2,...,B_\\ell)\\) vérifiant~:\n\nPour tout \\(t\\in R\\), il existe \\(t_1\\in R_1\\), \\(t_2\\in R_2\\) (\\(\\forall t \\in R, \\exists t_1 \\in R_1, \\exists t_2 \\in R_2, \\ldots\\)) tels que :\n\n\\[t.A_1=t_1.A_1, \\ldots, t.A_k=t_1.A_k,\\quad t.B_1=t_2.B_1, \\ldots, t.B_\\ell=t_2.B_\\ell\\]\n\nRéciproquement, pour tout \\(t_1\\in R_1\\), \\(t_2\\in R_2\\) , il existe \\(t\\in R\\) tels que :\n\n\\[t.A_1=t_1.A_1, \\ldots, t.A_k=t_1.A_k,\\quad \\text{et} \\quad t.B_1=t_2.B_1, \\ldots, t.B_\\ell=t_2.B_\\ell\\]\n\\[\\forall t_1 \\in R_1, \\forall t_2 \\in R_2, \\exists t \\in R, \\qquad  t.A_1=t_1.A_1, \\ldots, t.A_k=t_1.A_k,\\quad \\text{et} \\quad t.B_1=t_2.B_1, \\ldots, t.B_\\ell=t_2.B_\\ell\\]"
-  },
-  {
-    "objectID": "slides/SQL_0.html#produit-cartésien-exemple",
-    "href": "slides/SQL_0.html#produit-cartésien-exemple",
-    "title": "BD I: Algèbre Relationnelle",
-    "section": "Produit cartésien : exemple",
-    "text": "Produit cartésien : exemple"
+    "section": "Produit cartésien",
+    "text": "Produit cartésien\n\n\n\n\n\n\nDéfinition formelle\n\n\n\\(R=R_1\\times R_2\\) est la relation de schéma \\(R(A_1,A_2,...,A_k,B_1,B_2,...,B_\\ell)\\) vérifiant :\n\nPour tout \\(t\\in R\\), il existe \\(t_1\\in R_1\\), \\(t_2\\in R_2\\) tels que :\n\n\\[t.A_1=t_1.A_1, \\ldots, t.A_k=t_1.A_k,\\quad t.B_1=t_2.B_1, \\ldots, t.B_\\ell=t_2.B_\\ell\\]\n\nRéciproquement, pour tout \\(t_1\\in R_1\\), \\(t_2\\in R_2\\) , il existe \\(t\\in R\\) tels que :\n\n\\[t.A_1=t_1.A_1, \\ldots, t.A_k=t_1.A_k,\\quad \\text{et}\\quad t.B_1=t_2.B_1, \\ldots, t.B_\\ell=t_2.B_\\ell\\quad \\text{et}\\]\n\\[$\\forall t_1 \\in R_1, \\forall t_2 \\in R_2, \\exists t \\in R, \\qquad  t.A_1=t_1.A_1, \\ldots, t.A_k=t_1.A_k,\\quad \\text{et} \\quad t.B_1=t_2.B_1, \\ldots, t.B_\\ell=t_2.B_\\ell \\qquad\\qquad\\qquad\\]"
   },
   {
     "objectID": "slides/SQL_0.html#projection-largepi",
     "href": "slides/SQL_0.html#projection-largepi",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Projection ( \\(\\Large{\\pi}\\) )",
-    "text": "Projection ( \\(\\Large{\\pi}\\) )\n\n\n\n\n\n\nDéfinition\n\n\n\nLa projection d’une relation \\(R\\) de schéma \\(R(A_1,\\dots, A_k)\\) sur les attributs \\(A_{i_1}, \\dots, A_{i_p}\\), \\(i_1,..., i_p\\in \\{1,...,k\\}\\), est la relation \\(S\\)\n\nde schéma \\(S(A_{i_1}, \\dots,A_{i_p})\\)\n\ndont les tuples sont obtenus par élimination des attributs non mentionnés dans \\(A_{i_1}, \\dots, A_{i_p}\\) (et par élimination des doublons).\nOn note \\(S = \\pi_{A_{i_1}, \\dots, A_{i_p}} (R)\\).\n\n\nDéfinition formelle :\n\n\\[s\\in S\\quad  \\iff \\quad \\exists t\\in R, \\forall n\\in\\left\\{1,\\dots,p\\right\\}\\qquad s.A_{i_n}=t.A_{i_n}\\]\n\n\n\n\n\n\n\n\n\nRemarque\n\n\nImplicitement, on a élimination des doublons car une projection peut produire plusieurs fois le même tuple."
+    "text": "Projection ( \\(\\Large{\\pi}\\) )\n\n\n\n\n\n\nDéfinition\n\n\n\nLa projection d’une relation \\(R\\) de schéma \\(R(A_1,\\dots, A_k)\\) sur les attributs \\(A_{i_1}, \\dots, A_{i_p}\\), avec \\(i_1,..., i_p\\in \\{1,...,k\\}\\), est la relation \\(S\\)\n\nde schéma \\(S(A_{i_1}, \\dots,A_{i_p})\\)\n\ndont les tuples sont obtenus par élimination des attributs non mentionnés dans \\(A_{i_1}, \\dots, A_{i_p}\\) (et par élimination des doublons).\nOn note \\(S = \\pi_{A_{i_1}, \\dots, A_{i_p}} (R)\\).\n\n\nDéfinition formelle : \\(s\\in S\\quad  \\iff \\quad \\exists t\\in R, \\forall k\\in\\left\\{1,\\dots,p\\right\\}\\qquad s.A_{i_k}=t.A_{i_k}\\)\n\n\n\n\n\n\n\n\n\n\n\n\nRemarque\n\n\nImplicitement, on a élimination des doublons car une projection peut produire plusieurs fois le même tuple. Or une relation est un ensemble de tuples, et un ensemble ne peut pas contenir plusieurs fois le même élément."
   },
   {
     "objectID": "slides/SQL_0.html#projection-exemple",
     "href": "slides/SQL_0.html#projection-exemple",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Projection : Exemple",
-    "text": "Projection : Exemple\nΠ(THEOD_1900, prenom, nombre)\n+-----------+---------+\n| prenom    |  nombre |\n|-----------+---------+\n| THEODORE  |  227    |\n| THEODOSE  |  3      |\n| THEODULE  |  39     |\n+-----------+---------+\nIci, aucune éliminitation de doublons n’a été nécessaire"
+    "text": "Projection : Exemple\nPROJECTION(THEOD_1900, prenom, nombre)\n+-----------+---------+\n| prenom    |  nombre |\n|-----------+---------+\n| THEODORE  |  227    |\n| THEODOSE  |  3      |\n| THEODULE  |  39     |\n+-----------+---------+\nIci, aucune éliminitation de doublons n’a été nécessaire"
   },
   {
     "objectID": "slides/SQL_0.html#sélection-largesigma",
     "href": "slides/SQL_0.html#sélection-largesigma",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Sélection ( \\(\\Large{\\sigma}\\) )",
-    "text": "Sélection ( \\(\\Large{\\sigma}\\) )\n\n\n\n\n\n\nDéfinition\n\n\n\n\nLa sélection d’une relation \\(R\\) par une condition \\(C\\) est une relation \\(S\\)\n\nde même schéma que \\(R\\)\ndont les tuples sont ceux de \\(R\\) qui satisfont la condition \\(C\\).\n\n\nOn note \\(S = \\sigma_C (R)\\).\n\nLa condition \\(C\\)\n\ns’exprime à l’aide des noms d’attributs de la relation ou de constantes (pour les opérandes)\non peut utiliser des opérateurs arithmétiques de comparaison ( \\(=, \\neq, \\leq, \\geq, &lt;, &gt;\\) ) ainsi que des connecteurs logiques ( \\(\\lnot, \\land, \\lor\\) ).."
+    "text": "Sélection ( \\(\\Large{\\sigma}\\) )\n\n\n\n\n\n\nDéfinition\n\n\n\n\nLa sélection d’une relation \\(R\\) par une condition \\(C\\) est une relation \\(S\\) :\n\nde même schéma que \\(R\\),\ndont les tuples sont ceux de \\(R\\) qui satisfont la condition \\(C\\).\nOn note \\(S = \\sigma_C (R)\\).\n\n\n\nLa condition \\(C\\) :\n\ns’exprime à l’aide des noms d’attributs de la relation et de constantes (pour les opérandes),\non peut utiliser des opérateurs arithmétiques de comparaison ( \\(=, \\neq, \\leq, \\geq, &lt;, &gt;\\) ) ainsi que des connecteurs logiques ( \\(\\lnot, \\land, \\lor\\) ).\n\n\n\n\n\n\n\n\n\n\n\n\n\nMise en garde\n\n\nOn peut utiliser le terme Restriction à la place de Sélection."
   },
   {
     "objectID": "slides/SQL_0.html#sélection-exemple",
     "href": "slides/SQL_0.html#sélection-exemple",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Sélection : Exemple",
-    "text": "Sélection : Exemple\nσ(THEO_1900, ¬ prenom LIKE ‘THEOD%’)\n+------+-----------+-------+--------+\n| sexe | prenom    | annee | nombre |\n|------+-----------+-------+--------|\n| 1    | THEOBALD  | 1900  | 6      |\n| 1    | THEOPHILE | 1900  | 309    |\n| 1    | THEOPHANE | 1900  | 3      |\n+------+-----------+-------+--------+"
+    "text": "Sélection : Exemple\nSELECTION(THEO_1900, ¬ prenom LIKE ‘THEOD%’)\n+------+-----------+-------+--------+\n| sexe | prenom    | annee | nombre |\n|------+-----------+-------+--------|\n| 1    | THEOBALD  | 1900  | 6      |\n| 1    | THEOPHILE | 1900  | 309    |\n| 1    | THEOPHANE | 1900  | 3      |\n+------+-----------+-------+--------+"
   },
   {
     "objectID": "slides/SQL_0.html#renommage",
@@ -4444,14 +4430,14 @@
     "href": "slides/SQL_0.html#renommage-exemple",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Renommage : Exemple",
-    "text": "Renommage : Exemple\n-- THEOD_1900\n\n+------+-----------+-------+--------+\n| sexe | prenom    | annee | nombre |\n|------+-----------+-------+--------|\n| 1    | THEODORE  | 1900  | 227    |\n| 1    | THEODOSE  | 1900  | 3      |\n| 1    | THEODULE  | 1900  | 39     |\n+------+-----------+-------+--------+\nρ(THEOD_1900, sexe→sex, prenom→name, annee→year, nombre→count)\n-- THEOD_1900\n\n+------+-----------+-------+--------+\n| sex  | name      | year  | count  |\n|------+-----------+-------+--------|\n| 1    | THEODORE  | 1900  | 227    |\n| 1    | THEODOSE  | 1900  | 3      |\n| 1    | THEODULE  | 1900  | 39     |\n+------+-----------+-------+--------+\nUtilité Va permettre d’étendre certains opérateurs pour des relations de schémas non-disjoints"
+    "text": "Renommage : Exemple\n-- THEOD_1900\n\n+------+-----------+-------+--------+\n| sexe | prenom    | annee | nombre |\n|------+-----------+-------+--------|\n| 1    | THEODORE  | 1900  | 227    |\n| 1    | THEODOSE  | 1900  | 3      |\n| 1    | THEODULE  | 1900  | 39     |\n+------+-----------+-------+--------+\nρ(THEOD_1900, sexe→sex, prenom→name, annee→year, nombre→count)\n-- THEOD_1900\n\n+------+-----------+-------+--------+\n| sex  | name      | year  | count  |\n|------+-----------+-------+--------|\n| 1    | THEODORE  | 1900  | 227    |\n| 1    | THEODOSE  | 1900  | 3      |\n| 1    | THEODULE  | 1900  | 39     |\n+------+-----------+-------+--------+\nUtilité : le renommage permet d’étendre certains opérateurs à des relations de schémas non-disjoints (c.a.d. ayant des noms d’attributs communs), par exemple le produit cartésien."
   },
   {
     "objectID": "slides/SQL_0.html#algèbre-relationnelle",
     "href": "slides/SQL_0.html#algèbre-relationnelle",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Algèbre relationnelle",
-    "text": "Algèbre relationnelle\n\nOpérations ensemblistes classiques.\nProjection : élimine des colonnes\nSélection : élimine des lignes\n\nPour interroger une BD, on compose ces opérateurs :"
+    "text": "Algèbre relationnelle\nPour interroger une BD, on compose les opérateurs :\n\nOpérations ensemblistes classiques : \\(\\cup\\), \\(\\cap\\), \\(\\setminus\\), \\(\\times\\).\nProjection : élimine des colonnes,\nSélection : élimine des lignes."
   },
   {
     "objectID": "slides/SQL_0.html#exemple-1",
@@ -4472,7 +4458,7 @@
     "href": "slides/SQL_0.html#de-la-composition-aux-tuyaux-suite",
     "title": "BD I: Algèbre Relationnelle",
     "section": "De la composition aux tuyaux (suite)",
-    "text": "De la composition aux tuyaux (suite)\nOn peut ainsi réécrire\nρ(π(σ(THEO_1900, prenom LIKE ‘THEOD%’), prenom, nombre), prenom→name, nombre→count)\nen\nTHEO_1900  |&gt;\n  σ(`prenom` `LIKE` 'THEOD%') |&gt;\n  π(`prenom`, `nombre`) |&gt;\n  ρ(`prenom→name`, `nombre→count`)\n\n\nDans le langage  (&gt; 4.x), le pipe s’écrit |&gt;"
+    "text": "De la composition aux tuyaux (suite)\nOn peut ainsi réécrire\nρ(π(σ(THEO_1900, prenom LIKE ‘THEOD%’), prenom, nombre), prenom→name, nombre→count)\nen\nTHEO_1900  |&gt;\n  σ(prenom LIKE 'THEOD%') |&gt;\n  π(prenom, nombre) |&gt;\n  ρ(prenom→name, nombre→count)\n\n\nDans le langage  (&gt; 4.x), le pipe s’écrit |&gt;"
   },
   {
     "objectID": "slides/SQL_0.html#les-jointures",
@@ -4486,112 +4472,140 @@
     "href": "slides/SQL_0.html#jointure",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Jointure",
-    "text": "Jointure\n\n\n\n\n\n\nDéfinition\n\n\nLa jointure \\(T=R_1\\bowtie_C R_2\\) de deux relations \\(R_1\\) et \\(R_2\\) de schémas disjoints sous la condition \\(C\\) est la relation \\(T\\):\n\nde schéma la concaténation des schémas de \\(R_1\\) et \\(R_2\\)\nformée des tuples du produit cartésien \\(R_1  \\times R_2\\) qui satisfont la condition \\(C\\)\n\nRègles de formation de la condition de jointure : comme pour la sélection\n\n\n\n\n\n\n\n\n\nDéfinition formelle\n\n\n\\[R_1 \\bowtie_C R_2 = \\sigma_C(R_1\\times R_2)\\]"
+    "text": "Jointure\n\n\n\n\n\n\nDéfinition\n\n\nConsidérons deux relations \\(R_1\\) et \\(R_2\\) de schémas disjoints.\nLa jointure de \\(R_1\\) et \\(R_2\\) sous la condition \\(C\\) est la relation \\(T\\) :\n\nde schéma la concaténation des schémas de \\(R_1\\) et \\(R_2\\),\nformée des tuples du produit cartésien \\(R_1  \\times R_2\\) qui satisfont la condition \\(C\\),\non note \\(T=R_1\\bowtie_C R_2\\).\n\nRègles de formation de la condition de jointure : comme pour la sélection.\n\n\n\n\n\n\n\n\n\n\nDéfinition formelle\n\n\n\\[R_1 \\bowtie_C R_2 = \\sigma_C(R_1\\times R_2)\\]"
   },
   {
     "objectID": "slides/SQL_0.html#exemple-sur-le-schéma-world",
     "href": "slides/SQL_0.html#exemple-sur-le-schéma-world",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Exemple sur le schéma world\n",
-    "text": "Exemple sur le schéma world\n\n\nLier les pays (les lignes de country) à leur capitale, c’est à dire les couples de lignes de country et de city qui satisfont capital = id"
+    "text": "Exemple sur le schéma world\n\n\n\n\n\nLier les pays (les lignes de country) à leur capitale, c’est à dire les couples de lignes de country et de city qui satisfont capital = id"
   },
   {
     "objectID": "slides/SQL_0.html#exemple-sur-le-schéma-world-suite",
     "href": "slides/SQL_0.html#exemple-sur-le-schéma-world-suite",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Exemple sur le schéma world (suite)",
-    "text": "Exemple sur le schéma world (suite)\n`country` |&gt;\n  ⋈(`city`, `capital=id`) |&gt;\n  π(`name_country`, `name`)\n\n+----------------------+------------------+\n| name_country         | name             |\n|----------------------+------------------|\n| Afghanistan          | Kabul            |\n| Netherlands          | Amsterdam        |\n| Netherlands Antilles | Willemstad       |\n| Albania              | Tirana           |\n| Algeria              | Alger            |\n...\n+----------------------+------------------+\n\n\nOn se contente d’afficher les cinq premières lignes du résultat."
+    "text": "Exemple sur le schéma world (suite)\nT =  JOINTURE(country, city, country.capital = city.id)\nS =  PROJECTION(T, name_country, name)\n\n+----------------------+------------------+\n| name_country         | name             |\n|----------------------+------------------|\n| Afghanistan          | Kabul            |\n| Netherlands          | Amsterdam        |\n| Netherlands Antilles | Willemstad       |\n| Albania              | Tirana           |\n| Algeria              | Alger            |\n...\n+----------------------+------------------+\n\n\nOn a affiché seulement les cinq premières lignes du résultat."
   },
   {
     "objectID": "slides/SQL_0.html#différentes-variétés-de-jointures",
     "href": "slides/SQL_0.html#différentes-variétés-de-jointures",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Différentes variétés de jointures",
-    "text": "Différentes variétés de jointures\nAutour de la jointure ⋈(R, S, C) on a pris l’habitude de distinguer des types de jointure selon la forme de l’expression de jointure (la condition C)\nOn distingue\n\nles équi-jointures\nles θ-jontures\nles jointures naturelles\n\n\n\nCes distinctions portent sur la condition C. Elles ne sont pas de même nature que les distinctions qui portent sur la manière dont le résultat final est calculé et qui définissent les jointures internes, externes, …"
+    "text": "Différentes variétés de jointures\nAutour de la jointure ⋈(R, S, C) on a pris l’habitude de distinguer des types de jointure selon la forme de l’expression de jointure (la condition C)\nOn distingue\n\nles équi-jointures,\nles θ-jointures,\nles jointures naturelles.\n\n\n\n\n\n\n\nNote\n\n\nCes distinctions portent sur la condition C. Elles ne sont pas de même nature que les distinctions qui portent sur la manière dont le résultat final est calculé et qui définissent les jointures internes, externes (voir plus loin)."
   },
   {
     "objectID": "slides/SQL_0.html#équi-jointure",
     "href": "slides/SQL_0.html#équi-jointure",
     "title": "BD I: Algèbre Relationnelle",
-    "section": "Équi-jointure,",
-    "text": "Équi-jointure,\n\n\n\n\n\n\nÉqui-jointure\n\n\nJointure avec égalité entre attributs de types comparables\n\n\n\n\n⋈(`country`, `city`, `capital=id`)"
+    "section": "Équi-jointure",
+    "text": "Équi-jointure\n\n\n\n\n\n\nDéfinition\n\n\nJointure où la condition est une égalité entre des attributs de types comparables\n\n\n\n\nJOINTURE(country, city, country.capital = city.id)"
   },
   {
-    "objectID": "slides/SQL_0.html#θ-jointure",
-    "href": "slides/SQL_0.html#θ-jointure",
+    "objectID": "slides/SQL_0.html#thetajointure",
+    "href": "slides/SQL_0.html#thetajointure",
     "title": "BD I: Algèbre Relationnelle",
-    "section": "θ-jointure",
-    "text": "θ-jointure\n\n\n\n\n\n\n\\(\\theta\\)-jointure\n\n\nCondition de jointure entre attributs de types comparables et avec un opérateur différent de l’égalité, c’est-à-dire dans \\(\\left\\{&lt;,&gt;,\\leq,\\geq, \\neq\\right\\}\\).\n\n\n\n\n⋈(`country`, `city`, `capital=id`  ∧ `population &gt; .5 * population_country`)"
+    "section": "\n\\(\\theta\\)–jointure",
+    "text": "\\(\\theta\\)–jointure\n\n\n\n\n\n\nDéfinition\n\n\nCondition de jointure entre attributs de types comparables et comportant au moins un opérateur différent de l’égalité, c’est-à-dire dans \\(\\left\\{&lt;,&gt;,\\leq,\\geq, \\neq\\right\\}\\).\n\n\n\n\nJOINTURE(country, city, country.capital = city.id  ∧ city.population &gt; .5 * country.population_country)"
   },
   {
     "objectID": "slides/SQL_0.html#jointure-naturelle",
     "href": "slides/SQL_0.html#jointure-naturelle",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Jointure naturelle",
-    "text": "Jointure naturelle\n\n\n\n\n\n\nDéfinition\n\n\nC’est une équi-jointure concernant les attributs communs (même nom et même type) de deux relations\nOn ne garde dans le résultat qu’une copie des attributs communs \n\n\n\nOn considère\n\n\\(R_1\\) d’attributs \\(A_1,..,A_k,B_1,...,B_h\\)\n\\(R_2\\) d’attributs \\(A_1,..,A_k,B_{h+1},...,B_\\ell\\)\n\\(A_1,..., A_k\\) : attributs communs et \\(\\{B_1,...,B_h\\}\\cap \\{ B_{h+1},...,B_\\ell \\}=\\emptyset\\)\nSoit \\(A'_1, ...., A'_k\\) tels que \\(\\{A_1,..., A_k\\}\\cap \\{ A'_1, ...., A'_k \\}=\\emptyset\\)"
+    "text": "Jointure naturelle\n\n\n\n\n\n\nDéfinition\n\n\nC’est une équi-jointure où la condition portent implicitement sur tous les attributs communs (de même nom) aux schémas des deux relations.\nDans le résultat, les attributs communs n’apparaissent qu’une seule fois  puisque la relation résultat ne peut pas avoir deux attributs de même nom.\nOn note cette opération : \\(R_1 \\bowtie R_2\\).\n\n\n\nOn peut écrire la jointure naturelle comme une équi-jointure sur tous les attributs communs suivie d’une projection pour éliminer les attributs doublons."
   },
   {
     "objectID": "slides/SQL_0.html#jointure-naturelle-formalisation",
     "href": "slides/SQL_0.html#jointure-naturelle-formalisation",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Jointure naturelle (formalisation)",
-    "text": "Jointure naturelle (formalisation)\nConsidérons \\(S\\) d’attributs \\(A_1',..,A_k',B_{h+1},...,B_l\\) définie par :\n\\[S=\\rho_{A_1\\mapsto A_1'}(\\rho_{A_2\\mapsto A_2'}(\\cdots (\\rho_{A_k\\mapsto A_k'}(R_2)\\cdots ))\\]\nLa jointure naturelle sur deux relations \\(R_1\\) et \\(R_2\\) est la relation\n\nd’attributs \\(A_1,..,A_k,B_1,...,B_h, B_{h+1},...,B_\\ell\\)\n\ndéfinie par : \\[\\pi_{A_1,..,A_k,B_1,...,B_h, B_{h+1},...,B_\\ell}(R_1\\bowtie_{C} S)\\] où \\(C\\) est \\((A_1=A_1') \\wedge (A_2=A'_2) \\wedge \\ldots \\wedge (A_k=A_k')\\)\n\n\n\n\n\n\n on réalise une équi-jointure sur tous les attributs communs et on ne garde qu’un seul “exemplaire” de ces attributs communs par projection. On note cette opération : \\(R_1 \\bowtie R_2\\).\n Pour éviter le renommage, on peut décider de préfixer les noms des attributs par ceux de la relation. La condition \\(C\\) devient :\n\\[(R_1.A_1=R_2.A_1) \\wedge \\ldots \\wedge (R_1.A_k=R_2.A_k)\\]"
+    "text": "Jointure naturelle (formalisation)\nConsidérons deux relations \\(R_1(A_1,..,A_k,B_1,...,B_h)\\) et \\(R_2(A_1,..,A_k,B_{h+1},...,B_\\ell)\\) de schémas non disjoints avec :\n\n\\(A_1,..., A_k\\) : attributs communs,\n\\(\\{B_1,...,B_h\\}\\cap \\{ B_{h+1},...,B_\\ell \\}=\\emptyset\\),\n\nSoit \\(A'_1, ...., A'_k\\) des noms tels que \\(\\{A_1,..., A_k\\}\\cap \\{ A'_1, ...., A'_k \\}=\\emptyset\\).\nConsidérons la relation \\(S(A_1',..,A_k',B_{h+1},...,B_l)\\) définie par : \\(\\quad S=\\rho_{A_1\\mapsto A_1'}(\\rho_{A_2\\mapsto A_2'}(\\cdots (\\rho_{A_k\\mapsto A_k'}(R_2)\\cdots ))\\)\nLa jointure naturelle sur les relations \\(R_1\\) et \\(R_2\\) est la relation \\(R\\)\n\nde schéma \\(R(A_1,..,A_k,B_1,...,B_h, B_{h+1},...,B_\\ell)\\)\ndéfinie par : \\(\\quad R = \\pi_{A_1,..,A_k,B_1,...,B_h, B_{h+1},...,B_\\ell}(R_1\\bowtie_{C} S)\\quad\\) où \\(C\\) est \\((A_1=A_1') \\wedge (A_2=A'_2) \\wedge \\ldots \\wedge (A_k=A_k')\\)\n\n\n\n En préfixant les noms des attributs par ceux de la relation, la condition \\(C\\) s’écrit alors : \\[(R_1.A_1=R_2.A_1) \\wedge \\ldots \\wedge (R_1.A_k=R_2.A_k)\\]"
   },
   {
     "objectID": "slides/SQL_0.html#exemple-de-jointure-naturelle",
     "href": "slides/SQL_0.html#exemple-de-jointure-naturelle",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Exemple de Jointure naturelle",
-    "text": "Exemple de Jointure naturelle\n\n\nbd_2023-24&gt; \\d countrylanguage\n+-------------+--------------+-----------+\n| Column      | Type         | Modifiers |\n|-------------+--------------+-----------|\n| countrycode | character(3) |  not null |\n| language    | text         |  not null |\n| isofficial  | boolean      |  not null |\n| percentage  | real         |  not null |\n+-------------+--------------+-----------+\n\n+--------------------+---------------+-----------+\n| Column             | Type          | Modifiers |\n|--------------------+---------------+-----------|\n| countrycode        | character(3)  |  not null |\n| name_country       | text          |  not null |\n| continent          | text          |  not null |\n| region             | text          |  not null |\n| surfacearea        | real          |  not null |\n| indepyear          | smallint      |           |\n| population_country | integer       |  not null |\n| lifeexpectancy     | real          |           |\n| gnp                | numeric(10,2) |           |\n| gnpold             | numeric(10,2) |           |\n| localname          | text          |  not null |\n| governmentform     | text          |  not null |\n| headofstate        | text          |           |\n| capital            | integer       |           |\n| code2              | character(2)  |  not null |\n+--------------------+---------------+-----------+\n\nJointure naturelle\ncountry |\n  ⋈(countrylanguage) |&gt;\n  σ(country='France') |&gt;\n  π(name_country, language)\n+--------------+------------+\n| name_country | language   |\n|--------------+------------|\n| France       | French     |\n| France       | Arabic     |\n| France       | Portuguese |\n| France       | Italian    |\n| France       | Spanish    |\n| France       | Turkish    |\n+--------------+------------+"
+    "text": "Exemple de Jointure naturelle\nAfficher la liste des langues parlées en France (schéma world).\n\n\nbd_2023-24&gt; \\d countrylanguage\n+-------------+--------------+-----------+\n| Column      | Type         | Modifiers |\n|-------------+--------------+-----------|\n| countrycode | character(3) |  not null |\n| language    | text         |  not null |\n| isofficial  | boolean      |  not null |\n| percentage  | real         |  not null |\n+-------------+--------------+-----------+\nbd_2023-24&gt; \\d city\n+-------------+--------------+-----------+\n| Column      | Type         | Modifiers |\n|-------------+--------------+-----------|\n| id          | integer      |  not null |\n| name        | text         |  not null |\n| countrycode | character(3) |  not null |\n| district    | text         |  not null |\n| population  | integer      |  not null |\n+-------------+--------------+-----------+\n\nbd_2023-24&gt; \\d country\n+--------------------+---------------+-----------+\n| Column             | Type          | Modifiers |\n|--------------------+---------------+-----------|\n| countrycode        | character(3)  |  not null |\n| name_country       | text          |  not null |\n| continent          | text          |  not null |\n| region             | text          |  not null |\n| surfacearea        | real          |  not null |\n| indepyear          | smallint      |           |\n| population_country | integer       |  not null |\n| lifeexpectancy     | real          |           |\n| gnp                | numeric(10,2) |           |\n| gnpold             | numeric(10,2) |           |\n| localname          | text          |  not null |\n| governmentform     | text          |  not null |\n| headofstate        | text          |           |\n| capital            | integer       |           |\n| code2              | character(2)  |  not null |\n+--------------------+---------------+-----------+"
+  },
+  {
+    "objectID": "slides/SQL_0.html#exemple-de-jointure-naturelle-suite",
+    "href": "slides/SQL_0.html#exemple-de-jointure-naturelle-suite",
+    "title": "BD I: Algèbre Relationnelle",
+    "section": "Exemple de Jointure naturelle (suite)",
+    "text": "Exemple de Jointure naturelle (suite)\n\n\nT = JOINTURE(country, countrylanguage)\nS = SELECTION(T, name_country='France')\nR = PROJECTION(S, name_country, language)\n+--------------+------------+\n| name_country | language   |\n|--------------+------------|\n| France       | French     |\n| France       | Arabic     |\n| France       | Portuguese |\n| France       | Italian    |\n| France       | Spanish    |\n| France       | Turkish    |\n+--------------+------------+\n\n\n\n\n\n\n\nNote\n\n\nDu point de la complexité des opérations à faire par le serveur, il vaut mieux faire le plus en amont possible les sélections puis les projections et enfin les jointures qui sont plus coûteuses en temps de calcul.\n\n\n\nOn écrira donc plutôt :\nS = SELECTION(country, name_country='France')\nT = JOINTURE(S, countrylanguage)\nR = PROJECTION(T, name_country, language)"
   },
   {
     "objectID": "slides/SQL_0.html#exemples-de-requêtes",
     "href": "slides/SQL_0.html#exemples-de-requêtes",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Exemples de requêtes",
-    "text": "Exemples de requêtes\n\ndéterminer les noms des capitales des pays situés en Asie (Asia)\n\ncountry |&gt;\n  σ(continent='Asia') |&gt;\n  ⋈(city, capital=id) |&gt;\n  π(name)\n\n\ndéterminer les langues parlées dans les pays d’Asie\n\ncountry |&gt;\n  σ(continent='Asia') |&gt;\n  ⋈(countrylanguage) |&gt;\n  π(language)"
+    "text": "Exemples de requêtes\n\nDéterminer les noms des capitales des pays situés en Asie.\n\n\nS =  SELECTION(country, continent='Asia')\nT =  JOINTURE(S, city, S.capital=city.id)\nR =  PROJECTION(T, name)\nLe début de R est\n+-------------+\n| name        |\n|-------------+\n| Kabul       |\n| Abu Dhabi   |\n| Yerevan     | \n| al-Manama   |"
+  },
+  {
+    "objectID": "slides/SQL_0.html#exemples-de-requêtes-suite",
+    "href": "slides/SQL_0.html#exemples-de-requêtes-suite",
+    "title": "BD I: Algèbre Relationnelle",
+    "section": "Exemples de requêtes (suite)",
+    "text": "Exemples de requêtes (suite)\n\nDéterminer les langues parlées dans les pays d’Asie.\n\n\nS = SELECTION(country, continent='Asia')\nT = JOINTURE(R1, countrylanguage)\nR = PROJECTION(R2, language)\nLe début de R est\n+-------------+\n| name        |\n|-------------+\n| Pashto      |\n| Arabic      |\n| Armenian    | \n| Azerbaijani |"
   },
   {
     "objectID": "slides/SQL_0.html#jointure-externe",
     "href": "slides/SQL_0.html#jointure-externe",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Jointure externe",
-    "text": "Jointure externe\n\n\n\n\n\n\nPerte d’information dans jointure naturelle\n\n\nLes tuples ne satisfaisant pas la condition (non appariés) disparaissent\n\n\n\n\n\n\n\n\n\nDéfinition\n\n\n\nOn ajoute symboliquement” une ligne dont les valeurs sont vides (ou avec valeur spéciale NULL) pour garder les tuples initiaux “non satisfaisants” après la jointure\nOn note cette opération entre deux relations \\(R\\) et \\(S\\) :\n\\[R \\bowtie^+ S\\]"
+    "text": "Jointure externe\n\n\n\n\n\n\nPerte d’information dans les jointures internes\n\n\nDans les jointures que nous avons vues, les tuples du produit cartésien ne satisfaisant pas la condition C (non appariés) disparaissent.\nOn appelle ces jointures des jointures internes.\nOn définit aussi des jointures externes qui n’adoptent pas ce comportement.\n\n\n\n\n\n\n\n\n\n\nDéfinition\n\n\nLa jointure externe entre \\(R_1\\) et \\(R_2\\) est une jointure qui produit une relation R3 à laquelle on ajoute les tuples de R1 et de R2 exclus par la jointure, en complétant avec des valeurs nulles pour les attributs de l’autre relation.\nNotation : \\(R_1 {}^+\\!\\bowtie^+ R_2\\)."
+  },
+  {
+    "objectID": "slides/SQL_0.html#jointure-externe-gauche",
+    "href": "slides/SQL_0.html#jointure-externe-gauche",
+    "title": "BD I: Algèbre Relationnelle",
+    "section": "Jointure externe gauche",
+    "text": "Jointure externe gauche\n\n\n\n\n\n\nDéfinition\n\n\nLa jointure externe gauche entre R1 et R2 est une jointure externe pour laquelle on ajoute seulement les tuples de R1 (c’est à dire la relation de gauche) ayant été exclus.\nSynonyme : Jointure gauche\nNotation : \\(R_1 {}^+\\!\\bowtie R_2\\)\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n Le + est du côté où on ajoute les tupes manquants."
+  },
+  {
+    "objectID": "slides/SQL_0.html#jointure-externe-droite",
+    "href": "slides/SQL_0.html#jointure-externe-droite",
+    "title": "BD I: Algèbre Relationnelle",
+    "section": "Jointure externe droite",
+    "text": "Jointure externe droite\n\n\n\n\n\n\nDéfinition\n\n\nLa jointure externe droite entre R1 et R2 est une jointure externe pour laquelle on ajoute seulement les tuples de R2 (c’est à dire la relation de droite) ayant été exclus.\nSynonyme : Jointure droite\nNotation : \\(R_1 \\bowtie^+ R_2\\)\n\n\n\n\n\n\n\n\n\nNote\n\n\nUne jointure externe droite peut être réécrite par une jointure externe gauche (et réciproquement) en échangeant l’ordre de R1 et R2.\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nOn peut aussi utiliser une notation fonctionnelle et nommer ces jointures par des mots par exemple OUTER JOIN, LEFT JOIN, RIGHT JOIN."
   },
   {
     "objectID": "slides/SQL_0.html#jointure-externe-exemple",
     "href": "slides/SQL_0.html#jointure-externe-exemple",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Jointure externe (exemple)",
-    "text": "Jointure externe (exemple)\n\n\nOn veut une table formée par les codes ISO, les noms des pays et (si possible) les noms des capitales. Les territoires sans capitale doivent apparaître en fin de table, avec une colonne nom de capitale nulle.\n\nObtenir la première partie de la réponse avec une jointure est facile. Pour trouver les territoires sans capitale, il suffit de faire une sélection dans country sur le critère capital IS NULL. Ensuite, on peut faire une UNION (∪)\n\n\nAvec une jointure externe on peut obtenir le résultat en une opération\n⋈^+(city, country, id=capital) |&gt;\n  π(countrycode, name_country, name)"
+    "text": "Jointure externe (exemple)\nOn veut une table formée par les codes ISO, les noms des pays et (si possible) les noms des capitales. Les territoires sans capitale doivent apparaître en fin de table, avec une colonne nom de capitale nulle.\n\nObtenir la première partie de la réponse avec une jointure est facile. Pour trouver les territoires sans capitale, il faudrait faire une sélection dans country sur le critère capital IS NULL puis une UNION des deux relations.\n\nAvec une jointure droite, on peut obtenir le résultat en une opération :\n\nS = RIGHT JOIN(city, country, city.id = country.capital) \nR = PROJECTION(S, countrycode, name_country, name)"
   },
   {
     "objectID": "slides/SQL_0.html#division",
     "href": "slides/SQL_0.html#division",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Division",
-    "text": "Division\n\n\n\n\n\n\nDéfinition\n\n\nLa division ou quotient\n\nd’une relation \\(R\\) de schéma \\(R(A_1,A_2,\\dots,A_k)\\)\npar une relation \\(S\\) de schéma \\(S(A_{p+1},\\dots ,A_k)\\)\n\nest la relation \\(T\\) de schéma \\(T(A_1, \\dots, A_p)\\) formée des tuples qui complétés par chaque tuple de \\(S\\) donnent un tuple de \\(R\\).\nAutrement dit\n\\[\\begin{array}{l} t\\in T(A_1,\\dots,A_p)  \\quad \\Longleftrightarrow \\\\\n\\forall s\\in S(A_{p+1},\\dots ,A_k) \\quad \\exists r\\in R \\quad \\begin{cases}\nt.A_1=r.A_1, \\dots, t.A_p=r.A_p\\\\ s.A_{p+1}=r.A_{p+1},\\dots, s.A_{k}=r.A_{k} \\end{cases} \\end{array}\\]\nOn note \\[T = R \\div S\\]"
+    "text": "Division\n\n\n\n\n\n\nDéfinition\n\n\nLa division ou quotient\n\nd’une relation \\(R\\) de schéma \\(R(A_1,A_2,\\dots,A_k)\\)\npar une relation \\(S\\) de schéma \\(S(A_{p+1},\\dots ,A_k)\\)\n\nest la relation \\(T\\) de schéma \\(T(A_1, \\dots, A_p)\\) formée des tuples qui, complétés par chaque tuple de \\(S\\), donnent un tuple de \\(R\\).\nAutrement dit\n\\[\\begin{array}{l} t\\in T(A_1,\\dots,A_p)  \\quad \\text{ si et seulement si } \\\\\n\\forall s\\in S(A_{p+1},\\dots ,A_k) \\quad \\exists r\\in R \\quad \\begin{cases}\nt.A_1=r.A_1, \\dots, t.A_p=r.A_p\\\\ s.A_{p+1}=r.A_{p+1},\\dots, s.A_{k}=r.A_{k} \\end{cases} \\end{array}\\]\nOn note : \\(\\quad T = R \\div S\\)"
   },
   {
     "objectID": "slides/SQL_0.html#division-exemple",
     "href": "slides/SQL_0.html#division-exemple",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Division (exemple)",
-    "text": "Division (exemple)\n\n\n Lister les langues parlées sur tous les continents\nOn aimerait écrire une expression qui renvoie un résultat correct quelque soit les conventions adoptées sur la définition de continent (les Amériques forment-elles un ou deux continents, etc)\n\nCL ← ⋈(country, countrylanguage) |&gt;\n  π(continent, language)\n\nC ← π(CL, continent)\nL ← π(CL, language)\n\nLPPTC ← (C × L  ∖  CL ) |&gt;\n  π(language)\n\nL  ∖  LPPTC\nOn vient de calculer une division !\nCL ÷ C"
+    "text": "Division (exemple)\nLa division permet de répondre à des questions du type :\n“Donner tous les X qui ont toutes les valeurs existantes d’une propriété Y”.\nExemple : lister les langues parlées sur tous les continents.\n\nJ = JOINTURE(country, countrylanguage)\nCL =  PROJECTION(J, continent, language)\nC = PROJECTION(CL, continent)\n\nCL ÷ C\n\n\nAutre possibilité sans la division\nJ = JOINTURE(country, countrylanguage)\nCL =  PROJECTION(J, continent, language)\n\nC = PROJECTION(CL, continent)\nL = PROJECTION(CL, language)\n--- LPPTC Langues Pas Parlées dans Tous les Continents\nLPPTC = PROJECTION((C × L  ∖  CL ), language)\n\nR = L  ∖  LPPTC"
   },
   {
     "objectID": "slides/SQL_0.html#interdéfinissabilité-des-opérateurs",
     "href": "slides/SQL_0.html#interdéfinissabilité-des-opérateurs",
     "title": "BD I: Algèbre Relationnelle",
     "section": "Interdéfinissabilité des opérateurs",
-    "text": "Interdéfinissabilité des opérateurs\n\nL’union, la différence, le produit cartésien, la sélection et la projection et le renommage sont suffisants pour définir tous les opérateurs que l’on a vu.\nMais avoir un panier plus large d’opérateurs simplifie l’écriture des requêtes.\n\nQuelques définitions\n\nPour la Jointure : \\(R \\bowtie_C S \\equiv \\sigma_C (R \\times S)\\)\nPour l’intersection : \\(A \\cap B = A \\cup B - ((B - A) \\cup (A - B))\\)"
+    "text": "Interdéfinissabilité des opérateurs\n\nL’union, la différence, le produit cartésien, la sélection et la projection et le renommage sont suffisants pour définir tous les opérateurs que l’on a vus.\nMais avoir un panier plus large d’opérateurs simplifie l’écriture des requêtes."
   },
   {
-    "objectID": "slides/SQL_0.html#définition-de-la-division",
-    "href": "slides/SQL_0.html#définition-de-la-division",
+    "objectID": "slides/SQL_0.html#définitions-des-autres-opérateurs-à-partir-de-cet-ensemble-minimal",
+    "href": "slides/SQL_0.html#définitions-des-autres-opérateurs-à-partir-de-cet-ensemble-minimal",
     "title": "BD I: Algèbre Relationnelle",
-    "section": "Définition de la division",
-    "text": "Définition de la division\n\n\n\n\n\n\nFormalisation\n\n\nSoient \\(R\\) de schéma \\(R(A_1,A_2,\\dots,A_k)\\), \\(S\\) de schéma \\(S(A_{p+1},\\dots ,A_k)\\)\nest la relation \\(T= R ÷ S\\) de schéma \\(T(A_1, \\dots, A_p)\\).\nT ← Π(R, A) ∖ Π((Π(R, A) × S ∖ R), A)\n\n\n\n\n\nDans la définition de R ÷ S, on utilise en deux endroits Π(R, A). Il serait utile, lors de l’évaluation de R ÷ S de n’évaluer Π(R, A) qu’une seule fois."
+    "section": "Définitions des autres opérateurs à partir de cet ensemble minimal",
+    "text": "Définitions des autres opérateurs à partir de cet ensemble minimal\n\n\nPour la jointure : \\(R \\bowtie_C S = \\sigma_C (R \\times S)\\)\n\n\n\n\n\nPour l’intersection : \\(A \\cap B = A \\cup B - ((B - A) \\cup (A - B))\\)\n\n\n\n\n\nPour la division :\n\nsoient \\(R(A_1,A_2,\\dots,A_k)\\) et \\(S(A_{p+1},\\dots ,A_k)\\),\n\\(T= R ÷ S\\quad\\) a pour schéma \\(\\quad T(A_1, \\dots, A_p)\\) et\n\\[T = {\\Pi}(R, A) \\setminus {\\Pi}\\left(\\left(\\left({\\Pi}\\left(R, A\\right) × S\\right) \\setminus R\\right), A\\right)\\]\noù \\(A = (A_1, \\dots, A_p)\\)."
   },
   {
     "objectID": "slides/SQL_0.html#depuis-wikipedia",
