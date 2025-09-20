@@ -245,7 +245,7 @@
 </ul></nav></section><section><section id="introduction" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Introduction</h1>
 
 </section><section id="sql-structured-query-language" class="slide level2 center"><h2>SQL : Structured Query Language</h2>
-<p>SQL est langage permettant :</p>
+<p>Le SQL est un langage permettant :</p>
 <ul>
 <li><p><em>interrogation</em> des données (requêtes)</p></li>
 <li><p><em>définition</em> des données et des contraintes structurelles sur celles-ci</p></li>
@@ -259,86 +259,84 @@
 <li>SQL-2003, SQL-2008, SQL-2011, SQL-2016,</li>
 <li>…</li>
 </ul>
-<p>Nous utiliserons le dialecte <a href="https://www.postgresql.org"><code>PostgreSQL</code></a></p>
-<p>La norme est révisée environ tous les 5 ans.</p>
-<p><a href="https://www.iso.org/standard/63555.html">ISO/IEC 9075 from www.iso.org</a></p>
-</section><section id="sql" class="slide level2 center"><h2>SQL</h2>
-<div class="columns">
-<div class="column">
-<p>Une instruction SQL permet de <em>combiner</em> :</p>
+<p>Nous utiliserons le dialecte <code>PostgreSQL</code> (https://www.postgresql.org)</p>
+<p>La norme est révisée environ tous les 5 ans, acutellement ISO/IEC 9075-1:2023 de l’ISO (https://www.iso.org/)</p>
+</section><section id="un-langage-de-requête" class="slide level2 center"><h2>Un langage de requête</h2>
+<ul>
+<li><p>Avec SQL, on envoit au serveur des requêtes composées d’instructions,</p></li>
+<li><p>Les opérations de l’Algèbre relationnel ne sont pas directement disponibles.</p></li>
+</ul>
+<div class="fragment">
+<p>La principale instruction est <code>SELECT</code>. Elle permet de <em>combiner</em> :</p>
 <ul>
 <li><p>restriction/filtrage (sélection) <span class="math inline">\(\sigma\)</span></p></li>
 <li><p>projection <span class="math inline">\(\pi\)</span></p></li>
 <li><p>renommage <span class="math inline">\(\rho\)</span></p></li>
-<li><p>…</p></li>
+<li><p>et bien d’autres choses.</p></li>
 </ul>
-</div><p>. . .</p>
-<div class="column">
-<p>L’instruction</p>
+<p>D’autres instructions pour définir et manipuler les données, administrer une BDD.</p>
+</div>
+</section><section id="format-de-linstruction-select" class="slide level2 center"><h2>Format de l’instruction <code>SELECT</code>
+</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a></a><span class="kw">SELECT</span> <span class="op">&lt;</span>liste attribut<span class="op">&gt;</span></span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a><span class="kw">FROM</span> <span class="op">&lt;</span><span class="kw">table</span><span class="op">&gt;</span></span>
 <span id="cb1-4"><a></a></span>
 <span id="cb1-5"><a></a><span class="kw">WHERE</span> <span class="op">&lt;</span>condition<span class="op">&gt;</span> ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>traduit l’expression</p>
-<p><span class="math inline">\(\Pi_{\text{&lt;liste attribut&gt;}}(\sigma_{\text{&lt;condition&gt;}}(\text{&lt;table&gt;}))\)</span></p>
-<p>Ou <code>σ(R, Condition) |&gt; Π(&lt;liste attribut&gt;)</code></p>
-</div></div>
-</section><section class="slide level2 center"><p>On peut faire autrement : dans les extensions du langage <code>R</code>, notamment celles qui relèvent de <code>tidyverse</code>, on associe des fonctions à chaque opérateur de l’algèbre relationnelle. Pour opérateurs qui portent sur une seule table, le premier argument de chaque fonction est toujours la table sur laquelle on opère. Les autres arguments sont soit les attributs de projection, soit la spécification d’une condition de sélection, soit …</p>
+<p><span class="math inline">\(\Pi\left(\sigma \left(\text{&lt;table&gt;}, \text{&lt;condition&gt;}\right), \text{&lt;liste attribut&gt;}\right)\)</span></p>
+<!--Ou `σ(R, Condition) |> Π(<liste attribut>)`-->
+</section><section id="autres-langages-autres-choix" class="slide level2 center"><h2>Autres langages, autres choix</h2>
+<p>On peut faire autrement : dans les extensions du langage <code>R</code>, notamment celles qui relèvent de <code>tidyverse</code>, on associe des fonctions à chaque opérateur de l’algèbre relationnelle. Pour les opérateurs qui portent sur une seule table, le premier argument de chaque fonction est toujours la table sur laquelle on opère. Les autres arguments sont soit les attributs de projection, soit la spécification d’une condition de sélection, soit …</p>
 <p>L’usage d’un opérateur <code>pipe</code> (comme dans Unix) permet de composer de facon lisible les opérations.</p>
 <pre><code>&lt;table&gt; |&gt;
   filter(&lt;condition&gt; ) |&gt;
   select(&lt;liste attribut&gt;) |&gt; 
   ...</code></pre>
 </section><section id="syntaxe---requêtes-simples" class="slide level2 center"><h2>Syntaxe - requêtes simples</h2>
-<div class="columns">
-<div class="column">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a></a><span class="kw">SELECT</span> [<span class="kw">DISTINCT</span>] <span class="op">*</span> | <span class="op">&lt;</span>liste attribut<span class="op">&gt;</span></span>
 <span id="cb3-2"><a></a></span>
 <span id="cb3-3"><a></a><span class="kw">FROM</span> <span class="op">&lt;</span>liste de <span class="kw">tables</span><span class="op">&gt;</span></span>
 <span id="cb3-4"><a></a></span>
 <span id="cb3-5"><a></a>[<span class="kw">WHERE</span> <span class="op">&lt;</span>condition<span class="op">&gt;</span>] ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column">
 <ul>
-<li><p><code>*</code> : sélection de tous les attributs (le schéma reste inchangé)</p></li>
+<li><p><code>*</code> : sélection de tous les attributs (pas de projection)</p></li>
 <li><p><code>[...]</code> : clause, expression facultative.</p></li>
 <li><p><code>DISTINCT</code> : supprime les doublons.</p></li>
-</ul>
-</div></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a></a><span class="co">--| connection:  con</span></span>
-<span id="cb4-2"><a></a><span class="co">--| eval: false</span></span>
-<span id="cb4-3"><a></a><span class="kw">SET</span> search_path <span class="kw">TO</span> world ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section><section id="requêtes-simples-sur-exemple-jouet" class="slide level2 center"><h2>Requêtes simples sur exemple jouet</h2>
+</ul></section><section id="exemple-de-requête" class="slide level2 center"><h2>Exemple de requête</h2>
 <div class="columns">
 <div class="column">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a></a>Employe(Nu, NomE, Annee, Tel, Nudept)</span>
-<span id="cb5-2"><a></a></span>
-<span id="cb5-3"><a></a>Fournisseur (NomF, Ville, Adresse)</span>
-<span id="cb5-4"><a></a></span>
-<span id="cb5-5"><a></a>Piece(NomP, Prix, Couleur)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a></a>Employe(Nu, NomE, Annee, Tel, Nudept)</span>
+<span id="cb4-2"><a></a></span>
+<span id="cb4-3"><a></a>Fournisseur (NomF, Ville, Adresse)</span>
+<span id="cb4-4"><a></a></span>
+<span id="cb4-5"><a></a>Piece(NomP, Prix, Couleur)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a></a><span class="co">--| connection:  con</span></span>
-<span id="cb6-2"><a></a><span class="co">--| eval: false</span></span>
-<span id="cb6-3"><a></a><span class="co">--| echo: true</span></span>
-<span id="cb6-4"><a></a></span>
-<span id="cb6-5"><a></a><span class="kw">SELECT</span> co.name_country, co.region</span>
-<span id="cb6-6"><a></a><span class="kw">FROM</span> country co</span>
-<span id="cb6-7"><a></a><span class="kw">WHERE</span> co.continent<span class="op">=</span><span class="st">'Europe'</span> </span>
-<span id="cb6-8"><a></a><span class="kw">LIMIT</span> <span class="dv">5</span> ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>. . .</p>
-<p>Equivalent à :</p>
-<p><span class="math display">\[\Pi (\text{country}, \text{NomF, region})\]</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a></a><span class="kw">SELECT</span> co.name_country, co.region</span>
+<span id="cb5-2"><a></a><span class="kw">FROM</span> country co</span>
+<span id="cb5-3"><a></a><span class="kw">WHERE</span> co.continent<span class="op">=</span><span class="st">'Europe'</span> </span>
+<span id="cb5-4"><a></a><span class="kw">LIMIT</span> <span class="dv">5</span> ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
-</section><section class="slide level2 center"><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<div class="fragment">
+<p>Equivalent à : <span class="math inline">\(\quad \Pi (\text{country}, \text{NomF, region})\)</span></p>
+</div>
+</section><section id="autres-exemples" class="slide level2 center"><h2>Autres exemples</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb6-2"><a></a></span>
+<span id="cb6-3"><a></a><span class="kw">FROM</span> Fournisseur ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p>Equivalent à : <span class="math inline">\(\quad Fournisseur\)</span></p>
+</div>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
 <span id="cb7-2"><a></a></span>
-<span id="cb7-3"><a></a><span class="kw">FROM</span> Fournisseur ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Equivalent à : <code>Fournisseur</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb8-2"><a></a></span>
-<span id="cb8-3"><a></a><span class="kw">FROM</span> Fournisseur</span>
-<span id="cb8-4"><a></a></span>
-<span id="cb8-5"><a></a><span class="kw">WHERE</span> Ville<span class="op">=</span><span class="st">'Paris'</span> ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Equivalent à : <span class="math inline">\(\sigma(\texttt{Fournisseur}, \texttt{Ville}=\texttt{'Paris'})\)</span></p>
+<span id="cb7-3"><a></a><span class="kw">FROM</span> Fournisseur</span>
+<span id="cb7-4"><a></a></span>
+<span id="cb7-5"><a></a><span class="kw">WHERE</span> Ville<span class="op">=</span><span class="st">'Paris'</span> ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>Equivalent à : <span class="math inline">\(\quad \sigma(\texttt{Fournisseur}, \texttt{Ville}=\texttt{'Paris'})\)</span></p>
+</div>
 </section></section><section><section id="requêtes-mono-relation" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Requêtes mono-relation</h1>
 
 </section><section id="structure-de-base" class="slide level2 center"><h2>Structure de base</h2>
@@ -347,73 +345,162 @@
 <li><p><code>SELECT</code> correspond à l’opérateur de projection sur la liste d’attributs demandée, il peut aussi être suivi de fonctions d’attributs</p></li>
 <li><p><code>FROM</code> indique la ou les relations concernées</p></li>
 <li><p><code>WHERE</code> précise une condition et correspond à l’opération de restriction/sélection en algèbre relationnelle.</p></li>
-</ul></section><section id="syntaxe-de-la-condition-de-filtrage-where-..." class="slide level2 center"><h2>Syntaxe de la condition de filtrage (<code>WHERE ...</code>)</h2>
+</ul></section><section id="syntaxe-de-la-condition-de-sélection-where-..." class="slide level2 center"><h2>Syntaxe de la condition de sélection (<code>WHERE ...</code>)</h2>
 <p>Une condition se construit à l’aide des opérations suivantes :</p>
 <ul>
 <li>
 <em>Comparaison</em> avec opérateurs : <code>=, &lt;&gt;, &gt;,&lt;, &gt;=, &lt;=</code>
 </li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb9-2"><a></a></span>
-<span id="cb9-3"><a></a><span class="kw">FROM</span> Employe</span>
-<span id="cb9-4"><a></a></span>
-<span id="cb9-5"><a></a><span class="kw">WHERE</span> NomE <span class="op">&lt;&gt;</span><span class="st">'Durand'</span>  ;  </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section><section id="syntaxe-de-la-condition-de-filtrage-where-...---suite" class="slide level2 center"><h2>Syntaxe de la condition de filtrage (<code>WHERE ...</code>) - suite</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb8-2"><a></a></span>
+<span id="cb8-3"><a></a><span class="kw">FROM</span> Employe</span>
+<span id="cb8-4"><a></a></span>
+<span id="cb8-5"><a></a><span class="kw">WHERE</span> NomE <span class="op">&lt;&gt;</span><span class="st">'Durand'</span>  ;  </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p>Utiliser <code>*</code> en production n’est pas une bonne idée car une modification du schéma de la table <code>Employe</code> modifiera le schéma du résultat.</p>
+</div>
+</div>
+</div>
+</section><section id="syntaxe-de-la-condition-de-sélection-where-...---suite" class="slide level2 center"><h2>Syntaxe de la condition de sélection (<code>WHERE ...</code>) - suite</h2>
 <p><em>Combinaison</em> de conditions à l’aide des opérateurs logiques: <code>AND</code>, <code>OR</code>, <code>NOT</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> NomF</span>
-<span id="cb10-2"><a></a></span>
-<span id="cb10-3"><a></a><span class="kw">FROM</span> Fournisseur</span>
-<span id="cb10-4"><a></a></span>
-<span id="cb10-5"><a></a><span class="kw">WHERE</span> (Ville<span class="op">=</span><span class="st">'Londres'</span>) <span class="kw">OR</span> (Ville<span class="op">=</span><span class="st">'Paris'</span>);  </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> NomF</span>
+<span id="cb9-2"><a></a></span>
+<span id="cb9-3"><a></a><span class="kw">FROM</span> Fournisseur</span>
+<span id="cb9-4"><a></a></span>
+<span id="cb9-5"><a></a><span class="kw">WHERE</span> (Ville<span class="op">=</span><span class="st">'Londres'</span>) <span class="kw">OR</span> (Ville<span class="op">=</span><span class="st">'Paris'</span>);  </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p><i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> Attention aux priorités dans l’évaluation des expressions logiques</p>
-<p><i class="fa-solid fa-skull" aria-label="skull"></i> Attention aux valeurs manquantes</p>
-</section><section id="syntaxe-de-la-condition-where-...-suite" class="slide level2 center"><h2>Syntaxe de la condition <code>WHERE ...</code> (suite)</h2>
-<p>Test <code>BETWEEN</code> permet de vérifier si la valeur d’un attribut est comprise entre deux constantes</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a></a><span class="kw">SELECT</span> NomE</span>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Avertissement</strong></p>
+</div>
+<div class="callout-content">
+<p><code>AND</code> est prioritaire sur <code>OR</code>. Il est utile de parenthéser !</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><i class="fa-solid fa-skull" aria-label="skull"></i> Attention aux valeurs <code>NULL</code> c.a.d. manquantes/indéterminées.</p>
+</div>
+</section><section id="logique-trivalente" class="slide level2 center"><h2>Logique trivalente</h2>
+<p><code>WHERE C</code> ne sélectionne que les tuples vérifiant <code>C</code> = <code>TRUE</code>.</p>
+<p>Une comparaison sur un attribut <code>NULL</code> renvoie <code>UNKNOWN</code>, à l’exception de <code>IS [NOT] NULL</code>.</p>
+<div class="fragment">
+<p>Les opérateurs logiques sont <em>trivalents</em> : <code>TRUE</code>, <code>FALSE</code>, <code>UNKNOWN</code></p>
+<p>On compléte les règles habituelles :</p>
+<ul>
+<li><p><code>NOT NULL</code> = <code>NOT UNKNOWN</code> = <code>UNKNOWN</code> car résultat incertain</p></li>
+<li><p><code>TRUE AND UNKNOWN</code> = <code>UNKNOWN</code> car résultat incertain</p></li>
+<li><p><code>FALSE AND UNKNOWN</code> = <code>FALSE</code> car résultat certain</p></li>
+<li><p><code>TRUE OR UNKNOWN</code> = <code>TRUE</code> car résultat certain</p></li>
+<li><p><code>FALSE OR UNKNOWN</code> = <code>UNKNOWN</code> car résultat incertain</p></li>
+</ul>
+</div>
+</section><section id="test-between" class="slide level2 center"><h2>Test <code>BETWEEN</code>
+</h2>
+<p>Permet de vérifier si la valeur d’un attribut est comprise entre deux constantes</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a></a><span class="kw">SELECT</span> NomE</span>
+<span id="cb10-2"><a></a></span>
+<span id="cb10-3"><a></a><span class="kw">FROM</span> Employe</span>
+<span id="cb10-4"><a></a></span>
+<span id="cb10-5"><a></a><span class="kw">WHERE</span> Annee <span class="kw">BETWEEN</span> <span class="dv">2022</span> <span class="kw">AND</span> <span class="dv">2025</span>;   </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p>Éviter de manipuler les dates et heures comme des chaînes de caractères</p>
+</div>
+</div>
+</div>
+</section><section id="test-is-null" class="slide level2 center"><h2>Test <code>IS NULL</code>
+</h2>
+<p>Vérifie si une valeur est égale à <code>NULL</code> (c-à-d est inconnue).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
 <span id="cb11-2"><a></a></span>
 <span id="cb11-3"><a></a><span class="kw">FROM</span> Employe</span>
 <span id="cb11-4"><a></a></span>
-<span id="cb11-5"><a></a><span class="kw">WHERE</span> Annee <span class="kw">BETWEEN</span> <span class="st">'22/06/03'</span> <span class="kw">AND</span> <span class="st">'25/09/03'</span>;   </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p><i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> Éviter de manipuler les dates et heures comme des chaînes de caractères</p>
-</section><section id="syntaxe-de-la-condition-where-...-suite-1" class="slide level2 center"><h2>Syntaxe de la condition <code>WHERE ...</code> (suite)</h2>
-<ul>
-<li>Test <code>IS NULL</code> vérifie si une valeur est égale à <code>NULL</code> (c-à-d est inconnue)</li>
-</ul>
+<span id="cb11-5"><a></a><span class="kw">WHERE</span> Tel <span class="kw">IS</span> <span class="kw">NULL</span>;    </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p><i class="fa-solid fa-skull" aria-label="skull"></i> Attention à la gestion des valeurs manquantes.</p>
+</div>
+</div>
+</div>
+</section><section id="test-in" class="slide level2 center"><h2>Test <code>IN</code>
+</h2>
+<p>test <em>appartenance</em> : permet de vérifier si la valeur d’un attribut appartient à une liste de constantes.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
 <span id="cb12-2"><a></a></span>
-<span id="cb12-3"><a></a><span class="kw">FROM</span> Employe</span>
+<span id="cb12-3"><a></a><span class="kw">FROM</span> Fournisseur</span>
 <span id="cb12-4"><a></a></span>
-<span id="cb12-5"><a></a><span class="kw">WHERE</span> Tel <span class="kw">IS</span> <span class="kw">NULL</span>;    </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p><i class="fa-solid fa-skull" aria-label="skull"></i> Attention aux valeurs manquantes</p>
-</section><section id="syntaxe-de-la-condition-where-...-suite-2" class="slide level2 center"><h2>Syntaxe de la condition <code>WHERE ...</code> (suite)</h2>
-<p>Test d’<em>appartenance</em> <code>IN</code> qui permet de vérifier si la valeur d’un attribut appartient à une liste de constantes,</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb12-5"><a></a><span class="kw">WHERE</span> Ville <span class="kw">IN</span> (<span class="st">'Paris'</span>, <span class="st">'Londres'</span>);   </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section><section id="test-like" class="slide level2 center"><h2>Test <code>LIKE</code>
+</h2>
+<p>Permet de vérifier si un attribut de type chaîne de caractères contient une ou plusieurs sous-chaînes.</p>
+<p><span class="math inline">\(\_\)</span> : remplace n’importe quel caractère,</p>
+<p><span class="math inline">\(\%\)</span> : remplace n’importe quelle chaîne de caractères.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a></a><span class="kw">SELECT</span> Ville</span>
 <span id="cb13-2"><a></a></span>
 <span id="cb13-3"><a></a><span class="kw">FROM</span> Fournisseur</span>
 <span id="cb13-4"><a></a></span>
-<span id="cb13-5"><a></a><span class="kw">WHERE</span> Ville <span class="kw">IN</span> (<span class="st">'Paris'</span>, <span class="st">'Londres'</span>);   </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section><section id="syntaxe-de-la-condition-where-...-suite-3" class="slide level2 center"><h2>Syntaxe de la condition <code>WHERE ...</code> (suite)</h2>
-<p>Test <code>LIKE</code> permettant de vérifier si un attribut de type chaîne de caractères contient une ou plusieurs sous-chaînes</p>
-<p><span class="math inline">\(\_\)</span> : remplace n’importe quel caractère</p>
-<p><span class="math inline">\(\%\)</span> : remplace n’importe quelle chaîne de caractères.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a></a><span class="kw">SELECT</span> Ville</span>
-<span id="cb14-2"><a></a></span>
-<span id="cb14-3"><a></a><span class="kw">FROM</span> Fournisseur</span>
-<span id="cb14-4"><a></a></span>
-<span id="cb14-5"><a></a><span class="kw">WHERE</span> Ville <span class="kw">LIKE</span> <span class="st">'Saint%'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-5"><a></a><span class="kw">WHERE</span> Ville <span class="kw">LIKE</span> <span class="st">'Saint%'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Cette requête sélectionne les noms de ville commençant par ‘Saint’.</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Avertissement</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p><code>LIKE</code> est sensible à la casse,</p></li>
+<li><p><code>ILIKE</code> est insensible à la casse.</p></li>
+</ul>
+</div>
+</div>
+</div>
 </section></section><section><section id="requêtes-multi-relations" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Requêtes multi-relations</h1>
 
 </section><section id="requêtes-multi-relations-1" class="slide level2 center"><h2>Requêtes multi-relations</h2>
 <p>Quand l’information est dispersée sur plusieurs tables, on utilise des <em>jointures</em></p>
-</section><section id="on-peut" class="slide level2 center"><h2>On peut :</h2>
+<div class="fragment">
+<p>On peut :</p>
 <ul>
-<li><p>utiliser plusieurs tables dans la clause <code>FROM</code></p></li>
-<li><p>faire intervenir des conditions complexes impliquant ces tables dans la clause <code>WHERE</code></p></li>
-</ul></section><section id="détails-du-schema-world" class="slide level2 center"><h2>Détails du schema <code>World</code>
+<li><p>Utiliser plusieurs tables dans la clause <code>FROM</code>,</p></li>
+<li><p>Faire intervenir des conditions complexes impliquant ces tables dans la clause <code>WHERE</code>.</p></li>
+</ul>
+</div>
+</section><section id="détails-du-schema-world" class="slide level2 center"><h2>Détails du schema <code>World</code>
 </h2>
-<p>Images et tables créées grâce à <a href="https://dbschema.com">DbSchema</a></p>
+<p>Images et tables créées grâce à DbSchema (https://dbschema.com)</p>
 </section><section id="diagramme-en-pattes-de-corbeau" class="slide level2 center"><h2>Diagramme en pattes de corbeau</h2>
 
 <img data-src="..\images/world.png" class="r-stretch quarto-figure-center"><p class="caption">img</p></section><section id="table-world.city" class="slide level2 center"><h2>Table world.city</h2>
@@ -443,7 +530,9 @@
 <td>population</td>
 <td>integer</td>
 </tr>
-</tbody></table></section><section id="table-world.country" class="slide level2 center"><h2>Table world.country</h2>
+</tbody></table></section><section id="table-world.country" class="slide level2 smaller center"><h2>Table world.country</h2>
+<div class="columns">
+<div class="column">
 <table class="caption-top"><tbody>
 <tr class="odd">
 <td>* 🔑 ⬋</td>
@@ -521,6 +610,7 @@
 <td>char(2)</td>
 </tr>
 </tbody></table>
+</div><div class="column">
 <h3 id="foreign-keys">Foreign Keys</h3>
 <table class="caption-top"><tbody><tr class="odd">
 <td></td>
@@ -537,7 +627,9 @@
 <td>country_continent_check</td>
 <td>((continent = ‘Asia’::text) OR (continent = ‘Europe’::text) OR (continent = ‘North America’::text) OR (continent = ‘Africa’::text) OR (continent = ‘Oceania’::text) OR (continent = ‘Antarctica’::text) OR (continent = ‘South America’::text))</td>
 </tr></tbody>
-</table></section><section id="table-world.countrylanguage" class="slide level2 center"><h2>Table world.countrylanguage</h2>
+</table>
+</div></div>
+</section><section id="table-world.countrylanguage" class="slide level2 center"><h2>Table world.countrylanguage</h2>
 <table class="caption-top"><tbody>
 <tr class="odd">
 <td>* 🔑 ⬈</td>
@@ -569,31 +661,31 @@
 </h2>
 <p>Quels sont les pays qui portent le même nom que leur capitale ?</p>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a></a><span class="kw">SELECT</span> name_country</span>
-<span id="cb15-2"><a></a></span>
-<span id="cb15-3"><a></a><span class="kw">FROM</span> country, city    </span>
-<span id="cb15-4"><a></a></span>
-<span id="cb15-5"><a></a><span class="kw">WHERE</span> capital<span class="op">=</span><span class="kw">id</span> <span class="kw">AND</span> name_country<span class="op">=</span>name_city;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a></a><span class="kw">SELECT</span> name_country</span>
+<span id="cb14-2"><a></a></span>
+<span id="cb14-3"><a></a><span class="kw">FROM</span> country, city    </span>
+<span id="cb14-4"><a></a></span>
+<span id="cb14-5"><a></a><span class="kw">WHERE</span> capital<span class="op">=</span><span class="kw">id</span> <span class="kw">AND</span> name_country<span class="op">=</span>name_city;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
 <p>qui correspond à</p>
-<p><span class="math display">\[\pi_{\text{name\_country}}(\sigma_{\text{capital}=\text{id} \wedge \text{name\_country}=\text{name\_city}}(\text{country}\times \text{city}))\]</span></p>
+<p><span class="math inline">\(\pi_{\text{name\_country}}(\sigma_{\text{capital}=\text{id} \wedge \text{name\_country}=\text{name\_city}}(\text{country}\times \text{city}))\)</span></p>
 <p>autrement dit à</p>
-<p><span class="math display">\[\pi_{\text{name\_country}}(\text{country} \bowtie_{\text{capital}=\text{id} \wedge  \text{name\_country}=\text{name\_city}} \text{city}))\]</span></p>
+<p><span class="math inline">\(\pi_{\text{name\_country}}(\text{country} \bowtie_{\text{capital}=\text{id} \wedge  \text{name\_country}=\text{name\_city}} \text{city}))\)</span></p>
 </div>
 </section><section id="syntaxe-normalisée-pour-les-jointures-join-et-on" class="slide level2 center"><h2>Syntaxe normalisée pour les jointures : <em>JOIN</em> et <em>ON</em>
 </h2>
 <p>Quels sont les pays qui portent le même nom que leur capitale ?</p>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a></a><span class="kw">SELECT</span> name_country</span>
-<span id="cb16-2"><a></a></span>
-<span id="cb16-3"><a></a><span class="kw">FROM</span> country <span class="kw">JOIN</span> city   </span>
-<span id="cb16-4"><a></a></span>
-<span id="cb16-5"><a></a><span class="kw">ON</span> capital<span class="op">=</span><span class="kw">id</span>    </span>
-<span id="cb16-6"><a></a></span>
-<span id="cb16-7"><a></a><span class="kw">WHERE</span> name_country<span class="op">=</span>name_city;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a></a><span class="kw">SELECT</span> name_country</span>
+<span id="cb15-2"><a></a></span>
+<span id="cb15-3"><a></a><span class="kw">FROM</span> country <span class="kw">JOIN</span> city   </span>
+<span id="cb15-4"><a></a></span>
+<span id="cb15-5"><a></a><span class="kw">ON</span> capital<span class="op">=</span><span class="kw">id</span>    </span>
+<span id="cb15-6"><a></a></span>
+<span id="cb15-7"><a></a><span class="kw">WHERE</span> name_country<span class="op">=</span>name_city;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>qui correspond à</p>
-<p><span class="math display">\[\pi_{\text{name\_country}}(\sigma_{\text{capital}=id \wedge  \text{name\_country}=\text{name\_city}}(\text{country} \times \text{city}))\]</span></p>
+<p><span class="math inline">\(\pi_{\text{name\_country}}(\sigma_{\text{capital}=id \wedge  \text{name\_country}=\text{name\_city}}(\text{country} \times \text{city}))\)</span></p>
 </div>
 </section><section id="renommage" class="slide level2 center"><h2>Renommage</h2>
 <p>Si on veut faire une jointure d’une table avec elle-même, on utilise <em>AS</em> pour obtenir deux tables de noms différents</p>
@@ -601,67 +693,104 @@
 <li>Quels sont les noms de ville qui apparaissent dans deux pays différents?</li>
 </ul>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> c1.name_city, c1.countrycode, c2.countrycode</span>
-<span id="cb17-2"><a></a></span>
-<span id="cb17-3"><a></a><span class="kw">FROM</span> city <span class="kw">AS</span> c1 <span class="kw">JOIN</span> city <span class="kw">AS</span> c2   </span>
-<span id="cb17-4"><a></a></span>
-<span id="cb17-5"><a></a>  <span class="kw">ON</span> c1.countrycode<span class="op">!=</span>c2.countrycode <span class="kw">AND</span> c1.name_city<span class="op">=</span>c2.name_city  </span>
-<span id="cb17-6"><a></a></span>
-<span id="cb17-7"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> c1.name_city;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> c1.name_city, c1.countrycode, c2.countrycode</span>
+<span id="cb16-2"><a></a></span>
+<span id="cb16-3"><a></a><span class="kw">FROM</span> city <span class="kw">AS</span> c1 <span class="kw">JOIN</span> city <span class="kw">AS</span> c2   </span>
+<span id="cb16-4"><a></a></span>
+<span id="cb16-5"><a></a>  <span class="kw">ON</span> c1.countrycode <span class="op">!=</span> c2.countrycode <span class="kw">AND</span> c1.name_city<span class="op">=</span>c2.name_city  </span>
+<span id="cb16-6"><a></a></span>
+<span id="cb16-7"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> c1.name_city;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Le mot <code>AS</code> est optionnel.</p>
+</div>
+</div>
+</div>
 </div>
 </section><section id="jointure-naturelle" class="slide level2 center"><h2>Jointure naturelle</h2>
 <p>Quels sont les noms des pays où le français est parlé ?</p>
 <div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a></a><span class="kw">SELECT</span> country.name_country</span>
+<span id="cb17-2"><a></a></span>
+<span id="cb17-3"><a></a><span class="kw">FROM</span> country, countrylanguage</span>
+<span id="cb17-4"><a></a></span>
+<span id="cb17-5"><a></a><span class="kw">WHERE</span> country.countrycode<span class="op">=</span>countrylanguage.countrycode</span>
+<span id="cb17-6"><a></a>      <span class="kw">AND</span> language<span class="op">=</span><span class="st">'French'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>C’est une jointure naturelle.</p>
+</div>
+<div class="fragment">
+<p>Syntaxe normalisée : <em>NATURAL JOIN</em></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a></a><span class="kw">SELECT</span> name_country</span>
 <span id="cb18-2"><a></a></span>
-<span id="cb18-3"><a></a><span class="kw">FROM</span> country, countrylanguage</span>
+<span id="cb18-3"><a></a><span class="kw">FROM</span> country <span class="kw">NATURAL</span> <span class="kw">JOIN</span> countrylanguage    </span>
 <span id="cb18-4"><a></a></span>
-<span id="cb18-5"><a></a><span class="kw">WHERE</span> country.countrycode<span class="op">=</span>countrylanguage.countrycode</span>
-<span id="cb18-6"><a></a>      <span class="kw">AND</span> language<span class="op">=</span><span class="st">'French'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Syntaxe normalisée pour la jointure naturelle : <em>NATURAL JOIN</em></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a></a><span class="kw">SELECT</span> name_country</span>
-<span id="cb19-2"><a></a></span>
-<span id="cb19-3"><a></a><span class="kw">FROM</span> country <span class="kw">NATURAL</span> <span class="kw">JOIN</span> countrylanguage    </span>
-<span id="cb19-4"><a></a></span>
-<span id="cb19-5"><a></a><span class="kw">WHERE</span> language<span class="op">=</span><span class="st">'French'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb18-5"><a></a><span class="kw">WHERE</span> language<span class="op">=</span><span class="st">'French'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section id="jointure-naturelle-suite" class="slide level2 center"><h2>Jointure naturelle (suite)</h2>
-<p>Quels sont les pays dont une ville a le même nom qu’une langue parlée dans ce pays ?</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> name_country, name_city, language</span>
-<span id="cb20-2"><a></a></span>
-<span id="cb20-3"><a></a><span class="kw">FROM</span> country <span class="kw">NATURAL</span> <span class="kw">JOIN</span>  </span>
-<span id="cb20-4"><a></a>     city <span class="kw">natural</span> <span class="kw">JOIN</span>     </span>
-<span id="cb20-5"><a></a>     countrylanguage       </span>
-<span id="cb20-6"><a></a></span>
-<span id="cb20-7"><a></a><span class="kw">WHERE</span> language<span class="op">=</span>name_city;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section><section class="slide level2 center">
+<p>Quels sont les pays dont une ville a le même nom qu’une langue parlée dans ce pays?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> co.name_country, ci.name_city, language</span>
+<span id="cb19-2"><a></a></span>
+<span id="cb19-3"><a></a><span class="kw">FROM</span> country co <span class="kw">NATURAL</span> <span class="kw">JOIN</span>  </span>
+<span id="cb19-4"><a></a>     city ci <span class="kw">NATURAL</span> <span class="kw">JOIN</span>     </span>
+<span id="cb19-5"><a></a>     countrylanguage cl     </span>
+<span id="cb19-6"><a></a></span>
+<span id="cb19-7"><a></a><span class="kw">WHERE</span> cl.language <span class="op">=</span> ci.name_city;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Avertissement</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>la syntaxe <code>nom_table.nom_attribut</code> améliore la lisibilité d’une requète multi-table.</p></li>
+<li><p>On peut utiliser des alias très systématiquement pour alléger les notations.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="schéma-world-pour-mémoire" class="slide level2 center"><h2>Schéma world pour mémoire</h2>
+
 <img data-src="..\images/world.png" class="r-stretch"></section><section id="jointure-externe" class="slide level2 center"><h2>Jointure externe</h2>
 <ul>
-<li><p><em>LEFT OUTER JOIN</em> (resp. <em>RIGHT OUTER JOIN</em>) : on garde les tuples de la table de gauche (resp. droite) qui n’ont pas de complément dans l’autre table, la condition étant spécifiée dans la clause <em>ON</em></p></li>
-<li><p><em>FULL OUTER JOIN</em> : on garde les tuples de chacune des tables qui n’ont pas de complément.</p></li>
-<li><p>On complète les valeurs non renseignées par <em>NULL</em></p></li>
+<li><p><em>LEFT OUTER JOIN</em> : jointure externe gauche. On garde les tuples de la table de gauche qui n’ont pas de correspondant dans l’autre table.</p></li>
+<li><p><em>RIGHT OUTER JOIN</em> : jointure externe droite. Idem à droite.</p></li>
+<li><p><em>FULL OUTER JOIN</em> : on garde les tuples de chacune des tables qui n’ont pas de correspondant.</p></li>
+<li><p>On complète les valeurs non renseignées par <em>NULL</em>.</p></li>
 </ul></section><section id="exemple-de-jointure-externe" class="slide level2 center"><h2>Exemple de jointure externe</h2>
 <ul>
-<li>
-<p>Certains pays n’ont pas de capitale : la requête</p>
-<p>. . .</p>
-</li>
+<li>Certains pays n’ont pas de capitale.</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a></a><span class="kw">SELECT</span> name_country</span>
-<span id="cb21-2"><a></a></span>
-<span id="cb21-3"><a></a><span class="kw">FROM</span> country</span>
-<span id="cb21-4"><a></a></span>
-<span id="cb21-5"><a></a><span class="kw">WHERE</span> capital <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>renvoie 8 lignes.</p>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a></a><span class="kw">SELECT</span> name_country</span>
+<span id="cb20-2"><a></a></span>
+<span id="cb20-3"><a></a><span class="kw">FROM</span> country</span>
+<span id="cb20-4"><a></a></span>
+<span id="cb20-5"><a></a><span class="kw">WHERE</span> capital <span class="kw">IS</span> <span class="kw">NULL</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Le résultat contient 8 lignes.</p>
+</div>
+<div class="fragment">
 <ul>
 <li>Quels sont les pays qui n’ont pas de capitale ou portent le même nom que leur capitale ?</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a></a><span class="kw">SELECT</span> name_country, name_city</span>
-<span id="cb22-2"><a></a></span>
-<span id="cb22-3"><a></a><span class="kw">FROM</span> country <span class="kw">LEFT</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> city   </span>
-<span id="cb22-4"><a></a>     <span class="kw">ON</span> capital<span class="op">=</span><span class="kw">id</span>                  </span>
-<span id="cb22-5"><a></a></span>
-<span id="cb22-6"><a></a><span class="kw">WHERE</span> name_city <span class="kw">IS</span> <span class="kw">NULL</span> <span class="kw">OR</span> name_country<span class="op">=</span>name_city ;   </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a></a><span class="kw">SELECT</span> name_country, name_city</span>
+<span id="cb21-2"><a></a></span>
+<span id="cb21-3"><a></a><span class="kw">FROM</span> country <span class="kw">LEFT</span> <span class="kw">OUTER</span> <span class="kw">JOIN</span> city   </span>
+<span id="cb21-4"><a></a>     <span class="kw">ON</span> capital<span class="op">=</span><span class="kw">id</span>                  </span>
+<span id="cb21-5"><a></a></span>
+<span id="cb21-6"><a></a><span class="kw">WHERE</span> name_city <span class="kw">IS</span> <span class="kw">NULL</span> <span class="kw">OR</span> name_country<span class="op">=</span>name_city ;   </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section></section><section id="fin" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Fin</h1>
 
 
