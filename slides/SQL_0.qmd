@@ -6,12 +6,9 @@ date: "2025-09-12"
 format: 
   revealjs:
     header: "Algèbre Relationnelle"
-
+  
 engine: knitr
 ---
-
-
-
 
 # Le modèle relationnel {background-color="#1c191c"}
 
@@ -19,30 +16,29 @@ engine: knitr
 ---
 
 
-- Formulé par [E. Codd](https://en.wikipedia.org/wiki/Edgar_F._Codd) en 1970
+- Formulé par [E. Codd](https://en.wikipedia.org/wiki/Edgar_F._Codd) en 1970.
 
-- Fondé sur la théorie des *relations* (partie de la théorie naïve des ensembles)
+- Fondé sur la théorie des *relations* (partie de la théorie naïve des ensembles).
 
 - Propose une solution pour
  
-  + la modélisation
-  + l'interrogation de données
+  + la modélisation,
+  + l'interrogation de données;
 
-- Facile à traduire/mettre en œuvre dans des langages *réels* comme `Structured Query Language (SQL)` ou dans des environnements de calcul orientés données comme `R/dplyr`
-
+- Facile à traduire/mettre en œuvre dans des langages *réels* comme `Structured Query Language (SQL)` ou dans des environnements de calcul orientés données comme `R/dplyr`.
 
 
 
 ## Un peu de formalisation
 
-Rappel sur la notion de relation (au sens classique)
+Rappel sur la notion de relation (au sens classique).
 
 
 ::: {.callout-important}
 
 ### Definition : Domaine 
 
-Un ensemble d'éléments
+Un ensemble d'éléments.
 
 :::
 
@@ -58,10 +54,9 @@ Les *types* d'un langage de programmation comme `C`, `Java`, ...
 
 ## Remarque   {.incremental}
 
-- Un *domaine* peut se définir :
+Un *domaine* peut se définir :
 
-  - en *extension* (en donnant la
-liste de toutes les valeurs possibles) ou
+  - en *extension* (en donnant la liste de toutes les valeurs possibles) ou
 
   -  en *intention* (en donnant une propriété caractéristique).
 
@@ -71,7 +66,7 @@ liste de toutes les valeurs possibles) ou
 
 ::: {.callout-important}
 
-### Définition : Produit cartésien  
+### Définition : Produit cartésien d'ensembles/domaines 
 
 Le *Produit cartésien*  d'une liste de domaines $D_1, D_2, \dots, D_k$, noté 
 
@@ -82,39 +77,36 @@ est l'ensemble
 $$\Bigl\{(t_1,t_2,\dots,t_k);\ t_i\in D_i \text{ pour } i=1,\dots,k\Bigr\}$$
 
 
-Un élément $t=(t_1,t_2,\dots,t_k)\in D_1 \times D_2 \times \dots \times  D_k$ est appelé  $k$ -uplet
+Un élément $t=(t_1,t_2,\dots,t_k)\in D_1 \times D_2 \times \dots \times  D_k$ est appelé  $k$-uplet.
 
 :::
-
 
 
 ---
 
 
-
-
 ::: {.callout-note}
 
-### Relations (classique)
+### Définition classique d'une relation
 
 Une *Relation* $R$ est un sous-ensemble de 
 
 $$D_1\times D_2\times \cdots \times D_k$$
 
-où $D_1,...,D_k$ sont des domaines
+où $D_1,...,D_k$ sont des domaines.
 
+On a donc : 
 
 $$R \subseteq D_1  \times D_2\times \cdots \times D_k$$
 
 :::
 
 
-
 ## Exemple  {.smaller}
 
 
-
 ::::: {.columns}
+
 ::: {.column width="65%"}
 
 Deux domaines 
@@ -163,8 +155,6 @@ Chaque ligne de la table correspond à  un élément de la relation $R$
 Dans ce cours, toutes les relations ont  un nombre fini d'éléments !
 
 
----
-
 ::: {.callout-important}
 
 ### Définition : *Cardinalité* de la relation $R$: $|R|$
@@ -177,7 +167,7 @@ On appelle *cardinalité* d'une relation $R$, notée $|R|$, le nombre d'élémen
 
 ::: {.callout-important}
 
-### *Arité* de la relation $R$
+### Définition : *Arité* de la relation $R$
 
 Soit $R\subset D_1\times D_2\times \cdots \times D_k$, l'entier $k$ est appelé *arité* de $R$.
 
@@ -190,6 +180,7 @@ On parle parfois aussi de *degré* d'une relation.
 . . .
 
 Une *relation binaire* est une relation d'arité $2$
+
 
 
 
@@ -207,13 +198,15 @@ Une *relation binaire* est une relation d'arité $2$
 
 ---
 
-En BD relationnelle, on  donne un nom à chaque colonne
+En BD relationnelle, on  donne un nom à chaque colonne 
 
-- *Attribut*:  nom/rôle de la colonne. L'attribut suggère/précise la sémantique de la colonne 
+- *Attribut*:  nom de la colonne. 
+
+Ce nom est choisi de manière à être sémantiquement signifiant.
  
-{{< fa  triangle-exclamation >}}  En BD on ne peut pas avoir deux attributs identiques (même nom, même domaine) dans une même table
+{{< fa  triangle-exclamation >}}  En BD on ne peut pas avoir deux attributs de même nom dans une même table.
 
----
+. . .
 
 ::: {.callout-note}
 
@@ -229,7 +222,7 @@ L'idée de nommer les colonnes plutôt que de les désigner par une position/un 
 
 ### Définition : schéma 
 
-Le *Schéma* d'une relation $R$ est la donnée  des  attributs et domaines de la relation
+Le *Schéma* d'une relation $R$ est la donnée  des  attributs et domaines de la relation.
 
 :::
 
@@ -243,18 +236,21 @@ où $A_i$ : attribut et $D_i$ : domaine.
 
 ## Exemple de schéma : table `bebes`  dans `babynames` {.smaller}
 
-::: {.columns}
+::::: {.columns}
 
 ::: {.column}
 
-```{.sql}
+<!--```{.sql}
 bd_2023-24> \dt
 +-----------+-------+-------+-----------+
 | Schema    | Name  | Type  | Owner     |
 |-----------+-------+-------+-----------|
 | babynames | bebes | table | boucheron |
 +-----------+-------+-------+-----------+
+```
+-->
 
+```{.sql}
 bd_2023-24> \d bebes
 +--------+------------------------+-----------+
 | Column | Type                   | Modifiers |
@@ -266,12 +262,14 @@ bd_2023-24> \d bebes
 +--------+------------------------+-----------+
 ```
 
-$$\left((\textsf{sexe}, \mathbb{Z}), (\textsf{prenom}, \texttt{char}), (\texttt{annee}, \mathbb{Z}), (\texttt{nombre}, \mathbb{Z})\right)$$
+La relation `bebes` a donc pour schéma :
+$\left((\textsf{sexe}, \mathbb{Z}), (\textsf{prenom}, \texttt{string}), (\texttt{annee}, \mathbb{Z}), (\texttt{nombre}, \mathbb{Z})\right)$
+
 :::
 
 ::: {.column}
 
-Données [INSEE](). Une ligne de la table `bébés` nous informe qu'en France (héxagone?), pendant une `annee`, le nombre de naissances de sexe `sexe`, ayant reçu le prénom `prenom` est donnée par la colonne `nombre`.  
+Données INSEE. Une ligne de la table `bebes` nous informe qu'en France (héxagone?), pendant une `annee`, le nombre de naissances de sexe `sexe`, ayant reçu le prénom `prenom` est donnée par la colonne `nombre`.  
 
 
 ```{.sql}
@@ -291,23 +289,19 @@ L'arité de `bebes` est $4$, sa cardinalité est $648 614$.
 
 :::
 
-::: 
+::::: 
 
 
 
 
-# Relations et schémas : formalisation alternative   {background-color="#1c191c"}
+## Particularité de la définition orientée BDD d'une relation    <!--{background-color="#1c191c"}-->
 
 
+En BD, l'ordre des colonnes n'a pas d'importance car on désigne chaque composante d'un $k$-uplet par son nom d'attribut et non par sa position/rang.
 
-##  Formalisation alternative
+<!--
+- Soient $\{A_1,...,A_k\}$ un ensemble fini et $D_1,...,D_k$ une suite de domaines.
 
-
-- En BD, l'ordre des éléments et l'ordre des colonnes n'a pas d'importance (on désigne les membres d'un $k$-uplet par leur nom plutôt que par leur position/rang)
-
-- La définition formelle diffère donc de celle 	d'une relation classique
-
-- Soient $\{A_1,...,A_k\}$ un ensemble fini et $D_1,...,D_k$ suite de domaines.
 
 ::: {.callout-important}
 
@@ -327,16 +321,18 @@ Un élément $t$ de $\mathcal{R}$ est appelé *tuple* de la relation $R$
 ### Conventions (suite)
 
 - Pour désigner l'ensemble des valeurs $t.A_1,...., t.A_k$ associées à un tuple $t\in \mathcal{R}$,
-on fixe un ordre arbitraire sur les attibuts et on note $t=(t.A_1,...., t.A_k)$ 
+on fixe un ordre arbitraire sur les attributs et on note $t=(t.A_1,...., t.A_k)$,
 
-- A un tuple $t$ de $\mathcal{R}$ correspondent les $k$ valeurs $t.A_1, \dots, t.A_k$
+- A un tuple $t$ de $\mathcal{R}$ correspondent les $k$ valeurs $t.A_1, \dots, t.A_k$,
 
-- On notera aussi $R$ le domaine $\mathcal{R}$ d'une relation $R$.
+- Par simplicité, on note $R$ le domaine et la relation.
+-->
 
+<!--
+## Exemple de relations
+-->
 
-## Relations et schémas : formalisation
-
-
+<!--
 ::: {.columns}
 
 ::: {.column}
@@ -346,7 +342,7 @@ bd_2023-24> SELECT *
 FROM bebes 
 WHERE sexe=1 AND 
   annee> 1960 AND 
-  prenom LIKE 'THEODULE' ;
+  prenom = 'THEODULE' ;
 ```
 
 ```{.sql}
@@ -364,7 +360,7 @@ WHERE sexe=1 AND
 
 ::: {.column}
 
-Quatre tuples de `bebes` : $t_1, t_2, t_3, t_4$. 
+Ces quatre tuples de `bebes` : $t_1, t_2, t_3, t_4$. 
 
 \begin{align*}
 t_1.\text{sexe} & =  1 \\
@@ -376,7 +372,7 @@ t_1.\text{nombre} & = 4
 :::
 
 ::: 
-
+-->
 
 
 
@@ -399,22 +395,22 @@ t_1.\text{nombre} & = 4
 
 ## Langage de manipulation de données
 
-L'algèbre relationnelle est un système de calcul sur les tables
+L'algèbre relationnelle est un système de calcul sur des tables.
 
-Elle est formée d'une collection d'*opérateurs* qui prennent en argument des tables et retournent des tables
+Elle est formée d'une collection d'*opérateurs* qui prennent en argument des tables et retournent des tables.
 
 ::: {.callout-note}
 
-### Remarque:
+### Remarque :
 
-Les opérateurs prennent en général des arguments supplémentaires qui ne sont pas des tables. La notion d'algèbre relationnelle
-est inspirée par les structures algébriques comme les groupes, les anneaux, les corps où des opérations internes opèrent sur 
-une ensemble (par exemple $(\mathbb{R}, +, \times)$), mais elle ne rentre pas exactement dans le cadre.
+Les opérateurs prennent en général des arguments supplémentaires qui ne sont pas des tables. La notion d'algèbre relationnelle est inspirée par les structures algébriques comme les groupes, les anneaux, les corps où des opérations internes opèrent sur un ensemble (par exemple $(\mathbb{R}, +, \times)$), mais elle ne rentre pas exactement dans le cadre.
 
 :::
 
-L'algèbre n'est pas aussi expressive qu'un langage de programmatoin classique (comme `Python`). C'est cela qui rend ce modèle de 
-calcul intéressant : il permet de faire des choses pas triviales, mais il est plus facile à utiliser qu'un langage de programmation.     
+### {.smaller}
+
+L'algèbre n'est pas aussi expressive qu'un langage de programmation classique (comme `Python`). C'est cela qui rend ce modèle de calcul intéressant : il permet de faire des choses pas triviales, mais il est plus facile à utiliser qu'un langage de programmation.  
+
 
 
 
@@ -426,8 +422,7 @@ calcul intéressant : il permet de faire des choses pas triviales, mais il est p
 
 ### Liste des opérateurs
 
-L'algèbre relationnelle est d'abord un *Langage de Manipulation de Données& (LMD)}.
-
+L'algèbre relationnelle est d'abord un *Langage de Manipulation de Données* (LMD).
 
 - Union: $\Large{\cup}$  
 
@@ -443,8 +438,7 @@ L'algèbre relationnelle est d'abord un *Langage de Manipulation de Données& (L
 
 - Renommage:  $\Large{\rho}$ 
 
-
-s'appliquent à des relations pour produire d'autres relations (le résultat).
+Ces opérateurs s'appliquent à des relations pour produire d'autres relations (le résultat). 
 
 :::
 
@@ -455,17 +449,18 @@ s'appliquent à des relations pour produire d'autres relations (le résultat).
 
 ### Définition
 
-- L'*union* et l'*intersection* sont des  opérations portant sur deux relations $R_1$ et $R_2$ de **même  schéma**
+- L'*union* et l'*intersection* sont des  opérations portant sur deux relations $R_1$ et $R_2$ de **même  schéma**,
 
 - $T=R_1\cup R_2$  est  constituée des tuples appartenant à $R_1$ *ou* à
-$R_2$.
+$R_2$,
 
 - $T=R_1\cap R_2$  est  constituée des tuples appartenant à $R_1$ *et* à
 $R_2$.
 
-- Les Schémas de  $R_1\cup R_2$, $R_1\cap R_2$ sont les mêmes que ceux de $R_1$  et  $R_2$
+- Les schémas de  $R_1\cup R_2$, $R_1\cap R_2$ sont les mêmes que ceux de $R_1$  et  $R_2$.
 
 :::
+
 
 ## Union : exemple  {.smaller}
 
@@ -571,6 +566,7 @@ WHERE b.sexe=1 AND
 ## Intersection : exemple    {.smaller}
 
 ::: {.columns}
+
 ::: {.column}
 
 ```{.sql}
@@ -599,6 +595,7 @@ WHERE b.sexe=1 AND
 
 ```
 :::
+
 ::: {.column}
 
 `THEO_1900` ∩ `THEOD_1900`
@@ -625,15 +622,14 @@ car `THEOD_1900` ⊂ `THEO_1900`
 
 ### Définition
 
+- La **différence** de deux relations $R_1$ et $R_2$ (de même schéma) est une relation $T$,
 
-- La **différence** de deux relations $R_1$ et $R_2$ (de même schéma) est une relation $T$
-
-- de même schéma que $R_1$ et $R_2$ 
+- de même schéma que $R_1$ et $R_2$,
 
 - constituée des tuples appartenant à $R_1$ et n'appartenant pas à $R_2$.
 
 
-- On note $T = R_1 - R_2$.
+- On note $T = R_1 - R_2$ ou $T = R_1 \setminus R_2$.
 
 :::
 
@@ -654,7 +650,6 @@ $R_1 - R_2\neq  R_2 - R_1$ (en général).
 
 
 ::::: {.columns}
-
 
 ::: {.column}
 
@@ -697,8 +692,6 @@ $R_1 - R_2\neq  R_2 - R_1$ (en général).
 | 1    | THEOPHILE | 1900  | 309    |
 | 1    | THEOPHANE | 1900  | 3      |
 +------+-----------+-------+--------+
-
-
 ```
 :::
 
@@ -715,50 +708,59 @@ $R_1 - R_2\neq  R_2 - R_1$ (en général).
 
 ### Définition
 
-- Soient:
-  -  $R_1$ de schéma $R_1(A_1,A_2,...,A_k)$
-  -  $R_2$ de schéma $R_2(B_1,B_2,...,B_\ell)$
-  -  avec $A_i\neq B_j$, pour tout $i=1,...,k$, $j=1,..,\ell$
+Soient $R_1$ et $R_2$ dont les schémas $R_1(A_1,A_2,...,A_k)$ et $R_2(B_1,B_2,...,B_\ell)$ n'ont pas d'attributs communs.
 
--  Dans le contexte "classique" : $R_1 \times R_2= \{(e_1,e_2): e_1\in R_1, e_2\in R_2\}$
+-  Dans le contexte "classique" : $R_1 \times R_2= \{(e_1,e_2): e_1\in R_1, e_2\in R_2\}$.
 
-- $R=R_1 \times R_2$  de schéma $R(A_1,A_2,...,A_k,B_1,B_2,...,B_\ell)$. Le schéma de $R$ est *l'union* des schémas de $R_1$ et $R_2$
+- Dans le contexte BDD, $R_1 \times R_2$ contient tous les tuples formés par concaténation d'un tuple de $R_1$ et d'un tuple de $R_2$.
+
+- Le schéma de $R=R_1 \times R_2$  est $R(A_1,A_2,...,A_k,B_1,B_2,...,B_\ell)$ obtenu par concaténation des schémas de $R_1$ et $R_2$.
+
+### {.smaller}
+
+La condition sur les schémas est indispensable pour que le schéma du résultat n'ait pas deux attributs identiques. On peut contourner ce problème avec un renommage (voir plus loin).
+
 
 :::
+
+. . . 
 
 ::: {.callout-caution}
 
 ### Attention 
 
-En algèbre relationnelle, cette opération est commutative  ( $R_1\times R_2 = R_2\times R_1$ ) et associative
+En algèbre relationnelle, on ne tient pas compte de l'ordre des attributs dans le schéma d'une relation puisque que les attributs ont des noms deux à deux distincts.
+De ce fait, le produit cartésien est commutatif  ( $R_1\times R_2 = R_2\times R_1$ ce qui n'est pas vrai classiquement) et associatif.
  
 :::
 
-## Produit cartésien :
 
+
+## Produit cartésien
 
 ::: {.callout-important}
 
 ###  Définition formelle
 
-$R=R_1\times R_2$ est la relation de schéma $R(A_1,A_2,...,A_k,B_1,B_2,...,B_\ell)$ vérifiant~:
+$R=R_1\times R_2$ est la relation de schéma $R(A_1,A_2,...,A_k,B_1,B_2,...,B_\ell)$ vérifiant :
 
 
-- Pour tout $t\in R$, il existe $t_1\in R_1$, $t_2\in R_2$  ($\forall t \in R, \exists t_1 \in R_1, \exists t_2 \in R_2, \ldots$) tels que :
+- Pour tout $t\in R$, il existe $t_1\in R_1$, $t_2\in R_2$  tels que :
 
 $$t.A_1=t_1.A_1, \ldots, t.A_k=t_1.A_k,\quad t.B_1=t_2.B_1, \ldots, t.B_\ell=t_2.B_\ell$$
 
 - Réciproquement, pour tout $t_1\in R_1$, $t_2\in R_2$ , il existe $t\in R$ tels que :
 
-$$t.A_1=t_1.A_1, \ldots, t.A_k=t_1.A_k,\quad \text{et} \quad t.B_1=t_2.B_1, \ldots, t.B_\ell=t_2.B_\ell$$
+$$t.A_1=t_1.A_1, \ldots, t.A_k=t_1.A_k,\quad \text{et}\quad t.B_1=t_2.B_1, \ldots, t.B_\ell=t_2.B_\ell\quad \text{et}$$
 
-$$\forall t_1 \in R_1, \forall t_2 \in R_2, \exists t \in R, \qquad  t.A_1=t_1.A_1, \ldots, t.A_k=t_1.A_k,\quad \text{et} \quad t.B_1=t_2.B_1, \ldots, t.B_\ell=t_2.B_\ell$$
+$$$\forall t_1 \in R_1, \forall t_2 \in R_2, \exists t \in R, \qquad  t.A_1=t_1.A_1, \ldots, t.A_k=t_1.A_k,\quad \text{et} \quad t.B_1=t_2.B_1, \ldots, t.B_\ell=t_2.B_\ell \qquad\qquad\qquad$$
+
 :::
 
 
 
-## Produit cartésien : exemple
-
+<!-- ## Produit cartésien : exemple -->
+<!-- A faire-->
 
 
 
@@ -772,24 +774,24 @@ $$\forall t_1 \in R_1, \forall t_2 \in R_2, \exists t \in R, \qquad  t.A_1=t_1.A
 ### Définition
 
 - La *projection* d'une relation $R$ de schéma $R(A_1,\dots, A_k)$
- sur les attributs $A_{i_1}, \dots, A_{i_p}$, $i_1,..., i_p\in \{1,...,k\}$,  est la relation $S$
+ sur les attributs $A_{i_1}, \dots, A_{i_p}$, avec $i_1,..., i_p\in \{1,...,k\}$,  est la relation $S$
   - de schéma $S(A_{i_1}, \dots,A_{i_p})$
   - dont les tuples sont obtenus par élimination des attributs
 non mentionnés dans $A_{i_1}, \dots, A_{i_p}$ (et par élimination
 des doublons).
   - On note $S = \pi_{A_{i_1}, \dots, A_{i_p}} (R)$.
 
-- Définition formelle :
-
-$$s\in S\quad  \iff \quad \exists t\in R, \forall n\in\left\{1,\dots,p\right\}\qquad s.A_{i_n}=t.A_{i_n}$$
+- Définition formelle : $s\in S\quad  \iff \quad \exists t\in R, \forall k\in\left\{1,\dots,p\right\}\qquad s.A_{i_k}=t.A_{i_k}$
 
 :::
+
+. . .
 
 ::: {.callout-note}
 
 ### Remarque 
 
-Implicitement, on a *élimination des doublons* car une projection peut produire plusieurs fois le même tuple.
+Implicitement, on a *élimination des doublons* car une projection peut produire plusieurs fois le même tuple. Or une relation est un ensemble de tuples, et un ensemble ne peut pas contenir plusieurs fois le même élément.
 
 :::
 
@@ -797,28 +799,28 @@ Implicitement, on a *élimination des doublons* car une projection peut produire
 
 ::: {.callout-caution}
 
-### Remarque 
+### Remarque
 
 À la différence des opérations ensemblistes ∩, ∪, ∖, ×, la projection ne fait pas intervenir que des tables. 
 
 On peut considérer la projection comme une fonction à deux arguments, avec un premier argument de type table, et un 
 second argument constitué par une liste d'attributs. 
 
-On peut aussi considérer la projection comme une fonction avec un nombre *variable*  d'arguments. Un premier argument de type  table, puis de arguments qui désignent des attributs de la table. Si on accepte ce point de vue, on peut adopter la 
-notation 
+On peut aussi considérer la projection comme une fonction avec un nombre *variable*  d'arguments. Un premier argument de type  table, puis des arguments qui désignent des attributs de la table. Si on accepte ce point de vue, on peut adopter la notation :
 
-On note 
-$$S = \pi(R, {A_{i_1}, \dots, A_{i_p}})$$
-au lieu de $S = \pi_{A_{i_1}, \dots, A_{i_p}} (R)$
+$$S = \pi(R, {A_{i_1}, \dots, A_{i_p}})\quad
+ \text{ ou bien } \quad S = \textrm{PROJECTION}(R, {A_{i_1}, \dots, A_{i_p}})$$
+au lieu de $\quad S = \pi_{A_{i_1}, \dots, A_{i_p}} (R)$
 
-Dans la suite, nous utiliserons cette possibilité. 
+Dans la suite, nous utiliserons ces notations. 
  
 :::
+
 
 ## Projection : Exemple
 
 
-Π(`THEOD_1900`, `prenom`, `nombre`)
+PROJECTION(`THEOD_1900`, `prenom`, `nombre`)
 
 ```{.sql}
 +-----------+---------+
@@ -840,23 +842,30 @@ Ici, aucune éliminitation de doublons n'a été nécessaire
 
 ### Définition
 
-- La *sélection* d'une relation $R$
-par une condition $C$ est une relation $S$
+- La *sélection* d'une relation $R$ par une condition $C$ est une relation $S$ :
 
-  - de même schéma que $R$ 
+  - de même schéma que $R$, 
 
   - dont les tuples sont ceux de $R$ qui satisfont la condition $C$.
 
-- On note $S = \sigma_C (R)$.
+  - On note $S = \sigma_C (R)$.
 
-- La condition $C$  
 
-  - s'exprime à l'aide des noms d'attributs de la relation ou de constantes (pour les opérandes)
+- La condition $C$ :
 
-  - on peut utiliser des opérateurs arithmétiques de comparaison ( $=, \neq, \leq, \geq, <, >$ ) ainsi que des connecteurs logiques ( $\lnot, \land, \lor$ )..
+  - s'exprime à l'aide des noms d'attributs de la relation et de constantes (pour les opérandes),
+
+  - on peut utiliser des opérateurs arithmétiques de comparaison ( $=, \neq, \leq, \geq, <, >$ ) ainsi que des connecteurs logiques ( $\lnot, \land, \lor$ ).
 
 :::
 
+. . .
+
+::: {.callout-caution}
+
+On peut utiliser le terme *Restriction* à la place de *Sélection*.
+
+:::
 
 ---
 
@@ -865,19 +874,26 @@ par une condition $C$ est une relation $S$
 
 ### Remarque 
 
-À la différence des opérations ensemblistes ∩, ∪, ∖, ×, comme la projection, la sélection ne fait pas intervenir que des tables. 
+À la différence des opérations ensemblistes ∩, ∪, ∖, ×, , la sélection comme la projection ne font pas intervenir que des tables. 
 
 On peut considérer la sélection comme une fonction à deux arguments, avec un premier argument de type table, et un 
 second argument constitué par une condition (une expression dont l'évaluation sur chaque ligne de la table retourne `Vrai`, `Faux`, ou `Indéterminé`). 
 
-On peut aussi considérer la sélection comme une fonction avec un nombre *variable*  d'arguments. Un premier argument de type  table, puis de arguments qui représentent des expressions susceptibles d'être évaluées sur chaque ligne de la table.
-Une ligne fera partie de la table résultat, si elle satisfait toutes les expressions.
+<!--On peut aussi considérer la sélection comme une fonction avec un nombre *variable*  d'arguments. Un premier argument de type  table, puis des arguments qui représentent des expressions susceptibles d'être évaluées sur chaque ligne de la table.
+Une ligne fera partie de la table résultat, si elle satisfait toutes les expressions.-->
 
 On note 
-$$S = \sigma(R, {C_{1}, \dots, C_{p}})$$
-au lieu de $S = \sigma_{C_1 \wedge C_2 \wedge \ldots \wedge C_p } (R)$
+$$S = \sigma(R, C) \quad
+ \text{ ou bien } \quad S= \textrm{SELECTION}(R, C)$$
+au lieu de $\quad S = \sigma_{C} (R)$
 
-Dans la suite, nous utiliserons cette possibilité. 
+Dans la suite, nous utiliserons ces notations. 
+
+:::
+
+. . .
+
+::: {.callout-note}
 
 Notons que dans un langage comme `Python`, nous ne disposons pas d'emblée d'un type *expression* et que 
 la notation proposée ici ne se code pas trivialement en `Python`.
@@ -887,10 +903,11 @@ En langage `R`, on dispose d'un type *expression*, la notation proposée ici est
 :::
 
 
+
 ## Sélection : Exemple
 
 
-σ(`THEO_1900`, ¬ `prenom` `LIKE` 'THEOD%')
+SELECTION(`THEO_1900`, ¬ `prenom` `LIKE` 'THEOD%')
 
 
 ```{.sql}
@@ -927,20 +944,20 @@ En langage `R`, on dispose d'un type *expression*, la notation proposée ici est
 Comme la projection et la sélection, le renommage  ne fait pas intervenir que des tables. 
 
 
-On peut  considérer le renommage comme une fonction avec un nombre *variable*  d'arguments. Un premier argument de type  table, puis de arguments qui représentent des expressions indiquant comment doivent être renommées certains attributs.
+On peut  considérer le renommage comme une fonction avec un nombre *variable*  d'arguments. Un premier argument de type  table, puis des arguments qui représentent des expressions indiquant comment doivent être renommées certains attributs.
 
 On note 
-$$S = \rho(R, A_{i_1}\mapsto B_1,\ldots, A_{i_p}\mapsto B_p)$$
-au lieu de $S=\rho_{A_{i_1}\mapsto B_1,\ldots, A_{i_p}\mapsto B_p}(R)$
+$$S = \rho(R, A_{i_1}\mapsto B_1,\ldots, A_{i_p}\mapsto B_p)\quad
+ \text{ ou bien } \quad S = RENOMMAGE(R, A_{i_1}\mapsto B_1,\ldots, A_{i_p}\mapsto B_p)$$
 
-Dans la suite, nous utiliserons cette possibilité. 
+au lieu de $\quad S=\rho_{A_{i_1}\mapsto B_1,\ldots, A_{i_p}\mapsto B_p}(R)$
 
-Notons que dans un langage comme `Python`, nous ne disposons pas d'emblée d'un type *expression* et que 
-la notation proposée ici ne se code pas trivialement en `Python`.
-
-En langage `R`, on dispose d'un type *expression*, la notation proposée ici est mise en œuvre dans le package `dplyr`.
+Dans la suite, nous utiliserons ces notations. 
 
 :::
+
+. . .
+
 
 
 ## Renommage : Exemple   {.smaller}
@@ -973,22 +990,24 @@ En langage `R`, on dispose d'un type *expression*, la notation proposée ici est
 
 
 
-*Utilité* Va permettre d'étendre certains opérateurs pour des relations de schémas non-disjoints
+*Utilité* : le renommage permet d'étendre certains opérateurs à des relations de schémas non-disjoints (c.a.d. ayant des noms d'attributs communs), par exemple le produit cartésien.
 
 
 
 # Résumé   {background-color="#1c191c"}
 
 
-## Algèbre relationnelle
+## Algèbre relationnelle 
 
-- Opérations ensemblistes classiques.
+Pour interroger une BD, on *compose* les opérateurs :
 
-- Projection : élimine des colonnes
+- Opérations ensemblistes classiques : $\cup$, $\cap$, $\setminus$, $\times$.
 
-- Sélection : élimine des lignes
+- Projection : élimine des colonnes,
 
-Pour interroger une BD, on *compose* ces opérateurs :
+- Sélection : élimine des lignes.
+
+
 
 
 ## Exemple
@@ -1025,9 +1044,9 @@ en
 
 ```{.sql}
 THEO_1900  |>
-  σ(`prenom` `LIKE` 'THEOD%') |>
-  π(`prenom`, `nombre`) |>
-  ρ(`prenom→name`, `nombre→count`)
+  σ(prenom LIKE 'THEOD%') |>
+  π(prenom, nombre) |>
+  ρ(prenom→name, nombre→count)
 ```
 
 ::: {.aside}
@@ -1059,18 +1078,22 @@ On va définir des opérations pratiques pour la manipulation de données : les 
 
 ### Définition
 
-La jointure $T=R_1\bowtie_C R_2$ de deux relations $R_1$ et $R_2$ de schémas disjoints sous la condition $C$ est la relation $T$:
+Considérons deux relations $R_1$ et $R_2$ de schémas disjoints.
 
-- de schéma la *concaténation* des schémas de $R_1$ et $R_2$
+La jointure de $R_1$ et $R_2$  sous la condition $C$ est la relation $T$ :
 
-- formée des tuples du produit cartésien $R_1  \times R_2$ qui satisfont la condition $C$
+- de schéma la *concaténation* des schémas de $R_1$ et $R_2$,
 
+- formée des tuples du produit cartésien $R_1  \times R_2$ qui satisfont la condition $C$,
 
-Règles de formation de la *condition de jointure* : comme pour la sélection
+- on note $T=R_1\bowtie_C R_2$.
+
+Règles de formation de la *condition de jointure* : comme pour la sélection.
 
 
 :::
 
+. . .
 
 ::: {.callout-important}
 
@@ -1092,35 +1115,51 @@ Comme la projection, la sélection et le renommage, la jointure  ne fait pas int
 On peut  considérer la jointure comme une fonction avec un nombre *variable*  d'arguments. Deux  premiers arguments de type  table, puis une expression dont l'évaluation permet de déterminer quels couples de lignes doivent figurer dans la table résultat
 
 On note 
-$$T = \bowtie(R, S, C)$$
-au lieu de $T=R  \bowtie_C C$
+$$T =\ \bowtie(R, S, C)\quad \text{ou} \quad S= \textrm{JOINTURE}(R, S, C)$$
+au lieu de $\quad T=R  \bowtie_C C$
 
-Dans la suite, nous utiliserons cette possibilité. 
 
-Notons que dans un langage comme `Python`, nous ne disposons pas d'emblée d'un type *expression* et que 
-la notation proposée ici ne se code pas trivialement en `Python`.
+Dans la suite, nous utiliserons ces notations. 
 
-En langage `R`, on dispose d'un type *expression*, la notation proposée ici est mise en œuvre dans le package `dplyr` avec 
-la fonction `inner_join()`,
+:::
 
+. . .
+
+::: {.callout-note}
+
+Comme dit précédemment, dans un langage comme `Python`, nous ne disposons pas d'emblée d'un type *expression* et la notation proposée ici ne se code pas trivialement en `Python`.
+
+En langage `R`, on dispose d'un type *expression*, la notation proposée ici est mise en œuvre dans le package `dplyr` avec la fonction `inner_join()`.
 
 :::
 
 
 
+
 ## Exemple  sur le schéma `world`
 
+::::: {.columns}
+
+::: {.column width="35%"}
+
 ![](/images/layout_world.png)
+
+:::
+
+::: {.column width="65%"}
 
 Lier les pays (les lignes de `country`) à leur capitale, c'est à dire les couples de lignes de `country`  et de `city`
 qui satisfont  `capital = id` 
 
+:::
+
+:::::
+
 ## Exemple  sur le schéma `world` (suite)
 
 ```{.sql}
-`country` |>
-  ⋈(`city`, `capital=id`) |>
-  π(`name_country`, `name`)
+T =  JOINTURE(country, city, country.capital = city.id)
+S =  PROJECTION(T, name_country, name)
 
 ```
 
@@ -1141,7 +1180,7 @@ qui satisfont  `capital = id`
 
 ::: {.aside}
 
-On se contente d'afficher les cinq premières lignes du résultat.
+On a affiché seulement les cinq premières lignes du résultat.
 
 :::
 
@@ -1151,44 +1190,42 @@ Autour de la jointure `⋈(R, S, C)` on a pris l'habitude de distinguer des type
 
 On distingue 
 
-- les équi-jointures 
-- les θ-jontures 
-- les jointures naturelles
+- les équi-jointures, 
+- les θ-jointures,
+- les jointures naturelles.
 
-::: {.aside}
+::: {.callout-note}
 
-Ces distinctions portent sur la condition `C`. Elles ne sont pas de même nature que les distinctions qui portent sur la manière dont le résultat final est calculé et qui définissent les jointures *internes*, *externes*, ... 
-
+Ces distinctions portent sur la condition `C`. Elles ne sont pas de même nature que les distinctions qui portent sur la manière dont le résultat final est calculé et qui définissent les jointures *internes*, *externes* (voir plus loin). 
 
 :::
 
 
-## Équi-jointure, 
+## Équi-jointure 
 
 
 ::: {.callout-important}
 
-### Équi-jointure  
+### Définition  
 
-Jointure avec égalité entre attributs de types comparables
+Jointure où la condition est une égalité entre des attributs de types comparables
 
 :::
 
 . . .
 
-
 ```{.sql}
-⋈(`country`, `city`, `capital=id`)
+JOINTURE(country, city, country.capital = city.id)
 ```
 
 
-## θ-jointure
+## $\theta$--jointure
 
 ::: {.callout-important}
 
-### $\theta$-*jointure*
+### Définition
 
-Condition de jointure entre attributs de types comparables et avec un opérateur différent de l'égalité, c'est-à-dire dans $\left\{<,>,\leq,\geq, \neq\right\}$.
+Condition de jointure entre attributs de types comparables et comportant au moins un opérateur différent de l'égalité, c'est-à-dire dans $\left\{<,>,\leq,\geq, \neq\right\}$.
 
 
 :::
@@ -1198,7 +1235,7 @@ Condition de jointure entre attributs de types comparables et avec un opérateur
 
 
 ```{.sql}
-⋈(`country`, `city`, `capital=id`  ∧ `population > .5 * population_country`)
+JOINTURE(country, city, country.capital = city.id  ∧ city.population > .5 * country.population_country)
 ```
 
 
@@ -1210,47 +1247,41 @@ Condition de jointure entre attributs de types comparables et avec un opérateur
 
 ### Définition
 
-C'est une équi-jointure concernant les attributs communs (même nom et même type) de deux relations   
+C'est une équi-jointure où la condition portent implicitement sur tous les attributs communs (de même nom) aux schémas des deux relations.   
 
-On ne garde dans le résultat qu'une copie des attributs communs {{< fa  triangle-exclamation >}}
+Dans le résultat, les attributs communs n'apparaissent qu'une seule fois {{< fa  triangle-exclamation >}} puisque la relation résultat ne peut pas avoir deux attributs de même nom.
 
+On note cette opération : $R_1 \bowtie R_2$.
 :::
 
+On peut écrire la jointure naturelle comme une équi-jointure sur tous les attributs communs suivie d'une projection pour éliminer les attributs doublons.
 
-On considère
+## Jointure naturelle  (formalisation)   {.smaller}
 
-- $R_1$ d'attributs $A_1,..,A_k,B_1,...,B_h$
+Considérons deux relations $R_1(A_1,..,A_k,B_1,...,B_h)$ et $R_2(A_1,..,A_k,B_{h+1},...,B_\ell)$ de schémas **non** disjoints avec :
 
-- $R_2$ d'attributs $A_1,..,A_k,B_{h+1},...,B_\ell$
+- $A_1,..., A_k$ : attributs communs,
+   
+- $\{B_1,...,B_h\}\cap \{ B_{h+1},...,B_\ell \}=\emptyset$,
 
-- $A_1,..., A_k$ : attributs communs et $\{B_1,...,B_h\}\cap \{ B_{h+1},...,B_\ell \}=\emptyset$
+Soit $A'_1, ...., A'_k$ des noms tels que $\{A_1,..., A_k\}\cap \{ A'_1, ...., A'_k \}=\emptyset$.
 
-- Soit $A'_1, ...., A'_k$ tels que $\{A_1,..., A_k\}\cap \{ A'_1, ...., A'_k \}=\emptyset$
-
-
-
-## Jointure naturelle  (formalisation)   {.scrollable}
-
-Considérons $S$ d'attributs $A_1',..,A_k',B_{h+1},...,B_l$ définie par :
-
-$$S=\rho_{A_1\mapsto A_1'}(\rho_{A_2\mapsto A_2'}(\cdots (\rho_{A_k\mapsto A_k'}(R_2)\cdots ))$$
+Considérons la relation $S(A_1',..,A_k',B_{h+1},...,B_l)$ définie par :
+$\quad S=\rho_{A_1\mapsto A_1'}(\rho_{A_2\mapsto A_2'}(\cdots (\rho_{A_k\mapsto A_k'}(R_2)\cdots ))$
 
 
-La *jointure naturelle* sur deux relations $R_1$ et $R_2$ est la relation
+La *jointure naturelle* sur les relations $R_1$ et $R_2$ est la relation $R$
 
-- d'attributs $A_1,..,A_k,B_1,...,B_h, B_{h+1},...,B_\ell$
+- de schéma $R(A_1,..,A_k,B_1,...,B_h, B_{h+1},...,B_\ell)$
+ 
 - définie par :
-$$\pi_{A_1,..,A_k,B_1,...,B_h, B_{h+1},...,B_\ell}(R_1\bowtie_{C} S)$$
+$\quad R = \pi_{A_1,..,A_k,B_1,...,B_h, B_{h+1},...,B_\ell}(R_1\bowtie_{C} S)\quad$
 où $C$ est $(A_1=A_1') \wedge (A_2=A'_2) \wedge \ldots \wedge (A_k=A_k')$
 
-. . .
 
 ::: {.aside}
 
-{{< fa  hand-point-right >}} on réalise une équi-jointure sur tous les attributs communs et on ne garde qu'un seul "exemplaire" de ces attributs communs par projection. On note cette opération : $R_1 \bowtie R_2$.
-
-{{< fa  hand-point-right >}} Pour éviter le renommage, on peut décider de préfixer les noms des attributs par ceux de la relation. La condition $C$ devient :
-
+{{< fa  hand-point-right >}} En préfixant les noms des attributs par ceux de la relation, la condition $C$ s'écrit alors :
 $$(R_1.A_1=R_2.A_1) \wedge \ldots \wedge (R_1.A_k=R_2.A_k)$$
 
 :::
@@ -1259,7 +1290,10 @@ $$(R_1.A_1=R_2.A_1) \wedge \ldots \wedge (R_1.A_k=R_2.A_k)$$
 
 ## Exemple de Jointure naturelle  {.smaller}
 
+Afficher la liste des langues parlées en France (schéma `world`).
+
 ::::: {.columns}
+
 ::: {.column}
 
 ```{.sql}
@@ -1274,9 +1308,24 @@ bd_2023-24> \d countrylanguage
 +-------------+--------------+-----------+
 ```
 
+```{.sql}
+bd_2023-24> \d city
++-------------+--------------+-----------+
+| Column      | Type         | Modifiers |
+|-------------+--------------+-----------|
+| id          | integer      |  not null |
+| name        | text         |  not null |
+| countrycode | character(3) |  not null |
+| district    | text         |  not null |
+| population  | integer      |  not null |
++-------------+--------------+-----------+
+```
+:::
+
+::: {.column}
 
 ```{.sql}
-
+bd_2023-24> \d country
 +--------------------+---------------+-----------+
 | Column             | Type          | Modifiers |
 |--------------------+---------------+-----------|
@@ -1298,18 +1347,21 @@ bd_2023-24> \d countrylanguage
 +--------------------+---------------+-----------+
 ```
 
-
 :::
+
+:::::
+
+
+## Exemple de Jointure naturelle (suite)
+
+::::: {.columns}
 
 ::: {.column}
 
-### Jointure naturelle
-
 ```{.sql}
-country |
-  ⋈(countrylanguage) |>
-  σ(country='France') |>
-  π(name_country, language)
+T = JOINTURE(country, countrylanguage)
+S = SELECTION(T, name_country='France')
+R = PROJECTION(S, name_country, language)
 
 ```
 
@@ -1325,11 +1377,28 @@ country |
 | France       | Turkish    |
 +--------------+------------+
 ```
+:::
+
+::: {.column}
+
+::: {.callout-note}
+
+Du point de la complexité des opérations à faire par le serveur, il vaut mieux faire le plus en amont possible les sélections puis les projections et enfin les jointures qui sont plus coûteuses en temps de calcul.
+
+:::
+
+On écrira donc plutôt : 
+```{.sql}
+S = SELECTION(country, name_country='France')
+T = JOINTURE(S, countrylanguage)
+R = PROJECTION(T, name_country, language)
+```
 
 :::
 
 :::::
 
+<!--
 ---
 
 On aurait pu décrire de façon plus explicite la jointure en précisant sur quels attributs s'effectue la jointure 
@@ -1342,96 +1411,168 @@ country |
   π(name_country, language)
 
 ```
+-->
 
 ## Exemples de requêtes
 
 
-- déterminer les noms des capitales des pays situés en Asie (`Asia`)
+- Déterminer les noms des capitales des pays situés en Asie.
+
+. . . 
 
 ```{.sql}
-country |>
-  σ(continent='Asia') |>
-  ⋈(city, capital=id) |>
-  π(name)
+S =  SELECTION(country, continent='Asia')
+T =  JOINTURE(S, city, S.capital=city.id)
+R =  PROJECTION(T, name)
 ```
 
+Le début de `R` est 
+```{.sql}
++-------------+
+| name        |
+|-------------+
+| Kabul       |
+| Abu Dhabi   |
+| Yerevan     | 
+| al-Manama   |
+```
+
+## Exemples de requêtes (suite)
+
+
+- Déterminer les langues parlées dans les pays d'Asie.
+  
 . . .
 
-- déterminer les langues parlées dans les pays d'Asie
-
 ```{.sql}
-country |>
-  σ(continent='Asia') |>
-  ⋈(countrylanguage) |>
-  π(language)
+S = SELECTION(country, continent='Asia')
+T = JOINTURE(R1, countrylanguage)
+R = PROJECTION(R2, language)
 ```
 
+Le début de `R` est 
 
-
-
+```{.sql}
++-------------+
+| name        |
+|-------------+
+| Pashto      |
+| Arabic      |
+| Armenian    | 
+| Azerbaijani |
+```
 
 
 
 # Encore des opérations...  {background-color="#1c191c"}
 
 
-
-
 ## Jointure externe
 
 ::: {.callout-note}
 
-### Perte d'information dans jointure naturelle
+### Perte d'information dans les jointures internes
 
-Les tuples ne satisfaisant pas la condition (non appariés) disparaissent
+Dans les jointures que nous avons vues, les tuples du produit cartésien ne satisfaisant pas la condition C (non appariés) disparaissent.
+
+On appelle ces jointures des *jointures internes*.
+
+On définit aussi des *jointures externes* qui n'adoptent pas ce comportement. 
 
 :::
+
+. . .
 
 ::: {.callout-important}
 
 ### Définition
 
-<!-- TODO -->
+La *jointure externe* entre $R_1$ et $R_2$ est une jointure qui produit une relation R3 à laquelle on ajoute les tuples de R1 et de R2 exclus par la jointure, en complétant avec des valeurs nulles pour les attributs de l'autre relation.
 
-On ajoute symboliquement" une ligne dont les valeurs sont vides (ou avec valeur spéciale `NULL`) pour garder les tuples initiaux "non satisfaisants" après la jointure
-
-On note cette opération entre deux relations $R$ et $S$  :
-
-$$R \bowtie^+ S$$
+*Notation* : $R_1 {}^+\!\bowtie^+ R_2$.
 
 :::
+
+
+## Jointure externe gauche
+
+::: {.callout-important}
+
+### Définition
+
+La jointure externe gauche entre R1 et R2 est une jointure externe pour laquelle on ajoute seulement les tuples de R1 (c'est à dire la relation de gauche) ayant été exclus.
+
+*Synonyme* : Jointure gauche
+
+*Notation* : $R_1 {}^+\!\bowtie R_2$   
+
+:::
+
+. . .
+
+::: {.callout-note}
+
+{{< fa  hand-point-right >}} Le + est du côté où on ajoute les tupes manquants.
+
+:::
+
+## Jointure externe droite
+
+::: {.callout-important}
+
+### Définition
+
+La jointure externe droite entre R1 et R2 est une jointure externe pour laquelle on ajoute seulement les tuples de R2 (c'est à dire la relation de droite) ayant été exclus.
+
+*Synonyme* : Jointure droite
+
+*Notation* : $R_1 \bowtie^+ R_2$
+
+:::
+
+::: {.callout-note}
+
+Une jointure externe droite peut être réécrite par une jointure externe gauche (et réciproquement) en échangeant l'ordre de R1 et R2.
+
+:::
+
+. . . 
+
+::: {.callout-note}
+
+On peut aussi utiliser une notation fonctionnelle et nommer ces jointures par des mots par exemple OUTER JOIN, LEFT JOIN, RIGHT JOIN.
+
+:::
+
+
 
 
 ## Jointure externe (exemple)
 
 
-::::: {.columns}
-::: {.column}
-
 On veut une table formée par les codes ISO, les noms des pays et (si possible) les noms des capitales. Les territoires sans capitale doivent apparaître en fin de table,  avec une colonne *nom de capitale* nulle. 
 
 
-::: {.small}
+::: {.smaller}
 
-Obtenir la première partie de la réponse avec une jointure est facile. Pour trouver les territoires sans capitale, il suffit de faire une sélection dans `country` sur le critère `capital IS NULL`. Ensuite, on peut faire une `UNION`   (`∪`)
-
-:::
+Obtenir la première partie de la réponse avec une jointure est facile. Pour trouver les territoires sans capitale, il faudrait faire une sélection dans `country` sur le critère `capital IS NULL` puis une `UNION` des deux relations.
 
 :::
 
-::: {.column}
 
-Avec une jointure externe on peut obtenir le résultat en une opération 
+Avec une jointure droite, on peut obtenir le résultat en une opération :
+
+. . .
 
 ```{verbatim}
-⋈^+(city, country, id=capital) |>
-  π(countrycode, name_country, name)
+S = RIGHT JOIN(city, country, city.id = country.capital) 
+R = PROJECTION(S, countrycode, name_country, name)
 ```
 
-:::
-:::::
+
 
 ## Division
+
 
 ::: {.callout-important}
 
@@ -1445,19 +1586,16 @@ $R(A_1,A_2,\dots,A_k)$
 - par une relation $S$ de schéma
 $S(A_{p+1},\dots ,A_k)$
 
-est la relation $T$ de schéma $T(A_1, \dots, A_p)$ formée des tuples qui complétés par chaque tuple
-de $S$ donnent un tuple de $R$.
+est la relation $T$ de schéma $T(A_1, \dots, A_p)$ formée des tuples qui, complétés par chaque tuple
+de $S$, donnent un tuple de $R$.
 
 Autrement dit
 
-$$\begin{array}{l} t\in T(A_1,\dots,A_p)  \quad \Longleftrightarrow \\
+$$\begin{array}{l} t\in T(A_1,\dots,A_p)  \quad \text{ si et seulement si } \\
 \forall s\in S(A_{p+1},\dots ,A_k) \quad \exists r\in R \quad \begin{cases}
 t.A_1=r.A_1, \dots, t.A_p=r.A_p\\ s.A_{p+1}=r.A_{p+1},\dots, s.A_{k}=r.A_{k} \end{cases} \end{array}$$
 
-
-On note 
-$$T = R \div S$$
-
+On note : $\quad T = R \div S$
 
 
 :::
@@ -1465,21 +1603,39 @@ $$T = R \div S$$
 
 ## Division (exemple)
 
+La division permet de répondre à des questions du type : 
 
-::: {.columns}
-::: {.column}
+ "Donner tous les X qui ont toutes les valeurs existantes d'une propriété Y".
 
-{{< fa hand-point-right >}} Lister les langues parlées sur tous les continents 
+ *Exemple* : lister les langues parlées sur tous les continents.
+
+. . .
+
+```{.sql}
+J = JOINTURE(country, countrylanguage)
+CL =  PROJECTION(J, continent, language)
+C = PROJECTION(CL, continent)
+
+CL ÷ C
+```
+
+. . .
 
 
-On aimerait écrire une expression qui renvoie un résultat correct quelque soit les conventions adoptées sur la définition de *continent* (les Amériques forment-elles un ou deux continents, etc)
+Autre possibilité sans la division
 
+```{.sql}
+J = JOINTURE(country, countrylanguage)
+CL =  PROJECTION(J, continent, language)
 
-:::
+C = PROJECTION(CL, continent)
+L = PROJECTION(CL, language)
+--- LPPTC Langues Pas Parlées dans Tous les Continents
+LPPTC = PROJECTION((C × L  ∖  CL ), language)
 
-
-::: {.column}
-
+R = L  ∖  LPPTC
+```
+<!--
 ```{.sql}
 CL ← ⋈(country, countrylanguage) |>
   π(continent, language)
@@ -1492,65 +1648,46 @@ LPPTC ← (C × L  ∖  CL ) |>
 
 L  ∖  LPPTC
 ```
-
-On vient de calculer une division !
-
-```{.sql}
-CL ÷ C
-```
-
-
-
-:::
-
-:::
+-->
 
 
 
 ## Interdéfinissabilité des opérateurs
 
 
-- L'union, la différence, le produit cartésien, la sélection et la projection et le renommage sont *suffisants* pour définir tous les opérateurs que l'on a vu.
+- L'union, la différence, le produit cartésien, la sélection et la projection et le renommage sont *suffisants* pour définir tous les opérateurs que l'on a vus.
 
 - Mais avoir un panier  plus large d'opérateurs simplifie l'écriture des requêtes.
 
 
-Quelques définitions
+## Définitions des autres opérateurs à partir de cet ensemble minimal
 
-- Pour la *Jointure* : $R \bowtie_C S \equiv \sigma_C (R \times S)$
 
+. . .
+
+- Pour la *jointure* : $R \bowtie_C S = \sigma_C (R \times S)$
+
+. . .
 
 - Pour l'*intersection* : $A \cap B = A \cup B - ((B - A) \cup (A - B))$
 
+. . .
+
+- Pour la *division* : 
+
+soient $R(A_1,A_2,\dots,A_k)$ et $S(A_{p+1},\dots ,A_k)$, 
+
+$T= R ÷ S\quad$ a pour schéma $\quad T(A_1, \dots, A_p)$ et
+
+$$T = {\Pi}(R, A) \setminus {\Pi}\left(\left(\left({\Pi}\left(R, A\right) × S\right) \setminus R\right), A\right)$$
+
+où $A = (A_1, \dots, A_p)$.
 
 
-## Définition de la division
-
-::: {.callout-important}
-
-### Formalisation
-
-Soient  $R$ de schéma
-$R(A_1,A_2,\dots,A_k)$, $S$ de schéma
-$S(A_{p+1},\dots ,A_k)$
-
-est la relation $T= R ÷ S$ de schéma $T(A_1, \dots, A_p)$.
-
-
-```{.sql}
-T ← Π(R, A) ∖ Π((Π(R, A) × S ∖ R), A)
-```
-
-:::
-
-
-::: {.aside}
-
-Dans la définition de `R ÷ S`, on utilise en deux endroits  `Π(R, A)`. 
-Il serait utile, lors de l'évaluation de   `R ÷ S` de n'évaluer `Π(R, A)`
-qu'une seule fois.
-
-:::
+<!--
+Dans la définition de $R ÷ S$, on utilise en deux endroits  $Π(R, A)$. 
+Il serait utile, lors de l'évaluation de  $R ÷ S$, de n'évaluer $Π(R, A)$ qu'une seule fois en créant une table temporaire.
+-->
 
 
 

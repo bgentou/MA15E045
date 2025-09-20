@@ -34,3 +34,5 @@ workshops-chatgpt/
 
 site_libs/
 **/*.quarto_ipynb
+
+/_freeze

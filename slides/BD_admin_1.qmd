@@ -28,11 +28,7 @@ title: "BD V: Administration"
 
 
 
-
 # Administration dans `psql`  {background-color="#1c191c"}
-
-
-
 
 
 

@@ -44,11 +44,10 @@ Le cours s'appuie sur un serveur [PostGres](https://www.postgresql.org) dont l'a
 :::
 
 Vous trouverez sur ce site :
-<!-- - [Un syllabus](/cours-syllabus.qmd)
-- [L'équipe enseignante](/cours-equipe.qmd) -->
-- [Les clients utilisables](/computing-access.qmd)
+
+- [Des guides d'utilisation des logiciels](/computing-access.qmd)
 - [Les diapositives du cours magistral](/slides-listings.qmd)
 - [Les feuilles d'exercices](/td-listings.qmd)
-- [Les corrigés](/corriges-tds.qmd)
+<!--- [Les corrigés](/corriges-tds.qmd)-->
 - [Les annales d'examen](/exams-listings.qmd)
 

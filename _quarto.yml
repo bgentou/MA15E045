@@ -67,7 +67,7 @@ website:
       - section: "Support"
         contents:
           - href: computing-access.qmd
-            text: "Accès Informatique"
+            text: "Connexion au serveur"
           - href: computing-dbeaver.qmd
             text: "Client dbeaver"
           - href: computing-pgcli.qmd
@@ -84,8 +84,8 @@ website:
         htext: Schémas
       - href: exams-listings.qmd
         text: Annales
-      - href: journal-listings.qmd
-        htext: Journal
+      #- href: journal-listings.qmd
+      #  htext: Journal
 
 format:
   html:

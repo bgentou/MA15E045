@@ -36,22 +36,15 @@ SQL est langage permettant :
 
 ## Plusieurs fois normalisés par l'ISO ...
 
-- SQL-86,
-- SQL-89,
-- SQL-92,
-- SQL-99.
+- SQL-86,  SQL-89, SQL-92, SQL-99,
 - ...
-- SQL-2003
-- SQL-2008
-- SQL-2011
-- SQL-2016
+- SQL-2003, SQL-2008, SQL-2011, SQL-2016,
 - ...
 
 Nous utiliserons le dialecte [`PostgreSQL`](https://www.postgresql.org)
 
 
-
-A standard is reviewed every 5 years (roughly)
+La norme est révisée environ tous les 5 ans.
 
 [ISO/IEC 9075 from www.iso.org](https://www.iso.org/standard/63555.html)
 
@@ -192,12 +185,11 @@ WHERE co.continent='Europe'
 LIMIT 5 ;
 ```
 
-
-
+. . .
 
 Equivalent à :
 
-$$\Pi_{\text{NomF, region}}(\text{country})$$
+$$\Pi (\text{country}, \text{NomF, region})$$
 
 :::
 
@@ -225,7 +217,7 @@ FROM Fournisseur
 WHERE Ville='Paris' ;
 ```
 
-Equivalent à : $\sigma_{\texttt{Ville}=\texttt{'Paris'}}(\texttt{Fournisseur})$
+Equivalent à : $\sigma(\texttt{Fournisseur}, \texttt{Ville}=\texttt{'Paris'})$
 
 
 # Requêtes mono-relation {background-color="#1c191c"}
@@ -244,7 +236,6 @@ clés suivants :
 - `WHERE` précise une condition et correspond à l'opération de restriction/sélection en algèbre relationnelle.
 
 
----
 
 ## Syntaxe de la condition de filtrage (`WHERE ...`)
 
@@ -263,7 +254,7 @@ WHERE NomE <>'Durand'  ;
 
 
 
-## Syntaxe de la condition de filtrage (`WHERE ...`)
+## Syntaxe de la condition de filtrage (`WHERE ...`) - suite
 
 *Combinaison* de conditions à l'aide des opérateurs logiques:  `AND`, `OR`, `NOT`
 
@@ -286,7 +277,7 @@ WHERE (Ville='Londres') OR (Ville='Paris');
 
 ## Syntaxe de la condition `WHERE ...` (suite)
 
-Test *BETWEEN* permettant de vérifier si la valeur d'un attribut est comprise entre deux constantes
+Test `BETWEEN` permet de vérifier si la valeur d'un attribut est comprise entre deux constantes
 
 
 ```{.sql}
@@ -300,11 +291,11 @@ WHERE Annee BETWEEN '22/06/03' AND '25/09/03';
 
 {{< fa triangle-exclamation >}} Éviter de manipuler les dates et heures comme des chaînes de caractères
 
----
+
 
 ## Syntaxe de la condition `WHERE ...` (suite)
 
-- Test à `NULL` signifiant que la valeur est égale à `NULL` (c-à-d est inconnue)
+- Test `IS NULL` vérifie si une valeur est égale à `NULL` (c-à-d est inconnue)
 
 ```{.sql}
 SELECT *
@@ -317,7 +308,6 @@ WHERE Tel IS NULL;
 {{< fa skull >}} Attention aux valeurs manquantes
 
 
----
 
 ## Syntaxe de la condition `WHERE ...` (suite)
 
@@ -332,7 +322,6 @@ FROM Fournisseur
 WHERE Ville IN ('Paris', 'Londres');   
 ```
 
----
 
 ## Syntaxe de la condition `WHERE ...` (suite)
 
@@ -343,6 +332,7 @@ $\_$ : remplace n'importe quel caractère
 
 $\%$ : remplace n'importe quelle chaîne de caractères.
 
+
 ```{.sql}
 SELECT Ville
 
@@ -351,7 +341,7 @@ FROM Fournisseur
 WHERE Ville LIKE 'Saint%';
 ```
 
-
+Cette requête sélectionne les noms de ville commençant par 'Saint'.
 
 
 
@@ -491,6 +481,8 @@ $$\pi_{\text{name\_country}}(\text{country} \bowtie_{\text{capital}=\text{id} \w
 
 Quels sont les pays qui portent le même nom que leur capitale ?
 
+. . .
+
 ```{.sql}
 SELECT name_country
 
@@ -513,8 +505,9 @@ $$\pi_{\text{name\_country}}(\sigma_{\text{capital}=id \wedge  \text{name\_count
 Si on veut faire une jointure d'une table avec elle-même, on utilise *AS*
 pour obtenir deux tables de noms différents
 
-- Quels sont les noms de ville qui apparaissent dans deux pays différents~?
+- Quels sont les noms de ville qui apparaissent dans deux pays différents?
 
+. . .
 
 ```{.sql}
 SELECT DISTINCT c1.name_city, c1.countrycode, c2.countrycode
@@ -533,6 +526,7 @@ ORDER BY c1.name_city;
 
 Quels sont les noms des pays où le français est parlé ?
 
+. . .
 
 ```{.sql}
 SELECT name_country
@@ -543,7 +537,7 @@ WHERE country.countrycode=countrylanguage.countrycode
       AND language='French';
 ```
 
-Syntaxe normalisée pour la jointure naturelle~: *NATURAL JOIN*
+Syntaxe normalisée pour la jointure naturelle : *NATURAL JOIN*
 
 ```{.sql}
 SELECT name_country
@@ -557,7 +551,7 @@ WHERE language='French';
 
 ## Jointure naturelle (suite)
 
-Quels sont les pays dont une ville a le même nom qu'une langue parlée dans ce pays~?
+Quels sont les pays dont une ville a le même nom qu'une langue parlée dans ce pays ?
 
 ```{.sql}
 SELECT DISTINCT name_country, name_city, language
@@ -595,6 +589,8 @@ WHERE language=name_city;
 
 
 - Certains pays n'ont pas de capitale : la requête
+  
+  . . .
 
 ```{.sql}
 SELECT name_country
@@ -608,7 +604,7 @@ renvoie 8 lignes.
 
 
 
-- Quels sont les pays qui n'ont pas de capitale ou portent le même nom que leur capitale~?
+- Quels sont les pays qui n'ont pas de capitale ou portent le même nom que leur capitale ?
 
 ```{.sql}
 SELECT name_country, name_city

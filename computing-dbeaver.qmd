@@ -1,75 +1,89 @@
 ---
 title: "Client dbeaver"
 ---
+::: {.callout-note}
 
+Guide pour utiliser le client *dBeaver* avec un tunnel `ssh`
+
+:::
 
 # Installer 
 
 À partir de [Dbeaver community edition](https://dbeaver.io/download/)
 
 
-
-```{=html}
-<iframe width="780" height="500" src="https://dbeaver.io/download/" title="Dbeaver CE"></iframe>
-```
-
 # Survol
 
-
-{{< fa brands youtube >}} [Explorer les possibilités du client](https://www.youtube.com/watch?v=qWhCmvg_Sqc)
+{{< fa brands youtube >}} [Explorer les possibilités du client dBeaver](https://www.youtube.com/watch?v=qWhCmvg_Sqc)
 
 ::: {.callout-tip}
 
-### Configurer une connexion
+## Ouvrir un tunnel `ssh`
+
+Vous utiliserez *dBeaver* pour interroger le serveur Postgre via un tunnel `ssh`.
+Pour établir ce tunnel reportez-vous à la page [Connexion au serveur](/computing-access.qmd)
 
 :::
 
-- Onglet `Main`
+
+# Définir et utiliser un *projet*
+
+Dans l'onglet `Projets` (Menu `Fenêtres`->`Projet`), apparaît le projet `Général`. Vous pouvez le renommer en faisant un clic droit.
+
+Pour ce module, vous pouvez vous contenter d'utiliser un unique projet.
+
+Si vous avez plusieurs projets, choisissez le projet actif en faisant un clic droit puis `Définir le projet actif`.
+
+::: {.callout-tip}
+
+Lors de la création d'un projet, décochez `Utiliser l'emplacement par défaut` et choisissez le répertoire ou seront enregistrés vos scripts, c.a.d. vos requêtes SQL.
+
+::: 
+
+Dans votre projet apparaissent les éléments :
+
+- `Connection`
+- `Bookmarks`
+- `Dashboards`
+- `Diagrams`
+- `Scripts`
+
+## `Connection`
+
+La première étape après la création d'un projet est la création d'une connexion à un serveur de bases de données.
+
+Pour cet enseignement, vous devez d'abord créer un tunnel `ssh` avec le serveur `etu-pgsql.math.univ-paris-diderot.fr` avec une redirection de port (cf. [Connexion au serveur](/computing-access.qmd)).
+
+Nous supposons par la suite que vous avez établi un tunnel en redirigeant le port local `5436` vers le port distant `5432`. 
+
+Il faut ensuite sélectionner votre projet dans l'onglet `Projets` puis faire une clic droit et `Créer`->`Connexion`, choisir le pilote PostgreSQL (regarder les icônes), puis `Suivant` et saisir dans le formulaire les informations suivantes :
+
+- Onglet `Main` ou `Général`
   - Connect by `Host`, 
     - Host: `localhost`, 
     - Port: `5436` (le nom du port local utilisé par votre tunnel ssh)
-    - Database: bd_2023-24 
-    - Décocher `Show all databases
+    - Database: `bd_2023-24` 
+    - Décocher `Show all databases`
   - Authentification: `Database Native`
     - Username: `username` (ENT)
     - Password: xxxxxxx  (ENT) 
     - Cocher `Save password` 
-  - 
 
-  
-# Utiliser une connexion
+Puis cliquer sur `Terminer`. Eventuellement, dBeaver demandera à installer le pilote 'PostgreSQL'.
 
-Après avoir ouvert un tunnel `ssh` dans une fenêtre terminal:
+Maintenant la connexion `bd_2023-24` apparaît dans votre projet. Elle apparaît également dans le `Navigateur de Bases de données` (`Fenêtres`->`Navigateur de Bases de données`).
 
-```{.bash}
-$ ssh username@etu-pgsql.math.univ-paris-diderot.fr -L 5436:localhost:5432 -N
-(username@etu-pgsql.math.univ-paris-diderot.fr) Password for username@etu-pgsql.math.univ-paris-diderot.fr:
-```
-dans l'IDE `dbeaver`: 
+En déroulant la connexion `bd_2023-24`->`Bases de données`->`bd_2023-2024`->`Schémas`, vous pouvez visualiser la liste des schémas existants sur le serveur.
 
-Double cliquer sur la connexion et saisissez le mot  de passe demandé (si nécessaire).
+::: {.callout-tip}
 
-# Définir et utiliser un *projet*
+Si vous créez un nouveau projet avec une connexion déjà définie dans un autre, il vous suffit de copier-coller la connexion entre les projets ou depuis le `Navigateur de Bases de données`.
 
+::: 
 
-::: {.callout-warning}
-
-Durant le semestre, un `projet` unique devrait suffire à vos besoins.
-
-Utiliser un `projet` doit vous aider à organiser votre travail, en particulier à retrouver facilement les travaux des semaines précédentes. 
-
-:::
-
-
-## Connections
-
-Vous devrez créer une connection avec le serveur au sein de votre projet. 
-Vous pouvez en créer d'autres avec d'autres serveurs, possiblement un serveur PostGres 
-hébergé sur votre propre machine. 
-
-## Bookmarks/Signets
-
-[Documentation sur les signets](https://github.com/dbeaver/dbeaver/wiki/Bookmarks)
+## `Bookmarks`/Signets
+Vous pouvez jeter un coup d'oeil à cette 
+[documentation sur les signets](https://github.com/dbeaver/dbeaver/wiki/Bookmarks).
 
 ::: {.callout-tip}
 
@@ -77,26 +91,76 @@ Vous pouvez créer des signets pour retrouver facilement les schémas sur lesque
 
 :::
 
-<!-- ## Dashboards/Tableaux de bord -->
+## `Dashboards`/Tableaux de bord
+Ils servent à superviser l'utilisation des ressources. Cela ne vous sera pas utile pour cet enseignement.
 
-## Diagrammes ER
+## `Diagrams`
 
-`dbeaver` permet de faire un peu de rétro-ingénieurie et de visualiser (partiellement) un schéma. Outil utile quand on veut retoucher un schéma ou 
+*dBeaver* permet de faire un peu de rétro-ingénieurie et de visualiser (partiellement) un schéma. Outil utile quand on veut retoucher un schéma ou 
 simplement le comprendre.
 
-## Scripts 
+## `Scripts` 
 
-- Un script pour chaque séance de TD/TP
-- Nommer le script de façon utile (avec `rename`)
-- Commenter le script
-- Séparer les requêtes par des lignes blanches et une ligne de commentaire blanche `--    `
-- Utiliser le reformattage pour rendre votre code plus lisible
+- Créer un dossier de script pour chaque TP puis un script pour chaque exercice,
+- Nommer le script de façon utile (avec `rename`),
+- Commenter le script,
+- Séparer les requêtes par des lignes blanches et une ligne de commentaire blanche `--    `,
+- Utiliser le reformattage pour rendre votre code plus lisible.
 
+# Editeur SQL
+::: {.callout-tip}
+[Documentation éditeur SQL dBeaver](https://dbeaver.com/docs/dbeaver/SQL-Editor/)
+:::
+Pour écrire vos requètes, il faut utiliser l'éditeur SQL.
 
+Supposons que vous vouliez écrire une requète sur le schéma  `world`.
 
+Dans votre projet, une fois créé le tunnel `ssh`, faire un clic droit sur la connexion de votre projet puis `Se connecter`. Si la connexion est réussie, une coche verte apparaît.
 
-# Renseignements utiles
+::: {.callout-tip}
+ Si votre connexion échoue, c'est certainement parce que votre tunnel `ssh` a été coupé à cause d'un temps d'inactivité trop long (erreur `timed out`). Il faut revenir dans le terminal de la commande `ssh`, faire un `Ctrl C` si le prompt `ssh` est toujours présent pour "tuer" le processus `ssh` puis relancer la commande `ssh` en utilisant l'historique des commandes du terminal (flèche vers le haut), enfin ressaisir votre mot de passe.
 
+ Vous pouvez éventuellement allonger le *time out* ssh en ajoutant l'option `-o ConnectTimeout=1000` à la commande `ssh`, ici le délai sera de 1000s (environ 15min).
+:::
 
-[wiki](https://github.com/dbeaver/dbeaver/wiki)
+Dans `Connections`, vous pouvez dérouler `bd_2023-24`->`Bases de données`->`bd_2023-2024`->`Schémas`.
 
+Dans la liste que vous avez déroulée, vous devez retrouver le schéma `world` et double cliquer sur celui-ci. Cela vous permet d'afficher le schéma graphiquement ce qui vous aidera à écrire votre requète SQL.
+
+Puis il faut aller dans le menu haut et cliquer sur `Editeur SQL`->`Context`->`Définir la connexion active`. Choisissez la connexion de votre projet et valider en cliquant sur `Select`. 
+
+Cliquez ensuite sur `Editeur SQL`->`Nouveau script`. Vous avez créé un nouveau fichier de script d'extension `.sql` dans le répertoire par défaut de votre projet. Ce fichier apparaît dans dBeaver parmi les scripts du projet. 
+
+Vous pouvez maintenant écrire votre première requête. 
+
+En utilisant le schéma `world`, on peut par exemple écrire une projection de la table `country` sur les attributs `name_country` et `continent` :
+
+```{.sql}
+-- Requête de projection
+SELECT name_country, continent
+FROM world.country 
+```
+
+Ici, comme nous n'avons pas défini un schéma par défaut, il est nécessaire de le préciser avec le nom de la table : `world.country`.
+
+Vous pouvez alors exécuter votre requète en cliquant sur le triangle orange ou avec un clic droit sur le code de la requête.
+
+::: {.callout-tip}
+
+Pour alléger l'écriture des requêtes, il est préférable de commencer par écrire une requète qui définit le schéma par défaut : 
+
+```{.sql}
+-- Requête de définition du schéma par défaut
+SET search_path TO world;
+
+-- Requête de projection 
+SELECT name_country, continent
+FROM country 
+```
+L'inconvénient est alors que des tips infondés d'erreurs de nom de table apparaissent car l'éditeur ne peut pas savoir si vous avez exécuté la requète `SET search_path`. Pour supprimer les tips d'erreur de nom de table de l'éditeur SQL, il faut aller dans `Fenêtres`->`Préférences` et décocher l'option `Editors`->`Editeur SQL`-> `Code editor`->`Read database table/columns for smeantic analysis`.
+:::
+
+# Documentation
+
+- [Documentation dBeaver](https://dbeaver.com/docs/dbeaver/Application-Window-Overview/)
+- [wiki](https://github.com/dbeaver/dbeaver/wiki)

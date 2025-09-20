@@ -4,62 +4,48 @@ title: "Client psql"
 
 ::: {.callout-note}
 
-Quelques possibilités si vous disposez d'une machine sur laquelle on peut installer `psql` et 
-sur laquelle on peut établir des tunnels `ssh`
+Guide pour utiliser le client `psql` avec un tunnel `ssh`
 
 :::
 
 
-# Installer 
+# Installer `psql`
 
-- [Généra](https://www.postgresql.org/download/)
-- [Windows](https://www.postgresql.org/download/windows/?ref=timescale.com)
-- [MacOS](https://www.postgresql.org/download/macosx/)
-- [Ubuntu](https://www.postgresql.org/download/linux/ubuntu/)
+À partir de [Télécharger le fichier d'installation](https://www.postgresql.org/download/).
+
+Le fichier d'installation contient l'installation du serveur et d'un outil d'administration du serveur.
+
+Vous n'avez besoin que du client en ligne de commande. Lors de l'installation, décochez tout sauf `Command Line Tool`.
 
 
-[Documentation](https://www.postgresql.org/docs/current/app-psql.html)
-
-# Utiliser
+# Utiliser `psql`
 
 ::: {.callout-tip}
 
-### Établissement d'un tunel SSH sur votre machine (ici sous Linux)
+## Ouvrir un tunnel `ssh`
 
-Remplacer `id_ent` par votre identifiant ENT dans la suite. 
-
-Saisissez votre mot de passe (attention : pas d'écho)
-
-```{.bash}
-$ ssh id_ent@etu-pgsql.math.univ-paris-diderot.fr -L 5436:localhost:5432 -N
-(id_ent@etu-pgsql.math.univ-paris-diderot.fr) Password for id_ent@etu-pgsql.math.univ-paris-diderot.fr:
-$
-```
+Vous utiliserez `psql` pour interroger le serveur PostgreSQL via un tunnel `ssh`.
+Pour établir ce tunnel reportez-vous à la page [Connexion au serveur](/computing-access.qmd)
 
 :::
 
-::: {.callout-tip}
 
-### Connexion au serveur PostGres, demander la liste des commandes disponibles
+### Connexion au serveur PostGreSQL
 
-Utilisez votre tunnel SSH pour accéder au serveur PostGres. 
-Dans une autre fenêtre terminal, lancer `psql`,  saisissez à nouveau votre mot de passe.
+
+Utilisez votre tunnel SSH pour accéder au serveur PostGreSQL. 
+
+Dans une autre fenêtre terminal, lancez la commande suivante et saisissez à nouveau votre mot de passe.
 
 ```{.bash}
 $ psql -p 5436 -U id_ent -W -h localhost -d bd_2023-24
 Password for id_ent: 
-
-bd_2023-24=# \?  
 ```
 
-Vous êtes maintenant dans une session sur le serveur PostGres. Vous êtes connecté au catalogue `bd_2023-24`
+Vous êtes maintenant dans une session sur le serveur PostGreSQL. Vous êtes connecté au catalogue `bd_2023-24`.
 
-Vous pouvez utiliser une grande partie des commandes magiques de `psql`
+Vous pouvez utiliser une grande partie des commandes magiques de `psql`.
 
-
-:::
-
-::: {.callout-tip}
 
 ### Choisir un schéma par défaut (ici `world`)
 
@@ -68,9 +54,7 @@ bd_2023-24=# SET search_path TO world ;
 SET
 ```
 
-:::
 
-::: {.callout-tip}
 
 ### Lister les tables du schéma par défaut 
 
@@ -87,9 +71,7 @@ bd_2023-24=# \d
 (3 rows)
 ```
 
-:::
 
-::: {.callout-tip}
 
 ### Schéma d'une table 
 
@@ -113,9 +95,7 @@ Referenced by:
     TABLE "country" CONSTRAINT "country_capital_fkey" FOREIGN KEY (capital) REFERENCES city(id)
 ```
 
-:::
 
-::: {.callout-tip}
 
 ### Informations de connexion
 
@@ -124,12 +104,39 @@ bd_2023-24=# \conninfo
 You are connected to database "bd_2023-24" as user "id_end" on host "localhost"  (address "127.0.0.1") at port "5436".
 ```
 
-:::
-
-
-::: {.callout-tip}
 
 ### Editer, sauvegarder et exécuter des requêtes
+
+Dans le répertoire `Documents`, vous créez un répertoire `bdd`  puis un sous répertoire `tp1`.
+
+Dans un éditeur de texte, vous saisissez votre requête :
+
+```{.sql}
+SELECT *
+FROM world.city ci
+WHERE ci.countrycode='FRA' ;
+```
+
+sauvegardée dans le répertoire `tp1` sous le nom `requete1.sql`. 
+
+Dans la session sur `bd_2023-24`, vous pouvez maintenant inclure et exécuter cette requête. 
+
+```{.bash}
+bd_2023-24> \i ~/Documents/bdd/tp1/requete1.sql
++------+----------------------+-------------+----------------------+------------+
+| id   | name                 | countrycode | district             | population |
+|------+----------------------+-------------+----------------------+------------|
+| 2974 | Paris                | FRA         | Île-de-France        | 2125246    |
+| 2975 | Marseille            | FRA         | Provence-Alpes-Côte  | 798430     |
+| 2976 | Lyon                 | FRA         | Rhône-Alpes          | 445452     |
+| 2977 | Toulouse             | FRA         | Midi-Pyrénées        | 390350     |
+| 2978 | Nice                 | FRA         | Provence-Alpes-Côte  | 342738     |
+...
+```
+
+Vous faîtes défiler l'affichage avec les touches flèches puis vous sortez du `pager` avec la commande `q`.
+
+*Note* : vous pouvez lancer aussi l'édition d'une requête depuis `psql` :
 
 ```{.bash}
 bd_2023-24=# \e 
@@ -137,67 +144,13 @@ bd_2023-24=# \e
 Select an editor.  To change later, run 'select-editor'.
   1. /bin/nano        <---- easiest
   2. /usr/bin/vim.basic
-  3. /usr/bin/nvim
-  4. /usr/bin/vim.tiny
-  5. /usr/bin/emacs
-  6. /usr/bin/code
-  7. /bin/ed
-Choose 1-7 [1]: 6
-```
-Sous mon éditeur préféré (`vs code` ici), j'edite une requête 
-
-```{.sql}
-SELECT ci.name, co.name_country
-FROM 
-  world.city ci JOIN 
-  world.country co ON (
-    ci.countrycode=co.countrycode AND 
-    ci.id = co.capital
-  ) 
-ORDER BY co.name_country;
+  3. /usr/bin/code
+  4. /bin/ed
+Choose 1-4 [1]: 3
 ```
 
-sauvegardée dans un fichier  de chemin d'accès `/tmp/psql.edit.23866.sql` (construit automatiquement)
 
-Dans ma session sur `bd_2023-24`, je peux maintenant inclure et exécuter cette requête. 
-
-```{.bash}
-bd_2023-24=# \i /tmp/psql.edit.23866.sql
-               name                |             name_country              
------------------------------------+---------------------------------------
- Kabul                             | Afghanistan
- Tirana                            | Albania
- Alger                             | Algeria
- Fagatogo                          | American Samoa
- Andorra la Vella                  | Andorra
- Luanda                            | Angola
-:
-...
-```
-Entrez `q` pour sortir du `pager`
-
-:::
-
-::: {.callout-tip}
-
-### Un fichier par TP ?
-
-Il est commode d'archiver le travail d'une séance de TP dans un fichier `*.sql`.
-On peut créer les fichiers avant la session ou en cours de session (ici dans un dialecte d'Unix)
-
-```{.bash}
-bd_2023-24=# \! touch tp-x.sql
-bd_2023-24=# -- editer tp-x.sql
-bd_2023-24=# \e tp-x.sql 
-bd_2023-24=# -- charger/exécuter tp-x.sql
-bd_2023-24=# \i tp-x.sql
-```
-
-:::
-
-
-
-# Renseignements utiles
+# Documentation
 
 
 [Documentation `psql`](https://www.postgresql.org/docs/current/app-psql.html))
