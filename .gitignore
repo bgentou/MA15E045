@@ -36,3 +36,4 @@ site_libs/
 **/*.quarto_ipynb
 
 /_freeze
+*.json
