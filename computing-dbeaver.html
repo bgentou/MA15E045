@@ -629,7 +629,7 @@ Tip
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Requête de projection</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name_country, continent</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> world.country </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ici, comme nous n’avons pas défini un schéma par défaut, il est nécessaire de le préciser avec le nom de la table : <code>world.country</code>.</p>
+<p>Ici, comme nous n’avons pas inclus <code>world</code>dans le chemin par défaut, il est nécessaire de le préciser avec le nom de la table : <code>world.country</code>.</p>
 <p>Vous pouvez alors exécuter votre requète en cliquant sur le triangle orange ou avec un clic droit sur le code de la requête.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -643,12 +643,12 @@ Tip
 <div class="callout-body-container callout-body">
 <p>Pour alléger l’écriture des requêtes, il est préférable de commencer par écrire une requète qui définit le schéma par défaut :</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- Requête de définition du schéma par défaut</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> search_path <span class="kw">TO</span> world;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> search_path <span class="kw">TO</span> world, <span class="kw">public</span>;</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">-- Requête de projection </span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name_country, continent</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>L’inconvénient est alors que des tips infondés d’erreurs de nom de table apparaissent car l’éditeur ne peut pas savoir si vous avez exécuté la requète <code>SET search_path</code>. Pour supprimer les tips d’erreur de nom de table de l’éditeur SQL, il faut aller dans <code>Fenêtres</code>-&gt;<code>Préférences</code> et décocher l’option <code>Editors</code>-&gt;<code>Editeur SQL</code>-&gt; <code>Code editor</code>-&gt;<code>Read database table/columns for smeantic analysis</code>.</p>
+<p>Petit inconvénient : des tips infondés d’erreurs de nom de table apparaissent car l’éditeur ne peut pas savoir si vous avez exécuté la requète <code>SET search_path</code>. Pour supprimer les tips d’erreur de nom de table de l’éditeur SQL, il faut aller dans <code>Fenêtres</code>-&gt;<code>Préférences</code> et décocher l’option <code>Editors</code>-&gt;<code>Editeur SQL</code>-&gt; <code>Code editor</code>-&gt;<code>Read database table/columns for smeantic analysis</code>.</p>
 </div>
 </div>
 </section>
