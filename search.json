@@ -2316,35 +2316,35 @@
     "href": "slides/SQL_1.html#première-jointure-sur-schéma-world",
     "title": "BD II: SQL I",
     "section": "Première jointure sur schéma world\n",
-    "text": "Première jointure sur schéma world\n\nQuels sont les pays qui portent le même nom que leur capitale ?\n\nSELECT name_country\n\nFROM country, city    \n\nWHERE capital=id AND name_country=name_city;\n\n\nqui correspond à\n\\(\\pi_{\\text{name\\_country}}(\\sigma_{\\text{capital}=\\text{id} \\wedge \\text{name\\_country}=\\text{name\\_city}}(\\text{country}\\times \\text{city}))\\)\nautrement dit à\n\\(\\pi_{\\text{name\\_country}}(\\text{country} \\bowtie_{\\text{capital}=\\text{id} \\wedge  \\text{name\\_country}=\\text{name\\_city}} \\text{city}))\\)"
+    "text": "Première jointure sur schéma world\n\nQuels sont les pays qui portent le même nom que leur capitale ?\n\nSELECT name_country\nFROM country co, city ci   \nWHERE co.capital=ci.id AND co.name_country=ci.name;\n\n\nqui correspond à\n\\(\\pi_{\\text{name\\_country}}(\\sigma_{\\text{capital}=\\text{id} \\wedge \\text{name\\_country}=\\text{name}}(\\text{country}\\times \\text{city}))\\)\nautrement dit à\n\\(\\pi_{\\text{name\\_country}}(\\text{country} \\bowtie_{\\text{capital}=\\text{id} \\wedge  \\text{name\\_country}=\\text{name}} \\text{city}))\\)"
   },
   {
     "objectID": "slides/SQL_1.html#syntaxe-normalisée-pour-les-jointures-join-et-on",
     "href": "slides/SQL_1.html#syntaxe-normalisée-pour-les-jointures-join-et-on",
     "title": "BD II: SQL I",
     "section": "Syntaxe normalisée pour les jointures : JOIN et ON\n",
-    "text": "Syntaxe normalisée pour les jointures : JOIN et ON\n\nQuels sont les pays qui portent le même nom que leur capitale ?\n\nSELECT name_country\n\nFROM country JOIN city   \n\nON capital=id    \n\nWHERE name_country=name_city;\nqui correspond à\n\\(\\pi_{\\text{name\\_country}}(\\sigma_{\\text{capital}=id \\wedge  \\text{name\\_country}=\\text{name\\_city}}(\\text{country} \\times \\text{city}))\\)"
+    "text": "Syntaxe normalisée pour les jointures : JOIN et ON\n\nQuels sont les pays qui portent le même nom que leur capitale ?\n\nSELECT name_country\nFROM country co join city ci \nON co.capital=ci.id  \nWHERE co.name_country = ci.name;\nqui correspond à\n\\(\\pi_{\\text{name\\_country}}(\\sigma_{\\text{capital}=id \\wedge  \\text{name\\_country}=\\text{name}}(\\text{country} \\times \\text{city}))\\)"
   },
   {
     "objectID": "slides/SQL_1.html#renommage",
     "href": "slides/SQL_1.html#renommage",
     "title": "BD II: SQL I",
     "section": "Renommage",
-    "text": "Renommage\nSi on veut faire une jointure d’une table avec elle-même, on utilise AS pour obtenir deux tables de noms différents\n\nQuels sont les noms de ville qui apparaissent dans deux pays différents?\n\n\nSELECT DISTINCT c1.name_city, c1.countrycode, c2.countrycode\n\nFROM city AS c1 JOIN city AS c2   \n\n  ON c1.countrycode != c2.countrycode AND c1.name_city=c2.name_city  \n\nORDER BY c1.name_city;\n\n\n\n\n\n\nNote\n\n\nLe mot AS est optionnel."
+    "text": "Renommage\nSi on veut faire une jointure d’une table avec elle-même, on utilise AS pour obtenir deux tables de noms différents\n\nQuels sont les noms de ville qui apparaissent dans deux pays différents?\n\n\nSELECT DISTINCT c1.name, c1.countrycode, c2.countrycode\nFROM city AS c1 JOIN city AS c2   \nON c1.countrycode != c2.countrycode AND c1.name=c2.name  \nORDER BY c1.name;\n\n\n\n\n\n\nNote\n\n\nLe mot AS est optionnel."
   },
   {
     "objectID": "slides/SQL_1.html#jointure-naturelle",
     "href": "slides/SQL_1.html#jointure-naturelle",
     "title": "BD II: SQL I",
     "section": "Jointure naturelle",
-    "text": "Jointure naturelle\nQuels sont les noms des pays où le français est parlé ?\n\nSELECT country.name_country\n\nFROM country, countrylanguage\n\nWHERE country.countrycode=countrylanguage.countrycode\n      AND language='French';\nC’est une jointure naturelle.\n\n\nSyntaxe normalisée : NATURAL JOIN\nSELECT name_country\n\nFROM country NATURAL JOIN countrylanguage    \n\nWHERE language='French';"
+    "text": "Jointure naturelle\nQuels sont les noms des pays où le français est parlé ?\n\nSELECT co.name_country, cl.language\nFROM country co, countrylanguage cl\nWHERE co.countrycode=cl.countrycode AND cl.language='French';\nC’est une jointure naturelle.\n\n\nSyntaxe normalisée : NATURAL JOIN\nSELECT co.name_country, cl.language\nFROM country co NATURAL JOIN countrylanguage cl\nWHERE cl.language='French';"
   },
   {
     "objectID": "slides/SQL_1.html#jointure-naturelle-suite",
     "href": "slides/SQL_1.html#jointure-naturelle-suite",
     "title": "BD II: SQL I",
     "section": "Jointure naturelle (suite)",
-    "text": "Jointure naturelle (suite)\nQuels sont les pays dont une ville a le même nom qu’une langue parlée dans ce pays?\nSELECT DISTINCT co.name_country, ci.name_city, language\n\nFROM country co NATURAL JOIN  \n     city ci NATURAL JOIN     \n     countrylanguage cl     \n\nWHERE cl.language = ci.name_city;\n\n\n\n\n\n\nAvertissement\n\n\n\nla syntaxe nom_table.nom_attribut améliore la lisibilité d’une requète multi-table.\nOn peut utiliser des alias très systématiquement pour alléger les notations."
+    "text": "Jointure naturelle (suite)\nQuels sont les pays dont une ville a le même nom qu’une langue parlée dans ce pays?\nSELECT DISTINCT co.name_country, ci.name, language\nFROM country co NATURAL JOIN  \n     city ci NATURAL JOIN     \n     countrylanguage cl     \nWHERE cl.language = ci.name;\n\n\n\n\n\n\nAvertissement\n\n\n\nla syntaxe nom_table.nom_attribut améliore la lisibilité d’une requète multi-table.\nOn peut utiliser des alias très systématiquement pour alléger les notations."
   },
   {
     "objectID": "slides/SQL_1.html#schéma-world-pour-mémoire",
@@ -2365,7 +2365,7 @@
     "href": "slides/SQL_1.html#exemple-de-jointure-externe",
     "title": "BD II: SQL I",
     "section": "Exemple de jointure externe",
-    "text": "Exemple de jointure externe\n\nCertains pays n’ont pas de capitale.\n\n\nSELECT name_country\n\nFROM country\n\nWHERE capital IS NULL;\nLe résultat contient 8 lignes.\n\n\n\nQuels sont les pays qui n’ont pas de capitale ou portent le même nom que leur capitale ?\n\n\n\nSELECT name_country, name_city\n\nFROM country LEFT OUTER JOIN city   \n     ON capital=id                  \n\nWHERE name_city IS NULL OR name_country=name_city ;"
+    "text": "Exemple de jointure externe\n\nCertains pays n’ont pas de capitale.\n\n\nSELECT name_country\nFROM country\nWHERE capital IS NULL;\nLe résultat contient 8 lignes.\n\n\n\nQuels sont les pays qui n’ont pas de capitale ou portent le même nom que leur capitale ?\n\n\n\nSELECT co.name_country, ci.name\nFROM country co LEFT OUTER JOIN city ci   \n     ON co.capital=ci.id                  \nWHERE ci.name IS NULL OR co.name_country=ci.name ;"
   },
   {
     "objectID": "slides/Modelisation_2.html#entre-modèle-ea-et-modèle-relationnel",
