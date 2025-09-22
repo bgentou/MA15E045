@@ -141,7 +141,7 @@ SELECT name_country, continent
 FROM world.country 
 ```
 
-Ici, comme nous n'avons pas défini un schéma par défaut, il est nécessaire de le préciser avec le nom de la table : `world.country`.
+Ici, comme nous n'avons pas inclus `world`dans le chemin par défaut, il est nécessaire de le préciser avec le nom de la table : `world.country`.
 
 Vous pouvez alors exécuter votre requète en cliquant sur le triangle orange ou avec un clic droit sur le code de la requête.
 
@@ -151,13 +151,13 @@ Pour alléger l'écriture des requêtes, il est préférable de commencer par é
 
 ```{.sql}
 -- Requête de définition du schéma par défaut
-SET search_path TO world;
+SET search_path TO world, public;
 
 -- Requête de projection 
 SELECT name_country, continent
 FROM country 
 ```
-L'inconvénient est alors que des tips infondés d'erreurs de nom de table apparaissent car l'éditeur ne peut pas savoir si vous avez exécuté la requète `SET search_path`. Pour supprimer les tips d'erreur de nom de table de l'éditeur SQL, il faut aller dans `Fenêtres`->`Préférences` et décocher l'option `Editors`->`Editeur SQL`-> `Code editor`->`Read database table/columns for smeantic analysis`.
+Petit inconvénient : des tips infondés d'erreurs de nom de table apparaissent car l'éditeur ne peut pas savoir si vous avez exécuté la requète `SET search_path`. Pour supprimer les tips d'erreur de nom de table de l'éditeur SQL, il faut aller dans `Fenêtres`->`Préférences` et décocher l'option `Editors`->`Editeur SQL`-> `Code editor`->`Read database table/columns for smeantic analysis`.
 :::
 
 # Documentation

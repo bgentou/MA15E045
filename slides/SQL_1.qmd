@@ -19,7 +19,7 @@ engine: knitr
 ##  SQL : Structured Query Language
 
 
-SQL est langage permettant :
+Le SQL est un langage permettant :
 
 - _interrogation_ des données (requêtes)
 
@@ -41,22 +41,22 @@ SQL est langage permettant :
 - SQL-2003, SQL-2008, SQL-2011, SQL-2016,
 - ...
 
-Nous utiliserons le dialecte [`PostgreSQL`](https://www.postgresql.org)
+Nous utiliserons le dialecte `PostgreSQL` (https://www.postgresql.org)
 
 
-La norme est révisée environ tous les 5 ans.
-
-[ISO/IEC 9075 from www.iso.org](https://www.iso.org/standard/63555.html)
+La norme est révisée environ tous les 5 ans, acutellement ISO/IEC 9075-1:2023 de l'ISO (https://www.iso.org/)
 
 
 
-## SQL
+## Un langage de requête
 
-:::::: {.columns}
+* Avec SQL, on envoit au serveur des requêtes composées d'instructions,
 
-::: {.column}
+* Les opérations de l'Algèbre relationnel ne sont pas directement disponibles.
 
-Une instruction SQL permet de _combiner_ :
+. . .
+
+La principale instruction  est `SELECT`. Elle permet de _combiner_ :
 
 - restriction/filtrage (sélection) $\sigma$
 
@@ -64,16 +64,13 @@ Une instruction SQL permet de _combiner_ :
 
 - renommage $\rho$
 
--  ...
+- et bien d'autres choses.
+
+D'autres instructions pour définir et manipuler les données, administrer une BDD.
 
 
-:::
 
-. . .
-
-::: {.column}
-
-L'instruction
+## Format de l'instruction `SELECT`
 
 
 ```{.sql}
@@ -83,24 +80,21 @@ FROM <table>
 
 WHERE <condition> ;
 ```
-
+\vspace{4cm}
 
 traduit l'expression
 
-$\Pi_{\text{<liste attribut>}}(\sigma_{\text{<condition>}}(\text{<table>}))$
+$\Pi\left(\sigma \left(\text{<table>}, \text{<condition>}\right), \text{<liste attribut>}\right)$
 
-Ou `σ(R, Condition) |> Π(<liste attribut>)`
-
-:::
-
-::::::
+<!--Ou `σ(R, Condition) |> Π(<liste attribut>)`-->
 
 
 
----
+
+## Autres langages, autres choix 
 
 On peut faire autrement : dans les extensions du langage `R`, notamment celles qui relèvent de `tidyverse`, on associe des fonctions à chaque opérateur de l'algèbre
-relationnelle. Pour opérateurs qui portent sur une seule table, le premier argument
+relationnelle. Pour les opérateurs qui portent sur une seule table, le premier argument
 de chaque fonction est toujours la table sur laquelle on opère. Les autres arguments
 sont soit les attributs de projection, soit la spécification d'une condition de sélection, soit ...
 
@@ -118,10 +112,6 @@ L'usage d'un opérateur `pipe` (comme dans Unix) permet de composer de facon lis
 ## Syntaxe - requêtes simples
 
 
-:::::: {.columns}
-
-::: {.column}
-
 ```{.sql}
 SELECT [DISTINCT] * | <liste attribut>
 
@@ -130,98 +120,63 @@ FROM <liste de tables>
 [WHERE <condition>] ;
 ```
 
-:::
-
-::: {.column}
-
-- `*` : sélection de tous les attributs (le schéma reste inchangé)
+- `*` : sélection de tous les attributs (pas de projection)
 
 - `[...]` : clause, expression facultative.
 
 - `DISTINCT` : supprime les doublons.
 
+
+
+## Exemples de requête
+
+::::: {.columns}
+
+::: {.column}
+
+Schémas des tables :
+
 :::
-
-:::::
-
-
-
-```{.sql}
---| connection:  con
---| eval: false
-SET search_path TO world ;
-```
-
-## Requêtes simples sur exemple jouet
-
-
-:::::: {.columns}
 
 ::: {.column}
 
 ```{.sql}
 Employe(Nu, NomE, Annee, Tel, Nudept)
-
 Fournisseur (NomF, Ville, Adresse)
-
 Piece(NomP, Prix, Couleur)
 ```
-
 :::
 
+:::::
 
-::: {.column}
-
-
-
-```{.sql}
---| connection:  con
---| eval: false
---| echo: true
-
-SELECT co.name_country, co.region
-FROM country co
-WHERE co.continent='Europe' 
-LIMIT 5 ;
-```
-
-. . .
-
-Equivalent à :
-
-$$\Pi (\text{country}, \text{NomF, region})$$
-
-:::
-
-::::::
-
-
-
----
-
-
+La requête
 ```{.sql}
 SELECT *
 
 FROM Fournisseur ;
 ```
 
-Equivalent à : `Fournisseur`
+. . .
 
+est équivalente à :  $\quad Fournisseur$
 
+. . .
+
+La requête
 ```{.sql}
-SELECT *
+SELECT NomF
 
 FROM Fournisseur
 
 WHERE Ville='Paris' ;
 ```
+. . .
 
-Equivalent à : $\sigma(\texttt{Fournisseur}, \texttt{Ville}=\texttt{'Paris'})$
+est équivalente à : $\quad \pi((\sigma(\texttt{Fournisseur}, \texttt{Ville}=\texttt{'Paris'})), \texttt{NomF})$
+
 
 
 # Requêtes mono-relation {background-color="#1c191c"}
-
 
 
 ## Structure de base
@@ -237,7 +192,7 @@ clés suivants :
 
 
 
-## Syntaxe de la condition de filtrage (`WHERE ...`)
+## Syntaxe de la condition de sélection (`WHERE ...`)
 
 
 Une condition se construit à l'aide des opérations suivantes :
@@ -252,9 +207,14 @@ FROM Employe
 WHERE NomE <>'Durand'  ;  
 ```
 
+::: {.callout-caution}
+
+Utiliser `*` en production n'est pas une bonne idée car une modification du schéma de la table `Employe` modifiera le schéma du résultat.
+
+:::
 
 
-## Syntaxe de la condition de filtrage (`WHERE ...`) - suite
+## Syntaxe de la condition de sélection (`WHERE ...`) - suite
 
 *Combinaison* de conditions à l'aide des opérateurs logiques:  `AND`, `OR`, `NOT`
 
@@ -269,15 +229,46 @@ WHERE (Ville='Londres') OR (Ville='Paris');
 
 {{< fa triangle-exclamation >}} Attention aux priorités dans l'évaluation des expressions logiques
 
+. . . 
 
-{{< fa skull >}} Attention aux valeurs manquantes
+::: {.callout-warning}
+
+`AND` est prioritaire sur `OR`. Il est utile de parenthéser !
+
+:::
+
+. . .
+
+{{< fa skull >}} Attention aux valeurs `NULL` c.a.d. manquantes/indéterminées. 
  
----
 
 
-## Syntaxe de la condition `WHERE ...` (suite)
+## Logique trivalente
 
-Test `BETWEEN` permet de vérifier si la valeur d'un attribut est comprise entre deux constantes
+`WHERE C` ne sélectionne que les tuples vérifiant `C` = `TRUE`.
+
+Une comparaison sur un attribut `NULL` renvoie `UNKNOWN`, à l'exception de `IS [NOT] NULL`.
+
+. . .
+
+Les opérateurs logiques sont *trivalents* : `TRUE`, `FALSE`, `UNKNOWN`
+
+On compléte les règles habituelles :
+  
+- `NOT NULL` = `NOT UNKNOWN` = `UNKNOWN`  car résultat incertain
+  
+- `TRUE AND UNKNOWN` = `UNKNOWN`  car résultat incertain
+  
+- `FALSE AND UNKNOWN` = `FALSE`   car résultat certain
+  
+- `TRUE OR UNKNOWN` = `TRUE`  car résultat certain
+  
+- `FALSE OR UNKNOWN` = `UNKNOWN`  car résultat incertain
+
+
+## Test `BETWEEN`
+
+Permet de vérifier si la valeur d'un attribut est comprise entre deux constantes
 
 
 ```{.sql}
@@ -285,17 +276,19 @@ SELECT NomE
 
 FROM Employe
 
-WHERE Annee BETWEEN '22/06/03' AND '25/09/03';   
+WHERE Annee BETWEEN 2022 AND 2025;   
 ```
 
+::: {.callout-caution}
 
-{{< fa triangle-exclamation >}} Éviter de manipuler les dates et heures comme des chaînes de caractères
+Éviter de manipuler les dates et heures comme des chaînes de caractères
+
+:::
 
 
+## Test `IS NULL`
 
-## Syntaxe de la condition `WHERE ...` (suite)
-
-- Test `IS NULL` vérifie si une valeur est égale à `NULL` (c-à-d est inconnue)
+Vérifie si une valeur est égale à `NULL` (c-à-d est inconnue).
 
 ```{.sql}
 SELECT *
@@ -305,14 +298,17 @@ FROM Employe
 WHERE Tel IS NULL;    
 ```
 
-{{< fa skull >}} Attention aux valeurs manquantes
+::: {.callout-caution}
+
+{{< fa skull >}} Attention à la gestion des valeurs manquantes.
+
+:::
 
 
+## Test `IN`
 
-## Syntaxe de la condition `WHERE ...` (suite)
 
-
-Test d'*appartenance* `IN` qui permet de vérifier si la valeur d'un attribut appartient à une liste de constantes,
+test *appartenance* : permet de vérifier si la valeur d'un attribut appartient à une liste de constantes.
 
 ```{.sql}
 SELECT *
@@ -323,12 +319,12 @@ WHERE Ville IN ('Paris', 'Londres');
 ```
 
 
-## Syntaxe de la condition `WHERE ...` (suite)
+## Test `LIKE`
 
-Test `LIKE` permettant de vérifier si un attribut de type chaîne de
-caractères contient une ou plusieurs sous-chaînes
+Permet de vérifier si un attribut de type chaîne de
+caractères contient une ou plusieurs sous-chaînes.
 
-$\_$ : remplace n'importe quel caractère
+$\_$ : remplace n'importe quel caractère,
 
 $\%$ : remplace n'importe quelle chaîne de caractères.
 
@@ -343,10 +339,17 @@ WHERE Ville LIKE 'Saint%';
 
 Cette requête sélectionne les noms de ville commençant par 'Saint'.
 
+::: {.callout-warning}
+
+- `LIKE` est sensible à la casse,
+
+- `ILIKE` est insensible à la casse.
+
+:::
+
 
 
 # Requêtes multi-relations  {background-color="#1c191c"}
-
 
 
 
@@ -354,15 +357,15 @@ Cette requête sélectionne les noms de ville commençant par 'Saint'.
 
 Quand l'information est dispersée sur plusieurs tables, on utilise des *jointures*
 
+. . .
 
 
+ On peut :
 
-## On peut :
 
+- Utiliser plusieurs tables dans la clause `FROM`,
 
-- utiliser plusieurs tables dans la clause `FROM`
-
-- faire intervenir des conditions complexes impliquant ces tables dans la clause `WHERE`
+- Faire intervenir des conditions complexes impliquant ces tables dans la clause `WHERE`.
 
 
 
@@ -371,7 +374,7 @@ Quand l'information est dispersée sur plusieurs tables, on utilise des *jointur
 
 ## Détails du schema `World`
 
-Images et tables créées grâce à [DbSchema](https://dbschema.com)
+Images et tables créées grâce à DbSchema (https://dbschema.com)
 
 
 
@@ -395,7 +398,11 @@ Images et tables créées grâce à [DbSchema](https://dbschema.com)
 
 
 
-## Table world.country 
+## Table world.country {.smaller}
+
+::: {.columns}
+
+::: {.column}
 
 | | | |
 |---|---|---|
@@ -416,18 +423,26 @@ Images et tables créées grâce à [DbSchema](https://dbschema.com)
 | * | code2| char(2)  |
 
 
+:::
+
+::: {.column}
+
 ### Foreign Keys
 
 | | | |
 |---|---|---|
 |  | country_capital_fkey | ( capital ) ref [world.city](#city) (id) |
 
-
 ### Constraints
 
 | | |
 |---|---|
 | country_continent_check | ((continent = 'Asia'::text) OR (continent = 'Europe'::text) OR (continent = 'North America'::text) OR (continent = 'Africa'::text) OR (continent = 'Oceania'::text) OR (continent = 'Antarctica'::text) OR (continent = 'South America'::text)) |
+
+:::
+
+::: 
+
 
 
 
@@ -459,21 +474,19 @@ Quels sont les pays qui portent le même nom que leur capitale ?
 
 ```{.sql}
 SELECT name_country
-
-FROM country, city    
-
-WHERE capital=id AND name_country=name_city;
+FROM country co, city ci   
+WHERE co.capital=ci.id AND co.name_country=ci.name;
 ```
 
 . . .
 
 qui correspond à
 
-$$\pi_{\text{name\_country}}(\sigma_{\text{capital}=\text{id} \wedge \text{name\_country}=\text{name\_city}}(\text{country}\times \text{city}))$$
+$\pi_{\text{name\_country}}(\sigma_{\text{capital}=\text{id} \wedge \text{name\_country}=\text{name}}(\text{country}\times \text{city}))$
 
 autrement dit à
 
-$$\pi_{\text{name\_country}}(\text{country} \bowtie_{\text{capital}=\text{id} \wedge  \text{name\_country}=\text{name\_city}} \text{city}))$$
+$\pi_{\text{name\_country}}(\text{country} \bowtie_{\text{capital}=\text{id} \wedge  \text{name\_country}=\text{name}} \text{city}))$
 
 
 
@@ -485,22 +498,18 @@ Quels sont les pays qui portent le même nom que leur capitale ?
 
 ```{.sql}
 SELECT name_country
-
-FROM country JOIN city   
-
-ON capital=id    
-
-WHERE name_country=name_city;
+FROM country co join city ci 
+ON co.capital=ci.id  
+WHERE co.name_country = ci.name;
 ```
 
 qui correspond à
 
-$$\pi_{\text{name\_country}}(\sigma_{\text{capital}=id \wedge  \text{name\_country}=\text{name\_city}}(\text{country} \times \text{city}))$$
+$\pi_{\text{name\_country}}(\sigma_{\text{capital}=id \wedge  \text{name\_country}=\text{name}}(\text{country} \times \text{city}))$
 
 
 
 ## Renommage
-
 
 Si on veut faire une jointure d'une table avec elle-même, on utilise *AS*
 pour obtenir deux tables de noms différents
@@ -510,17 +519,17 @@ pour obtenir deux tables de noms différents
 . . .
 
 ```{.sql}
-SELECT DISTINCT c1.name_city, c1.countrycode, c2.countrycode
-
+SELECT DISTINCT c1.name, c1.countrycode, c2.countrycode
 FROM city AS c1 JOIN city AS c2   
-
-  ON c1.countrycode!=c2.countrycode AND c1.name_city=c2.name_city  
-
-ORDER BY c1.name_city;
+ON c1.countrycode != c2.countrycode AND c1.name=c2.name  
+ORDER BY c1.name;
 ```
 
+::: {.callout-note}
 
+Le mot `AS` est optionnel.
 
+:::
 
 ## Jointure naturelle
 
@@ -529,42 +538,46 @@ Quels sont les noms des pays où le français est parlé ?
 . . .
 
 ```{.sql}
-SELECT name_country
-
-FROM country, countrylanguage
-
-WHERE country.countrycode=countrylanguage.countrycode
-      AND language='French';
+SELECT co.name_country, cl.language
+FROM country co, countrylanguage cl
+WHERE co.countrycode=cl.countrycode AND cl.language='French';
 ```
+C'est une jointure naturelle.
 
-Syntaxe normalisée pour la jointure naturelle : *NATURAL JOIN*
+. . .
+
+Syntaxe normalisée : *NATURAL JOIN*
 
 ```{.sql}
-SELECT name_country
-
-FROM country NATURAL JOIN countrylanguage    
-
-WHERE language='French';
+SELECT co.name_country, cl.language
+FROM country co NATURAL JOIN countrylanguage cl
+WHERE cl.language='French';
 ```
 
 
 
 ## Jointure naturelle (suite)
 
-Quels sont les pays dont une ville a le même nom qu'une langue parlée dans ce pays ?
+Quels sont les pays dont une ville a le même nom qu'une langue parlée dans ce pays?
 
 ```{.sql}
-SELECT DISTINCT name_country, name_city, language
-
-FROM country NATURAL JOIN  
-     city natural JOIN     
-     countrylanguage       
-
-WHERE language=name_city;
+SELECT DISTINCT co.name_country, ci.name, language
+FROM country co NATURAL JOIN  
+     city ci NATURAL JOIN     
+     countrylanguage cl     
+WHERE cl.language = ci.name;
 ```
 
+::: {.callout-warning}
 
----  
+* la syntaxe `nom_table.nom_attribut` améliore la lisibilité d'une requète multi-table.
+
+* On peut utiliser des alias très systématiquement pour alléger les notations.
+
+:::
+
+ 
+## Schéma world pour mémoire
 
 ![](/images/world.png)
 
@@ -576,43 +589,42 @@ WHERE language=name_city;
 
 
 
-- *LEFT OUTER JOIN* (resp. *RIGHT OUTER JOIN*) : on garde les tuples de la table de gauche (resp. droite) qui n'ont pas de complément dans l'autre table, la condition étant spécifiée dans la clause *ON*
+- *LEFT OUTER JOIN* : jointure externe gauche. On garde les tuples de la table de gauche qui n'ont pas de correspondant dans l'autre table.
+  
+- *RIGHT OUTER JOIN*  : jointure externe droite. Idem à droite.
 
-- *FULL OUTER JOIN* : on garde les tuples de chacune des tables qui n'ont pas de complément.
+- *FULL OUTER JOIN* : on garde les tuples de chacune des tables qui n'ont pas de correspondant.
 
-- On complète les valeurs non renseignées par *NULL*
+- On complète les valeurs non renseignées par *NULL*.
 
 
 
 ## Exemple de jointure externe
 
 
-
-- Certains pays n'ont pas de capitale : la requête
+- Certains pays n'ont pas de capitale.
   
-  . . .
+. . .
 
 ```{.sql}
 SELECT name_country
-
 FROM country
-
 WHERE capital IS NULL;
 ```
 
-renvoie 8 lignes.
+Le résultat contient 8 lignes.
 
-
+. . .
 
 - Quels sont les pays qui n'ont pas de capitale ou portent le même nom que leur capitale ?
 
+. . .
+
 ```{.sql}
-SELECT name_country, name_city
-
-FROM country LEFT OUTER JOIN city   
-     ON capital=id                  
-
-WHERE name_city IS NULL OR name_country=name_city ;   
+SELECT co.name_country, ci.name
+FROM country co LEFT OUTER JOIN city ci   
+     ON co.capital=ci.id                  
+WHERE ci.name IS NULL OR co.name_country=ci.name ;  
 ```
 
 

@@ -2,7 +2,7 @@
 title: "TD 6 : Contraintes"
 subtitle: "Définition de données Contraintes"
 categories: [Contraintes, Définition de Données, Référemces, Clés, world]
-date: "2025-10-24"
+date: "2025-11-07"
 
 
 format:

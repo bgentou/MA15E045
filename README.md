@@ -1,6 +1,62 @@
 # MA15E045
 
-Site Ouèbe du cours *Bases de données* L3 Miashs Université Paris Cité UFR de Mathématiques
+Site du cours *Bases de données* L3 Miashs Université Paris Cité UFR de Mathématiques
+
+Quarto
+******
+listes à puces 
+
+* A
+  * B
+    * C
+
+*gras*, **italique**
+
+[link](https://example.com){target="_blank"}  lien ouvert dans une nouvelle page
+
+Colonnes : bien laisser des lignes blanches avant et après les balises
+
+::::: {.columns}
+
+::: {.column width="65%"}
+
+:::
+
+:::::
+
+Partie centrée :
+
+::: {.center}
+
+:::
+
+Insérer une image : ![legende](chat.jpg)
+
+Lien interne : {#eq-hypothenuse} puis @eq-hypothenuse pour y référer
+
+Pour construire les slides 
+
+Tableaux
+
+| fruit  | price  |
+|--------|--------|
+| apple  | 2.05   |
+
+devient
+fruit 	price
+apple 	2.05
+
+Et avec les “:”, contrôler l’alignement dans les cellules :
+
+| gauche  | centré  | droite |
+|:--------|:-------:|-------:|
+| 1.99    | 1.99    | 1.99   |
+
+
+
+
+Commande Git
+************
 
 ```{.bash}
 $ git clone https://github.com/bgentou/MA15E045.git  chemin

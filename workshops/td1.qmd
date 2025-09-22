@@ -2,7 +2,7 @@
 title: "TD 1: Algèbre relationnelle"
 categories: [Algèbre relationnelle, world, psql, pgcli, SQL]
 subtitle: "Logistique et Algèbre relationnelle"
-date: "2025-09-19"
+date: "2025-09-26"
 
 format:
   pdf:
@@ -18,83 +18,70 @@ engine: knitr
 {{< include _preamble.qmd >}}
 
 
-# Récapitulatif
+# Introduction
+
+## Paramétrage du client
+
+En suivant le [guide dBeaver](/computing-dbeaver.html) :
+
+* Paramétrez la connexion au serveur dans le client dBeaver.
+
+* Utilisez l'onglet `Projet`.
+
+* Créez un sous-répertoire `tp1` dans le répertoire par défaut du projet.
+
+* Ouvrez un nouveau script dans votre projet et renommez-le en `ex1.sql`.
 
 
 ## Schémas
 
-Les schémas sont une abstraction spécifique à PostgreSQL. Les schémas permettent de faire cohabiter sur une même base de données (ou catalogue dans le jargon PostgreSQL) plusieurs ensembles d'informations de nature différentes. On peut indiquer à `pgcli`, `psql` ou un autre client (`dbeaver` ou autre) quels schémas on veut utiliser *par défaut*. 
+Les schémas sont une abstraction spécifique à PostgreSQL. Les schémas permettent de faire cohabiter dans une même base de données (un "catalogue" dans le jargon PostgreSQL) plusieurs ensembles d'informations de natures différentes.  
 
 Dans ce TP, nous allons nous concentrer sur le schéma `world` qui contient des informations concernant des villes et des pays/territoires du monde entier. Au cours de ce semestre, nous serons amenés à utiliser d'autres schémas : `pagila` qui contient des informations concernant des films, ...
 
-Pour lister et modifier  les schémas de votre environnement de travail:
+Dans dBeaver, vous pouvez lister les schémas du catalogue `bd_2023-24`, en développant la connexion  `bd_2023-24`.
+
+Puis en développant le schéma `world`, vous pouvez lister les tables qu'il contient.
+
+Vous pouvez consulter la [page de présentation du schéma `world`](/schemas/schema-world.html).
+
+
+## Résolution des noms de tables et d'attributs
+
+Pour résoudre les noms de tables et d'attributs, le serveur SQL utilise la syntaxe `nom_schéma.nom_table[.nom_attribut]` (rappel : les crochets signifie optionnel).
+
+Par exemple, `world.city` désigne la table `city` du schéma `world`.
+
+Pour alléger cette écriture, vous pouvez utiliser le *chemin par défaut*. 
+
+Afficher le chemin par défaut avec la requête SQL : `SHOW search_path ;`
+
+Vous pouvez modifier ce chemin avec la requête `SET search_path TO nom_schéma1 [, nom_schéma2]`.
+Il peut y avoir plusieurs schémas dans le `search_path`.
+
+L'ordre est important. Avec `SET search_path TO world, public ;` la résolution des noms se fera d'abord dans le schéma `world` *puis en cas d'échec*, dans le schéma `public`.
+
+Après cette instruction `city` désigne la table `city` du schéma `world` si elle existe, sinon cela désigne la table `city` du schéma `public`, sinon le serveur renverra une erreur.
+
+On ajoute systématiquement `public` dans le `search_path`, pour permettre une bonne compatibilité car de nombreuses applications et outils s'attendent à ce que les objets (tables, vues, fonctions) soient accessibles via ce schéma.
+
+
+*Exécutez le script*
 
 ```{.sql}
-bd_2023-24> SHOW search_path ;                  -- lister
-bd_2023-24> SET search_path TO world, public ;  -- modifier
-bd_2023-24> SHOW search_path ;       -- visualiser 
+SHOW search_path ;
+SET search_path TO world, public ;
+SHOW search_path ;
 ```
 
-Lister les schémas du catalogue `bd_2023-24`.
-
-```{.sql}
-\dn
-```
-
-Pour lister les tables des schemas inscrits sur votre `search_path`.
-
-```{.sql}
-bd_2023-24> \d
-+----------+---------------------+--------+----------+
-| Schema   | Name                | Type   | Owner    |
-|----------+---------------------+--------+----------|
-| world    | city                | table  | postgres |
-| world    | country             | table  | postgres |
-| world    | countrylanguage     | table  | postgres |
-+----------+---------------------+--------+----------+
-```
-
-
-[Vue d'ensemble du schéma `world`](/schemas/schema-world.html)
-
-
-## Suggestion
-
-Si vous travaillez avec `pgcli`/`psql`, utilisez en local votre éditeur préféré (emacs, vi, sublime text, visual studio code, ...), transférez votre script sql grâce à `scp`, et chargez le script dans votre session `psql/pgcli` à l'aide de `\\i`.    
 
 ## Tables
   
-Pour voir la définition (c'est-à-dire les différentes colonnes) d'une table:
+Pour voir le schéma d'une table avec le client dBeaver, il suffit de dérouler le schéma `world` puis de double-cliquer sur la table.
 
-```{.sql}
-bd_2023-24> \d world.country
+Vous pouvez aussi visualiser toutes les tables du schéma par un clic droit sur le schéma puis `Voir le diagramme`.
 
-+--------------------+---------------+-------------+
-| Column             | Type          | Modifiers   |
-|--------------------+---------------+-------------|
-| countrycode        | character(3)  |  not null   |
-| name_country       | text          |  not null   |
-| continent          | text          |  not null   |
-| region             | text          |  not null   |
-| surfacearea        | real          |  not null   |
-| indepyear          | smallint      |             |
-| population_country | integer       |  not null   |
-| lifeexpectancy     | real          |             |
-| gnp                | numeric(10,2) |             |
-| gnpold             | numeric(10,2) |             |
-| localname          | text          |  not null   |
-| governmentform     | text          |  not null   |
-| headofstate        | text          |             |
-| capital            | integer       |             |
-| code2              | character(2)  |  not null   |
-+--------------------+---------------+-------------+
-```
-
-## Explorer les possibilités de `psql` ou de `pgcli` 
-
-```
-bd_2023-24> \?
-```
+[](/images/schema-world.png)
 
 Dans la deuxième partie du TP, on s'intéresse aux requêtes, c'est-à-dire, les moyens d'extraire une information pertinente d'une base de données.
 
@@ -102,13 +89,23 @@ Dans la deuxième partie du TP, on s'intéresse aux requêtes, c'est-à-dire, le
 
 Pour extraire des informations d'une base de données, on utilise l'algèbre relationnelle (pour la théorie) et le langage SQL (pour la pratique).
 
-L'*algèbre relationnelle* est un ensemble d'opération sur les tables. Chaque opération prend en argument une ou plusieurs tables et produit une nouvelle table. Nous commençons par introduire deux opérations importantes qui opèrent sur une table à la fois :
+A la fin du TP, vous devez rendre sur Moodle vos fichiers scripts (a priori un par exercice). Chaque fichier contient une liste de requêtes SQL. *Lorsque c'est demandé, il faut écrire en commentaire l'expression correspondante en algèbre relationnelle*.
+
+Pour écrire un commentaire en SQL : `--` en début de ligne.
+
+*NB* : pensez à documenter vos scripts en utilisant les commantaire SQL
+
+<!-- L'*algèbre relationnelle* est un ensemble d'opération sur les tables. Chaque opération prend en argument une ou plusieurs tables et produit une nouvelle table. Nous commençons par introduire deux opérations importantes qui opèrent sur une table à la fois :
 
 - *Projection* : $\pi_{\texttt{liste de colonnes}}{R}$. Cette opération ne garde que les colonnes mentionnées de la table $R$. Par exemple $\pi_{\texttt{name,continent}}{\texttt{world.country}}$ est la table avec deux colonnes `name, continent` et une ligne pour chaque ligne de la table `world.country`.
+
 - *Sélection* : $\sigma_{\texttt{condition}}{R}$. Cette opération ne garde que les lignes qui respectent la condition indiquée. Par exemple $\sigma_{\texttt{lifeexpectancy < 50}}\texttt{world.country}$ renvoie la table contenant les pays ayant une espérance de vie de moins de 50 ans.
 
 
 Ces deux opérations peuvent être écrites en SQL ainsi :
+-->
+
+On rappele que la requête SQL
 
 ```{.sql}
 SELECT colonne1, colonne2, ... 
@@ -116,7 +113,7 @@ FROM table
 WHERE condition;
 ```
 
-Cette opération affiche les colonnes de `table` indiquées après le `SELECT` qui respectent la `condition`. 
+affiche les colonnes de `table` indiquées après le `SELECT` qui respectent la `condition`. 
 
 C'est la transcription de 
 
@@ -136,7 +133,7 @@ affichera le nom et l'espérance de vie des pays d'Asie ayant une espérance de 
 
 # Requêtes monotables
 
-Ecrivez des requêtes en algèbre relationnelle et en SQL (dans `pgcli/psql, ...`) pour extraire les informations suivantes du schéma `world`:
+Ecrire des requêtes en algèbre relationnelle et en SQL pour extraire les informations suivantes du schéma `world`:
 
 - Quelles sont les régions ? (25 lignes)
 
@@ -153,7 +150,7 @@ FROM world.country ;
 :::
 :::
 
-
+## Éxercice 1
 
 - Quelles sont les régions situées en Europe ? (6 lignes)
 
@@ -448,7 +445,9 @@ WHERE c.countrycode = l.countrycode and c.continent = 'Europe';
 
 affichera les langues parlées en Europe. Remarquez l'utilisation des `as` pour donner de nouveaux noms aux tables et l'utilisation de `c.countrycode` pour lever l'ambiguité sur des noms de colonnes qui seraient éventuellement les mêmes.
 
-Avec ça, écrivez des requêtes pour les questions suivantes:
+## Éxercice 2
+
+Ecrire des requêtes pour les questions suivantes:
 
 - Quels sont les noms des capitales Sud-Américaines ? (14 lignes)
 

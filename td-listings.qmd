@@ -18,8 +18,7 @@ listing:
 
 ::: {.callout-note}
 
-Les feuilles d'exercice forment le matériau de base des TDS et TPS. Vous êtes invités à les lire avant la séance et 
-à réfléchir par vous-même. Ne vous précipitez pas sur les propositions de corrections qui sont disponibles [sur ce site](/corriges-tds.html)
+Les feuilles d'exercice forment le matériau de base des TDS et TPS. Vous êtes invités à les lire avant la séance et à réfléchir par vous-même. Les corrections seront disponibles sur Moodle.
 
 :::
 

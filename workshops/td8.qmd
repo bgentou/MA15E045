@@ -2,7 +2,7 @@
 title: "TD 8 : Modélisation"
 subtitle: "Modélisation"
 categories: [Modélisation EA, Pattes de corbeau, Crowfoot notation]
-date: "2025-11-14"
+date: "2025-11-21"
 
 
 format:

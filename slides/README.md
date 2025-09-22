@@ -14,23 +14,7 @@ Commence une nouvelle diapo
 
 . . . etape d'affichage
 
-Colonnes : bien laisser des lignes blanches avant et après les balises
 
-::::: {.columns}
-
-::: {.column width="65%"}
-
-:::
-
-:::::
-
-Partie centrée :
-
-::: {.center}
-
-:::
-
-Pour construire les slides 
 
 ```{.bash}
 $ quarto render slides --profile slides --no-clean
