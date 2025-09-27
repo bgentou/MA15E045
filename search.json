@@ -39,7 +39,7 @@
     "href": "workshops/td5.html#over-partition-by",
     "title": "TD 5: SQL",
     "section": "OVER (PARTITION BY …)",
-    "text": "OVER (PARTITION BY …)\nCette construction peut être combinée avec n’importe quelle fonction d’aggrégation.\nCette requête indique pour chaque ville, la “population moyenne” des villes de ce pays (cette moyenne n’a aucun sens).\nSELECT id, name_city, population_city, \n       avg(population_city) OVER (PARTITION BY countrycode)  AS avg_pop\nFROM world.city;  \nSans le mécanisme de fenêtrage, on pourrait obtenir le résultat au prix d’une jointure\n WITH tmp AS (\n  SELECT c.countrycode, AVG(c.population_city) AS avg_pop\n  FROM world.city c\n  GROUP BY c.countrycode\n ) \n  SELECT cc.id, cc.name_city, cc.population_city, tmp.avg_pop\n  FROM world.city cc NATURAL JOIN tmp;"
+    "text": "OVER (PARTITION BY …)\nCette construction peut être combinée avec n’importe quelle fonction d’aggrégation.\nCette requête indique pour chaque ville, la “population moyenne” des villes de ce pays (cette moyenne n’a aucun sens).\nSELECT id, name, population, \n       avg(population) OVER (PARTITION BY countrycode)  AS avg_pop\nFROM world.city;  \nSans le mécanisme de fenêtrage, on pourrait obtenir le résultat au prix d’une jointure\n WITH tmp AS (\n  SELECT c.countrycode, AVG(c.population) AS avg_pop\n  FROM world.city c\n  GROUP BY c.countrycode\n ) \n  SELECT cc.id, cc.name, cc.population, tmp.avg_pop\n  FROM world.city cc NATURAL JOIN tmp;"
   },
   {
     "objectID": "workshops/td5.html#over-partition-by-order-by",
@@ -74,28 +74,28 @@
     "href": "workshops/td5.html#fonctions-qui-retournent-un-type-simple",
     "title": "TD 5: SQL",
     "section": "Fonctions qui retournent un type simple",
-    "text": "Fonctions qui retournent un type simple\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie la population maximale parmi les capitales de la région (voir td2 requête 1).\nCREATE OR REPLACE FUNCTION username.taille_max_capitale_region(p_region text)\nRETURNS INTEGER LANGUAGE SQL AS\n$$\nSELECT MAX(population_city) AS max_pop\nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region AND cc.population_city IS NOT NULL;\n$$ ;"
+    "text": "Fonctions qui retournent un type simple\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie la population maximale parmi les capitales de la région (voir td2 requête 1).\nCREATE OR REPLACE FUNCTION username.taille_max_capitale_region(p_region text)\nRETURNS INTEGER LANGUAGE SQL AS\n$$\nSELECT MAX(population) AS max_pop\nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region AND cc.population IS NOT NULL;\n$$ ;"
   },
   {
     "objectID": "workshops/td5.html#fonctions-qui-retournent-un-type-composé",
     "href": "workshops/td5.html#fonctions-qui-retournent-un-type-composé",
     "title": "TD 5: SQL",
     "section": "Fonctions qui retournent un type composé",
-    "text": "Fonctions qui retournent un type composé\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie le nom et la population de la capitale la plus peuplée de cette région (voir td2 requête 1).\nOn peut utiliser le qualifiant OUT pour désigner des paramètres de sortie.\nCREATE OR REPLACE FUNCTION username.capitale(p_region text, OUT o_name_capital TEXT, OUT o_population_capital INTEGER)\nRETURNS RECORD  LANGUAGE SQL AS\n$$\nWITH r AS(\n  SELECT cc.*, RANK() OVER (PARTITION BY c.region \n                            ORDER BY cc.population_city DESC) AS rnk\n  FROM world.country c JOIN world.city cc ON (c.capital=cc.id)\n  WHERE c.region=p_region)\nSELECT r.name_city,  r.population_city\nFROM r \nWHERE r.rnk = 1 ;\n$$ ;"
+    "text": "Fonctions qui retournent un type composé\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie le nom et la population de la capitale la plus peuplée de cette région (voir td2 requête 1).\nOn peut utiliser le qualifiant OUT pour désigner des paramètres de sortie.\nCREATE OR REPLACE FUNCTION username.capitale(p_region text, OUT o_name_capital TEXT, OUT o_population_capital INTEGER)\nRETURNS RECORD  LANGUAGE SQL AS\n$$\nWITH r AS(\n  SELECT cc.*, RANK() OVER (PARTITION BY c.region \n                            ORDER BY cc.population DESC) AS rnk\n  FROM world.country c JOIN world.city cc ON (c.capital=cc.id)\n  WHERE c.region=p_region)\nSELECT r.name,  r.population\nFROM r \nWHERE r.rnk = 1 ;\n$$ ;"
   },
   {
     "objectID": "workshops/td5.html#fonctions-qui-retournent-un-type-composé-défini-par-les-lignes-dune-table",
     "href": "workshops/td5.html#fonctions-qui-retournent-un-type-composé-défini-par-les-lignes-dune-table",
     "title": "TD 5: SQL",
     "section": "Fonctions qui retournent un type composé défini par les lignes d’une table",
-    "text": "Fonctions qui retournent un type composé défini par les lignes d’une table\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie la description de la capitale la plus peuplée de cette région (voir td2 requête 1).\nCREATE OR REPLACE FUNCTION username.capitale(p_region text)\nRETURNS world.city  LANGUAGE SQL AS\n$$\nWITH r AS(\n  SELECT cc.*, RANK() OVER (PARTITION BY c.region \n                            ORDER BY cc.population_city DESC) AS rnk\n  FROM world.country c JOIN world.city cc ON (c.capital=cc.id)\n  WHERE c.region=p_region\n)\nSELECT r.id, r.name_city, r.countrycode, r.district, r.population_city\nFROM r \nWHERE r.rnk = 1 ;\n$$ ;"
+    "text": "Fonctions qui retournent un type composé défini par les lignes d’une table\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie la description de la capitale la plus peuplée de cette région (voir td2 requête 1).\nCREATE OR REPLACE FUNCTION username.capitale(p_region text)\nRETURNS world.city  LANGUAGE SQL AS\n$$\nWITH r AS(\n  SELECT cc.*, RANK() OVER (PARTITION BY c.region \n                            ORDER BY cc.population DESC) AS rnk\n  FROM world.country c JOIN world.city cc ON (c.capital=cc.id)\n  WHERE c.region=p_region\n)\nSELECT r.id, r.name, r.countrycode, r.district, r.population\nFROM r \nWHERE r.rnk = 1 ;\n$$ ;"
   },
   {
     "objectID": "workshops/td5.html#fonctions-qui-retournent-une-table",
     "href": "workshops/td5.html#fonctions-qui-retournent-une-table",
     "title": "TD 5: SQL",
     "section": "Fonctions qui retournent une table",
-    "text": "Fonctions qui retournent une table\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie la table des capitales de la région (voir td2 requête 1).\n\nTable de schéma explicite\nOn se contente d’abord de renvoyer le nom de la capitale. On explicite le schéma de la table résultat\nCREATE OR REPLACE FUNCTION username.capitales_region(p_region text)\nRETURNS TABLE (name_capital text) LANGUAGE SQL AS\n$$\nSELECT cc.name_city \nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region ;\n$$ ;\n\n\nTable de même schéma qu’une autre table\nDocumentation\nOn veut maintenant récupérer une table de même schéma que city.\n\n\n\n\n\n\nLa solution est très simple. On profite de ce qu’à chaque table correspond un type de même nom et on utilise le mot-clé SETOF.\n\n\n\nCREATE OR REPLACE FUNCTION username.capitales_region_large(p_region text)\nRETURNS SETOF world.city  LANGUAGE SQL AS\n$$\nSELECT cc.* \nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region ;\n$$ ;"
+    "text": "Fonctions qui retournent une table\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie la table des capitales de la région (voir td2 requête 1).\n\nTable de schéma explicite\nOn se contente d’abord de renvoyer le nom de la capitale. On explicite le schéma de la table résultat\nCREATE OR REPLACE FUNCTION username.capitales_region(p_region text)\nRETURNS TABLE (name_capital text) LANGUAGE SQL AS\n$$\nSELECT cc.name \nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region ;\n$$ ;\n\n\nTable de même schéma qu’une autre table\nDocumentation\nOn veut maintenant récupérer une table de même schéma que city.\n\n\n\n\n\n\nLa solution est très simple. On profite de ce qu’à chaque table correspond un type de même nom et on utilise le mot-clé SETOF.\n\n\n\nCREATE OR REPLACE FUNCTION username.capitales_region_large(p_region text)\nRETURNS SETOF world.city  LANGUAGE SQL AS\n$$\nSELECT cc.* \nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region ;\n$$ ;"
   },
   {
     "objectID": "workshops/td3.html",
@@ -130,7 +130,7 @@
     "href": "workshops/td3.html#vues",
     "title": "TD 3: SQL",
     "section": "Vues",
-    "text": "Vues\nLes vues permettent de donner un nom à une requête afin de pouvoir l’appeler plus tard sans la réécrire à chaque fois. Une vue s’enregistre dans un schéma. Par exemple, dans le schéma World, on pourrait créer une vue VillesRepublic qui contient toutes les villes de la table city qui sont dans une république.\nOn crée une vue avec CREATE VIEW nom AS requete. Étant donné que vous ne pouvez écrire que dans votre schéma personnel, il faudra nommer vos vues entid.nom où entid est votre identifiant ENT. Ainsi\nCREATE VIEW entid.VillesRepublic AS\n  SELECT \n    B.* \n  FROM \n      world.country as A \n  NATURAL JOIN \n      world.city as B\n  WHERE \n      A.governmentform like '%Republic%';\ncrée une vue dans votre schéma personnel. Désormais, si on veut sélectionner les villes qui sont dans une république et dont la population est supérieure à \\(1000000\\), on pourra simplement écrire :\nSELECT * \nFROM \n    entid.VillesRepublic \nWHERE \n    population_city&gt;=1000000;\n\n\n\n\n\n\nRemarquez la différence entre WITH et une vue. WITH nomme une requête temporairement, seulement à l’échelle de la requête courante tandis qu’une vue est enregistrée de façon permanente. Cependant, chaque fois que vous appelez votre vue, elle est réévaluée par le système de base de données.\n\n\n\nNotez aussi que SQL n’est pas sensible à la casse. La vue entid.VillesRepublic peut être aussi désignée par entid.villesrepublic.\nPour supprimer une vue existante on utilise la commande DROP VIEW suivie du nom de la vue à supprimer. Par exemple l’instruction\nDROP VIEW entid.VillesRepublic ;\nsupprime la vue créée précédemment.\nDans votre schéma personnel (qui porte le nom de votre identifiant ENT), écrire une vue film_id_horror qui renvoie la liste des films de catégorie ‘Horror’."
+    "text": "Vues\nLes vues permettent de donner un nom à une requête afin de pouvoir l’appeler plus tard sans la réécrire à chaque fois. Une vue s’enregistre dans un schéma. Par exemple, dans le schéma World, on pourrait créer une vue VillesRepublic qui contient toutes les villes de la table city qui sont dans une république.\nOn crée une vue avec CREATE VIEW nom AS requete. Étant donné que vous ne pouvez écrire que dans votre schéma personnel, il faudra nommer vos vues entid.nom où entid est votre identifiant ENT. Ainsi\nCREATE VIEW entid.VillesRepublic AS\n  SELECT \n    B.* \n  FROM \n      world.country as A \n  NATURAL JOIN \n      world.city as B\n  WHERE \n      A.governmentform like '%Republic%';\ncrée une vue dans votre schéma personnel. Désormais, si on veut sélectionner les villes qui sont dans une république et dont la population est supérieure à \\(1000000\\), on pourra simplement écrire :\nSELECT * \nFROM \n    entid.VillesRepublic \nWHERE \n    population&gt;=1000000;\n\n\n\n\n\n\nRemarquez la différence entre WITH et une vue. WITH nomme une requête temporairement, seulement à l’échelle de la requête courante tandis qu’une vue est enregistrée de façon permanente. Cependant, chaque fois que vous appelez votre vue, elle est réévaluée par le système de base de données.\n\n\n\nNotez aussi que SQL n’est pas sensible à la casse. La vue entid.VillesRepublic peut être aussi désignée par entid.villesrepublic.\nPour supprimer une vue existante on utilise la commande DROP VIEW suivie du nom de la vue à supprimer. Par exemple l’instruction\nDROP VIEW entid.VillesRepublic ;\nsupprime la vue créée précédemment.\nDans votre schéma personnel (qui porte le nom de votre identifiant ENT), écrire une vue film_id_horror qui renvoie la liste des films de catégorie ‘Horror’."
   },
   {
     "objectID": "workshops/td3.html#fonctions-sql",
@@ -172,14 +172,28 @@
     "href": "workshops/td1.html#résolution-des-noms-de-tables-et-dattributs",
     "title": "TD 1: Algèbre relationnelle",
     "section": "Résolution des noms de tables et d’attributs",
-    "text": "Résolution des noms de tables et d’attributs\nPour résoudre les noms de tables et d’attributs, le serveur SQL utilise la syntaxe nom_schéma.nom_table[.nom_attribut] (rappel : les crochets signifie optionnel).\nPar exemple, world.city désigne la table city du schéma world.\nPour alléger cette écriture, vous pouvez utiliser le chemin par défaut.\nAfficher le chemin par défaut avec la requête SQL : SHOW search_path ;\nVous pouvez modifier ce chemin avec la requête SET search_path TO nom_schéma1 [, nom_schéma2]. Il peut y avoir plusieurs schémas dans le search_path.\nL’ordre est important. Avec SET search_path TO world, public ; la résolution des noms se fera d’abord dans le schéma world puis en cas d’échec, dans le schéma public.\nAprès cette instruction city désigne la table city du schéma world si elle existe, sinon cela désigne la table city du schéma public, sinon le serveur renverra une erreur.\nOn ajoute systématiquement public dans le search_path, pour permettre une bonne compatibilité car de nombreuses applications et outils s’attendent à ce que les objets (tables, vues, fonctions) soient accessibles via ce schéma.\nExécutez le script\nSHOW search_path ;\nSET search_path TO world, public ;\nSHOW search_path ;"
+    "text": "Résolution des noms de tables et d’attributs\nPour résoudre les noms de tables et d’attributs, le serveur SQL utilise la syntaxe nom_schéma.nom_table[.nom_attribut] (rappel : les crochets signifient optionnel).\nPar exemple, world.city désigne la table city du schéma world.\nPour alléger cette écriture, vous pouvez utiliser le chemin par défaut.\nAfficher le chemin par défaut avec la requête SQL : SHOW search_path ;\nVous pouvez modifier ce chemin avec la requête SET search_path TO nom_schéma1 [, nom_schéma2]. Il peut y avoir plusieurs schémas dans le search_path.\nL’ordre est important. Avec SET search_path TO world, public ; la résolution des noms se fera d’abord dans le schéma world puis en cas d’échec, dans le schéma public.\nAprès cette instruction city désigne la table city du schéma world si elle existe, sinon cela désigne la table city du schéma public, sinon le serveur renverra une erreur.\nOn ajoute systématiquement public dans le search_path, pour permettre une bonne compatibilité car de nombreuses applications et outils s’attendent à ce que les objets (tables, vues, fonctions) soient accessibles via ce schéma.\nExécutez le script\nSHOW search_path ;\nSET search_path TO world, public ;\nSHOW search_path ;"
   },
   {
     "objectID": "workshops/td1.html#tables",
     "href": "workshops/td1.html#tables",
     "title": "TD 1: Algèbre relationnelle",
     "section": "Tables",
-    "text": "Tables\nPour voir le schéma d’une table, il suffit de dérouler le schéma world puis de double-cliquer sur la table.\nVous pouvez aussi visualiser toutes les tables du schéma par un clic droit sur le schéma puis Voir le diagramme.\n\nDans la deuxième partie du TP, on s’intéresse aux requêtes, c’est-à-dire, les moyens d’extraire une information pertinente d’une base de données."
+    "text": "Tables\nPour voir le schéma d’une table avec le client dBeaver, il suffit de dérouler le schéma world puis de double-cliquer sur la table.\nVous pouvez aussi visualiser toutes les tables du schéma par un clic droit sur le schéma puis Voir le diagramme.\n\nDans la deuxième partie du TP, on s’intéresse aux requêtes, c’est-à-dire, les moyens d’extraire une information pertinente d’une base de données."
+  },
+  {
+    "objectID": "workshops/td1.html#éxercice-1",
+    "href": "workshops/td1.html#éxercice-1",
+    "title": "TD 1: Algèbre relationnelle",
+    "section": "Éxercice 1",
+    "text": "Éxercice 1\nEcrire des requêtes en algèbre relationnelle et en SQL pour extraire les informations suivantes du schéma world:\n\nQuelles sont les régions ? (25 lignes)\n\n\nQuelles sont les régions situées en Europe ? (6 lignes)\n\n\nQuels sont les pays situés en Europe du sud (‘Southern Europe’) ? (15 lignes)\n\n\nQuelles sont les capitales des pays situés en Europe de l’Ouest ? (quel est le type de la colonne capital dans la table country?) (9 lignes)\n\n\nA partir de la table countrylanguage, quels sont les langues qui sont officielles dans au moins un pays ? (102 lignes)\n\n\nQuels sont les codes des pays où le français est langue officielle ? (18 lignes) Même question pour les langues de votre choix ?\n\n\nQuelle est la date d’indépendance de la France ?\n\n\nQuelles sont les dates d’indépendance des pays d’Europe ? (46 lignes)\n\n\nQuelles sont les villes françaises de plus de 200 000 habitants ? (10 lignes)\n\n\nPour chaque pays européen, calculer la densité, le GNP par habitant, et l’espérance de vie, ordonner par densité décroissante. (46 lignes)\n\n\nQuels sont les pays où l’espérance de vie n’est pas inférieure à 77 ans et le pnb par habitant n’est pas supérieur à (0.010) ? (10 lignes)\n\n\nQuels sont les pays tels que la condition (espérance de vie supérieure ou égale à 77 ans ou PNB par habitant inférieur à (0.01)) n’est pas vérifée ? (16 lignes)\n\n\nQuels sont les pays où une langue est officielle sans être parlée par au moins la moitié de la population ? (92 lignes)\n\n\nQuels sont les pays qui ont au moins une langue officielle ? (190 lignes)\n\n\nQuels sont les noms des pays qui comptent plus de 100 000 000 d’habitants ? (10 lignes)"
+  },
+  {
+    "objectID": "workshops/td1.html#éxercice-2",
+    "href": "workshops/td1.html#éxercice-2",
+    "title": "TD 1: Algèbre relationnelle",
+    "section": "Éxercice 2",
+    "text": "Éxercice 2\nEcrire des requêtes pour les questions suivantes:\n\nQuels sont les noms des capitales sud-américaines ? (14 lignes)\n\n\nQuels sont les noms des pays où le français est langue officielle ? (18 lignes)\n\n\nQuelles sont les pays où l’espagnol est langue officielle et la forme de gouvernement est ‘Federal Republic’ ? (3 lignes)\n\n\nQuels sont les pays qui ont au moins deux langues officielles ? (38 lignes)\n\n\nQuels sont les pays qui n’ont pas de langue officielle ? (49 lignes)\n\n\nQuels sont les pays qui comportent au moins deux villes de plus de 1 000 000 habitants ? (32 lignes)\n\n\nQuelles sont les régions qui ne comportent qu’une seule forme de gouvernement ? (3 lignes)\n\n\nQuelles sont les régions où on ne trouve pas de monarchie ? (9 lignes)"
   },
   {
     "objectID": "weeks/week-9.html",
@@ -291,7 +305,7 @@
     "href": "slides-listings.html",
     "title": "Diapositives",
     "section": "",
-    "text": "Les diapositives fournissent le canevas du cours. Vous pouvez les utiliser pour vous familiariser avec le matériel du prochain cours, pour revoir les cours passés et, pour réviser.\nLes diapositives marquées par l’image  renvoient à des développements effectués en classes.\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Titre\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Description\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitre\n\n\n\nDescription\n\n\n\n\n\n\n\n\nSep 15, 2025\n\n\nIntroduction aux Bases de Données\n\n\nBases de données, Systèmes d’information, Modèle relationnel, OLTP, OLAP\n\n\n\n\n\n\nSep 15, 2025\n\n\nAlgèbre relationnelle\n\n\nAlgèbre relationnelle, Sélection, Projectio, Jointure\n\n\n\n\n\n\nSep 22, 2025\n\n\nSQL : requêtes simples\n\n\nAlgèbre relationnelle, SQL, Sélection, Projection, Jointure\n\n\n\n\n\n\nSep 29, 2025\n\n\nSQL : requêtes imbriquées\n\n\nRequêtes imbriquées, CTE\n\n\n\n\n\n\nOct 6, 2025\n\n\nSQL : Agrégations, Paritions, Fenêtres\n\n\nAggrégations, Partitions, Fenêtres\n\n\n\n\n\n\nOct 13, 2025\n\n\nSQL : Définition de données\n\n\nCréation de tables, Insertion, Suppression, Mises à jour\n\n\n\n\n\n\nOct 20, 2025\n\n\nSQL : Définition de données, Contraintes simples\n\n\nContraintes, Check, Primary Key, Foreign Key\n\n\n\n\n\n\nNov 3, 2025\n\n\nSQL : Définition de données, Contraintes d’exclusion\n\n\nContraintes, Étude de cas, Exclude, Contraintes multitables\n\n\n\n\n\n\nNov 10, 2025\n\n\nModélisation : Entité-Association\n\n\nModélisation, Entité-Association, Cardinalités, Spécialisation/Généralisation\n\n\n\n\n\n\nNov 17, 2025\n\n\nModélisation : Pattes de corbeaux\n\n\nModélisation, Pattes de corbeaux, Rétro-ingénierie\n\n\n\n\n\n\nNov 24, 2025\n\n\nNormalisation : Dépendances fonctionnelles, Fermetures\n\n\nNormalisation, Dépendances fonctionnelles, Implication, Fermeture, Clés\n\n\n\n\n\n\nDec 1, 2025\n\n\nNormalisation: FNBC, Décomposition SPI, Poursuite\n\n\nNormalisation, Dépendances fonctionnelles, Implication, Fermeture, Clés\n\n\n\n\n\n\nDec 8, 2025\n\n\nNormalisation: FN3, Décomposition SPI et sans perte de DF\n\n\nNormalisation, FN3, Dépendances projetés, Perte de DF, Couverture irréductible\n\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\nNoteMode d’emploi\n\n\n\nLes diapositives utilisent la bibliothèque revealjs de . Elles s’affichent dans votre navigateur. Vous pouvez accéder au mode d’emploi en tappant",
+    "text": "Les diapositives fournissent le canevas du cours. Vous pouvez les utiliser pour vous familiariser avec le matériel du prochain cours, pour revoir les cours passés et, pour réviser.\nLes diapositives marquées par l’image  renvoient à des développements effectués en classes.\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Titre\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Description\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitre\n\n\n\nDescription\n\n\n\n\n\n\n\n\nSep 15, 2025\n\n\nIntroduction aux Bases de Données\n\n\nBases de données, Systèmes d’information, Modèle relationnel, OLTP, OLAP\n\n\n\n\n\n\nSep 15, 2025\n\n\nAlgèbre relationnelle\n\n\nAlgèbre relationnelle, Sélection, Projectio, Jointure\n\n\n\n\n\n\nSep 22, 2025\n\n\nSQL : requêtes simples\n\n\nAlgèbre relationnelle, SQL, Sélection, Projection, Jointure\n\n\n\n\n\n\nSep 29, 2025\n\n\nSQL : requêtes imbriquées\n\n\nRequêtes imbriquées, CTE\n\n\n\n\n\n\nOct 6, 2025\n\n\nSQL : Agrégations, Partitions, Fenêtres\n\n\nAggrégations, Partitions, Fenêtres\n\n\n\n\n\n\nOct 13, 2025\n\n\nSQL : Définition de données\n\n\nCréation de tables, Insertion, Suppression, Mises à jour\n\n\n\n\n\n\nOct 20, 2025\n\n\nSQL : Définition de données, Contraintes simples\n\n\nContraintes, Check, Primary Key, Foreign Key\n\n\n\n\n\n\nNov 3, 2025\n\n\nSQL : Définition de données, Contraintes d’exclusion\n\n\nContraintes, Étude de cas, Exclude, Contraintes multitables\n\n\n\n\n\n\nNov 10, 2025\n\n\nModélisation : Entité-Association\n\n\nModélisation, Entité-Association, Cardinalités, Spécialisation/Généralisation\n\n\n\n\n\n\nNov 17, 2025\n\n\nModélisation : Pattes de corbeaux\n\n\nModélisation, Pattes de corbeaux, Rétro-ingénierie\n\n\n\n\n\n\nNov 24, 2025\n\n\nNormalisation : Dépendances fonctionnelles, Fermetures\n\n\nNormalisation, Dépendances fonctionnelles, Implication, Fermeture, Clés\n\n\n\n\n\n\nDec 1, 2025\n\n\nNormalisation: FNBC, Décomposition SPI, Poursuite\n\n\nNormalisation, Dépendances fonctionnelles, Implication, Fermeture, Clés\n\n\n\n\n\n\nDec 8, 2025\n\n\nNormalisation: FN3, Décomposition SPI et sans perte de DF\n\n\nNormalisation, FN3, Dépendances projetés, Perte de DF, Couverture irréductible\n\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\nNoteMode d’emploi\n\n\n\nLes diapositives utilisent la bibliothèque revealjs de . Elles s’affichent dans votre navigateur. Vous pouvez accéder au mode d’emploi en tappant",
     "crumbs": [
       "Diapositives"
     ]
@@ -612,7 +626,7 @@
     "href": "index.html",
     "title": "MA15E045: Introduction aux Bases de Données",
     "section": "",
-    "text": "moodle\n  \n  \n    \n     Github\n  \n\n  \n  \n\n\nCe site contient des informations techniques et le matériel du cours MA15E045: Bases de Données de la Licence MIASHS (L3) de l’Université Paris Cité.\nPour les informations pédagogiques (résumé du cours, références, évaluations), il faut se reporter à la page Moodle : MA15E045: Bases de Données\n\n\n\n\nLe cours s’appuie sur un serveur PostGres dont l’adresse est etu-pgsql.math.univ-paris-diderot.fr.\n\n\n\n\nVous trouverez sur ce site :\n\nDes guides d’utilisation des logiciels\nLes diapositives du cours magistral\nLes feuilles d’exercices \nLes annales d’examen",
+    "text": "moodle\n  \n  \n    \n     Github\n  \n\n  \n  \n\n\nCe site contient des informations techniques et le matériel du cours MA15E045: Bases de Données de la Licence MIASHS (L3) de l’Université Paris Cité.\nPour les informations pédagogiques (résumé du cours, références, évaluations), il faut se reporter à la page Moodle : MA15E045: Bases de Données\n\n\n\n\nLe cours s’appuie sur un serveur PostGres dont l’adresse est etu-pgsql.math.univ-paris-diderot.fr\n\n\n\n\nVous trouverez sur ce site :\n\nDes guides d’utilisation des logiciels\nLes diapositives du cours magistral\nLes feuilles d’exercices \nLes annales d’examen",
     "crumbs": [
       "Informations générales"
     ]
@@ -2200,18 +2214,11 @@
     "text": "Syntaxe - requêtes simples\nSELECT [DISTINCT] * | &lt;liste attribut&gt;\n\nFROM &lt;liste de tables&gt;\n\n[WHERE &lt;condition&gt;] ;\n\n* : sélection de tous les attributs (pas de projection)\n[...] : clause, expression facultative.\nDISTINCT : supprime les doublons."
   },
   {
-    "objectID": "slides/SQL_1.html#exemple-de-requête",
-    "href": "slides/SQL_1.html#exemple-de-requête",
+    "objectID": "slides/SQL_1.html#exemples-de-requête",
+    "href": "slides/SQL_1.html#exemples-de-requête",
     "title": "BD II: SQL I",
-    "section": "Exemple de requête",
-    "text": "Exemple de requête\nSchémas des table :\nEmploye(Nu, NomE, Annee, Tel, Nudept)\n\nFournisseur (NomF, Ville, Adresse)\n\nPiece(NomP, Prix, Couleur)\nSELECT *\n\nFROM Fournisseur ;\n\nEquivalent à : \\(\\quad Fournisseur\\)\n\n\nSELECT NomF\n\nFROM Fournisseur\n\nWHERE Ville='Paris' ;\n\n\nEquivalent à : \\(\\quad \\pi_(\\texttt{NomF}(\\sigma(\\texttt{Fournisseur}, \\texttt{Ville}=\\texttt{'Paris'}))\\)"
-  },
-  {
-    "objectID": "slides/SQL_1.html#autres-exemples",
-    "href": "slides/SQL_1.html#autres-exemples",
-    "title": "BD II: SQL I",
-    "section": "Autres exemples",
-    "text": "Autres exemples\nSELECT *\n\nFROM Fournisseur ;\n\nEquivalent à : \\(\\quad Fournisseur\\)\n\n\nSELECT *\n\nFROM Fournisseur\n\nWHERE Ville='Paris' ;\n\n\nEquivalent à : \\(\\quad \\sigma(\\texttt{Fournisseur}, \\texttt{Ville}=\\texttt{'Paris'})\\)"
+    "section": "Exemples de requête",
+    "text": "Exemples de requête\n\n\nSchémas des tables :\n\nEmploye(Nu, NomE, Annee, Tel, Nudept)\nFournisseur (NomF, Ville, Adresse)\nPiece(NomP, Prix, Couleur)\n\nLa requête\nSELECT *\n\nFROM Fournisseur ;\n\nest équivalente à : \\(\\quad Fournisseur\\)\n\n\nLa requête\nSELECT NomF\n\nFROM Fournisseur\n\nWHERE Ville='Paris' ;\n\n\nest équivalente à : \\(\\quad \\pi((\\sigma(\\texttt{Fournisseur}, \\texttt{Ville}=\\texttt{'Paris'})), \\texttt{NomF})\\)"
   },
   {
     "objectID": "slides/SQL_1.html#structure-de-base",
@@ -2736,14 +2743,14 @@
     "href": "slides/LDD_2.html#dans-un-pays-plusieurs-villes-peuvent-elles-porter-le-même-nom",
     "title": "BD VII: Corriger le schéma World",
     "section": "Dans un pays plusieurs villes peuvent elles porter le même nom ?",
-    "text": "Dans un pays plusieurs villes peuvent elles porter le même nom ?\nSELECT *\nFROM \n  monde.city c \nJOIN \n  monde.city c2 \nON (c.name_city = c2.name_city AND \n    c.countrycode = c2.countrycode  AND \n    c.id &lt;&gt; c2.id) ;\nrenvoie 48 lignes\n\nSELECT *\nFROM \n  monde.city c \nJOIN \n  monde.city c2 \nON (c.name_city = c2.name_city AND \n    c.countrycode = c2.countrycode  AND\n    c.district = c2.district  AND\n    c.id &lt;&gt; c2.id) ;\nrenvoie 2 lignes"
+    "text": "Dans un pays plusieurs villes peuvent elles porter le même nom ?\nSELECT *\nFROM \n  monde.city c \nJOIN \n  monde.city c2 \nON (c.name = c2.name AND \n    c.countrycode = c2.countrycode  AND \n    c.id &lt;&gt; c2.id) ;\nrenvoie 48 lignes\n\nSELECT *\nFROM \n  monde.city c \nJOIN \n  monde.city c2 \nON (c.name = c2.name AND \n    c.countrycode = c2.countrycode  AND\n    c.district = c2.district  AND\n    c.id &lt;&gt; c2.id) ;\nrenvoie 2 lignes"
   },
   {
     "objectID": "slides/LDD_2.html#existe-t-il-un-pays-dont-la-capitale-est-dans-un-autre-pays",
     "href": "slides/LDD_2.html#existe-t-il-un-pays-dont-la-capitale-est-dans-un-autre-pays",
     "title": "BD VII: Corriger le schéma World",
     "section": "Existe-t-il un pays dont la capitale est dans un autre pays ?",
-    "text": "Existe-t-il un pays dont la capitale est dans un autre pays ?\nSELECT c. countrycode, c.name_country, cc.name_city, cc.countrycode\nFROM \n  world.country c \nJOIN \n  world.city cc \nON (c.capital = cc.id  AND \n    cc.countrycode &lt;&gt; c.countrycode) ;\nrenvoie 0 lignes"
+    "text": "Existe-t-il un pays dont la capitale est dans un autre pays ?\nSELECT c. countrycode, c.name_country, cc.name, cc.countrycode\nFROM \n  world.country c \nJOIN \n  world.city cc \nON (c.capital = cc.id  AND \n    cc.countrycode &lt;&gt; c.countrycode) ;\nrenvoie 0 lignes"
   },
   {
     "objectID": "slides/LDD_2.html#blocages-possibles",
@@ -2827,7 +2834,7 @@
     "href": "slides/LDD_0.html#exemple-schéma-world",
     "title": "BD II: SQL LDD",
     "section": "Exemple : schéma world\n",
-    "text": "Exemple : schéma world\n\n\nCREATE TABLE world.city (\n    id int4 NOT NULL,\n    name_city text NOT NULL,\n    countrycode bpchar(3) NOT NULL,\n    district text NOT NULL,\n    population_city int4 NOT NULL,\n    CONSTRAINT city_pkey\n        PRIMARY KEY (id)\n);\n\n\nCREATE TABLE world.code_continent (\n    continent name NOT NULL,\n    codecontinent int4 NOT NULL,\n    CONSTRAINT code_continent_pk\n        PRIMARY KEY (codecontinent)\n);"
+    "text": "Exemple : schéma world\n\n\nCREATE TABLE world.city (\n    id int4 NOT NULL,\n    name text NOT NULL,\n    countrycode bpchar(3) NOT NULL,\n    district text NOT NULL,\n    population int4 NOT NULL,\n    CONSTRAINT city_pkey\n        PRIMARY KEY (id)\n);\n\n\nCREATE TABLE world.code_continent (\n    continent name NOT NULL,\n    codecontinent int4 NOT NULL,\n    CONSTRAINT code_continent_pk\n        PRIMARY KEY (codecontinent)\n);"
   },
   {
     "objectID": "slides/LDD_0.html#exemple-schéma-world-avec-clé-primaire-composée",
@@ -4643,165 +4650,193 @@
     "text": "Depuis Wikipedia\n\nIn the 1960s and 1970s he [Codd] worked out his theories of data arrangement, issuing his paper “A Relational Model of Data for Large Shared Data Banks” in 1970.[ To his disappointment, IBM proved slow to exploit his suggestions until commercial rivals started implementing them.\n\n\nInitially, IBM refused to implement the relational model to preserve revenue from IMS/DB. Codd then showed IBM customers the potential of the implementation of its model, and they in turn pressured IBM. Then IBM included in its Future Systems project a System R subproject – but put in charge of it developers who were not thoroughly familiar with Codd’s ideas, and isolated the team from Codd. As a result, they did not use Codd’s own Alpha language but created a non-relational one, SEQUEL. Even so, SEQUEL was so superior to pre-relational systems that it was copied, in 1979, based on pre-launch papers presented at conferences, by Larry Ellison, of Relational Software Inc, in his Oracle Database, which actually reached market before SQL/DS – because of the then-already proprietary status of the original name, SEQUEL had been renamed SQL.\n\n\nCodd continued to develop and extend his relational model, sometimes in collaboration with Christopher J. Date. One of the normalised forms, the Boyce–Codd normal form, is named after him.\n\n\nCodd’s theorem, a result proven in his seminal work on the relational model, equates the expressive power of relational algebra and relational calculus."
   },
   {
-    "objectID": "slides/SQL_2.html#opérateurs-ensemblistes-capcupsetminus",
-    "href": "slides/SQL_2.html#opérateurs-ensemblistes-capcupsetminus",
+    "objectID": "slides/SQL_2.html#opérateurs-ensemblistes-propriétés-requises",
+    "href": "slides/SQL_2.html#opérateurs-ensemblistes-propriétés-requises",
     "title": "BD II: SQL II",
-    "section": "Opérateurs ensemblistes: \\(\\cap,\\cup,\\setminus\\)",
-    "text": "Opérateurs ensemblistes: \\(\\cap,\\cup,\\setminus\\)\n Les deux tables doivent avoir des schémas identiques\n\nIntersection ( \\(\\cap\\) ) : les tuples qui sont à la fois dans la requête 1 et dans la requête 2\n\n&lt;requete1&gt; INTERSECT &lt;requete2&gt;\n\n\nUnion ( \\(\\cup\\) ) : les tuples de la requête 1 et ceux de la requête 2\n\n&lt;requete1&gt; UNION &lt;requete2&gt;\n\n\n\nDifférence ( \\(\\backslash\\) ) : les tuples de la requête 1 qui ne sont pas des tuples de la requête 2\n\n&lt;requete1&gt; EXCEPT &lt;requete2&gt;"
+    "section": "Opérateurs ensemblistes: propriétés requises",
+    "text": "Opérateurs ensemblistes: propriétés requises\nLe résultat d’une requête SQL est un ensemble de tuples… donc une relation.\nLes opérateurs ensemblistes (\\(\\cap\\), \\(\\cup\\), \\(\\setminus\\)) permettent de combiner les résultats de deux requêtes (ou plus).\n\n\n\n\n\n\nImportant\n\n\nLes requêtes combinées doivent avoir des schémas compatibles :\n\nmême nombre de colonnes,\nmême type de données pour les colonnes de même position."
+  },
+  {
+    "objectID": "slides/SQL_2.html#intersect-union-except",
+    "href": "slides/SQL_2.html#intersect-union-except",
+    "title": "BD II: SQL II",
+    "section": "INTERSECT, UNION, EXCEPT",
+    "text": "INTERSECT, UNION, EXCEPT\n\nINTERSECT : tuples de l’intersection des résultats des requêtes.\n&lt;requete1&gt; \nINTERSECT \n&lt;requete2&gt;\nUNION : tuples de l’union des résultats des requêtes.\n&lt;requete1&gt; \nUNION \n&lt;requete2&gt;\nEXCEPT : tuples de la différence ensembliste des résultats des requêtes\n&lt;requete1&gt; \nEXCEPT \n&lt;requete2&gt;\n\n\n\n\n\n\n\n\nNote\n\n\nUNION ne conserve pas les tuples doublons entre les deux requêtes.\nPour les conserver, il faut utiliser l’opérateur UNION ALL."
   },
   {
     "objectID": "slides/SQL_2.html#exemple-pour-except",
     "href": "slides/SQL_2.html#exemple-pour-except",
     "title": "BD II: SQL II",
     "section": "Exemple pour EXCEPT",
-    "text": "Exemple pour EXCEPT\n`Fournisseur (NomF, VilleF, AdresseF)` \n\n`Piece(NomP, Prix, Couleur)`\n\n`Livraison(NumLiv, NomP, NomF, DateLiv, Quantite)`\nFournisseurs qui ont livré la pièce x22 mais pas la pièce x21\nSELECT NomF \nFROM Livraison \nWHERE NomP='x22'\n\nEXCEPT \n\nSELECT NomF\nFROM Livraison \nWHERE NomP='x21';"
+    "text": "Exemple pour EXCEPT\nConsidérons les tables de schémas suivants :\n`Fournisseur (NomF : varchar, VilleF : varchar, AdresseF : varchar)` \n\n`Piece(NomP : varchar, Prix : money, Couleur : varchar)`\n\n`Livraison(NumLiv : integer, NomP : varchar, NomF : varchar, DateLiv : date, Quantite : numeric)`\nFournisseurs qui ont livré la pièce x22 mais pas la pièce x21\n\nSELECT NomF \nFROM Livraison \nWHERE NomP='x22'\n\nEXCEPT \n\nSELECT NomF\nFROM Livraison \nWHERE NomP='x21';"
   },
   {
-    "objectID": "slides/SQL_2.html#requêtes-imbriquées-in-exists-all-any-lateral",
-    "href": "slides/SQL_2.html#requêtes-imbriquées-in-exists-all-any-lateral",
+    "objectID": "slides/SQL_2.html#sous-requête-dans-la-clause-where",
+    "href": "slides/SQL_2.html#sous-requête-dans-la-clause-where",
     "title": "BD II: SQL II",
-    "section": "Requêtes imbriquées IN, EXISTS, ALL, ANY, LATERAL",
-    "text": "Requêtes imbriquées IN, EXISTS, ALL, ANY, LATERAL\n\nLe résultat d’une requête SQL est un ensemble de tuples… donc une relation.\n Dans la clause WHERE d’une requête, on peut utiliser une fonction d’une autre requête, appelée sous-requête\nIN, EXISTS, ALL, ANY sont des fonctions qui prennent une sous-requête (une relation) en argument.\nDans une sous-requête, on peut se référer à des attributs des tables de la clause FROM.\nPour chaque ligne d’un item FROM qui fournit la colonne référencée, l’item LATERAL est évalué en utilisant cette ligne. Les lignes du résultat sont jointes avec la ligne qui a servi à les calculer.\nOn peut utiliser ces résultats comme données d’une autre requête\n Moyens : utiliser des fonctions de table dans la clause WHERE."
+    "section": "Sous-requête dans la clause WHERE",
+    "text": "Sous-requête dans la clause WHERE\n\nDans la clause WHERE d’une requête, on peut utiliser une autre requête, appelée sous-requête ou requête imbriquée.\nLa sous-requête est exécutée pour chaque tuple formé par la clause FROM. Ce tuple sera sélectionné en fonction du test effectué sur le résultat de la sous-requête.\nDans une sous-requête, on peut se référer aux tables nommées dans la clause FROM de la requête de niveau supérieur."
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-in",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-in",
+    "objectID": "slides/SQL_2.html#opérateurs-de-sous-requête",
+    "href": "slides/SQL_2.html#opérateurs-de-sous-requête",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : IN",
-    "text": "Utilisation de sous-requêtes : IN\n\nOpérateur IN déjà vu pour exprimer que l’attribut est à valeur dans une certaine liste\nNouvelle utilisation de IN avec des sous-requêtes.\n\n&lt;attribut&gt; [NOT] IN (&lt;sous-requete&gt;)\nEvaluée à vraie si  appartient au résultat de la sous-requête"
+    "section": "Opérateurs de sous-requête",
+    "text": "Opérateurs de sous-requête\n\nIN, EXISTS, ALL, ANY sont des fonctions (ou opérations) qui prennent en argument une sous-requête.\nElles effectuent des tests sur l’ensemble des résultats d’une sous-requête.\n\n\n\n\n\n\n\nMise en garde\n\n\nAttention au comportement de chaque opérateur si le résultat de la sous-requête est vide ou s’il contient la valeur NULL."
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-in-1",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-in-1",
+    "objectID": "slides/SQL_2.html#opérateur-in",
+    "href": "slides/SQL_2.html#opérateur-in",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : IN",
-    "text": "Utilisation de sous-requêtes : IN\nLister les villes de fournisseurs qui ont livré la pièce ‘x21’.\n\n\nSELECT DISTINCT VilleF \n\nFROM Fournisseur \n\nWHERE NomF IN ( \n  SELECT NomF  \n  FROM Livraison \n  WHERE NomP = 'x21'\n) ;  \n\nest équivalente à :\nSELECT DISTINCT F.VilleF \n\nFROM Fournisseur F, Livraison L \n\nWHERE (F. NomF = L. NomF) AND \n  (L. NomP = 'x21');"
+    "section": "Opérateur IN",
+    "text": "Opérateur IN\nL’opérateur IN permet de tester si une valeur est présente dans le résultat d’une sous-requête.\n&lt;attribut&gt; [NOT] IN (&lt;sous-requete&gt;)\nEvaluée à vraie si &lt;attribut&gt; appartient au résultat de la sous-requête.\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, IN renvoie faux, NOT IN renvoie vrai.\nSi &lt;attribut&gt; vaut NULL, les test IN et NOT IN renvoient UNKNOWN.\nL’évaluation de IN ignore les valeurs NULL du résultat de la sous-requête. Si ce résultat ne contient que NULL, IN retourne UNKNOWN.\nSi le résultat de la sous-requête contient au moins une valeur NULL, NOT IN retourne UNKNOWN."
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-in-2",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-in-2",
+    "objectID": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-in",
+    "href": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-in",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : IN",
-    "text": "Utilisation de sous-requêtes : IN\nLister les couleurs de pièces livrées par des fournisseurs de Paris\nSELECT DISTINCT Couleur \nFROM Piece\nWHERE NomP IN (   \n    SELECT NomP  #&lt;&lt; \n  FROM Livraison  #&lt;&lt; \n    WHERE NomF IN (\n    SELECT NomF   #&lt;&lt;\n    FROM Fournisseur   #&lt;&lt;\n    WHERE VilleF='Paris'\n    )  #&lt;&lt;\n  );  \n\nest équivalente à\nSELECT DISTINCT P.Couleur\n\nFROM Piece P, Livraison L, Fournisseur F\n\nWHERE \n  P.NomP = L.NomP AND\n  L.NomF = F.NomF AND   \n  VilleF = 'Paris'  ;"
+    "section": "Exemple 1 de sous-requête avec IN",
+    "text": "Exemple 1 de sous-requête avec IN\nLister les villes de fournisseurs qui ont livré la pièce ‘x21’.\n\n\n\nSELECT DISTINCT VilleF \n\nFROM Fournisseur \n\nWHERE NomF IN ( \n  SELECT NomF  \n  FROM Livraison \n  WHERE NomP = 'x21'\n) ;  \n\nest équivalente à :\nSELECT DISTINCT F.VilleF \n\nFROM Fournisseur F, Livraison L \n\nWHERE (F.NomF = L.NomF) AND \n  (L.NomP = 'x21');"
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-in-3",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-in-3",
+    "objectID": "slides/SQL_2.html#exemple-2-de-sous-requête-avec-in",
+    "href": "slides/SQL_2.html#exemple-2-de-sous-requête-avec-in",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : IN",
-    "text": "Utilisation de sous-requêtes : IN\n\nUtilisation ci-dessus pas très utile mais…\nPratique à utiliser sous la forme NOT IN\n\nLister les noms de pièces qui n’ont jamais été livrées.\nSELECT NomP\nFROM Piece P \nWHERE NomP NOT IN  (\n  SELECT NomP   #&lt;&lt;\n  FROM  Livraison  #&lt;&lt;\n);\nEquivalence en algèbre relationnelle :\n\\[\\pi_{\\text{NomP}}(\\text{Piece}) - \\pi_{\\text{NomP}}(\\text{Livraison})\\]\n…. Une des façons de coder la différence en SQL"
+    "section": "Exemple 2 de sous-requête avec IN",
+    "text": "Exemple 2 de sous-requête avec IN\n\n\n\n\n\n\n\nNote\n\n\nPratique à utiliser sous la forme NOT IN pour coder l’opération de différence.\n\n\n\nLister les noms de pièces pour lesquelles il n’y a jamais eu de livraison.\n\nSELECT NomP\nFROM Piece P \nWHERE NomP NOT IN  (\n  SELECT NomP\n  FROM  Livraison\n);\n\n\nEquivalence en algèbre relationnelle :\n\\[\\pi_{\\text{NomP}}(\\text{Piece}) - \\pi_{\\text{NomP}}(\\text{Livraison})\\]"
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-in-4",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-in-4",
+    "objectID": "slides/SQL_2.html#exemple-3-de-sous-requête-avec-in",
+    "href": "slides/SQL_2.html#exemple-3-de-sous-requête-avec-in",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : IN",
-    "text": "Utilisation de sous-requêtes : IN\nLes capitales dont la population est plus grande que la moitié de la population du pays\nSELECT name_city FROM city\nWHERE id IN (\n  SELECT capital \n  FROM country\n  WHERE population_city&gt;=population_country*.5\n);\n\nest équivalente à :\nSELECT name_city \nFROM country JOIN city \n  ON capital=id\nWHERE population_city&gt;=population_country*.5;"
+    "section": "Exemple 3 de sous-requête avec IN",
+    "text": "Exemple 3 de sous-requête avec IN\nLes capitales dont la population est plus grande que la moitié de la population du pays.\n\nSELECT name FROM city\nWHERE id IN (\n  SELECT capital \n  FROM country\n  WHERE population&gt;=population_country*.5\n);\n\n\nest équivalente à :\nSELECT name \nFROM country JOIN city \n  ON capital=id\nWHERE population&gt;=population_country*.5;"
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-any-all",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-any-all",
+    "objectID": "slides/SQL_2.html#opérateur-all-et-any-any-all",
+    "href": "slides/SQL_2.html#opérateur-all-et-any-any-all",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : ANY, ALL",
-    "text": "Utilisation de sous-requêtes : ANY, ALL\nDeux nouveaux opérateurs manipulant des sous-requêtes : ANY, ALL\n&lt;attributs&gt; =|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt; ANY (&lt;sous-requete&gt;)\névaluée à vraie si au moins un des résultats de la sous requête vérifie la comparaison avec &lt;attributs&gt;\n\n&lt;attributs&gt; =|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt; ALL (&lt;sous-requete&gt;)\névaluée à vraie si tous les résultats de la sous-requête vérifient la comparaison avec &lt;attributs&gt;\n\n\n &lt;attributs&gt;: peut être une liste d’attributs"
+    "section": "Opérateur ALL et ANY : ANY, ALL",
+    "text": "Opérateur ALL et ANY : ANY, ALL\nCe sont des quantificateurs qui s’utilisent dans des tests.\n\nANY : évalué à vrai si au moins un résultat de la sous-requête vérifie le test.\n\n&lt;attributs&gt; =|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt; ANY (&lt;sous-requete&gt;)\n\n\nALL : évalué à vraie si tous les résultats de la sous-requête vérifient le test.\n\n&lt;attributs&gt; =|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt; ALL (&lt;sous-requete&gt;)\n\n\n\n\n\n\n\n\nNote\n\n\n&lt;attributs&gt;: peut être une liste d’attributs"
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-any-all-1",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-any-all-1",
+    "objectID": "slides/SQL_2.html#exemple-de-sous-requête-avec-any",
+    "href": "slides/SQL_2.html#exemple-de-sous-requête-avec-any",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : ANY, ALL",
-    "text": "Utilisation de sous-requêtes : ANY, ALL\nAlternative au IN\nlister les noms de fournisseurs qui ont livré la pièce ‘x21’.\nSELECT NomF\nFROM Fournisseur\nWHERE NomF = ANY (\n    SELECT NomF\n    FROM Livraison\n    WHERE NomP = 'x21' \n);"
+    "section": "Exemple de sous-requête avec ANY",
+    "text": "Exemple de sous-requête avec ANY\nAlternative au IN\nlister les noms de fournisseurs qui ont livré la pièce ‘x21’.\nSELECT NomF\nFROM Fournisseur\nWHERE NomF = ANY (\n    SELECT NomF\n    FROM Livraison\n    WHERE NomP = 'x21' \n);\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, ANY renvoie False.\nSi l’attribut NomF vaut NULL, le résultat de la comparaison avec ANY est UNKNOWN.\nL’évaluation de ANY ignore les valeurs NULL du résultat de la sous-requête. Si ce résultat ne contient que NULL, ANY retourne UNKNOWN."
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-any-all-2",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-any-all-2",
+    "objectID": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-all",
+    "href": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-all",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : ANY, ALL",
-    "text": "Utilisation de sous-requêtes : ANY, ALL\nInformation sur la commande dont la quantité de ièces livrées était la plus importante.\nSELECT *\nFROM Livraison\nWHERE Quantite &gt;= ALL (\n    SELECT Quantite \n  FROM Livraison\n);"
+    "section": "Exemple 1 de sous-requête avec ALL",
+    "text": "Exemple 1 de sous-requête avec ALL\nLa ville la plus peuplée de chaque pays\nSELECT c1.name \nFROM city as c1\nWHERE population &gt;= ALL (\n  SELECT c2.population \n  FROM city as c2\n  WHERE c1.countrycode=c2.countrycode\n);\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, ALL renvoie True.\nSi l’attribut population vaut NULL, le résultat de la comparaison avec ALL est UNKNOWN.\nSi le résultat de la sous-requête contient au moins une fois NULL, le test avec ALL est UNKNOWN."
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-any-all-3",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-any-all-3",
+    "objectID": "slides/SQL_2.html#exemple-2-de-sous-requête-avec-all",
+    "href": "slides/SQL_2.html#exemple-2-de-sous-requête-avec-all",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : ANY, ALL",
-    "text": "Utilisation de sous-requêtes : ANY, ALL\nNoms et prix des pièces livrées les plus chères\nSELECT P.NomP, P.Prix \nFROM Livraison L, Piece P\nWHERE L.NomP = P.NomP AND \n  P.Prix&gt;=ALL (\n    SELECT Prix \n    FROM Piece\n);"
+    "section": "Exemple 2 de sous-requête avec ALL",
+    "text": "Exemple 2 de sous-requête avec ALL\nLes pays dont toutes les villes ont plus de 1 000 000 habitants.\nLa requête :\nSELECT co.name_country\nFROM country co\nWHERE 1000000 &lt;= ALL (\n  SELECT ci.population \n  FROM city ci\n  WHERE ci.countrycode=co.countrycode\n)\nrenvoie également les pays qui n’ont pas de ville !\nOn peut corriger en ajoutant un test EXISTS sur la sous-requête.\nMais la meilleure solution est d’utiliser les fonctions d’agrégation que nous verrons plus tard."
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-any-all-4",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-any-all-4",
+    "objectID": "slides/SQL_2.html#opérateur-exists",
+    "href": "slides/SQL_2.html#opérateur-exists",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : ANY, ALL",
-    "text": "Utilisation de sous-requêtes : ANY, ALL\nLa ville la plus peuplée de chaque pays\nSELECT c1.name_city \nFROM city as c1\nWHERE population_city &gt;= ALL (\n  SELECT c2.population_city \n  FROM city as c2\n  WHERE c1.countrycode=c2.countrycode\n);"
+    "section": "Opérateur EXISTS",
+    "text": "Opérateur EXISTS\nC’est un quantificateur qui retourne un booléen.\nEXISTS retourne vrai si le résultat de la sous-requête n’est pas vide.\n[NOT] EXISTS (&lt;sous-requete&gt;)\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête ne contient que la valeur NULL, EXISTS renvoie vrai car le résultat de la sous-requête contient au moins un tuple."
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-exists",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-exists",
+    "objectID": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-exists",
+    "href": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-exists",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : EXISTS",
-    "text": "Utilisation de sous-requêtes : EXISTS\n[NOT] EXISTS (&lt;sous-requete&gt;)\nest évaluée à vraie si la sous-requête renvoie au moins un résultat.\n\nNom et prix des pièces qui ont été livrées\nSELECT NomP, Prix \nFROM Piece P \nWHERE EXISTS (\n  SELECT * \n  FROM Livraison \n  WHERE Livraison.NomP = P.NomP\n);\n\n\n Différence avec ANY\nL’utilisation de EXISTS s’apparente à une condition booléenne.\nPas de test sur la valeur d’un attribut particulier."
+    "section": "Exemple 1 de sous-requête avec EXISTS",
+    "text": "Exemple 1 de sous-requête avec EXISTS\nPays qui n’ont pas de ville\nSELECT co.name_country\nFROM country co\nWHERE NOT EXISTS(\n  SELECT * \n  FROM city ci\n  WHERE ci.countrycode=co.countrycode\n);\néquivalent à\nSELECT name_country\nFROM country\nEXCEPT\nSELECT name_country\nFROM country natural join city;\n\n\n\n\n\n\nNote\n\n\nNOT EXISTS permet souvent d’écrire une alternative à EXCEPT."
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-exists-1",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-exists-1",
+    "objectID": "slides/SQL_2.html#exemple-2-de-sous-requête-avec-exists",
+    "href": "slides/SQL_2.html#exemple-2-de-sous-requête-avec-exists",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : EXISTS",
-    "text": "Utilisation de sous-requêtes : EXISTS\nNom des Fournisseurs ayant livré la pièce x21 mais qui n’ont jamais livré la pièce a22.\nSELECT DISTINCT NomF \nFROM Livraison L \nWHERE L.NomP='x21' AND \n  NOT EXISTS (\n    SELECT * \n    FROM Livraison L1 \n    WHERE L2.NomP='a22' AND L2.NomF=L.NomF\n  );"
+    "section": "Exemple 2 de sous-requête avec EXISTS",
+    "text": "Exemple 2 de sous-requête avec EXISTS\nNom des Fournisseurs ayant livré la pièce x21 mais qui n’ont jamais livré la pièce a22.\nSELECT DISTINCT NomF \nFROM Livraison L1 \nWHERE L1.NomP='x21' AND \n  NOT EXISTS (\n    SELECT * \n    FROM Livraison L2 \n    WHERE L2.NomP='a22' AND L2.NomF=L1.NomF\n  );"
   },
   {
-    "objectID": "slides/SQL_2.html#utilisation-de-sous-requêtes-exists-2",
-    "href": "slides/SQL_2.html#utilisation-de-sous-requêtes-exists-2",
+    "objectID": "slides/SQL_2.html#exemple-3-de-sous-requête-avec-exists",
+    "href": "slides/SQL_2.html#exemple-3-de-sous-requête-avec-exists",
     "title": "BD II: SQL II",
-    "section": "Utilisation de sous-requêtes : EXISTS",
-    "text": "Utilisation de sous-requêtes : EXISTS\nLes régions qui ont au moins une langue officielle :\nSELECT DISTINCT region \nFROM world.country AS co\nWHERE EXISTS (\n  SELECT * \n  FROM world.countrylanguage AS cl\n  WHERE co.countrycode = cl.countrycode  AND cl.isofficial\n);"
+    "section": "Exemple 3 de sous-requête avec EXISTS",
+    "text": "Exemple 3 de sous-requête avec EXISTS\nLes régions qui ont au moins une langue officielle :\nSELECT DISTINCT region \nFROM country AS co\nWHERE EXISTS (\n  SELECT * \n  FROM countrylanguage AS cl\n  WHERE co.countrycode = cl.countrycode  AND cl.isofficial\n);\néquivalent à\nSELECT DISTINCT region \nFROM country AS co join world.countrylanguage as cl \non co.countrycode = cl.countrycode and cl.isofficial;"
   },
   {
-    "objectID": "slides/SQL_2.html#requêtes-imbriquées-lateral",
-    "href": "slides/SQL_2.html#requêtes-imbriquées-lateral",
+    "objectID": "slides/SQL_2.html#sous-requête-scalaire",
+    "href": "slides/SQL_2.html#sous-requête-scalaire",
     "title": "BD II: SQL II",
-    "section": "Requêtes imbriquées : LATERAL",
-    "text": "Requêtes imbriquées : LATERAL\n\n\n\n\n\n\nImportant\n\n\nLes sous-requêtes d’une clause FROM peuvent être précédées du mot-clé LATERAL\nOn peut alors faire référence à des colonnes des éléments précédents de la clause FROM"
+    "section": "Sous-requête scalaire",
+    "text": "Sous-requête scalaire\n\nRenvoie un tuple unique avec une colonne unique (un scalaire).\nLe plus souvent écrite avec une fonction d’agrégation (SUM, AVG, COUNT, MAX, MIN, …) que nous étudierons dans la suite du cours.\nUtilisation possible dans une clause WHERE.\n\nExemple : lister les noms de pays dont la densité est inférieure à la densité mondiale.\n\nSELECT name_country , population_country / surfacearea as population_density\nFROM country\nWHERE population_country / surfacearea &lt;= (\n  SELECT sum(population_country) / sum(surfacearea)\n  FROM country\n)\norder by name_country;\n\n\n\n\n\n\nNote\n\n\nNe pas confondre la densité mondiale moyenne (environ \\(40\\ \\text{h/km}^2\\) d’après la BDD world, en fait \\(55\\ \\text{h/km}^2\\) en 2025) avec la densité moyenne des pays (environ \\(400\\ \\text{h/km}^2\\))."
   },
   {
-    "objectID": "slides/SQL_2.html#pour-les-fonction-tables",
-    "href": "slides/SQL_2.html#pour-les-fonction-tables",
+    "objectID": "slides/SQL_2.html#tables-dérivés",
+    "href": "slides/SQL_2.html#tables-dérivés",
     "title": "BD II: SQL II",
-    "section": "Pour les fonction-tables …",
-    "text": "Pour les fonction-tables …\nLes arguments de la fonction peuvent contenir des références à des colonnes des items précédents de la clause FROM."
+    "section": "Tables dérivés",
+    "text": "Tables dérivés\nDans une clause FROM, on peut écrire une sous-requête qui renvoie une table nommée avec un alias : on parle de table dérivée, dans le sens qu’elle dérive des tables existantes.\n\n\n\n\n\n\nNote\n\n\nIl s’agit d’une composition de requêtes."
   },
   {
-    "objectID": "slides/SQL_2.html#evaluation",
-    "href": "slides/SQL_2.html#evaluation",
+    "objectID": "slides/SQL_2.html#exemple-de-sous-requête-dans-la-clause-from",
+    "href": "slides/SQL_2.html#exemple-de-sous-requête-dans-la-clause-from",
     "title": "BD II: SQL II",
-    "section": "Evaluation",
-    "text": "Evaluation\nPour chaque ligne d’un item FROM qui fournit la colonne référencée, l’item LATERAL est évalué en utilisant cette ligne. Les lignes du résultat sont jointes avec la ligne qui a servi à les calculer\nOn peut parler de sous-requête paramétrée"
+    "section": "Exemple de sous-requête dans la clause FROM",
+    "text": "Exemple de sous-requête dans la clause FROM\nLister les pays (code, nom, espérance de vie) dont le PNB a progressé de 10% et dont la population de la capitale est supérieure à 2 millions.\nSELECT bo.countrycode, name_country, lifeexpectancy\nFROM \n  (\n    SELECT countrycode, name_country, lifeexpectancy, capital\n    FROM country\n    WHERE gnpold &gt;0 AND gnp / gnpold &gt; 1.1  -- test gnpold &gt;0 pour gérer les valeurs nulles\n  ) AS bo \n  JOIN \n  (\n    SELECT id, countrycode\n    FROM city \n    WHERE population &gt; 2000000\n  ) AS bc  \n  ON bc.id=bo.capital ;"
   },
   {
-    "objectID": "slides/SQL_2.html#un-exemple-de-lusage-de-lateral",
-    "href": "slides/SQL_2.html#un-exemple-de-lusage-de-lateral",
+    "objectID": "slides/SQL_2.html#opérateur-lateral",
+    "href": "slides/SQL_2.html#opérateur-lateral",
     "title": "BD II: SQL II",
-    "section": "Un exemple de l’usage de LATERAL",
-    "text": "Un exemple de l’usage de LATERAL\nSELECT name_country, name_city \nFROM country, LATERAL (  \n  SELECT name_city       \n  FROM city              \n  WHERE city.countrycode=country.countrycode\n) ss   \nORDER BY name_country;\néquivalent à\nSELECT name_country, name_city \nFROM country NATURAL JOIN city\nORDER BY name_country;\n LATERAL est surtout utilisé quand la colonne référencée est nécessaire au calcul des lignes à joindre"
+    "section": "Opérateur LATERAL",
+    "text": "Opérateur LATERAL\n\n\n\n\n\n\nNote\n\n\nDans l’exemple précédent, chaque table dérivée est calculée indépendemment puis la jointure est effectuée.\n\n\n\nAvec l’opérateur LATERAL, on peut faire dépendre le calcul d’une table dérivée du résultat des tables précédentes du FROM."
   },
   {
-    "objectID": "slides/SQL_2.html#lateral-en-action-sur-world",
-    "href": "slides/SQL_2.html#lateral-en-action-sur-world",
+    "objectID": "slides/SQL_2.html#evaluation-de-lateral",
+    "href": "slides/SQL_2.html#evaluation-de-lateral",
     "title": "BD II: SQL II",
-    "section": "LATERAL en action sur world",
-    "text": "LATERAL en action sur world\n\n\nSELECT name_country, name_city \n\nFROM country, LATERAL ( \n  SELECT name_city  \n  FROM city  \n  WHERE city.countrycode=country.countrycode\n  ) ss  \n\nORDER BY name_city \n\nLIMIT 10 ;\n\n\n\n\nname_country\nname_city\n\n\n\n\nSpain\nA Coruña (La Coruña)\n\n\nGermany\nAachen\n\n\nDenmark\nAalborg\n\n\nNigeria\nAba\n\n\nIran\nAbadan\n\n\nBrazil\nAbaetetuba\n\n\nRussian Federation\nAbakan\n\n\nCanada\nAbbotsford\n\n\nNigeria\nAbeokuta\n\n\n…\n…"
+    "section": "Evaluation de LATERAL",
+    "text": "Evaluation de LATERAL\nLa table dérivée est calculée pour chaque tuple \\(u\\) obtenu par les opérations précédentes du FROM.\nPuis chaque tuple \\(v\\) la table dérivée est concaténé à \\(u\\) par produit cartésien.\nOn peut aussi concaténer \\(u\\) et \\(v\\) avec une jointure."
   },
   {
-    "objectID": "slides/SQL_2.html#syntaxe-des-clauses-with",
-    "href": "slides/SQL_2.html#syntaxe-des-clauses-with",
+    "objectID": "slides/SQL_2.html#exemple-1-avec-lateral",
+    "href": "slides/SQL_2.html#exemple-1-avec-lateral",
     "title": "BD II: SQL II",
-    "section": "Syntaxe des clauses WITH",
-    "text": "Syntaxe des clauses WITH\nWITH r AS (\n  SELECT ...\n  FROM ...\n  WHERE ...\n), s AS (\n  SELECT ...\n  FROM ...\n  WHERE ...     -- possible reference to r \n)\nSELECT ...\nFROM   ... -- possible reference to r, s \nWHERE"
+    "section": "Exemple 1 avec LATERAL",
+    "text": "Exemple 1 avec LATERAL\nPour chaque pays, donner la liste des villes de son térritoire.\n\n\nSans jointure\nSELECT co.name_country, sr.name \nFROM country co, LATERAL (  \n  SELECT name       \n  FROM city  ci            \n  WHERE ci.countrycode=co.countrycode\n) sr;\n\nAvec jointure\nSELECT co.name_country, sr.name \nFROM country co NATURAL JOIN LATERAL (  \n  SELECT countrycode, name       \n  FROM city\n) sr  \n\néquivalent à\nSELECT name_country, name \nFROM country co JOIN city ci ON ci.countrycode=co.countrycode\nORDER BY name_country;"
   },
   {
-    "objectID": "slides/SQL_2.html#section",
-    "href": "slides/SQL_2.html#section",
+    "objectID": "slides/SQL_2.html#exemple-2-avec-lateral",
+    "href": "slides/SQL_2.html#exemple-2-avec-lateral",
     "title": "BD II: SQL II",
-    "section": "…",
-    "text": "…\nWITH better_off AS (\n  SELECT countrycode, name_country, lifeexpectancy, capital\n  FROM country\n  WHERE gnpold &gt;0 AND gnp / gnpold &gt; 1.1\n),\nbig_capital AS (\n  SELECT id, countrycode\n  FROM city \n  WHERE population &gt; 2000000\n)\nSELECT bo.countrycode, name_country, lifeexpectancy\nFROM better_off bo JOIN big_capital bc ON\n  (bo.countrycode=bc.countrycode AND bc.id=bo.capital) ;"
+    "section": "Exemple 2 avec LATERAL",
+    "text": "Exemple 2 avec LATERAL\nPlus intéressant : pour chaque pays, donner la ville la plus peuplée.\nSELECT co.name_country, sr.name \nFROM country co, LATERAL (  \n  SELECT name       \n  FROM city ci            \n  WHERE ci.countrycode=co.countrycode\n  ORDER BY ci.population DESC\n  LIMIT 1\n) sr\nORDER BY co.name_country;\nEvaluation : si la table dérivée est vide, le tuple \\(u\\) de la table country n’est pas retenu car \\(\\lbrace u\\rbrace \\times \\emptyset = \\emptyset\\)."
+  },
+  {
+    "objectID": "slides/SQL_2.html#clause-with",
+    "href": "slides/SQL_2.html#clause-with",
+    "title": "BD II: SQL II",
+    "section": "Clause WITH",
+    "text": "Clause WITH\nUne clause WITH permet d’écrire des requêtes intermédiaires et d’alléger l’écriture d’une requête complexe.\nWITH r AS (\n  SELECT ...\n  FROM ...\n  WHERE ...\n), s AS (\n  SELECT ...\n  FROM ...\n  WHERE ...    -- références possibles à r \n)\nSELECT ...\nFROM   ...     -- références possibles à r \nWHERE ...\n\n\n\n\n\n\nNote\n\n\nCes expressions/requêtes sont appelées Common Table Expressions ou CTEs ou ETCs en français.\nLes CTEs peuvent être des requêtes SELECT, mais aussi des expressions de manipulation (mise à jour, insertion, suppression) de données.\nLes CTEs permettent de coller plus fidèlement à l’algèbre relationnelle que les requêtes imbriquées."
+  },
+  {
+    "objectID": "slides/SQL_2.html#avantages-des-ctes",
+    "href": "slides/SQL_2.html#avantages-des-ctes",
+    "title": "BD II: SQL II",
+    "section": "Avantages des CTEs",
+    "text": "Avantages des CTEs\n\n\n\n\n\n\nNote\n\n\nLes CTEs permettent de composer des requêtes de même que les requêtes imbriquées dans les clauses WHERE et FROM.\nPar rapport à ces deux autres techniques, les avantages sont :\n\namélioration de la lisibilité et de la maintenance des requêtes complexes.\nune ETC peut être utilisée plusieurs fois dans une même requête."
+  },
+  {
+    "objectID": "slides/SQL_2.html#exemple-de-requête-avec-with",
+    "href": "slides/SQL_2.html#exemple-de-requête-avec-with",
+    "title": "BD II: SQL II",
+    "section": "Exemple de requête avec WITH",
+    "text": "Exemple de requête avec WITH\nLister les pays (code, nom, espérance de vie) dont le PNB a progressé de 10% et dont la population de la capitale est supérieure à 2 millions.\nWITH better_off AS (\n  SELECT countrycode, name_country, lifeexpectancy, capital\n  FROM country\n  WHERE gnpold &gt;0 AND gnp / gnpold &gt; 1.1  -- gnpold &gt;0 pour gérer les valeurs nulles\n),\nbig_capital AS (\n  SELECT id, countrycode\n  FROM city \n  WHERE population &gt; 2000000\n)\nSELECT bo.countrycode, name_country, lifeexpectancy\nFROM better_off bo JOIN big_capital bc ON\n  bc.id=bo.capital ;"
   },
   {
     "objectID": "slides/SQL_4.html#pourquoi",
@@ -4899,14 +4934,14 @@
     "href": "slides/SQL_4.html#exemple-de-fonction-retournant-un-type-simple",
     "title": "Fonctions SQL et Vues",
     "section": "Exemple de fonction retournant un type simple",
-    "text": "Exemple de fonction retournant un type simple\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie la population maximale parmi les capitales de la région\nCREATE OR REPLACE \n  FUNCTION username.taille_max_capitale_region(p_region text)\n  RETURNS INTEGER \n  LANGUAGE SQL AS\n$$\nSELECT MAX(population_city) AS max_pop\nFROM world.country c \n  JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region AND\n cc.population_city IS NOT NULL;\n$$ ;"
+    "text": "Exemple de fonction retournant un type simple\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie la population maximale parmi les capitales de la région\nCREATE OR REPLACE \n  FUNCTION username.taille_max_capitale_region(p_region text)\n  RETURNS INTEGER \n  LANGUAGE SQL AS\n$$\nSELECT MAX(population) AS max_pop\nFROM world.country c \n  JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region AND\n cc.population IS NOT NULL;\n$$ ;"
   },
   {
     "objectID": "slides/SQL_4.html#fonctions-qui-retournent-un-type-composé-défini-par-les-lignes-dune-table",
     "href": "slides/SQL_4.html#fonctions-qui-retournent-un-type-composé-défini-par-les-lignes-dune-table",
     "title": "Fonctions SQL et Vues",
     "section": "Fonctions qui retournent un type composé défini par les lignes d’une table",
-    "text": "Fonctions qui retournent un type composé défini par les lignes d’une table\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie la description de la capitale la plus peuplée de cette région\nOn se contente de nommer la table pour indiquer que le résultat doit avoir même structure qu’une ligne de la table\n  CREATE OR REPLACE FUNCTION username.capitale(p_region text)\n  RETURNS world.city  \n  LANGUAGE SQL AS\n  $$\n  WITH r AS(\n    SELECT cc.*, RANK() OVER (PARTITION BY c.region ORDER BY cc.population_city DESC) AS rnk\n    FROM world.country c JOIN world.city cc ON (c.capital=cc.id)\n    WHERE c.region=p_region)\n  SELECT r.id, r.name_city, r.countrycode, r.district, r.population_city\n  FROM r \n  WHERE r.rnk = 1 ;\n  $$ ;"
+    "text": "Fonctions qui retournent un type composé défini par les lignes d’une table\nDans le schéma world, on veut écrire une fonction qui prend en argument une région et renvoie la description de la capitale la plus peuplée de cette région\nOn se contente de nommer la table pour indiquer que le résultat doit avoir même structure qu’une ligne de la table\n  CREATE OR REPLACE FUNCTION username.capitale(p_region text)\n  RETURNS world.city  \n  LANGUAGE SQL AS\n  $$\n  WITH r AS(\n    SELECT cc.*, RANK() OVER (PARTITION BY c.region ORDER BY cc.population DESC) AS rnk\n    FROM world.country c JOIN world.city cc ON (c.capital=cc.id)\n    WHERE c.region=p_region)\n  SELECT r.id, r.name, r.countrycode, r.district, r.population\n  FROM r \n  WHERE r.rnk = 1 ;\n  $$ ;"
   },
   {
     "objectID": "slides/SQL_4.html#fonctions-qui-retournent-une-table",
@@ -4920,7 +4955,7 @@
     "href": "slides/SQL_4.html#table-de-schéma-explicite",
     "title": "Fonctions SQL et Vues",
     "section": "Table de schéma explicite",
-    "text": "Table de schéma explicite\nOn se contente d’abord de renvoyer le nom de la capitale.\nOn explicite le schéma de la table résultat\nCREATE OR REPLACE FUNCTION username.capitales_region(p_region text)\nRETURNS TABLE (name_capital text) \nLANGUAGE SQL AS\n$$\nSELECT cc.name_city \nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region ;\n$$ ;"
+    "text": "Table de schéma explicite\nOn se contente d’abord de renvoyer le nom de la capitale.\nOn explicite le schéma de la table résultat\nCREATE OR REPLACE FUNCTION username.capitales_region(p_region text)\nRETURNS TABLE (name_capital text) \nLANGUAGE SQL AS\n$$\nSELECT cc.name \nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region ;\n$$ ;"
   },
   {
     "objectID": "slides/SQL_4.html#table-de-même-schéma-quune-autre-table",
@@ -5018,7 +5053,7 @@
     "href": "slides/SQL_4.html#vues-multi-tables-exemple-de-vue-sur-world",
     "title": "Fonctions SQL et Vues",
     "section": "Vues multi-tables : exemple de vue sur world\n",
-    "text": "Vues multi-tables : exemple de vue sur world\n\nCREATE OR REPLACE VIEW country_info AS\n\n  SELECT\n    cn.countrycode, \n    cn.name_country, \n    cn.region,\n    string_agg(DISTINCT ci.name_city::text , ', '::text) AS cities\n\n  FROM world.country cn LEFT JOIN \n       world.city ci \n       ON (cn.countrycode = ci.countrycode)\n\n  GROUP BY cn.countrycode, cn.name_country, cn.region;\nStackoverflow"
+    "text": "Vues multi-tables : exemple de vue sur world\n\nCREATE OR REPLACE VIEW country_info AS\n\n  SELECT\n    cn.countrycode, \n    cn.name_country, \n    cn.region,\n    string_agg(DISTINCT ci.name::text , ', '::text) AS cities\n\n  FROM world.country cn LEFT JOIN \n       world.city ci \n       ON (cn.countrycode = ci.countrycode)\n\n  GROUP BY cn.countrycode, cn.name_country, cn.region;\nStackoverflow"
   },
   {
     "objectID": "slides/SQL_4.html#insertionmise-à-joursuppression-sur-les-vues-multi-tables",
@@ -5151,7 +5186,7 @@
     "href": "exams/cc2-2023-11-24.html",
     "title": "MA15E045 - Automne 2025",
     "section": "",
-    "text": "CC 2 2023-11-24 16h30-18h45\nL3 MIASHS/Ingémath\nUniversité Paris Cité\nAnnée 2023-2024\nCourse Homepage\n\nMoodle\n\n\n\n\n\n\n\n\n\n\n\n\n\nPour chaque question, proposer une requête écrite en algèbre relationnelle ou en SQL.\n\n\n\n\n\n\n\n\n\nNoteQuestion 1\n\n\n\nDans le schéma world, lister les pays où les dix plus grandes villes ont chacune au moins 10 millions d’habitants.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nSELECT \n  ci.countrycode\nFROM \n  world.city ci \nWHERE \n  ci.population_city &gt; 10000000\nGROUP BY \n  ci.countrycode \nHAVING \n  COUNT(ci.id) &gt;= 10 ;\n\n\n\n\n\n\n\n\nNoteQuestion 2\n\n\n\nDans le schéma world, pour chaque pays, donner les trois langues les plus parlées.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nWITH R AS (\n  SELECT \n    cl.countrycode, cl.language, \n    RANK() OVER w AS rnk \n  FROM \n    world.countrylanguage cl \n  WINDOW \n    w AS (PARTITION BY cl.countrycode ORDER BY cl.percentage DESC)\n)\n\nSELECT \n  R.countrycode, R.language\nFROM \n  R\nWHERE \n  R.rnk &lt;= 3 ;\n\n\n\n\n\n\n\n\nNoteQuestion 3\n\n\n\nDans le schéma world, lister les langues parlées sur tous les continents.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nSELECT\n  language\nFROM\n  country co\nNATURAL JOIN\n  countrylanguage cl\nGROUP BY\n  cl.language\nHAVING COUNT(DISTINCT co.continent) = (\n  SELECT COUNT(DISTINCT c.continent) FROM country c\n) ;\n\n\n\n\n\n\n\n\nNoteQuestion 4\n\n\n\nDans le schéma world, lister par région le nombre de langues officielles distinctes.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nSELECT \n  co.region, \n  COUNT(DISTINCT cl.language) AS n\nFROM \n  world.countrylanguage cl \nNATURAL JOIN \n  world.country co \nWHERE \n  cl.isofficial\nGROUP BY \n  co.region\n\n\n\n\n\n\n\n\nNoteQuestion 5\n\n\n\nDans le schéma world, lister pour chaque forme de gouvernement, la population des villes des pays qui subissent cette forme de gouvernement.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nSELECT \n  co.governmentform, \n  SUM(ci.population) AS pop\nFROM \n  world.country co \nJOIN \n  world.city ci  USING (countrycode)\nGROUP BY \n  co.governmentform ;\n\n\n\n\n\n\n\n\nNoteQuestion 6\n\n\n\nDans le schéma world, lister les pays où la capitale est la ville la plus peuplée.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nWITH R AS (\n  SELECT \n    co.countrycode, co.name_country, ci. name, ci.id, ci.population,\n1    (co.capital=ci.id) AS capitale,\n2    RANK() OVER (PARTITION BY co.countrycode ORDER BY ci.population DESC) AS rnk\n  FROM \n      world.country co\n    JOIN\n      world.city ci  USING (countrycode) \n)\n\nSELECT \n  R.name_country, R. name, R.population\nFROM \n  R \nWHERE \n3  capitale AND rnk = 1\n;  \n\n1\n\nOn note les villes qui sont capitales\n\n2\n\nOn range les villes d’un pays par population décroissante\n\n3\n\nOn ne garde que les capitales qui sont aussi les villes les plus peuplées du royaume\n\n\n\n\n\n\n\n\n\n\nNoteQuestion 7\n\n\n\nDans le schéma world, lister les pays où \\(90\\%\\) de la population parle une langue officielle (il peut y avoir plusieurs langues officielles, dont la somme des locuteurs et locutrices dépasse \\(90\\%\\) de la population).\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nSELECT \n  cl.countrycode\nFROM \n  world.countrylanguage cl \nWHERE \n  cl.isofficial\nGROUP BY cl.countrycode\nHAVING SUM(cl.percentage) &gt;= 90 ;\n\n\n\nToutes les questions portent sur le schéma world.\n\n\n\nSchéma world"
+    "text": "CC 2 2023-11-24 16h30-18h45\nL3 MIASHS/Ingémath\nUniversité Paris Cité\nAnnée 2023-2024\nCourse Homepage\n\nMoodle\n\n\n\n\n\n\n\n\n\n\n\n\n\nPour chaque question, proposer une requête écrite en algèbre relationnelle ou en SQL.\n\n\n\n\n\n\n\n\n\nNoteQuestion 1\n\n\n\nDans le schéma world, lister les pays où les dix plus grandes villes ont chacune au moins 10 millions d’habitants.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nSELECT \n  ci.countrycode\nFROM \n  world.city ci \nWHERE \n  ci.population &gt; 10000000\nGROUP BY \n  ci.countrycode \nHAVING \n  COUNT(ci.id) &gt;= 10 ;\n\n\n\n\n\n\n\n\nNoteQuestion 2\n\n\n\nDans le schéma world, pour chaque pays, donner les trois langues les plus parlées.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nWITH R AS (\n  SELECT \n    cl.countrycode, cl.language, \n    RANK() OVER w AS rnk \n  FROM \n    world.countrylanguage cl \n  WINDOW \n    w AS (PARTITION BY cl.countrycode ORDER BY cl.percentage DESC)\n)\n\nSELECT \n  R.countrycode, R.language\nFROM \n  R\nWHERE \n  R.rnk &lt;= 3 ;\n\n\n\n\n\n\n\n\nNoteQuestion 3\n\n\n\nDans le schéma world, lister les langues parlées sur tous les continents.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nSELECT\n  language\nFROM\n  country co\nNATURAL JOIN\n  countrylanguage cl\nGROUP BY\n  cl.language\nHAVING COUNT(DISTINCT co.continent) = (\n  SELECT COUNT(DISTINCT c.continent) FROM country c\n) ;\n\n\n\n\n\n\n\n\nNoteQuestion 4\n\n\n\nDans le schéma world, lister par région le nombre de langues officielles distinctes.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nSELECT \n  co.region, \n  COUNT(DISTINCT cl.language) AS n\nFROM \n  world.countrylanguage cl \nNATURAL JOIN \n  world.country co \nWHERE \n  cl.isofficial\nGROUP BY \n  co.region\n\n\n\n\n\n\n\n\nNoteQuestion 5\n\n\n\nDans le schéma world, lister pour chaque forme de gouvernement, la population des villes des pays qui subissent cette forme de gouvernement.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nSELECT \n  co.governmentform, \n  SUM(ci.population) AS pop\nFROM \n  world.country co \nJOIN \n  world.city ci  USING (countrycode)\nGROUP BY \n  co.governmentform ;\n\n\n\n\n\n\n\n\nNoteQuestion 6\n\n\n\nDans le schéma world, lister les pays où la capitale est la ville la plus peuplée.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nWITH R AS (\n  SELECT \n    co.countrycode, co.name_country, ci. name, ci.id, ci.population,\n1    (co.capital=ci.id) AS capitale,\n2    RANK() OVER (PARTITION BY co.countrycode ORDER BY ci.population DESC) AS rnk\n  FROM \n      world.country co\n    JOIN\n      world.city ci  USING (countrycode) \n)\n\nSELECT \n  R.name_country, R. name, R.population\nFROM \n  R \nWHERE \n3  capitale AND rnk = 1\n;  \n\n1\n\nOn note les villes qui sont capitales\n\n2\n\nOn range les villes d’un pays par population décroissante\n\n3\n\nOn ne garde que les capitales qui sont aussi les villes les plus peuplées du royaume\n\n\n\n\n\n\n\n\n\n\nNoteQuestion 7\n\n\n\nDans le schéma world, lister les pays où \\(90\\%\\) de la population parle une langue officielle (il peut y avoir plusieurs langues officielles, dont la somme des locuteurs et locutrices dépasse \\(90\\%\\) de la population).\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nSELECT \n  cl.countrycode\nFROM \n  world.countrylanguage cl \nWHERE \n  cl.isofficial\nGROUP BY cl.countrycode\nHAVING SUM(cl.percentage) &gt;= 90 ;\n\n\n\nToutes les questions portent sur le schéma world.\n\n\n\nSchéma world"
   },
   {
     "objectID": "exams/cc3-2022-10-14.html",
@@ -5179,7 +5214,7 @@
     "href": "exams/cc3-2022-10-14.html#la-cinquième-ville-la-plus-peuplée-dans-chaque-pays",
     "title": "MA15E045 - Automne 2025",
     "section": "La cinquième ville la plus peuplée dans chaque pays",
-    "text": "La cinquième ville la plus peuplée dans chaque pays\nÉcrire une fonction de cc_fonc_3 langage SQL qui prend en argument une chaine de caractères censée désigner un pays par son nom et renvoie le nom de la cinquième ville la plus peuplée du pays (type de name_city), et la part de la population du pays qui réside dans cette ville (type float4).\n\n\n\n\n\n\nRéponse attendue pour\nSELECT name_city, prop \nFROM username.cc_fonc_3('Italy') ;\n\n\n\nname_city\nprop\n\n\n\n\nPalermo\n0.011854959\n\n\n\n\n\n\n\n\n\n\n\n\nTipsolution\n\n\n\nTODO"
+    "text": "La cinquième ville la plus peuplée dans chaque pays\nÉcrire une fonction de cc_fonc_3 langage SQL qui prend en argument une chaine de caractères censée désigner un pays par son nom et renvoie le nom de la cinquième ville la plus peuplée du pays (type de name), et la part de la population du pays qui réside dans cette ville (type float4).\n\n\n\n\n\n\nRéponse attendue pour\nSELECT name, prop \nFROM username.cc_fonc_3('Italy') ;\n\n\n\nname\nprop\n\n\n\n\nPalermo\n0.011854959\n\n\n\n\n\n\n\n\n\n\n\n\nTipsolution\n\n\n\nTODO"
   },
   {
     "objectID": "exams/cc3-2022-10-14.html#la-population-des-deux-villes-les-plus-peuplées-de-chaque-pays",
@@ -5222,12 +5257,5 @@
     "title": "MA15E045 - Automne 2025",
     "section": "",
     "text": "L3 MIASHS/Ingémath/METIS\nUniversité Paris Cité\nAnnée 2024-2025\nCourse Homepage\n\nMoodle\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Un service de vélos partagés permet aux abonnés d’utiliser des vélos mécaniques ou électriques. Chaque vélo porte un numéro. Un vélo entre en service à une date donnée, Il est retiré du service à une date donnée (pas connue à l’avance).\n Chaque abonné souscrit un abonnement pour une durée d’un an à une date donnée. Chaque abonnement possède un numéro, et un titulaire qui possède un nom, un prénom, un âge et un sexe. Un abonnement n’est pas renouvelable. Cela n’empêche pas une personne de souscrire un autre abonnement.\n Un abonné emprunte un vélo à une bornette à un instant de départ donné. Une fois le trajet effectué, l’abonné verrouille le vélo sur une bornette à l’instant d’arrivée.\n Les bornettes sont situées sur des stations. Chaque station contient un nombre \\(n\\) (qui peut varier d’une station à l’autre, mais est constant pour une station donnée) de bornettes numérotées de \\(1\\) à \\(n\\). Les stations sont numérotées, elles ont un nom et une adresse. Chaque station a une longitude et une latitude.\n\n\n\n\n\n\nNoteQuestion 1 (4pts)\n\n\n\nProposer un diagrammme entité-association (EA) correspondant à cette modélisation.\nOn attend un dessin selon les conventions du cours, pas une énumération.\n\n\n\n\n\n\n\n\nTipConseils\n\n\n\n\nDistinguer entités fortes et faibles\nDistinguer associations fortes et faibles\nPour chaque entité préciser l’identifiant (éventuellement relatif)\nPréciser les cardinalités pour chaque participation à une association\n\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nEntités\n\n\nAbonné\n\nAbonnéID (Identifiant)\nNom\nPrénom\nAge\nGenre\nDébutDate (de souscription)\n\nVelo\n\nVeloID (PK)\nType (Mecanique ou Electrique)\nDebutServiceDate\nFinServiceDate\n\nBornette (entité faible)\n\nBornetteID (Identifiant relatif)\n\nStation\n\nStationID (Identifiant)\nNom\nLongitude\nLatitude\nAddresse\n#bornettes\n\n\n\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAssociations\n\n\nTrajet\n\nStartTime\nEndTime\n\nEntités participantes\n\nAbonné 0:n\nVélo 0:n\nBornette (rôle : Départ) 0:n\nBornette (rôle : Arrivée) 0:n\n\nStation–Bornette\nEntités participantes\n\nBornette 1:1\nStation 1:n\n\n\nC’est un lien partie de entre une entité faible (Bornette) et une entité forte (Station). Une station comporte plusieurs bornettes.\n\n\n\n\n\n\n\n\n\nER\n\n\n\nabonne\n\nabonne\n\n\n\ntrajet\n\ntrajet\n\n\n\nabonne--trajet\n\n0:n\n\n\n\nvelo\n\nvelo\n\n\n\nvelo--trajet\n\n0:n\n\n\n\nstation\n\nstation\n\n\n\nabonne_id\n\nabonne_id\n\n\n\nabonne_id--abonne\n\n\n\n\nvelo_id\n\nvelo_id\n\n\n\nvelo_id--velo\n\n\n\n\nbornette_id\n\nbornette_id\n\n\n\nbornette\n\n\nbornette\n\n\n\nbornette_id--bornette\n\n\n\n\nstation_id\n\nstation_id\n\n\n\nstation_id--station\n\n\n\n\npartie-de\n\n\npartie-de\n\n\n\npartie-de--station\n\n0:n\n\n\n\nbornette--trajet\n\n0:n depart\n\n\n\nbornette--trajet\n\n0:n arrivee\n\n\n\nbornette--partie-de\n\n1:1\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteQuestion 2 (2pts)\n\n\n\nLister les contraintes externes\n\n\n\n\n\n\n\n\n\nUn vélo ne peut pas être emprunté simultanément par deux abonnés\nLe nombre de bornettes rattachées à une station ne peut excéder la limite fixée pour la station\nUn vélo ne peut effectuer de trajets qu’entre sa date de début de service et sa date de retrait de service.\nUn abonné ne peut pas effectuer de trajet avant la date de début ou après la date de fin d’abonnement.\nUne bornette ne peut pas être occupée par deux vélos simultanément.\n\n\n\n\n\n\n\n\n\n\nNoteQuestion 3 (2pts)\n\n\n\nProposer une traduction en pattes de corbeau du diagramme EA proposé en réponse\nà la première question.\n\n\n\n\n\n\n\n\nTipConseil\n\n\n\nPrécisez\n\nune clé primaire pour chaque table,\nles tables dites intermédiaires,\npour les liens matérialisant les contraintes référentielles, préciser s’ils sont identifiant ou non.\n\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\nerDiagram\n    TRAJET }o..|| VELO : velo_id \n    TRAJET }o..|| ABONNE  : abonne_id\n    TRAJET }o..|| BORNETTE : bornette_depart_id \n    TRAJET }o..|| BORNETTE : bornette_arrivee_id \n    BORNETTE }o--|| STATION : station_id\n\n  VELO {\n    num velo_id PK\n    date DebutServiceDate \n    date FinServiceDate\n    text type\n  }\n\n  ABONNE {\n    num abonne_id PK\n    text nom\n    text prenom\n    num age\n    date debut\n    text genre \n  }\n\n  TRAJET {\n    num trajet_id PK\n    num velo_id  FK\n    num abonne_id   FK\n    %% date depart_ts\n    %% date arrivee_ts\n    num bornette_depart_id FK\n    num station_depart_id FK\n    num bornette_arrivee_id FK\n    num station_arrivee_id FK\n  }\n\n  BORNETTE {\n    num station_id PK, FK\n    num bornette_id PK\n  }\n\n  STATION {\n    num station_id PK\n    text nom\n    text adresse\n    num latitude\n    num longitude\n    num bornettes\n  }\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteQuestion 4 (1pt)\n\n\n\nProposer un mécanisme pour mettre en place les contraintes externes en SQL lorsque c’est possible sans utiliser les gachettes (TRIGGER).\n\n\nOn écrit ici en SQL, le schéma correspondant,\n\n\n\n\n\n\nTipSolution\n\n\n\nCREATE TABLE Abonné (\n    AbonnéId INT PRIMARY KEY,\n    Nom VARCHAR(100),\n    Prénom VARCHAR(100),\n    Age INT,\n    Genre CHAR(1),\n    DébutDate DATE\n);\nCREATE TABLE Velo (\n    VéloId INT PRIMARY KEY,\n    Type ENUM('Mecanique', 'Electrique'),\n\n);\nCREATE TABLE Station (\n    StationID INT PRIMARY KEY,\n    Nom VARCHAR(100),\n    Longitude DECIMAL(9,6),\n    Latitude DECIMAL(9,6),\n    Adresse VARCHAR(255),\n    `#Bornettes` INT\n);\nCREATE TABLE Bornette (\n  StationID INT, \n  BorneID INT, \n  PRIMARY KEY (StationID, BorneID),\n  FOREIGN KEY (StationID) REFERENCES Station.StationID\n)\nCREATE TABLE Trajet (\n    TrajetID INT PRIMARY KEY,\n    DébutTS TIMESTAMP,\n    FinTS TIMESTAMP,\n    AbonnéID INT,\n    VéloID INT,\n    BornetteDépartID INT,\n    BornetteArriveeID INT,\n    StationDepartID INT,\n    StationArriveeID INT,\n    FOREIGN KEY (AbonnéID) REFERENCES Abonné(AbonnéID),\n    FOREIGN KEY (VeloID) REFERENCES Velo(VeloID),\n    FOREIGN KEY (StationDepartID, BornetteDépartID) \n      REFERENCES Bornette(StationID, BornetteID),\n    FOREIGN KEY (StationArriveeID, BornetteArriveeID) \n      REFERENCES Bornette(StationID, BornetteID)\n);\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\nOn suppose que le schéma est muni des dépendances fonctionnelles déduites de la question précédente et de celles qui se déduisent des contraintes de clé primaire. On note cet ensemble de dépendances fonctionnelles \\(\\Sigma\\).\n\n\n\n\n\n\nNoteQuestion 5 (1pt)\n\n\n\nVotre schéma est-il en Forme Normale de Boyce-Codd ?\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\n\nNoteQuestion 6 (2pt)\n\n\n\nQuelles actions faut-il effectuer sur votre base pour traduire les événements suivants:\n\nSouscription d’un abonnement.\nMise en service d’un vélo.\nRetrait de service d’un vélo.\nDécrochage d’un vélo.\nAccrochage d’un vélo.\n\n On n’attend pas du code. Juste une phrase qui décrit l’opération à effectuer.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\nInsertion d’un nouveau tuple dans la table ABONNE\nInsertion d’un nouveau tuple dans la table VELO avec une date de retrait de service NULL ou 'infinity'::date\nMise à jour d’un tuple dans la table VELO, RetraitServiceDate est affecté de la date courante\nInsertion d’un nouveau tuple dans la table TRAJET. FinTS, BornetteArriveeID StationArriveeID sont NULL\nMise à jour d’un tuple dans la table TRAJET (le tuple correspondant au trajet en cours du vélo raccroché), modification de FinTS, BornetteArriveeID StationArriveeID.\n\nOn note que l’accrochage d’un vélo, supposera la recherche du trajet en cours dans la table TRAJET, puis la mise à jour du tuple concerné.\nUne partie des requêtes qui suivent sera compliquée à écrire, parce qu’avec cette modélisation, les trajets en cours sont noyés dans la table TRAJET. Pour les repérer, il faut examiner la vaneur de FinTS (NULL ou 'infinity'::timestamp).\nPour se faciliter la vie, nous allons retoucher la modélisation présentée plus haut, introduire une nouvelle table TRAJET_EN_COURS.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nCREATE TABLE Trajet (\n    TrajetID INT PRIMARY KEY,\n    DébutTS TIMESTAMP,\n    FinTS TIMESTAMP,\n    AbonnéID INT,\n    VéloID INT,\n    BornetteDépartID INT,\n    BornetteArriveeID INT,\n    StationDepartID INT,\n    StationArriveeID INT,\n    FOREIGN KEY (AbonnéID) REFERENCES Abonné(AbonnéID),\n    FOREIGN KEY (VeloID) REFERENCES Velo(VeloID),\n    FOREIGN KEY (StationDepartID, BornetteDépartID) \n      REFERENCES Bornette(StationID, BornetteID),\n    FOREIGN KEY (StationArriveeID, BornetteArriveeID) \n      REFERENCES Bornette(StationID, BornetteID)\n);\nCREATE TABLE Trajet_en_cours (\n    TrajetID INT PRIMARY KEY,\n    DébutTS TIMESTAMP,\n    AbonnéID INT UNIQUE,\n    VéloID INT  UNIQUE,\n    BornetteDépartID INT,\n    StationDepartID INT,\n    FOREIGN KEY (AbonnéID) REFERENCES Abonné(AbonnéID),\n    FOREIGN KEY (VeloID) REFERENCES Velo(VeloID),\n    FOREIGN KEY (StationDepartID, BornetteDépartID) \n      REFERENCES Bornette(StationID, BornetteID),\n);\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\nerDiagram\n    TRAJET }o..|| VELO : velo_id \n    TRAJET }o..|| ABONNE  : abonne_id\n    TRAJET }o..|| BORNETTE : bornette_depart_id \n    TRAJET_EN_COURS }o..|| VELO : velo_id \n    TRAJET_EN_COURS }o..|| ABONNE  : abonne_id\n    TRAJET_EN_COURS }o..|| BORNETTE : bornette_depart_id \n    TRAJET }o..|| BORNETTE : bornette_arrivee_id \n    BORNETTE }o--|| STATION : station_id\n\n  VELO {\n    num velo_id PK\n    date DebutServiceDate \n    date FinServiceDate\n    text type\n  }\n\n  ABONNE {\n    num abonne_id PK\n    text nom\n    text prenom\n    num age\n    date debut\n    text genre \n  }\n\n  TRAJET {\n    num trajet_id PK\n    num velo_id  FK\n    num abonne_id   FK\n    time depart_ts\n    time arrivee_ts\n    num bornette_depart_id FK\n    num station_depart_id FK\n    num bornette_arrivee_id FK\n    num station_arrivee_id FK\n  }\n\n  TRAJET_EN_COURS {\n    num trajet_id PK\n    num velo_id  FK\n    num abonne_id   FK\n    time depart_ts\n    num bornette_depart_id FK\n    num station_depart_id FK\n  }\n\n  BORNETTE {\n    num station_id PK, FK\n    num bornette_id PK\n  }\n\n  STATION {\n    num station_id PK\n    text nom\n    text adresse\n    num latitude\n    num longitude\n    num bornettes\n  }\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nCe modification du schéma, facilite la mise en place de certaines contraintes.\n\nPour les tuples de la table TRAJET_EN_COURS, les contraintes d’exclusions se réduisent à des contraintes d’unicité sur velo_id et abonne_id.\n\n\n\n\n\n\n\n\n\n\nWarningAttention\n\n\n\nDans la suite, vous formulerez les requêtes dans le schéma relationnel défini par votre schéma en pattes de corbeau.\n : 1 point par requête\n\n\n\n\n\n\n\n\nNoteRequête 1\n\n\n\nListe des trajets en cours à un instant donné\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\nNoteRequête 2\n\n\n\nListe des vélos en trajet depuis plus d’une heure.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\nNoteRequête 3\n\n\n\nNombre de trajets initiés durant chaque heure de la journée pendant le mois de juin 2024.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\nNoteRequête 4\n\n\n\nListe des velos qui ont participé à un trajet commencé et achevé dans la même station pendant la dernière semaine.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\nNoteRemarque\n\n\n\n\n\n\n\n\n\n\n\n\nNoteRequête 5\n\n\n\nLister d’éventuels couples de trajets suspects impliquant le même vélo à un même instant.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\nNoteRequête 6\n\n\n\nListe des stations qui ont été vides ou pleines pendant la semaine écoulée.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\nNoteRequête 7\n\n\n\nListe des vélos en service qui n’ont pas roulé depuis plus d’un mois.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\nNoteRequête 8\n\n\n\nPour chaque couple de stations, durée moyenne des trajets entre la station de départ et la station d’arrivée.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\nNoteRequête 9\n\n\n\nLister pour chaque station le nombre de bornettes occupées à l’instant courant.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\nNoteRequête 10\n\n\n\nLister les trajets suspects dont le vélo n’est pas en service.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\n\n\nEn PostgreSQL, pour définir un intervalle à l’aide de deux dates debut et fin, il suffit d’écrire (début, fin). L’intervalle ne contient pas la date de fin.\nPour tester l’intersection/le recouvrement de deux intervalles, on utilise l’opérateur OVERLAPS\nbd_2023-24=# SELECT \n  ('2025-01-03'::date, '2025-01-10'::date) OVERLAPS \n  ('2025-01-10'::date, '2025-01-15'::date)  ; \n overlaps \n----------\n false\n(1 row)\n\nSELECT \n  ('2025-01-03 20:26:00'::timestamp, '2025-01-03  21:31:01'::timestamp) OVERLAPS                                              \n  ('2025-01-03 20:50:04'::timestamp, '2025-01-03 21:45:00'::timestamp)  ; \n overlaps \n----------\n t\n(1 row)\n\n\n\n\n\n\n\n\n\nPour spécifier un intervalle semi-infini (dont la fin n’est pas connue), on peut utiliser 'infinity'::timestamp pour décrire la borne supérieure.\nbd_2023-24=#  SELECT \n  ('2025-01-03 20:26:00'::timestamp, 'infinity'::timestamp) OVERLAPS \n  ('2025-01-03 21:32:04'::timestamp, '2025-01-03 21:45:00'::timestamp)  ; \n overlaps \n----------\n t\n(1 row)\n\n\n\n\n\n\n\n\n\nEn PostgreSQL, current_timestamp s’évalue à l’instant courant (de type timestamp avec timezone).\nEn PostgreSQL, pour extraire le mois d’un objet dd de type date, vous pouvez utiliser EXTRACT(MONTH FROM dd). Le résultat est un entier entre 1 et 12, 1 pour janvier, …\npostgres=# SELECT \n  current_timestamp AS instant, \n  EXTRACT( MONTH FROM current_timestamp::date) AS le_mois ;\n            instant            | le_mois \n-------------------------------+---------\n 2025-06-05 20:26:12.556256+02 |       6\n\n\n\n\n\n\n\n\n\nPour définir un intervalle de temps, il suffit de décrire l’intervalle par une chaine de caratères et de convertir le résultat en type interval\nbd_2023-24=# select '2025-06-05 21:10:38.732237+02'::timestamp - '7 days'::interval ;\n          ?column?          \n----------------------------\n 2025-05-29 21:10:38.732237"
-  },
-  {
-    "objectID": "slides/SQL_1.html#exemples-de-requête",
-    "href": "slides/SQL_1.html#exemples-de-requête",
-    "title": "BD II: SQL I",
-    "section": "Exemples de requête",
-    "text": "Exemples de requête\n\n\nSchémas des tables :\n\nEmploye(Nu, NomE, Annee, Tel, Nudept)\nFournisseur (NomF, Ville, Adresse)\nPiece(NomP, Prix, Couleur)\n\nLa requête\nSELECT *\n\nFROM Fournisseur ;\n\nest équivalente à : \\(\\quad Fournisseur\\)\n\n\nLa requête\nSELECT NomF\n\nFROM Fournisseur\n\nWHERE Ville='Paris' ;\n\n\nest équivalente à : \\(\\quad \\pi((\\sigma(\\texttt{Fournisseur}, \\texttt{Ville}=\\texttt{'Paris'})), \\texttt{NomF})\\)"
   }
 ]

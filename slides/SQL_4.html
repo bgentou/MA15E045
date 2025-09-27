@@ -469,11 +469,11 @@
 <span id="cb13-3"><a></a>  RETURNS <span class="dt">INTEGER</span> </span>
 <span id="cb13-4"><a></a>  LANGUAGE SQL <span class="kw">AS</span></span>
 <span id="cb13-5"><a></a>$$</span>
-<span id="cb13-6"><a></a><span class="kw">SELECT</span> <span class="fu">MAX</span>(population_city) <span class="kw">AS</span> max_pop</span>
+<span id="cb13-6"><a></a><span class="kw">SELECT</span> <span class="fu">MAX</span>(population) <span class="kw">AS</span> max_pop</span>
 <span id="cb13-7"><a></a><span class="kw">FROM</span> world.country c </span>
 <span id="cb13-8"><a></a>  <span class="kw">JOIN</span> world.city cc <span class="kw">ON</span> (c.capital<span class="op">=</span>cc.<span class="kw">id</span>)</span>
 <span id="cb13-9"><a></a><span class="kw">WHERE</span> c.region<span class="op">=</span>p_region <span class="kw">AND</span></span>
-<span id="cb13-10"><a></a> cc.population_city <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span>;</span>
+<span id="cb13-10"><a></a> cc.population <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span>;</span>
 <span id="cb13-11"><a></a>$$ ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section><section><section id="fonctions-qui-retournent-un-type-composé" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Fonctions qui retournent un type composé</h1>
 
@@ -488,13 +488,13 @@
 <span id="cb14-7"><a></a>  LANGUAGE SQL <span class="kw">AS</span></span>
 <span id="cb14-8"><a></a>$$</span>
 <span id="cb14-9"><a></a><span class="kw">WITH</span> r <span class="kw">AS</span> (</span>
-<span id="cb14-10"><a></a>  <span class="kw">SELECT</span> cc.<span class="op">*</span>, <span class="fu">RANK</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> c.region <span class="kw">ORDER</span> <span class="kw">BY</span> cc.population_city <span class="kw">DESC</span>) <span class="kw">AS</span> rnk</span>
+<span id="cb14-10"><a></a>  <span class="kw">SELECT</span> cc.<span class="op">*</span>, <span class="fu">RANK</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> c.region <span class="kw">ORDER</span> <span class="kw">BY</span> cc.population <span class="kw">DESC</span>) <span class="kw">AS</span> rnk</span>
 <span id="cb14-11"><a></a>  <span class="kw">FROM</span> world.country c <span class="kw">JOIN</span> </span>
 <span id="cb14-12"><a></a>    world.city cc <span class="kw">ON</span> (c.capital<span class="op">=</span>cc.<span class="kw">id</span>)</span>
 <span id="cb14-13"><a></a>  <span class="kw">WHERE</span> c.region<span class="op">=</span>p_region</span>
 <span id="cb14-14"><a></a>)</span>
 <span id="cb14-15"><a></a></span>
-<span id="cb14-16"><a></a><span class="kw">SELECT</span> r.name_city,  r.population_city</span>
+<span id="cb14-16"><a></a><span class="kw">SELECT</span> r.name,  r.population</span>
 <span id="cb14-17"><a></a><span class="kw">FROM</span> r </span>
 <span id="cb14-18"><a></a><span class="kw">WHERE</span> r.rnk <span class="op">=</span> <span class="dv">1</span> ;</span>
 <span id="cb14-19"><a></a>$$ ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
@@ -506,10 +506,10 @@
 <span id="cb15-3"><a></a>  LANGUAGE SQL <span class="kw">AS</span></span>
 <span id="cb15-4"><a></a>  $$</span>
 <span id="cb15-5"><a></a>  <span class="kw">WITH</span> r <span class="kw">AS</span>(</span>
-<span id="cb15-6"><a></a>    <span class="kw">SELECT</span> cc.<span class="op">*</span>, <span class="fu">RANK</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> c.region <span class="kw">ORDER</span> <span class="kw">BY</span> cc.population_city <span class="kw">DESC</span>) <span class="kw">AS</span> rnk</span>
+<span id="cb15-6"><a></a>    <span class="kw">SELECT</span> cc.<span class="op">*</span>, <span class="fu">RANK</span>() <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> c.region <span class="kw">ORDER</span> <span class="kw">BY</span> cc.population <span class="kw">DESC</span>) <span class="kw">AS</span> rnk</span>
 <span id="cb15-7"><a></a>    <span class="kw">FROM</span> world.country c <span class="kw">JOIN</span> world.city cc <span class="kw">ON</span> (c.capital<span class="op">=</span>cc.<span class="kw">id</span>)</span>
 <span id="cb15-8"><a></a>    <span class="kw">WHERE</span> c.region<span class="op">=</span>p_region)</span>
-<span id="cb15-9"><a></a>  <span class="kw">SELECT</span> r.<span class="kw">id</span>, r.name_city, r.countrycode, r.district, r.population_city</span>
+<span id="cb15-9"><a></a>  <span class="kw">SELECT</span> r.<span class="kw">id</span>, r.name, r.countrycode, r.district, r.population</span>
 <span id="cb15-10"><a></a>  <span class="kw">FROM</span> r </span>
 <span id="cb15-11"><a></a>  <span class="kw">WHERE</span> r.rnk <span class="op">=</span> <span class="dv">1</span> ;</span>
 <span id="cb15-12"><a></a>  $$ ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
@@ -522,7 +522,7 @@
 <span id="cb16-2"><a></a>RETURNS <span class="kw">TABLE</span> (name_capital text) </span>
 <span id="cb16-3"><a></a>LANGUAGE SQL <span class="kw">AS</span></span>
 <span id="cb16-4"><a></a>$$</span>
-<span id="cb16-5"><a></a><span class="kw">SELECT</span> cc.name_city </span>
+<span id="cb16-5"><a></a><span class="kw">SELECT</span> cc.name </span>
 <span id="cb16-6"><a></a><span class="kw">FROM</span> world.country c <span class="kw">JOIN</span> world.city cc <span class="kw">ON</span> (c.capital<span class="op">=</span>cc.<span class="kw">id</span>)</span>
 <span id="cb16-7"><a></a><span class="kw">WHERE</span> c.region<span class="op">=</span>p_region ;</span>
 <span id="cb16-8"><a></a>$$ ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
@@ -716,7 +716,7 @@ Middle East              | 188380700|</code></pre>
 <span id="cb27-4"><a></a>    cn.countrycode, </span>
 <span id="cb27-5"><a></a>    cn.name_country, </span>
 <span id="cb27-6"><a></a>    cn.region,</span>
-<span id="cb27-7"><a></a>    string_agg(<span class="kw">DISTINCT</span> ci.name_city:<span class="ch">:text</span> , <span class="st">', '</span>:<span class="ch">:text</span>) <span class="kw">AS</span> cities</span>
+<span id="cb27-7"><a></a>    string_agg(<span class="kw">DISTINCT</span> ci.name:<span class="ch">:text</span> , <span class="st">', '</span>:<span class="ch">:text</span>) <span class="kw">AS</span> cities</span>
 <span id="cb27-8"><a></a></span>
 <span id="cb27-9"><a></a>  <span class="kw">FROM</span> world.country cn <span class="kw">LEFT</span> <span class="kw">JOIN</span> </span>
 <span id="cb27-10"><a></a>       world.city ci </span>

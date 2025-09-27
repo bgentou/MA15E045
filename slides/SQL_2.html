@@ -11,9 +11,7 @@
 <link href="../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/grid-htext-1.0.0/grid_htext.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
-<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Équipe BD">
@@ -243,12 +241,9 @@
 <h2 id="toc-title">Plan</h2>
 <ul>
 <li><a href="#/opérateurs-ensemblistes" id="/toc-opérateurs-ensemblistes">Opérateurs ensemblistes</a></li>
-<li><a href="#/requêtes-imbriquées" id="/toc-requêtes-imbriquées">Requêtes imbriquées</a></li>
-<li><a href="#/opérateur-in" id="/toc-opérateur-in">Opérateur IN</a></li>
-<li><a href="#/opérateur-all-et-any" id="/toc-opérateur-all-et-any">Opérateur ALL et ANY</a></li>
-<li><a href="#/opérateur-exists" id="/toc-opérateur-exists">Opérateur EXISTS</a></li>
-<li><a href="#/opérateur-lateral" id="/toc-opérateur-lateral">Opérateur LATERAL</a></li>
-<li><a href="#/with" id="/toc-with">WITH</a></li>
+<li><a href="#/requêtes-imbriquées-dans-la-clause-where" id="/toc-requêtes-imbriquées-dans-la-clause-where">Requêtes imbriquées dans la clause <code>WHERE</code></a></li>
+<li><a href="#/requêtes-imbriquées-dans-la-clause-from" id="/toc-requêtes-imbriquées-dans-la-clause-from">Requêtes imbriquées dans la clause <code>FROM</code></a></li>
+<li><a href="#/les-ctes-avec-with" id="/toc-les-ctes-avec-with">Les CTEs avec <code>WITH</code></a></li>
 <li><a href="#/fin" id="/toc-fin">Fin</a></li>
 </ul>
 </nav>
@@ -258,34 +253,71 @@
 <h1>Opérateurs ensemblistes</h1>
 
 </section>
-<section id="opérateurs-ensemblistes-capcupsetminus" class="slide level2 center">
-<h2>Opérateurs ensemblistes: <span class="math inline">\(\cap,\cup,\setminus\)</span></h2>
-<p><i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> Les deux tables doivent avoir des <strong>schémas identiques</strong></p>
-<ul>
-<li>Intersection ( <span class="math inline">\(\cap\)</span> ) : les tuples qui sont à la fois dans la requête 1 et dans la requête 2</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a></a><span class="op">&lt;</span>requete1<span class="op">&gt;</span> <span class="kw">INTERSECT</span> <span class="op">&lt;</span>requete2<span class="op">&gt;</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<ul>
-<li>Union ( <span class="math inline">\(\cup\)</span> ) : les tuples de la requête 1 et ceux de la requête 2</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a></a><span class="op">&lt;</span>requete1<span class="op">&gt;</span> <span class="kw">UNION</span> <span class="op">&lt;</span>requete2<span class="op">&gt;</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="opérateurs-ensemblistes-propriétés-requises" class="slide level2 center">
+<h2>Opérateurs ensemblistes: propriétés requises</h2>
+<p>Le résultat d’une requête SQL est un ensemble de tuples… donc une relation.</p>
+<p>Les opérateurs ensemblistes (<span class="math inline">\(\cap\)</span>, <span class="math inline">\(\cup\)</span>, <span class="math inline">\(\setminus\)</span>) permettent de combiner les résultats de deux requêtes (ou plus).</p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="fragment">
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Les requêtes combinées doivent avoir des <em>schémas compatibles</em> :</p>
 <ul>
-<li>Différence ( <span class="math inline">\(\backslash\)</span> ) : les tuples de la requête 1 qui ne sont pas des tuples de la requête 2</li>
+<li><p>même nombre de colonnes,</p></li>
+<li><p>même type de données pour les colonnes de même position.</p></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a></a><span class="op">&lt;</span>requete1<span class="op">&gt;</span> <span class="kw">EXCEPT</span> <span class="op">&lt;</span>requete2<span class="op">&gt;</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="intersect-union-except" class="slide level2 center">
+<h2><code>INTERSECT</code>, <code>UNION</code>, <code>EXCEPT</code></h2>
+<ul>
+<li class="fragment"><p><code>INTERSECT</code> : tuples de l’intersection des résultats des requêtes.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a></a><span class="op">&lt;</span>requete1<span class="op">&gt;</span> </span>
+<span id="cb1-2"><a></a><span class="kw">INTERSECT</span> </span>
+<span id="cb1-3"><a></a><span class="op">&lt;</span>requete2<span class="op">&gt;</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li class="fragment"><p><code>UNION</code> : tuples de l’union des résultats des requêtes.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a></a><span class="op">&lt;</span>requete1<span class="op">&gt;</span> </span>
+<span id="cb2-2"><a></a><span class="kw">UNION</span> </span>
+<span id="cb2-3"><a></a><span class="op">&lt;</span>requete2<span class="op">&gt;</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li class="fragment"><p><code>EXCEPT</code> : tuples de la différence ensembliste des résultats des requêtes</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a></a><span class="op">&lt;</span>requete1<span class="op">&gt;</span> </span>
+<span id="cb3-2"><a></a><span class="kw">EXCEPT</span> </span>
+<span id="cb3-3"><a></a><span class="op">&lt;</span>requete2<span class="op">&gt;</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><code>UNION</code> ne conserve pas les tuples doublons entre les deux requêtes.</p>
+<p>Pour les conserver, il faut utiliser l’opérateur <code>UNION ALL</code>.</p>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="exemple-pour-except" class="slide level2 center">
 <h2>Exemple pour <code>EXCEPT</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a></a>`Fournisseur (NomF, VilleF, AdresseF)` </span>
+<p>Considérons les tables de schémas suivants :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a></a>`Fournisseur (NomF : <span class="dt">varchar</span>, VilleF : <span class="dt">varchar</span>, AdresseF : <span class="dt">varchar</span>)` </span>
 <span id="cb4-2"><a></a></span>
-<span id="cb4-3"><a></a>`Piece(NomP, Prix, Couleur)`</span>
+<span id="cb4-3"><a></a>`Piece(NomP : <span class="dt">varchar</span>, Prix : money, Couleur : <span class="dt">varchar</span>)`</span>
 <span id="cb4-4"><a></a></span>
-<span id="cb4-5"><a></a>`Livraison(NumLiv, NomP, NomF, DateLiv, Quantite)`</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-5"><a></a>`Livraison(NumLiv : <span class="dt">integer</span>, NomP : <span class="dt">varchar</span>, NomF : <span class="dt">varchar</span>, DateLiv : <span class="dt">date</span>, Quantite : <span class="dt">numeric</span>)`</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Fournisseurs qui ont livré la pièce <code>x22</code> mais pas la pièce <code>x21</code></p>
+<div class="fragment">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a></a><span class="kw">SELECT</span> NomF </span>
 <span id="cb5-2"><a></a><span class="kw">FROM</span> Livraison </span>
 <span id="cb5-3"><a></a><span class="kw">WHERE</span> NomP<span class="op">=</span><span class="st">'x22'</span></span>
@@ -295,41 +327,67 @@
 <span id="cb5-7"><a></a><span class="kw">SELECT</span> NomF</span>
 <span id="cb5-8"><a></a><span class="kw">FROM</span> Livraison </span>
 <span id="cb5-9"><a></a><span class="kw">WHERE</span> NomP<span class="op">=</span><span class="st">'x21'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section></section>
 <section>
-<section id="requêtes-imbriquées" class="title-slide slide level1 center" data-background-color="#1c191c">
-<h1>Requêtes imbriquées</h1>
+<section id="requêtes-imbriquées-dans-la-clause-where" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Requêtes imbriquées dans la clause <code>WHERE</code></h1>
 
 </section>
-<section id="requêtes-imbriquées-in-exists-all-any-lateral" class="slide level2 center">
-<h2>Requêtes imbriquées <code>IN, EXISTS, ALL, ANY, LATERAL</code></h2>
+<section id="sous-requête-dans-la-clause-where" class="slide level2 center">
+<h2>Sous-requête dans la clause <code>WHERE</code></h2>
 <ul>
-<li><p>Le résultat d’une requête SQL est un ensemble de tuples… donc une relation.</p></li>
-<li><p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> Dans la clause <code>WHERE</code> d’une requête, on peut utiliser une fonction d’une autre requête, appelée <strong>sous-requête</strong></p></li>
-<li><p><code>IN, EXISTS, ALL, ANY</code> sont des fonctions qui prennent une sous-requête (une relation) en argument.</p></li>
-<li><p>Dans une sous-requête, on peut se référer à des attributs des tables de la clause <code>FROM</code>.</p></li>
-<li><p>Pour chaque ligne d’un item <code>FROM</code> qui fournit la colonne référencée, l’item <code>LATERAL</code> est évalué en utilisant cette ligne. Les lignes du résultat sont <em>jointes</em> avec la ligne qui a servi à les calculer.</p></li>
-<li><p>On peut utiliser ces résultats comme données d’une autre requête</p></li>
-<li><p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Moyens : utiliser des fonctions de table dans la clause <code>WHERE</code>.</p></li>
+<li><p>Dans la clause <code>WHERE</code> d’une requête, on peut utiliser une autre requête, appelée <strong>sous-requête</strong> ou <strong>requête imbriquée</strong>.</p></li>
+<li><p>La sous-requête est exécutée pour chaque tuple formé par la clause <code>FROM</code>. Ce tuple sera sélectionné en fonction du test effectué sur le résultat de la sous-requête.</p></li>
+<li><p>Dans une sous-requête, on peut se référer aux tables nommées dans la clause <code>FROM</code> de la requête de niveau supérieur.</p></li>
 </ul>
-</section></section>
-<section>
-<section id="opérateur-in" class="title-slide slide level1 center" data-background-color="#1c191c">
-<h1>Opérateur IN</h1>
-
 </section>
-<section id="utilisation-de-sous-requêtes-in" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>IN</code></h2>
+<section id="opérateurs-de-sous-requête" class="slide level2 center">
+<h2>Opérateurs de sous-requête</h2>
 <ul>
-<li><p>Opérateur <code>IN</code> déjà vu pour exprimer que l’attribut est à valeur dans une certaine liste</p></li>
-<li><p>Nouvelle utilisation de <code>IN</code> avec des sous-requêtes.</p></li>
+<li><p><code>IN, EXISTS, ALL, ANY</code> sont des fonctions (ou opérations) qui prennent en argument une sous-requête.</p></li>
+<li><p>Elles effectuent des tests sur l’ensemble des résultats d’une sous-requête.</p></li>
 </ul>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p>Attention au comportement de chaque opérateur si le résultat de la sous-requête est vide ou s’il contient la valeur <code>NULL</code>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="opérateur-in" class="slide level2 center">
+<h2>Opérateur <code>IN</code></h2>
+<p>L’opérateur <code>IN</code> permet de tester si une valeur est présente dans le résultat d’une sous-requête.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a></a><span class="op">&lt;</span>attribut<span class="op">&gt;</span> [<span class="kw">NOT</span>] <span class="kw">IN</span> (<span class="op">&lt;</span>sous<span class="op">-</span>requete<span class="op">&gt;</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Evaluée à vraie si <attribut> appartient au résultat de la sous-requête</attribut></p>
+<p>Evaluée à vraie si <code>&lt;attribut&gt;</code> appartient au résultat de la sous-requête.</p>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p>Si le résultat de la sous-requête est vide, <code>IN</code> renvoie faux, <code>NOT IN</code> renvoie vrai.</p>
+<p>Si <code>&lt;attribut&gt;</code> vaut <code>NULL</code>, les test <code>IN</code> et <code>NOT IN</code> renvoient <code>UNKNOWN</code>.</p>
+<p>L’évaluation de <code>IN</code> ignore les valeurs <code>NULL</code> du résultat de la sous-requête. Si ce résultat ne contient que <code>NULL</code>, <code>IN</code> retourne <code>UNKNOWN</code>.</p>
+<p>Si le résultat de la sous-requête contient au moins une valeur <code>NULL</code>, <code>NOT IN</code> retourne <code>UNKNOWN</code>.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="utilisation-de-sous-requêtes-in-1" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>IN</code></h2>
+<section id="exemple-1-de-sous-requête-avec-in" class="slide level2 center">
+<h2>Exemple 1 de sous-requête avec <code>IN</code></h2>
 <p>Lister les villes de fournisseurs qui ont livré la pièce ‘x21’.</p>
+<div class="fragment">
 <div class="columns">
 <div class="column">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> VilleF </span>
@@ -347,403 +405,546 @@
 <span id="cb8-2"><a></a></span>
 <span id="cb8-3"><a></a><span class="kw">FROM</span> Fournisseur F, Livraison L </span>
 <span id="cb8-4"><a></a></span>
-<span id="cb8-5"><a></a><span class="kw">WHERE</span> (F. NomF <span class="op">=</span> L. NomF) <span class="kw">AND</span> </span>
-<span id="cb8-6"><a></a>  (L. NomP <span class="op">=</span> <span class="st">'x21'</span>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-5"><a></a><span class="kw">WHERE</span> (F.NomF <span class="op">=</span> L.NomF) <span class="kw">AND</span> </span>
+<span id="cb8-6"><a></a>  (L.NomP <span class="op">=</span> <span class="st">'x21'</span>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
-</section>
-<section id="utilisation-de-sous-requêtes-in-2" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>IN</code></h2>
-<p>Lister les couleurs de pièces livrées par des fournisseurs de Paris</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> Couleur </span>
-<span id="cb9-2"><a></a><span class="kw">FROM</span> Piece</span>
-<span id="cb9-3"><a></a><span class="kw">WHERE</span> NomP <span class="kw">IN</span> (   </span>
-<span id="cb9-4"><a></a>    <span class="kw">SELECT</span> NomP  #<span class="op">&lt;&lt;</span> </span>
-<span id="cb9-5"><a></a>  <span class="kw">FROM</span> Livraison  #<span class="op">&lt;&lt;</span> </span>
-<span id="cb9-6"><a></a>    <span class="kw">WHERE</span> NomF <span class="kw">IN</span> (</span>
-<span id="cb9-7"><a></a>    <span class="kw">SELECT</span> NomF   #<span class="op">&lt;&lt;</span></span>
-<span id="cb9-8"><a></a>    <span class="kw">FROM</span> Fournisseur   #<span class="op">&lt;&lt;</span></span>
-<span id="cb9-9"><a></a>    <span class="kw">WHERE</span> VilleF<span class="op">=</span><span class="st">'Paris'</span></span>
-<span id="cb9-10"><a></a>    )  #<span class="op">&lt;&lt;</span></span>
-<span id="cb9-11"><a></a>  );  </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<p>est équivalente à</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> P.Couleur</span>
-<span id="cb10-2"><a></a></span>
-<span id="cb10-3"><a></a><span class="kw">FROM</span> Piece P, Livraison L, Fournisseur F</span>
-<span id="cb10-4"><a></a></span>
-<span id="cb10-5"><a></a><span class="kw">WHERE</span> </span>
-<span id="cb10-6"><a></a>  P.NomP <span class="op">=</span> L.NomP <span class="kw">AND</span></span>
-<span id="cb10-7"><a></a>  L.NomF <span class="op">=</span> F.NomF <span class="kw">AND</span>   </span>
-<span id="cb10-8"><a></a>  VilleF <span class="op">=</span> <span class="st">'Paris'</span>  ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="utilisation-de-sous-requêtes-in-3" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>IN</code></h2>
-<ul>
-<li><p>Utilisation ci-dessus pas très utile mais…</p></li>
-<li><p>Pratique à utiliser sous la forme <code>NOT IN</code></p></li>
-</ul>
-<p>Lister les noms de pièces qui n’ont jamais été livrées.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a></a><span class="kw">SELECT</span> NomP</span>
-<span id="cb11-2"><a></a><span class="kw">FROM</span> Piece P </span>
-<span id="cb11-3"><a></a><span class="kw">WHERE</span> NomP <span class="kw">NOT</span> <span class="kw">IN</span>  (</span>
-<span id="cb11-4"><a></a>  <span class="kw">SELECT</span> NomP   #<span class="op">&lt;&lt;</span></span>
-<span id="cb11-5"><a></a>  <span class="kw">FROM</span>  Livraison  #<span class="op">&lt;&lt;</span></span>
-<span id="cb11-6"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Equivalence en algèbre relationnelle :</p>
-<p><span class="math display">\[\pi_{\text{NomP}}(\text{Piece}) - \pi_{\text{NomP}}(\text{Livraison})\]</span></p>
-<p>…. Une des façons de coder la <em>différence</em> en SQL</p>
-</section>
-<section id="utilisation-de-sous-requêtes-in-4" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>IN</code></h2>
-<p>Les capitales dont la population est plus grande que la moitié de la population du pays</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a></a><span class="kw">SELECT</span> name_city <span class="kw">FROM</span> city</span>
-<span id="cb12-2"><a></a><span class="kw">WHERE</span> <span class="kw">id</span> <span class="kw">IN</span> (</span>
-<span id="cb12-3"><a></a>  <span class="kw">SELECT</span> capital </span>
-<span id="cb12-4"><a></a>  <span class="kw">FROM</span> country</span>
-<span id="cb12-5"><a></a>  <span class="kw">WHERE</span> population_city<span class="op">&gt;=</span>population_country<span class="op">*</span>.<span class="dv">5</span></span>
-<span id="cb12-6"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<p>est équivalente à :</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a></a><span class="kw">SELECT</span> name_city </span>
-<span id="cb13-2"><a></a><span class="kw">FROM</span> country <span class="kw">JOIN</span> city </span>
-<span id="cb13-3"><a></a>  <span class="kw">ON</span> capital<span class="op">=</span><span class="kw">id</span></span>
-<span id="cb13-4"><a></a><span class="kw">WHERE</span> population_city<span class="op">&gt;=</span>population_country<span class="op">*</span>.<span class="dv">5</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section></section>
-<section>
-<section id="opérateur-all-et-any" class="title-slide slide level1 center" data-background-color="#1c191c">
-<h1>Opérateur ALL et ANY</h1>
+<section id="exemple-2-de-sous-requête-avec-in" class="slide level2 center">
+<h2>Exemple 2 de sous-requête avec <code>IN</code></h2>
+<!--Lister les couleurs de pièces livrées par des fournisseurs de Paris
 
-</section>
-<section id="utilisation-de-sous-requêtes-any-all" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>ANY</code>, <code>ALL</code></h2>
-<p>Deux nouveaux opérateurs manipulant des sous-requêtes : <code>ANY</code>, <code>ALL</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a></a><span class="op">&lt;</span>attributs<span class="op">&gt;</span> <span class="op">=</span>|<span class="op">&lt;&gt;</span>|<span class="op">&lt;=</span>|<span class="op">&lt;</span>|<span class="op">&gt;</span>|<span class="op">=&gt;</span> <span class="kw">ANY</span> (<span class="op">&lt;</span>sous<span class="op">-</span>requete<span class="op">&gt;</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>évaluée à vraie si au moins un des résultats de la sous requête vérifie la comparaison avec <code>&lt;attributs&gt;</code></p>
-<div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a></a><span class="op">&lt;</span>attributs<span class="op">&gt;</span> <span class="op">=</span>|<span class="op">&lt;&gt;</span>|<span class="op">&lt;=</span>|<span class="op">&lt;</span>|<span class="op">&gt;</span>|<span class="op">=&gt;</span> <span class="kw">ALL</span> (<span class="op">&lt;</span>sous<span class="op">-</span>requete<span class="op">&gt;</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>évaluée à vraie si tous les résultats de la sous-requête vérifient la comparaison avec <code>&lt;attributs&gt;</code></p>
-</div>
-<div class="fragment">
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> <code>&lt;attributs&gt;</code>: peut être une <em>liste</em> d’attributs</p>
-</div>
-</section>
-<section id="utilisation-de-sous-requêtes-any-all-1" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>ANY</code>, <code>ALL</code></h2>
-<p>Alternative au <code>IN</code></p>
-<p>lister les noms de fournisseurs qui ont livré la pièce ‘x21’.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a></a><span class="kw">SELECT</span> NomF</span>
-<span id="cb16-2"><a></a><span class="kw">FROM</span> Fournisseur</span>
-<span id="cb16-3"><a></a><span class="kw">WHERE</span> NomF <span class="op">=</span> <span class="kw">ANY</span> (</span>
-<span id="cb16-4"><a></a>    <span class="kw">SELECT</span> NomF</span>
-<span id="cb16-5"><a></a>    <span class="kw">FROM</span> Livraison</span>
-<span id="cb16-6"><a></a>    <span class="kw">WHERE</span> NomP <span class="op">=</span> <span class="st">'x21'</span> </span>
-<span id="cb16-7"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="utilisation-de-sous-requêtes-any-all-2" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>ANY</code>, <code>ALL</code></h2>
-<p>Information sur la commande dont la quantité de ièces livrées était la plus importante.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb17-2"><a></a><span class="kw">FROM</span> Livraison</span>
-<span id="cb17-3"><a></a><span class="kw">WHERE</span> Quantite <span class="op">&gt;=</span> <span class="kw">ALL</span> (</span>
-<span id="cb17-4"><a></a>    <span class="kw">SELECT</span> Quantite </span>
-<span id="cb17-5"><a></a>  <span class="kw">FROM</span> Livraison</span>
-<span id="cb17-6"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="utilisation-de-sous-requêtes-any-all-3" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>ANY</code>, <code>ALL</code></h2>
-<p>Noms et prix des pièces livrées les plus chères</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a></a><span class="kw">SELECT</span> P.NomP, P.Prix </span>
-<span id="cb18-2"><a></a><span class="kw">FROM</span> Livraison L, Piece P</span>
-<span id="cb18-3"><a></a><span class="kw">WHERE</span> L.NomP <span class="op">=</span> P.NomP <span class="kw">AND</span> </span>
-<span id="cb18-4"><a></a>  P.Prix<span class="op">&gt;=</span><span class="kw">ALL</span> (</span>
-<span id="cb18-5"><a></a>    <span class="kw">SELECT</span> Prix </span>
-<span id="cb18-6"><a></a>    <span class="kw">FROM</span> Piece</span>
-<span id="cb18-7"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="utilisation-de-sous-requêtes-any-all-4" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>ANY</code>, <code>ALL</code></h2>
-<p>La ville la plus peuplée de chaque pays</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a></a><span class="kw">SELECT</span> c1.name_city </span>
-<span id="cb19-2"><a></a><span class="kw">FROM</span> city <span class="kw">as</span> c1</span>
-<span id="cb19-3"><a></a><span class="kw">WHERE</span> population_city <span class="op">&gt;=</span> <span class="kw">ALL</span> (</span>
-<span id="cb19-4"><a></a>  <span class="kw">SELECT</span> c2.population_city </span>
-<span id="cb19-5"><a></a>  <span class="kw">FROM</span> city <span class="kw">as</span> c2</span>
-<span id="cb19-6"><a></a>  <span class="kw">WHERE</span> c1.countrycode<span class="op">=</span>c2.countrycode</span>
-<span id="cb19-7"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section></section>
-<section>
-<section id="opérateur-exists" class="title-slide slide level1 center" data-background-color="#1c191c">
-<h1>Opérateur EXISTS</h1>
+```{.sql}       
+SELECT DISTINCT Couleur 
+FROM Piece
+WHERE NomP IN (   
+    SELECT NomP  #<< 
+  FROM Livraison  #<< 
+    WHERE NomF IN (
+    SELECT NomF   #<<
+    FROM Fournisseur   #<<
+    WHERE VilleF='Paris'
+    )  #<<
+  );  
+```
 
-</section>
-<section id="utilisation-de-sous-requêtes-exists" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>EXISTS</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a></a>[<span class="kw">NOT</span>] <span class="kw">EXISTS</span> (<span class="op">&lt;</span>sous<span class="op">-</span>requete<span class="op">&gt;</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>est évaluée à vraie si la sous-requête renvoie au moins un résultat.</p>
-<div class="fragment">
-<p>Nom et prix des pièces qui ont été livrées</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a></a><span class="kw">SELECT</span> NomP, Prix </span>
-<span id="cb21-2"><a></a><span class="kw">FROM</span> Piece P </span>
-<span id="cb21-3"><a></a><span class="kw">WHERE</span> <span class="kw">EXISTS</span> (</span>
-<span id="cb21-4"><a></a>  <span class="kw">SELECT</span> <span class="op">*</span> </span>
-<span id="cb21-5"><a></a>  <span class="kw">FROM</span> Livraison </span>
-<span id="cb21-6"><a></a>  <span class="kw">WHERE</span> Livraison.NomP <span class="op">=</span> P.NomP</span>
-<span id="cb21-7"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="fragment">
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Différence avec <code>ANY</code></p>
-<p>L’utilisation de <code>EXISTS</code> s’apparente à une condition booléenne.</p>
-<p>Pas de test sur la valeur d’un attribut particulier.</p>
-</div>
-</section>
-<section id="utilisation-de-sous-requêtes-exists-1" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>EXISTS</code></h2>
-<p>Nom des Fournisseurs ayant livré la pièce x21 mais qui n’ont jamais livré la pièce a22.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> NomF </span>
-<span id="cb22-2"><a></a><span class="kw">FROM</span> Livraison L </span>
-<span id="cb22-3"><a></a><span class="kw">WHERE</span> L.NomP<span class="op">=</span><span class="st">'x21'</span> <span class="kw">AND</span> </span>
-<span id="cb22-4"><a></a>  <span class="kw">NOT</span> <span class="kw">EXISTS</span> (</span>
-<span id="cb22-5"><a></a>    <span class="kw">SELECT</span> <span class="op">*</span> </span>
-<span id="cb22-6"><a></a>    <span class="kw">FROM</span> Livraison L1 </span>
-<span id="cb22-7"><a></a>    <span class="kw">WHERE</span> L2.NomP<span class="op">=</span><span class="st">'a22'</span> <span class="kw">AND</span> L2.NomF<span class="op">=</span>L.NomF</span>
-<span id="cb22-8"><a></a>  );</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="utilisation-de-sous-requêtes-exists-2" class="slide level2 center">
-<h2>Utilisation de sous-requêtes : <code>EXISTS</code></h2>
-<p>Les régions qui ont au moins une langue officielle :</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> region </span>
-<span id="cb23-2"><a></a><span class="kw">FROM</span> world.country <span class="kw">AS</span> co</span>
-<span id="cb23-3"><a></a><span class="kw">WHERE</span> <span class="kw">EXISTS</span> (</span>
-<span id="cb23-4"><a></a>  <span class="kw">SELECT</span> <span class="op">*</span> </span>
-<span id="cb23-5"><a></a>  <span class="kw">FROM</span> world.countrylanguage <span class="kw">AS</span> cl</span>
-<span id="cb23-6"><a></a>  <span class="kw">WHERE</span> co.countrycode <span class="op">=</span> cl.countrycode  <span class="kw">AND</span> cl.isofficial</span>
-<span id="cb23-7"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section></section>
-<section>
-<section id="opérateur-lateral" class="title-slide slide level1 center" data-background-color="#1c191c">
-<h1>Opérateur LATERAL</h1>
+. . .
 
-</section>
-<section class="slide level2 center">
+est équivalente à
 
-<blockquote>
-<p>PostgreSQL 9.3 has a new join type! Lateral joins arrived without a lot of fanfare, but they enable some powerful new queries that were previously only tractable with procedural code. In this post, I’ll walk through a conversion funnel analysis that wouldn’t be possible in PostgreSQL 9.2.</p>
-</blockquote>
+```{.sql}
+SELECT DISTINCT P.Couleur
 
-<aside><div>
-<p>https://heap.io/blog/postgresqls-powerful-new-join-type-lateral</p>
-</div></aside></section>
-<section id="requêtes-imbriquées-lateral" class="slide level2 center">
-<h2>Requêtes imbriquées : <code>LATERAL</code></h2>
-<div class="callout callout-important callout-titled callout-style-default">
+FROM Piece P, Livraison L, Fournisseur F
+
+WHERE 
+  P.NomP = L.NomP AND
+  L.NomF = F.NomF AND   
+  VilleF = 'Paris'  ;
+```
+
+- Utilisation ci-dessus pas très utile mais...
+  
+-->
+<div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Important</strong></p>
+<p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>Les sous-requêtes d’une clause <code>FROM</code> peuvent être précédées du mot-clé <code>LATERAL</code></p>
-<p>On peut alors faire référence à des colonnes des éléments précédents de la clause <code>FROM</code></p>
+<p>Pratique à utiliser sous la forme <code>NOT IN</code> pour coder l’opération de <em>différence</em>.</p>
+</div>
+</div>
+</div>
+<p>Lister les noms de pièces pour lesquelles il n’y a jamais eu de livraison.</p>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a></a><span class="kw">SELECT</span> NomP</span>
+<span id="cb9-2"><a></a><span class="kw">FROM</span> Piece P </span>
+<span id="cb9-3"><a></a><span class="kw">WHERE</span> NomP <span class="kw">NOT</span> <span class="kw">IN</span>  (</span>
+<span id="cb9-4"><a></a>  <span class="kw">SELECT</span> NomP</span>
+<span id="cb9-5"><a></a>  <span class="kw">FROM</span>  Livraison</span>
+<span id="cb9-6"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>Equivalence en algèbre relationnelle :</p>
+<p><span class="math display">\[\pi_{\text{NomP}}(\text{Piece}) - \pi_{\text{NomP}}(\text{Livraison})\]</span></p>
+</div>
+</section>
+<section id="exemple-3-de-sous-requête-avec-in" class="slide level2 center">
+<h2>Exemple 3 de sous-requête avec <code>IN</code></h2>
+<p>Les capitales dont la population est plus grande que la moitié de la population du pays.</p>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a></a><span class="kw">SELECT</span> name <span class="kw">FROM</span> city</span>
+<span id="cb10-2"><a></a><span class="kw">WHERE</span> <span class="kw">id</span> <span class="kw">IN</span> (</span>
+<span id="cb10-3"><a></a>  <span class="kw">SELECT</span> capital </span>
+<span id="cb10-4"><a></a>  <span class="kw">FROM</span> country</span>
+<span id="cb10-5"><a></a>  <span class="kw">WHERE</span> population<span class="op">&gt;=</span>population_country<span class="op">*</span>.<span class="dv">5</span></span>
+<span id="cb10-6"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>est équivalente à :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a></a><span class="kw">SELECT</span> name </span>
+<span id="cb11-2"><a></a><span class="kw">FROM</span> country <span class="kw">JOIN</span> city </span>
+<span id="cb11-3"><a></a>  <span class="kw">ON</span> capital<span class="op">=</span><span class="kw">id</span></span>
+<span id="cb11-4"><a></a><span class="kw">WHERE</span> population<span class="op">&gt;=</span>population_country<span class="op">*</span>.<span class="dv">5</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="opérateur-all-et-any-any-all" class="slide level2 center">
+<h2>Opérateur ALL et ANY : <code>ANY</code>, <code>ALL</code></h2>
+<p>Ce sont des quantificateurs qui s’utilisent dans des tests.</p>
+<ul>
+<li><code>ANY</code> : évalué à vrai si au moins un résultat de la sous-requête vérifie le test.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a></a><span class="op">&lt;</span>attributs<span class="op">&gt;</span> <span class="op">=</span>|<span class="op">&lt;&gt;</span>|<span class="op">&lt;=</span>|<span class="op">&lt;</span>|<span class="op">&gt;</span>|<span class="op">=&gt;</span> <span class="kw">ANY</span> (<span class="op">&lt;</span>sous<span class="op">-</span>requete<span class="op">&gt;</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<ul>
+<li><code>ALL</code> : évalué à vraie si tous les résultats de la sous-requête vérifient le test.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a></a><span class="op">&lt;</span>attributs<span class="op">&gt;</span> <span class="op">=</span>|<span class="op">&lt;&gt;</span>|<span class="op">&lt;=</span>|<span class="op">&lt;</span>|<span class="op">&gt;</span>|<span class="op">=&gt;</span> <span class="kw">ALL</span> (<span class="op">&lt;</span>sous<span class="op">-</span>requete<span class="op">&gt;</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><code>&lt;attributs&gt;</code>: peut être une <em>liste</em> d’attributs</p>
+</div>
 </div>
 </div>
 </div>
 </section>
-<section class="slide level2 center">
+<section id="exemple-de-sous-requête-avec-any" class="slide level2 center">
+<h2>Exemple de sous-requête avec <code>ANY</code></h2>
+<p>Alternative au <code>IN</code></p>
+<p>lister les noms de fournisseurs qui ont livré la pièce ‘x21’.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a></a><span class="kw">SELECT</span> NomF</span>
+<span id="cb14-2"><a></a><span class="kw">FROM</span> Fournisseur</span>
+<span id="cb14-3"><a></a><span class="kw">WHERE</span> NomF <span class="op">=</span> <span class="kw">ANY</span> (</span>
+<span id="cb14-4"><a></a>    <span class="kw">SELECT</span> NomF</span>
+<span id="cb14-5"><a></a>    <span class="kw">FROM</span> Livraison</span>
+<span id="cb14-6"><a></a>    <span class="kw">WHERE</span> NomP <span class="op">=</span> <span class="st">'x21'</span> </span>
+<span id="cb14-7"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p>Si le résultat de la sous-requête est vide, <code>ANY</code> renvoie <code>False</code>.</p>
+<p>Si l’attribut <code>NomF</code> vaut <code>NULL</code>, le résultat de la comparaison avec <code>ANY</code> est <code>UNKNOWN</code>.</p>
+<p>L’évaluation de <code>ANY</code> ignore les valeurs <code>NULL</code> du résultat de la sous-requête. Si ce résultat ne contient que <code>NULL</code>, <code>ANY</code> retourne <code>UNKNOWN</code>.</p>
+</div>
+</div>
+</div>
+<!--
+## Exemple 1 de sous-requête avec `ALL`
 
-<blockquote>
-<p>When a FROM item contains <code>LATERAL</code> cross-references, evaluation proceeds as follows: for each row of the <code>FROM</code> item providing the cross-referenced column(s), or set of rows of multiple <code>FROM</code> items providing the columns, the <code>LATERAL</code> item is evaluated using that row or row set’s values of the columns. The resulting row(s) are joined as usual with the rows they were computed from. This is repeated for each row or set of rows from the column source table(s).</p>
-</blockquote>
+Recherche de la livraison dont la quantité de pièces livrées était la plus importante.
+
+
+
+```{.sql}
+SELECT *
+FROM Livraison
+WHERE Quantite >= ALL (
+  SELECT Quantite 
+  FROM Livraison
+);
+```
+
+## Exemple 2 de sous-requête avec `ALL`
+
+Noms et prix des pièces livrées les plus chères
+
+```{.sql}
+SELECT P.NomP, P.Prix 
+FROM Livraison L, Piece P
+WHERE L.NomP = P.NomP AND 
+  P.Prix>=ALL (
+    SELECT Prix 
+    FROM Piece
+);
+```
+-->
 </section>
-<section id="pour-les-fonction-tables" class="slide level2 center">
-<h2>Pour les fonction-tables …</h2>
-<p>Les arguments de la fonction peuvent contenir des références à des colonnes des items précédents de la clause <code>FROM</code>.</p>
+<section id="exemple-1-de-sous-requête-avec-all" class="slide level2 center">
+<h2>Exemple 1 de sous-requête avec <code>ALL</code></h2>
+<p>La ville la plus peuplée de chaque pays</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a></a><span class="kw">SELECT</span> c1.name </span>
+<span id="cb15-2"><a></a><span class="kw">FROM</span> city <span class="kw">as</span> c1</span>
+<span id="cb15-3"><a></a><span class="kw">WHERE</span> population <span class="op">&gt;=</span> <span class="kw">ALL</span> (</span>
+<span id="cb15-4"><a></a>  <span class="kw">SELECT</span> c2.population </span>
+<span id="cb15-5"><a></a>  <span class="kw">FROM</span> city <span class="kw">as</span> c2</span>
+<span id="cb15-6"><a></a>  <span class="kw">WHERE</span> c1.countrycode<span class="op">=</span>c2.countrycode</span>
+<span id="cb15-7"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p>Si le résultat de la sous-requête est vide, <code>ALL</code> renvoie <code>True</code>.</p>
+<p>Si l’attribut <code>population</code> vaut <code>NULL</code>, le résultat de la comparaison avec <code>ALL</code> est <code>UNKNOWN</code>.</p>
+<p>Si le résultat de la sous-requête contient au moins une fois <code>NULL</code>, le test avec <code>ALL</code> est <code>UNKNOWN</code>.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="evaluation" class="slide level2 center">
-<h2>Evaluation</h2>
-<p>Pour chaque ligne d’un item <code>FROM</code> qui fournit la colonne référencée, l’item <code>LATERAL</code> est évalué en utilisant cette ligne. Les lignes du résultat sont jointes avec la ligne qui a servi à les calculer</p>
-<p>On peut parler de <em>sous-requête paramétrée</em></p>
+<section id="exemple-2-de-sous-requête-avec-all" class="slide level2 center">
+<h2>Exemple 2 de sous-requête avec <code>ALL</code></h2>
+<p>Les pays dont toutes les villes ont plus de 1 000 000 habitants.</p>
+<p>La requête :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a></a><span class="kw">SELECT</span> co.name_country</span>
+<span id="cb16-2"><a></a><span class="kw">FROM</span> country co</span>
+<span id="cb16-3"><a></a><span class="kw">WHERE</span> <span class="dv">1000000</span> <span class="op">&lt;=</span> <span class="kw">ALL</span> (</span>
+<span id="cb16-4"><a></a>  <span class="kw">SELECT</span> ci.population </span>
+<span id="cb16-5"><a></a>  <span class="kw">FROM</span> city ci</span>
+<span id="cb16-6"><a></a>  <span class="kw">WHERE</span> ci.countrycode<span class="op">=</span>co.countrycode</span>
+<span id="cb16-7"><a></a>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>renvoie également les pays qui n’ont pas de ville !</p>
+<p>On peut corriger en ajoutant un test <code>EXISTS</code> sur la sous-requête.</p>
+<p>Mais la meilleure solution est d’utiliser les fonctions d’agrégation que nous verrons plus tard.</p>
 </section>
-<section id="un-exemple-de-lusage-de-lateral" class="slide level2 center">
-<h2>Un exemple de l’usage de <code>LATERAL</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a></a><span class="kw">SELECT</span> name_country, name_city </span>
-<span id="cb24-2"><a></a><span class="kw">FROM</span> country, LATERAL (  </span>
-<span id="cb24-3"><a></a>  <span class="kw">SELECT</span> name_city       </span>
-<span id="cb24-4"><a></a>  <span class="kw">FROM</span> city              </span>
-<span id="cb24-5"><a></a>  <span class="kw">WHERE</span> city.countrycode<span class="op">=</span>country.countrycode</span>
-<span id="cb24-6"><a></a>) ss   </span>
-<span id="cb24-7"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> name_country;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="opérateur-exists" class="slide level2 center">
+<h2>Opérateur EXISTS</h2>
+<p>C’est un quantificateur qui retourne un booléen.</p>
+<p><code>EXISTS</code> retourne vrai si le résultat de la sous-requête n’est pas vide.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a></a>[<span class="kw">NOT</span>] <span class="kw">EXISTS</span> (<span class="op">&lt;</span>sous<span class="op">-</span>requete<span class="op">&gt;</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p>Si le résultat de la sous-requête ne contient que la valeur <code>NULL</code>, <code>EXISTS</code> renvoie vrai car le résultat de la sous-requête contient au moins un tuple.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exemple-1-de-sous-requête-avec-exists" class="slide level2 center">
+<h2>Exemple 1 de sous-requête avec <code>EXISTS</code></h2>
+<p>Pays qui n’ont pas de ville</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a></a><span class="kw">SELECT</span> co.name_country</span>
+<span id="cb18-2"><a></a><span class="kw">FROM</span> country co</span>
+<span id="cb18-3"><a></a><span class="kw">WHERE</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span>(</span>
+<span id="cb18-4"><a></a>  <span class="kw">SELECT</span> <span class="op">*</span> </span>
+<span id="cb18-5"><a></a>  <span class="kw">FROM</span> city ci</span>
+<span id="cb18-6"><a></a>  <span class="kw">WHERE</span> ci.countrycode<span class="op">=</span>co.countrycode</span>
+<span id="cb18-7"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>équivalent à</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a></a><span class="kw">SELECT</span> name_country, name_city </span>
-<span id="cb25-2"><a></a><span class="kw">FROM</span> country <span class="kw">NATURAL</span> <span class="kw">JOIN</span> city</span>
-<span id="cb25-3"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> name_country;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> <code>LATERAL</code> est surtout utilisé quand la colonne référencée est nécessaire au calcul des lignes à joindre</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a></a><span class="kw">SELECT</span> name_country</span>
+<span id="cb19-2"><a></a><span class="kw">FROM</span> country</span>
+<span id="cb19-3"><a></a><span class="kw">EXCEPT</span></span>
+<span id="cb19-4"><a></a><span class="kw">SELECT</span> name_country</span>
+<span id="cb19-5"><a></a><span class="kw">FROM</span> country <span class="kw">natural</span> <span class="kw">join</span> city;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><code>NOT EXISTS</code> permet souvent d’écrire une alternative à <code>EXCEPT</code>.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="lateral-en-action-sur-world" class="slide level2 center">
-<h2><code>LATERAL</code> en action sur <code>world</code></h2>
-<div class="columns">
-<div class="column">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a></a><span class="kw">SELECT</span> name_country, name_city </span>
-<span id="cb26-2"><a></a></span>
-<span id="cb26-3"><a></a><span class="kw">FROM</span> country, LATERAL ( </span>
-<span id="cb26-4"><a></a>  <span class="kw">SELECT</span> name_city  </span>
-<span id="cb26-5"><a></a>  <span class="kw">FROM</span> city  </span>
-<span id="cb26-6"><a></a>  <span class="kw">WHERE</span> city.countrycode<span class="op">=</span>country.countrycode</span>
-<span id="cb26-7"><a></a>  ) ss  </span>
-<span id="cb26-8"><a></a></span>
-<span id="cb26-9"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> name_city </span>
-<span id="cb26-10"><a></a></span>
-<span id="cb26-11"><a></a><span class="kw">LIMIT</span> <span class="dv">10</span> ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column">
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>name_country</th>
-<th>name_city</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Spain</td>
-<td>A Coruña (La Coruña)</td>
-</tr>
-<tr class="even">
-<td>Germany</td>
-<td>Aachen</td>
-</tr>
-<tr class="odd">
-<td>Denmark</td>
-<td>Aalborg</td>
-</tr>
-<tr class="even">
-<td>Nigeria</td>
-<td>Aba</td>
-</tr>
-<tr class="odd">
-<td>Iran</td>
-<td>Abadan</td>
-</tr>
-<tr class="even">
-<td>Brazil</td>
-<td>Abaetetuba</td>
-</tr>
-<tr class="odd">
-<td>Russian Federation</td>
-<td>Abakan</td>
-</tr>
-<tr class="even">
-<td>Canada</td>
-<td>Abbotsford</td>
-</tr>
-<tr class="odd">
-<td>Nigeria</td>
-<td>Abeokuta</td>
-</tr>
-<tr class="even">
-<td>…</td>
-<td>…</td>
-</tr>
-</tbody>
-</table>
-</div></div>
+<section id="exemple-2-de-sous-requête-avec-exists" class="slide level2 center">
+<h2>Exemple 2 de sous-requête avec <code>EXISTS</code></h2>
+<p>Nom des Fournisseurs ayant livré la pièce x21 mais qui n’ont jamais livré la pièce a22.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> NomF </span>
+<span id="cb20-2"><a></a><span class="kw">FROM</span> Livraison L1 </span>
+<span id="cb20-3"><a></a><span class="kw">WHERE</span> L1.NomP<span class="op">=</span><span class="st">'x21'</span> <span class="kw">AND</span> </span>
+<span id="cb20-4"><a></a>  <span class="kw">NOT</span> <span class="kw">EXISTS</span> (</span>
+<span id="cb20-5"><a></a>    <span class="kw">SELECT</span> <span class="op">*</span> </span>
+<span id="cb20-6"><a></a>    <span class="kw">FROM</span> Livraison L2 </span>
+<span id="cb20-7"><a></a>    <span class="kw">WHERE</span> L2.NomP<span class="op">=</span><span class="st">'a22'</span> <span class="kw">AND</span> L2.NomF<span class="op">=</span>L1.NomF</span>
+<span id="cb20-8"><a></a>  );</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section class="slide level2 center">
-
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a></a><span class="kw">SELECT</span>  name_country,   name_city, lifeexpectancy</span>
-<span id="cb27-2"><a></a><span class="kw">FROM</span> (</span>
-<span id="cb27-3"><a></a>  <span class="kw">SELECT</span> countrycode,   name_country, lifeexpectancy</span>
-<span id="cb27-4"><a></a>  <span class="kw">FROM</span> country</span>
-<span id="cb27-5"><a></a>    <span class="kw">WHERE</span> gnpold <span class="op">&gt;</span><span class="dv">0</span> <span class="kw">AND</span> gnp <span class="op">/</span> gnpold <span class="op">&gt;</span> <span class="fl">1.1</span></span>
-<span id="cb27-6"><a></a>  ) <span class="kw">AS</span> better_off </span>
-<span id="cb27-7"><a></a>  <span class="kw">JOIN</span> LATERAL (</span>
-<span id="cb27-8"><a></a>    <span class="kw">SELECT</span> c.countrycode, name_city  #<span class="op">&lt;&lt;</span> </span>
-<span id="cb27-9"><a></a>        <span class="kw">FROM</span> country c</span>
-<span id="cb27-10"><a></a>          <span class="kw">JOIN</span> city <span class="kw">ON</span> (capital <span class="op">=</span> <span class="kw">id</span>)</span>
-<span id="cb27-11"><a></a>        <span class="kw">WHERE</span> </span>
-<span id="cb27-12"><a></a>      better_off.countrycode<span class="op">=</span>c.countrycode <span class="kw">AND</span>  </span>
-<span id="cb27-13"><a></a>            population_city<span class="op">&gt;</span> <span class="dv">2000000</span></span>
-<span id="cb27-14"><a></a>    ) <span class="kw">AS</span> big_capital </span>
-<span id="cb27-15"><a></a><span class="kw">ON</span> <span class="kw">TRUE</span> ;   </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Country</th>
-<th>City</th>
-<th>Life expectancy</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Iran</td>
-<td>Teheran</td>
-<td>69.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Congo, The Democratic Republic of the</td>
-<td>Kinshasa</td>
-<td>48.8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Turkey</td>
-<td>Ankara</td>
-<td>71.0</td>
-</tr>
-</tbody>
-</table>
+<section id="exemple-3-de-sous-requête-avec-exists" class="slide level2 center">
+<h2>Exemple 3 de sous-requête avec <code>EXISTS</code></h2>
+<p>Les régions qui ont au moins une langue officielle :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> region </span>
+<span id="cb21-2"><a></a><span class="kw">FROM</span> country <span class="kw">AS</span> co</span>
+<span id="cb21-3"><a></a><span class="kw">WHERE</span> <span class="kw">EXISTS</span> (</span>
+<span id="cb21-4"><a></a>  <span class="kw">SELECT</span> <span class="op">*</span> </span>
+<span id="cb21-5"><a></a>  <span class="kw">FROM</span> countrylanguage <span class="kw">AS</span> cl</span>
+<span id="cb21-6"><a></a>  <span class="kw">WHERE</span> co.countrycode <span class="op">=</span> cl.countrycode  <span class="kw">AND</span> cl.isofficial</span>
+<span id="cb21-7"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>équivalent à</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> region </span>
+<span id="cb22-2"><a></a><span class="kw">FROM</span> country <span class="kw">AS</span> co <span class="kw">join</span> world.countrylanguage <span class="kw">as</span> cl </span>
+<span id="cb22-3"><a></a><span class="kw">on</span> co.countrycode <span class="op">=</span> cl.countrycode <span class="kw">and</span> cl.isofficial;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section class="slide level2 center">
-
-<p>See <a href="https://heap.io/blog/postgresqls-powerful-new-join-type-lateral">Trumpetting lateral join</a></p>
-<p>Could be useful for implementing exploratory pipelines into postgresql without to much tears and sweat.</p>
+<section id="sous-requête-scalaire" class="slide level2 center">
+<h2>Sous-requête scalaire</h2>
+<ul>
+<li><p>Renvoie un tuple unique avec une colonne unique (un scalaire).</p></li>
+<li><p>Le plus souvent écrite avec une fonction d’agrégation (<code>SUM</code>, <code>AVG</code>, <code>COUNT</code>, <code>MAX</code>, <code>MIN</code>, …) que nous étudierons dans la suite du cours.</p></li>
+<li><p>Utilisation possible dans une clause <code>WHERE</code>.</p></li>
+</ul>
+<p><em>Exemple</em> : lister les noms de pays dont la densité est inférieure à la densité mondiale.</p>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a></a><span class="kw">SELECT</span> name_country , population_country <span class="op">/</span> surfacearea <span class="kw">as</span> population_density</span>
+<span id="cb23-2"><a></a><span class="kw">FROM</span> country</span>
+<span id="cb23-3"><a></a><span class="kw">WHERE</span> population_country <span class="op">/</span> surfacearea <span class="op">&lt;=</span> (</span>
+<span id="cb23-4"><a></a>  <span class="kw">SELECT</span> <span class="fu">sum</span>(population_country) <span class="op">/</span> <span class="fu">sum</span>(surfacearea)</span>
+<span id="cb23-5"><a></a>  <span class="kw">FROM</span> country</span>
+<span id="cb23-6"><a></a>)</span>
+<span id="cb23-7"><a></a><span class="kw">order</span> <span class="kw">by</span> name_country;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Ne pas confondre la densité mondiale moyenne (environ <span class="math inline">\(40\ \text{h/km}^2\)</span> d’après la BDD <code>world</code>, en fait <span class="math inline">\(55\ \text{h/km}^2\)</span> en 2025) avec la densité moyenne des pays (environ <span class="math inline">\(400\ \text{h/km}^2\)</span>).</p>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
-<section id="with" class="title-slide slide level1 center" data-background-color="#1c191c">
-<h1>WITH</h1>
+<section id="requêtes-imbriquées-dans-la-clause-from" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Requêtes imbriquées dans la clause <code>FROM</code></h1>
 
 </section>
-<section id="syntaxe-des-clauses-with" class="slide level2 center">
-<h2>Syntaxe des clauses <code>WITH</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a></a><span class="kw">WITH</span> r <span class="kw">AS</span> (</span>
-<span id="cb28-2"><a></a>  <span class="kw">SELECT</span> <span class="op">..</span>.</span>
-<span id="cb28-3"><a></a>  <span class="kw">FROM</span> <span class="op">..</span>.</span>
-<span id="cb28-4"><a></a>  <span class="kw">WHERE</span> <span class="op">..</span>.</span>
-<span id="cb28-5"><a></a>), s <span class="kw">AS</span> (</span>
-<span id="cb28-6"><a></a>  <span class="kw">SELECT</span> <span class="op">..</span>.</span>
-<span id="cb28-7"><a></a>  <span class="kw">FROM</span> <span class="op">..</span>.</span>
-<span id="cb28-8"><a></a>  <span class="kw">WHERE</span> <span class="op">..</span>.     <span class="co">-- possible reference to r </span></span>
-<span id="cb28-9"><a></a>)</span>
-<span id="cb28-10"><a></a><span class="kw">SELECT</span> <span class="op">..</span>.</span>
-<span id="cb28-11"><a></a><span class="kw">FROM</span>   <span class="op">..</span>. <span class="co">-- possible reference to r, s </span></span>
-<span id="cb28-12"><a></a><span class="kw">WHERE</span> </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="tables-dérivés" class="slide level2 center">
+<h2>Tables dérivés</h2>
+<p>Dans une clause <code>FROM</code>, on peut écrire une sous-requête qui renvoie une table nommée avec un alias : on parle de <em>table dérivée</em>, dans le sens qu’elle dérive des tables existantes.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Il s’agit d’une composition de requêtes.</p>
+</div>
+</div>
+</div>
 </section>
-<section class="slide level2 center">
+<section id="exemple-de-sous-requête-dans-la-clause-from" class="slide level2 center">
+<h2>Exemple de sous-requête dans la clause <code>FROM</code></h2>
+<p>Lister les pays (code, nom, espérance de vie) dont le PNB a progressé de 10% et dont la population de la capitale est supérieure à 2 millions.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a></a><span class="kw">SELECT</span> bo.countrycode, name_country, lifeexpectancy</span>
+<span id="cb24-2"><a></a><span class="kw">FROM</span> </span>
+<span id="cb24-3"><a></a>  (</span>
+<span id="cb24-4"><a></a>    <span class="kw">SELECT</span> countrycode, name_country, lifeexpectancy, capital</span>
+<span id="cb24-5"><a></a>    <span class="kw">FROM</span> country</span>
+<span id="cb24-6"><a></a>    <span class="kw">WHERE</span> gnpold <span class="op">&gt;</span><span class="dv">0</span> <span class="kw">AND</span> gnp <span class="op">/</span> gnpold <span class="op">&gt;</span> <span class="fl">1.1</span>  <span class="co">-- test gnpold &gt;0 pour gérer les valeurs nulles</span></span>
+<span id="cb24-7"><a></a>  ) <span class="kw">AS</span> bo </span>
+<span id="cb24-8"><a></a>  <span class="kw">JOIN</span> </span>
+<span id="cb24-9"><a></a>  (</span>
+<span id="cb24-10"><a></a>    <span class="kw">SELECT</span> <span class="kw">id</span>, countrycode</span>
+<span id="cb24-11"><a></a>    <span class="kw">FROM</span> city </span>
+<span id="cb24-12"><a></a>    <span class="kw">WHERE</span> population <span class="op">&gt;</span> <span class="dv">2000000</span></span>
+<span id="cb24-13"><a></a>  ) <span class="kw">AS</span> bc  </span>
+<span id="cb24-14"><a></a>  <span class="kw">ON</span> bc.<span class="kw">id</span><span class="op">=</span>bo.capital ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="opérateur-lateral" class="slide level2 center">
+<h2>Opérateur <code>LATERAL</code></h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans l’exemple précédent, chaque table dérivée est calculée indépendemment puis la jointure est effectuée.</p>
+</div>
+</div>
+</div>
+<p>Avec l’opérateur <code>LATERAL</code>, on peut faire dépendre le calcul d’une table dérivée du résultat des tables précédentes du <code>FROM</code>.</p>
+</section>
+<section id="evaluation-de-lateral" class="slide level2 center">
+<h2>Evaluation de <code>LATERAL</code></h2>
+<p>La table dérivée est calculée pour chaque tuple <span class="math inline">\(u\)</span> obtenu par les opérations précédentes du <code>FROM</code>.</p>
+<p>Puis chaque tuple <span class="math inline">\(v\)</span> la table dérivée est concaténé à <span class="math inline">\(u\)</span> par produit cartésien.</p>
+<p>On peut aussi concaténer <span class="math inline">\(u\)</span> et <span class="math inline">\(v\)</span> avec une jointure.</p>
+</section>
+<section id="exemple-1-avec-lateral" class="slide level2 center">
+<h2>Exemple 1 avec <code>LATERAL</code></h2>
+<p>Pour chaque pays, donner la liste des villes de son térritoire.</p>
+<div class="columns">
+<div class="column">
+<p>Sans jointure</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a></a><span class="kw">SELECT</span> co.name_country, sr.name </span>
+<span id="cb25-2"><a></a><span class="kw">FROM</span> country co, LATERAL (  </span>
+<span id="cb25-3"><a></a>  <span class="kw">SELECT</span> name       </span>
+<span id="cb25-4"><a></a>  <span class="kw">FROM</span> city  ci            </span>
+<span id="cb25-5"><a></a>  <span class="kw">WHERE</span> ci.countrycode<span class="op">=</span>co.countrycode</span>
+<span id="cb25-6"><a></a>) sr;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<p>Avec jointure</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a></a><span class="kw">SELECT</span> co.name_country, sr.name </span>
+<span id="cb26-2"><a></a><span class="kw">FROM</span> country co <span class="kw">NATURAL</span> <span class="kw">JOIN</span> LATERAL (  </span>
+<span id="cb26-3"><a></a>  <span class="kw">SELECT</span> countrycode, name       </span>
+<span id="cb26-4"><a></a>  <span class="kw">FROM</span> city</span>
+<span id="cb26-5"><a></a>) sr  </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<p>équivalent à</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a></a><span class="kw">SELECT</span> name_country, name </span>
+<span id="cb27-2"><a></a><span class="kw">FROM</span> country co <span class="kw">JOIN</span> city ci <span class="kw">ON</span> ci.countrycode<span class="op">=</span>co.countrycode</span>
+<span id="cb27-3"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> name_country;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exemple-2-avec-lateral" class="slide level2 center">
+<h2>Exemple 2 avec <code>LATERAL</code></h2>
+<p>Plus intéressant : pour chaque pays, donner la ville la plus peuplée.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a></a><span class="kw">SELECT</span> co.name_country, sr.name </span>
+<span id="cb28-2"><a></a><span class="kw">FROM</span> country co, LATERAL (  </span>
+<span id="cb28-3"><a></a>  <span class="kw">SELECT</span> name       </span>
+<span id="cb28-4"><a></a>  <span class="kw">FROM</span> city ci            </span>
+<span id="cb28-5"><a></a>  <span class="kw">WHERE</span> ci.countrycode<span class="op">=</span>co.countrycode</span>
+<span id="cb28-6"><a></a>  <span class="kw">ORDER</span> <span class="kw">BY</span> ci.population <span class="kw">DESC</span></span>
+<span id="cb28-7"><a></a>  <span class="kw">LIMIT</span> <span class="dv">1</span></span>
+<span id="cb28-8"><a></a>) sr</span>
+<span id="cb28-9"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> co.name_country;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Evaluation : si la table dérivée est vide, le tuple <span class="math inline">\(u\)</span> de la table <code>country</code> n’est pas retenu car <span class="math inline">\(\lbrace u\rbrace \times \emptyset = \emptyset\)</span>.</p>
+</section></section>
+<section>
+<section id="les-ctes-avec-with" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Les CTEs avec <code>WITH</code></h1>
 
-<p>Une clause <code>WITH</code> permet d’écrire des requêtes intermédiaires et de décomposer une requête complexe</p>
-<p>Ces expressions/requêtes sont souvent désignées par le vocable <code>Common Table Expressions</code> ou CTEs</p>
-<p>Les CTEs (éléments d’une clasuse <code>WITH</code>) peuvent être des requêtes, mais aussi des expressions de manipulation (mise à jour, insertion, suppression) de données</p>
-<p>Les CTEs permettent de coller plus fidèlement à l’algèbre relationnelle que les requêtes imbriquées</p>
 </section>
-<section id="section" class="slide level2 center">
-<h2>…</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb29-1"><a></a><span class="kw">WITH</span> better_off <span class="kw">AS</span> (</span>
-<span id="cb29-2"><a></a>  <span class="kw">SELECT</span> countrycode, name_country, lifeexpectancy, capital</span>
-<span id="cb29-3"><a></a>  <span class="kw">FROM</span> country</span>
-<span id="cb29-4"><a></a>  <span class="kw">WHERE</span> gnpold <span class="op">&gt;</span><span class="dv">0</span> <span class="kw">AND</span> gnp <span class="op">/</span> gnpold <span class="op">&gt;</span> <span class="fl">1.1</span></span>
-<span id="cb29-5"><a></a>),</span>
-<span id="cb29-6"><a></a>big_capital <span class="kw">AS</span> (</span>
-<span id="cb29-7"><a></a>  <span class="kw">SELECT</span> <span class="kw">id</span>, countrycode</span>
-<span id="cb29-8"><a></a>  <span class="kw">FROM</span> city </span>
-<span id="cb29-9"><a></a>  <span class="kw">WHERE</span> population <span class="op">&gt;</span> <span class="dv">2000000</span></span>
-<span id="cb29-10"><a></a>)</span>
-<span id="cb29-11"><a></a><span class="kw">SELECT</span> bo.countrycode, name_country, lifeexpectancy</span>
-<span id="cb29-12"><a></a><span class="kw">FROM</span> better_off bo <span class="kw">JOIN</span> big_capital bc <span class="kw">ON</span></span>
-<span id="cb29-13"><a></a>  (bo.countrycode<span class="op">=</span>bc.countrycode <span class="kw">AND</span> bc.<span class="kw">id</span><span class="op">=</span>bo.capital) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="clause-with" class="slide level2 center">
+<h2>Clause <code>WITH</code></h2>
+<p>Une clause <code>WITH</code> permet d’écrire des requêtes intermédiaires et d’alléger l’écriture d’une requête complexe.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb29-1"><a></a><span class="kw">WITH</span> r <span class="kw">AS</span> (</span>
+<span id="cb29-2"><a></a>  <span class="kw">SELECT</span> <span class="op">..</span>.</span>
+<span id="cb29-3"><a></a>  <span class="kw">FROM</span> <span class="op">..</span>.</span>
+<span id="cb29-4"><a></a>  <span class="kw">WHERE</span> <span class="op">..</span>.</span>
+<span id="cb29-5"><a></a>), s <span class="kw">AS</span> (</span>
+<span id="cb29-6"><a></a>  <span class="kw">SELECT</span> <span class="op">..</span>.</span>
+<span id="cb29-7"><a></a>  <span class="kw">FROM</span> <span class="op">..</span>.</span>
+<span id="cb29-8"><a></a>  <span class="kw">WHERE</span> <span class="op">..</span>.    <span class="co">-- références possibles à r </span></span>
+<span id="cb29-9"><a></a>)</span>
+<span id="cb29-10"><a></a><span class="kw">SELECT</span> <span class="op">..</span>.</span>
+<span id="cb29-11"><a></a><span class="kw">FROM</span>   <span class="op">..</span>.     <span class="co">-- références possibles à r </span></span>
+<span id="cb29-12"><a></a><span class="kw">WHERE</span> <span class="op">..</span>.</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Ces expressions/requêtes sont appelées <code>Common Table Expressions</code> ou CTEs ou ETCs en français.</p>
+<p>Les CTEs peuvent être des requêtes <code>SELECT</code>, mais aussi des expressions de manipulation (mise à jour, insertion, suppression) de données.</p>
+<p>Les CTEs permettent de coller plus fidèlement à l’algèbre relationnelle que les requêtes imbriquées.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="avantages-des-ctes" class="slide level2 center">
+<h2>Avantages des CTEs</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Les CTEs permettent de composer des requêtes de même que les requêtes imbriquées dans les clauses <code>WHERE</code> et <code>FROM</code>.</p>
+<p>Par rapport à ces deux autres techniques, les <em>avantages</em> sont :</p>
+<ul>
+<li><p>amélioration de la lisibilité et de la maintenance des requêtes complexes.</p></li>
+<li><p>une ETC peut être utilisée plusieurs fois dans une même requête.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="exemple-de-requête-avec-with" class="slide level2 center">
+<h2>Exemple de requête avec <code>WITH</code></h2>
+<p>Lister les pays (code, nom, espérance de vie) dont le PNB a progressé de 10% et dont la population de la capitale est supérieure à 2 millions.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb30-1"><a></a><span class="kw">WITH</span> better_off <span class="kw">AS</span> (</span>
+<span id="cb30-2"><a></a>  <span class="kw">SELECT</span> countrycode, name_country, lifeexpectancy, capital</span>
+<span id="cb30-3"><a></a>  <span class="kw">FROM</span> country</span>
+<span id="cb30-4"><a></a>  <span class="kw">WHERE</span> gnpold <span class="op">&gt;</span><span class="dv">0</span> <span class="kw">AND</span> gnp <span class="op">/</span> gnpold <span class="op">&gt;</span> <span class="fl">1.1</span>  <span class="co">-- gnpold &gt;0 pour gérer les valeurs nulles</span></span>
+<span id="cb30-5"><a></a>),</span>
+<span id="cb30-6"><a></a>big_capital <span class="kw">AS</span> (</span>
+<span id="cb30-7"><a></a>  <span class="kw">SELECT</span> <span class="kw">id</span>, countrycode</span>
+<span id="cb30-8"><a></a>  <span class="kw">FROM</span> city </span>
+<span id="cb30-9"><a></a>  <span class="kw">WHERE</span> population <span class="op">&gt;</span> <span class="dv">2000000</span></span>
+<span id="cb30-10"><a></a>)</span>
+<span id="cb30-11"><a></a><span class="kw">SELECT</span> bo.countrycode, name_country, lifeexpectancy</span>
+<span id="cb30-12"><a></a><span class="kw">FROM</span> better_off bo <span class="kw">JOIN</span> big_capital bc <span class="kw">ON</span></span>
+<span id="cb30-13"><a></a>  bc.<span class="kw">id</span><span class="op">=</span>bo.capital ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section id="fin" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Fin</h1>
+<!--
+```{.sql}
+SELECT  name_country,   name, lifeexpectancy
+FROM (
+  SELECT countrycode,   name_country, lifeexpectancy
+  FROM country
+    WHERE gnpold >0 AND gnp / gnpold > 1.1
+  ) AS better_off 
+  JOIN LATERAL (
+    SELECT c.countrycode, name 
+        FROM country c
+          JOIN city ON (capital = id)
+        WHERE 
+      better_off.countrycode=c.countrycode AND  
+            population> 2000000
+    ) AS big_capital 
+ON TRUE ;   
+```
+
+
+
+| Country                             | City    |Life expectancy|
+|:------------------------------------|---------|--------------|
+|Iran                                 |Teheran  |          69.7|
+|Congo, The Democratic Republic of the|Kinshasa |          48.8|
+|Turkey                               |Ankara   |          71.0|
+
+sans interêt
+
+équivaut à 
+
+SELECT c.countrycode, ci.name , c.lifeexpectancy
+FROM country c JOIN city ci ON (c.capital = ci.id)
+WHERE c.gnpold >0 AND c.gnp / c.gnpold > 1.1 AND ci.population > 2000000;
+
+<!--
+
+See [Trumpetting lateral join](https://heap.io/blog/postgresqls-powerful-new-join-type-lateral)
+
+Could be useful for implementing exploratory pipelines into postgresql without to much tears and sweat. 
+-->
 
 
 <div class="reveal-header">

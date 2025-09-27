@@ -624,7 +624,7 @@
 <span id="cb20-3"><a></a>  monde.city c </span>
 <span id="cb20-4"><a></a><span class="kw">JOIN</span> </span>
 <span id="cb20-5"><a></a>  monde.city c2 </span>
-<span id="cb20-6"><a></a><span class="kw">ON</span> (c.name_city <span class="op">=</span> c2.name_city <span class="kw">AND</span> </span>
+<span id="cb20-6"><a></a><span class="kw">ON</span> (c.name <span class="op">=</span> c2.name <span class="kw">AND</span> </span>
 <span id="cb20-7"><a></a>    c.countrycode <span class="op">=</span> c2.countrycode  <span class="kw">AND</span> </span>
 <span id="cb20-8"><a></a>    c.<span class="kw">id</span> <span class="op">&lt;&gt;</span> c2.<span class="kw">id</span>) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>renvoie 48 lignes</p>
@@ -634,7 +634,7 @@
 <span id="cb21-3"><a></a>  monde.city c </span>
 <span id="cb21-4"><a></a><span class="kw">JOIN</span> </span>
 <span id="cb21-5"><a></a>  monde.city c2 </span>
-<span id="cb21-6"><a></a><span class="kw">ON</span> (c.name_city <span class="op">=</span> c2.name_city <span class="kw">AND</span> </span>
+<span id="cb21-6"><a></a><span class="kw">ON</span> (c.name <span class="op">=</span> c2.name <span class="kw">AND</span> </span>
 <span id="cb21-7"><a></a>    c.countrycode <span class="op">=</span> c2.countrycode  <span class="kw">AND</span></span>
 <span id="cb21-8"><a></a>    c.district <span class="op">=</span> c2.district  <span class="kw">AND</span></span>
 <span id="cb21-9"><a></a>    c.<span class="kw">id</span> <span class="op">&lt;&gt;</span> c2.<span class="kw">id</span>) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
@@ -643,7 +643,7 @@
 </section>
 <section id="existe-t-il-un-pays-dont-la-capitale-est-dans-un-autre-pays" class="slide level2 center">
 <h2>Existe-t-il un pays dont la capitale est dans un autre pays ?</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a></a><span class="kw">SELECT</span> c. countrycode, c.name_country, cc.name_city, cc.countrycode</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a></a><span class="kw">SELECT</span> c. countrycode, c.name_country, cc.name, cc.countrycode</span>
 <span id="cb22-2"><a></a><span class="kw">FROM</span> </span>
 <span id="cb22-3"><a></a>  world.country c </span>
 <span id="cb22-4"><a></a><span class="kw">JOIN</span> </span>
