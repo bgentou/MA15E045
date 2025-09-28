@@ -523,8 +523,8 @@ WHERE
 </section>
 <section id="exemple-de-sous-requête-avec-any" class="slide level2 center">
 <h2>Exemple de sous-requête avec <code>ANY</code></h2>
-<p>Alternative au <code>IN</code></p>
-<p>lister les noms de fournisseurs qui ont livré la pièce ‘x21’.</p>
+<p>Alternative au <code>IN</code>.</p>
+<p>Lister les noms de fournisseurs qui ont livré la pièce ‘x21’.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a></a><span class="kw">SELECT</span> NomF</span>
 <span id="cb14-2"><a></a><span class="kw">FROM</span> Fournisseur</span>
 <span id="cb14-3"><a></a><span class="kw">WHERE</span> NomF <span class="op">=</span> <span class="kw">ANY</span> (</span>
@@ -580,7 +580,7 @@ WHERE L.NomP = P.NomP AND
 </section>
 <section id="exemple-1-de-sous-requête-avec-all" class="slide level2 center">
 <h2>Exemple 1 de sous-requête avec <code>ALL</code></h2>
-<p>La ville la plus peuplée de chaque pays</p>
+<p>La ville la plus peuplée de chaque pays.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a></a><span class="kw">SELECT</span> c1.name </span>
 <span id="cb15-2"><a></a><span class="kw">FROM</span> city <span class="kw">as</span> c1</span>
 <span id="cb15-3"><a></a><span class="kw">WHERE</span> population <span class="op">&gt;=</span> <span class="kw">ALL</span> (</span>
@@ -792,27 +792,28 @@ WHERE L.NomP = P.NomP AND
 <section id="exemple-1-avec-lateral" class="slide level2 center">
 <h2>Exemple 1 avec <code>LATERAL</code></h2>
 <p>Pour chaque pays, donner la liste des villes de son térritoire.</p>
-<div class="columns">
-<div class="column">
-<p>Sans jointure</p>
+<p>Solution avec <code>LATERAL</code></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a></a><span class="kw">SELECT</span> co.name_country, sr.name </span>
 <span id="cb25-2"><a></a><span class="kw">FROM</span> country co, LATERAL (  </span>
 <span id="cb25-3"><a></a>  <span class="kw">SELECT</span> name       </span>
 <span id="cb25-4"><a></a>  <span class="kw">FROM</span> city  ci            </span>
 <span id="cb25-5"><a></a>  <span class="kw">WHERE</span> ci.countrycode<span class="op">=</span>co.countrycode</span>
 <span id="cb25-6"><a></a>) sr;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column">
-<p>Avec jointure</p>
+<p>équivalent à</p>
+<div class="columns">
+<div class="column">
+<p>Avec jointure sur une table dérivée</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a></a><span class="kw">SELECT</span> co.name_country, sr.name </span>
-<span id="cb26-2"><a></a><span class="kw">FROM</span> country co <span class="kw">NATURAL</span> <span class="kw">JOIN</span> LATERAL (  </span>
+<span id="cb26-2"><a></a><span class="kw">FROM</span> country co <span class="kw">NATURAL</span> <span class="kw">JOIN</span> (  </span>
 <span id="cb26-3"><a></a>  <span class="kw">SELECT</span> countrycode, name       </span>
 <span id="cb26-4"><a></a>  <span class="kw">FROM</span> city</span>
 <span id="cb26-5"><a></a>) sr  </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
-<p>équivalent à</p>
+</div><div class="column">
+<p>ou bien sans table dérivée</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a></a><span class="kw">SELECT</span> name_country, name </span>
 <span id="cb27-2"><a></a><span class="kw">FROM</span> country co <span class="kw">JOIN</span> city ci <span class="kw">ON</span> ci.countrycode<span class="op">=</span>co.countrycode</span>
 <span id="cb27-3"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> name_country;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
 </section>
 <section id="exemple-2-avec-lateral" class="slide level2 center">
 <h2>Exemple 2 avec <code>LATERAL</code></h2>
@@ -827,6 +828,7 @@ WHERE L.NomP = P.NomP AND
 <span id="cb28-8"><a></a>) sr</span>
 <span id="cb28-9"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> co.name_country;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Evaluation : si la table dérivée est vide, le tuple <span class="math inline">\(u\)</span> de la table <code>country</code> n’est pas retenu car <span class="math inline">\(\lbrace u\rbrace \times \emptyset = \emptyset\)</span>.</p>
+<p>Donc les pays sans ville ne sont pas affichés.</p>
 </section></section>
 <section>
 <section id="les-ctes-avec-with" class="title-slide slide level1 center" data-background-color="#1c191c">

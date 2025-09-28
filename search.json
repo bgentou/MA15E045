@@ -4724,14 +4724,14 @@
     "href": "slides/SQL_2.html#exemple-de-sous-requête-avec-any",
     "title": "BD II: SQL II",
     "section": "Exemple de sous-requête avec ANY",
-    "text": "Exemple de sous-requête avec ANY\nAlternative au IN\nlister les noms de fournisseurs qui ont livré la pièce ‘x21’.\nSELECT NomF\nFROM Fournisseur\nWHERE NomF = ANY (\n    SELECT NomF\n    FROM Livraison\n    WHERE NomP = 'x21' \n);\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, ANY renvoie False.\nSi l’attribut NomF vaut NULL, le résultat de la comparaison avec ANY est UNKNOWN.\nL’évaluation de ANY s’effectue par un OU entre des tests =|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt;. Pour les valeurs NULL du résultat de la sous-requête, le test retourne UNKNOWN. Donc si le test est vrai pour un tuple du résultat, ANY retourne True sinon UNKNOWN."
+    "text": "Exemple de sous-requête avec ANY\nAlternative au IN.\nLister les noms de fournisseurs qui ont livré la pièce ‘x21’.\nSELECT NomF\nFROM Fournisseur\nWHERE NomF = ANY (\n    SELECT NomF\n    FROM Livraison\n    WHERE NomP = 'x21' \n);\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, ANY renvoie False.\nSi l’attribut NomF vaut NULL, le résultat de la comparaison avec ANY est UNKNOWN.\nL’évaluation de ANY s’effectue par un OU entre des tests =|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt;. Pour les valeurs NULL du résultat de la sous-requête, le test retourne UNKNOWN. Donc si le test est vrai pour un tuple du résultat, ANY retourne True sinon UNKNOWN."
   },
   {
     "objectID": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-all",
     "href": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-all",
     "title": "BD II: SQL II",
     "section": "Exemple 1 de sous-requête avec ALL",
-    "text": "Exemple 1 de sous-requête avec ALL\nLa ville la plus peuplée de chaque pays\nSELECT c1.name \nFROM city as c1\nWHERE population &gt;= ALL (\n  SELECT c2.population \n  FROM city as c2\n  WHERE c1.countrycode=c2.countrycode\n);\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, ALL renvoie True.\nSi l’attribut population vaut NULL, le résultat de la comparaison avec ALL est UNKNOWN.\nL’évaluation de ALL s’effectue par un ET entre des tests =|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt;. Pour les valeurs NULL du résultat de la sous-requête, le test retourne UNKNOWN. Donc si le résultat de la sous-requête contient au moins une valeur NULL, ALL retourne UNKNOWN."
+    "text": "Exemple 1 de sous-requête avec ALL\nLa ville la plus peuplée de chaque pays.\nSELECT c1.name \nFROM city as c1\nWHERE population &gt;= ALL (\n  SELECT c2.population \n  FROM city as c2\n  WHERE c1.countrycode=c2.countrycode\n);\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, ALL renvoie True.\nSi l’attribut population vaut NULL, le résultat de la comparaison avec ALL est UNKNOWN.\nL’évaluation de ALL s’effectue par un ET entre des tests =|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt;. Pour les valeurs NULL du résultat de la sous-requête, le test retourne UNKNOWN. Donc si le résultat de la sous-requête contient au moins une valeur NULL, ALL retourne UNKNOWN."
   },
   {
     "objectID": "slides/SQL_2.html#exemple-2-de-sous-requête-avec-all",
@@ -4808,14 +4808,14 @@
     "href": "slides/SQL_2.html#exemple-1-avec-lateral",
     "title": "BD II: SQL II",
     "section": "Exemple 1 avec LATERAL",
-    "text": "Exemple 1 avec LATERAL\nPour chaque pays, donner la liste des villes de son térritoire.\n\n\nSans jointure\nSELECT co.name_country, sr.name \nFROM country co, LATERAL (  \n  SELECT name       \n  FROM city  ci            \n  WHERE ci.countrycode=co.countrycode\n) sr;\n\nAvec jointure\nSELECT co.name_country, sr.name \nFROM country co NATURAL JOIN LATERAL (  \n  SELECT countrycode, name       \n  FROM city\n) sr  \n\néquivalent à\nSELECT name_country, name \nFROM country co JOIN city ci ON ci.countrycode=co.countrycode\nORDER BY name_country;"
+    "text": "Exemple 1 avec LATERAL\nPour chaque pays, donner la liste des villes de son térritoire.\nSolution avec LATERAL\nSELECT co.name_country, sr.name \nFROM country co, LATERAL (  \n  SELECT name       \n  FROM city  ci            \n  WHERE ci.countrycode=co.countrycode\n) sr;\néquivalent à\n\n\nAvec jointure sur une table dérivée\nSELECT co.name_country, sr.name \nFROM country co NATURAL JOIN (  \n  SELECT countrycode, name       \n  FROM city\n) sr  \n\nou bien sans table dérivée\nSELECT name_country, name \nFROM country co JOIN city ci ON ci.countrycode=co.countrycode\nORDER BY name_country;"
   },
   {
     "objectID": "slides/SQL_2.html#exemple-2-avec-lateral",
     "href": "slides/SQL_2.html#exemple-2-avec-lateral",
     "title": "BD II: SQL II",
     "section": "Exemple 2 avec LATERAL",
-    "text": "Exemple 2 avec LATERAL\nPlus intéressant : pour chaque pays, donner la ville la plus peuplée.\nSELECT co.name_country, sr.name \nFROM country co, LATERAL (  \n  SELECT name       \n  FROM city ci            \n  WHERE ci.countrycode=co.countrycode\n  ORDER BY ci.population DESC\n  LIMIT 1\n) sr\nORDER BY co.name_country;\nEvaluation : si la table dérivée est vide, le tuple \\(u\\) de la table country n’est pas retenu car \\(\\lbrace u\\rbrace \\times \\emptyset = \\emptyset\\)."
+    "text": "Exemple 2 avec LATERAL\nPlus intéressant : pour chaque pays, donner la ville la plus peuplée.\nSELECT co.name_country, sr.name \nFROM country co, LATERAL (  \n  SELECT name       \n  FROM city ci            \n  WHERE ci.countrycode=co.countrycode\n  ORDER BY ci.population DESC\n  LIMIT 1\n) sr\nORDER BY co.name_country;\nEvaluation : si la table dérivée est vide, le tuple \\(u\\) de la table country n’est pas retenu car \\(\\lbrace u\\rbrace \\times \\emptyset = \\emptyset\\).\nDonc les pays sans ville ne sont pas affichés."
   },
   {
     "objectID": "slides/SQL_2.html#clause-with",
