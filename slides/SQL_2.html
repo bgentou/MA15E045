@@ -357,7 +357,7 @@
 <p><strong>Mise en garde</strong></p>
 </div>
 <div class="callout-content">
-<p>Attention au comportement de chaque opérateur si le résultat de la sous-requête est vide ou s’il contient la valeur <code>NULL</code>.</p>
+<p>Attention au comportement de chaque opérateur si le résultat de la sous-requête est vide ou s’il contient la valeur <code>NULL</code>&nbsp;: il faut appliquer la logique trivalente à l’évaluation de l’opérateur.</p>
 </div>
 </div>
 </div>
@@ -377,9 +377,9 @@
 </div>
 <div class="callout-content">
 <p>Si le résultat de la sous-requête est vide, <code>IN</code> renvoie faux, <code>NOT IN</code> renvoie vrai.</p>
-<p>Si <code>&lt;attribut&gt;</code> vaut <code>NULL</code>, les test <code>IN</code> et <code>NOT IN</code> renvoient <code>UNKNOWN</code>.</p>
-<p>L’évaluation de <code>IN</code> ignore les valeurs <code>NULL</code> du résultat de la sous-requête. Si ce résultat ne contient que <code>NULL</code>, <code>IN</code> retourne <code>UNKNOWN</code>.</p>
-<p>Si le résultat de la sous-requête contient au moins une valeur <code>NULL</code>, <code>NOT IN</code> retourne <code>UNKNOWN</code>.</p>
+<p>Si <code>&lt;attribut&gt;</code> vaut <code>NULL</code>, <code>IN</code> et <code>NOT IN</code> renvoient <code>UNKNOWN</code>.</p>
+<p>L’évaluation de <code>IN</code> s’effectue par un <em>OU</em> entre des tests <span class="math inline">\(=\)</span>. Pour les valeurs <code>NULL</code> du résultat de la sous-requête, le test d’égalité retourne <code>UNKNOWN</code>. Donc si <code>&lt;attribut&gt;</code> est présent dans le résultat, <code>IN</code> retourne <code>True</code> sinon <code>UNKNOWN</code>.</p>
+<p>L’évaluation de <code>NOTIN</code> s’effectue par un <em>ET</em> entre des tests <span class="math inline">\(\neq\)</span>. Donc si le résultat de la sous-requête contient au moins une valeur <code>NULL</code>, <code>NOT IN</code> retourne <code>UNKNOWN</code>.</p>
 </div>
 </div>
 </div>
@@ -543,7 +543,7 @@ WHERE
 <div class="callout-content">
 <p>Si le résultat de la sous-requête est vide, <code>ANY</code> renvoie <code>False</code>.</p>
 <p>Si l’attribut <code>NomF</code> vaut <code>NULL</code>, le résultat de la comparaison avec <code>ANY</code> est <code>UNKNOWN</code>.</p>
-<p>L’évaluation de <code>ANY</code> ignore les valeurs <code>NULL</code> du résultat de la sous-requête. Si ce résultat ne contient que <code>NULL</code>, <code>ANY</code> retourne <code>UNKNOWN</code>.</p>
+<p>L’évaluation de <code>ANY</code> s’effectue par un <em>OU</em> entre des tests <code>=|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt;</code>. Pour les valeurs <code>NULL</code> du résultat de la sous-requête, le test retourne <code>UNKNOWN</code>. Donc si le test est vrai pour un tuple du résultat, <code>ANY</code> retourne <code>True</code> sinon <code>UNKNOWN</code>.</p>
 </div>
 </div>
 </div>
@@ -599,7 +599,7 @@ WHERE L.NomP = P.NomP AND
 <div class="callout-content">
 <p>Si le résultat de la sous-requête est vide, <code>ALL</code> renvoie <code>True</code>.</p>
 <p>Si l’attribut <code>population</code> vaut <code>NULL</code>, le résultat de la comparaison avec <code>ALL</code> est <code>UNKNOWN</code>.</p>
-<p>Si le résultat de la sous-requête contient au moins une fois <code>NULL</code>, le test avec <code>ALL</code> est <code>UNKNOWN</code>.</p>
+<p>L’évaluation de <code>ALL</code> s’effectue par un <em>ET</em> entre des tests <code>=|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt;</code>. Pour les valeurs <code>NULL</code> du résultat de la sous-requête, le test retourne <code>UNKNOWN</code>. Donc si le résultat de la sous-requête contient au moins une valeur <code>NULL</code>, <code>ALL</code> retourne <code>UNKNOWN</code>.</p>
 </div>
 </div>
 </div>
@@ -616,7 +616,7 @@ WHERE L.NomP = P.NomP AND
 <span id="cb16-6"><a></a>  <span class="kw">WHERE</span> ci.countrycode<span class="op">=</span>co.countrycode</span>
 <span id="cb16-7"><a></a>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>renvoie également les pays qui n’ont pas de ville !</p>
-<p>On peut corriger en ajoutant un test <code>EXISTS</code> sur la sous-requête.</p>
+<p>On peut corriger en ajoutant un opérateur <code>EXISTS</code> sur la sous-requête.</p>
 <p>Mais la meilleure solution est d’utiliser les fonctions d’agrégation que nous verrons plus tard.</p>
 </section>
 <section id="opérateur-exists" class="slide level2 center">

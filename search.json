@@ -4682,14 +4682,14 @@
     "href": "slides/SQL_2.html#opérateurs-de-sous-requête",
     "title": "BD II: SQL II",
     "section": "Opérateurs de sous-requête",
-    "text": "Opérateurs de sous-requête\n\nIN, EXISTS, ALL, ANY sont des fonctions (ou opérations) qui prennent en argument une sous-requête.\nElles effectuent des tests sur l’ensemble des résultats d’une sous-requête.\n\n\n\n\n\n\n\nMise en garde\n\n\nAttention au comportement de chaque opérateur si le résultat de la sous-requête est vide ou s’il contient la valeur NULL."
+    "text": "Opérateurs de sous-requête\n\nIN, EXISTS, ALL, ANY sont des fonctions (ou opérations) qui prennent en argument une sous-requête.\nElles effectuent des tests sur l’ensemble des résultats d’une sous-requête.\n\n\n\n\n\n\n\nMise en garde\n\n\nAttention au comportement de chaque opérateur si le résultat de la sous-requête est vide ou s’il contient la valeur NULL : il faut appliquer la logique trivalente à l’évaluation de l’opérateur."
   },
   {
     "objectID": "slides/SQL_2.html#opérateur-in",
     "href": "slides/SQL_2.html#opérateur-in",
     "title": "BD II: SQL II",
     "section": "Opérateur IN",
-    "text": "Opérateur IN\nL’opérateur IN permet de tester si une valeur est présente dans le résultat d’une sous-requête.\n&lt;attribut&gt; [NOT] IN (&lt;sous-requete&gt;)\nEvaluée à vraie si &lt;attribut&gt; appartient au résultat de la sous-requête.\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, IN renvoie faux, NOT IN renvoie vrai.\nSi &lt;attribut&gt; vaut NULL, les test IN et NOT IN renvoient UNKNOWN.\nL’évaluation de IN ignore les valeurs NULL du résultat de la sous-requête. Si ce résultat ne contient que NULL, IN retourne UNKNOWN.\nSi le résultat de la sous-requête contient au moins une valeur NULL, NOT IN retourne UNKNOWN."
+    "text": "Opérateur IN\nL’opérateur IN permet de tester si une valeur est présente dans le résultat d’une sous-requête.\n&lt;attribut&gt; [NOT] IN (&lt;sous-requete&gt;)\nEvaluée à vraie si &lt;attribut&gt; appartient au résultat de la sous-requête.\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, IN renvoie faux, NOT IN renvoie vrai.\nSi &lt;attribut&gt; vaut NULL, IN et NOT IN renvoient UNKNOWN.\nL’évaluation de IN s’effectue par un OU entre des tests \\(=\\). Pour les valeurs NULL du résultat de la sous-requête, le test d’égalité retourne UNKNOWN. Donc si &lt;attribut&gt; est présent dans le résultat, IN retourne True sinon UNKNOWN.\nL’évaluation de NOTIN s’effectue par un ET entre des tests \\(\\neq\\). Donc si le résultat de la sous-requête contient au moins une valeur NULL, NOT IN retourne UNKNOWN."
   },
   {
     "objectID": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-in",
@@ -4724,21 +4724,21 @@
     "href": "slides/SQL_2.html#exemple-de-sous-requête-avec-any",
     "title": "BD II: SQL II",
     "section": "Exemple de sous-requête avec ANY",
-    "text": "Exemple de sous-requête avec ANY\nAlternative au IN\nlister les noms de fournisseurs qui ont livré la pièce ‘x21’.\nSELECT NomF\nFROM Fournisseur\nWHERE NomF = ANY (\n    SELECT NomF\n    FROM Livraison\n    WHERE NomP = 'x21' \n);\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, ANY renvoie False.\nSi l’attribut NomF vaut NULL, le résultat de la comparaison avec ANY est UNKNOWN.\nL’évaluation de ANY ignore les valeurs NULL du résultat de la sous-requête. Si ce résultat ne contient que NULL, ANY retourne UNKNOWN."
+    "text": "Exemple de sous-requête avec ANY\nAlternative au IN\nlister les noms de fournisseurs qui ont livré la pièce ‘x21’.\nSELECT NomF\nFROM Fournisseur\nWHERE NomF = ANY (\n    SELECT NomF\n    FROM Livraison\n    WHERE NomP = 'x21' \n);\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, ANY renvoie False.\nSi l’attribut NomF vaut NULL, le résultat de la comparaison avec ANY est UNKNOWN.\nL’évaluation de ANY s’effectue par un OU entre des tests =|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt;. Pour les valeurs NULL du résultat de la sous-requête, le test retourne UNKNOWN. Donc si le test est vrai pour un tuple du résultat, ANY retourne True sinon UNKNOWN."
   },
   {
     "objectID": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-all",
     "href": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-all",
     "title": "BD II: SQL II",
     "section": "Exemple 1 de sous-requête avec ALL",
-    "text": "Exemple 1 de sous-requête avec ALL\nLa ville la plus peuplée de chaque pays\nSELECT c1.name \nFROM city as c1\nWHERE population &gt;= ALL (\n  SELECT c2.population \n  FROM city as c2\n  WHERE c1.countrycode=c2.countrycode\n);\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, ALL renvoie True.\nSi l’attribut population vaut NULL, le résultat de la comparaison avec ALL est UNKNOWN.\nSi le résultat de la sous-requête contient au moins une fois NULL, le test avec ALL est UNKNOWN."
+    "text": "Exemple 1 de sous-requête avec ALL\nLa ville la plus peuplée de chaque pays\nSELECT c1.name \nFROM city as c1\nWHERE population &gt;= ALL (\n  SELECT c2.population \n  FROM city as c2\n  WHERE c1.countrycode=c2.countrycode\n);\n\n\n\n\n\n\nMise en garde\n\n\nSi le résultat de la sous-requête est vide, ALL renvoie True.\nSi l’attribut population vaut NULL, le résultat de la comparaison avec ALL est UNKNOWN.\nL’évaluation de ALL s’effectue par un ET entre des tests =|&lt;&gt;|&lt;=|&lt;|&gt;|=&gt;. Pour les valeurs NULL du résultat de la sous-requête, le test retourne UNKNOWN. Donc si le résultat de la sous-requête contient au moins une valeur NULL, ALL retourne UNKNOWN."
   },
   {
     "objectID": "slides/SQL_2.html#exemple-2-de-sous-requête-avec-all",
     "href": "slides/SQL_2.html#exemple-2-de-sous-requête-avec-all",
     "title": "BD II: SQL II",
     "section": "Exemple 2 de sous-requête avec ALL",
-    "text": "Exemple 2 de sous-requête avec ALL\nLes pays dont toutes les villes ont plus de 1 000 000 habitants.\nLa requête :\nSELECT co.name_country\nFROM country co\nWHERE 1000000 &lt;= ALL (\n  SELECT ci.population \n  FROM city ci\n  WHERE ci.countrycode=co.countrycode\n)\nrenvoie également les pays qui n’ont pas de ville !\nOn peut corriger en ajoutant un test EXISTS sur la sous-requête.\nMais la meilleure solution est d’utiliser les fonctions d’agrégation que nous verrons plus tard."
+    "text": "Exemple 2 de sous-requête avec ALL\nLes pays dont toutes les villes ont plus de 1 000 000 habitants.\nLa requête :\nSELECT co.name_country\nFROM country co\nWHERE 1000000 &lt;= ALL (\n  SELECT ci.population \n  FROM city ci\n  WHERE ci.countrycode=co.countrycode\n)\nrenvoie également les pays qui n’ont pas de ville !\nOn peut corriger en ajoutant un opérateur EXISTS sur la sous-requête.\nMais la meilleure solution est d’utiliser les fonctions d’agrégation que nous verrons plus tard."
   },
   {
     "objectID": "slides/SQL_2.html#opérateur-exists",
