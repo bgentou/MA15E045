@@ -1,5 +1,5 @@
 ---
-title: "TD 2: SQL"
+title: "TD 2 : SQL"
 subtitle: "SQL Interrogation de données"
 categories: [Algèbre relationnelle, world, psql, pgcli, WITH, SQL]
 date: "2025-10-03"
@@ -25,32 +25,31 @@ format:
 
 {{< include _preamble.qmd >}}
 
+## Objectifs
 
-## Schéma `world` (rappel)
+- requêtes avec jointures internes, 
+- requêtes avec `WITH` (CTEs).
 
+## Prérequis
 
-Utiliser les commandes suivantes pour retrouver les schémas de tables `country`, `countrylanguage` et `city`.
+- schéma [`world`](/schemas/schema-world.qmd){target="_blank"},
 
+- cours [Algèbre relationnelle](https://bgentou.github.io/MA15E045/slides/SQL_0.html){target="_blank"},
+- cours [Requêtes simples](https://bgentou.github.io/MA15E045/slides/SQL_1.html){target="_blank"},
+- cours [Requêtes imbriquées, CTEs](https://bgentou.github.io/MA15E045/slides/SQL_1.html){target="_blank"}.
 
-```{.sql}
-bd_2023> \d world."nom de table"
-```
-
-[Vue d'ensemble du schéma `world`](/schemas/schema-world.qmd)
-
-## Écriture de requêtes
-
+<!--
 Pour extraire des informations d'une base de données, on utilise l'algèbre relationnelle (pour la théorie) et le langage SQL (pour la pratique).
 
 |  Opération | Algèbre rel. | SQL |
-|:-----------------|:--------------------:|:--------------------|
-|  Projection| $\Pi_{\text{liste d'attributs}}(R)$ | `SELECT attributs FROM  R` |
-| Sélection  | ${\Large \sigma}_{\text{condition}}{R}$  | `SELECT * FROM R WHERE condition` |
-| Renommage  | $\rho_{\text{nom1} \rightarrow \text{nom2}}(R)$ |  `SELECT nom1 AS nom2 FROM table1 AS table2`  |
-| Union      | $R \cup S$ | `(SELECT * FROM R) UNION (SELECT * FROM S)` |
-| Différence | $R - S$ | `(SELECT * FROM R) EXCEPT (SELECT * FROM S)`  |
-|  Produit   | $R \times S$ | `SELECT * FROM R,S` |
-| Intersection | $R \cap S$ | `(SELECT * FROM R) INTERSECT (SELECT * FROM S)`  |
+|:-|:--:|:----|
+|  Projection| $\Pi_{\text{liste d'attributs}}(R)$ | `SELECT attributs FROM  R;` |
+| Sélection  | ${\Large \sigma}_{\text{condition}}{R}$  | `SELECT * FROM R WHERE condition;` |
+| Renommage  | $\rho_{\text{nom1} \rightarrow \text{nom2}}(R)$ |  `SELECT nom1 AS nom2 FROM table1 AS table2;`  |
+| Union      | $R \cup S$ | `(SELECT * FROM R) UNION (SELECT * FROM S);` |
+| Différence | $R - S$ | `(SELECT * FROM R) EXCEPT (SELECT * FROM S);`  |
+|  Produit   | $R \times S$ | `SELECT * FROM R,S;` |
+| Intersection | $R \cap S$ | `(SELECT * FROM R) INTERSECT (SELECT * FROM S);`  |
 
 ## Opérations avancées
 
@@ -93,7 +92,7 @@ WHERE continent = 'Oceania';
 renvoie la liste des villes d'Océanie. La jointure est faite
 implicitement sur la condition 
 
-```
+```{.sql}
 world.city.countrycode = world.country.countrycode
 ```
 
@@ -102,7 +101,7 @@ colonne `countrycode`. Si l'on souhaite ne faire la jointure
 naturelle que sur un sous-ensemble `a1,...,ak` des attributs
 communs, on peut utiliser `JOIN ... USING (a1,...,ak)`.
 
-### Requêtes nommées : utilisation de `WITH`
+### Requêtes nommées : utilisation de `WITH` (CTEs)
 
 Lorsque les requêtes se compliquent, il est parfois commode de la découper en plusieurs requêtes qu'on manipulera par la suite. Par exemple, trouver le nom des capitales européennes ayant plus d'un million d'habitants peut se découper ainsi: on résout la requête `CAP` qui contient le nom, le continent et la population des capitales. Puis on résout la requête finale en filtrant `CAP`. Cela peut s'écrire avec l'opérateur `WITH`:
 
@@ -117,10 +116,11 @@ SELECT name
 FROM CAP
 WHERE continent = 'Europe' AND population > 1000000;
 ```
+-->
 
-## Requêtes
+## Questions
 
-- Quels sont les noms des capitales Sud-Américaines ? (14 lignes)
+@. Quels sont les noms des capitales Sud-Américaines ? (14 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -134,7 +134,7 @@ WHERE continent = 'South America';
 ::: 
 :::
 
-- Quels sont les noms des pays où le français est langue officielle ? (18 lignes)
+@. Quels sont les noms des pays où le français est langue officielle ? (18 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -147,7 +147,7 @@ WHERE isofficial AND language='French';
 ::: 
 :::
 
-- Quels sont les pays dont le gouvernement est monarchique (constitutionnelle ou pas) ? (43 lignes)
+@. Quels sont les pays dont le gouvernement est monarchique (constitutionnelle ou pas) ? (43 lignes)
   
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -161,7 +161,7 @@ WHERE governmentform LIKE '%Monarchy%';
 ::: 
 :::
 
-- Quelles sont les monarchies d'Europe dont la capitale compte moins d'un million d'habitants ? (8 lignes)
+@. Quelles sont les monarchies d'Europe dont la capitale compte moins d'un million d'habitants ? (8 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -178,7 +178,7 @@ WHERE population < 1000000;
 :::
 :::
 
--  Quelles sont les régions où on ne trouve pas de monarchie ? (9 lignes)
+@.  Quelles sont les régions où on ne trouve pas de monarchie ? (9 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -197,7 +197,7 @@ EXCEPT
 ::: 
 :::
 
-- Quelles sont les langues qui ne sont langues officielles dans aucun pays ? (355 lignes)
+@. Quelles sont les langues qui ne sont langues officielles dans aucun pays ? (355 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -217,7 +217,7 @@ FROM R);
 ::: 
 :::
 
-- Quels sont les pays qui n'ont pas de langue officielle ? (49 lignes)
+@. Quels sont les pays qui n'ont pas de langue officielle ? (49 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -241,7 +241,7 @@ FROM world.country NATURAL JOIN S;
 ::: 
 :::
 
--  Quels sont les pays dont la seule langue officielle est le français ? (9 lignes)
+@.  Quels sont les pays dont la seule langue officielle est le français ? (9 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -285,7 +285,7 @@ FROM world.country NATURAL JOIN OnlyFrench;
 ::: 
 :::
 
--  Les noms des pays où  le français n'est pas la seule langue officielle. (9 lignes)
+@.  Les noms des pays où  le français n'est pas la seule langue officielle. (9 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -320,7 +320,7 @@ FROM world.country NATURAL JOIN
 ::: 
 :::
 
-- Quelles sont les régions qui ne comportent qu'une seule forme de gouvernement ? (3 lignes)
+@. Quelles sont les régions qui ne comportent qu'une seule forme de gouvernement ? (3 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -343,7 +343,7 @@ FROM R;
 ::: 
 :::
 
--  Quelles sont les langues officielles des pays dont la capitale compte plus de 5 000 000 d'habitants ? (12 lignes)
+@.  Quelles sont les langues officielles des pays dont la capitale compte plus de 5 000 000 d'habitants ? (12 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -357,7 +357,7 @@ WHERE population > 5000000 and isofficial;
 ::: 
 :::
 
-- Quels sont les pays où au moins trois langues sont parlées chacune par strictement plus de $10\%$ de la population ? (35 lignes)
+@. Quels sont les pays où au moins trois langues sont parlées chacune par strictement plus de $10\%$ de la population ? (35 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -400,7 +400,7 @@ FROM world.country co NATURAL JOIN three ;
 ::: 
 :::
 
--  Quelles sont les régions où il existe deux pays dont les espérances de vie diffèrent par au moins $10$ ans ? (16 lignes)
+@.  Quelles sont les régions où il existe deux pays dont les espérances de vie diffèrent par au moins $10$ ans ? (16 lignes)
 
 
 ::: {.content-visible when-profile="solution"}
@@ -416,7 +416,7 @@ WHERE T1.countrycode <> T2.countrycode AND
 ::: 
 :::
 
--  Quels sont les pays où  l'anglais et le français sont des *langues officielles* ? (3 lignes)
+@.  Quels sont les pays où  l'anglais et le français sont des *langues officielles* ? (3 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -439,7 +439,7 @@ FROM R NATURAL JOIN
 ::: 
 :::
 
-- Montrer comment calculer l'*intersection* de deux tables avec une *jointure* (sous certaines conditions).
+@. Montrer comment calculer l'*intersection* de deux tables avec une *jointure* (sous certaines conditions).
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -447,19 +447,24 @@ FROM R NATURAL JOIN
 Si `R`  et `S` sont deux tables de même schéma, une jointure naturelle des
 deux tables devrait (en première approximation) calculer l'intersection des deux tables. 
 
-Pourtant
+Pourtant, du fait de la logique trivalente, si certaines colonnes contiennent des valeurs nulles
 ```{.sql}
 (SELECT * FROM R)
 INTERSECT
 (SELECT * FROM S)	;
 ```
-ne donne pas toujours le même résultat que
+ne donne pas le même résultat que
 ```{.sql}
 SELECT *
 FROM 	R NATURAL JOIN S ;
 ```
 
-Essayez par exemple pour l'intersection de la table `country`
+Dans la deuxième requêtes, tous les tuples possédant au moins un attribut `NULL` sont rejetés car la condition de jointure est alors `UNKNOWN`.
+
+Il faut limiter la jointure aux attributs qui identifient chaque ligne d'une table, ce qu'on appelle la clé primaire, pour lesquels la définition de la table interdit la valeur `NULL`.
+
+
+Par exemple pour l'intersection de la table `country`
 avec elle-même :
 ```{.sql}
 (SELECT * FROM country) 
@@ -468,13 +473,24 @@ INTERSECT
 ```
 retourne la table `country`, soit 239 lignes.
 
-La jointure naturelle
+La requête  
+```{.sql}
+SELECT * 
+FROM country AS c1 JOIN 
+     country AS c2
+     ON c1.countrycode = c2.countrycode;
+```
+retourne égalemement les 239 lignes de la table `country`.
+
+Mais la jointure naturelle
 ```{.sql}
 SELECT * 
 FROM country AS c1 NATURAL JOIN 
      country AS c2;
 ```
-ne donne que 167 lignes. On peut réconcilier les deux résultats
+ne donne que 167 lignes, les tuples qui n'ont aucun attribut `NULL`. 
+
+<!--On peut réconcilier les deux résultats
 en ne conservant que les lignes pour lesquelles aucune colonne ne
 prend la valeur `NULL`. 
 
@@ -492,7 +508,7 @@ WHERE indepyear IS NOT NULL AND
       capital IS NOT NULL;
 ```
 qui retourne bien 167 lignes.
-
+-->
 
 ::: 
 :::

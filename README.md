@@ -22,8 +22,13 @@ Pour construire les slides
 
 Tableaux
 
+Le nombre de tirets fixe proportionnellement la largeur de la colonne.
+: à gauche, aligné à gauche
+: à droite, aligné à droite
+: des deux côtés, centré
+
 | fruit  | price  |
-|--------|--------|
+|--|----|
 | apple  | 2.05   |
 
 devient
@@ -41,7 +46,7 @@ Lites numérotées
 Attention à l'indentation !
 
 1) something 1 
-1) something 2
+2) something 2
 
 ou 
 

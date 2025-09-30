@@ -1,5 +1,5 @@
 ---
-title: "TD 3: SQL"
+title: "TD 3 : SQL"
 subtitle: "SQL Interrogation de données, requêtes complexes"
 categories: [pagila, world, SQL, VIEW, FUNCTION, requêtes imbriquées]
 date: "2025-10-10"
@@ -27,35 +27,44 @@ engine: knitr
 {{< include _preamble.qmd >}}
 
 
-Objectifs de la séance:
+## Objectifs
 
-- requêtes imbriquées 
-- jointures externes
-- vues 
-- fonctions SQL
+- requêtes imbriquées, 
+- jointures externes,
+- vues, 
+- fonctions SQL.
 
 
-En plus du schéma [`world`](/schemas/schema-world.qmd), nous allons utiliser le schéma [`pagila`](/schemas/schema-pagila.qmd) qui contient des informations utilisées par un chaîne fictive de magasins de location de DVD.
 
-Le schéma `pagila` est visible  [ici](/schemas/schema-pagila.qmd).
-
+<!--
 Sous `psql` ou `pgli`, vous pouvez aussi inspecter les tables comme d'habitude avec
 
 ```{.sql}
 bd_2023-24> \d pagila.film
 bd_2023-24> \d pagila.actor
 ```
+-->
 
+## Prérequis
+
+- schéma [`world`](/schemas/schema-world.qmd){target="_blank"},
+- schéma [`pagila`](/schemas/schema-pagila.qmd){target="_blank"},
+
+- cours [Algèbre relationnelle](https://bgentou.github.io/MA15E045/slides/SQL_0.html){target="_blank"},
+- cours [Requêtes simples](https://bgentou.github.io/MA15E045/slides/SQL_1.html){target="_blank"},
+- cours [Requêtes imbriquées, CTEs](https://bgentou.github.io/MA15E045/slides/SQL_2.html){target="_blank"}.
 
 ::: {.callout-tip}
 
 Quand on travaille sur plusieurs schémas (ici `world`, `pagila` et votre schéma personnel), il est bon 
 
-- d'ajuster `search_path` (sous `psql, pgcli`) : `set search_path to world, pagila, ... ;` (remplacer `...`par votre identifiant)
+- d'ajuster `search_path` : `set search_path to world, pagila, ... ;` (remplacer `...`par votre identifiant)
 - de qualifier les noms de table pour indiquer le schéma d'origine : `world.country` versus `pagila.country`
 
 :::
 
+
+<!--
 ## [Requêtes imbriquées](/slides/SQL_2.html)
 
 Les requêtes imbriquées permettent d'utiliser le résultat d'une requête dans la clause `WHERE`.
@@ -178,14 +187,14 @@ FROM world.country as p LEFT JOIN
   p.countrycode = l.countrycode AND l.isofficial
 WHERE l.countrycode IS NULL;
 ```
+-->
+
+## Questions
 
 
-## Requêtes
+@. Quels sont les langues qui ne sont officielles dans aucun pays ? (355 lignes)
 
-
-1. Quels sont les langues qui ne sont officielles dans aucun pays ? (355 lignes)
-
-Écrivez une version avec `EXCEPT`, une avec `NOT IN` et une autre avec `LEFT JOIN`.
+   Écrivez une version avec `EXCEPT`, une avec `NOT IN` et une autre avec `LEFT JOIN`.
 
 
 ::::: {.content-visible when-profile="solution"}
@@ -265,7 +274,7 @@ WHERE  NOT EXISTS (
 ```
 
 :::
-
+<!--
 ::: {.callout-note}
 
 En calcul relationnel
@@ -279,10 +288,10 @@ En calcul relationnel
 
 
 :::
-
+-->
 :::
 
-2. Quelles sont les régions où au moins deux pays ont la même forme de gouvernement ? (21 lignes)
+@. Quelles sont les régions où au moins deux pays ont la même forme de gouvernement ? (21 lignes)
 
 
 ::: {.content-visible when-profile="solution"}
@@ -320,7 +329,7 @@ FROM world.country AS c1 JOIN world.country AS c2
 :::
 
 
-3. Quels sont les films qui n'ont jamais été loués ? (42 lignes)
+@. Quels sont les films qui n'ont jamais été loués ? (42 lignes)
 
 
 
@@ -365,7 +374,7 @@ SELECT title,film_id FROM pagila.film
 :::::
 
 
-::: {.callout-note }
+<!--::: {.callout-note }
 
 En calcul relationnel
 
@@ -377,19 +386,18 @@ En calcul relationnel
 \end{align*}
 
 
-:::
+:::-->
 
 ::: {.callout-note}
 
 Cette question est exactement du même type que la précédente. On y répond de la même manière :
-pour trouver *1* les objets d'un certain type  qui ne possèdent pas une propriété, on cherche
-dans la base tous les objets de ce type et on fait la différence avec l'ensemble des objets de ce type
-qui possèdent la propriété dans la base.
+pour trouver les objets d'un certain type  qui ne possèdent pas une propriété, on cherche
+dans la base tous les objets de ce type et on fait la différence avec l'ensemble des objets de ce type qui possèdent la propriété dans la base.
 
 :::
 
 
-4. Quels sont les acteurs qui ont joué dans toutes les catégories de film ? (11 lignes)
+@. Quels sont les acteurs qui ont joué dans toutes les catégories de film ? (11 lignes)
 
 ::::: {.content-visible when-profile="solution"}
 
@@ -461,7 +469,7 @@ En comptant le nombre $n$ de catégories de films dans une première requête, o
 
 :::
 
-5. Existe-t-il des acteurs qui ne jouent avec aucun autre acteur ? (0 ligne)
+@. Existe-t-il des acteurs qui ne jouent avec aucun autre acteur ? (0 ligne)
 
 
 ::: {.content-visible when-profile="solution"}
@@ -586,7 +594,7 @@ Cette requête renvoie 31 lignes.
 :::
 
 
-6. Nom, prénom  des clients  installés dans des villes sans magasin ? (599 lignes)
+@. Nom, prénom  des clients  installés dans des villes sans magasin ? (599 lignes)
 
 
 
@@ -635,7 +643,7 @@ WHERE
 :::
 
 
-7. Lister les pays pour lesquels toutes les villes ont au moins un magasin. (1 ligne)
+@. Lister les pays pour lesquels toutes les villes ont au moins un magasin. (1 ligne)
 
 ::: {.content-visible when-profile="solution"}
 
@@ -658,7 +666,7 @@ WHERE NOT EXISTS (
 
 :::
 
-8. Déterminer la liste des films disponibles dans toutes les langues.
+@. Déterminer la liste des films disponibles dans toutes les langues.
 
 ::: {.content-visible when-profile="solution"}
 
@@ -671,7 +679,7 @@ résultat est vide.
 
 :::
 
-Un même *dvd* (`inventory_id`) peut bien sûr être loué plusieurs fois, mais pas simultanément. Proposer une requête qui  vérifie que les dates de location d'un *dvd* donné sont compatibles.
+@. Un même *dvd* (`inventory_id`) peut bien sûr être loué plusieurs fois, mais pas simultanément. Proposer une requête qui  vérifie que les dates de location d'un *dvd* donné sont compatibles.
 
 
 ::: {.content-visible when-profile="solution"}
@@ -794,11 +802,12 @@ $$
 $$ LANGUAGE sql ;
 ```
 
+## Questions
 
-Utilisez votre fonction pour écrire les requêtes suivantes:
+Utilisez votre fonction pour écrire les requêtes suivantes :
 
 
-Quels sont les acteurs qui ont déjà joué dans un film d'horreur (catégorie 'Horror') ?
+@. Quels sont les acteurs qui ont déjà joué dans un film d'horreur (catégorie 'Horror') ?
 
 
 
@@ -880,7 +889,7 @@ NATURAL JOIN
 
 :::
 
-Quels sont les acteurs qui n'ont jamais joué dans une comédie (`Comedy`) ? (53 lignes)
+@. Quels sont les acteurs qui n'ont jamais joué dans une comédie (`Comedy`) ? (53 lignes)
 
 ::: {.callout-caution}
 
@@ -957,7 +966,7 @@ WHERE NOT EXISTS
 :::
 
 ::: {.callout-note}
-
+<!--
 En calcul relationnel, en considérant  `film_id_cat('Comedy')` comme une relation (ce qui
 est cohérent avec la définition de la fonction) cette requête s'exprime
 
@@ -977,17 +986,22 @@ nous examinons toutes les  valeurs $a$ de `actor_id` présentes dans la table `a
 
 Nous *décrivons/explicitons* ainsi les propriétés du résultat de la requête *Quels sont les acteurs qui n'ont jamais joué dans une comédie ('Comedy') ?*.
 
+-->
 
+Nous pouvons par exemple d'abord calculer la liste des
+`actor_id`  des acteurs qui ont joué dans au  moins une comédie, puis calculer la liste des
+`actor_id` des acteurs présents dans la base et faire la différence
 
-Si maintenant nous cherchons à *1* ce résultat, nous pouvons d'abord calculer la liste des
-`actor_id`  des acteurs qui ont joué dans une comédie, calculer la liste de tous les
-`actor_id`  connus dans le schema et faire la différence, en algèbre relationnelle, cela se résume à 
+<!-- A corriger
+
+, en algèbre relationnelle, cela se résume à 
 
 $$\pi_{\texttt{actor\_id}}\left(\texttt{film\_actor}\right) \setminus \pi_{\texttt{actor\_id}} \left( \texttt{film\_actor} \bowtie\texttt{film\_id\_cat}(\texttt{'Comedy'}) \right)$$
-
+-->
 :::
 
-Quels sont les acteurs qui ont joué dans un film d'horreur ('Horror') et dans un film pour enfant ('Children')? (130 lignes)
+
+@. Quels sont les acteurs qui ont joué dans un film d'horreur ('Horror') et dans un film pour enfant ('Children')? (130 lignes)
 
 ::: {.callout-caution}
 
@@ -1015,9 +1029,12 @@ Le résultat est vide et la requête ne correspond pas à la question posée.
 Elle calcule les `actor_id` des acteurs qui ont dans au moins un film qui relève simultanément des catégories `Horror` et `Children` (ce genre de film est assez rare).
 
 Pour calculer un résultat correct, il faut pour chaque valeur $a$  de `actor_id`
-rechercher deux tuples (pas nécessairement distincts) de  `film_actor` où
-l'attribut `actor_id` vaut $a$ et ou  dans un cas `film_id`  désigne
-un film pour enfants et dans l'autre un film d'horreur. En calcul relationnel, cela donne
+rechercher deux tuples (pas nécessairement distincts) de  `film_actor`, où
+l'attribut `actor_id` vaut $a$, et tel que,  dans un cas, `film_id`  désigne
+un film pour enfants et, dans l'autre, un film d'horreur. 
+
+<!--
+En calcul relationnel, cela donne
 
 
 \begin{align*}
@@ -1030,9 +1047,9 @@ un film pour enfants et dans l'autre un film d'horreur. En calcul relationnel, c
 &  \left(\exists \mathrm{fa}\quad \texttt{film\_actor}(\mathrm{fa}) \right.  \wedge  \mathrm{fa}.\texttt{actor\_id}=a.\texttt{actor\_id}  \\
 & \left. \left.   \wedge \texttt{film\_id\_cat}(\mathrm{'Horror'})(\mathrm{fa}.\texttt{film\_id}) \right)\right\}
 \end{align*}
+-->
 
-
-En algèbre relationnelle 
+En algèbre relationnelle, cela donne : 
 
 
 \begin{align*}

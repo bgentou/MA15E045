@@ -1,5 +1,5 @@
 ---
-title: "TD 1: Algèbre relationnelle"
+title: "TD 1 : Algèbre relationnelle"
 categories: [Algèbre relationnelle, world, psql, pgcli, SQL]
 subtitle: "Logistique et Algèbre relationnelle"
 date: "2025-09-26"

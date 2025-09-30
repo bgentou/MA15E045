@@ -1,5 +1,5 @@
 ---
-title: "TD 5: SQL"
+title: "TD 5 : SQL"
 subtitle: "Fenêtres et fonctions SQL"
 categories: [world, babynames, SQL, Aggregation, Fenêtres, Fonctions]
 date: "2025-10-24"

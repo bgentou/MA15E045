@@ -18,7 +18,7 @@ format:
     code-fold: true
     output-file: schema-world.html
 params:
-    year: 2024 
+    year: 2025 
     curriculum: "L3 MIASHS/Ingémath"
     university: "Université Paris Cité"
     homepage: "https://bgentou.github.io/MA15E045/"

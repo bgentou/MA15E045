@@ -7,7 +7,7 @@
   author: "Licence MIASHS UParis Cité"
   date: "2025-09-15"
   path: "slides/SQL_0.html"
-  categories: ["Algèbre relationnelle", Sélection, Projectio, Jointure]
+  categories: ["Algèbre relationnelle", Sélection, Projection, Jointure]
 - title: "SQL : requêtes simples"
   author: "Licence MIASHS UParis Cité"
   date: "2025-09-22"

@@ -1,5 +1,5 @@
 ---
-title: "TD 10: Normalisation"
+title: "TD 10 : Normalisation"
 subtitle: "Normalisation, Perte de DF, Perte d'Information, FNBC, FN3"
 categories: [Normalisation, Perte de DF, "Perte d'Information", FNBC, FN3]
 date: "2025-12-05"

@@ -18,7 +18,7 @@ format:
     code-fold: true
     output-file: schema-pagila.html
 params:
-    year: 2024 
+    year: 2025 
     curriculum: "L3 MIASHS/Ingémath"
     university: "Université Paris Cité"
     homepage: "https://bgentou.github.io/MA15E045/"
@@ -66,8 +66,8 @@ Présentation de la partie `film` du schéma `pagila`, pour l'entrainement à Po
 
 Description de presque toutes les  tables de la base `pagila` , 
 
-- [Pagemaison de la base de données  `pagila`](https://github.com/devrimgunduz/pagila). 
-- [Pagemaison de la base de données  `sakila`](https://dev.mysql.com/doc/sakila/en/)
+- [Page maison de la base de données  `pagila`](https://github.com/devrimgunduz/pagila). 
+- [Page maison de la base de données  `sakila`](https://dev.mysql.com/doc/sakila/en/)
 - [Détails sur les films](/schemas/schema-pagila-film.qmd)
 - [Détails sur les adresses, clients, magasins, paiements](/schemas/schema-pagila-address.qmd)
 
