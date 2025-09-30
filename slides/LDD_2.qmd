@@ -505,7 +505,7 @@ FROM
   monde.city c 
 JOIN 
   monde.city c2 
-ON (c.name_city = c2.name_city AND 
+ON (c.name = c2.name AND 
     c.countrycode = c2.countrycode  AND 
     c.id <> c2.id) ;
 ```
@@ -520,7 +520,7 @@ FROM
   monde.city c 
 JOIN 
   monde.city c2 
-ON (c.name_city = c2.name_city AND 
+ON (c.name = c2.name AND 
     c.countrycode = c2.countrycode  AND
     c.district = c2.district  AND
     c.id <> c2.id) ;
@@ -534,7 +534,7 @@ renvoie 2 lignes
 ## Existe-t-il un pays dont la capitale est dans un autre pays ?
 
 ```{.sql}
-SELECT c. countrycode, c.name_country, cc.name_city, cc.countrycode
+SELECT c. countrycode, c.name_country, cc.name, cc.countrycode
 FROM 
   world.country c 
 JOIN 

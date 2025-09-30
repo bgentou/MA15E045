@@ -14,22 +14,6 @@ listes à puces
 
 [link](https://example.com){target="_blank"}  lien ouvert dans une nouvelle page
 
-Colonnes : bien laisser des lignes blanches avant et après les balises
-
-::::: {.columns}
-
-::: {.column width="65%"}
-
-:::
-
-:::::
-
-Partie centrée :
-
-::: {.center}
-
-:::
-
 Insérer une image : ![legende](chat.jpg)
 
 Lien interne : {#eq-hypothenuse} puis @eq-hypothenuse pour y référer
@@ -52,7 +36,19 @@ Et avec les “:”, contrôler l’alignement dans les cellules :
 |:--------|:-------:|-------:|
 | 1.99    | 1.99    | 1.99   |
 
+Lites numérotées
 
+Attention à l'indentation !
+
+1) something 1 
+1) something 2
+
+ou 
+
+@.
+
+a) something
+a) something
 
 
 Commande Git

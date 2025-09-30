@@ -81,7 +81,7 @@ SELECT
 FROM 
   world.city ci 
 WHERE 
-  ci.population_city > 10000000
+  ci.population > 10000000
 GROUP BY 
   ci.countrycode 
 HAVING 

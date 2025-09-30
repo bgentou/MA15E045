@@ -39,19 +39,19 @@ Cette requête indique pour chaque ville, la "population moyenne" des villes de 
 (cette moyenne n'a aucun sens).
 
 ```{.sql}
-SELECT id, name_city, population_city, 
-       avg(population_city) OVER (PARTITION BY countrycode)  AS avg_pop
+SELECT id, name, population, 
+       avg(population) OVER (PARTITION BY countrycode)  AS avg_pop
 FROM world.city;  
 ```
 
 Sans le mécanisme de fenêtrage, on pourrait obtenir le résultat au prix d'une jointure
 ```{.sql}
  WITH tmp AS (
-  SELECT c.countrycode, AVG(c.population_city) AS avg_pop
+  SELECT c.countrycode, AVG(c.population) AS avg_pop
   FROM world.city c
   GROUP BY c.countrycode
  ) 
-  SELECT cc.id, cc.name_city, cc.population_city, tmp.avg_pop
+  SELECT cc.id, cc.name, cc.population, tmp.avg_pop
   FROM world.city cc NATURAL JOIN tmp;  
 ```
 
@@ -120,9 +120,9 @@ renvoie la population maximale parmi les capitales de la région (voir td2 requ�
 CREATE OR REPLACE FUNCTION username.taille_max_capitale_region(p_region text)
 RETURNS INTEGER LANGUAGE SQL AS
 $$
-SELECT MAX(population_city) AS max_pop
+SELECT MAX(population) AS max_pop
 FROM world.country c JOIN world.city cc ON (c.capital=cc.id)
-WHERE c.region=p_region AND cc.population_city IS NOT NULL;
+WHERE c.region=p_region AND cc.population IS NOT NULL;
 $$ ;
 ```
 
@@ -138,10 +138,10 @@ RETURNS RECORD  LANGUAGE SQL AS
 $$
 WITH r AS(
   SELECT cc.*, RANK() OVER (PARTITION BY c.region 
-                            ORDER BY cc.population_city DESC) AS rnk
+                            ORDER BY cc.population DESC) AS rnk
   FROM world.country c JOIN world.city cc ON (c.capital=cc.id)
   WHERE c.region=p_region)
-SELECT r.name_city,  r.population_city
+SELECT r.name,  r.population
 FROM r 
 WHERE r.rnk = 1 ;
 $$ ;
@@ -158,11 +158,11 @@ RETURNS world.city  LANGUAGE SQL AS
 $$
 WITH r AS(
   SELECT cc.*, RANK() OVER (PARTITION BY c.region 
-                            ORDER BY cc.population_city DESC) AS rnk
+                            ORDER BY cc.population DESC) AS rnk
   FROM world.country c JOIN world.city cc ON (c.capital=cc.id)
   WHERE c.region=p_region
 )
-SELECT r.id, r.name_city, r.countrycode, r.district, r.population_city
+SELECT r.id, r.name, r.countrycode, r.district, r.population
 FROM r 
 WHERE r.rnk = 1 ;
 $$ ;
@@ -181,7 +181,7 @@ de la table résultat
 CREATE OR REPLACE FUNCTION username.capitales_region(p_region text)
 RETURNS TABLE (name_capital text) LANGUAGE SQL AS
 $$
-SELECT cc.name_city 
+SELECT cc.name 
 FROM world.country c JOIN world.city cc ON (c.capital=cc.id)
 WHERE c.region=p_region ;
 $$ ;

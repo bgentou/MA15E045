@@ -301,7 +301,7 @@ ville ref region ( region -&gt; nom )</title></path>
      * integer
  &#8601; country( id )</title></a>
 <a xlink:href='#world.city.id'><use id='ref' x='436' y='252' xlink:href='#ref'/><title>&#x1F517;  Referred by country ( capital -&gt; id ) </title></a>
-  <use id='nn' x='322' y='269' xlink:href='#nn'/><a xlink:href='#world.city_name'><text id='world&#46;city&#46;name' x='339' y='279'>name</text><title>&#10697;  name
+  <use id='nn' x='322' y='269' xlink:href='#nn'/><a xlink:href='#world.name'><text id='world&#46;city&#46;name' x='339' y='279'>name</text><title>&#10697;  name
      * text</title></a>
 <text x='445' y='276' text-anchor='end' class='colType'>t</text>  <use id='nn' x='322' y='285' xlink:href='#nn'/><a xlink:href='#world.city_countrycode'><text id='world&#46;city&#46;countrycode' x='339' y='295' onmouseover="hghl(['city_fk_city_country','world.country.countrycode'])" onmouseout="uhghl(['city_fk_city_country','world.country.countrycode'])">countrycode</text><title>&#10697;  countrycode
      * char(3)

@@ -715,7 +715,7 @@ SELECT *
 FROM 
 	entid.VillesRepublic 
 WHERE 
-	population_city>=1000000;
+	population>=1000000;
 ```
 
 

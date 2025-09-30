@@ -36,7 +36,7 @@ Quel est le pays qui a le plus de villes recensées dans la table `world.city`? 
 
 ```{.sql}
 WITH country_city AS
-	(SELECT name_country , COUNT(name_city) nbrcity
+	(SELECT name_country , COUNT(name) nbrcity
 	FROM world.country NATURAL JOIN world.city
 	GROUP BY name_country)
 
@@ -158,7 +158,7 @@ SELECT DISTINCT name_country
 FROM (country c JOIN city ON id = capital)
 	JOIN countrylanguage l ON c.countrycode = l.countrycode
 WHERE NOT isofficial
-AND percentage / 100 * population_country > population_city ;
+AND percentage / 100 * population_country > population ;
 ```
 
 :::::

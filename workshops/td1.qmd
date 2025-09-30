@@ -48,7 +48,7 @@ Vous pouvez consulter la [page de présentation du schéma `world`](/schemas/sch
 
 ## Résolution des noms de tables et d'attributs
 
-Pour résoudre les noms de tables et d'attributs, le serveur SQL utilise la syntaxe `nom_schéma.nom_table[.nom_attribut]` (rappel : les crochets signifie optionnel).
+Pour résoudre les noms de tables et d'attributs, le serveur SQL utilise la syntaxe `nom_schéma.nom_table[.nom_attribut]` (rappel : les crochets signifient optionnel).
 
 Par exemple, `world.city` désigne la table `city` du schéma `world`.
 
@@ -95,6 +95,9 @@ Pour écrire un commentaire en SQL : `--` en début de ligne.
 
 *NB* : pensez à documenter vos scripts en utilisant les commantaire SQL
 
+
+
+# Requêtes monotables
 <!-- L'*algèbre relationnelle* est un ensemble d'opération sur les tables. Chaque opération prend en argument une ou plusieurs tables et produit une nouvelle table. Nous commençons par introduire deux opérations importantes qui opèrent sur une table à la fois :
 
 - *Projection* : $\pi_{\texttt{liste de colonnes}}{R}$. Cette opération ne garde que les colonnes mentionnées de la table $R$. Par exemple $\pi_{\texttt{name,continent}}{\texttt{world.country}}$ est la table avec deux colonnes `name, continent` et une ligne pour chaque ligne de la table `world.country`.
@@ -127,15 +130,17 @@ FROM world.country
 WHERE lifeexpectancy < 50 and continent = 'Asia';
 ```
 
-affichera le nom et l'espérance de vie des pays d'Asie ayant une espérance de vie inférieure à 50 ans. Remarquez l'utilisation des apostrophes simples pour délimiter les chaînes de caractères ('Asia').
+affichera le nom et l'espérance de vie des pays d'Asie ayant une espérance de vie inférieure à 50 ans. 
+
+Remarquez l'utilisation des apostrophes simples pour délimiter les chaînes de caractères ('Asia').
 
 
 
-# Requêtes monotables
+## Éxercice 1
 
 Ecrire des requêtes en algèbre relationnelle et en SQL pour extraire les informations suivantes du schéma `world`:
 
-- Quelles sont les régions ? (25 lignes)
+@. Quelles sont les régions ? (25 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -150,9 +155,8 @@ FROM world.country ;
 :::
 :::
 
-## Éxercice 1
 
-- Quelles sont les régions situées en Europe ? (6 lignes)
+@. Quelles sont les régions situées en Europe ? (6 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -170,7 +174,7 @@ WHERE continent = 'Europe' ;
 
 
 
-- Quels sont les pays situés en Europe du sud ? (15 lignes)
+@. Quels sont les pays situés en Europe du sud ('Southern Europe') ? (15 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -183,13 +187,12 @@ FROM world.country
 WHERE region = 'Southern Europe' ;
 ```
 
-
 :::
 :::
 
 
 
-- Quelles sont les capitales des pays situés en Europe de l'Ouest ? (quel est le type de la colonne `capital` ?) (9 lignes)
+@. Quelles sont les capitales des pays situés en Europe de l'Ouest ? (quel est le type de la colonne `capital` dans la table `country`?) (9 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -206,7 +209,7 @@ WHERE region = 'Western Europe' ;
 :::
 
 
-- A partir de la table `countrylanguage`, quels sont les langues qui sont officielles dans au moins un pays ? (102 lignes)
+@. A partir de la table `countrylanguage`, quels sont les langues qui sont officielles dans au moins un pays ? (102 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -219,13 +222,13 @@ FROM world.countrylanguage
 WHERE isofficial ;
 ```
 
-La variante de l'algèbre relationnelle vue en cours opérant sur les ensembles, `DISTINCT` est toujours implicitement implémenté par la requête algébrique. On peut noter qu'il existe un opérateur d'élimination des doublons dans les variantes multi-ensemblistes de l'algèbre relationnelle.
+La variante de l'algèbre relationnelle vue en cours opérant sur les ensembles, `DISTINCT` est toujours implicitement implémenté par la requête algébrique. Ce n'est pas le cas en SQL (variante multi-ensembliste de l'algèbre relationnelle), il existe donc un opérateur d'élimination des doublons : `DISTINCT`.
 
 :::
 :::
 
 
-- Quels sont les codes des pays où le français est langue officielle ? (18 lignes) Même question pour les langues de votre choix?
+@. Quels sont les codes des pays où le français est langue officielle ? (18 lignes) Même question pour les langues de votre choix ?
   
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -243,7 +246,7 @@ WHERE language = 'French' AND isofficial ;
 
 
 
-- Quelle est la date d'indépendance de la France ?
+@. Quelle est la date d'indépendance de la France ?
   
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -261,7 +264,7 @@ WHERE name_country = 'France' ;
 
 
 
-- Quelles sont les dates d'indépendance des pays d'Europe ? (46 lignes)
+@. Quelles sont les dates d'indépendance des pays d'Europe ? (46 lignes)
   
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -279,7 +282,7 @@ WHERE continent = 'Europe' ;
 
 
 
-- Quelles sont les villes françaises de plus de 200 000 habitants ? (10 lignes)
+@. Quelles sont les villes françaises de plus de 200 000 habitants ? (10 lignes)
   
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -297,7 +300,7 @@ WHERE countrycode = 'FRA' AND population > 200000 ;
 
 
 
-- Pour chaque pays européen, calculer la densité, le GNP par habitant,
+@. Pour chaque pays européen, calculer la densité, le GNP par habitant,
 et l'espérance de vie, ordonner par densité décroissante. (46 lignes)
 
 ::: {.content-visible when-profile="solution"}
@@ -314,15 +317,12 @@ WHERE continent = 'Europe'
 ORDER BY density DESC;
 ```
 
-La contrepartie algébrique de `ORDER BY` n'a pas été présentée dans la variante de l'algèbre relationnelle vue en cours, même si elle est évidemment implémentée (via des opérateurs de tri) dans les variantes utilisées en pratique par les SGBDs.
-
-
 :::
 :::
 
 
 
-- Quels sont les pays où l'espérance de vie n'est pas inférieure à 77 ans et le pnb par habitant n'est pas supérieur à \(0.010\) ? (10 lignes)
+@. Quels sont les pays où l'espérance de vie n'est pas inférieure à 77 ans et le pnb par habitant n'est pas supérieur à \(0.010\) ? (10 lignes)
     
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -343,7 +343,7 @@ WHERE NOT (lifeexpectancy < 77) AND
 
 
 
-- Quels sont les pays tels que la condition (espérance de vie supérieure
+@. Quels sont les pays tels que la condition (espérance de vie supérieure
 ou égale à 77 ans ou PNB par habitant inférieur à \(0.01\)) n'est pas
 vérifée ? (16 lignes)
     
@@ -358,7 +358,7 @@ $$\Pi_{\texttt{name\_country}} \big( {\Large \sigma}_{\texttt{lifeexpectancy < 7
 ```{.sql}
 SELECT name_country
 FROM world.country
-WHERE NOT (lifeexpectancy >= 77 OR (gnp / population_country) < 0.01) ;
+WHERE NOT (lifeexpectancy >= 77 OR (gnp / population_country) < 0.0@. ;
 ```
 
 :::
@@ -366,7 +366,7 @@ WHERE NOT (lifeexpectancy >= 77 OR (gnp / population_country) < 0.01) ;
 
 
 
-- Quels sont les pays où une langue est officielle sans être parlée par
+@. Quels sont les pays où une langue est officielle sans être parlée par
 au moins la moitié de la population ? (92 lignes)
     
 ::: {.content-visible when-profile="solution"}
@@ -385,7 +385,7 @@ WHERE isofficial AND percentage < 50 ;
 
 
 
-- Quels sont les pays qui ont au moins une langue officielle ? (190 lignes)
+@. Quels sont les pays qui ont au moins une langue officielle ? (190 lignes)
     
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -403,7 +403,7 @@ WHERE isofficial ;
 
 
 
-- Quels sont les noms des pays qui comptent plus de 100 000 000
+@. Quels sont les noms des pays qui comptent plus de 100 000 000
 d'habitants ? (10 lignes)
     
 ::: {.content-visible when-profile="solution"}
@@ -427,7 +427,7 @@ WHERE population_country > 100000000 ;
 
 # Requêtes multi-tables
 
-On peut aussi combiner plusieurs tables. Pour ce TP, nous allons seulement présenter le produit cartésien de deux tables: $T \times S$ est la table dont les colonnes sont les colonnes de $S$ et les colonnes de $T$. Ces lignes contient tous les couples $(l_1,l_2)$ où $l_1$ est une ligne de $T$ et $l_2$ est une ligne de $S$. En SQL, on écrira:
+On peut aussi combiner plusieurs tables. Pour ce TP, nous allons seulement présenter le produit cartésien de deux tables: $T \times S$ est la table dont les colonnes sont les colonnes de $S$ et les colonnes de $T$ et dont les lignes sont tous les couples $(l_1,l_2)$ où $l_1$ est une ligne de $T$ et $l_2$ est une ligne de $S$. En SQL, on écrira:
 
 ```{.sql}
 SELECT col1,col2 
@@ -447,54 +447,53 @@ affichera les langues parlées en Europe. Remarquez l'utilisation des `as` pour 
 
 ## Éxercice 2
 
+
+
 Ecrire des requêtes pour les questions suivantes:
 
-- Quels sont les noms des capitales Sud-Américaines ? (14 lignes)
+
+1. Quels sont les noms des capitales sud-américaines ? (14 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$$\Pi_{\texttt{name}} \big( \sigma_{\texttt{capital = id}\wedge \texttt{region = 'South America'}}(\rho_{\texttt{countrycode} \mapsto {city\_countrycode}}(\texttt{world.city}) \times \texttt{world.country})\big)$$
+      $$\Pi_{\texttt{name}} \big( \sigma_{\texttt{capital = id}\wedge \texttt{region = 'South America'}}(\rho_{\texttt{countrycode} \mapsto {city\_countrycode}}(\texttt{world.city}) \times \texttt{world.country})\big)$$
 
-```{.sql}
-SELECT name
-FROM world.country , world.city
-WHERE capital = id AND region = 'South America' ;
-```
+      ```{.sql}
+      SELECT name
+      FROM world.country , world.city
+      WHERE capital = id AND region = 'South America' ;
+      ```
 
-Attention ! En toute rigueur le produit cartésien ne s'applique que sur des relations de schémas disjoints, d'où le renommage utilisé dans la requête algébrique ci-dessus. En pratique on utilisera tout de même :
+      Attention ! En toute rigueur le produit cartésien ne s'applique que sur des relations de schémas disjoints, d'où le renommage utilisé dans la requête algébrique ci-dessus. En pratique on utilisera tout de même :
 
-$$\Pi_{\texttt{name}} \big( {\Large \sigma}_{\texttt{capital = id}\wedge \texttt{region = 'South America'}}(\texttt{world.country}\times \texttt{world.city})\big)$$
+      $$\Pi_{\texttt{name}} \big( {\Large \sigma}_{\texttt{capital = id}\wedge \texttt{region = 'South America'}}(\texttt{world.country}\times \texttt{world.city})\big)$$
 
-comme abréviation pour :
+      comme abréviation pour :
 
-$$\Pi_{\texttt{name}} \big( \sigma_{\texttt{capital = id}\wedge \texttt{region = 'South America'}}(\rho_{\texttt{countrycode} \mapsto \texttt{country.countrycode}}(\texttt{world.country}) \times \rho_{\texttt{countrycode} \mapsto \texttt{city.countrycode}}(\texttt{world.city}))\big)$$
+      $$\Pi_{\texttt{name}} \big( \sigma_{\texttt{capital = id}\wedge \texttt{region = 'South America'}}(\rho_{\texttt{countrycode} \mapsto \texttt{country.countrycode}}(\texttt{world.country}) \times \rho_{\texttt{countrycode} \mapsto \texttt{city.countrycode}}(\texttt{world.city}))\big)$$
 
-Donc, dès que l'on opère un produit cartésien sur deux tables, on supposera implicitement que les attributs en commun sont renommés en les préfixant par le nom de la relation à laquelle ils appartiennent. Si les deux tables sont deux copies d'une seule et même table (cf plus loin question 4, on parle alors d'auto-jointure) on fera suivre le nom de la première copie par 1 et le nom de la seconde copie par 2 et on renommera tous les attributs de chacune des copies en les préfixant par ce nouveau nom.
-
-
+      Donc, dès que l'on opère un produit cartésien sur deux tables, on supposera implicitement que les attributs en commun sont renommés en les préfixant par le nom de la relation à laquelle ils appartiennent. Si les deux tables sont deux copies d'une seule et même table (cf plus loin question 4, on parle alors d'auto-jointure) on fera suivre le nom de la première copie par 1 et le nom de la seconde copie par 2 et on renommera tous les attributs de chacune des copies en les préfixant par ce nouveau nom.
 
 :::
 :::
 
 
-
-- Quels sont les noms des pays où le français est langue
-officielle ? (18 lignes)
+2. Quels sont les noms des pays où le français est langue officielle ? (18 lignes)
   
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$$\Pi_{\texttt{name\_country}} \big( \sigma_{\texttt{isofficial}\wedge \texttt{language = 'French'}}(\texttt{world.country} \bowtie \texttt{world.countrylanguage})\big)$$
+      $$\Pi_{\texttt{name\_country}} \big( \sigma_{\texttt{isofficial}\wedge \texttt{language = 'French'}}(\texttt{world.country} \bowtie \texttt{world.countrylanguage})\big)$$
 
-```{.sql}
-SELECT name_country
-FROM world.country NATURAL JOIN world.countrylanguage
-WHERE isofficial AND 
-      language = 'French' ;
-```
+      ```{.sql}
+      SELECT name_country
+      FROM world.country NATURAL JOIN world.countrylanguage
+      WHERE isofficial AND 
+            language = 'French' ;
+      ```
 
-Dans la variante algébrique, pour utiliser la jointure naturelle on a bien vérifié au préalable que le seul attribut en commun sur les deux relations était bien `countrycode`. En effet, si au contraire, certains attributs s'étaient trouvé avoir le même nom de manière fortuite, il aurait fallu les renommer au préalable dans l'une des deux relations. Une autre solution aurait combiné sélection et produit cartésien afin d'émuler la requête SQL ci-dessus, mais il aurait alors fallu en toute rigueur renommer au préalable l'attribut en commun `countrycode` dans l'une des deux tables en utilisant l'opérateur $\rho$, le produit cartésien ne pouvant être réalisé que sur des relations de schémas disjoints (c.f., question précédente). 
+      Dans la variante algébrique, pour utiliser la jointure naturelle on a bien vérifié au préalable que le seul attribut en commun sur les deux relations était bien `countrycode`. En effet, si au contraire, certains attributs s'étaient trouvé avoir le même nom de manière fortuite, il aurait fallu les renommer au préalable dans l'une des deux relations. Une autre solution aurait combiné sélection et produit cartésien afin d'émuler la requête SQL ci-dessus, mais il aurait alors fallu en toute rigueur renommer au préalable l'attribut en commun `countrycode` dans l'une des deux tables en utilisant l'opérateur $\rho$, le produit cartésien ne pouvant être réalisé que sur des relations de schémas disjoints (c.f. question précédente). 
 
 
 :::
@@ -502,8 +501,8 @@ Dans la variante algébrique, pour utiliser la jointure naturelle on a bien vér
 
 
 
-- Quelles sont les pays où l'espagnol est langue officielle et la forme
-de gouvernement est `Federal Republic` ? (3 lignes)
+3. Quelles sont les pays où l'espagnol est langue officielle et la forme
+de gouvernement est 'Federal Republic' ? (3 lignes)
     
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -523,7 +522,7 @@ WHERE isofficial AND
 
 
 
--  Quels sont les pays qui ont au moins deux langues officielles ? (38 lignes)
+4.  Quels sont les pays qui ont au moins deux langues officielles ? (38 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -568,7 +567,7 @@ AND l1.language <> l2.language ;
 
 
 
-- Quels sont les pays qui n'ont pas de langue officielle ? (49 lignes)
+5. Quels sont les pays qui n'ont pas de langue officielle ? (49 lignes)
     
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -595,7 +594,7 @@ EXCEPT
 
 
 
-- Quels sont les pays qui comportent au moins deux villes de plus de
+6. Quels sont les pays qui comportent au moins deux villes de plus de
   1 000 000 habitants ? (32 lignes)
     
 ::: {.content-visible when-profile="solution"}
@@ -612,8 +611,8 @@ SELECT DISTINCT name_country
 FROM country as c , city as v1 , city as v2
 WHERE c.countrycode = v1.countrycode  AND 
       c.countrycode = v2.countrycode AND 
-      v1.population_city > 1000000 AND 
-      v2.population_city > 1000000 AND 
+      v1.population > 1000000 AND 
+      v2.population > 1000000 AND 
       (NOT v1.id = v2.id) ;
 ```
 
@@ -625,7 +624,7 @@ Ici `c1` (respectivement, `c2`) est utilisé comme abbréviation pour `city1` (r
 
 
 
-- Quelles sont les régions qui ne comportent qu'une seule forme de gouvernement ? (3 lignes)
+7. Quelles sont les régions qui ne comportent qu'une seule forme de gouvernement ? (3 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -653,7 +652,7 @@ Ici `c1` (respectivement, `c2`) est utilisé comme abbréviation pour `country1`
 
 
 
-- Quelles sont les régions où on ne trouve pas de monarchie ? (9 lignes)
+8. Quelles sont les régions où on ne trouve pas de monarchie ? (9 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}

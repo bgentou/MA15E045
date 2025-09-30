@@ -132,19 +132,19 @@ TODO
 ##  La cinquième ville la plus peuplée dans chaque pays
 
 Écrire une fonction de `cc_fonc_3` langage  `SQL` qui prend en argument
-une chaine de caractères censée désigner un pays par son nom et   renvoie le nom de la cinquième ville la plus peuplée du pays (type de `name_city`),  et la part de la population du pays qui réside dans cette ville (type `float4`).
+une chaine de caractères censée désigner un pays par son nom et   renvoie le nom de la cinquième ville la plus peuplée du pays (type de `name`),  et la part de la population du pays qui réside dans cette ville (type `float4`).
 
 ::: {.callout-tip}
 
 Réponse attendue pour 
 
 ```{.sql}
-SELECT name_city, prop 
+SELECT name, prop 
 FROM username.cc_fonc_3('Italy') ;
 ```
 
 
-|name_city|prop       |
+|name|prop       |
 |:---------|-----------:|
 |Palermo  |0.011854959|
 

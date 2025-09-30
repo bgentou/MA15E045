@@ -19,50 +19,76 @@ format:
 
 
 
-## Opérateurs ensemblistes:  $\cap,\cup,\setminus$ 
+## Opérateurs ensemblistes:  propriétés requises
+
+Le résultat d'une requête SQL est un ensemble de tuples... donc une relation.
+
+Les opérateurs ensemblistes ($\cap$, $\cup$, $\setminus$) permettent de combiner les résultats de deux requêtes (ou plus).
+
+::: {.callout-important}
 
 
-{{< fa triangle-exclamation >}} Les deux tables doivent avoir des **schémas identiques**
+Les requêtes combinées doivent avoir des *schémas compatibles* :
+
+- même nombre de colonnes,
+
+- même type de données pour les colonnes de même position.
+
+:::
 
 
-- Intersection ( $\cap$ ) : les tuples qui sont à la fois dans la requête 1 et dans  la requête 2
+## `INTERSECT`, `UNION`, `EXCEPT`
 
-```{.sql}
-<requete1> INTERSECT <requete2>
-```
+::: {.incremental}
+
+- `INTERSECT` : tuples de l'intersection des résultats des requêtes.
+
+  ```{.sql}
+  <requete1> 
+  INTERSECT 
+  <requete2>
+  ```
+
+- `UNION` :  tuples de l'union des résultats des requêtes.
+
+  ```{.sql}
+  <requete1> 
+  UNION 
+  <requete2>
+  ```
+
+- `EXCEPT` :  tuples de la différence ensembliste des résultats des requêtes
+
+  ```{.sql}
+  <requete1> 
+  EXCEPT 
+  <requete2>
+  ```
+:::
 
 . . .
 
-- Union ( $\cup$ )  :  les tuples de la requête 1 et ceux de la  requête 2
+::: {.callout-note}
+`UNION` ne conserve pas les tuples doublons entre les deux requêtes.
 
-```{.sql}
-<requete1> UNION <requete2>
-```
-
-. . .
-
-
-- Différence ( $\backslash$ ) :  les tuples de la requête 1 qui ne sont pas des tuples 
-de la requête 2
-
-```{.sql}
-<requete1> EXCEPT <requete2>
-```
-
-
----
+Pour les conserver, il faut utiliser l'opérateur `UNION ALL`.
+:::
 
 ## Exemple pour `EXCEPT`
 
+Considérons les tables de schémas suivants :
+
 ```{.sql}
-`Fournisseur (NomF, VilleF, AdresseF)` 
+`Fournisseur (NomF : varchar, VilleF : varchar, AdresseF : varchar)` 
 
-`Piece(NomP, Prix, Couleur)`
+`Piece(NomP : varchar, Prix : money, Couleur : varchar)`
 
-`Livraison(NumLiv, NomP, NomF, DateLiv, Quantite)`
+`Livraison(NumLiv : integer, NomP : varchar, NomF : varchar, DateLiv : date, Quantite : numeric)`
 ```
 
 Fournisseurs qui ont livré la pièce `x22` mais pas la pièce `x21`
+
+. . .
 
 ```{.sql}
 SELECT NomF 
@@ -80,54 +106,58 @@ WHERE NomP='x21';
 
 
 
-# Requêtes imbriquées  {background-color="#1c191c"}
+# Requêtes imbriquées dans la clause `WHERE` {background-color="#1c191c"}
+
+
+## Sous-requête dans la clause `WHERE`
+
+- Dans la clause `WHERE` d'une requête, on peut utiliser une autre requête,  appelée **sous-requête** ou **requête imbriquée**.
+
+- La sous-requête est exécutée pour chaque tuple formé par la clause `FROM`. Ce tuple sera sélectionné en fonction du test effectué sur le résultat de la sous-requête.
+
+- Dans une sous-requête, on peut se référer aux tables nommées dans la clause `FROM` de la requête de niveau supérieur.
+
+
+## Opérateurs de sous-requête
+
+- `IN, EXISTS, ALL, ANY` sont des fonctions (ou opérations) qui prennent  en argument une sous-requête. 
+
+- Elles effectuent des tests sur l'ensemble des résultats d'une sous-requête.
+
+
+::: {.callout-caution}
+Attention au comportement de chaque opérateur si le résultat de la sous-requête est vide ou s'il contient la valeur `NULL`&nbsp;: il faut appliquer la logique trivalente à l'évaluation de l'opérateur.
+:::
 
 
 
 
-## Requêtes imbriquées `IN, EXISTS, ALL, ANY, LATERAL`
+## Opérateur `IN`
 
-
--  Le résultat d'une requête SQL est un ensemble de tuples... donc une relation.
-
-- {{< fa lightbulb >}} Dans la clause `WHERE` d'une requête, on peut utiliser une fonction d'une autre requête,  appelée **sous-requête**
-
-- `IN, EXISTS, ALL, ANY` sont des fonctions qui prennent une sous-requête (une relation) en argument.
-
-- Dans une sous-requête, on peut se référer à des attributs des tables de la clause `FROM`.
-
-- Pour chaque ligne d'un item `FROM` qui fournit la colonne référencée, l'item `LATERAL` est évalué en utilisant cette ligne. Les lignes du résultat sont *jointes* avec la ligne qui a servi à les calculer. 
-
-- On peut utiliser ces résultats comme données d'une autre requête
-
-- {{< fa hand-point-right >}} Moyens : utiliser des fonctions de table dans la clause `WHERE`. 
-
-
-
-# Opérateur IN  {background-color="#1c191c"}
-
-
-
-
-## Utilisation de sous-requêtes : `IN`
-
-- Opérateur `IN` déjà vu pour exprimer que l'attribut est à valeur dans une certaine liste 
-
-- Nouvelle utilisation de `IN` avec des sous-requêtes. 
+L'opérateur `IN` permet de tester si une valeur est présente dans le résultat d'une sous-requête. 
 
 ```{.sql}
 <attribut> [NOT] IN (<sous-requete>)
 ```
 
-Evaluée à vraie si <attribut> appartient au résultat de la
-sous-requête 
+Evaluée à vraie si `<attribut>` appartient au résultat de la
+sous-requête.
 
+::: {.callout-caution}
+Si le résultat de la sous-requête est vide, `IN` renvoie faux, `NOT IN` renvoie vrai.
 
+Si `<attribut>` vaut `NULL`, `IN` et `NOT IN` renvoient `UNKNOWN`.
 
-## Utilisation de sous-requêtes : `IN`
+L'évaluation de `IN` s'effectue par un *OU* entre des tests $=$. Pour les valeurs `NULL` du résultat de la sous-requête, le test d'égalité retourne `UNKNOWN`. Donc si `<attribut>` est présent dans le résultat, `IN` retourne `True` sinon `UNKNOWN`.
+
+L'évaluation de `NOTIN` s'effectue par un *ET* entre des tests $\neq$. Donc si le résultat de la sous-requête contient au moins une valeur `NULL`, `NOT IN` retourne `UNKNOWN`.
+:::
+
+## Exemple 1 de sous-requête avec `IN`
 
 Lister les villes de fournisseurs qui ont livré la pièce 'x21'.
 
+. . .
 
 ::::: {.columns}
 
@@ -159,25 +189,19 @@ SELECT DISTINCT F.VilleF
 
 FROM Fournisseur F, Livraison L 
 
-WHERE (F. NomF = L. NomF) AND 
-  (L. NomP = 'x21');
+WHERE (F.NomF = L.NomF) AND 
+  (L.NomP = 'x21');
 ```
 
 :::
-
-
 
 :::::
 
 
 
+## Exemple 2 de sous-requête avec `IN`
 
-
----
-
-## Utilisation de sous-requêtes : `IN`
-
-Lister les couleurs de pièces livrées par des fournisseurs de Paris
+<!--Lister les couleurs de pièces livrées par des fournisseurs de Paris
 
 ```{.sql}       
 SELECT DISTINCT Couleur 
@@ -208,48 +232,52 @@ WHERE
   VilleF = 'Paris'  ;
 ```
 
-
-
-
-## Utilisation de sous-requêtes : `IN`
-
-
 - Utilisation ci-dessus pas très utile mais...
+  
+-->
 
-- Pratique à utiliser sous la forme `NOT IN`
+::: {.callout-note}
+Pratique à utiliser sous la forme `NOT IN` pour coder l'opération de *différence*.
+:::
 
-Lister les noms de pièces qui n'ont jamais été livrées.
+Lister les noms de pièces pour lesquelles il n'y a jamais eu de livraison.
+
+. . .
 
 ```{.sql}
 SELECT NomP
 FROM Piece P 
 WHERE NomP NOT IN  (
-  SELECT NomP   #<<
-  FROM  Livraison  #<<
+  SELECT NomP
+  FROM  Livraison
 );
 ```
+
+. . .
 
 Equivalence en algèbre relationnelle :
 
 $$\pi_{\text{NomP}}(\text{Piece}) - \pi_{\text{NomP}}(\text{Livraison})$$
 
-.... Une des façons de coder la *différence* en SQL
 
 
 
 
 
 
-## Utilisation de sous-requêtes : `IN`
 
-Les capitales dont la population est plus grande que la moitié de la population du pays
+## Exemple 3 de sous-requête avec `IN`
+
+Les capitales dont la population est plus grande que la moitié de la population du pays.
+
+. . .
 
 ```{.sql}       
-SELECT name_city FROM city
+SELECT name FROM city
 WHERE id IN (
   SELECT capital 
   FROM country
-  WHERE population_city>=population_country*.5
+  WHERE population>=population_country*.5
 );
 ```
 
@@ -259,47 +287,44 @@ est équivalente à :
 
 
 ```{.sql}
-SELECT name_city 
+SELECT name 
 FROM country JOIN city 
   ON capital=id
-WHERE population_city>=population_country*.5;
+WHERE population>=population_country*.5;
 ```
 
 
-# Opérateur ALL et ANY  {background-color="#1c191c"}
+## Opérateur ALL et ANY : `ANY`, `ALL`
 
+Ce sont des quantificateurs qui s'utilisent dans des tests.
 
-## Utilisation de sous-requêtes : `ANY`, `ALL`
-
-Deux nouveaux opérateurs manipulant des sous-requêtes : `ANY`, `ALL`
+- `ANY` : évalué à vrai si au moins un résultat de la sous-requête vérifie le test.
 
 ```{.sql}
 <attributs> =|<>|<=|<|>|=> ANY (<sous-requete>)
 ```
 
-évaluée à vraie si au moins un des résultats de la sous requête vérifie la comparaison avec  `<attributs>`
-
 . . .
 
+- `ALL` : évalué à vraie si tous les résultats de la sous-requête vérifient le test.
 
 ```{.sql}
 <attributs> =|<>|<=|<|>|=> ALL (<sous-requete>)
 ```
 
-évaluée à vraie si tous les  résultats de la sous-requête vérifient la comparaison avec  `<attributs>`
-
 . . .
 
-{{< fa hand-point-right >}}
+::: {.callout-note}
 `<attributs>`: peut être une *liste* d'attributs
+:::
 
 
 
-## Utilisation de sous-requêtes : `ANY`, `ALL`
+## Exemple de sous-requête avec `ANY`
 
-Alternative au `IN` 
+Alternative au `IN`.
 
-lister les noms de fournisseurs qui ont livré la pièce 'x21'.
+Lister les noms de fournisseurs qui ont livré la pièce 'x21'.
 
 
 ```{.sql}
@@ -312,14 +337,20 @@ WHERE NomF = ANY (
 );
 ```
 
+::: {.callout-caution}
 
+Si le résultat de la sous-requête est vide, `ANY` renvoie `False`.
 
+Si l'attribut `NomF` vaut `NULL`, le résultat de la comparaison avec `ANY` est `UNKNOWN`.
 
+L'évaluation de `ANY` s'effectue par un *OU* entre des tests `=|<>|<=|<|>|=>`. Pour les valeurs `NULL` du résultat de la sous-requête, le test retourne `UNKNOWN`. Donc si le test est vrai pour un tuple du résultat, `ANY` retourne `True` sinon `UNKNOWN`.
 
+:::
 
-## Utilisation de sous-requêtes : `ANY`, `ALL`
+<!--
+## Exemple 1 de sous-requête avec `ALL`
 
-Information sur la commande dont la quantité de ièces livrées était la plus importante.
+Recherche de la livraison dont la quantité de pièces livrées était la plus importante.
 
 
 
@@ -327,15 +358,12 @@ Information sur la commande dont la quantité de ièces livrées était la plus 
 SELECT *
 FROM Livraison
 WHERE Quantite >= ALL (
-	SELECT Quantite 
+  SELECT Quantite 
   FROM Livraison
 );
 ```
 
-
-
-
-## Utilisation de sous-requêtes : `ANY`, `ALL`
+## Exemple 2 de sous-requête avec `ALL`
 
 Noms et prix des pièces livrées les plus chères
 
@@ -348,234 +376,384 @@ WHERE L.NomP = P.NomP AND
     FROM Piece
 );
 ```
+-->
 
 
 
+## Exemple 1 de sous-requête avec `ALL`
 
-## Utilisation de sous-requêtes : `ANY`, `ALL`
-
-La ville la plus peuplée de chaque pays
+La ville la plus peuplée de chaque pays.
 
 ```{.sql}
-SELECT c1.name_city 
+SELECT c1.name 
 FROM city as c1
-WHERE population_city >= ALL (
-  SELECT c2.population_city 
+WHERE population >= ALL (
+  SELECT c2.population 
   FROM city as c2
   WHERE c1.countrycode=c2.countrycode
 );
 ```
 
+::: {.callout-caution}
 
-# Opérateur EXISTS  {background-color="#1c191c"}
+Si le résultat de la sous-requête est vide, `ALL` renvoie `True`.
+
+Si l'attribut `population` vaut `NULL`, le résultat de la comparaison avec `ALL` est `UNKNOWN`.
+
+L'évaluation de `ALL` s'effectue par un *ET* entre des tests `=|<>|<=|<|>|=>`. Pour les valeurs `NULL` du résultat de la sous-requête, le test retourne `UNKNOWN`. Donc si le résultat de la sous-requête contient au moins une valeur `NULL`, `ALL` retourne `UNKNOWN`.
+:::
+
+## Exemple 2 de sous-requête avec `ALL`
+
+Les pays dont toutes les villes ont plus de 1 000 000 habitants.
+
+La requête :
+
+```{.sql}
+SELECT co.name_country
+FROM country co
+WHERE 1000000 <= ALL (
+  SELECT ci.population 
+  FROM city ci
+  WHERE ci.countrycode=co.countrycode
+)
+```
+renvoie également les pays qui n'ont pas de ville !
+
+On peut corriger en ajoutant un opérateur `EXISTS` sur la sous-requête. 
+
+Mais la meilleure solution est d'utiliser les fonctions d'agrégation que nous verrons plus tard.
 
 
-## Utilisation de sous-requêtes : `EXISTS`
-  
+
+##  Opérateur EXISTS
+
+C'est un quantificateur qui retourne un booléen. 
+
+`EXISTS` retourne vrai si le résultat de la sous-requête n'est pas vide.
+
 ```{.sql} 
 [NOT] EXISTS (<sous-requete>)
 ```
 
-est évaluée à vraie si la sous-requête renvoie au moins un résultat.
 
-. . .
+::: {.callout-caution}
 
-Nom et prix des pièces qui ont été livrées
+Si le résultat de la sous-requête ne contient que la valeur `NULL`, `EXISTS` renvoie vrai  car le résultat de la sous-requête contient au moins un tuple.
+
+:::
+
+## Exemple 1 de sous-requête avec `EXISTS`
+
+Pays qui n'ont pas de ville
 
 ```{.sql}
-SELECT NomP, Prix 
-FROM Piece P 
-WHERE EXISTS (
+SELECT co.name_country
+FROM country co
+WHERE NOT EXISTS(
   SELECT * 
-  FROM Livraison 
-  WHERE Livraison.NomP = P.NomP
+  FROM city ci
+  WHERE ci.countrycode=co.countrycode
 );
 ```
 
-. . .
+équivalent à 
 
-{{< fa hand-point-right >}} Différence avec `ANY` 
+```{.sql}
+SELECT name_country
+FROM country
+EXCEPT
+SELECT name_country
+FROM country natural join city;
+```
 
-L'utilisation de `EXISTS` s'apparente à une condition booléenne. 
 
-Pas de test sur la valeur d'un attribut particulier.
+::: {.callout-note}
+`NOT EXISTS` permet souvent d'écrire une alternative à `EXCEPT`.
 
-. . .
+:::
 
-## Utilisation de sous-requêtes : `EXISTS`
+## Exemple 2 de sous-requête avec `EXISTS`
   
 Nom des Fournisseurs ayant livré la pièce x21 mais qui n'ont jamais livré la pièce a22. 
 
 ```{.sql}
 SELECT DISTINCT NomF 
-FROM Livraison L 
-WHERE L.NomP='x21' AND 
+FROM Livraison L1 
+WHERE L1.NomP='x21' AND 
   NOT EXISTS (
     SELECT * 
-    FROM Livraison L1 
-    WHERE L2.NomP='a22' AND L2.NomF=L.NomF
+    FROM Livraison L2 
+    WHERE L2.NomP='a22' AND L2.NomF=L1.NomF
   );
 ```
 
 
-
-
-## Utilisation de sous-requêtes : `EXISTS`
+## Exemple 3 de sous-requête avec `EXISTS`
 
 Les régions qui ont au moins une langue officielle :
 
 ```{.sql}
 SELECT DISTINCT region 
-FROM world.country AS co
+FROM country AS co
 WHERE EXISTS (
   SELECT * 
-  FROM world.countrylanguage AS cl
+  FROM countrylanguage AS cl
   WHERE co.countrycode = cl.countrycode  AND cl.isofficial
 );
 ```
-
-
-# Opérateur LATERAL  {background-color="#1c191c"}
-
----
-
-> PostgreSQL 9.3 has a new join type! Lateral joins arrived without a lot of fanfare, 
-but they enable some powerful new queries that were previously only tractable with procedural code. 
-In this post, I'll walk through a conversion funnel analysis that wouldn't be possible in PostgreSQL 9.2.
-
-::: {.aside}
-
-https://heap.io/blog/postgresqls-powerful-new-join-type-lateral
-
-:::
-
-
----
-
-## Requêtes imbriquées : `LATERAL`
-
-::: {.callout-important}
-
-Les sous-requêtes d'une clause `FROM` peuvent  être précédées du mot-clé  `LATERAL`
-  
-On peut alors faire référence à des colonnes des éléments précédents de la clause  `FROM` 
-
-:::
-
----
-
-
-> When a FROM item contains `LATERAL` cross-references, 
-evaluation proceeds as follows: for each row of the `FROM` item providing the cross-referenced column(s), 
-or set of rows of multiple `FROM` items providing the columns, 
-the `LATERAL` item is evaluated using that row or row set’s values of the columns. 
-The resulting row(s) are joined as usual with the rows they were computed from. 
-This is repeated for each row or set of rows from the column source table(s).
-
-
-
-## Pour les fonction-tables ...
-
-Les arguments de la fonction peuvent contenir des références à des colonnes des items précédents de la clause `FROM`. 
-
-
-## Evaluation
-
-Pour chaque ligne d'un item `FROM` qui fournit la colonne référencée, l'item `LATERAL` est évalué en utilisant cette ligne. Les lignes du résultat sont jointes avec la ligne qui a servi à les 
-calculer
-
-On peut parler de *sous-requête paramétrée*
-
-
-
-
-## Un exemple de l'usage de `LATERAL`
-
-```{.sql}
-SELECT name_country, name_city 
-FROM country, LATERAL (  
-  SELECT name_city       
-  FROM city              
-  WHERE city.countrycode=country.countrycode
-) ss   
-ORDER BY name_country;
-```
-
-
 équivalent à 
 
 ```{.sql}
-SELECT name_country, name_city 
-FROM country NATURAL JOIN city
+SELECT DISTINCT region 
+FROM country AS co join world.countrylanguage as cl 
+on co.countrycode = cl.countrycode and cl.isofficial;
+```
+
+
+## Sous-requête scalaire
+
+- Renvoie un tuple unique avec une colonne unique (un scalaire). 
+
+- Le plus souvent écrite avec une fonction d'agrégation (`SUM`, `AVG`, `COUNT`, `MAX`, `MIN`, ...) que nous étudierons dans la suite du cours.
+
+- Utilisation possible dans une clause `WHERE`.
+
+*Exemple* : lister les noms de pays dont la densité est inférieure à la densité mondiale.
+
+. . .
+
+```{.sql}
+SELECT name_country , population_country / surfacearea as population_density
+FROM country
+WHERE population_country / surfacearea <= (
+  SELECT sum(population_country) / sum(surfacearea)
+  FROM country
+)
+order by name_country;
+```
+
+::: {.callout-note}
+Ne pas confondre la densité mondiale moyenne (environ $40\ \text{h/km}^2$ d'après la BDD `world`, en fait $55\ \text{h/km}^2$ en 2025) avec la densité moyenne des pays (environ $400\ \text{h/km}^2$).
+:::
+
+
+
+# Requêtes imbriquées dans la clause `FROM`  {background-color="#1c191c"}
+
+## Tables dérivés
+
+Dans une clause `FROM`, on peut écrire une sous-requête qui renvoie une table nommée avec un alias : on parle de *table dérivée*, dans le sens qu'elle dérive des tables existantes.
+
+::: {.callout-note}
+Il s'agit d'une composition de requêtes.
+:::
+
+## Exemple de sous-requête dans la clause `FROM`
+
+
+Lister les pays (code, nom, espérance de vie) dont le PNB a progressé de 10% et dont la population de la capitale est supérieure à 2 millions.
+
+```{.sql}
+SELECT bo.countrycode, name_country, lifeexpectancy
+FROM 
+  (
+    SELECT countrycode, name_country, lifeexpectancy, capital
+    FROM country
+    WHERE gnpold >0 AND gnp / gnpold > 1.1  -- test gnpold >0 pour gérer les valeurs nulles
+  ) AS bo 
+  JOIN 
+  (
+    SELECT id, countrycode
+    FROM city 
+    WHERE population > 2000000
+  ) AS bc  
+  ON bc.id=bo.capital ;
+```
+
+## Opérateur `LATERAL`
+
+::: {.callout-note}
+Dans l'exemple précédent, chaque table dérivée est calculée indépendemment puis la jointure est effectuée.
+:::
+
+Avec l'opérateur `LATERAL`, on peut faire dépendre le calcul d'une table dérivée du résultat des tables précédentes du `FROM`.
+
+
+
+
+
+
+## Evaluation de `LATERAL`
+
+La table dérivée est calculée pour chaque tuple $u$ obtenu par les opérations précédentes du `FROM`.
+
+Puis chaque tuple $v$ la table dérivée est concaténé à $u$ par produit cartésien.
+
+On peut aussi concaténer $u$ et $v$ avec une jointure.
+
+
+## Exemple 1 avec `LATERAL`
+
+Pour chaque pays, donner la liste des villes de son térritoire.
+
+Solution avec `LATERAL`
+```{.sql}
+SELECT co.name_country, sr.name 
+FROM country co, LATERAL (  
+  SELECT name       
+  FROM city  ci            
+  WHERE ci.countrycode=co.countrycode
+) sr;
+```
+
+équivalent à 
+
+::::{.columns}
+
+:::{.column}
+Avec jointure sur une table dérivée
+
+```{.sql}
+SELECT co.name_country, sr.name 
+FROM country co NATURAL JOIN (  
+  SELECT countrycode, name       
+  FROM city
+) sr  
+```
+
+:::
+
+:::{.column}
+
+ou bien sans table dérivée
+
+```{.sql}
+SELECT name_country, name 
+FROM country co JOIN city ci ON ci.countrycode=co.countrycode
 ORDER BY name_country;
 ```
 
-
-{{< fa hand-point-right >}} `LATERAL` est surtout utilisé quand la colonne référencée est nécessaire au calcul  des lignes à joindre
-
-
+:::
+::::
 
 
-## `LATERAL`  en action sur `world`
 
-::::: {.columns}
 
-::: {.column}
+## Exemple 2 avec `LATERAL`
+
+Plus intéressant : pour chaque pays, donner la ville la plus peuplée.
 
 ```{.sql}
-SELECT name_country, name_city 
-
-FROM country, LATERAL ( 
-  SELECT name_city  
-  FROM city  
-  WHERE city.countrycode=country.countrycode
-  ) ss  
-
-ORDER BY name_city 
-
-LIMIT 10 ;
+SELECT co.name_country, sr.name 
+FROM country co, LATERAL (  
+  SELECT name       
+  FROM city ci            
+  WHERE ci.countrycode=co.countrycode
+  ORDER BY ci.population DESC
+  LIMIT 1
+) sr
+ORDER BY co.name_country;
 ```
-:::
 
-::: {.column}
+Evaluation : si la table dérivée est vide, le tuple $u$ de la table `country` n'est pas retenu car $\lbrace u\rbrace \times \emptyset = \emptyset$.
 
-|name_country|name_city|
-|------------|---------|
-|Spain|A Coruña (La Coruña)|
-|Germany|Aachen|
-|Denmark|Aalborg|
-|Nigeria|Aba|
-|Iran|Abadan|
-|Brazil|Abaetetuba|
-|Russian Federation|Abakan|
-|Canada|Abbotsford|
-|Nigeria|Abeokuta|
-| ... | ... |
+Donc les pays sans ville ne sont pas affichés.
 
 
-:::
-
-:::::
+# Les CTEs avec `WITH` {background-color="#1c191c"}
 
 
+## Clause `WITH` 
 
----
+Une clause `WITH` permet d'écrire des requêtes intermédiaires et d'alléger l'écriture d'une requête complexe.
 
 
 ```{.sql}
-SELECT	name_country,	name_city, lifeexpectancy
+WITH r AS (
+  SELECT ...
+  FROM ...
+  WHERE ...
+), s AS (
+  SELECT ...
+  FROM ...
+  WHERE ...    -- références possibles à r 
+)
+SELECT ...
+FROM   ...     -- références possibles à r 
+WHERE ...
+```
+
+::: {.callout-note}
+
+Ces expressions/requêtes sont  appelées `Common Table Expressions` ou CTEs ou ETCs en français.
+
+Les CTEs peuvent être des requêtes `SELECT`, mais aussi des expressions de 
+manipulation (mise à jour, insertion, suppression) de données.
+
+
+Les CTEs permettent de coller plus fidèlement à l'algèbre relationnelle que les requêtes imbriquées.
+
+:::
+
+## Avantages des CTEs
+
+::: {.callout-note}
+Les CTEs permettent de composer des requêtes de même que les requêtes imbriquées dans les clauses `WHERE` et  `FROM`.
+
+Par rapport à ces deux autres techniques, les *avantages* sont :
+
+- amélioration de la lisibilité et de la maintenance des requêtes complexes.
+
+- une ETC peut être utilisée plusieurs fois dans une même requête.
+
+:::
+
+
+## Exemple de requête avec  `WITH`
+
+Lister les pays (code, nom, espérance de vie) dont le PNB a progressé de 10% et dont la population de la capitale est supérieure à 2 millions.
+
+```{.sql}
+WITH better_off AS (
+  SELECT countrycode, name_country, lifeexpectancy, capital
+  FROM country
+  WHERE gnpold >0 AND gnp / gnpold > 1.1  -- gnpold >0 pour gérer les valeurs nulles
+),
+big_capital AS (
+  SELECT id, countrycode
+  FROM city 
+  WHERE population > 2000000
+)
+SELECT bo.countrycode, name_country, lifeexpectancy
+FROM better_off bo JOIN big_capital bc ON
+  bc.id=bo.capital ;
+```
+
+
+
+
+
+
+# Fin {background-color="#1c191c"}
+
+
+
+<!--
+```{.sql}
+SELECT	name_country,	name, lifeexpectancy
 FROM (
   SELECT countrycode,	name_country, lifeexpectancy
   FROM country
 	WHERE gnpold >0 AND gnp / gnpold > 1.1
   ) AS better_off 
   JOIN LATERAL (
-    SELECT c.countrycode, name_city  #<< 
+    SELECT c.countrycode, name 
 		FROM country c
 		  JOIN city ON (capital = id)
 		WHERE 
       better_off.countrycode=c.countrycode AND  
-			population_city> 2000000
+			population> 2000000
     ) AS big_capital 
 ON TRUE ;   
 ```
@@ -588,78 +766,18 @@ ON TRUE ;
 |Congo, The Democratic Republic of the|Kinshasa |          48.8|
 |Turkey                               |Ankara   |          71.0|
 
+sans interêt
 
+équivaut à 
 
----
+SELECT c.countrycode, ci.name , c.lifeexpectancy
+FROM country c JOIN city ci ON (c.capital = ci.id)
+WHERE c.gnpold >0 AND c.gnp / c.gnpold > 1.1 AND ci.population > 2000000;
 
+<!--
 
 See [Trumpetting lateral join](https://heap.io/blog/postgresqls-powerful-new-join-type-lateral)
 
 Could be useful for implementing exploratory pipelines into postgresql without to much tears and sweat. 
-
-
-
-
-# WITH  {background-color="#1c191c"}
-
-
-
-## Syntaxe des clauses `WITH` 
-
-```{.sql}
-WITH r AS (
-  SELECT ...
-  FROM ...
-  WHERE ...
-), s AS (
-  SELECT ...
-  FROM ...
-  WHERE ...     -- possible reference to r 
-)
-SELECT ...
-FROM   ... -- possible reference to r, s 
-WHERE 
-
-```
-
----
-
-
-Une clause `WITH` permet d'écrire des requêtes intermédiaires et de décomposer une requête complexe
-
-Ces expressions/requêtes sont souvent désignées par le vocable 
-`Common Table Expressions` ou CTEs
-
-Les CTEs (éléments d'une clasuse  `WITH`) peuvent être des requêtes, mais aussi des expressions de 
-manipulation (mise à jour, insertion, suppression) de données
-
-
-Les CTEs permettent de coller plus fidèlement à l'algèbre relationnelle que les requêtes imbriquées
-
-## ...
-
-```{.sql}
-WITH better_off AS (
-  SELECT countrycode, name_country, lifeexpectancy, capital
-  FROM country
-  WHERE gnpold >0 AND gnp / gnpold > 1.1
-),
-big_capital AS (
-  SELECT id, countrycode
-  FROM city 
-  WHERE population > 2000000
-)
-SELECT bo.countrycode, name_country, lifeexpectancy
-FROM better_off bo JOIN big_capital bc ON
-  (bo.countrycode=bc.countrycode AND bc.id=bo.capital) ;
-```
-
-
-
-
-
-
-# Fin {background-color="#1c191c"}
-
-
+-->
 

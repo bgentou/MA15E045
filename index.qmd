@@ -39,7 +39,7 @@ Au travers de ce cours, vous allez :
 
 ### {{< fa server >}} 
 
-Le cours s'appuie sur un serveur [PostGres](https://www.postgresql.org) dont l'adresse est `etu-pgsql.math.univ-paris-diderot.fr`. 
+Le cours s'appuie sur un serveur [PostGres](https://www.postgresql.org) dont l'adresse est `etu-pgsql.math.univ-paris-diderot.fr`
 
 :::
 

@@ -68,7 +68,7 @@ La table `country` nous renseigne sur les états reconnus (à l'ONU) et sur des 
 
 La table `city`  nous renseigne sur les villes les plus importantes de chaque territoire.
 
-Latable `countrylanguage` nous indique quelles langues sont parlées dans quels pas.
+La table `countrylanguage` nous indique quelles langues sont parlées dans quels pays.
 
 L'instance du schéma utilisée donne une idée du monde au début des années 2000. 
 

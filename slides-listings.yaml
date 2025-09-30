@@ -18,7 +18,7 @@
   date: "2025-09-29"
   path: "slides/SQL_2.html"
   categories: ["Requêtes imbriquées", CTE]
-- title: "SQL : Agrégations, Paritions, Fenêtres"
+- title: "SQL : Agrégations, Partitions, Fenêtres"
   author: "Licence MIASHS UParis Cité"
   date: "2025-10-06"
   path: "slides/SQL_3.html"

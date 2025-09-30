@@ -199,10 +199,10 @@ CREATE TABLE livraison(
 --| code-line-numbers: "|7-8"
 CREATE TABLE world.city (
 	id int4 NOT NULL,
-	name_city text NOT NULL,
+	name text NOT NULL,
 	countrycode bpchar(3) NOT NULL,
 	district text NOT NULL,
-	population_city int4 NOT NULL,
+	population int4 NOT NULL,
 	CONSTRAINT city_pkey
         PRIMARY KEY (id)
 );

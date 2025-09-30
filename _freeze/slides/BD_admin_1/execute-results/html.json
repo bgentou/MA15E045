@@ -1,8 +1,8 @@
 {
-  "hash": "0c6da6bbaf4c505502e83220c4bf9fb1",
+  "hash": "d6753e9e5edb162e4713711862c856b7",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: \"BD V: Administration\"\n---\n\n\n::: {.cell}\n\n:::\n\n\n\n# Tâches administratives  {background-color=\"#1c191c\"}\n\n\n---\n\n- Sauvegarde/Restauration\n- Réplication\n- Gestion des privilèges\n- Surveillance du serveur\n\n\n---\n\n# Les schémas utilisés pour l'administration  {background-color=\"#1c191c\"}\n\n\n\n\n# Administration dans `psql`  {background-color=\"#1c191c\"}\n\n\n\n\n\n\n\n# Fin {background-color=\"#1c191c\"}",
+    "markdown": "---\ntitle: \"BD V: Administration\"\n---\n\n\n::: {.cell}\n\n:::\n\n\n\n# Tâches administratives  {background-color=\"#1c191c\"}\n\n\n---\n\n- Sauvegarde/Restauration\n- Réplication\n- Gestion des privilèges\n- Surveillance du serveur\n\n\n---\n\n# Les schémas utilisés pour l'administration  {background-color=\"#1c191c\"}\n\n\n\n# Administration dans `psql`  {background-color=\"#1c191c\"}\n\n\n\n\n# Fin {background-color=\"#1c191c\"}\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
