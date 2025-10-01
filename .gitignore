@@ -1,4 +1,4 @@
-/.quarto/
+.quarto/
 .Rdata
 .Rproj.user
 .Rhistory
@@ -35,6 +35,5 @@ workshops-chatgpt/
 site_libs/
 **/*.quarto_ipynb
 
-/_freeze/
-*.json
-/_freeze/exams
+_freeze/
+_freeze/*.json
