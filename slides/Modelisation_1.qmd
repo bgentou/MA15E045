@@ -35,7 +35,7 @@ Les différents formalismes sont presque toujours des variations autour du modè
 
 ## Modèle Entité-Association (EA/ER)
 
-[Peter Chen, the father of ER modeling](https://en.wikipedia.org/wiki/Peter_Chen) écrivait dans le texte fondateur:
+[Peter Chen, the father of ER modeling](https://en.wikipedia.org/wiki/Peter_Chen){target="_blank"} écrivait dans le texte fondateur:
 
 > The entity-relationship model adopts the more natural view that the real world consists of entities and relationships. It incorporates some of the important semantic information about the real world.
 
@@ -45,7 +45,7 @@ Dans l'article de 1976,  Chen distingue explicitement les diagrammes entité–a
 
 ::: {.aside}
 
-Voir [La Sémantique selon wikipedia](https://fr.wikipedia.org/wiki/Sémantique)
+Voir [La Sémantique selon wikipedia](https://fr.wikipedia.org/wiki/Sémantique){target="_blank"}
 
 :::
 
@@ -202,7 +202,7 @@ La norme ISO-3166 associe à chaque pays un code en trois lettres (alpha-3). Pou
 
 ::: {.aside}
 
-[Norme ISO 3166 selon Wikipedia](https://fr.wikipedia.org/wiki/ISO_3166)
+[Norme ISO 3166 selon Wikipedia](https://fr.wikipedia.org/wiki/ISO_3166){target="_blank"}
 
 :::
 
@@ -601,7 +601,7 @@ découpées en unités territoriales de niveau `1` : les *régions* en France, e
 
 Chaque unité territoriale de niveau `1` est située dans une et une seule unité territoriale de niveau `0`, elle fait partie de l'unité territoriale de niveau `0`.
 
-[Unités territoriales](https://en.wikipedia.org/wiki/Nomenclature_of_Territorial_Units_for_Statistics)
+[Unités territoriales](https://en.wikipedia.org/wiki/Nomenclature_of_Territorial_Units_for_Statistics){target="_blank"}
 
 . . .
 

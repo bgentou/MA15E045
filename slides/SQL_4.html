@@ -527,7 +527,7 @@
 <span id="cb16-7"><a></a><span class="kw">WHERE</span> c.region<span class="op">=</span>p_region ;</span>
 <span id="cb16-8"><a></a>$$ ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section><section id="table-de-même-schéma-quune-autre-table" class="slide level2 center"><h2>Table de même schéma qu’une autre table</h2>
-<p><a href="https://www.postgresql.org/docs/15/xfunc-sql.html">https://www.postgresql.org/docs/15/xfunc-sql.html</a></p>
+<p><a href="https://www.postgresql.org/docs/15/xfunc-sql.html" target="_blank">https://www.postgresql.org/docs/15/xfunc-sql.html</a></p>
 <p>On veut maintenant récupérer une table de même schéma que <code>city</code>.</p>
 <p>La solution est très simple.</p>
 <p>On profite de ce qu’à chaque table correspond un type de même nom et on utilise le mot-clé <code>SETOF</code>.</p>
@@ -723,7 +723,7 @@ Middle East              | 188380700|</code></pre>
 <span id="cb27-11"><a></a>       <span class="kw">ON</span> (cn.countrycode <span class="op">=</span> ci.countrycode)</span>
 <span id="cb27-12"><a></a></span>
 <span id="cb27-13"><a></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> cn.countrycode, cn.name_country, cn.region;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p><a href="https://stackoverflow.com/questions/2560946/postgresql-group-concat-equivalent">Stackoverflow</a></p>
+<p><a href="https://stackoverflow.com/questions/2560946/postgresql-group-concat-equivalent" target="_blank">Stackoverflow</a></p>
 </section><section id="insertionmise-à-joursuppression-sur-les-vues-multi-tables" class="slide level2 center"><h2>Insertion/Mise à jour/Suppression sur les vues multi-tables</h2>
 <p>Problème : quelles tables doivent être modifiées ?</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a></a><span class="kw">DELETE</span> </span>
@@ -752,7 +752,7 @@ Middle East              | 188380700|</code></pre>
 </section></section><section><section id="references" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>References</h1>
 
 </section><section class="slide level2 center"><ul>
-<li><a href="https://planet.postgresql.org">Postgresql Bloggers</a></li>
+<li><a href="https://planet.postgresql.org" target="_blank">Postgresql Bloggers</a></li>
 </ul></section><section class="slide level2 center"></section></section><section id="fin" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Fin</h1>
 
 
