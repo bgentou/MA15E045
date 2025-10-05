@@ -739,7 +739,7 @@
     "href": "slides/SQL_3.html#comment-afficher-un-attribut-absent-de-group-by",
     "title": "BD IV: SQL III",
     "section": "Comment afficher un attribut absent de GROUP BY ?",
-    "text": "Comment afficher un attribut absent de GROUP BY ?\nPour chaque continent, indiquer le nom et la population du (des) pays le(s) plus peuplé(s).\n\n\n\n\n\n\n\nMise en garde\n\n\nOn ne peut pas utiliser une seule requête puisqu’on veut afficher les pays sans grouper selon les pays. Il faut donc faire les calculs d’agrégats dans une sous-requête.\nPréférez les CTES (ou éventuellement les requêtes imbriquées dans FROM), plus efficaces que les requêtes imbriquées dans WHERE qui sont ré-exécutées inutilement."
+    "text": "Comment afficher un attribut absent de GROUP BY ?\nPour chaque continent, indiquer le nom et la population du (des) pays le(s) plus peuplé(s).\n\n\n\n\n\n\n\nMise en garde\n\n\nOn ne peut pas utiliser une seule requête puisqu’on veut afficher les pays sans grouper selon les pays. Il faut donc faire les calculs d’agrégats dans une sous-requête.\nPréférez les CTEs (ou éventuellement les requêtes imbriquées dans FROM), plus efficaces que les requêtes imbriquées dans WHERE qui sont ré-exécutées inutilement."
   },
   {
     "objectID": "slides/SQL_3.html#solution",
