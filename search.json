@@ -3900,5 +3900,71 @@
     "title": "BD IV: SQL III",
     "section": "Fonctions d’agrégation sur des opérations",
     "text": "Fonctions d’agrégation sur des opérations\n\n\n\n\n\n\nNote\n\n\nLes fonctions d’agrégation peuvent s’appliquer à des opérations arithmétiques entre les différents attributs d’un même tuple…\n\n\n\n\nMoyenne des PNB/habitant des pays du continent ‘South America’. A ne pas confondre avec la requête précédente !\nSELECT \n  ROUND(AVG(1e6*gnp/population_country),2) as pnb_country_avg\nFROM country \nWHERE \n  continent = 'South America' AND population_country &gt; 0 ;\n-- Le test population_country &gt; 0 évite les divisions par 0\nRésultat : 3176,44"
+  },
+  {
+    "objectID": "computing-dbeaver.html",
+    "href": "computing-dbeaver.html",
+    "title": "Client dbeaver",
+    "section": "",
+    "text": "Note\n\n\n\nGuide pour utiliser le client dBeaver avec un tunnel ssh",
+    "crumbs": [
+      "Support",
+      "Client dbeaver"
+    ]
+  },
+  {
+    "objectID": "computing-dbeaver.html#connection",
+    "href": "computing-dbeaver.html#connection",
+    "title": "Client dbeaver",
+    "section": "Connection",
+    "text": "Connection\nLa première étape après la création d’un projet est la création d’une connexion à un serveur de bases de données.\nPour cet enseignement, vous devez d’abord créer un tunnel ssh avec le serveur etu-pgsql.math.univ-paris-diderot.fr avec une redirection de port (cf. Connexion au serveur).\nNous supposons par la suite que vous avez établi un tunnel en redirigeant le port local 5436 vers le port distant 5432.\nIl faut ensuite sélectionner votre projet dans l’onglet Projets puis faire une clic droit et Créer-&gt;Connexion, choisir le pilote PostgreSQL (regarder les icônes), puis Suivant et saisir dans le formulaire les informations suivantes :\n\nOnglet Main ou Général\n\nConnect by Host,\n\nHost: localhost,\nPort: 5436 (le nom du port local utilisé par votre tunnel ssh)\nDatabase: bd_2023-24\nDécocher Show all databases\n\nAuthentification: Database Native\n\nUsername: username (ENT)\nPassword: xxxxxxx (ENT)\nCocher Save password\n\n\n\nPuis cliquer sur Terminer. Eventuellement, dBeaver demandera à installer le pilote ‘PostgreSQL’.\nMaintenant la connexion bd_2023-24 apparaît dans votre projet. Elle apparaît également dans le Navigateur de Bases de données (Fenêtres-&gt;Navigateur de Bases de données).\nEn déroulant la connexion bd_2023-24-&gt;Bases de données-&gt;bd_2023-2024-&gt;Schémas, vous pouvez visualiser la liste des schémas existants sur le serveur.\n\n\n\n\n\n\nTip\n\n\n\nSi vous créez un nouveau projet avec une connexion déjà définie dans un autre, il vous suffit de copier-coller la connexion entre les projets ou depuis le Navigateur de Bases de données.",
+    "crumbs": [
+      "Support",
+      "Client dbeaver"
+    ]
+  },
+  {
+    "objectID": "computing-dbeaver.html#bookmarkssignets",
+    "href": "computing-dbeaver.html#bookmarkssignets",
+    "title": "Client dbeaver",
+    "section": "Bookmarks/Signets",
+    "text": "Bookmarks/Signets\nVous pouvez jeter un coup d’oeil à cette documentation sur les signets.\n\n\n\n\n\n\nTip\n\n\n\nVous pouvez créer des signets pour retrouver facilement les schémas sur lesquels vous travaillez, ou avez travaillé.",
+    "crumbs": [
+      "Support",
+      "Client dbeaver"
+    ]
+  },
+  {
+    "objectID": "computing-dbeaver.html#dashboardstableaux-de-bord",
+    "href": "computing-dbeaver.html#dashboardstableaux-de-bord",
+    "title": "Client dbeaver",
+    "section": "Dashboards/Tableaux de bord",
+    "text": "Dashboards/Tableaux de bord\nIls servent à superviser l’utilisation des ressources. Cela ne vous sera pas utile pour cet enseignement.",
+    "crumbs": [
+      "Support",
+      "Client dbeaver"
+    ]
+  },
+  {
+    "objectID": "computing-dbeaver.html#diagrams",
+    "href": "computing-dbeaver.html#diagrams",
+    "title": "Client dbeaver",
+    "section": "Diagrams",
+    "text": "Diagrams\ndBeaver permet de faire un peu de rétro-ingénieurie et de visualiser (partiellement) un schéma. Outil utile quand on veut retoucher un schéma ou simplement le comprendre.",
+    "crumbs": [
+      "Support",
+      "Client dbeaver"
+    ]
+  },
+  {
+    "objectID": "computing-dbeaver.html#scripts",
+    "href": "computing-dbeaver.html#scripts",
+    "title": "Client dbeaver",
+    "section": "Scripts",
+    "text": "Scripts\n\nCréer un dossier de script pour chaque TP puis un script pour chaque exercice,\nNommer le script de façon utile (avec rename),\nCommenter le script,\nSéparer les requêtes par des lignes blanches et une ligne de commentaire blanche --,\nUtiliser le reformattage pour rendre votre code plus lisible.",
+    "crumbs": [
+      "Support",
+      "Client dbeaver"
+    ]
   }
 ]

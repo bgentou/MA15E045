@@ -415,6 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#installer" id="toc-installer" class="nav-link active" data-scroll-target="#installer">Installer</a></li>
   <li><a href="#survol" id="toc-survol" class="nav-link" data-scroll-target="#survol">Survol</a></li>
+  <li><a href="#paramétrage-pour-éviter-lerreur-fatal-too-many-connections" id="toc-paramétrage-pour-éviter-lerreur-fatal-too-many-connections" class="nav-link" data-scroll-target="#paramétrage-pour-éviter-lerreur-fatal-too-many-connections">Paramétrage pour éviter l’erreur <code>FATAL: too many connections</code></a></li>
   <li><a href="#définir-et-utiliser-un-projet" id="toc-définir-et-utiliser-un-projet" class="nav-link" data-scroll-target="#définir-et-utiliser-un-projet">Définir et utiliser un <em>projet</em></a>
   <ul class="collapse">
   <li><a href="#connection" id="toc-connection" class="nav-link" data-scroll-target="#connection"><code>Connection</code></a></li>
@@ -484,6 +485,11 @@ Note
 <p>Vous utiliserez <em>dBeaver</em> pour interroger le serveur Postgre via un tunnel <code>ssh</code>. Pour établir ce tunnel reportez-vous à la page <a href="./computing-access.html">Connexion au serveur</a></p>
 </div>
 </div>
+</section>
+<section id="paramétrage-pour-éviter-lerreur-fatal-too-many-connections" class="level1">
+<h1>Paramétrage pour éviter l’erreur <code>FATAL: too many connections</code></h1>
+<p>Par défaut, Dbeaver crée une connexion par fenêtre de l’éditeur SQL. Si vous ne modifiez pas ce paramètre, votre compte sera bloqué rapidement par une erreur <code>FATAL: too many connections</code> car vous aurez atteint le nombre maximum de connexions auquel vous avez droit.</p>
+<p><strong>Lors de votre première utilisation du client</strong>, il faut modifier ce paramètre en sélectionnant dans la barre de menu <code>Editeur SQL</code>-&gt;<code>Open separate connection</code>-&gt;<code>never</code>.</p>
 </section>
 <section id="définir-et-utiliser-un-projet" class="level1">
 <h1>Définir et utiliser un <em>projet</em></h1>
@@ -606,13 +612,13 @@ Tip
 <p>Pour écrire vos requètes, il faut utiliser l’éditeur SQL.</p>
 <p>Supposons que vous vouliez écrire une requète sur le schéma <code>world</code>.</p>
 <p>Dans votre projet, une fois créé le tunnel <code>ssh</code>, faire un clic droit sur la connexion de votre projet puis <code>Se connecter</code>. Si la connexion est réussie, une coche verte apparaît.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
