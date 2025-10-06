@@ -335,7 +335,7 @@
 </div>
 </div>
 </div>
-</section><section id="options-all-et-distinct-des-fonctions-dagrégats" class="slide level2 center"><h2>Options <code>ALL</code> et <code>DISTINCT</code> des fonctions d’agrégats</h2>
+</section><section id="options-all-et-distinct-des-fonctions-dagrégation" class="slide level2 center"><h2>Options <code>ALL</code> et <code>DISTINCT</code> des fonctions d’agrégation</h2>
 <p>Ces options sont disponibles pour toutes les fonctions</p>
 <p>mais sont surtout utiles pour <code>COUNT</code> :</p>
 <ul>
@@ -392,9 +392,9 @@
 </div>
 </section><section id="gestion-des-données-manquantes-null" class="slide level2 center"><h2>Gestion des données manquantes (<code>NULL</code>)</h2>
 <ul>
-<li><p>En statistique : données manquantes prises en compte dans les fonctions d’agrégats.</p></li>
+<li><p>En statistique : données manquantes prises en compte dans les fonctions d’agrégation.</p></li>
 <li>
-<p>En SQL : données manquantes ignorées dans les fonctions d’agrégats,</p>
+<p>En SQL : données manquantes ignorées dans les fonctions d’agrégation,</p>
 <p>à l’exception de <code>COUNT(*)</code>.</p>
 </li>
 </ul>
@@ -415,7 +415,7 @@
 |  2102826.00 | 2133367.00 |
 +-------------+------------+</code></pre>
 </div>
-</section><section id="fonction-dagrégat-sur-des-valeurs-toutes-null" class="slide level2 center"><h2>Fonction d’agrégat sur des valeurs toutes <code>NULL</code>
+</section><section id="fonction-dagrégation-sur-des-valeurs-toutes-null" class="slide level2 center"><h2>Fonction d’agrégation sur des valeurs toutes <code>NULL</code>
 </h2>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
@@ -426,13 +426,13 @@
 <p><strong>Avertissement</strong></p>
 </div>
 <div class="callout-content">
-<p>Que se passe-t-il si, après une éventuelle sélection, toutes les valeurs de l’agrégat sont <code>NULL</code> ?</p>
+<p>Que se passe-t-il si, après une éventuelle sélection, toutes les valeurs de du calcul d’agrégat sont <code>NULL</code> ?</p>
 <p>La valeur calculée est alors <code>NULL</code>, ce qui signifie “pas de valeur”.</p>
 <p>Essayez <code>SELECT MIN(gnpold) FROM country WHERE gnpold IS NULL;</code> !</p>
 </div>
 </div>
 </div>
-</section><section id="fonction-dagrégats-sur-une-table-vide" class="slide level2 center"><h2>Fonction d’agrégats sur une table vide</h2>
+</section><section id="fonction-dagrégation-sur-une-table-vide" class="slide level2 center"><h2>Fonction d’agrégation sur une table vide</h2>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -442,7 +442,7 @@
 <p><strong>Avertissement</strong></p>
 </div>
 <div class="callout-content">
-<p>Les fonctions d’agrégats renvoie un scalaire même sur une table vide.</p>
+<p>Les fonctions d’agrégation renvoie un scalaire même sur une table vide.</p>
 <p>Pour une table vide, la valeur calculée est <code>NULL</code>.</p>
 </div>
 </div>
@@ -519,7 +519,7 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">FROM</span> (<span class="kw">SELECT</span> indepyear <span class="kw">FROM</span> country) <span class="kw">as</span> T;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>retourne <code>239</code> car <code>T</code> contient une seule colonne avec <code>239</code> lignes, les 47 lignes <code>NULL</code> sont comptées comme les autres.</p>
 </div>
-</section><section id="opérations-sur-des-fonctions-dagrégats" class="slide level2 center"><h2>Opérations sur des fonctions d’agrégats</h2>
+</section><section id="opérations-sur-des-fonctions-dagrégation" class="slide level2 center"><h2>Opérations sur des fonctions d’agrégation</h2>
 <p>PNB moyen par habitant du continent <code>South America</code></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a></a><span class="kw">SELECT</span> </span>
 <span id="cb23-2"><a></a>  <span class="fu">ROUND</span>(<span class="fu">SUM</span>(<span class="fl">1e6</span><span class="op">*</span>gnp)<span class="op">/</span><span class="fu">SUM</span>(population_country),<span class="dv">2</span>) <span class="kw">as</span> pnb_avg</span>
@@ -543,7 +543,7 @@
 </div>
 </div>
 </div>
-</section><section id="fonctions-dagrégats-sur-des-opérations" class="slide level2 center"><h2>Fonctions d’agrégats sur des opérations</h2>
+</section><section id="fonctions-dagrégation-sur-des-opérations" class="slide level2 center"><h2>Fonctions d’agrégation sur des opérations</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -553,7 +553,7 @@
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>Les fonctions d’agrégats peuvent s’appliquer à des opérations arithmétiques entre les différents attributs d’un même tuple…</p>
+<p>Les fonctions d’agrégation peuvent s’appliquer à des opérations arithmétiques entre les différents attributs d’un même tuple…</p>
 </div>
 </div>
 </div>
@@ -819,7 +819,7 @@ Combien de fois calculez vous l'espérance de minimale pour chaque région ?
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb37-1"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="op">&lt;</span>nomattribut1<span class="op">&gt;</span>, <span class="op">..</span>., <span class="op">&lt;</span>nomattributn<span class="op">&gt;</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li><p><code>GROUP BY</code> permet de regrouper l’ensemble des résultats d’une requête selon la valeur de certains attributs,</p></li>
-<li><p>Forme des sous-relations auxquelles on peut appliquer des fonctions d’agrégats (<code>SUM</code>, <code>MAX</code>, …) renvoyant un résultat par sous-relation.</p></li>
+<li><p>Forme des sous-relations auxquelles on peut appliquer des fonctions d’agrégation (<code>SUM</code>, <code>MAX</code>, …) renvoyant un résultat par sous-relation.</p></li>
 </ul>
 <div class="fragment">
 <div class="callout callout-warning callout-titled callout-style-default">
@@ -1148,7 +1148,7 @@ Combien de fois calculez vous l'espérance de minimale pour chaque région ?
 <!--En coulisses, la fonction de fenêtre est capable d'accéder à plus que la ligne actuelle du résultat de la requête.-->
 </div>
 </section><section id="fonctions-fenêtres" class="slide level2 center"><h2>Fonctions fenêtres</h2>
-<p>Soit <code>f</code> est une fonction d’agrégats (<code>SUM</code>, <code>AVG</code>, <code>MAX</code>, <code>MIN</code>, <code>COUNT</code>, etc.)</p>
+<p>Soit <code>f</code> est une fonction d’agrégation (<code>SUM</code>, <code>AVG</code>, <code>MAX</code>, <code>MIN</code>, <code>COUNT</code>, etc.)</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb51-1"><a></a>f(<span class="op">..</span>.) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> attribut),  </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -1184,7 +1184,7 @@ Combien de fois calculez vous l'espérance de minimale pour chaque région ?
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>Avec des fonctions d’agrégats sur un partitionnement par <code>GROUP BY region</code>, il n’était pas possible d’afficher une ligne par pays.</p>
+<p>Avec des fonctions d’agrégation sur un partitionnement par <code>GROUP BY region</code>, il n’était pas possible d’afficher une ligne par pays.</p>
 </div>
 </div>
 </div>
@@ -1264,7 +1264,7 @@ Combien de fois calculez vous l'espérance de minimale pour chaque région ?
 </div>
 </section><section id="exemple-de-fonction-fenêtre-avec-une-clause-order-by" class="slide level2 center"><h2>Exemple de fonction fenêtre avec une clause <code>ORDER BY</code>
 </h2>
-<p><code>row_number()</code> : fonction d’agrégats qui retourne le numéro de la ligne dans la fenêtre.</p>
+<p><code>row_number()</code> : fonction d’agrégation qui retourne le numéro de la ligne dans la fenêtre.</p>
 <div class="fragment">
 <p>Pour les pays d’Asie, lister la région, le nom du pays, le rang du pays dans sa région pour l’espérance de vie et le rang du pays dans sa région pour le PNB par habitant.</p>
 </div>
@@ -1687,7 +1687,7 @@ China       |Asia     |        1277558000|
 <span id="cb71-11"><a></a>[<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="op">&lt;</span>critere<span class="op">&gt;</span>]       <span class="co">-- trier </span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>
-<code>SELECT</code> : attributs du résultat (avec agrégats éventuels)</li>
+<code>SELECT</code> : attributs du résultat (avec agrégations éventuelles)</li>
 <li>
 <code>WHERE</code> : condition de sélection indépendante du <code>GROUP BY</code>
 </li>

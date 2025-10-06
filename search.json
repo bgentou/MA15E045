@@ -613,7 +613,7 @@
     "href": "slides/SQL_3.html#gestion-des-données-manquantes-null",
     "title": "BD IV: SQL III",
     "section": "Gestion des données manquantes (NULL)",
-    "text": "Gestion des données manquantes (NULL)\n\nEn statistique : données manquantes prises en compte dans les fonctions d’agrégats.\n\nEn SQL : données manquantes ignorées dans les fonctions d’agrégats,\nà l’exception de COUNT(*).\n\n\n\nSELECT name_country, gnpold, gnp\nFROM country\nWHERE continent = 'Europe' AND (gnp IS NULL OR gnpold IS NULL)\nRésultat : 10 lignes.\n\n\nPourtant, ces données manquantes n’empèchent pas le calcul du maximum sur ces colonnes.\nSELECT max(gnpold) AS max_gnpold, max(gnp) AS max_gnp   \nFROM country \nWHERE continent  = 'Europe';\n+-------------+------------+\n|  max_gnpold |  max_gnp   |\n+-------------+------------+\n|  2102826.00 | 2133367.00 |\n+-------------+------------+"
+    "text": "Gestion des données manquantes (NULL)\n\nEn statistique : données manquantes prises en compte dans les fonctions d’agrégation.\n\nEn SQL : données manquantes ignorées dans les fonctions d’agrégation,\nà l’exception de COUNT(*).\n\n\n\nSELECT name_country, gnpold, gnp\nFROM country\nWHERE continent = 'Europe' AND (gnp IS NULL OR gnpold IS NULL)\nRésultat : 10 lignes.\n\n\nPourtant, ces données manquantes n’empèchent pas le calcul du maximum sur ces colonnes.\nSELECT max(gnpold) AS max_gnpold, max(gnp) AS max_gnp   \nFROM country \nWHERE continent  = 'Europe';\n+-------------+------------+\n|  max_gnpold |  max_gnp   |\n+-------------+------------+\n|  2102826.00 | 2133367.00 |\n+-------------+------------+"
   },
   {
     "objectID": "slides/SQL_3.html#fonction-dagrégat-sur-des-valeurs-toutes-null",
@@ -711,7 +711,7 @@
     "href": "slides/SQL_3.html#partition-de-résultats-de-requêtes",
     "title": "BD IV: SQL III",
     "section": "Partition de résultats de requêtes",
-    "text": "Partition de résultats de requêtes\nGROUP BY &lt;nomattribut1&gt;, ..., &lt;nomattributn&gt;\n\nGROUP BY permet de regrouper l’ensemble des résultats d’une requête selon la valeur de certains attributs,\nForme des sous-relations auxquelles on peut appliquer des fonctions d’agrégats (SUM, MAX, …) renvoyant un résultat par sous-relation.\n\n\n\n\n\n\n\n\nAvertissement\n\n\nGestion des valeurs manquantes : les valeurs NULLd’un attribut forment un groupe dans la partition selon celui-ci."
+    "text": "Partition de résultats de requêtes\nGROUP BY &lt;nomattribut1&gt;, ..., &lt;nomattributn&gt;\n\nGROUP BY permet de regrouper l’ensemble des résultats d’une requête selon la valeur de certains attributs,\nForme des sous-relations auxquelles on peut appliquer des fonctions d’agrégation (SUM, MAX, …) renvoyant un résultat par sous-relation.\n\n\n\n\n\n\n\n\nAvertissement\n\n\nGestion des valeurs manquantes : les valeurs NULLd’un attribut forment un groupe dans la partition selon celui-ci."
   },
   {
     "objectID": "slides/SQL_3.html#utilisation-group-by",
@@ -795,14 +795,14 @@
     "href": "slides/SQL_3.html#fonctions-fenêtres",
     "title": "BD IV: SQL III",
     "section": "Fonctions fenêtres",
-    "text": "Fonctions fenêtres\nSoit f est une fonction d’agrégats (SUM, AVG, MAX, MIN, COUNT, etc.)\n\nf(...) OVER (PARTITION BY attribut),  \n\neffectue le calcul sur le groupe de lignes auquel appartient la ligne courante après un partitionnement selon attribut (la “fenêtre” de la ligne courante)."
+    "text": "Fonctions fenêtres\nSoit f est une fonction d’agrégation (SUM, AVG, MAX, MIN, COUNT, etc.)\n\nf(...) OVER (PARTITION BY attribut),  \n\neffectue le calcul sur le groupe de lignes auquel appartient la ligne courante après un partitionnement selon attribut (la “fenêtre” de la ligne courante)."
   },
   {
     "objectID": "slides/SQL_3.html#exemple-de-fonctions-fenêtres",
     "href": "slides/SQL_3.html#exemple-de-fonctions-fenêtres",
     "title": "BD IV: SQL III",
     "section": "Exemple de fonctions fenêtres",
-    "text": "Exemple de fonctions fenêtres\nPrésenter pour chaque pays dont la région comprend le motif Countries, l’espérance de vie du pays et les espérance de vie maximale et minimale des pays de la région.\n\n\nSELECT region, name_country, lifeexpectancy, \n     min(lifeexpectancy) OVER (PARTITION BY region),  \n     max(lifeexpectancy) OVER (PARTITION BY region)   \nFROM country \nWHERE region LIKE '%Countries'\nORDER BY region, lifeexpectancy  \nLIMIT 6 ;\n\n+------------------+-----------------+---------------+-----+-----+\n| Region           | Name of country |Life expectancy| min | max |\n+------------------+-----------------+---------------+-----+-----+\n| Baltic Countries | Latvia          |          68.4 | 68.4| 69.5|\n| Baltic Countries | Lithuania       |          69.1 | 68.4| 69.5|\n| Baltic Countries | Estonia         |          69.5 | 68.4| 69.5|\n| Nordic Countries | Denmark         |          76.5 | 76.5| 79.6|\n| Nordic Countries | Finland         |          77.4 | 76.5| 79.6|\n| Nordic Countries | Faroe Islands   |          78.4 | 76.5| 79.6|\n+------------------+-----------------+---------------+-----+-----+\n\n\n\n\n\n\nNote\n\n\nAvec des fonctions d’agrégats sur un partitionnement par GROUP BY region, il n’était pas possible d’afficher une ligne par pays."
+    "text": "Exemple de fonctions fenêtres\nPrésenter pour chaque pays dont la région comprend le motif Countries, l’espérance de vie du pays et les espérance de vie maximale et minimale des pays de la région.\n\n\nSELECT region, name_country, lifeexpectancy, \n     min(lifeexpectancy) OVER (PARTITION BY region),  \n     max(lifeexpectancy) OVER (PARTITION BY region)   \nFROM country \nWHERE region LIKE '%Countries'\nORDER BY region, lifeexpectancy  \nLIMIT 6 ;\n\n+------------------+-----------------+---------------+-----+-----+\n| Region           | Name of country |Life expectancy| min | max |\n+------------------+-----------------+---------------+-----+-----+\n| Baltic Countries | Latvia          |          68.4 | 68.4| 69.5|\n| Baltic Countries | Lithuania       |          69.1 | 68.4| 69.5|\n| Baltic Countries | Estonia         |          69.5 | 68.4| 69.5|\n| Nordic Countries | Denmark         |          76.5 | 76.5| 79.6|\n| Nordic Countries | Finland         |          77.4 | 76.5| 79.6|\n| Nordic Countries | Faroe Islands   |          78.4 | 76.5| 79.6|\n+------------------+-----------------+---------------+-----+-----+\n\n\n\n\n\n\nNote\n\n\nAvec des fonctions d’agrégation sur un partitionnement par GROUP BY region, il n’était pas possible d’afficher une ligne par pays."
   },
   {
     "objectID": "slides/SQL_3.html#sans-utiliser-over-...",
@@ -823,7 +823,7 @@
     "href": "slides/SQL_3.html#exemple-de-fonction-fenêtre-avec-une-clause-order-by",
     "title": "BD IV: SQL III",
     "section": "Exemple de fonction fenêtre avec une clause ORDER BY\n",
-    "text": "Exemple de fonction fenêtre avec une clause ORDER BY\n\nrow_number() : fonction d’agrégats qui retourne le numéro de la ligne dans la fenêtre.\n\nPour les pays d’Asie, lister la région, le nom du pays, le rang du pays dans sa région pour l’espérance de vie et le rang du pays dans sa région pour le PNB par habitant.\n\n\nSELECT region, name_country, \n  row_number() OVER (\n    PARTITION BY region   \n    ORDER BY lifeexpectancy DESC\n  ) AS rk_lifeexpectancy,\n  row_number() OVER (\n    PARTITION BY region   \n    ORDER BY gnp / population_country DESC\n  ) AS rk_gnp \nFROM world.country \nWHERE continent LIKE 'Asi%' and lifeexpectancy IS NOT NULL and gnp IS NOT NULL\nORDER BY region, lifeexpectancy DESC;\n\n\n\n\n\n\nAvertissement\n\n\nDans cette requête, il faut rejeter les valeurs NULL sinon le rang n’aurait pas de sens (ces lignes seraient en tête)."
+    "text": "Exemple de fonction fenêtre avec une clause ORDER BY\n\nrow_number() : fonction d’agrégation qui retourne le numéro de la ligne dans la fenêtre.\n\nPour les pays d’Asie, lister la région, le nom du pays, le rang du pays dans sa région pour l’espérance de vie et le rang du pays dans sa région pour le PNB par habitant.\n\n\nSELECT region, name_country, \n  row_number() OVER (\n    PARTITION BY region   \n    ORDER BY lifeexpectancy DESC\n  ) AS rk_lifeexpectancy,\n  row_number() OVER (\n    PARTITION BY region   \n    ORDER BY gnp / population_country DESC\n  ) AS rk_gnp \nFROM world.country \nWHERE continent LIKE 'Asi%' and lifeexpectancy IS NOT NULL and gnp IS NOT NULL\nORDER BY region, lifeexpectancy DESC;\n\n\n\n\n\n\nAvertissement\n\n\nDans cette requête, il faut rejeter les valeurs NULL sinon le rang n’aurait pas de sens (ces lignes seraient en tête)."
   },
   {
     "objectID": "slides/SQL_3.html#sommes-cumulées-par-groupes-selon-un-ordre",
@@ -935,7 +935,7 @@
     "href": "slides/SQL_3.html#portrait-robot-dune-requête",
     "title": "BD IV: SQL III",
     "section": "Portrait robot d’une requête",
-    "text": "Portrait robot d’une requête\nSELECT &lt;attributs&gt;           -- les colonnes de la table résultat\n\nFROM &lt;relations&gt;             -- la/les table/s qui émettent les données\n\n[WHERE &lt;condition&gt; ]         -- filtre\n\n[GROUP BY &lt;attributs de partitionnement&gt;   -- découpage en groupes\n\n[HAVING &lt;condition&gt;]]      -- filtrage des groupes\n\n[ORDER BY &lt;critere&gt;]       -- trier \n\n\nSELECT : attributs du résultat (avec agrégats éventuels)\n\nWHERE : condition de sélection indépendante du GROUP BY\n\n\nHAVING : condition de sélection portant sur les groupes"
+    "text": "Portrait robot d’une requête\nSELECT &lt;attributs&gt;           -- les colonnes de la table résultat\n\nFROM &lt;relations&gt;             -- la/les table/s qui émettent les données\n\n[WHERE &lt;condition&gt; ]         -- filtre\n\n[GROUP BY &lt;attributs de partitionnement&gt;   -- découpage en groupes\n\n[HAVING &lt;condition&gt;]]      -- filtrage des groupes\n\n[ORDER BY &lt;critere&gt;]       -- trier \n\n\nSELECT : attributs du résultat (avec agrégations éventuelles)\n\nWHERE : condition de sélection indépendante du GROUP BY\n\n\nHAVING : condition de sélection portant sur les groupes"
   },
   {
     "objectID": "slides/SQL_3.html#ordre-dexécution-des-éléments-dune-requête",
@@ -3865,5 +3865,40 @@
     "title": "BD IV: SQL III",
     "section": "Exemple avec CUBE\n",
     "text": "Exemple avec CUBE\n\n\n\n\nSELECT continent, region, governmentform, \n       count(*) AS cnt, \n       max(lifeexpectancy)\nFROM country c \nWHERE continent LIKE '%America'\nGROUP BY CUBE (continent,region,governmentform)\nHAVING COUNT(*) &gt; 5;\n\n\n|continent    |region         |governmentform               |cnt|max |\n|-------------|---------------|-----------------------------|---|----|\n|             |               |                             |51 |79,4|\n|South America|South America  |Republic                     |9  |75,7|\n|North America|Central America|Republic                     |6  |75,8|\n|North America|Caribbean      |Constitutional Monarchy      |8  |75,2|\n|North America|Caribbean      |                             |24 |78,9|\n|South America|South America  |                             |14 |76,1|\n|North America|Central America|                             |8  |75,8|\n|South America|               |                             |14 |76,1|\n|North America|               |                             |37 |79,4|\n|             |Caribbean      |Constitutional Monarchy      |8  |75,2|\n|             |South America  |Republic                     |9  |75,7|\n|             |Central America|Republic                     |6  |75,8|\n|             |South America  |                             |14 |76,1|\n|             |Central America|                             |8  |75,8|\n|             |Caribbean      |                             |24 |78,9|\n|North America|               |Constitutional Monarchy      |9  |75,2|\n|North America|               |Republic                     |10 |75,8|\n|South America|               |Republic                     |9  |75,7|\n|North America|               |Dependent Territory of the UK|6  |78,9|\n|             |               |Republic                     |19 |75,8|\n|             |               |Constitutional Monarchy      |9  |75,2|\n|             |               |Dependent Territory of the UK|7  |78,9|"
+  },
+  {
+    "objectID": "slides/SQL_3.html#options-all-et-distinct-des-fonctions-dagrégation",
+    "href": "slides/SQL_3.html#options-all-et-distinct-des-fonctions-dagrégation",
+    "title": "BD IV: SQL III",
+    "section": "Options ALL et DISTINCT des fonctions d’agrégation",
+    "text": "Options ALL et DISTINCT des fonctions d’agrégation\nCes options sont disponibles pour toutes les fonctions\nmais sont surtout utiles pour COUNT :\n\nALL, option par défaut : toutes les valeurs de la colonne sont utilisées,\nDISTINCT : les valeurs doublons ne sont utilisées qu’une fois."
+  },
+  {
+    "objectID": "slides/SQL_3.html#fonction-dagrégation-sur-des-valeurs-toutes-null",
+    "href": "slides/SQL_3.html#fonction-dagrégation-sur-des-valeurs-toutes-null",
+    "title": "BD IV: SQL III",
+    "section": "Fonction d’agrégation sur des valeurs toutes NULL\n",
+    "text": "Fonction d’agrégation sur des valeurs toutes NULL\n\n\n\n\n\n\n\nAvertissement\n\n\nQue se passe-t-il si, après une éventuelle sélection, toutes les valeurs de du calcul d’agrégat sont NULL ?\nLa valeur calculée est alors NULL, ce qui signifie “pas de valeur”.\nEssayez SELECT MIN(gnpold) FROM country WHERE gnpold IS NULL; !"
+  },
+  {
+    "objectID": "slides/SQL_3.html#fonction-dagrégation-sur-une-table-vide",
+    "href": "slides/SQL_3.html#fonction-dagrégation-sur-une-table-vide",
+    "title": "BD IV: SQL III",
+    "section": "Fonction d’agrégation sur une table vide",
+    "text": "Fonction d’agrégation sur une table vide\n\n\n\n\n\n\nAvertissement\n\n\nLes fonctions d’agrégation renvoie un scalaire même sur une table vide.\nPour une table vide, la valeur calculée est NULL.\n\n\n\n\nSELECT \n  SUM(population) AS urban_pop\nFROM city  ci\nWHERE ci.countrycode = 'zzz' ;\n\n\n+-----------+\n| urban_pop |\n|-----------|\n| &lt;null&gt;    |\n+-----------+\nEst-ce cohérent?\nLe résultat signifie : “Pour le pays de code ‘zzz’, pas de données”"
+  },
+  {
+    "objectID": "slides/SQL_3.html#opérations-sur-des-fonctions-dagrégation",
+    "href": "slides/SQL_3.html#opérations-sur-des-fonctions-dagrégation",
+    "title": "BD IV: SQL III",
+    "section": "Opérations sur des fonctions d’agrégation",
+    "text": "Opérations sur des fonctions d’agrégation\nPNB moyen par habitant du continent South America\nSELECT \n  ROUND(SUM(1e6*gnp)/SUM(population_country),2) as pnb_avg\nFROM \n  country \nWHERE \n  continent = 'South America';\nRésultat : 4372,36\n\n\n\n\n\n\nNote\n\n\n\\(10^6\\) s’écrit 1e6. On a écrit 1e6*gnp car gnp est exprimé en millions de USD.\nROUND(x,s) effectue un arrondi de x avec s chiffres après la virgule. s négatif accepté.\nDocumentation des fonctions mathématiques"
+  },
+  {
+    "objectID": "slides/SQL_3.html#fonctions-dagrégation-sur-des-opérations",
+    "href": "slides/SQL_3.html#fonctions-dagrégation-sur-des-opérations",
+    "title": "BD IV: SQL III",
+    "section": "Fonctions d’agrégation sur des opérations",
+    "text": "Fonctions d’agrégation sur des opérations\n\n\n\n\n\n\nNote\n\n\nLes fonctions d’agrégation peuvent s’appliquer à des opérations arithmétiques entre les différents attributs d’un même tuple…\n\n\n\n\nMoyenne des PNB/habitant des pays du continent ‘South America’. A ne pas confondre avec la requête précédente !\nSELECT \n  ROUND(AVG(1e6*gnp/population_country),2) as pnb_country_avg\nFROM country \nWHERE \n  continent = 'South America' AND population_country &gt; 0 ;\n-- Le test population_country &gt; 0 évite les divisions par 0\nRésultat : 3176,44"
   }
 ]
