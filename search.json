@@ -3966,5 +3966,27 @@
       "Support",
       "Client dbeaver"
     ]
+  },
+  {
+    "objectID": "computing-dbeaver.html#paramétrage-pour-éviter-lerreur-fatal-too-many-connections",
+    "href": "computing-dbeaver.html#paramétrage-pour-éviter-lerreur-fatal-too-many-connections",
+    "title": "Client dbeaver",
+    "section": "Paramétrage pour éviter l’erreur FATAL: too many connections",
+    "text": "Paramétrage pour éviter l’erreur FATAL: too many connections\nPar défaut, Dbeaver crée une connexion par fenêtre de l’éditeur SQL. Si vous ne modifiez pas ce paramètre, votre compte sera bloqué rapidement par une erreur FATAL: too many connections car vous aurez atteint le nombre maximum de connexions auquel vous avez droit.\nLors de votre première utilisation du client, il faut modifier ce paramètre en sélectionnant dans la barre de menu Editeur SQL-&gt;Open separate connection-&gt;never.",
+    "crumbs": [
+      "Support",
+      "Client dbeaver"
+    ]
+  },
+  {
+    "objectID": "computing-dbeaver.html#survol",
+    "href": "computing-dbeaver.html#survol",
+    "title": "Client dbeaver",
+    "section": "Survol",
+    "text": "Survol\n Explorer les possibilités du client dBeaver\n\n\n\n\n\n\nTipOuvrir un tunnel ssh\n\n\n\nVous utiliserez dBeaver pour interroger le serveur Postgre via un tunnel ssh. Pour établir ce tunnel reportez-vous à la page Connexion au serveur",
+    "crumbs": [
+      "Support",
+      "Client dbeaver"
+    ]
   }
 ]
