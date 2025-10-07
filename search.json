@@ -634,7 +634,7 @@
     "href": "slides/SQL_3.html#fonctions-de-calcul-count",
     "title": "BD IV: SQL III",
     "section": "Fonctions de calcul : COUNT\n",
-    "text": "Fonctions de calcul : COUNT\n\nOn peut aussi compter le nombre de tuples d’une table :\nSELECT \n  COUNT(* |[ALL | DISTINCT] &lt;nomattribut&gt;)  \nFROM T\n\n\n\n\n\n\n\nNote\n\n\nOptions de la fonction COUNT :\n\n\n* : compte le nombre de lignes dans la table ou la sous-requête, en incluant les valeurs NULL.\n\nDISTINCT : sans les doublons et sans les valeurs NULL,\n\nALL : avec les doublons mais sans les valeurs NULL,\n\nSi la table est vide, COUNT renvoie 0.\n\n\n\n\nNombre de pays dans la région Carribean\nSELECT COUNT(*)  \nFROM country\nWHERE region = 'Caribbean'; \n\n\nLe symbole | est utilisé pour indiquer une alternative, [ ] pour une option."
+    "text": "Fonctions de calcul : COUNT\n\nOn peut aussi compter le nombre de tuples d’une table :\nSELECT \n  COUNT(* |[ALL | DISTINCT] &lt;nomattribut&gt;)  \nFROM T\n-- | pour indiquer une alternative, [ ] pour une option.\n\n\n\n\n\n\nNote\n\n\nOptions de la fonction COUNT :\n\n\n* : compte le nombre de lignes dans la table ou la sous-requête, en incluant les valeurs NULL.\n\nDISTINCT : sans les doublons et sans les valeurs NULL,\n\nALL : avec les doublons mais sans les valeurs NULL,\n\nSi la table est vide, COUNT renvoie 0.\n\n\n\n\nNombre de pays dans la région Carribean\nSELECT COUNT(*)  \nFROM country\nWHERE region = 'Caribbean';"
   },
   {
     "objectID": "slides/SQL_3.html#exemples-dutilisation-des-options-de-la-fonction-count",
@@ -669,21 +669,21 @@
     "href": "slides/SQL_3.html#gestion-des-valeurs-manquantes-avec-case-when-...then-...-else-...",
     "title": "BD IV: SQL III",
     "section": "Gestion des valeurs manquantes avec CASE WHEN ...THEN ... ELSE ...\n",
-    "text": "Gestion des valeurs manquantes avec CASE WHEN ...THEN ... ELSE ...\n\nSELECT \n  AVG(\n    CASE \n      WHEN gnpold IS NOT NULL THEN gnpold \n      else 0 \n    END)::NUMERIC(8,2) AS avg_gnpold \n FROM world.country \n WHERE continent = 'Europe';\nRetourne 203956,54\nSELECT \n  AVG(gnpold)::NUMERIC(8,2) AS avg_gnpold \n FROM world.country \n WHERE continent = 'Europe';\nRetourne 260611,14"
+    "text": "Gestion des valeurs manquantes avec CASE WHEN ...THEN ... ELSE ...\n\nSELECT \n  AVG(\n    CASE \n      WHEN gnpold IS NOT NULL THEN gnpold \n      ELSE 0 \n    END)::NUMERIC(8,2) AS avg_gnpold \n FROM world.country \n WHERE continent = 'Europe';\nRetourne 203956,54\nSELECT \n  AVG(gnpold)::NUMERIC(8,2) AS avg_gnpold \n FROM world.country \n WHERE continent = 'Europe';\nRetourne 260611,14"
   },
   {
     "objectID": "slides/SQL_3.html#autres-possibilités-avec-case-when-...then-...-else-...",
     "href": "slides/SQL_3.html#autres-possibilités-avec-case-when-...then-...-else-...",
     "title": "BD IV: SQL III",
     "section": "Autres possibilités avec CASE WHEN ...THEN ... ELSE ...\n",
-    "text": "Autres possibilités avec CASE WHEN ...THEN ... ELSE ...\n\nSELECT \n  SUM(CASE \n    WHEN governmentform LIKE '%Monarchy%' THEN population_COUNTRY \n    ELSE 0 \n  END) AS pop_monarch,  \n  SUM(CASE \n    WHEN governmentform LIKE '%Republic%' THEN population_COUNTRY \n    ELSE 0 \n  END) AS pop_repu \nFROM country ;\n+-------------+------------+\n| pop_monarch | pop_repu   |\n|-------------+------------|\n| 519485000   | 5502453700 |\n+-------------+------------+"
+    "text": "Autres possibilités avec CASE WHEN ...THEN ... ELSE ...\n\nSELECT \n  SUM(CASE \n    WHEN governmentform LIKE '%Monarchy%' THEN population_COUNTRY \n    ELSE 0    -- résultat identique si on enlève cette ligne\n  END) AS pop_monarch,  \n  SUM(CASE \n    WHEN governmentform LIKE '%Republic%' THEN population_COUNTRY \n    ELSE 0   -- résultat identique si on enlève cette ligne\n  END) AS pop_repu \nFROM country ;\n+-------------+------------+\n| pop_monarch | pop_repu   |\n|-------------+------------|\n| 519485000   | 5502453700 |\n+-------------+------------+"
   },
   {
     "objectID": "slides/SQL_3.html#agrégats-sur-des-données-filtrées-filter-where-condition",
     "href": "slides/SQL_3.html#agrégats-sur-des-données-filtrées-filter-where-condition",
     "title": "BD IV: SQL III",
     "section": "Agrégats sur des données filtrées FILTER (WHERE condition)\n",
-    "text": "Agrégats sur des données filtrées FILTER (WHERE condition)\n\n\n\nSELECT \n  SUM(population_country) FILTER  \n    (WHERE governmentform LIKE '%Monarchy%') AS pop_monarch,  \n  SUM(population_country) FILTER \n    (WHERE governmentform LIKE '%Republic%') AS pop_repu \nFROM country ;\n\n+-------------+------------+\n| pop_monarch | pop_repu   |\n|-------------+------------|\n| 519485000   | 5502453700 |\n+-------------+------------+\n\n\n\n\n\n\n\n\nMise en garde\n\n\nIl est plus conforme à l’algèbre relationnelle et au SQL d’organiser les données en lignes.\n\n\n\n\n\nSELECT 'Monarchy' as governmentform, SUM(population_country) as population    \nFROM world.country c\nWHERE c.governmentform LIKE '%Monarchy%'\nUNION\nSELECT 'Republic' as governmentform, SUM(population_country) as population    \nFROM world.country c\nWHERE c.governmentform LIKE '%Republic%';\n\n+----------------+------------+\n| governmentform | population |\n|----------------+------------|\n| Monarchy       |  519485000 |\n|----------------+------------|\n| Republic       | 5502453700 |\n+----------------+------------+"
+    "text": "Agrégats sur des données filtrées FILTER (WHERE condition)\n\nAvec une clause FILTER, la fonction d’agrégation n’utilise que les tuples vérifiant la condition.\n\n\nSELECT \n  SUM(population_country) FILTER  \n    (WHERE governmentform LIKE '%Monarchy%') AS pop_monarch,  \n  SUM(population_country) FILTER \n    (WHERE governmentform LIKE '%Republic%') AS pop_repu \nFROM country ;\n\n+-------------+------------+\n| pop_monarch | pop_repu   |\n|-------------+------------|\n| 519485000   | 5502453700 |\n+-------------+------------+\n\n\n\n\n\n\n\n\nMise en garde\n\n\nIl est plus conforme à l’algèbre relationnelle et au SQL d’organiser les données en lignes.\n\n\n\n\n\nSELECT 'Monarchy' as governmentform, SUM(population_country) as population    \nFROM world.country c\nWHERE c.governmentform LIKE '%Monarchy%'\nUNION\nSELECT 'Republic' as governmentform, SUM(population_country) as population    \nFROM world.country c\nWHERE c.governmentform LIKE '%Republic%';\n\n+----------------+------------+\n| governmentform | population |\n|----------------+------------|\n| Monarchy       |  519485000 |\n|----------------+------------|\n| Republic       | 5502453700 |\n+----------------+------------+"
   },
   {
     "objectID": "slides/SQL_3.html#problèmes-defficacité",
@@ -3988,5 +3988,26 @@
       "Support",
       "Client dbeaver"
     ]
+  },
+  {
+    "objectID": "slides/SQL_3.html#utilisation-de-case-when-...then-...-else-...-end",
+    "href": "slides/SQL_3.html#utilisation-de-case-when-...then-...-else-...-end",
+    "title": "BD IV: SQL III",
+    "section": "Utilisation de CASE WHEN ...THEN ... [ELSE ...] END\n",
+    "text": "Utilisation de CASE WHEN ...THEN ... [ELSE ...] END\n\nDans une fonction d’agrégation, une expression CASE WHEN teste des conditions sur le tuple courant et renvoie la valeur correspondant à la première condition vraie.\nCASE\n    WHEN condition1 THEN result1\n    [WHEN condition2 THEN result2]\n    [WHEN conditionN THEN resultN]\n    [ELSE result]\nEND;\n\n\n\n\n\n\nAvertissement\n\n\nSi aucune condition n’est vraie et qu’il n’y pas de clause ELSE, CASE retourne NULL.\n\n\n\nSELECT \n  SUM(\n    CASE \n      WHEN countrycode='GBR' THEN population \n    END) AS urban_pop \n FROM city ;\n+-----------+\n| urban_pop |\n|-----------|\n| 22436673  |\n+-----------+"
+  },
+  {
+    "objectID": "slides/SQL_3.html#gestion-des-valeurs-manquantes-avec-case-when-...then-...-else-...-end",
+    "href": "slides/SQL_3.html#gestion-des-valeurs-manquantes-avec-case-when-...then-...-else-...-end",
+    "title": "BD IV: SQL III",
+    "section": "Gestion des valeurs manquantes avec CASE WHEN ...THEN ... [ELSE ...] END\n",
+    "text": "Gestion des valeurs manquantes avec CASE WHEN ...THEN ... [ELSE ...] END\n\nSELECT \n  AVG(\n    CASE \n      WHEN gnpold IS NOT NULL THEN gnpold \n      ELSE 0 \n    END)::NUMERIC(8,2) AS avg_gnpold \n FROM world.country \n WHERE continent = 'Europe';\nRetourne 203956,54\nSELECT \n  AVG(gnpold)::NUMERIC(8,2) AS avg_gnpold \n FROM world.country \n WHERE continent = 'Europe';\nRetourne 260611,14"
+  },
+  {
+    "objectID": "slides/SQL_3.html#autres-possibilités-avec-case-when-...then-...-else-...-end",
+    "href": "slides/SQL_3.html#autres-possibilités-avec-case-when-...then-...-else-...-end",
+    "title": "BD IV: SQL III",
+    "section": "Autres possibilités avec CASE WHEN ...THEN ... [ELSE ...] END\n",
+    "text": "Autres possibilités avec CASE WHEN ...THEN ... [ELSE ...] END\n\nSELECT \n  SUM(CASE \n    WHEN governmentform LIKE '%Monarchy%' THEN population_COUNTRY \n    ELSE 0    -- résultat identique si on enlève cette ligne\n  END) AS pop_monarch,  \n  SUM(CASE \n    WHEN governmentform LIKE '%Republic%' THEN population_COUNTRY \n    ELSE 0   -- résultat identique si on enlève cette ligne\n  END) AS pop_repu \nFROM country ;\n+-------------+------------+\n| pop_monarch | pop_repu   |\n|-------------+------------|\n| 519485000   | 5502453700 |\n+-------------+------------+"
   }
 ]
