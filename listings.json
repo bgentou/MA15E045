@@ -2,5 +2,22 @@
   {
     "listing": "/slides-listings.html",
     "items": []
+  },
+  {
+    "listing": "/td-listings.html",
+    "items": [
+      "/workshops/td1.html",
+      "/workshops/td2.html",
+      "/workshops/td3.html",
+      "/workshops/td4.html",
+      "/workshops/td5.html",
+      "/workshops/td6.html",
+      "/workshops/td7.html",
+      "/workshops/td8.html",
+      "/workshops/td9.html",
+      "/workshops/td10.html",
+      "/workshops/td11.html",
+      "/workshops/td-recap-sql.html"
+    ]
   }
 ]
