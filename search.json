@@ -1218,7 +1218,7 @@
     "href": "workshops/td4.html",
     "title": "TD 4 : SQL",
     "section": "",
-    "text": "WarningAvec solutions\nDocumentation Postgres\nDocumentation Postgres en Français"
+    "text": "L3 MIASHS\n\n\nUniversité Paris Cité\n\n\nAnnée 2025\n\n\nCourse Homepage\n\n\nMoodle\nDocumentation Postgres\nDocumentation Postgres en Français"
   },
   {
     "objectID": "workshops/td4.html#count",
@@ -1232,7 +1232,7 @@
     "href": "workshops/td4.html#sum-max-min-avg",
     "title": "TD 4 : SQL",
     "section": "Sum, Max, Min, Avg",
-    "text": "Sum, Max, Min, Avg\nUne autre fonction importante est la fonction SUM(col) qui effectue la somme des valeurs (numériques) d’une colonne :\nSELECT SUM(population_country)\nFROM world.country;\nrenvoie la population mondiale.\nOn peut de même utiliser GROUP BY pour faire des paquets :\nSELECT \n  continent, SUM(population_country)\nFROM \n  world.country\nGROUP BY continent;\nrenvoie la population de chaque continent.\nOn peut même faire des opérations sur la colonne à l’intérieur de SUM. Par exemple: SUM(percentage/100).\n\n\n\n\n\n\nNoteQuestion\n\n\n\n\nÉcrire une requête qui renvoie le nombre de langues officielles par pays\n\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nPresque correct :\nWITH s AS(\n    SELECT L.countrycode, sum(CAST (isofficial AS INTEGER)) AS nb_lg_official\n    FROM  world.countrylanguage as L\n    GROUP BY L.countrycode)\nSELECT s.*, c.name_country\nFROM world.country c JOIN s USING (countrycode)\nORDER BY s.nb_lg_official, s.countrycode;\nMais on a perdu les pays qui n’apparaissent pas dans la table countrylanguage. Pour y remédier, il faut faire une jointure gauche et faire un CASE WHEN pour gérer les valeurs NULL. Ici, les valeurs NULL entrent dans le cas par défaut ELSE.\nSELECT c.countrycode, c.name_country, SUM(CASE WHEN cl.isofficial THEN 1 ELSE 0 END) AS nb_lg_official\nFROM world.country c LEFT JOIN world.countrylanguage cl USING (countrycode)\nGROUP BY c.countrycode, c.name_country\nORDER BY nb_lg_official, c.countrycode;\nAu final, compter en faisant une somme n’est pas la meilleure idée."
+    "text": "Sum, Max, Min, Avg\nUne autre fonction importante est la fonction SUM(col) qui effectue la somme des valeurs (numériques) d’une colonne :\nSELECT SUM(population_country)\nFROM world.country;\nrenvoie la population mondiale.\nOn peut de même utiliser GROUP BY pour faire des paquets :\nSELECT \n  continent, SUM(population_country)\nFROM \n  world.country\nGROUP BY continent;\nrenvoie la population de chaque continent.\nOn peut même faire des opérations sur la colonne à l’intérieur de SUM. Par exemple: SUM(percentage/100).\n\n\n\n\n\n\nNoteQuestion\n\n\n\n\nÉcrire une requête qui renvoie le nombre de langues officielles par pays"
   },
   {
     "objectID": "workshops/td6.html",
