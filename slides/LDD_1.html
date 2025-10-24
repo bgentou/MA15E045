@@ -257,8 +257,6 @@
 <li>Les <em>contraintes</em> décrivent des propriétés que devront vérifier toutes les mises en oeuvre (instances) du schéma <em>durant toute sa durée de vie</em>
 </li>
 </ul>
-<p><i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> La définition d’un schéma de base ne s’arrête pas à la définition des tables, des colonnes et des types des colonnes</p>
-<p>Les <em>contraintes</em> décrivent des propriétés que devront vérifier toutes les mises en oeuvre (instances) du schémas <em>durant toute leur durée de vie</em></p>
 <p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Pour spécifier une <em>contrainte</em>, il suffit de préciser que le résultat d’une certaine requête doit toujours être vide</p>
 </div>
 </section><section id="famille-de-contraintes" class="slide level2 center"><h2>Famille de contraintes</h2>
@@ -284,8 +282,7 @@
 </li>
 </ul>
 </div>
-<div class="fragment">
-<ul>
+</section><section class="slide level2 center"><ul>
 <li>
 <p>Contraintes de table</p>
 <ul>
@@ -300,7 +297,6 @@
 </ul>
 </li>
 </ul>
-</div>
 <div class="fragment">
 <ul>
 <li>Contraintes multi-tables
@@ -333,7 +329,6 @@
 </div>
 </section><section id="consulter-la-liste-des-types" class="slide level2 center"><h2>Consulter la liste des types</h2>
 <p><a href="https://docs.postgresql.fr/docs/current/datatype.html" target="_blank">https://docs.postgresql.fr/docs/current/datatype.html</a></p>
-<p>Il faut essayer d’utiliser ces types pour préciser les contenus des colonnes</p>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -375,12 +370,13 @@
 </section><section id="exemple" class="slide level2 center"><h2>Exemple</h2>
 <p>Dans un tuple de <code>Piece</code>, on devrait toujours avoir une valeur du prix positive.</p>
 <p>On peut imposer cela en ajoutant au schéma de la table <code>Piece</code> une contrainte de type <code>CHECK</code></p>
-</section><section id="exemple-suite" class="slide level2 center"><h2>Exemple (suite)</h2>
+<div class="fragment">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> piece(</span>
 <span id="cb1-2"><a></a>    nomp <span class="dt">VARCHAR</span>(<span class="dv">20</span>),</span>
 <span id="cb1-3"><a></a>    prix MONEY <span class="kw">CHECK</span> (prix<span class="op">&gt;=</span> <span class="dv">0</span>:<span class="ch">:money</span>), </span>
 <span id="cb1-4"><a></a>    couleur <span class="dt">VARCHAR</span>(<span class="dv">15</span>)</span>
 <span id="cb1-5"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -448,9 +444,9 @@
 </div>
 </section><section id="valeurs-nulles-et-contraintes-de-tuple" class="slide level2 center"><h2>
 <i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> Valeurs nulles et contraintes de tuple</h2>
-<p>Les contraintes <code>CHECK</code> sont satisfaites si l’expression associée vaut <code>TRUE</code> ou <code>NULL</code></p>
+<p>Les contraintes <code>CHECK</code> sont satisfaites si l’expression associée vaut <code>TRUE</code> ou <code>UNKNOWN</code></p>
 <div class="fragment">
-<p>Comme une expression composée vaut parfois <code>NULL</code> si l’un des opérandes vaut lui-même <code>NULL</code>, les contraintes <code>CHECK</code> ne suffisent pas à prévenir l’insertion de valeurs nulles</p>
+<p>Comme une expression composée vaut parfois <code>UNKNOWN</code> si l’un des opérandes vaut lui-même <code>NULL</code>, les contraintes <code>CHECK</code> ne suffisent pas à prévenir l’insertion de valeurs nulles</p>
 </div>
 <div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -482,7 +478,7 @@
 <p>La présence possible des valeurs nulles rend beaucoup d’opérations complexes</p>
 <p>Il faut avoir en tête que en <code>SQL</code>,</p>
 <ul>
-<li><p>les booléens peuvent avoir trois valeurs : <code>TRUE, FALSE</code> et <code>NULL</code> et que</p></li>
+<li><p>on utilise une logique trivalente : <code>TRUE, FALSE</code> et <code>UNKNOWN</code>,</p></li>
 <li><p>le fait qu’une expression ne vaille pas <code>FALSE</code> ne veut pas dire qu’elle vaut <code>TRUE</code> …</p></li>
 </ul>
 </div>
@@ -511,7 +507,8 @@
 <ul>
 <li><p>Les contraintes d’unicité garantissent l’unicité des données contenues dans une colonne ou un groupe de colonnes par rapport à toutes les lignes de la table</p></li>
 <li><p>C’est une <em>contrainte de table</em> puisqu’elle fait intervenir tous les tuples de la table</p></li>
-</ul></section><section class="slide level2 center"><div class="cell">
+</ul></section><section id="exemple-de-contrainte-dunicité" class="slide level2 center"><h2>Exemple de contrainte d’unicité</h2>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-code-line-numbers="|2"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> piece(</span>
 <span id="cb7-2"><a></a>    nomp <span class="dt">VARCHAR</span>(<span class="dv">20</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">UNIQUE</span>,  </span>
 <span id="cb7-3"><a></a>    prix money <span class="kw">CHECK</span> (prix<span class="op">&gt;=</span> <span class="dv">0</span>:<span class="ch">:money</span>),</span>
@@ -557,7 +554,8 @@
 <p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
-<p>Une contrainte de type <em>clef primaire</em> indique qu’une colonne, ou un groupe de colonnes, peuvent être utilisée comme un <em>identifiant</em> unique de ligne pour cette table.</p>
+<p>Une contrainte de type <em>clef primaire</em> indique qu’une colonne, ou un groupe de colonnes, peut être utilisée comme <em>identifiant</em> unique de ligne pour cette table.</p>
+<p><i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> Une table a au plus une clef primaire</p>
 </div>
 </div>
 </div>
@@ -592,11 +590,8 @@
 <span id="cb10-4"><a></a>    <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (nomf, villef)  </span>
 <span id="cb10-5"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
-
 </div>
-<aside><div>
-<p><i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> Une table a au plus une clef primaire</p>
-</div></aside></section></section><section><section id="clef-étrangère" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Clef étrangère</h1>
+</section></section><section><section id="clef-étrangère" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Clef étrangère</h1>
 
 </section><section id="clef-étrangère-1" class="slide level2 center"><h2>Clef étrangère</h2>
 <ul>
@@ -614,13 +609,11 @@
 </div><div class="column">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> piece(</span>
 <span id="cb12-2"><a></a>    nomp <span class="dt">VARCHAR</span>(<span class="dv">20</span>) <span class="kw">PRIMARY</span> <span class="kw">KEY</span>,</span>
-<span id="cb12-3"><a></a>    prix MONEY <span class="kw">CHECK</span> </span>
-<span id="cb12-4"><a></a>        (prix<span class="op">&gt;=</span> <span class="dv">0</span>:<span class="ch">:MONEY</span>),</span>
-<span id="cb12-5"><a></a>    prix_promo MONEY <span class="kw">CHECK</span> </span>
-<span id="cb12-6"><a></a>        (prix_promo <span class="op">&gt;=</span> <span class="dv">0</span>:<span class="ch">:MONEY</span>),</span>
-<span id="cb12-7"><a></a>    couleur <span class="dt">VARCHAR</span>(<span class="dv">15</span>),</span>
-<span id="cb12-8"><a></a>    <span class="kw">CHECK</span> (prix <span class="op">&gt;</span> prix_promo)</span>
-<span id="cb12-9"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-3"><a></a>    prix MONEY <span class="kw">CHECK</span> (prix<span class="op">&gt;=</span> <span class="dv">0</span>:<span class="ch">:MONEY</span>),</span>
+<span id="cb12-4"><a></a>    prix_promo MONEY <span class="kw">CHECK</span> (prix_promo <span class="op">&gt;=</span> <span class="dv">0</span>:<span class="ch">:MONEY</span>),</span>
+<span id="cb12-5"><a></a>    couleur <span class="dt">VARCHAR</span>(<span class="dv">15</span>),</span>
+<span id="cb12-6"><a></a>    <span class="kw">CHECK</span> (prix <span class="op">&gt;</span> prix_promo)</span>
+<span id="cb12-7"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section><section id="clef-étrangère-references" class="slide level2 center"><h2>Clef étrangère : REFERENCES</h2>
 <ul>
@@ -644,15 +637,10 @@
 <span id="cb13-7"><a></a>);</span>
 <span id="cb13-8"><a></a> </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="fragment">
-
-</div>
-<aside><div>
-<ul>
+</section><section class="slide level2 center"><ul>
 <li><p>Il est désormais impossible de créer des livraisons pour lesquelles les valeurs non <code>NULL</code> de <code>nomp</code> n’apparaissent pas dans la table <code>piece</code> et les valeurs non <code>NULL</code> de <code>idf</code> n’apparaissent pas dans la table <code>fournisseur</code></p></li>
 <li><p>On dit que la table des livraisons est la table qui référence et la table des pièces est la table référencée</p></li>
-</ul>
-</div></aside></section><section id="définition-de-world.countrylanguage" class="slide level2 center"><h2>Définition de <code>world.countrylanguage</code>
+</ul></section><section id="définition-de-world.countrylanguage" class="slide level2 center"><h2>Définition de <code>world.countrylanguage</code>
 </h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a></a><span class="op">+</span><span class="co">-------------+--------------+-------------+</span></span>
 <span id="cb14-2"><a></a>| <span class="kw">Column</span>      | <span class="kw">Type</span>         | Modifiers   |</span>
