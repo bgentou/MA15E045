@@ -64,9 +64,9 @@ Présentation de la partie `film` du schéma `pagila`, pour l'entrainement à Po
 
 Description de quelques  tables from the `pagila` database, spécifiquement les tables liées au catalogue de filmss (sans considérer les tables liées au fichier client, à la gestion des locations, aux magasins).
 
-[Pagemaison de la base de données  `pagila`](https://github.com/devrimgunduz/pagila). 
+[Pagemaison de la base de données  `pagila`](https://github.com/devrimgunduz/pagila){target="_blank"}. 
 
-[Pagemaison de la base de données  `sakila`](https://dev.mysql.com/doc/sakila/en/)
+[Pagemaison de la base de données  `sakila`](https://dev.mysql.com/doc/sakila/en/){target="_blank"}
 
 
 

@@ -10,7 +10,7 @@ Guide pour utiliser le client `pgcli` avec un tunnel `ssh`
 
 # Installer `pgcli`
 
-À partir de [pgcli.com](https://www.pgcli.com)
+À partir de [pgcli.com](https://www.pgcli.com){target="_blank"}
 
 
 # Utiliser `pgcli`
@@ -156,10 +156,10 @@ Choose 1-4 [1]: 3
 
 ### Jetez un oeil sur les `named queries`
 
-[Documentation](https://www.pgcli.com/named_queries.md)
+[Documentation](https://www.pgcli.com/named_queries.md){target="_blank"}
 
 :::
 
 # Documentation
 
-[Documentation `pgcli`](https://www.pgcli.com/docs)
+[Documentation `pgcli`](https://www.pgcli.com/docs){target="_blank"}

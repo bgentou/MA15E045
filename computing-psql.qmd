@@ -11,7 +11,7 @@ Guide pour utiliser le client `psql` avec un tunnel `ssh`
 
 # Installer `psql`
 
-À partir de [Télécharger le fichier d'installation](https://www.postgresql.org/download/).
+À partir de [Télécharger le fichier d'installation](https://www.postgresql.org/download/){target="_blank"}.
 
 Le fichier d'installation contient l'installation du serveur et d'un outil d'administration du serveur.
 
@@ -153,4 +153,4 @@ Choose 1-4 [1]: 3
 # Documentation
 
 
-[Documentation `psql`](https://www.postgresql.org/docs/current/app-psql.html))
+[Documentation `psql`](https://www.postgresql.org/docs/current/app-psql.html){target="_blank"})

@@ -13,7 +13,7 @@ format:
 
 # Données ? {background-color="#1c191c"}
 
-## Situation du cours Bases de Données (MA15E045) dans la [Licence MIASHS](https://licence.math.u-paris.fr/formations/miashs/)
+## Situation du cours Bases de Données (MA15E045) dans la [Licence MIASHS](https://licence.math.u-paris.fr/formations/miashs/){target="_blank"}
 
 - Troisième cours tourné vers l'informatique 
   - *Initiation* (L1, S1)
@@ -95,9 +95,9 @@ format:
 ![[*Data humanities with R.* Arnold and Tilton](https://humanitiesdata.org)](/images/arnoldtiltoncover.jpg){height="300px"}
 
 [*Quantitative tour at social sciences* edited by Gelman and Cortina, 2009](
-https://doi.org/10.1017/CBO9780511818851)
+https://doi.org/10.1017/CBO9780511818851){target="_blank"}
  
-{{< fa brands slideshare >}} [Relational databses on slideshare](https://www.slideshare.net/search?searchfrom=header&q=relational+databases)
+{{< fa brands slideshare >}} [Relational databses on slideshare](https://www.slideshare.net/search?searchfrom=header&q=relational+databases){target="_blank"}
 
 
 :::
@@ -534,17 +534,17 @@ tables : l'*algèbre relationnelle* (langage `SQL`, Structured Query Language)
 
 **Serveurs**
 
-- [ORACLE (commercial)](https://www.oracle.com)
+- [ORACLE (commercial)](https://www.oracle.com){target="_blank"}
 
-- [DB2 (IBM commercial)](https://www.ibm.com/db2)
+- [DB2 (IBM commercial)](https://www.ibm.com/db2){target="_blank"}
 
-- [SQLSERVER (Microsoft commercial)](https://www.microsoft.com/fr-fr/sql-server/sql-server-2022)
+- [SQLSERVER (Microsoft commercial)](https://www.microsoft.com/fr-fr/sql-server/sql-server-2022){target="_blank"}
 
-- [MySQL (open source)](https://www.mysql.com)
+- [MySQL (open source)](https://www.mysql.com){target="_blank"}
 
-- [**PostGres** (open source)](https://www.postgresql.org)
+- [**PostGres** (open source)](https://www.postgresql.org){target="_blank"}
 
-- [Hana (commercial)](https://www.sap.com/france/products/technology-platform/hana/what-is-sap-hana.html)
+- [Hana (commercial)](https://www.sap.com/france/products/technology-platform/hana/what-is-sap-hana.html){target="_blank"}
 
 
 :::
@@ -553,13 +553,13 @@ tables : l'*algèbre relationnelle* (langage `SQL`, Structured Query Language)
 
 **Clients**
 
-- [`psql`](https://www.postgresql.org/docs/current/app-psql.html)
+- [`psql`](https://www.postgresql.org/docs/current/app-psql.html){target="_blank"}
 
-- [`pgcli`](https://www.pgcli.com)
+- [`pgcli`](https://www.pgcli.com){target="_blank"}
 
-- [`dbeaver`](https://dbeaver.io)
+- [`dbeaver`](https://dbeaver.io){target="_blank"}
 
-- [`PgAdmin`](https://www.pgadmin.org/)
+- [`PgAdmin`](https://www.pgadmin.org/){target="_blank"}
 
 - ...
 
@@ -690,7 +690,7 @@ Un schéma de table : la donnée des noms des colonnes et des types des colonnes
 
 <!-- {{< fa hand-point-right >}}  -->
 
-[Entrepôt_de_données sur Wikipedia](https://fr.wikipedia.org/wiki/Entrepôt_de_données)
+["Entrepôt de données" sur Wikipedia](https://fr.wikipedia.org/wiki/Entrepôt_de_données){target="_blank"}
 
 
 ## Lacs de données (2010)
@@ -707,23 +707,23 @@ Le concept de Data Lake a été évoqué pour la première fois, en 2010, par Ja
 ## Au delà du relationnel: No SQL
 
 
-> Ce sont les grandes entreprises du web qui ont été les premières confrontées aux limitations intrinsèques des SGBD relationnels traditionnels. Ces systèmes fondés sur une application stricte des propriétés ACID et généralement conçus pour fonctionner sur des ordinateurs uniques ont rapidement posé des problèmes d'extensibilité.
+Ce sont les grandes entreprises du web qui ont été les premières confrontées aux limitations intrinsèques des SGBD relationnels traditionnels. Ces systèmes fondés sur une application stricte des propriétés ACID et généralement conçus pour fonctionner sur des ordinateurs uniques ont rapidement posé des problèmes d'extensibilité.
 
 . . .
 
-> Afin de répondre à ces limites, ces entreprises ont commencé à développer leurs propres systèmes de gestion de bases de données pouvant fonctionner sur des architectures matérielles distribuées et permettant de traiter des volumes de données importants. 
+Afin de répondre à ces limites, ces entreprises ont commencé à développer leurs propres systèmes de gestion de bases de données pouvant fonctionner sur des architectures matérielles distribuées et permettant de traiter des volumes de données importants. 
 
 . . .
 
-> Les systèmes propriétaires qui en ont résulté, Google (BigTable), Amazon (Dynamo (en)), LinkedIn (Voldemort), Facebook (Cassandra puis HBase), SourceForge.net (MongoDB), Ubuntu One (CouchDB), Baidu (Hypertable) ont été les précurseurs du modèle NoSQL.
+Les systèmes propriétaires qui en ont résulté, Google (BigTable), Amazon (Dynamo (en)), LinkedIn (Voldemort), Facebook (Cassandra puis HBase), SourceForge.net (MongoDB), Ubuntu One (CouchDB), Baidu (Hypertable) ont été les précurseurs du modèle NoSQL.
 
 ---
 
-> Les performances restent bonnes avec la montée en charge en multipliant simplement le nombre de serveurs, solution raisonnable avec la baisse des coûts, en particulier si les revenus croissent en même temps que l'activité. Les systèmes géants sont les premiers concernés : énormes quantités de données, structuration relationnelle faible (ou de moindre importance que la capacité d'accès très rapide, quitte à multiplier les serveurs).
+Les performances restent bonnes avec la montée en charge en multipliant simplement le nombre de serveurs, solution raisonnable avec la baisse des coûts, en particulier si les revenus croissent en même temps que l'activité. Les systèmes géants sont les premiers concernés : énormes quantités de données, structuration relationnelle faible (ou de moindre importance que la capacité d'accès très rapide, quitte à multiplier les serveurs).
 
 . . .
 
-> Un modèle typique en NoSQL est le système clé-valeur, avec une base de données pouvant se résumer topologiquement à un simple tableau associatif unidimensionnel avec des millions — voire des milliards — d'entrées. Parmi les applications typiques, on retrouve des analyses temps-réel, statistiques, du stockage de logs (journaux), etc.
+Un modèle typique en NoSQL est le système clé-valeur, avec une base de données pouvant se résumer topologiquement à un simple tableau associatif unidimensionnel avec des millions — voire des milliards — d'entrées. Parmi les applications typiques, on retrouve des analyses temps-réel, statistiques, du stockage de logs (journaux), etc.
 
 
 
@@ -731,23 +731,14 @@ Le concept de Data Lake a été évoqué pour la première fois, en 2010, par Ja
 <!-- {{< fa hand-point-right >}}  -->
 ::: {.aside}
 
-[NoSQL](https://fr.wikipedia.org/wiki/NoSQL)
+[NoSQL](https://fr.wikipedia.org/wiki/NoSQL){target="_blank"}
  
 :::
 
 
 ## Lire plus 
 
-[Guy Harrison. Next Generation Databases. NoSQL, NewSQL, Big Data](https://scholar.google.com/scholar?hl=fr&as_sdt=0%2C5&q=harrison+next+generation+databases&oq=harrison+next+)
-
-
-```{r}
-#| echo: false
-#| eval: false
-knitr::include_url("http://guyharrison.squarespace.com/blog/tag/nosql")
-```
-
-<!-- {{< embed http://guyharrison.squarespace.com/blog/tag/nosql >}} -->
+[Guy Harrison. Next Generation Databases. NoSQL, NewSQL, Big Data](http://guyharrison.squarespace.com/blog/tag/nosql){target="_blank"}
 
 
 

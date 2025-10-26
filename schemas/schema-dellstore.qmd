@@ -98,7 +98,7 @@ Le schéma de la base de données « dellstore » dans PostgreSQL, utilisée à 
 
 Ce schéma décrit les tables clés utilisées pour une application de type commerce électronique, gérant les catégories, les informations sur les clients et les transactions. Vous souhaitez obtenir une description plus détaillée de certaines tables ou de leurs relations ?
 
-Les sources du schéma sont décrites  [sur le site de Dell](https://linux.dell.com/dvdstore/readme.txt) 
+Les sources du schéma sont décrites  [sur le site de Dell](https://linux.dell.com/dvdstore/readme.txt){target="_blank"} 
 
 ## Table dellstore.categories
 

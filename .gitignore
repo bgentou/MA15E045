@@ -37,3 +37,6 @@ site_libs/
 _freeze/**
 text.json
 html.json
+
+/.quarto/
+/_freeze

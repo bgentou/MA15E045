@@ -12,64 +12,68 @@ engine: knitr
 
 
 
-# Fonctions d'agrégation en SQL   {background-color="#1c191c"}
+# Fonctions d'agrégation  {background-color="#1c191c"}
 
 
----
+
 
 ## Limite de l'algèbre relationnelle pure 
 
-L'algèbre relationnelle pure (σ, π, ⋈)ne sait pas tout calculer
+L'algèbre relationnelle pure (σ, π, ⋈) ne sait pas tout calculer.
 
 Certains problèmes aisément solubles par un langage de programmation complet (`Python`, `C`, `R`, ...) ne sont pas solubles dans 
-l'algèbre relationnelle pure ( $\sigma(), \pi(), \bowtie(), ...$ ) :
+l'algèbre relationnelle pure :
 
-- accessibilité dans un graphe non-orienté (qui puis-je contacter dans un réseau social?)
+- compter. Exemple simple : calculer le nombre de lignes d'une table.
 
-- compter : quel est le nombre de lignes d'une table ?
+- dans une table décrivant une arborescence (une organisation hiérarchisée), déterminer tous les descendants d'un enregistrement.
 
 
-## Extension de l'algèbre relationnelle
+## Fonctions d'agrégation ?
+
+Possibilité de *compter*, de *faire des moyennes*, de trouver un maximum, ... en SQL (contrairement à l'algèbre relationnelle "classique").
+
+
+## Extension possible de l'algèbre relationnelle
 
 ::: {.callout-note}
 
-### Idée générale 
+### Idée 
 
-Un opérateur `Résume()` qui admet une opérande `T` de type table et comme autres arguments une suite d'expressions susceptibles de calculer des *agrégats* 
+Introduire un opérateur $Résume()$ qui admet comme arguments une table $T$ et une suite d'expressions susceptibles de calculer des *agrégats* : moyenne, somme, comptage, etc. 
 
-`Résume(T, expr1, ..., exprk)` retourne une table `S` à **une** ligne et `k` colonnes 
+Proposition de syntaxe : 
 
-La colonne `i` de `S` contient l'évaluation de `expri` sur la table `T`
+$Résume(T, expr_1, ..., expr_k)$ retourne une table $S$ à **une** ligne et $k$ colonnes.
 
-:::
-
-::: {.callout-caution}
-
-Il n'est pas évident de définir ce que peut être une fonction d'agrégation et un agrégat
-
-Nous travaillerons  à partir d'exemples concrets
+La colonne $i$ de $S$ contient l'évaluation de $expr_i$ sur la table $T$.
 
 :::
 
-## {{< fa binoculars >}} Fonctions d'agrégation en SQL 
+::: {.callout-warning}
 
-- Possibilité de *compter*, de *faire des moyennes*, de trouver un maximum, ... en SQL (contrairement à l'algèbre relationnelle "classique")
+Il n'est pas évident de définir ce que peut être une fonction d'agrégation et un agrégat.
 
-<!-- - Possibilité de *partitionner* les données -->
+Nous travaillerons  à partir d'exemples.
 
-[Tutorial Aggregation functions PostgreSQL](https://www.postgresql.org/docs/current/tutorial-agg.html)
+:::
 
-## Usages 
+<!--
+## Fonctions d'agrégation en SQL 
 
-- [Analyse commerciale ou Buisiness Analytics](https://fr.wikipedia.org/wiki/Business_analytics), 
+
+- [Documentation PostgreSQL](https://www.postgresql.org/docs/current/tutorial-agg.html){target="_blank"}
+
+
+- [Analyse commerciale ou Buisiness Analytics](https://fr.wikipedia.org/wiki/Business_analytics){target="_blank"}, 
 
 - OLAP
   
 - Statistique et Data Science 
+-->
 
 
-
-## Dans la partie `SELECT`
+## Fonctions d'agrégation  `SUM` et `AVG`
 
 - Somme des valeurs prises par `nomattribut`
 
@@ -81,7 +85,7 @@ se traduit en
 
 ```{.sql}
 SELECT 
-  SUM (DISTINCT|ALL <nomattribut>)  
+  SUM ([DISTINCT|ALL] <nomattribut>)  
 FROM T
 ```
 
@@ -97,23 +101,33 @@ se traduit en
 
 ```{.sql}
 SELECT 
-  AVG (DISTINCT|ALL <nom_attribut>) 
+  AVG ([DISTINCT|ALL] <nom_attribut>) 
 FROM T
 ```
 
-. . .
+::: {.callout-warning}
+Le type de l'attribut doit correspondre à un nombre (cf. spécifications de chaque fonction dans la documentation).
 
-{{< fa triangle-exclamation >}} Le type des attributs doit être un nombre ou un entier (sinon, 
-impossible de faire des sommes, des moyennes...).
+:::
 
 
+## Options `ALL` et `DISTINCT` des fonctions d'agrégation
 
-## Fonctions d'agrégation  : `SUM` et `AVG`
+Ces options sont disponibles pour toutes les fonctions 
+
+mais sont surtout utiles pour `COUNT` : 
+
+- `ALL`, option par défaut : toutes les valeurs de la colonne sont utilisées,
+
+- `DISTINCT` : les valeurs doublons ne sont utilisées qu'une fois.
+
+
+## Exemples avec `SUM` et `AVG`
   
 - Somme des populations des villes du pays de code `FRA` (dans le schéma `world`).
 
 ```{.sql}
-SELECT SUM (population)  
+SELECT SUM(population)  
 FROM city 
 WHERE countrycode = 'FRA';
 ```
@@ -121,36 +135,32 @@ WHERE countrycode = 'FRA';
 Traduction de 
 
 ```{sql}
-σ(city, countrycode = 'FRA') |>
-  Résume(SOMME(population))
+R1 = σ(city, countrycode = 'FRA')
+R = Résume(R1, SOMME(population))
 ```
 
-- GNP moyen par habitant (pas pondéré!) sur le continent `South America`
+. . .
+
+- Moyenne des populations des villes du continent `Europe` et `Afrique`.
 
 ```{.sql}
-SELECT 
-  AVG(1e6*gnp/population_country)::decimal(8,0) 
-FROM 
-  country 
-WHERE 
-  continent = 'South America'
+SELECT AVG(ci.population)  
+FROM city ci join country co on ci.countrycode = co.countrycode
+WHERE co.continent in ('Afrique','Europe');
 ```
 
 Traduction de 
 
-```{.sql}
-σ(country, continent = 'South America') |>
-  Résume(MOYENNE(1e6*gnp/population_country))
+```{sql}
+R1 = ⋈(city, country, city.countrycode = country.countrycode)
+R2 = σ(R1, continent in ('Afrique','Europe'))
+R = Résume(R1, avg(population))
 ```
 
 
+## Fonctions de calcul  `MAX`, `MIN`
 
-
-# Fonctions MAX et MIN   {background-color="#1c191c"}
-
-
-
-## Fonctions de calcul  : `MAX`, `MIN`
+- maximum des valeurs prises par `<nomattribut>` dans `T` :
   
 ```{.sql}
 SELECT 
@@ -158,10 +168,9 @@ SELECT
 FROM T ;
 ```
 
-maximum des valeurs prises par `<nomattribut>`
-
 . . .
 
+- minimum des valeurs prises par  `<nomattribut>` dans `T` :
 
 ```{.sql}
 SELECT 
@@ -169,104 +178,122 @@ SELECT
 FROM T 
 ```
 
-minimum des valeurs prises par  `<nomattribut>` dans `T`
-
-
-::: {.callout-caution}
-
-### {{< fa mug-hot >}}
-
-Attention aux valeurs nulles !
-
-`NULL = MIN(NULL, 3, 100)` ou `3 = MIN(NULL, 3, 100)` ?
-
-{{< fa hand-point-right >}} Essayez `SELECT MIN(gnpold) FROM country;` !
-:::
-
 . . .
 
+Exemple :
 ```{.sql}
-SELECT MAX (gnpold), max(gnp)   
+SELECT max(gnp)   
 FROM country 
 WHERE region = 'Caribbean';
-   max    |   max    
-----------+----------
- 32100.00 | 34100.00
 ```
 
----
 
-::: {.callout-note}
 
-### Que se passe-t-il lorsqu'on calcule un agrégat sur une colonne contenant des données manquantes (`NULL`) ?
+## Gestion des données manquantes (`NULL`)
 
-Quelles sont les procédés mis en œuvre en statistique ?
+- En statistique : données manquantes prises en compte dans les fonctions d'agrégation.
 
-Quels sont les procédés mis en œuvre par PostgreSQL ?
+- En SQL : données manquantes ignorées dans les fonctions d'agrégation,
+ 
+  à l'exception de `COUNT(*)`.
 
-:::
+. . .
 
 ```{.sql}
 SELECT name_country, gnpold, gnp
 FROM country
 WHERE continent = 'Europe' AND (gnp IS NULL OR gnpold IS NULL)
-         name_country          | gnpold |   gnp    
--------------------------------+--------+----------
- Andorra                       |        |  1630.00
- Bosnia and Herzegovina        |        |  2841.00
- Faroe Islands                 |        |     0.00
- Gibraltar                     |        |   258.00
- Svalbard and Jan Mayen        |        |     0.00
- Yugoslavia                    |        | 17000.00
- Monaco                        |        |   776.00
- San Marino                    |        |   510.00
- Belarus                       |        | 13714.00
- Holy See (Vatican City State) |        |     9.00
 ```
+Résultat : 10 lignes. 
 
 . . .
 
-::: {.aside}
-
-Ici, les données manquantes sont *implicitement* ignorées
-
-:::
+Pourtant, ces données manquantes n'empèchent pas le calcul du maximum sur ces colonnes.
 
 ```{.sql}
 SELECT max(gnpold) AS max_gnpold, max(gnp) AS max_gnp   
 FROM country 
 WHERE continent  = 'Europe';
-  max_gnpold |  max_gnp 
--------------+------------
-  2102826.00 | 2133367.00
+```
+```
++-------------+------------+
+|  max_gnpold |  max_gnp   |
++-------------+------------+
+|  2102826.00 | 2133367.00 |
++-------------+------------+
 ```
 
+## Fonction d'agrégation sur des valeurs toutes `NULL`
+
+::: {.callout-warning}
+
+### {{< fa mug-hot >}}
+
+Que se passe-t-il si, après une éventuelle sélection, toutes les valeurs de du calcul d'agrégat sont `NULL` ?
+
+La valeur calculée est alors `NULL`, ce qui signifie "pas de valeur".
+
+Essayez `SELECT MIN(gnpold) FROM country WHERE gnpold IS NULL;` !
+
+:::
 
 
+## Fonction d'agrégation sur une table vide
 
-# Fonction COUNT  {background-color="#1c191c"}
+::: {.callout-warning}
 
+Les fonctions d'agrégation renvoie un scalaire même sur une table vide.
+
+Pour une table vide, la valeur calculée est `NULL`.
+
+:::
+
+```{sql}
+SELECT 
+  SUM(population) AS urban_pop
+FROM city  ci
+WHERE ci.countrycode = 'zzz' ;
+```
+. . .
+
+```
++-----------+
+| urban_pop |
+|-----------|
+| <null>    |
++-----------+
+```
+
+Est-ce cohérent?
+
+Le résultat signifie : "Pour le pays de code 'zzz', pas de données"
 
 
 ## Fonctions de calcul : `COUNT`
 
-On peut aussi compter le nombre de tuples dans le résultat d'une requête  
+On peut aussi compter le nombre de tuples d'une table :  
 
 ```{.sql}
 SELECT 
-  COUNT(* |[ ALL | DISTINCT <nomattribut>])  
+  COUNT(* |[ALL | DISTINCT] <nomattribut>)  
 FROM T
+-- | pour indiquer une alternative, [ ] pour une option.
 ```
 
-Nombre de valeurs prises par le résultat
+::: {.callout-note}
+
+Options de la fonction `COUNT` :
+
+- `*` : compte le nombre de lignes dans la table ou la sous-requête, **en incluant les valeurs `NULL`**.
+- `DISTINCT` : sans les doublons et sans les valeurs `NULL`,
+- `ALL` : avec les doublons mais sans les valeurs `NULL`,
+
+Si la table est vide, `COUNT` renvoie 0.
+:::
 
 . . .
 
-- `DISTINCT` : sans les doublons 
-- `ALL`: avec les doublons
-- `*` : y compris les valeurs nullles/manquantes
-
-Nombre de territoires dans la région `Carribean`
+Nombre de pays dans la région `Carribean`
 
 ```{.sql}
 SELECT COUNT(*)  
@@ -274,13 +301,94 @@ FROM country
 WHERE region = 'Caribbean'; 
 ```
 
-::: {.aside}
 
-Dans `COUNT(* |[ ALL | DISTINCT <nomattribut>])`, il faut comprendre qu'on peut écrire 
-`COUNT(*)` ou `COUNT (ALL country)` ou `COUNT (DISTINCT country)`. Le symbole `|` est utilisé pour décrire une alternative 
+
+
+## Exemples d'utilisation des options de la fonction `COUNT`
+
+
+```{.sql}
+SELECT COUNT(*) FROM country;
+``` 
+retourne `239`, le nombre de lignes de la table `country`.
+
+. . .
+
+&nbsp;
+```{.sql}
+SELECT COUNT (indepyear) FROM country;
+SELECT COUNT (ALL indepyear) FROM country;
+```  
+retournent `192`, le nombre de valeurs non `NULL` de la colonne `indepyear`.
+
+. . .
+
+&nbsp;
+```{.sql}
+SELECT COUNT (DISTINCT indepyear) FROM country;
+```  
+retourne `88`, le nombre de valeurs disctintes et non `NULL` de la colonne `indepyear`.
+
+. . .
+
+&nbsp;
+```{.sql}
+SELECT COUNT(*) FROM (SELECT indepyear FROM country) as T;
+``` 
+retourne `239` car `T` contient une seule colonne avec `239` lignes, les 47 lignes `NULL` sont comptées comme les autres.
+
+
+
+
+
+
+## Opérations sur des fonctions d'agrégation
+
+PNB moyen par habitant du continent `South America`
+
+```{.sql}
+SELECT 
+  ROUND(SUM(1e6*gnp)/SUM(population_country),2) as pnb_avg
+FROM 
+  country 
+WHERE 
+  continent = 'South America';
+```
+Résultat : `4372,36`
+
+::: {.callout-note}
+$10^6$ s'écrit `1e6`. On a écrit `1e6*gnp` car `gnp` est exprimé en millions de USD.
+
+`ROUND(x,s)` effectue un arrondi de x avec s chiffres après la virgule. `s` négatif accepté.
+
+[Documentation des fonctions mathématiques](https://docs.postgresql.fr/current/functions-math.html){target="_blank"}
 
 :::
 
+
+## Fonctions d'agrégation sur des opérations
+
+::: {.callout-note}
+Les fonctions d'agrégation peuvent s'appliquer à des opérations arithmétiques entre les différents attributs d'un même tuple...  
+:::
+
+. . .
+
+Moyenne des PNB/habitant des pays du continent 'South America'. A ne pas confondre avec la requête précédente ! 
+```{.sql}
+SELECT 
+  ROUND(AVG(1e6*gnp/population_country),2) as pnb_country_avg
+FROM country 
+WHERE 
+  continent = 'South America' AND population_country > 0 ;
+-- Le test population_country > 0 évite les divisions par 0
+```
+Résultat : `3176,44`
+
+
+
+
+<!--
 # Retour sur fonction `SUM` {background-color="#1c191c"}
 
 
@@ -289,9 +397,6 @@ Dans `COUNT(* |[ ALL | DISTINCT <nomattribut>])`, il faut comprendre qu'on peut 
 On peut sommer les valeurs contenues dans une colonne numérique 
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "2|2-4|"
 SELECT 
   SUM(population) AS urban_pop
 FROM city  ci
@@ -310,9 +415,6 @@ WHERE ci.countrycode = 'GBR' ;
 
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "2|2-4|"
 SELECT 
   SUM(population) AS urban_pop
 FROM city  ci
@@ -325,8 +427,23 @@ WHERE ci.countrycode = 'zzz' ;
 ```
 
 Est-ce cohérent?
+-->
 
-## Autre approche  avec  `CASE WHEN ...THEN ... ELSE ...`
+## Utilisation de  `CASE WHEN ...THEN ... [ELSE ...] END`
+
+Dans une fonction d'agrégation, une expression `CASE WHEN` teste des conditions sur le tuple courant et renvoie la valeur correspondant à la première condition vraie.
+
+```{.sql}
+CASE
+    WHEN condition1 THEN result1
+    [WHEN condition2 THEN result2]
+    [WHEN conditionN THEN resultN]
+    [ELSE result]
+END;
+```
+::: {.callout-warning}
+Si aucune condition n'est vraie et qu'il n'y pas de clause `ELSE`, `CASE` retourne `NULL`.
+:::
 
 
 ```{.sql}
@@ -334,10 +451,10 @@ SELECT
   SUM(
     CASE 
       WHEN countrycode='GBR' THEN population 
-      ELSE 0 
     END) AS urban_pop 
- FROM city  ci ;
-
+ FROM city ;
+```
+```
 +-----------+
 | urban_pop |
 |-----------|
@@ -347,39 +464,47 @@ SELECT
 
 
 
----
+## Gestion des valeurs manquantes avec  `CASE WHEN ...THEN ... [ELSE ...] END`
 
 
 ```{.sql}
 SELECT 
-  SUM(
+  AVG(
     CASE 
-      WHEN countrycode='xxx' THEN population 
+      WHEN gnpold IS NOT NULL THEN gnpold 
       ELSE 0 
-    END) AS urban_pop 
- FROM city  ci ;
-+-----------+
-| urban_pop |
-|-----------|
-| 0         |
-+-----------+
+    END)::NUMERIC(8,2) AS avg_gnpold 
+ FROM world.country 
+ WHERE continent = 'Europe';
 ```
+Retourne `203956,54`
+
+```{.sql}
+SELECT 
+  AVG(gnpold)::NUMERIC(8,2) AS avg_gnpold 
+ FROM world.country 
+ WHERE continent = 'Europe';
+```
+Retourne `260611,14`
 
 
-## Calculer les populations vivant sous diﬀérents régimes 
+## Autres possibilités avec  `CASE WHEN ...THEN ... [ELSE ...] END`
 
 
 ```{.sql}
 SELECT 
   SUM(CASE 
     WHEN governmentform LIKE '%Monarchy%' THEN population_COUNTRY 
-    ELSE 0 
+    ELSE 0    -- résultat identique si on enlève cette ligne
   END) AS pop_monarch,  
   SUM(CASE 
     WHEN governmentform LIKE '%Republic%' THEN population_COUNTRY 
-    ELSE 0 
+    ELSE 0   -- résultat identique si on enlève cette ligne
   END) AS pop_repu 
 FROM country ;
+```
+
+```
 +-------------+------------+
 | pop_monarch | pop_repu   |
 |-------------+------------|
@@ -387,9 +512,12 @@ FROM country ;
 +-------------+------------+
 ```
 
+## Agrégats sur des données filtrées `FILTER (WHERE condition)`
 
-## Agrégats sur données filtrées `FILTER (WHERE condition)`
+Avec une clause `FILTER`, la fonction d'agrégation n'utilise que les tuples vérifiant la condition.
 
+:::::{.columns}
+:::{.column width="70%"}
 ```{.sql}
 SELECT 
   SUM(population_country) FILTER  
@@ -397,47 +525,87 @@ SELECT
   SUM(population_country) FILTER 
     (WHERE governmentform LIKE '%Republic%') AS pop_repu 
 FROM country ;
+```
+:::
+:::{.column width="30%"}
+
+```
 +-------------+------------+
 | pop_monarch | pop_repu   |
 |-------------+------------|
 | 519485000   | 5502453700 |
 +-------------+------------+
 ```
-
-## Pour en savoir plus ?
-
-[Documentation PostgreSQL](https://www.postgresql.org/docs/current/functions-aggregate.html)
-
-
-# Fonctions de calcul  : exemples  {background-color="#1c191c"}
-
-
-## Combinaison de quelques opérations et fonctions
-
-Nom des régions comportant plus de $10$ territoires.
+:::
+:::::
 
 . . .
 
+::: {.callout-caution}
+
+Il est plus conforme à l'algèbre relationnelle et au SQL d'organiser les données en lignes.
+
+:::
+
+:::::{.columns}
+:::{.column width="70%"}
+
 ```{.sql}
---| eval: false
---| echo: false
---| code-line-numbers: "1-2|4-6|"
+SELECT 'Monarchy' as governmentform, SUM(population_country) as population    
+FROM world.country c
+WHERE c.governmentform LIKE '%Monarchy%'
+UNION
+SELECT 'Republic' as governmentform, SUM(population_country) as population    
+FROM world.country c
+WHERE c.governmentform LIKE '%Republic%';
+```
+:::
+
+:::{.column width="30%"}
+
+
+```
++----------------+------------+
+| governmentform | population |
+|----------------+------------|
+| Monarchy       |  519485000 |
+|----------------+------------|
+| Republic       | 5502453700 |
++----------------+------------+
+```
+:::
+:::::
+
+
+## Problèmes d'efficacité
+
+Nom des régions comportant plus de $15$ pays.
+
+. . .
+
+La requête suivante est à éviter :
+```{.sql}
 SELECT DISTINCT c.region 
 FROM country c 
 WHERE (
   SELECT COUNT (*)     
   FROM country co     
   WHERE co.region = c.region
-) >= 15;  
+) >= 15
+ORDER BY c.region;  
 ```
+5 lignes.
 
+::: {.callout-caution}
 
+Y-a-t-il des calculs effectués plusieurs fois sur les mêmes données ?
 
+:::
 
+<!--
+## Problème d'efficacité
 
-## Musée des horreurs   {.smaller}
-
-Trouver les régions où au moins un pays possède une espérance de vie inférieure à `50`
+Trouver les régions où au moins un pays possède une espérance de vie inférieure à 50 ans.
 
 ```{.sql}
 SELECT DISTINCT continent, region
@@ -462,37 +630,27 @@ ORDER BY continent, region;
 |North America|Caribbean                |
 
 
-::: {.aside}
+::: {.callout-note}
 
 Pourquoi cette requête est-elle horrible ?
 
 :::
+-->
 
+## Efficacité
 
-## {.smaller}
-
-{{< fa hand-point-right >}} On peut faire plus simple (et plus efficace) dans le case présent
+{{< fa hand-point-right >}} On peut faire plus efficace, gràce à la suite du cours :
 
 ```{.sql}
-SELECT 
-  DISTINCT continent, region
-FROM country c 
-WHERE c.lifeexpectancy <50 
-ORDER BY continent, region;
+SELECT region    
+FROM country     
+GROUP BY region
+HAVING COUNT(*) >= 15
+ORDER BY region;
 ```
 
 
-|**Continent**    |**Region**                   |
-|:------------|:------------------------|
-|Africa       |Central Africa           |
-|Africa       |Eastern Africa           |
-|Africa       |Northern Africa          |
-|Africa       |Southern Africa          |
-|Africa       |Western Africa           |
-|Asia         |Southeast Asia           |
-|Asia         |Southern and Central Asia|
-|North America|Caribbean                |
-
+<!--
 
 ---
 
@@ -514,28 +672,19 @@ WHERE (
 ORDER BY continent, region;
 ```
 
-::: {.aside}
+::: {.callout-caution}
 
 Combien de fois calculez vous l'espérance de minimale pour chaque région ?
 
 :::
+-->
 
 
 
-## Fonctions de calcul : exemples (suite)
+## Pour en savoir plus ?
 
-Utilisation d'opérateurs arithmétique entre les différents attributs d'un même tuple...  
+[Documentation PostgreSQL](https://www.postgresql.org/docs/current/functions-aggregate.html){target="_blank"}
 
-<!-- Prix de revient des commandes livrées par le fournisseur `FD` -->
-
-```{.sql}
-SELECT 
-  AVG(1e6*gnp/population_country)::decimal(8,0) 
-FROM country 
-WHERE 
-  continent LIKE 'South Am%' AND
-  population_country > 0 ;
-```
 
 
 # Partitions,  `GROUP BY` {background-color="#1c191c"}
@@ -548,136 +697,90 @@ WHERE
 GROUP BY <nomattribut1>, ..., <nomattributn>
 ```
 
-- `GROUP BY` permet de regrouper selon la  valeur de certains attributs l'ensemble des résults d'une requête
+- `GROUP BY` permet de regrouper l'ensemble des résultats d'une requête selon la  valeur de certains attributs, 
 
-- Forme des sous-relations auxquelles on peut appliquer des opérateurs (`SUM`, `MAX`, ...) renvoyant un résultat par sous-relation
+- Forme des sous-relations auxquelles on peut appliquer des fonctions d'agrégation (`SUM`, `MAX`, ...) renvoyant un résultat par sous-relation.
 
+. . .
 
-Exemple d'utilisation : regrouper les livraisons par numéro de fournisseur et prendre la quantité maximum livrée par fournisseur.
+:::{.callout-warning}
 
+**Gestion des valeurs manquantes** : les valeurs `NULL`d'un attribut forment un groupe dans la partition selon celui-ci. 
 
-## Partition de résultats de requêtes   {.smaller}
+:::
 
-Schéma général
+## Utilisation `GROUP BY`
+
+Calculer la population de chaque continent.
 
 ```{.sql}
-SELECT ... 
+SELECT continent, SUM(population_country) as population_continent
 FROM country 
-GROUP BY continent    
+GROUP BY continent;    
+```
+```
++--------------+----------------------+
+| continent    | population_continent |
++--------------+----------------------+
+|Asia          |          3705025700  |
+|South America |           345780000  |
+|North America |           482993000  |
+|Oceania       |            30401150  |
+|Antarctica    |                   0  |
+|Africa        |           784475000  |
+|Europe        |           730074600  |
++--------------+----------------------+
+
 ```
 
-## {.smaller}
+::: {.callout-important}
+
+On peut afficher `continent` pour chaque groupe parce qu'on a groupé selon cet attribut
+
+:::
 
 
-```{.sql}
-+-------------+---------------------+---------------+
-| countrycode | name_country        | continent     |
-|-------------+---------------------+---------------|
-| DZA         | Algeria             | Africa        |
-| AGO         | Angola              | Africa        |
-| ...         |                     |               |
-| ATA         | Antarctica          | Antarctica    |
-| BVT         | Bouvet Island       | Antarctica    |
-| ...         |                     |               |
-| AFG         | Afghanistan         | Asia          |
-| ARM         | Armenia             | Asia          |
-| ...         |                     |               |
-| ALB         | Albania             | Europe        |
-| AND         | Andorra             | Europe        |
-| ...         |                     |               |
-| AIA         | Anguilla            | North America |
-| ATG         | Antigua and Barbuda | North America |
-| ...         |                     |               |
-| ASM         | American Samoa      | Oceania       |
-| AUS         | Australia           | Oceania       |
-| ...         |                     |               |
-| ARG         | Argentina           | South America |
-| BOL         | Bolivia             | South America |
-+-------------+---------------------+---------------+
-```
+## Exemple avec `GROUP BY`
 
+Quel est le `gnp` moyen, le `gnp` maximum et le `gnp` minimum par `region` sur le continent `Europe` en milliers de USD par habitant ?
 
-
-## Partition de résultats de requêtes
-
-Population maximale par continent  
-
-```{.sql}
-SELECT continent, max(population_country) 
-FROM country 
-GROUP BY continent ; 
-```
-
-```{.sql}
-+---------------+------------+
-| continent     | max        |
-|---------------+------------|
-| Asia          | 1277558000 |
-| South America | 170115000  |
-| North America | 278357000  |
-| Oceania       | 18886000   |
-| Antarctica    | 0          |
-| Africa        | 111506000  |
-| Europe        | 146934000  |
-+---------------+------------+
-```
-
-Les opérateurs (`MAX`, `SUM`, etc) s'appliquent à chaque groupe de relations.
-
-
-## Exemple   {.smaller}
-
-Dans le schéma `world`, quel est le `gnp` moyen par `region` sur le continent `Europe` ?
-
+. . .
 
 ```{.sql}
 SELECT region, 
-	   ROUND(1000 * SUM(gnp)/SUM(population_country),2) AS avg_gnp,  
-	   ROUND(MAX(1000* gnp/population_country),2) AS max_gnp, 
-	   ROUND(MIN(1000* gnp/population_country),2) AS min_gnp,
-	   MIN(lifeexpectancy) AS min_life_exp
+     ROUND(1000 * SUM(gnp)/SUM(population_country),2) AS avg_gnp,  
+     ROUND(MAX(1000* gnp/population_country),2) AS max_gnp, 
+     ROUND(MIN(1000* gnp/population_country),2) AS min_gnp,
 FROM country 
 WHERE continent = 'Europe' 
 GROUP BY region 
 ORDER BY avg_gnp DESC;
 ```
 
-
-|**region**      |**avg_gnp**|**max_gnp**|**min_gnp**|**min_life_exp**|
-|:---------------|------:|------:|------:|-----------:|
-|Nordic Countries|  28.00|  32.66|   0.00|        76.5|
-|Western Europe  |  25.50|  37.46|  22.82|        77.1|
-|British Islands |  22.94|  23.12|  20.11|        76.8|
-|Southern Europe |  13.91|  20.90|   0.72|        71.5|
-|Baltic Countries|   2.96|   3.70|   2.64|        68.4|
-|Eastern Europe  |   2.15|   5.35|   0.36|        64.5|
-
-
-
-
-
-## Partition de résultats de requêtes
-
-Quel est le sens de cette requête ?
-
-```{.sql}
-SELECT 
-  continent, 
-  COUNT(*) as nombre_pays, 
-  SUM(population_country) as population_totale
-FROM country 
-GROUP BY continent;
+```
++----------------+---------+---------+---------+
+| region         | avg_gnp | max_gnp | min_gnp |
++----------------+---------+---------+---------+
+|Nordic Countries|   28.00 |   32.66 |    0.00 |
+|Western Europe  |   25.50 |   37.46 |   22.82 | 
+|British Islands |   22.94 |   23.12 |   20.11 | 
+|Southern Europe |   13.91 |   20.90 |    0.72 | 
+|Baltic Countries|    2.96 |    3.70 |    2.64 |
+|Eastern Europe  |    2.15 |    5.35 |    0.36 |
++----------------+---------+---------+---------+
 ```
 
----
 
+## Précautions avec `GROUP BY`
 
-La requête suivante  requête n'est pas correcte 
+Pour chaque région, indiquer le continent, la région et la population du pays le plus peuplé.
+
+La requête suivante n'est pas correcte 
 
 ```{.sql}
 SELECT continent, region, MAX(population_country) 
 FROM country 
-GROUP BY continent;
+GROUP BY region;
 ```
 
 . . .
@@ -686,25 +789,140 @@ GROUP BY continent;
 
 ### {{< fa skull >}}
 
-Les attributs présents dans le `SELECT` sont forcémment présents dans le `GROUP BY`.  
+Les attributs présents dans le `SELECT` doivent impérativement être présents dans le `GROUP BY` pour s'assurer qu'ils sont communs à tous les tuples de chaque groupe.  
 
 :::
 
 
+## Comment afficher un attribut absent de `GROUP BY` ?
+
+Pour chaque continent, indiquer le nom et la population du (des) pays le(s) plus peuplé(s).
+
+. . .
+
+:::{.callout-caution}
+On ne peut pas utiliser une seule requête puisqu'on veut afficher les pays sans grouper selon les pays. Il faut donc faire les calculs d'agrégats dans une sous-requête.
+
+Préférez les CTEs (ou éventuellement les requêtes imbriquées dans `FROM`), plus efficaces que les requêtes imbriquées dans `WHERE` qui sont ré-exécutées inutilement. 
+:::
+
+## Solution
+
+```{.sql}
+WITH pmc AS
+  (SELECT continent, MAX(population_country) AS pop_max
+  FROM country
+  GROUP BY continent)
+SELECT c.continent, c.name_country AS country_max_pop, c.population_country AS population
+FROM country c JOIN pmc ON c.continent = pmc.continent
+WHERE c.population_country = pmc.pop_max
+ORDER BY pmc.pop_max DESC;
+```
+
+```
++---------------+----------------------------------------------+------------+
+| continent     | country_max_pop                              | population |
++---------------+----------------------------------------------+------------+
+| Asia          | China                                        | 1277558000 |
+| North America | United States                                |  278357000 |
+| South America | Brazil                                       |  170115000 |
+| Europe        | Russian Federation                           |  146934000 |
+| Africa        | Nigeria                                      |  111506000 |
+| Oceania       | Australia                                    |   18886000 |
+| Antarctica    | Antarctica                                   |          0 |
+| Antarctica    | Bouvet Island                                |          0 |
+| Antarctica    | South Georgia and the South Sandwich Islands |          0 |
+| Antarctica    | Heard Island and McDonald Islands            |          0 |
+| Antarctica    | French Southern territories                  |          0 |
++---------------+----------------------------------------------+------------+
+```
+
+## Sous-partitionnements
+
+Que fait cette requête ?
+
+```{.sql}
+WITH 
+  co_urb_rate AS
+  (
+    SELECT co.countrycode, co.name_country, co.continent, SUM(ci.population)/(co.population_country::numeric) AS urb_rate
+    FROM world.country co JOIN world.city ci ON co.countrycode = ci.countrycode
+    WHERE co.population_country > 0
+    GROUP BY co.countrycode, co.name_country, co.continent
+  ),
+  cont_max_ur AS 
+  (
+    SELECT continent, MAX(urb_rate) AS max_ur
+    FROM co_urb_rate
+    GROUP BY continent
+  )
+SELECT 
+  co.continent, 
+  co.name_country, 
+  round(co.urb_rate,2)
+FROM co_urb_rate co JOIN cont_max_ur ct ON co.urb_rate = ct.max_ur;
+```
+
+---
+
+Pour chaque continent, elle donne le pays le plus urbanisé avec son taux de population urbaine.
+
+:::{.callout-important}
+La conversion du diviseur avec `::numeric` est importante sinon le résultat est un entier (ici 0 ou 1) car la division entre entiers donne un entier par division euclidienne.
+:::
+
+::: {.callout-note}
+Singapore, Gibraltar et les Cocos Islands ont un taux d'urbanisation supérieur à 1 !
+
+Hypothèse :  les origines des statistisques de population sur les villes et les pays ne sont pas les mêmes et les critères utilisés sont différents.
+:::
 
 
+## Aller plus loin que `GROUP BY` ?
+
+::: {.callout-note}
+
+L'opération `GROUP BY` ne renvoie pas une table mais (implicitement) *une collection de sous-tables* indicées/étiquetées par les valeurs des attributs de groupement.
+
+L'opération `GROUP BY` ne peut pas s'intégrer dans une algèbre relationnelle, même étendue.
+
+:::
+
+::: {.callout-caution}
+
+SQL n'offre pas de moyen d'utiliser le partitionnement effectué par `GROUP BY` autrement que pour effectuer des calculs d'agrégats et/ou une projection sur les attributs de groupement.  
+
+:::
+
+Cette requête n'est pas valide :
+
+```{sql}
+SELECT *  
+FROM country 
+GROUP BY continent ;
+```
+
+Cette requête est valide :
+
+```{.sql}
+SELECT continent  
+FROM country 
+GROUP BY continent ;
+```
 
 
-## Partition de résultats de requêtes
-  
+# Sélection sur les groupes et tri des résultats {background-color="#1c191c"}
+
+
+## Sélection sur les groupes `HAVING`
     
-- La clause `HAVING` permet de poser une condition portant sur chacune des sous-relations générées par le `GROUP BY`
+- La clause `HAVING` permet de poser une condition portant sur chacune des sous-relations générées par le `GROUP BY`,
 
 - Les sous-relations ne vérifiant pas la condition sont écartées du résultat.
     
 
 
-Liste des continents comportent au moins cinq régions.
+Liste des continents comportant au moins cinq régions.
 
 ```{.sql}
 SELECT continent 
@@ -714,65 +932,17 @@ HAVING COUNT(DISTINCT region) >= 5;
 ```
 
 
-## Operation `GROUP BY` et calcul sur les tables   {.smaller}
 
-::: {.callout-note}
+## Tri de résultats `ORDER BY`
 
-L'opération `GROUP BY` ne renvoie pas une table mais (implicitement) *une collection de sous-tables* indicées/étiquetées par les valeurs des attributs de groupement
+La clause `ORDER BY` permet de trier le résultat de la requête, en fournissant 
+la liste des attributs  sur lesquels effectuer le tri et en spécifiant le sens du tri pour chacun d'eux (`ASC` ou `DESC`).
 
-L'opération `GROUP BY` ne peut pas s'intégrer dans une algèbre relationnelle, même étendue.
-
+:::{.callout-caution}
+L'ordre par défaut est `ASC`.
 :::
 
-::: {.callout-caution}
-
-SQL n'offre pas de moyen de mémoriser le résultat d'un `GROUP BY` avant d'effectuer des agrégations ou une projection sur les attributs de groupement.  
-
-:::
-
-. . .
-
-```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "4-5|"
-SELECT *  
-FROM country 
-GROUP BY continent  ;
-column "country.countrycode" must appear in the GROUP BY clause or be used in an aggregate function
-LINE 1: SELECT * FROM country GROUP BY continent
-```
-
----
-
-```{.sql}
-SELECT continent  
-FROM country 
-GROUP BY continent  ;
-+---------------+
-| continent     |
-|---------------|
-| Asia          |
-| South America |
-| North America |
-| Oceania       |
-| Antarctica    |
-| Africa        |
-| Europe        |
-+---------------+
-```
-
-
-# Tri des résultats  {background-color="#1c191c"}
-
-
-
-## Présentation/tri de résultats
-
-- La clause `ORDER BY` permet de trier le résultat de la requête, en fournissant 
-la liste des attributs  sur lesquels effectuer le tri et en spécifiant le sens du tri (ascendan ou descendant)
-
-Liste des pays  triée par ordre décroissant de population 
+Liste des pays triés par ordre décroissant de population 
 
 ```{.sql}
 SELECT * 
@@ -780,11 +950,25 @@ FROM country
 ORDER BY population_country DESC;  
 ```
 
+::: {.callout-warning}
 
+Que se passe-t-il avec les valeurs nulles ?
 
-## Regroupement, tri, etc : exemple
+Le comportement dépend du serveur. PostgreSQL et Oracle les classent comme plus grandes que toutes les autres. SQL Server (Microsoft), MySQL, SQLite font l'inverse.
 
-  
+:::
+
+## Ordre des opérations `WHERE`, `GROUP BY`, `HAVING`, `ORDER BY`
+
+::: {.callout-important}
+
+1. la sélection des tuples (`WHERE`), 
+2. puis le partitionnement (`GROUP BY`), 
+3. puis la sélection sur les groupes (`HAVING`),
+4. enfin le tri des résultats (`ORDER BY`) .
+
+:::
+
 Que fait cette requête ?
 
 ```{.sql}
@@ -800,115 +984,100 @@ HAVING AVG(1e6*gnpold/population_country) >= 1000
 ORDER BY continent;
 ```
 
-<!-- Sur les relations d'une base `employé` (tables `Departement`,`Employe`, ...) -->
-
-
-
-
-## Retour au musée des horreurs  {.smaller}
-
-
-
-```{.sql}
-SELECT continent, region, MIN(c.lifeexpectancy)
-FROM country c 
-GROUP BY continent, region
-HAVING MIN(c.lifeexpectancy) < 50  
-ORDER BY continent, region ;   
-```
-
-
-| **Continent**    | **Region**         |max |min |
-|:-------------|:------------------------|----|----|
-| Africa       |Central Africa           |65.3|38.3|
-| Africa       |Eastern Africa           |72.7|37.2|
-| Africa       |Northern Africa          |75.5|49.8|
-| Africa       |Southern Africa          |51.1|39.3|
-| Africa       |Western Africa           |76.8|41.3|
-| Asia         |Southeast Asia           |80.1|46.0|
-| Asia         |Southern and Central Asia|71.8|45.9|
-| North America|Caribbean                |78.9|49.2|
-
-
-
-## Exemple d'aggrégation {visibility="hidden"}
-
-Dans le schéma `world`, 
-
 
 
 
 
 # Fonctions fenêtres (Window functions)  {background-color="#1c191c"}
 
----
 
+## Principe des fonctions fenêtres
 
-Une **fonction fenêtre** effectue un calcul sur un (sous)-ensemble de lignes de la table qui sont liées  à la ligne courante. 
+Une **fonction fenêtre** effectue une partition puis un calcul sur le groupe de lignes ("une fenêtre") auquel la ligne courante appartient. 
+
+[Documentation PostgreSQL](https://www.postgresql.org/docs/current/tutorial-window.html){target="_blank"}
 
 . . .
 
 ::: {.callout-note}
 
-C'est comparable au type de calcul effectué avec une fonction d'agrégation. 
+C'est comparable au type de calcul effectué avec une fonction d'agrégation.
 
 :::
 
 . . .
 
-Mais les fonctions de fenêtre ne regroupement pas les lignes en une seule ligne de sortie. 
+Mais les fonctions de fenêtre permettent de faire des calculs différents de ceux réalisés avec `GROUP BY`. 
 
-Au contraire, les lignes conservent leurs identités distinctes. 
+- Avec `GROUP BY`, le résultat rassemble les lignes d'un même groupe en une seule.
 
-En coulisses, la fonction de fenêtre est capable d'accéder à plus que la ligne actuelle du résultat de la requête.
+- Avec les *fonctions fenêtres*, chaque ligne de la table reste présente dans le résultat.
 
-## Exemple {.smaller}
+<!--En coulisses, la fonction de fenêtre est capable d'accéder à plus que la ligne actuelle du résultat de la requête.-->
 
-Dans le schéma `world`, présenter pour chaque pays dont la région comprend le motif 
-`Countries`, l'espérance de vie, l'espérance de vie maximale et minimale dans la région.
 
+
+## Fonctions fenêtres
+
+Soit `f` est une fonction d'agrégation (`SUM`, `AVG`, `MAX`, `MIN`, `COUNT`, etc.)
+```{sql}
+f(...) OVER (PARTITION BY attribut),  
+```
+effectue le calcul sur le groupe de lignes auquel appartient la ligne courante après un partitionnement selon `attribut`  (la "fenêtre" de la ligne courante).
+
+
+
+## Exemple de fonctions fenêtres
+
+
+Présenter pour chaque pays dont la région comprend le motif 
+`Countries`, l'espérance de vie du pays et les espérance de vie maximale et minimale des pays de la région.
+
+. . .
 
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "2-3|1-4|"
 SELECT region, name_country, lifeexpectancy, 
-	   min(lifeexpectancy) OVER (PARTITION BY region),  
-	   max(lifeexpectancy) OVER (PARTITION BY region)   
+     min(lifeexpectancy) OVER (PARTITION BY region),  
+     max(lifeexpectancy) OVER (PARTITION BY region)   
 FROM country 
 WHERE region LIKE '%Countries'
 ORDER BY region, lifeexpectancy  
 LIMIT 6 ;
 ```
 
-|Region          | Name of country      |Life expectancy|min |max |
-|----------------|----------------------|--------------|----|----|
-|Baltic Countries|Latvia                |          68.4|68.4|69.5|
-|Baltic Countries|Lithuania             |          69.1|68.4|69.5|
-|Baltic Countries|Estonia               |          69.5|68.4|69.5|
-|Nordic Countries|Denmark               |          76.5|76.5|79.6|
-|Nordic Countries|Finland               |          77.4|76.5|79.6|
-|Nordic Countries|Faroe Islands         |          78.4|76.5|79.6|
+```
++------------------+-----------------+---------------+-----+-----+
+| Region           | Name of country |Life expectancy| min | max |
++------------------+-----------------+---------------+-----+-----+
+| Baltic Countries | Latvia          |          68.4 | 68.4| 69.5|
+| Baltic Countries | Lithuania       |          69.1 | 68.4| 69.5|
+| Baltic Countries | Estonia         |          69.5 | 68.4| 69.5|
+| Nordic Countries | Denmark         |          76.5 | 76.5| 79.6|
+| Nordic Countries | Finland         |          77.4 | 76.5| 79.6|
+| Nordic Countries | Faroe Islands   |          78.4 | 76.5| 79.6|
++------------------+-----------------+---------------+-----+-----+
+```
+:::{.callout-note}
+Avec des fonctions d'agrégation sur un partitionnement par `GROUP BY region`, il n'était pas possible d'afficher une ligne par pays.
+:::
 
 
-## Calculer une fonction fenêtre sans invoquer `OVER (...)`   {.smaller}
+## Sans utiliser `OVER (...)` 
 
 
-Pour calculer ce résultat sans fonctions fenêtres,
+Pour calculer ce résultat sans fonctions fenêtres :
 
-1. on effectue une partition selon la `region`, une aggrégation par groupe 
+1. On effectue une partition selon la `region`, une aggrégation par groupe 
 pour calculer `min(lifeexpectancy)` et `max(lifeexpectancy)`. On obtient une table à trois colonnes.
 
-1. on calcule une (équi)-jointure avec la table `country` originelle sur  la colonne commune `region`
+1. On calcule une (équi)-jointure avec la table `country` originelle sur  la colonne commune `region`.
 
-2. on projette  le résultat sur les cinq colonnes pertinentes. 
+2. On projette  le résultat sur les cinq colonnes pertinentes. 
 
 . . .
 
 ```{sql}
---| eval: false
---| echo: true
 WITH R AS (
   SELECT region, min(lifeexpectancy) AS minlex, max(lifeexpectancy) AS maxlex
   FROM country
@@ -924,73 +1093,234 @@ FROM country co NATURAL JOIN R
 
 
 
-## Variations   {.smaller}
+## Fonctions fenêtres avec une clause `ORDER BY`
 
+:::{.callout-important}
+Avec une clause `ORDER BY`, la fenêtre est restreinte aux lignes qui précèdent la ligne courante (selon l'ordre indiqué dans `ORDER BY`), après partitionnement.
 
+La ligne courante est incluse dans le calcul. 
+:::
+
+. . .
+
+:::::{.columns}
+
+:::{.column width="70%"}
+On ajoute `ORDER BY lifeexpectancy` à l'exemple précédent :
 ```{.sql}
 SELECT region, name_country, lifeexpectancy, 
-	rank() OVER (
-    PARTITION BY region   
-	  ORDER BY lifeexpectancy DESC
-  )  
-FROM country 
+     min(lifeexpectancy) OVER (PARTITION BY region ORDER BY lifeexpectancy),  
+     max(lifeexpectancy) OVER (PARTITION BY region ORDER BY lifeexpectancy)   
+FROM world.country 
 WHERE region LIKE '%Countries'
-ORDER BY region, lifeexpectancy DESC 
-LIMIT 6 ;
+ORDER BY region, lifeexpectancy ;
+```
+:::
+
+:::{.column width="30%"}
+Les 3 premières lignes :
+```
+|name_country |lifeexpecta|min |max |
+|-------------|-----------|----|----|
+|Latvia       |68,4       |68,4|68,4|
+|Lithuania    |69,1       |68,4|69,1|
+|Estonia      |69,5       |68,4|69,5|
+...
+```
+:::
+
+:::::
+
+. . .
+
+:::{.callout-note}
+La colonne `min` n'a pas changé car la première ligne de la fenêtre contient la valeur minimale de la fenêtre puisqu'on a fait `ORDER BY lifeexpectancy`.
+
+La colonne `max` a changé. Elle est maintenant identique à la colonne `lifeexpectancy` car la ligne courante contient la valeur maximale parmi les lignes qui la précèdent dans "la fenêtre" selon l'ordre `lifeexpectancy`. 
+:::
+
+
+## Exemple de fonction fenêtre avec une clause `ORDER BY`
+
+`row_number()` : fonction d'agrégation qui retourne le numéro de la ligne dans la fenêtre.
+
+. . .
+
+Pour les pays d'Asie, lister la région, le nom du pays, le rang du pays dans sa région pour l'espérance de vie et le rang du pays dans sa région pour le PNB par habitant.
+
+. . .
+
+```{.sql}
+SELECT region, name_country, 
+  row_number() OVER (
+    PARTITION BY region   
+    ORDER BY lifeexpectancy DESC
+  ) AS rk_lifeexpectancy,
+  row_number() OVER (
+    PARTITION BY region   
+    ORDER BY gnp / population_country DESC
+  ) AS rk_gnp 
+FROM world.country 
+WHERE continent LIKE 'Asi%' and lifeexpectancy IS NOT NULL and gnp IS NOT NULL
+ORDER BY region, lifeexpectancy DESC;
 ```
 
+::: {.callout-warning}
 
-|Region          |Name of country          |life expectancy|rank|
-|:---------------|:---------------------|-------------:|:--:|
-|Baltic Countries|Estonia               |          69.5|   1|
-|Baltic Countries|Lithuania             |          69.1|   2|
-|Baltic Countries|Latvia                |          68.4|   3|
-|Nordic Countries|Svalbard and Jan Mayen|              |   1|
-|Nordic Countries|Sweden                |          79.6|   2|
-|Nordic Countries|Iceland               |          79.4|   3|
-
-::: {.aside}
-
-Que se passe-t-il avec les valeurs nulles ?
+Dans cette requête, il faut rejeter les valeurs `NULL` sinon le rang n'aurait pas de sens (ces lignes seraient en tête).
 
 :::
 
-## Sommes cumulées par groupes selon un ordre   {.smaller}
+---
+
+Y-a-t-il une correlation entre les deux rangs ?
+
+```
+|region                   |name_country        |rk_lifeexpectancy|rk_gnp|
+|-------------------------|--------------------|-----------------|------|
+|Eastern Asia             |Macao               |1                |3     |
+|Eastern Asia             |Japan               |2                |1     |
+|Eastern Asia             |Hong Kong           |3                |2     |
+|Eastern Asia             |Taiwan              |4                |4     |
+|Eastern Asia             |South Korea         |5                |5     |
+|Eastern Asia             |China               |6                |6     |
+|Eastern Asia             |North Korea         |7                |8     |
+|Eastern Asia             |Mongolia            |8                |7     |
+|Middle East              |Israel              |1                |2     |
+|Middle East              |Jordan              |2                |12    |
+|Middle East              |Cyprus              |3                |5     |
+|Middle East              |Kuwait              |4                |4     |
+|Middle East              |United Arab Emirates|5                |3     |
+|Middle East              |Bahrain             |6                |6     |
+|Middle East              |Qatar               |7                |1     |
+|Middle East              |Oman                |8                |7     |
+|Middle East              |Palestine           |9                |13    |
+|Middle East              |Lebanon             |10               |9     |
+|Middle East              |Turkey              |11               |11    |
+|Middle East              |Syria               |12               |10    |
+|Middle East              |Saudi Arabia        |13               |8     |
+|Middle East              |Iraq                |14               |17    |
+|Middle East              |Armenia             |15               |16    |
+|Middle East              |Georgia             |16               |14    |
+|Middle East              |Azerbaijan          |17               |15    |
+|Middle East              |Yemen               |18               |18    |
+|Southeast Asia           |Singapore           |1                |2     |
+|Southeast Asia           |Brunei              |2                |1     |
+|Southeast Asia           |Malaysia            |3                |4     |
+|Southeast Asia           |Vietnam             |4                |9     |
+|Southeast Asia           |Thailand            |5                |5     |
+|Southeast Asia           |Indonesia           |6                |8     |
+|Southeast Asia           |Philippines         |7                |6     |
+|Southeast Asia           |Cambodia            |8                |7     |
+|Southeast Asia           |Myanmar             |9                |3     |
+|Southeast Asia           |Laos                |10               |10    |
+|Southeast Asia           |East Timor          |11               |11    |
+|Southern and Central Asia|Sri Lanka           |1                |4     |
+|Southern and Central Asia|Iran                |2                |1     |
+|Southern and Central Asia|Tajikistan          |3                |10    |
+|Southern and Central Asia|Uzbekistan          |4                |6     |
+|Southern and Central Asia|Kyrgyzstan          |5                |9     |
+|Southern and Central Asia|Kazakstan           |6                |2     |
+|Southern and Central Asia|India               |7                |7     |
+|Southern and Central Asia|Maldives            |8                |5     |
+|Southern and Central Asia|Pakistan            |9                |8     |
+|Southern and Central Asia|Turkmenistan        |10               |3     |
+|Southern and Central Asia|Bangladesh          |11               |12    |
+|Southern and Central Asia|Nepal               |12               |13    |
+|Southern and Central Asia|Bhutan              |13               |14    |
+|Southern and Central Asia|Afghanistan         |14               |11    |
+
+```
+
+
+## Sommes cumulées par groupes selon un ordre 
+
+Avec une clause `ORDER BY`, une fonction fenêtre `SUM()` effectue une somme cumulée selon l'ordre choisi.
+
+. . . 
+
+Calculer, pour chaque pays d'Europe, le pourcentage des PNB supérieur ou égal à celui du pays parmi ceux de sa région.
+
+. . .
 
 ```{.sql}
 SELECT 
-	region, name_country, 
-	sum(gnp) OVER (
+  region, name_country,  
+  ROUND(SUM(gnp) OVER (
     PARTITION BY region  
-		ORDER BY gnp
-)     
-FROM country c 
-WHERE region LIKE '%Europe' 
-LIMIT 6;
+  ORDER BY gnp DESC) 
+  / sum(gnp) OVER (
+    PARTITION BY region), 4)*100  
+  AS pc_sum_GNP    
+FROM world.country c 
+WHERE continent = 'Europe'
+order by region, gnp DESC;
+```
+
+---
+
+```
+|region          |name_country                 |pc_sum_gnp|
+|----------------|-----------------------------|----------|
+|Baltic Countries|Lithuania                    |47,69     |
+|Baltic Countries|Latvia                       |76,23     |
+|Baltic Countries|Estonia                      |100       |
+|British Islands |United Kingdom               |94,78     |
+|British Islands |Ireland                      |100       |
+|Eastern Europe  |Russian Federation           |41,91     |
+|Eastern Europe  |Poland                       |64,9      |
+|Eastern Europe  |Czech Republic               |73,23     |
+|Eastern Europe  |Hungary                      |80,55     |
+|Eastern Europe  |Ukraine                      |86,94     |
+|Eastern Europe  |Romania                      |92,72     |
+|Eastern Europe  |Slovakia                     |95,84     |
+|Eastern Europe  |Belarus                      |97,92     |
+|Eastern Europe  |Bulgaria                     |99,76     |
+|Eastern Europe  |Moldova                      |100       |
+|Nordic Countries|Sweden                       |33,47     |
+|Nordic Countries|Denmark                      |59,2      |
+|Nordic Countries|Norway                       |80,76     |
+|Nordic Countries|Finland                      |98,78     |
+|Nordic Countries|Iceland                      |100       |
+|Nordic Countries|Svalbard and Jan Mayen       |100       |
+|Nordic Countries|Faroe Islands                |100       |
+|Southern Europe |Italy                        |57,73     |
+|Southern Europe |Spain                        |85,23     |
+|Southern Europe |Greece                       |91,23     |
+|Southern Europe |Portugal                     |96,49     |
+|Southern Europe |Croatia                      |97,49     |
+|Southern Europe |Slovenia                     |98,48     |
+|Southern Europe |Yugoslavia                   |99,32     |
+|Southern Europe |Malta                        |99,5      |
+|Southern Europe |Albania                      |99,66     |
+|Southern Europe |Bosnia and Herzegovina       |99,8      |
+|Southern Europe |Macedonia                    |99,88     |
+|Southern Europe |Andorra                      |99,96     |
+|Southern Europe |San Marino                   |99,99     |
+|Southern Europe |Gibraltar                    |100       |
+|Southern Europe |Holy See (Vatican City State)|100       |
+|Western Europe  |Germany                      |45,65     |
+|Western Europe  |France                       |76,13     |
+|Western Europe  |Netherlands                  |84,07     |
+|Western Europe  |Switzerland                  |89,73     |
+|Western Europe  |Belgium                      |95,08     |
+|Western Europe  |Austria                      |99,61     |
+|Western Europe  |Luxembourg                   |99,96     |
+|Western Europe  |Liechtenstein                |99,98     |
+|Western Europe  |Monaco                       |100       |
 ```
 
 
 
-|Region        |Name Country|Sum      |
-|:-------------|:-----------|--------:|
-|Eastern Europe|Moldova     |  1579.00|
-|Eastern Europe|Bulgaria    | 13757.00|
-|Eastern Europe|Belarus     | 27471.00|
-|Eastern Europe|Slovakia    | 48065.00|
-|Eastern Europe|Romania     | 86223.00|
-|Eastern Europe|Ukraine     |128391.00|
+## Limites d'utilisation des fonctions fenêtres
 
+::: {.callout-warning}
 
-
----
-
-::: {.callout-caution}
-
-Les fonctions de fenêtre ne sont autorisées que dans la liste `SELECT` et la clause `ORDER BY` de la requête. 
+Les fonctions de fenêtre ne sont autorisées que dans les clauses `SELECT` et  `ORDER BY` de la requête. 
 
 Elles sont interdites ailleurs, par exemple dans les clauses `GROUP BY`, `HAVING` et `WHERE`. 
 
-En effet, elles s'exécutent logiquement après le traitement de ces clauses. 
+En effet, elles s'exécutent logiquement **après** le traitement de ces clauses. 
 
 :::
 
@@ -1006,61 +1336,9 @@ dans les arguments d'une fonction de fenêtre, mais pas l'inverse.
 :::
 
 
----
+<!--
 
-## Exemple  {.smaller}
-
-
-Pour chaque continent, afficher les trois pays ayant l'espérance de vie à la naissance la plus élevée
-
-. . .
-
-```{.sql}
-SELECT continent, 
-  name_country, 
-  lifeexpectancy, 
-  pos
-FROM
-  (SELECT continent, 
-    name_country, 
-    lifeexpectancy,
-    rank() OVER (
-      PARTITION BY continent 
-      ORDER BY lifeexpectancy DESC) AS pos
-  FROM country
-  WHERE lifeexpectancy IS NOT NULL
-  ) AS ws
-WHERE pos <= 3;
-```
-
----
-
-##  Avec `WITH ...` et les CTEs   {.smaller}
-
-
-```{.sql}
-WITH ws AS (
-  SELECT continent, 
-    name_country, 
-    lifeexpectancy,
-    rank() OVER (
-      PARTITION BY continent 
-      ORDER BY lifeexpectancy DESC) AS pos
-  FROM country
-  WHERE lifeexpectancy IS NOT NULL
-) 
-SELECT continent, 
-  name_country, 
-  lifeexpectancy, 
-  pos
-FROM ws   
-WHERE pos <= 3;
-```
-
-
----
-
-## Exemple  {.smaller}
+## Différentes alternatives pour une même requête
 
 Afficher le pays le plus peuplé 
 
@@ -1078,12 +1356,11 @@ FROM (
   FROM country c
   ) AS R 
   JOIN LATERAL (    
-	  SELECT * 
-	  FROM country c2 
-	  WHERE c2.population_country >= R.mpc
+    SELECT * 
+    FROM country c2 
+    WHERE c2.population_country >= R.mpc
     ) AS S 
-  ON (TRUE)
-) ;
+  ON (TRUE) ;
 ```
 
 :::
@@ -1091,15 +1368,13 @@ FROM (
 
 ::: {.column}
 
-
-
 ```{.sql}
 SELECT c.name_country, 
        c.continent, 
        c.population_country
 FROM (
-	SELECT max(population_country) AS mpc 
-	FROM country c2
+  SELECT max(population_country) AS mpc 
+  FROM country c2
   ) AS S
   JOIN country c 
   ON (c.population_country >= S.mpc)    
@@ -1118,9 +1393,7 @@ China       |Asia     |        1277558000|
 ```
 
 
----
-
-## Exemple  (suite)  {.smaller}
+## Différentes alternatives  (suite)
 
 Afficher le pays le plus peuplé 
 
@@ -1142,9 +1415,9 @@ WHERE population_country >= ALL(
 
 ```{.sql}
 WITH S AS (        
-	SELECT c.*, max(population_country) 
+  SELECT c.*, max(population_country) 
          OVER () AS mpc  
-	FROM world.country c
+  FROM world.country c
 )
 SELECT * 
 FROM S   
@@ -1159,105 +1432,62 @@ name_country|continent|population_country|
 ------------+---------+------------------+
 China       |Asia     |        1277558000|
 ```
-
-
----
-
-## Exemple  {.smaller}
-
-Afficher les 10 pays les plus peuplés
-
-. . .
-
-```{.sql}
-WITH S AS (        
-	SELECT c.*, rank() 
-    OVER (ORDER BY population_country DESC) AS rpc  
-	FROM world.country c
-)
-
-SELECT name_country, continent, population_country
-FROM S   
-WHERE rpc <= 10 
-ORDER BY rpc DESC;
-```
-
-. . .
-
-
-```{.sql}
-name_country      |continent    |population_country|
-------------------+-------------+------------------+
-China             |Asia         |        1277558000|
-India             |Asia         |        1013662000|
-United States     |North America|         278357000|
-Indonesia         |Asia         |         212107000|
-Brazil            |South America|         170115000|
-Pakistan          |Asia         |         156483000|
-Russian Federation|Europe       |         146934000|
-Bangladesh        |Asia         |         129155000|
-Japan             |Asia         |         126714000|
-Nigeria           |Africa       |         111506000|
-```
+-->
 
 
 # Groupements avancés   {background-color="#1c191c"}
 
 
+## Introduction
+
+Introduits dans SQL avec la mode du `Data mining`  (Fouille de données) dans les années 1990.
+
+Permet de réaliser de facon apparemment simultanée des aggrégations de régularités emboîtées. 
+
+Dans le monde des statistiques, lorsqu'on aggrège des comptages de grains différents, on parle de tables de contingences (*contingency tables*).  
+
+[Documentation PostgreSQL](https://www.postgresql.org/docs/current/queries-table-expressions.html#QUERIES-GROUPING-SETS){target="_blank"}
+
+
+
+## GROUPING SETS
+
+Un `GROUPING SETS` permet d'effectuer simultanément des calculs d'agrégats pour différentes partitions de la table.
+
+Il s'écrit dans la clause `GROUP BY` avec une liste d'ensemble d'attributs de la forme `((c1,c2), (c1), (c2))`. 
+
+`GROUP BY GROUPING SETS ((c1,c2), (c1), ())` 
+
+signifie que l'on fera les calculs d'agrégats successivement pour les regroupements selon `c1,c2`, puis pour les regroupements selon `c1`, puis sans regroupement. 
+
+Dans le résultat, lorsque le partitionnement selon `c1` est effectué, la colonne  `c2` a la valeur `NULL` (i.e. pas de valeur), ce qui cohérent avec le fonctionnement de `GROUP BY`. 
+
 ---
 
-Introduits dans SQL avec la mode du `Data mining`  (Fouille de données) dans les années 1990
+On suppose que les colonnes `c1` et `c2` de la table `t` ne contiennent chacune que 2 valeurs distinctes.
 
-Permet de réaliser de facon apparemment simultanée des aggrégations de régularités emboîtées 
-
-Dans le monde des statistiques, lorsqu'on aggrège des comptages de grains différents, on parle 
-de tables de contingences (*contingency tables*).  
-
-
----
-
-## `ROLLUP`  {.smaller}
-
+La requête
 ```{sql}
---| echo: true
---| eval: false
---| code-line-numbers: "|4"
-SELECT continent, region, max(lifeexpectancy)
-FROM country c 
-WHERE continent LIKE '%America'
-GROUP BY ROLLUP  (continent, region)  
-ORDER BY continent, region ;
+SELECT c1, c2, aggregate_function( ... ) as f
+FROM t
+GROUP BY GROUPING SETS ((c1,c2), (c2), ());   
+```
+donne un résultat de la forme : 
+
+```
+|c1    |c2    |f    |
+|------|------|-----|
+|x1    |y1    |z1   |
+|x1    |y2    |z2   |
+|x2    |y1    |z3   |
+|x2    |y2    |z4   |
+|      |y1    |z5   |
+|      |y2    |z6   |
+|      |      |z7   |
 ```
 
 
-
-```{.sql}
-|Continent    |Region         |max |
-|:------------|:--------------|---:|
-|North America|Caribbean      |78.9|
-|North America|Central America|75.8|
-|North America|North America  |79.4|
-|North America|               |79.4|
-|South America|South America  |76.1|
-|South America|               |76.1|
-|             |               |79.4|
-```
-
-
-## GROUPING SETS  {.smaller}
-
-```{sql}
---| echo: true
---| eval: false
---| code-line-numbers: "|3"
-SELECT c1, c2, aggregate_function(c3)
-FROM table_name
-GROUP BY GROUPING SETS ((c1, c2), (c1), (c2), ());   
-```
-
-{{< fa hand-point-right >}} `ROLLUP` and `CUBE` are special cases of `GROUPING SETS`
-
-## `GROUPING SETS`  (suite)  {.smaller}
+## Exemple avec `GROUPING SETS`
 
 ```{.sql}
 SELECT continent, region, max(lifeexpectancy)
@@ -1267,10 +1497,53 @@ GROUP BY GROUPING SETS  ((continent, region), (continent), ())
 ORDER BY continent, region ;
 ```
 
+```
+|continent    |region         |max |
+|-------------|---------------|----|
+|North America|Caribbean      |78,9|
+|North America|Central America|75,8|
+|North America|North America  |79,4|
+|North America|               |79,4|
+|South America|South America  |76,1|
+|South America|               |76,1|
+|             |               |79,4|
+```
 
-```{.sql}
+
+## ROLLUP
+
+`ROLLUP ( a, b, c, ... )`
+
+est un raccourci pour
+
+```
+GROUPING SETS (
+    ( a, b, c, ... ),
+    ...
+    ( a, b ),
+    ( a ),
+    ( )
+)
+```
+
+
+## Exemple avec `ROLLUP`
+
+
+```{sql}
+SELECT continent, region, max(lifeexpectancy)
+FROM country c 
+WHERE continent LIKE '%America'
+GROUP BY ROLLUP  (continent, region)  
+ORDER BY continent, region ;
+```
+
+
+
+```
++-------------+---------------+----+
 |Continent    |Region         |max |
-|:------------|:--------------|---:|
++-------------+---------------+----+
 |North America|Caribbean      |78.9|
 |North America|Central America|75.8|
 |North America|North America  |79.4|
@@ -1280,112 +1553,75 @@ ORDER BY continent, region ;
 |             |               |79.4|
 ```
 
+
 ## `CUBE`
 
-```{sql}
---| echo: true
---| eval: false
---| code-line-numbers: "|4"
-SELECT c1, c2, c3,
-  aggregate (c4) 
-FROM table_name
-GROUP BY CUBE (c1, c2, c3);  
+`CUBE (a, b, c)` est un raccourci pour un `GROUPING SETS` contenant toutes les parties de `(a, b, c)`, c.a.d
+
+```
+GROUPING SETS (
+    (         )
+    ( a, b, c ),
+    ( a, b    ),
+    ( a       ),
+    (    b, c ),
+    (    b    ),
+    ( a,    c ),
+    (       c ),
+)
 ```
 
----
 
+## Exemple avec `CUBE`
 
+:::::{.columns}
+
+:::{.column width="43%"}
 ```{sql}
---| echo: true
---| eval: false
---| code-line-numbers: "|2,3,6"
 SELECT continent, region, governmentform, 
        count(*) AS cnt, 
        max(lifeexpectancy)
 FROM country c 
 WHERE continent LIKE '%America'
-GROUP BY CUBE (continent, region, governmentform)   
+GROUP BY CUBE (continent,region,governmentform)
 HAVING COUNT(*) > 5;
 ```
+:::
 
-## {.smaller}
-
-
-```{.sql}
-|Continent    |Region       |Governmentf   |cnt|max |
-|:------------|:------------|:-------------|:--|:---|
-|             |               |                             | 51|79.4|
-|South America|South America  |Republic                     |  9|75.7|
-|North America|Central America|Republic                     |  6|75.8|
-|North America|Caribbean      |Constitutional Monarchy      |  8|75.2|
-|North America|Caribbean      |                             | 24|78.9|
-|South America|South America  |                             | 14|76.1|
-|North America|Central America|                             |  8|75.8|
-|South America|               |                             | 14|76.1|
-|North America|               |                             | 37|79.4|
-|             |Caribbean      |Constitutional Monarchy      |  8|75.2|
-|             |South America  |Republic                     |  9|75.7|
-|             |Central America|Republic                     |  6|75.8|
-|             |South America  |                             | 14|76.1|
-|             |Central America|                             |  8|75.8|
-|             |Caribbean      |                             | 24|78.9|
-|North America|               |Constitutional Monarchy      |  9|75.2|
-|North America|               |Republic                     | 10|75.8|
-|South America|               |Republic                     |  9|75.7|
-|North America|               |Dependent Territory of the UK|  6|78.9|
-|             |               |Republic                     | 19|75.8|
-|             |               |Constitutional Monarchy      |  9|75.2|
-|             |               |Dependent Territory of the UK|  7|78.9|
+:::{.column width="57%"}
 ```
-
-
-
----
-
-## Compter les formes de gouvernement et les région dans les Amériques  {.smaller}
-
-
-```{sql}
---| echo: true
---| eval: false
---| code-line-numbers: "|4,5,8"
-SELECT  
-	   region, 
-	   governmentform, 
-	   count(*) AS cnt, 
-	   max(lifeexpectancy)
-FROM country c 
-WHERE continent LIKE '%America'
-GROUP BY CUBE   (region, governmentform)   
-HAVING COUNT(*) > 0
-ORDER BY region, cnt DESC;
+|continent    |region         |governmentform               |cnt|max |
+|-------------|---------------|-----------------------------|---|----|
+|             |               |                             |51 |79,4|
+|South America|South America  |Republic                     |9  |75,7|
+|North America|Central America|Republic                     |6  |75,8|
+|North America|Caribbean      |Constitutional Monarchy      |8  |75,2|
+|North America|Caribbean      |                             |24 |78,9|
+|South America|South America  |                             |14 |76,1|
+|North America|Central America|                             |8  |75,8|
+|South America|               |                             |14 |76,1|
+|North America|               |                             |37 |79,4|
+|             |Caribbean      |Constitutional Monarchy      |8  |75,2|
+|             |South America  |Republic                     |9  |75,7|
+|             |Central America|Republic                     |6  |75,8|
+|             |South America  |                             |14 |76,1|
+|             |Central America|                             |8  |75,8|
+|             |Caribbean      |                             |24 |78,9|
+|North America|               |Constitutional Monarchy      |9  |75,2|
+|North America|               |Republic                     |10 |75,8|
+|South America|               |Republic                     |9  |75,7|
+|North America|               |Dependent Territory of the UK|6  |78,9|
+|             |               |Republic                     |19 |75,8|
+|             |               |Constitutional Monarchy      |9  |75,2|
+|             |               |Dependent Territory of the UK|7  |78,9|
 ```
+:::
 
-## Compter les formes de gouvernement et les région dans les Amériques  {.smaller}
-
-
-```{.sql}  
-region         |governmentform                              |cnt|max |
----------------+--------------------------------------------+---+----+
-Caribbean      |                                            | 24|78.9|
-Caribbean      |Constitutional Monarchy                     |  8|75.2|
-Caribbean      |Dependent Territory of the UK               |  5|78.9|
-Caribbean      |Republic                                    |  4|73.4|
-...            |                                            |   |    |
-               |Republic                                    | 19|75.8|
-               |Constitutional Monarchy                     |  9|75.2|
-               |Dependent Territory of the UK               |  7|78.9|
-               |Federal Republic                            |  5|77.1|
-               |Overseas Department of France               |  3|78.3|
-...
-```
-
-
+:::::
 
 
 
 # Résumé  {background-color="#1c191c"}
-
 
 
 ## Portrait robot d'une requête 
@@ -1405,11 +1641,11 @@ FROM <relations>             -- la/les table/s qui émettent les données
 ```
 
   
-- `SELECT` : attributs du résultat (avec agrégats éventuels)
+- `SELECT` : attributs du résultat (avec agrégations éventuelles)
 - `WHERE` : condition de sélection indépendante du `GROUP BY`
 - `HAVING` : condition de sélection portant sur les groupes
   
-
+<!--
 ---
 
 ::: {.callout-caution}
@@ -1428,7 +1664,7 @@ GROUP BY      -- split rows into groups
 HAVING        -- filter within groups
 ORDER BY      -- sort
 ```
-
+-->
 
 
 
@@ -1454,15 +1690,15 @@ ORDER BY      -- sort
 
 ---
 
-[Tutoriel `SELECT`  de PostGreSQL](https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/)
+[Tutoriel `SELECT`  de PostGreSQL](https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-select/){target="_blank"}
 
-[Tutoriel `joins`](https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-joins/)
+[Tutoriel `joins`](https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-joins/){target="_blank"}
 
-[Documentation requêtes](https://www.postgresql.org/docs/current/queries.html)
+[Documentation requêtes](https://www.postgresql.org/docs/current/queries.html){target="_blank"}
 
-[Documentation `SELECT`](https://www.postgresql.org/docs/14/sql-select.html)
+[Documentation `SELECT`](https://www.postgresql.org/docs/14/sql-select.html){target="_blank"}
 
-[GROUPING SETS, ROLLUP, CUBE](https://www.postgresql.org/docs/14/queries-table-expressions.html#QUERIES-GROUPING-SETS)
+[GROUPING SETS, ROLLUP, CUBE](https://www.postgresql.org/docs/14/queries-table-expressions.html#QUERIES-GROUPING-SETS){target="_blank"}
 
 ---
 

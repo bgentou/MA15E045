@@ -155,7 +155,7 @@ REFERENCES [(nom-attribut
 
 {{< fa hand-point-right >}}  *`WITH GRANT OPTION`:]  si spécifié, donne le droit  de transmettre les droits obtenus
 
-{{< fa binoculars >}}  voir : [https://www.postgresql.org/docs/current/sql-grant.html](https://www.postgresql.org/docs/current/sql-grant.html)
+{{< fa binoculars >}}  voir : [https://www.postgresql.org/docs/current/sql-grant.html](https://www.postgresql.org/docs/current/sql-grant.html){target="_blank"}
 
 
 ---
@@ -216,7 +216,7 @@ FROM role_spec [, ...]
 ```
 
 
- {{< fa binoculars >}}  *syntaxe complète:] voir [https://www.postgresql.org/docs/current/sql-revoke.html](https://www.postgresql.org/docs/current/sql-revoke.html)
+ {{< fa binoculars >}}  *syntaxe complète:] voir [https://www.postgresql.org/docs/current/sql-revoke.html](https://www.postgresql.org/docs/current/sql-revoke.html){target="_blank"}
 
 
 Commentaire
@@ -386,7 +386,7 @@ engendrer en cascade plusieurs mises à jours dans les tables de
 
 {{< fa binoculars >}} Une liste complète des tables et vues de `information_schema` se trouve ici :
 
-[https://www.postgresql.org/docs/current/information-schema.html](https://www.postgresql.org/docs/current/information-schema.html)
+[https://www.postgresql.org/docs/current/information-schema.html](https://www.postgresql.org/docs/current/information-schema.html){target="_blank"}
 
 Quelques exemples:
 
@@ -408,7 +408,7 @@ Quelques exemples:
 
 Une liste complète des tables et vues de `pg_catalog` se trouve ici :
 
-{{< fa binoculars >}} [https://www.postgresql.org/docs/current/catalogs.html](https://www.postgresql.org/docs/current/catalogs.html)
+{{< fa binoculars >}} [https://www.postgresql.org/docs/current/catalogs.html](https://www.postgresql.org/docs/current/catalogs.html){target="_blank"}
 
 Quelques exemples:
 

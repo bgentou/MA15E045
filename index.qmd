@@ -19,9 +19,9 @@ about:
 
 ### {{< fa database >}} 
 
-Ce site contient des informations techniques et le matériel du cours [MA15E045: *Bases de Données*](https://moodle.u-pariscite.fr/course/view.php?id=2313) de la Licence MIASHS (L3) de l'[Université Paris Cité](https://www.u-paris.fr).
+Ce site contient des informations techniques et le matériel du cours [MA15E045: *Bases de Données*](https://moodle.u-pariscite.fr/course/view.php?id=2313){target="_blank"} de la Licence MIASHS (L3) de l'[Université Paris Cité](https://www.u-paris.fr).
 
-Pour les informations pédagogiques (résumé du cours, références, évaluations), il faut se reporter à la page Moodle : [MA15E045: *Bases de Données*](https://moodle.u-pariscite.fr/course/view.php?id=2313)
+Pour les informations pédagogiques (résumé du cours, références, évaluations), il faut se reporter à la page Moodle : [MA15E045: *Bases de Données*](https://moodle.u-pariscite.fr/course/view.php?id=2313){target="_blank"}
 
 <!-- est une initiation à l'usage des *données tabulaires*. Ce cours est conçu pour des étudiantes intéressées par l'analyse de données au sens large. Cela va de l'alimentation, la maintenance de bases de données tabulaires à la statistique descriptive classique, à l'apprentissage machine et à la statistique prédictive.
 
@@ -39,7 +39,7 @@ Au travers de ce cours, vous allez :
 
 ### {{< fa server >}} 
 
-Le cours s'appuie sur un serveur [PostGres](https://www.postgresql.org) dont l'adresse est `etu-pgsql.math.univ-paris-diderot.fr`
+Le cours s'appuie sur un serveur [PostGres](https://www.postgresql.org){target="_blank"} dont l'adresse est `etu-pgsql.math.univ-paris-diderot.fr`
 
 :::
 

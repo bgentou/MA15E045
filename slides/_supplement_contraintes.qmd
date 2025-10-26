@@ -313,8 +313,8 @@ DO UPDATE SET color = EXCLUDED.color, hex = EXCLUDED.hex;
 
 ::: {.aside}
 
-- [https://www.postgresql.org/docs/current/sql-insert.html](https://www.postgresql.org/docs/current/sql-insert.html)
-- [https://www.postgresql.org/docs/current/sql-insert.html#SQL-ON-CONFLICT](https://www.postgresql.org/docs/current/sql-insert.html#SQL-ON-CONFLICT)
+- [https://www.postgresql.org/docs/current/sql-insert.html](https://www.postgresql.org/docs/current/sql-insert.html){target="_blank"}
+- [https://www.postgresql.org/docs/current/sql-insert.html#SQL-ON-CONFLICT](https://www.postgresql.org/docs/current/sql-insert.html#SQL-ON-CONFLICT){target="_blank"}
 
 :::
 

@@ -33,7 +33,7 @@ Une fois que vous aurez appris à faire ces deux manipulations, vous pourrez uti
 
 Pour accéder au serveur `Postgres` (SGBD), il faut d'abord se connecter à la machine qui héberge ce serveur `etu-pgsql.math.univ-paris-diderot.fr`.
 
-Pour se connecter à `etu-pgsql.math.univ-paris-diderot.fr`, on utilise le protocole [`ssh`](https://en.wikipedia.org/wiki/Secure_Shell), avec son identifiant et son mot de passe `ENT`.
+Pour se connecter à `etu-pgsql.math.univ-paris-diderot.fr`, on utilise le protocole [`ssh`](https://en.wikipedia.org/wiki/Secure_Shell){target="_blank"}, avec son identifiant et son mot de passe `ENT`.
 
 Il faut ouvrir un terminal (de préférence PowerShell sous Windows) puis lancer la commande suivante en remplaçant `username` par votre nom de login.
 
@@ -153,7 +153,7 @@ bd_2023-24> \d
 
 # Client `dbeaver`
 
-Le mécanisme du tunnel `ssh` peut être utilisé pour connecter un client plus ambitieux au serveur. Le client [`dbeaver`](https://dbeaver.io) est particulièrement facile à utiliser. Voir la page [Client `dBeaver`](/computing-dbeaver.qmd) pour son utilisation.
+Le mécanisme du tunnel `ssh` peut être utilisé pour connecter un client plus ambitieux au serveur. Le client [`dbeaver`](https://dbeaver.io){target="_blank"} est particulièrement facile à utiliser. Voir la page [Client `dBeaver`](/computing-dbeaver.qmd) pour son utilisation.
 
 ::: callout-note
 ### Tunnel en tâche de fond ou pas ?

@@ -16,7 +16,7 @@ engine: knitr
 ---
 
 
-- Formulé par [E. Codd](https://en.wikipedia.org/wiki/Edgar_F._Codd) en 1970.
+- Formulé par [E. Codd](https://en.wikipedia.org/wiki/Edgar_F._Codd){target="_blank"} en 1970.
 
 - Fondé sur la théorie des *relations* (partie de la théorie naïve des ensembles).
 

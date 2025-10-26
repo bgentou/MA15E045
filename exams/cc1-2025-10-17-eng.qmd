@@ -1,0 +1,247 @@
+---
+format:
+  pdf:
+    code-annotations: below
+    code-fold: false
+    toc: false
+    output-file: cc1-2025-10-17-eng.pdf
+    include-in-header:
+      - text: "\\lhead{{\\sf  Base de données (BD5) \\\\ CC 1 2025-10-17}}"
+  html:
+    standalone: true
+    code-fold: true
+    output-file: cc1-2025-10-17-eng.html
+params:
+    year: 2025 
+    curriculum: "L3 MIASHS/Ingémath/METIS"
+    university: "Université Paris Cité"
+    homepage: "https://bgentou.github.io/MA15E045/"
+    moodle: "https://moodle.u-paris.fr/course/view.php?id=2313"
+
+engine: knitr
+---
+
+
+
+
+::: {layout="[80,20]"}
+
+::: {#first-column}
+
+- **`r stringr::str_glue('{params$curriculum}')`**
+- **`r stringr::str_glue('[{params$university}](https://www.u-paris.fr)')`**
+- `r stringr::str_glue("[Course Homepage]({params$homepage})")`  
+
+::: 
+
+::: {#second-column}
+![](../images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
+:::
+
+:::
+
+# CC1 du 17 octobre 2025 - English translation
+
+::: {.content-hidden when-profile="solution"}
+::: {.callout-warning}
+
+No documents, telephones or electronic devices are permitted. 
+
+:::
+:::
+
+## Presentation of the database
+
+All the questions concern a `hotel` database used by a hotel to manage its reservations. 
+
+For each relationship (table), we indicate its schema with the type of each attribute in the form `attribute_name: type`. 
+
+By default, `NULL` values are allowed, unless `NOT NULL` is specified.
+
+For each table, the values of the `numéro` attribute are unique, i.e. each row is identified by the value of the `numéro` attribute.
+
+:::: {.columns}
+
+::: {.column}
+
+```
+client( 
+    numéro : int (NOT NULL), 
+    nom : varchar (NOT NULL), 
+    prénom : varchar (NOT NULL), 
+    rue : varchar, 
+    ville : varchar,
+    cp : int, 
+    pays : varchar, 
+    tel : varchar (NOT NULL), 
+    email : vachar
+)
+```
+:::
+
+::: {.column}
+```
+chambre( 
+    numéro : int (NOT NULL), 
+    étage : int (NOT NULL), 
+    nblitdouble : int (NOT NULL),
+    nblitsimple : int (NOT NULL), 
+    description : varchar
+)
+```
+- The attributes `nblitdouble` and `nblitsimple` specify the number of double beds and single beds respectively in the room.
+
+```
+réservation( 
+    numéro : int (NOT NULL), 
+    chambre : int (NOT NULL), 
+    client : int (NOT NULL),
+    arrivée : date (NOT NULL),
+    départ : date (NOT NULL),
+    nbadulte : int (NOT NULL), 
+    nbenfant : int (NOT NULL)
+)
+```
+
+- The `room` attribute refers to the `number` attribute of the `room` table.
+- The `client` attribute refers to the `number` attribute of the `client` table.
+- The `nadult` and `nchild` attributes specify the number of adults and children respectively who will stay in the room.
+- The `date` type has the usual order relationship.
+  
+:::
+
+::::
+
+::: {.content-visible when-format="pdf"}
+
+\newpage 
+
+:::
+
+Here are some examples of rows for each table:
+
+```
+client
+| numéro | nom       | prénom   | rue           | ville     | cp    | pays     |
+| 113    | 'Legrand' | 'Claire' | '12 rue d'If' | 'Orléans' | 45000 | 'France' |
+
+ tel          | email                |
+ '0610101010' | 'jlegrand@cecher.fr' |  
+
+```
+
+```
+chambre
+| numéro | étage | nblitdouble | nblitsimple | description                                |
+| 104    | 1     | 1           | 0           | spacieuse, ensoleillée, balcon, WC, douche |
+
+```
+
+```
+réservation
+| numéro | chambre | client | arrivée    | départ     | nbadulte | nbenfant |
+| 512    | 104     | 113    | 2025/12/15 | 2025/12/21 | 2        | 0        |
+```
+This row in the reservation table stores that customer 113 in the 'customers' table (Claire Legrand) has booked room 104 in the 'room' table from 2025/12/15 to 2025/12/21 for 2 adults.
+
+
+## Questions
+
+@. Write **in relational algebra and SQL** a query that lists the first and last names of customers who live in the city 'Bordeaux'. 
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+```
+
+:::
+:::
+
+
+<!--{{< pagebreak >}}-->
+
+
+@. Write **in relational algebra and SQL** a query that lists the bookings where the number of people (adults and children) does not respect the number of beds available in the room booked.
+
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+```   
+:::
+:::
+
+<!--
+@. Ecrire **en SQL** une requête qui liste les numéros des chambres qui ne sont pas réservées à la date '2025/12/15'. 
+
+    **NB** : tous les opérateurs de comparaison sont disponibles pour le type `date`.
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+```
+:::
+:::
+
+-->
+
+
+@. Write **in SQL** a query that lists the numbers of customers who have no reservations on the 1st floor.
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+EXISTS
+```
+
+:::
+:::
+
+@. Write **in SQL** a query that lists the surnames, first names and number of bookings of the 10 customers who have made the most bookings.
+
+
+
+@. This query looks for cases where two different bookings for the same room have at least one night in common. These are incompatible bookings. 
+
+    Write **in SQL** a query which lists, for each incompatibility, the number of the room concerned and the numbers of the two reservations.
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+```
+
+:::
+:::
+
+@. Write **in SQL and without subqueries and without INTERSECT**, a query that lists the numbers of customers who have at least one reservation for room 101 **and** at least one reservation for room 303.
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+double jointure
+```
+
+:::
+:::
+
+
+@. Write **in SQL with no aggregation function and no subquery**, a query that lists the numbers of the rooms that have been booked by at least two different people from the city of 'Brest'.
+
+
+@. Write **in SQL with no aggregation function**, a query that lists the floors for which all the rooms are reserved on the date '2025/12/15'.
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+différence
+```
+
+:::
+:::

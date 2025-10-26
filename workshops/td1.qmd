@@ -126,7 +126,7 @@ Par exemple:
 
 ```{.sql}
 SELECT name_country, lifeexpectancy
-FROM world.country
+FROM country
 WHERE lifeexpectancy < 50 and continent = 'Asia';
 ```
 
@@ -145,11 +145,11 @@ Ecrire des requêtes en algèbre relationnelle et en SQL pour extraire les infor
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$\Pi_{\texttt{region}} (\texttt{world.country})$
+$\Pi(\texttt{country},\texttt{ region} )$
 
 ```{.sql}
 SELECT DISTINCT region
-FROM world.country ;
+FROM country ;
 ```
 
 :::
@@ -161,11 +161,11 @@ FROM world.country ;
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$\Pi_{\texttt{region}} \big( \sigma_{\texttt{continent = 'Europe'}}(\texttt{world.country})\big)$
+$\Pi \big( \sigma(\texttt{country},\texttt{ continent = 'Europe'}), \texttt{ region}\big)$
 
 ```{.sql}
 SELECT DISTINCT region
-FROM world.country
+FROM country
 WHERE continent = 'Europe' ;
 ```
 
@@ -179,11 +179,11 @@ WHERE continent = 'Europe' ;
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$\Pi_{\texttt{name\_country}} \big( {\Large \sigma}_{\texttt{region = 'Southern Europe'}}(\texttt{world.country})\big)$
+$\Pi \big( {\Large \sigma}(\texttt{country},\texttt{ region = 'Southern Europe'}),\texttt{ name\_country}\big)$
 
 ```{.sql}
 SELECT name_country
-FROM world.country
+FROM country
 WHERE region = 'Southern Europe' ;
 ```
 
@@ -197,11 +197,11 @@ WHERE region = 'Southern Europe' ;
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$$\Pi_{\texttt{capital}} \big( {\Large \sigma}_{\texttt{region = 'Western Europe'}}(\texttt{world.country})\big)$$
+$\Pi \big({\Large \sigma}(\texttt{country},\texttt{ region = 'Western Europe'}),\texttt{ capital}\big)$
 
 ```{.sql}
 SELECT capital
-FROM world.country
+FROM country
 WHERE region = 'Western Europe' ;
 ```
 
@@ -214,11 +214,11 @@ WHERE region = 'Western Europe' ;
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$\Pi_{\texttt{language}} \big( {\Large \sigma}_{\texttt{isofficial}}(\texttt{world.countrylanguage})\big)$
+$\Pi \big( {\Large \sigma}(\texttt{ countrylanguage},\texttt{ isofficial}), \texttt{ language}\big)$
 
 ```{.sql}
 SELECT DISTINCT language 
-FROM world.countrylanguage 
+FROM countrylanguage 
 WHERE isofficial ;
 ```
 
@@ -233,11 +233,11 @@ La variante de l'algèbre relationnelle vue en cours opérant sur les ensembles,
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$\Pi_{\texttt{countrycode}} \big( {\Large \sigma}_{ \texttt{language = 'French'} \wedge \texttt{isofficial}}(\texttt{world.countrylanguage})\big)$
+$\Pi \big( {\Large \sigma}(\texttt{ countrylanguage},\texttt{ language = 'French'} \wedge \texttt{ isofficial}),\texttt{ countrycode}\big)$
 
 ```{.sql}
 SELECT countrycode
-FROM world.countrylanguage
+FROM countrylanguage
 WHERE language = 'French' AND isofficial ;
 ```
 
@@ -251,12 +251,12 @@ WHERE language = 'French' AND isofficial ;
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$\Pi_{\texttt{indepyear}} \big( {\Large \sigma}_{ \texttt{name\_country = 'French'}}(\texttt{world.country})\big)$
+$\Pi \big( {\Large \sigma}(\texttt{country},\texttt{ countrycode = 'FRA'}),\texttt{ indepyear}\big)$
 
 ```{.sql}
 SELECT indepyear
-FROM world.country
-WHERE name_country = 'France' ;
+FROM country
+WHERE countrycode = 'FRA' ;
 ```
 
 :::
@@ -269,11 +269,11 @@ WHERE name_country = 'France' ;
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$\Pi_{\texttt{name\_country, indepyear}} \big( {\Large \sigma}_{ \texttt{continent = 'Europe' }}(\texttt{world.country})\big)$
+$\Pi \big( {\Large \sigma}(\texttt{country} , \texttt{ continent = 'Europe'}),\texttt{ name\_country , indepyear}\big)$
 
 ```{.sql}
 SELECT name_country , indepyear
-FROM world.country
+FROM country
 WHERE continent = 'Europe' ;
 ```
 
@@ -287,11 +287,11 @@ WHERE continent = 'Europe' ;
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$\Pi_{\texttt{name, population}} \big( {\Large \sigma}_{ \texttt{countrycode = 'FRA' }\wedge \texttt{population > 200000}}(\texttt{world.city})\big)$
+$\Pi \big( {\Large \sigma}(\texttt{ city}, \texttt{ countrycode = 'FRA'}\wedge \texttt{population > 200000}), \texttt{ name , population}\big)$
 
 ```{.sql}
 SELECT name , population
-FROM world.city
+FROM city
 WHERE countrycode = 'FRA' AND population > 200000 ;
 ```
 
@@ -306,8 +306,11 @@ et l'espérance de vie, ordonner par densité décroissante. (46 lignes)
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$${\Large \rho}_{\texttt{population\_country} / \texttt{surfacearea} \mapsto \texttt{density}, \texttt{gnp} / \texttt{population\_country} \mapsto \texttt{gnp\_per\_hab}}(\\
-\Pi_{\texttt{name\_country, population\_country / surfacearea}} \big( {\Large \sigma}_{ \texttt{continent = 'Europe' }}(\texttt{world.country})\big))$$
+${\small\texttt{R1 = }\Pi\big( {\Large \sigma}(\texttt{country},  \texttt{ continent='Europe'}), \texttt{ name\_country}, \texttt{ population\_country/surfacearea}},$
+
+$\qquad {\small \texttt{gnp/population\_country}, \texttt{ lifeexpectancy}\big)}$
+
+${\small\texttt{R = }{\Large \rho}( \texttt{R1,} \texttt{ population\_country} / \texttt{surfacearea} \mapsto \texttt{density}, \texttt{gnp/population\_country} \mapsto \texttt{gnp\_per\_hab})}$
 
 ```{.sql}
 SELECT name_country , population_country / surfacearea as density ,
@@ -327,15 +330,17 @@ ORDER BY density DESC;
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$$\Pi_{\texttt{name\_country}} \big( {\Large \sigma}_{ \neg \texttt{lifeexpectancy < 77}\wedge \neg \texttt{(gnp / population\_country) > 0.01}}(\texttt{world.country})\big)$$
-ou, de manière équivalente \\
-$$\Pi_{\texttt{name\_country}} \big( \sigma_{\texttt{lifeexpectancy >= 77}\wedge \texttt{(gnp / population\_country) >= 0.01}}(\texttt{world.country})\big)$$
+$\Pi \big( {\Large \sigma}(\texttt{country}, \neg \texttt{(lifeexpectancy<77)}\wedge\ \neg \texttt{(gnp/population\_country>0,01)}), \texttt{ name\_country}\big)$
+
+ou, de manière équivalente
+
+$\Pi \big( \sigma(\texttt{country}, \texttt{(lifeexpectancy>=77)}\wedge \texttt{(gnp/population\_country<=0.01)}), \texttt{ name\_country}\big)$
 
 ```{.sql}
 SELECT name_country 
-FROM world.country
+FROM country
 WHERE NOT (lifeexpectancy < 77) AND 
-      NOT (gnp / population_country) > 0.01 ;
+      NOT (gnp / population_country > 0.01) ;
 ```
 
 :::
@@ -350,15 +355,16 @@ vérifée ? (16 lignes)
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$$\Pi_{\texttt{name\_country}} \big( {\Large \sigma}_{\neg({\texttt{lifeexpectancy >= 77}\vee \texttt{(gnp / population\_country) < 0.01})}}(\texttt{world.country})\big)$$
-ou, de manière équivalente             
-$$\Pi_{\texttt{name\_country}} \big( {\Large \sigma}_{\texttt{lifeexpectancy < 77}\wedge \texttt{(gnp / population\_country) >= 0.01}}(\texttt{world.country})\big)$$
+$\Pi \big( {\Large \sigma}(\texttt{country}, \neg (\texttt{(lifeexpectancy>=77)} \vee \texttt{(gnp/population\_country<0,01)})) , \texttt{ name\_country}\big)$
 
+ou, de manière équivalente
+
+$\Pi \big( \sigma(\texttt{country}, \texttt{ (lifeexpectancy<77)}\wedge \texttt{(gnp/population\_country >= 0.01)}), \texttt{ name\_country}\big)$
 
 ```{.sql}
 SELECT name_country
-FROM world.country
-WHERE NOT (lifeexpectancy >= 77 OR (gnp / population_country) < 0.0@. ;
+FROM country
+WHERE NOT (lifeexpectancy >= 77 OR (gnp / population_country < 0.01) );
 ```
 
 :::
@@ -372,11 +378,11 @@ au moins la moitié de la population ? (92 lignes)
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$$\Pi_{\texttt{countrycode}} \big( {\Large \sigma}_{\texttt{isofficial}\wedge\texttt{percentage < 50}}(\texttt{world.countrylanguage})\big)$$    
+$\Pi \big( {\Large \sigma}(\texttt{countrylanguage}, \texttt{ isofficial }\wedge\texttt{ percentage<50}), \texttt{ countrycode}\big)$   
 
 ```{.sql}
 SELECT DISTINCT countrycode
-FROM world.countrylanguage
+FROM countrylanguage
 WHERE isofficial AND percentage < 50 ;
 ```
 
@@ -385,16 +391,16 @@ WHERE isofficial AND percentage < 50 ;
 
 
 
-@. Quels sont les pays qui ont au moins une langue officielle ? (190 lignes)
+@. Quels sont les codes des pays qui ont au moins une langue officielle ? (190 lignes)
     
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$$\Pi_{\texttt{countrycode}} \big( {\Large \sigma}_{\texttt{isofficial}}(\texttt{world.countrylanguage})\big)$$   
+$\Pi \big( {\Large \sigma}(\texttt{countrylanguage}, \texttt{ isofficial}), \texttt{ countrycode}\big)$  
 
 ```{.sql}
 SELECT DISTINCT countrycode 
-FROM world.countrylanguage 
+FROM countrylanguage 
 WHERE isofficial ;
 ```
 
@@ -409,11 +415,11 @@ d'habitants ? (10 lignes)
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$$\Pi_{\texttt{name\_country}} \big( {\Large \sigma}_{\texttt{population\_country > 100000000}}(\texttt{world.country})\big)$$ 
+$\Pi \big( {\Large \sigma}(\texttt{country}, \texttt{ population\_country > 100000000}), \texttt{ name\_country}\big)$
 
 ```{.sql}
 SELECT name_country 
-FROM world.country
+FROM country
 WHERE population_country > 100000000 ;
 ```
 
@@ -439,11 +445,11 @@ Par exemple,
 
 ```{.sql}
 SELECT language
-FROM world.country as c, world.countrylanguage as l
-WHERE c.countrycode = l.countrycode and c.continent = 'Europe';
+FROM country as co, countrylanguage as l
+WHERE co.countrycode = l.countrycode and co.continent = 'Europe';
 ```
 
-affichera les langues parlées en Europe. Remarquez l'utilisation des `as` pour donner de nouveaux noms aux tables et l'utilisation de `c.countrycode` pour lever l'ambiguité sur des noms de colonnes qui seraient éventuellement les mêmes.
+affichera les langues parlées en Europe. Remarquez l'utilisation des `as` pour donner de nouveaux noms aux tables et l'utilisation de `co.countrycode` pour lever l'ambiguité sur des noms de colonnes qui seraient éventuellement les mêmes.
 
 ## Éxercice 2
 
@@ -452,140 +458,145 @@ affichera les langues parlées en Europe. Remarquez l'utilisation des `as` pour 
 Ecrire des requêtes pour les questions suivantes:
 
 
-1. Quels sont les noms des capitales sud-américaines ? (14 lignes)
+
+@. Quels sont les noms des capitales sud-américaines ? (14 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-      $$\Pi_{\texttt{name}} \big( \sigma_{\texttt{capital = id}\wedge \texttt{region = 'South America'}}(\rho_{\texttt{countrycode} \mapsto {city\_countrycode}}(\texttt{world.city}) \times \texttt{world.country})\big)$$
+  ${\small \Pi \big( \sigma (\rho(\texttt{city}, \texttt{countrycode} \mapsto \texttt{city\_countrycode}) \bowtie_{\texttt{capital=id}} \texttt{country}, \texttt{region='South America'}\big), \texttt{name} \big)}$
 
-      ```{.sql}
-      SELECT name
-      FROM world.country , world.city
-      WHERE capital = id AND region = 'South America' ;
-      ```
+En toute rigueur la relation qui résulte d'une opération ne peut pas contenir deux attributs de même nom, 
+d'où le renommage utilisé dans la requête algébrique ci-dessus. En pratique, on suppose  que les renommages
+`attribut`$\mapsto$`table.attribut` sont faits implicitement chaque fois que nécessaire. 
 
-      Attention ! En toute rigueur le produit cartésien ne s'applique que sur des relations de schémas disjoints, d'où le renommage utilisé dans la requête algébrique ci-dessus. En pratique on utilisera tout de même :
+On peut alors écrire plus simplement :
 
-      $$\Pi_{\texttt{name}} \big( {\Large \sigma}_{\texttt{capital = id}\wedge \texttt{region = 'South America'}}(\texttt{world.country}\times \texttt{world.city})\big)$$
+  $\Pi \big( \sigma (\texttt{city} \bowtie_{\texttt{capital=id}} \texttt{country}, \texttt{ region='South America'}\big), \texttt{ name} \big)$
 
-      comme abréviation pour :
-
-      $$\Pi_{\texttt{name}} \big( \sigma_{\texttt{capital = id}\wedge \texttt{region = 'South America'}}(\rho_{\texttt{countrycode} \mapsto \texttt{country.countrycode}}(\texttt{world.country}) \times \rho_{\texttt{countrycode} \mapsto \texttt{city.countrycode}}(\texttt{world.city}))\big)$$
-
-      Donc, dès que l'on opère un produit cartésien sur deux tables, on supposera implicitement que les attributs en commun sont renommés en les préfixant par le nom de la relation à laquelle ils appartiennent. Si les deux tables sont deux copies d'une seule et même table (cf plus loin question 4, on parle alors d'auto-jointure) on fera suivre le nom de la première copie par 1 et le nom de la seconde copie par 2 et on renommera tous les attributs de chacune des copies en les préfixant par ce nouveau nom.
-
-:::
-:::
-
-
-2. Quels sont les noms des pays où le français est langue officielle ? (18 lignes)
-  
-::: {.content-visible when-profile="solution"}
-::: {.callout-tip title="Solution"}
-
-      $$\Pi_{\texttt{name\_country}} \big( \sigma_{\texttt{isofficial}\wedge \texttt{language = 'French'}}(\texttt{world.country} \bowtie \texttt{world.countrylanguage})\big)$$
-
-      ```{.sql}
-      SELECT name_country
-      FROM world.country NATURAL JOIN world.countrylanguage
-      WHERE isofficial AND 
-            language = 'French' ;
-      ```
-
-      Dans la variante algébrique, pour utiliser la jointure naturelle on a bien vérifié au préalable que le seul attribut en commun sur les deux relations était bien `countrycode`. En effet, si au contraire, certains attributs s'étaient trouvé avoir le même nom de manière fortuite, il aurait fallu les renommer au préalable dans l'une des deux relations. Une autre solution aurait combiné sélection et produit cartésien afin d'émuler la requête SQL ci-dessus, mais il aurait alors fallu en toute rigueur renommer au préalable l'attribut en commun `countrycode` dans l'une des deux tables en utilisant l'opérateur $\rho$, le produit cartésien ne pouvant être réalisé que sur des relations de schémas disjoints (c.f. question précédente). 
-
-
-:::
-:::
-
-
-
-3. Quelles sont les pays où l'espagnol est langue officielle et la forme
-de gouvernement est 'Federal Republic' ? (3 lignes)
-    
-::: {.content-visible when-profile="solution"}
-::: {.callout-tip title="Solution"}
-
-$$\Pi_{\texttt{name\_country}} \big( \sigma_{\texttt{ttisofficial}\wedge \texttt{language = 'Spanish'}\wedge \texttt{governmentform = 'Federal Republic'}}(\texttt{world.country} \bowtie \texttt{world.countrylanguage})\big)$$
-
-```{.sql}
-SELECT name_country
-FROM country NATURAL JOIN countrylanguage
-WHERE isofficial AND 
-      language = 'Spanish' AND 
-      governmentform = 'Federal Republic' ;
-```
-
-:::
-:::
-
-
-
-4.  Quels sont les pays qui ont au moins deux langues officielles ? (38 lignes)
-
-::: {.content-visible when-profile="solution"}
-::: {.callout-tip title="Solution"}
-
-$$\Pi_{\texttt{name\_country}}$$
       
-$$\big( \sigma_{\texttt{c1.isofficial}\wedge \texttt{c2.isofficial} \wedge \texttt{c1.language}\neq \texttt{c2.language}\wedge
-       \texttt{countrycode = c1.countrycode} \wedge \texttt{countrycode = c2.countrycode}}(\\
-      \texttt{world.country} \times \texttt{world.c1}\times \texttt{world.c2})\big)$$
+
 
 ```{.sql}
-SELECT DISTINCT name_country
-FROM country AS c , countrylanguage AS l1 , countrylanguage AS l2
-WHERE c.countrycode = l1.countrycode AND 
-      c.countrycode = l2.countrycode AND 
-      l1.isofficial AND 
-      l2.isofficial AND 
-      NOT (l1.language = l2.language) ;
+SELECT name
+FROM country , city
+WHERE capital = id AND region = 'South America' ;
 ```
 
-Attention à bien noter que l'on a utilisé ici dans la requête
-algébrique l'abréviation de renommage mentionné à la question 1. Pour
-simplifier l'écriture de la requête on a également abrévié
-`countrylanguage` en `ci` pour $i \in \{1,2\}$.
-
-On dispose aussi de la syntaxe `JOIN … USING (a₁,…,aₖ)` pour
-faire des jointures qui ne considèrent que les attributs communs
-`a₁` à `aₖ`.
+ Il est préférable d'utiliser l'opération de jointure :
 
 ```{.sql}
-SELECT DISTINCT name_country
-FROM country NATURAL JOIN
-     countrylanguage AS l1 JOIN 
-     countrylanguage AS l2 USING (countrycode)
-WHERE l1.isofficial AND l2.isofficial
-AND l1.language <> l2.language ;
+SELECT name
+FROM country JOIN city ON capital = id
+WHERE region = 'South America';
 ```
 
+:::
+:::
+
+
+@. Quels sont les noms des pays où le français est langue officielle ? (18 lignes)
+
+
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+  ${\small\Pi \big( \sigma(\texttt{country} \bowtie_{\texttt{countrycode}} \texttt{countrylanguage}, \texttt{ isofficial}\wedge \texttt{language='French'}), \texttt{ name\_country}\big)}$
+      
+
+```{.sql}
+SELECT co.name_country
+FROM country co JOIN countrylanguage l ON co.countrycode = l.countrycode
+WHERE l.isofficial AND l.language = 'French' ;
+```
 
 :::
 :::
 
 
 
-5. Quels sont les pays qui n'ont pas de langue officielle ? (49 lignes)
+@. Quelles sont les pays où l'espagnol est langue officielle et la forme
+de gouvernement est 'Federal Republic' ? (3 lignes)
+
     
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$$\Pi_{\texttt{name\_country}}\big(
-      \texttt{world.country})-
-     \Pi_{\texttt{name\_country}}\big( \sigma_{\texttt{isofficial}}(\texttt{world.country} \bowtie \texttt{world.countrylanguage}))$$
+  $\Pi\big( \sigma(\texttt{country} \bowtie_{\texttt{countrycode}} \texttt{countrylanguage},$
+
+  $\texttt{ isofficial}\wedge \texttt{language='Spanish'}\wedge \texttt{governmentform='Federal Republic'}),\texttt{ name\_country}\big)$
+
 
 ```{.sql}
-(SELECT name_country 
- FROM world.country
+SELECT co.name_country
+FROM country co JOIN countrylanguage l ON co.countrycode = l.countrycode
+WHERE l.isofficial AND 
+      l.language = 'Spanish' AND 
+      co.governmentform = 'Federal Republic' ;
+```
+
+:::
+:::
+
+
+
+@.  Quels sont les pays qui ont au moins deux langues officielles ? (38 lignes)
+
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+ $\Pi\big( \sigma (\texttt{country} \bowtie_{\texttt{countrycode}} \texttt{l1} \bowtie_{\texttt{countrycode}} \texttt{l2},$
+
+ $\texttt{ l1.isofficial}\wedge \texttt{l2.isofficial} \wedge \texttt{l1.language}\neq \texttt{l2.language}), \texttt{ name\_country}\big)$
+
+
+```{.sql}
+SELECT DISTINCT co.name_country
+FROM 
+   country AS co 
+   JOIN countrylanguage AS l1 ON co.countrycode = l1.countrycode
+   JOIN countrylanguage AS l2 ON co.countrycode = l2.countrycode 
+                              AND NOT (l1.language = l2.language)
+WHERE l1.isofficial AND l2.isofficial ;
+```
+
+ On dispose aussi de la syntaxe $\texttt{JOIN … USING (a}_\texttt{1}\texttt{,}\dots\texttt{,a}_\texttt{k}\texttt{)}$ pour
+ faire des jointures naturelles qui ne considèrent que les attributs communs
+ $\texttt{a}_\texttt{1}$ à $\texttt{a}_\texttt{k}$.
+
+```{.sql}
+SELECT DISTINCT name_country
+FROM country 
+   JOIN countrylanguage AS l1 USING (countrycode)  
+   JOIN countrylanguage AS l2 USING (countrycode)
+WHERE l1.isofficial AND l2.isofficial AND l1.language <> l2.language ;
+```
+
+
+:::
+:::
+
+
+
+@. Quels sont les pays qui n'ont pas de langue officielle ? (49 lignes)
+    
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+ ${\small \Pi\big(\texttt{country}, \texttt{name\_country}\big) -\Pi\big( \sigma(\texttt{country} \bowtie_{\texttt{countrycode}} \texttt{countrylanguage} , \texttt{isofficial}),\texttt{name\_country}\big)}$
+
+```{.sql}
+(
+   SELECT name_country 
+   FROM country
 )
-
 EXCEPT
-
-(SELECT name_country 
- FROM world.country NATURAL JOIN world.countrylanguage 
- WHERE isofficial
+(
+   SELECT name_country 
+   FROM country JOIN countrylanguage USING (countrycode) 
+   WHERE isofficial
 );
 ```
 
@@ -594,84 +605,84 @@ EXCEPT
 
 
 
-6. Quels sont les pays qui comportent au moins deux villes de plus de
-  1 000 000 habitants ? (32 lignes)
-    
+@. Quels sont les pays qui comportent au moins deux villes de plus de 1 000 000 habitants ? (32 lignes)
+
+
+
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$$\Pi_{\texttt{name\_country}}$$\\
+ \texttt{c1 = city}
+ 
+ \texttt{c2 = city}
 
-$$\big( \sigma_{\texttt{c1.population\_city  > 1000000}\wedge \texttt{c2..population\_city  > 1000000} \wedge \texttt{c1.id}\neq \texttt{c2.id}\wedge
- \texttt{countrycode = c1.countrycode} \wedge \texttt{countrycode = c2.countrycode}}(\\
-\texttt{world.country} \times \texttt{world.c1}\times \texttt{world.c2})\big)$$
+ $\Pi\big( \sigma(\texttt{country} \bowtie_{\texttt{countrycode}} \texttt{c1} \bowtie_{\texttt{countrycode}} \texttt{c2}, \texttt{ c1.population\_city>1000000 }\wedge$
+
+ $\texttt{c2.population\_city>1000000 }\wedge$ $\texttt{c1.id}\neq \texttt{c2.id}), \texttt{name\_country}\big)$
 
 ```{.sql}
 SELECT DISTINCT name_country
-FROM country as c , city as v1 , city as v2
-WHERE c.countrycode = v1.countrycode  AND 
-      c.countrycode = v2.countrycode AND 
-      v1.population > 1000000 AND 
-      v2.population > 1000000 AND 
-      (NOT v1.id = v2.id) ;
+FROM country AS co 
+   JOIN city AS c1 ON co.countrycode = c1.countrycode
+   JOIN city AS c2 ON co.countrycode = c2.countrycode AND (NOT c1.id = c2.id)
+WHERE c1.population > 1000000 AND c2.population > 1000000;
 ```
 
-Ici `c1` (respectivement, `c2`) est utilisé comme abbréviation pour `city1` (respectivement, `city2`).
-
-
 :::
 :::
 
 
 
-7. Quelles sont les régions qui ne comportent qu'une seule forme de gouvernement ? (3 lignes)
+@. Quelles sont les régions qui ne comportent qu'une seule forme de gouvernement ? (3 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-$$\Pi_{\texttt{region}}\big( \texttt{world.country})- \Pi_{\texttt{region}}$$
-     
-$$\big( \sigma_{\texttt{c1.region = c2.region}\wedge\texttt{c1.countrycode<>c2.countrycode}\wedge c1.governmentform<>c2.governmentform}(\texttt{world.c1} \bowtie \texttt{world.c2}))$$
+ \texttt{c1 = city}
+ 
+ \texttt{c2 = city}
+
+ $\Pi\big( \texttt{country } , \texttt{ region})$
+
+ $-\ \Pi \big( \sigma(\texttt{c1} \bowtie_{\texttt{region}} \texttt{c2}, \texttt{ c1.governmentform<>c2.governmentform})\big)$
 
 ```{.sql}
-(SELECT region 
-FROM country)
+(  
+   SELECT DISTINCT region 
+   FROM country
+)
 EXCEPT
-(SELECT c1.region 
- FROM country as c1 , country as c2
-WHERE c1.region = c2.region AND 
-      c1.countrycode <> C2.countrycode AND NOT 
-      c1.governmentform = c2.governmentform ) ;
+(  
+   SELECT DISTINCT c1.region 
+   FROM country as c1 
+      JOIN country as c2 ON c1.region = c2.region 
+                        AND c1.governmentform <> c2.governmentform
+) ;
 ```
-
-Ici `c1` (respectivement, `c2`) est utilisé comme abbréviation pour `country1` (respectivement, `country2`).
-
 :::
 :::
 
 
 
-
-8. Quelles sont les régions où on ne trouve pas de monarchie ? (9 lignes)
+@. Quelles sont les régions où on ne trouve pas de monarchie ? (9 lignes)
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
-
-Une solution algébrique aurait la forme générale de la requête de la question 5. En revanche, nous n'avons pas présenté en cours d'implémentation pour l'opérateur de comparaison `LIKE` qui devrait être utilisé dans l'opérateur de sélection. Nous préférons donc en toute rigueur ne pas proposer ici de traduction algébrique.
+La requête algébrique a la même forme que la précédente mais nécessite d'introduire une opération `LIKE`.
 
 ```{.sql}
-(SELECT region 
-FROM country)
-
+(  
+   SELECT region 
+   FROM country
+)
 EXCEPT
-
-(SELECT region 
-FROM country
-WHERE governmentform LIKE '%Monarchy%') ;
+(  
+   SELECT region 
+   FROM country
+   WHERE governmentform LIKE '%Monarchy%'
+) ;
 ```
 
 :::
 :::
-
-
 

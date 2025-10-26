@@ -6,7 +6,7 @@ title: "Équipe enseignante"
 
 <!-- ![](images/team/avatar.jpg){style="float:right;padding: 0 0 0 10px;" fig-alt="Headshot of S. Boucheron" width="100"} -->
 
-<!-- [**S. Boucheron**](http://stephane-v-boucheron.fr/)  Professeur de Mathématiques à l'Université Paris Cité/[Laboratoire de Probabilités, Statistiques et Modélisatiion LPSM](https://www.lpsm.paris). -->
+<!-- [**S. Boucheron**](http://stephane-v-boucheron.fr/)  Professeur de Mathématiques à l'Université Paris Cité/[Laboratoire de Probabilités, Statistiques et Modélisatiion LPSM](https://www.lpsm.paris){target="_blank"}. -->
 
 [Bertrand Gentou]()
 
@@ -22,11 +22,11 @@ title: "Équipe enseignante"
 
 | Nom                | Années                  |           
 |:-------------------|:-------------------------:|
-| [Stéphane Boucheron](http://stephane-v-boucheron.fr/) | 2022-2024  |      
+| [Stéphane Boucheron](http://stephane-v-boucheron.fr/){target="_blank"} | 2022-2024  |      
 | [Anatole Dahan]()| 2022 |   
-| [Amélie Gheerbrant](https://www.irif.fr/~amelie/) | 2022 | 
-| [Sylvain Schmitz](https://www.irif.fr/en/users/schmitz/index)    | 2023  |   
-| [Amine Souiri](https://fr.linkedin.com/in/aminesouiri)| 2024 |  
-| [Cristina Sirangelo](https://www.irif.fr/~cristina/)| 2024 | 
+| [Amélie Gheerbrant](https://www.irif.fr/~amelie/){target="_blank"} | 2022 | 
+| [Sylvain Schmitz](https://www.irif.fr/en/users/schmitz/index){target="_blank"}    | 2023  |   
+| [Amine Souiri](https://fr.linkedin.com/in/aminesouiri){target="_blank"}| 2024 |  
+| [Cristina Sirangelo](https://www.irif.fr/~cristina/){target="_blank"}| 2024 | 
 
 

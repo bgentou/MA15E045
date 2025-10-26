@@ -51,7 +51,7 @@ Imposer la contrainte suivante : un client ne peut emprunter plusieurs DVD simul
 
 La requête est facile à écrire si on est prêt à utiliser le type `tsrange`, l'opérateur de recouvrement `&&` (`overlap`).
 
-[Postgresql documentation on range types](https://www.postgresql.org/docs/current/rangetypes.html)
+[Postgresql documentation on range types](https://www.postgresql.org/docs/current/rangetypes.html){target="_blank"}
 
 Dans l'instance du schéma `pagila` disponible sur le serveur `etu-pgsql`, la contrainte est-elle vérifiée ?
 
@@ -306,7 +306,7 @@ EXCLUDE USING gist (
 ```
 
 
-{{< fa hand-point-right >}} Nous sommes dans une situation où une colonne peut être calculée à partir d'autres colonnes. PostgreSQL propose des [genrated columns](https://www.postgresql.org/docs/current/ddl-generated-columns.html) pour traîter ce genre de situations. 
+{{< fa hand-point-right >}} Nous sommes dans une situation où une colonne peut être calculée à partir d'autres colonnes. PostgreSQL propose des [genrated columns](https://www.postgresql.org/docs/current/ddl-generated-columns.html){target="_blank"} pour traîter ce genre de situations. 
 
 
 > Une colonne générée est une colonne spéciale qui est toujours calculée à partir d'autres colonnes. Elle est donc pour les colonnes ce qu'une vue est pour les tables. Il existe deux types de colonnes générées : les colonnes stockées et les colonnes virtuelles. Une colonne générée stockée est calculée lorsqu'elle est écrite (insérée ou mise à jour) et occupe l'espace de stockage comme s'il s'agissait d'une colonne normale. Une colonne générée virtuelle n'occupe pas d'espace de stockage et est calculée lorsqu'elle est lue. Ainsi, une colonne générée virtuelle est similaire à une vue et une colonne générée stockée est similaire à une vue matérialisée (sauf qu'elle est toujours mise à jour automatiquement). PostgreSQL n'implémente actuellement que les colonnes générées stockées.

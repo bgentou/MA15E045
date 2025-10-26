@@ -1,3 +1,33 @@
+- title: "CC 1 2025-26"
+  author: "Licence MIASHS UParis Cité"
+  date: "2025-10-17"
+  path: "exams/cc1-2025-10-17.html"
+  categories: [Requêtes simples, Requêtes imbriquées, Jointure, Aggrégation]
+- title: "CC 1 2024-25"
+  author: "Licence MIASHS UParis Cité"
+  date: "2024-10-25"
+  path: "exams/cc1-2024-10-25.html"
+  categories: [Requêtes simples, Aggrégation, pagila]
+- title: "CC 2 2024-25"
+  author: "Licence MIASHS UParis Cité"
+  date: "2024-11-15"
+  path: "exams/cc2-2024-11-15.html"
+  categories: [Requêtes, Aggrégation, Fenêtres, pagila, world]
+- title: "CC 3 2024-25"
+  author: "Licence MIASHS UParis Cité"
+  date: "2024-12-13"
+  path: "exams/cc3-2024-12-13.html"
+  categories: [Modélisation, Entité-Association, Pattes de corbeaux, Requêtes, Dépendances fonctionnelles]
+- title: "CT 1 2024-25"
+  author: "Licence MIASHS UParis Cité"
+  date: "2025-01-06"
+  path: "exams/ct-2025-01-06.html"
+  categories: [Modélisation, Entité-Association, Pattes de corbeaux, Requêtes, Dépendances fonctionnelles, Normalisation]
+- title: "CT 2 2024-25"
+  author: "Licence MIASHS UParis Cité"
+  date: "2025-06-06"
+  path: "exams/ct-2025-06-06.html"
+  categories: [Modélisation, Entité-Association, Pattes de corbeaux, Requêtes, Dépendances fonctionnelles, Normalisation]
 - title: "CC 1 2023-24"
   author: "Licence MIASHS UParis Cité"
   date: "2023-10-27"
@@ -48,30 +78,5 @@
   date: "2022-11-13"
   path: "exams/cc3-2022-11-13.html"
   categories: [Aggrégation, Fenêtres, nycflights]
-- title: "CC 1 2024-25"
-  author: "Licence MIASHS UParis Cité"
-  date: "2024-10-25"
-  path: "exams/cc1-2024-10-25.html"
-  categories: [Requêtes simples, Aggrégation, pagila]
-- title: "CC 2 2024-25"
-  author: "Licence MIASHS UParis Cité"
-  date: "2024-11-15"
-  path: "exams/cc2-2024-11-15.html"
-  categories: [Requêtes, Aggrégation, Fenêtres, pagila, world]
-- title: "CC 3 2024-25"
-  author: "Licence MIASHS UParis Cité"
-  date: "2024-12-13"
-  path: "exams/cc3-2024-12-13.html"
-  categories: [Modélisation, Entité-Association, Pattes de corbeaux, Requêtes, Dépendances fonctionnelles]
-- title: "CT 1 2024-25"
-  author: "Licence MIASHS UParis Cité"
-  date: "2025-01-06"
-  path: "exams/ct-2025-01-06.html"
-  categories: [Modélisation, Entité-Association, Pattes de corbeaux, Requêtes, Dépendances fonctionnelles, Normalisation]
-- title: "CT 2 2024-25"
-  author: "Licence MIASHS UParis Cité"
-  date: "2025-06-06"
-  path: "exams/ct-2025-06-06.html"
-  categories: [Modélisation, Entité-Association, Pattes de corbeaux, Requêtes, Dépendances fonctionnelles, Normalisation]
 
 

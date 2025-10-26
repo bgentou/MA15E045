@@ -189,7 +189,7 @@ $$ ;
   
 ### Table de même schéma qu'une autre table
 
-[Documentation](https://www.postgresql.org/docs/15/xfunc-sql.html)
+[Documentation](https://www.postgresql.org/docs/15/xfunc-sql.html){target="_blank"}
 
 
 On veut maintenant récupérer une table de même schéma que `city`. 
@@ -212,14 +212,14 @@ $$ ;
 
 # Schéma `babynames`
 
-Les données sont construites et mises à disposition par l'INSEE [https://www.insee.fr/fr/accueil](https://www.insee.fr/fr/accueil), disponibles  ici: [https://www.insee.fr/fr/statistiques/fichier/2540004/nat2021_csv.zip](https://www.insee.fr/fr/statistiques/fichier/2540004/nat2021_csv.zip)
+Les données sont construites et mises à disposition par l'INSEE [https://www.insee.fr/fr/accueil](https://www.insee.fr/fr/accueil){target="_blank"}, disponibles  ici: [https://www.insee.fr/fr/statistiques/fichier/2540004/nat2021_csv.zip](https://www.insee.fr/fr/statistiques/fichier/2540004/nat2021_csv.zip){target="_blank"}
 
 Cet ensemble de données s'est développé depuis un certain temps. Il a été pris en compte par les des chercheurs en sciences sociales depuis des décennies.  Les prénoms sont censés donner un aperçu d'une variété de phénomènes, y compris l'observance religieuse.
 phénomènes, y compris l'observance religieuse.
 
 Un aperçu de l'ensemble des travaux peut être trouvé dans *L'archipel français* de Jérome Fourquet, Le Seuil, 2019.
 
-[https://www.seuil.com/ouvrage/l-archipel-francais-jerome-fourquet/9782021406023](https://www.seuil.com/ouvrage/l-archipel-francais-jerome-fourquet/9782021406023).
+[https://www.seuil.com/ouvrage/l-archipel-francais-jerome-fourquet/9782021406023](https://www.seuil.com/ouvrage/l-archipel-francais-jerome-fourquet/9782021406023){target="_blank"}.
 
 ```{.sql}
 SET search_path TO babynames ;
@@ -452,7 +452,7 @@ $$ ;
 :::
 
 
-[https://www.postgresql.org/docs/15/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS](https://www.postgresql.org/docs/15/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS)
+[https://www.postgresql.org/docs/15/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS](https://www.postgresql.org/docs/15/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS){target="_blank"}
 
 
 

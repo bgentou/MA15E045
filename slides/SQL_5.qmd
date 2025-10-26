@@ -384,7 +384,7 @@ END LOOP ;
 
 - On itère sur les tuples de la requête `SELECT u.usename  ...`
 
-Voir [Documentation officielle](https://www.postgresql.org/docs/current/plpgsql.html)
+Voir [Documentation officielle](https://www.postgresql.org/docs/current/plpgsql.html){target="_blank"}
 
 . . .
 
@@ -408,7 +408,7 @@ Renvoi du résultat
 
 `plpgSQL` propose une variété de manières de construire et de renvoyer le résultat d'une fonction
 
-Voir [Documentation officielle](https://www.postgresql.org/docs/current/plpgsql-declarations.html)
+Voir [Documentation officielle](https://www.postgresql.org/docs/current/plpgsql-declarations.html){target="_blank"}
 
 
 

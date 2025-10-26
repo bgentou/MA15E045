@@ -48,9 +48,9 @@ params:
 
 Créer les fonctions `SQL` et vues correspondant aux questions suivantes.
 
-Les questions portent sur le schéma `nycflights13` issu de [https://github.com/tidyverse/nycflights13](https://github.com/tidyverse/nycflights13).
+Les questions portent sur le schéma `nycflights13` issu de [https://github.com/tidyverse/nycflights13](https://github.com/tidyverse/nycflights13){target="_blank"}.
 
-Voir [Documentation package R nycflights13](https://nycflights13.tidyverse.org)
+Voir [Documentation package R nycflights13](https://nycflights13.tidyverse.org){target="_blank"}
 
 
 
@@ -298,7 +298,7 @@ Créer  une vue `cc_vue_15` de schéma:
 (tailnum text, year int4, woy int4, cumdist numeric, model text)
 ```
 
-qui recense pour chaque semaine (commencant le dimanche) les avions (identifiés par `tailnum`) qui ont parcouru la plus grande distance durant cette semaine, la distance parcourue pendant la semaine (en [milles nautiques](https://fr.wikipedia.org/wiki/Mille_marin)), on indiquera aussi le modèle (`model`) de l'avion
+qui recense pour chaque semaine (commencant le dimanche) les avions (identifiés par `tailnum`) qui ont parcouru la plus grande distance durant cette semaine, la distance parcourue pendant la semaine (en [milles nautiques](https://fr.wikipedia.org/wiki/Mille_marin){target="_blank"}), on indiquera aussi le modèle (`model`) de l'avion
 
 Réponse attendue pour :
 
@@ -325,8 +325,8 @@ WHERE  woy>=26 AND woy <= 30
 
 Manipulation du temps
 
-- [Doc PostgreSQL : types](https://www.postgresql.org/docs/current/datatype-datetime.html)
-- [Doc PostgreSQL : fonctions](https://www.postgresql.org/docs/current/functions-datetime.html)
+- [Doc PostgreSQL : types](https://www.postgresql.org/docs/current/datatype-datetime.html){target="_blank"}
+- [Doc PostgreSQL : fonctions](https://www.postgresql.org/docs/current/functions-datetime.html){target="_blank"}
 
 ```{.sql}
 SELECT extract(week from now()), now(), now() + '1 week'::interval ;

@@ -56,14 +56,14 @@ Présentation du schéma `world`, pour l'entrainement à PostGres.
 
 
 
-Créé avec  [DbSchema](https://dbschema.com)
+Créé avec  [DbSchema](https://dbschema.com){target="_blank"}
 
 
 ## Contexte
 
 `world` est un schéma formé par trois tables `country`, `city` et `countrylanguage`. Les instances de ce schéma sont censées fournir des données de géographie politique : un état du monde à une date donnée. 
 
-La table `country` nous renseigne sur les états reconnus (à l'ONU) et sur des territoires jugés plus ou moins autonomes [Dépendances](https://fr.wikipedia.org/wiki/Liste_des_dépendances_et_territoires_à_souveraineté_spéciale), [Territoires non autonomes](https://fr.wikipedia.org/wiki/Liste_des_territoires_non_autonomes_selon_l%27Organisation_des_Nations_unies)
+La table `country` nous renseigne sur les états reconnus (à l'ONU) et sur des territoires jugés plus ou moins autonomes [Dépendances](https://fr.wikipedia.org/wiki/Liste_des_dépendances_et_territoires_à_souveraineté_spéciale){target="_blank"}, [Territoires non autonomes](https://fr.wikipedia.org/wiki/Liste_des_territoires_non_autonomes_selon_l%27Organisation_des_Nations_unies){target="_blank"}
  
 
 La table `city`  nous renseigne sur les villes les plus importantes de chaque territoire.
@@ -105,7 +105,7 @@ et des arcs qui décrivent des *contraintes référentielles*.
 | * | code2| char(2)  | Code ISO à 2 symboles |
 
 
-`gnp` est formé par les initiales de `Gross National Product` ([Produit National Brut](https://fr.wikipedia.org/wiki/Produit_national_brut)), un indicateur de revenu défini par les économistes.
+`gnp` est formé par les initiales de `Gross National Product` ([Produit National Brut](https://fr.wikipedia.org/wiki/Produit_national_brut){target="_blank"}), un indicateur de revenu défini par les économistes.
 
 `lifeexpectancy` (espérance de vie à la naissance) est un indicateur de santé publique construit par les démographes. Ce n'est pas l'âge moyen au décès.
 

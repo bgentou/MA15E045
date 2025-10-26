@@ -259,7 +259,7 @@ L'ajout d'une contrainte d'exclusion crée automatiquement un index du type spé
 
 :::
 
-[Documentation](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-EXCLUSION)
+[Documentation](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-EXCLUSION){target="_blank"}
 
 
 

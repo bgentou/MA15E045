@@ -7,28 +7,28 @@ title: "Project tips + resources"
 
 ### Some resources that may be helpful as you find data:
 
--   [R Data Sources for Regression Analysis](https://rfun.library.duke.edu/blog/data-sources-for-regression-analysis/)
--   [FiveThirtyEight data](https://data.fivethirtyeight.com/)
--   [TidyTuesday](https://github.com/rfordatascience/tidytuesday)
+-   [R Data Sources for Regression Analysis](https://rfun.library.duke.edu/blog/data-sources-for-regression-analysis/){target="_blank"}
+-   [FiveThirtyEight data](https://data.fivethirtyeight.com/){target="_blank"}
+-   [TidyTuesday](https://github.com/rfordatascience/tidytuesday){target="_blank"}
 
 ### Other data repositories
 
--   [World Health Organization](https://www.who.int/gho/database/en/)
--   [The National Bureau of Economic Research](https://data.nber.org/data/)
--   [International Monetary Fund](https://data.imf.org/?sk=388DFA60-1D26-4ADE-B505-A05A558D9A42&sId=1479329328660)
--   [General Social Survey](http://gss.norc.org/)
--   [United Nations Data](http://data.un.org/)
--   [United Nations Statistics Division](https://unstats.un.org/home/)
--   [U.K. Data](https://data.gov.uk/)
--   [U.S. Data](https://www.data.gov/)
--   [U.S. Census Data](https://www.census.gov/data.html)
--   [European Statistics](https://ec.europa.eu/eurostat/)
--   [Statistics Canada](https://www.statcan.gc.ca/eng/start)
--   [Pew Research](https://www.pewresearch.org/download-datasets/)
--   [UNICEF](https://data.unicef.org/)
--   [CDC](https://www.cdc.gov/datastatistics/index.html)
--   [World Bank](https://datacatalog.worldbank.org/)
--   [Election Studies](https://electionstudies.org//)
+-   [World Health Organization](https://www.who.int/gho/database/en/){target="_blank"}
+-   [The National Bureau of Economic Research](https://data.nber.org/data/){target="_blank"}
+-   [International Monetary Fund](https://data.imf.org/?sk=388DFA60-1D26-4ADE-B505-A05A558D9A42&sId=1479329328660){target="_blank"}
+-   [General Social Survey](http://gss.norc.org/){target="_blank"}
+-   [United Nations Data](http://data.un.org/){target="_blank"}
+-   [United Nations Statistics Division](https://unstats.un.org/home/){target="_blank"}
+-   [U.K. Data](https://data.gov.uk/){target="_blank"}
+-   [U.S. Data](https://www.data.gov/){target="_blank"}
+-   [U.S. Census Data](https://www.census.gov/data.html){target="_blank"}
+-   [European Statistics](https://ec.europa.eu/eurostat/){target="_blank"}
+-   [Statistics Canada](https://www.statcan.gc.ca/eng/start){target="_blank"}
+-   [Pew Research](https://www.pewresearch.org/download-datasets/){target="_blank"}
+-   [UNICEF](https://data.unicef.org/){target="_blank"}
+-   [CDC](https://www.cdc.gov/datastatistics/index.html){target="_blank"}
+-   [World Bank](https://datacatalog.worldbank.org/){target="_blank"}
+-   [Election Studies](https://electionstudies.org//){target="_blank"}
 
 ## Tips
 
@@ -80,7 +80,7 @@ Arrange plots in a grid, instead of one after the other.
 This is especially useful when displaying plots for exploratory data analysis and to check assumptions.
 
 If you're using ggplot2 functions, the `patchwork` package makes it easy to arrange plots in a grid.
-See the documentation and examples [here](https://patchwork.data-imaginist.com/).
+See the documentation and examples [here](https://patchwork.data-imaginist.com/){target="_blank"}.
 
 
 
@@ -110,6 +110,6 @@ See the documentation and examples [here](https://patchwork.data-imaginist.com/)
 
 ## Additional resources
 
--   [R for Data Science](https://r4ds.had.co.nz/)
+-   [R for Data Science](https://r4ds.had.co.nz/){target="_blank"}
 
--   [Quarto Documentation](https://quarto.org/)
+-   [Quarto Documentation](https://quarto.org/){target="_blank"}

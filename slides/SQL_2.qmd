@@ -776,7 +776,7 @@ WHERE c.gnpold >0 AND c.gnp / c.gnpold > 1.1 AND ci.population > 2000000;
 
 <!--
 
-See [Trumpetting lateral join](https://heap.io/blog/postgresqls-powerful-new-join-type-lateral)
+See [Trumpetting lateral join](https://heap.io/blog/postgresqls-powerful-new-join-type-lateral){target="_blank"}
 
 Could be useful for implementing exploratory pipelines into postgresql without to much tears and sweat. 
 -->

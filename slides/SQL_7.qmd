@@ -323,7 +323,7 @@ S <- dplyr::select(R, Ai1, Ai2, ..., Aip)
 
 ## Projection vitaminée (`tidy selection`)
 
-[Sélection bien tempérée](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)
+[Sélection bien tempérée](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html){target="_blank"}
 
 
 
@@ -1048,7 +1048,7 @@ est la relation $T= R \div S$ de schéma $T(A_1, \dots, A_p)$.
 
 ## Références sur les tqbles partitionnées
 
-[`dplyr` sur le groupement](https://dplyr.tidyverse.org/articles/grouping.html)
+[`dplyr` sur le groupement](https://dplyr.tidyverse.org/articles/grouping.html){target="_blank"}
 
 # Mise à jour de tables {background-color="#1c191c"}
 
@@ -1084,7 +1084,7 @@ est la relation $T= R \div S$ de schéma $T(A_1, \dots, A_p)$.
 # Références
 
 
-- [Page maison `dplyr`](https://dplyr.tidyverse.org/)
+- [Page maison `dplyr`](https://dplyr.tidyverse.org/){target="_blank"}
 - []()
 
 # Fin  {background-color="#1c191c"}

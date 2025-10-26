@@ -13,39 +13,7 @@ format:
 ---
 
 
-```{r, include=FALSE, eval=FALSE, echo=FALSE}
-tryCatch({
-    drv <- dbDriver("PostgreSQL")
-    print("Connecting to Database…")
-    connec <- dbConnect(drv,
-                 dbname = "bd_2018",
-                 host = "localhost",
-                 port = 5432,
-                 user = "postgres",
-                 password = "postgres")
-    print("Database Connected!")
-    },
-    error=function(cond) {
-            print("Unable to connect to Database.")
-    })
 
-dbSendQuery(connec, "SET search_path TO world ;")
-
-res <- dbSendQuery(connec,
-"SELECT
-    region, name ,
-sum(gnp) OVER (PARTITION BY region
-                ORDER BY gnp)
-FROM world.country c
-WHERE region LIKE '%Europe'
-LIMIT 6;"
-)
-
-foo <- dbFetch(res)
-
-
-dbDisconnect(connec)
-```
 
 
 
@@ -124,15 +92,12 @@ Chaque attribut est défini par un nom d'attribut et un type de données
 
 . . .
 
-::: {.callout-note}
 
 ### Exemples de types
 
 ```{.sql}
 <type_donnees> ::=  VARCHAR <longueur>| INT | REAL | DATE
 ```
-
-::: 
 
 
 
@@ -164,9 +129,6 @@ CREATE TABLE piece(
 ## Exemple avec valeurs par défaut 
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "|5-6"
 CREATE TABLE livraison(
 	numLiv INT,
 	nomf VARCHAR(20),
@@ -194,9 +156,6 @@ CREATE TABLE livraison(
 
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "|7-8"
 CREATE TABLE world.city (
 	id int4 NOT NULL,
 	name text NOT NULL,
@@ -209,9 +168,6 @@ CREATE TABLE world.city (
 ```
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "|4-5"
 CREATE TABLE world.code_continent (
 	continent name NOT NULL,
 	codecontinent int4 NOT NULL,
@@ -224,9 +180,6 @@ CREATE TABLE world.code_continent (
 
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "|6-7"
 CREATE TABLE world.countrylanguage (
 	countrycode bpchar(3) NOT NULL,
 	"language" text NOT NULL,
@@ -257,9 +210,6 @@ Une clé peut être composée de plusieurs attributs
 
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "|17-24"
 CREATE TABLE world.country (
 	countrycode bpchar(3) NOT NULL,
 	name_country text NOT NULL,
@@ -339,9 +289,6 @@ On peut donc :
 
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "1|2|3"
 INSERT INTO <nom_relation>
 	[(nom_attrib [, nom_attrib]*)]
 	VALUES (valeur [, valeur]*);
@@ -352,9 +299,6 @@ INSERT INTO <nom_relation>
 
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "1|3|"
 INSERT INTO piece VALUES('x21', 1.51, 'rouge');
 
 INSERT INTO piece (nomp,couleur) VALUES('x22', 'vert');
@@ -412,7 +356,7 @@ est souvent appelée la *liste de valeurs*.
 
 . . .
 
-Une liste de valeurs peut être définie sans référene à une table existante et 
+Une liste de valeurs peut être définie sans référence à une table existante et 
 définir à la volée une nouvelle table virtuelle/éphémère.
 
 
@@ -420,9 +364,6 @@ définir à la volée une nouvelle table virtuelle/éphémère.
 
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "4-5|6|"
 SELECT *
 FROM (
   VALUES
@@ -489,18 +430,16 @@ INSERT INTO livraison
 
 ## Insertion de tuples par requête
 
-- On peut faire une insertion par le biais d'une requête
+- On peut faire une insertion par le biais d'une requête,
 
-- La clause `VALUES` est remplacée par une requête
+- La clause `VALUES` est remplacée par une requête,
 
-- Les résultats de la requête sont insérés comme valeurs dans la table
+- Les résultats de la requête sont insérés comme valeurs dans la table.
 
 . . .
 
 
-::: {.callout-note}
-
-### Alimentation d'une nouvelle table à l'aide des données d'une autre
+### Exemple 1
 
 ```{.sql}
 INSERT INTO FournisseursParisiens (
@@ -510,25 +449,24 @@ INSERT INTO FournisseursParisiens (
 );
 ```
 
-:::
 
 
-##  Exemple
+##  Exemple 2
 
 ```{.sql}
-CREATE TABLE chaprot.city () 
+CREATE TABLE monschema.city () 
   INHERITS (world.city) ;
 
-CREATE TABLE chaprot.country () 
+CREATE TABLE monschema.country () 
   INHERITS (world.country) ;
 
-INSERT INTO chaprot.country (
+INSERT INTO monschema.country (
 	SELECT * 
     FROM world.country
 	WHERE continent = 'Europe' 
 );
 
-INSERT INTO chaprot.city (
+INSERT INTO monschema.city (
 	SELECT ci.*  
     FROM world.city ci NATURAL JOIN 
       world.country co
@@ -540,7 +478,7 @@ INSERT INTO chaprot.city (
 # Mise à jour  {background-color="#1c191c"}
 
 
-## Mise à jour de colonnes, ed cellules 
+## Mise à jour de colonnes, de cellules 
 
 - On peut mettre à jour des tuples existants par le biais d'une requête
 
@@ -617,6 +555,9 @@ WHERE Prix <= 1000;
 DELETE FROM <nom_relation>
 [WHERE <condition de recherche>];
 ```
+:::{.callout-important}
+L'oubli de la clause `where` supprime toutes les données de la table.
+:::
 
 . . .
 
@@ -672,11 +613,8 @@ Spécifiez cet ensemble supplémentaire avec le prédicat `USING`
 
 
 ```{sql}
---| eval: false
---| echo: true
---| code-line-numbers: "1|2|3-5"
-DELETE FROM chaprot.city 
-USING chaprot.country AS co
+DELETE FROM monschema.city 
+USING monschema.country AS co
 WHERE 
   city.countrycode = co.countrycode AND 
   co.region= 'Eastern Europe' AND 
@@ -719,12 +657,11 @@ Cela dépend des contraintes d'intégrité qui pèsent sur la base
 ---
 
 
-- On a vu comment créer  des tables (de façon simplifiée) et gérer le contenu de celles-ci
+- On a vu comment créer  des tables (de façon simplifiée) et gérer le contenu de celles-ci,
 
-- On peut spécifier bien plus de contraintes dans la partie création de tables
+- On peut spécifier bien plus de contraintes dans la partie création de tables,
 
-- L'ajout ou la suppression de données n'est pas libre : les contraintes (de clés notamment) doivent être satisfaites après
-l'exécution des mises à jours
+- L'ajout ou la suppression de données n'est pas libre : les contraintes (de clés notamment) doivent être satisfaites après l'exécution des mises à jours.
 
 
 

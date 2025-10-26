@@ -29,7 +29,7 @@ Les diapositives marquées par l'image {{< fa person-chalkboard >}} renvoient à
 ::: {.callout-note}
 ### Mode d'emploi
 
-Les diapositives utilisent la bibliothèque [`revealjs`](https://revealjs.com) de {{< fa brands js >}}. Elles s'affichent dans votre navigateur. 
+Les diapositives utilisent la bibliothèque [`revealjs`](https://revealjs.com){target="_blank"} de {{< fa brands js >}}. Elles s'affichent dans votre navigateur. 
 Vous pouvez accéder au mode d'emploi en tappant {{< fa question >}}
 
 :::

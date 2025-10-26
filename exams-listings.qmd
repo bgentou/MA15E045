@@ -16,7 +16,7 @@ listing:
 
 ::: {.callout-note}
 
-Les annales recueillent les sujets de contrôle continu (CC) et de contrôle terminal (CT) des années universitaires 2022-23 et 2023-24. 
+Les annales recueillent les sujets de contrôle continu (CC) et de contrôle terminal (CT) du cours de BDD pour les L3 Miashs. 
 
 Les sujets sont *partiellement* corrigés.
 

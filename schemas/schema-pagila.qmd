@@ -66,10 +66,10 @@ Présentation de la partie `film` du schéma `pagila`, pour l'entrainement à Po
 
 Description de presque toutes les  tables de la base `pagila` , 
 
-- [Page maison de la base de données  `pagila`](https://github.com/devrimgunduz/pagila). 
-- [Page maison de la base de données  `sakila`](https://dev.mysql.com/doc/sakila/en/)
-- [Détails sur les films](/schemas/schema-pagila-film.qmd)
-- [Détails sur les adresses, clients, magasins, paiements](/schemas/schema-pagila-address.qmd)
+- [Page maison de la base de données  `pagila`](https://github.com/devrimgunduz/pagila){target="_blank"}. 
+- [Page maison de la base de données  `sakila`](https://dev.mysql.com/doc/sakila/en/){target="_blank"}
+- [Détails sur les films](/schemas/schema-pagila-film.qmd){target="_blank"}
+- [Détails sur les adresses, clients, magasins, paiements](/schemas/schema-pagila-address.qmd){target="_blank"}
 
 `pagila`  est une base d'entrainement pour PostgreSQL. Cette base est une adaptation de la base `sakila` utilisée pour l'entrainement à MySQL. 
 
@@ -87,7 +87,7 @@ Une entrée au catalogue correspond à un titre de film tourné dans une certain
 
 ::: {.callout-note}
 
-Notons ici qu'une entrée de la table `film` ne correspond pas tout à fait à l'idée que nous nous faisons d'un film (entrée dans la base [IMDB](https://www.imdb.com)), mais plutôt à une édition (simplifiée) de film en DVD.
+Notons ici qu'une entrée de la table `film` ne correspond pas tout à fait à l'idée que nous nous faisons d'un film (entrée dans la base [IMDB](https://www.imdb.com){target="_blank"}), mais plutôt à une édition (simplifiée) de film en DVD.
 
 :::
 

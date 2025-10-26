@@ -345,27 +345,27 @@ Là encore, plusieurs possibilités. Avec ce que l'on sait déjà  :
 ```{.sql}
 WITH DejaLoue AS (
   SELECT film_id 
-  FROM pagila.rental JOIN pagila.inventory USING (inventory_id)
+  FROM rental JOIN inventory USING (inventory_id)
 ), NonLoue AS (
   SELECT film_id 
-  FROM pagila.film 
+  FROM film 
   EXCEPT 
   SELECT * 
   FROM DejaLoue
 )
 
 SELECT title 
-FROM pagila.film NATURAL JOIN NonLoue;
+FROM film NATURAL JOIN NonLoue;
 ```
 
 Avec les requêtes imbriquées :
 
 
 ```{.sql}
-SELECT title,film_id FROM pagila.film
+SELECT title,film_id FROM film
                      WHERE film_id NOT IN (
                       SELECT film_id 
-                      FROM pagila.rental JOIN pagila.inventory USING (inventory_id)
+                      FROM rental JOIN inventory USING (inventory_id)
 );
 ```
 
@@ -404,14 +404,14 @@ dans la base tous les objets de ce type et on fait la différence avec l'ensembl
 ::: {.callout-tip title="Solution"}
 
 ```{.sql}
-WITH ActCat AS (SELECT actor_id, category_id FROM pagila.film_actor fa
-                 JOIN pagila.film_category fc ON (fa.film_id=fc.film_id)),
-ActNot AS (SELECT actor_id FROM pagila.actor,pagila.category
+WITH ActCat AS (SELECT actor_id, category_id FROM film_actor fa
+                 JOIN film_category fc ON (fa.film_id=fc.film_id)),
+ActNot AS (SELECT actor_id FROM actor,category
     WHERE (actor_id,category_id) NOT IN (SELECT * FROM ActCat)),
-ActId AS (SELECT actor_id FROM pagila.actor
+ActId AS (SELECT actor_id FROM actor
     EXCEPT SELECT * FROM ActNot)
 
-SELECT first_name,last_name FROM pagila.actor NATURAL JOIN ActId  ;
+SELECT first_name,last_name FROM actor NATURAL JOIN ActId  ;
 ```
 
 :::
@@ -441,10 +441,10 @@ suit fidèlement le plan d'exécution le plus élémentaire pour réaliser la di
 WITH 
   ActCat AS (
     SELECT actor_id, category_id 
-    FROM pagila.film_actor fa JOIN pagila.film_category fc ON (fa.film_id=fc.film_id)),
+    FROM film_actor fa JOIN film_category fc ON (fa.film_id=fc.film_id)),
   ActCrosCat AS (
     SELECT  actor_id, category_id 
-    FROM  pagila.actor, pagila.category),
+    FROM  actor, category),
   ActNotCat AS (
     SELECT * 
     FROM ActCrosCat
@@ -453,13 +453,13 @@ WITH
     FROM ActCat),
   ActId AS (
     SELECT actor_id 
-    FROM pagila.actor 
+    FROM actor 
     EXCEPT
     SELECT actor_id 
     FROM ActNotCat)
 
 SELECT first_name,last_name 
-FROM pagila.actor NATURAL JOIN ActId  ;
+FROM actor NATURAL JOIN ActId  ;
 ```
 
 
@@ -476,27 +476,51 @@ En comptant le nombre $n$ de catégories de films dans une première requête, o
 
 ::: {.callout-tip title="Solution"}
 
+Avec une jointure externe
+
 ```{.sql}
-WITH Copain AS
-  (SELECT 
+WITH copain AS
+  (SELECT DISTINCT
     R1.actor_id 
    FROM 
-    pagila.film_actor as R1
+    film_actor as R1
   JOIN 
-    pagila.film_actor as R2
+    film_actor as R2
   ON 
     (R1.film_id = R2.film_id AND 
      R1.actor_id != R2.actor_id)
 )
-
 SELECT 
   actor_id 
 FROM 
-  pagila.actor
+  actor LEFT JOIN copain USING(actor_id)
+WHERE 
+  actor_id IS NULL;
+```
+
+Avec une sous-requête ou une CTE :
+
+
+```{.sql}
+WITH copain AS
+  (SELECT 
+    R1.actor_id 
+   FROM 
+    film_actor as R1
+  JOIN 
+    film_actor as R2
+  ON 
+    (R1.film_id = R2.film_id AND 
+     R1.actor_id != R2.actor_id)
+)
+SELECT 
+  actor_id 
+FROM 
+  actor
 WHERE 
   actor_id NOT IN (
     SELECT * 
-    FROM Copain
+    FROM copain
 );
 ```
 
@@ -506,14 +530,14 @@ ou avec `NOT EXISTS`
 ```{.sql}
 SELECT actor_id 
 FROM 
-  pagila.actor a
+  actor a
 WHERE 
   NOT EXISTS (
     SELECT fa2.actor_id
     FROM 
-      pagila.film_actor fa1 
+      film_actor fa1 
     JOIN 
-      pagila.film_actor fa2
+      film_actor fa2
     ON
      (fa1.actor_id=a.actor_id AND
       fa2.actor_id<> a.actor_id AND
@@ -531,7 +555,7 @@ WHERE
 ::: {.content-visible when-profile='solution'} 
  
 ::: {.callout-tip title="Solution"}
-ChatGPT *fecit*:
+ChatGPT *fecit* (ça marche mais ça n'est pas très beau)
 ```{.sql}
 WITH ActorFilmCounts AS (
     -- Pour chaque acteur, chaque film, nombre de co-acteurs dans le film
@@ -602,6 +626,8 @@ Cette requête renvoie 31 lignes.
 
 ::: {.callout-tip title="Solution"}
 
+Avec une jointure externe :
+
 ```{.sql}
 WITH 
   CustomerCity AS (
@@ -611,18 +637,51 @@ WITH
       cu.customer_id, 
       ad.city_id
     FROM 
-      pagila.customer cu 
+      customer cu 
     JOIN 
-      pagila.address ad 
+      address ad 
     ON 
       (cu.address_id=ad.address_id)),
   StoreCity AS (
     SELECT 
       ad.city_id 
     FROM 
-      pagila.store st 
-    JOIN p
-      agila.address ad 
+      store st 
+    JOIN address ad 
+    ON 
+      (st.address_id= ad.address_id)
+)
+SELECT 
+  first_name,
+  last_name 
+FROM 
+  CustomerCity cc LEFT JOIN StoreCity sc USING(city_id)
+WHERE 
+  sc.city_id IS null;
+```
+
+Avec une requête imbriquée :
+
+```{.sql}
+WITH 
+  CustomerCity AS (
+    SELECT 
+      cu.first_name, 
+      cu.last_name,
+      cu.customer_id, 
+      ad.city_id
+    FROM 
+      customer cu 
+    JOIN 
+      address ad 
+    ON 
+      (cu.address_id=ad.address_id)),
+  StoreCity AS (
+    SELECT 
+      ad.city_id 
+    FROM 
+      store st 
+    JOIN address ad 
     ON 
       (st.address_id= ad.address_id)
 )
@@ -649,15 +708,34 @@ WHERE
 
 ::: {.callout-tip title="Solution"}
 
+Sans requête imbriquée, seulement avec des jointures :
+
 ```{.sql}
-SELECT country_id from pagila.country C 
+with co_with_ci_without_store as
+(
+	select distinct * 
+	from country co join city ci using (country_id)
+	    left join (address join store using (address_id)) ad_st
+	    	using (city_id)
+	where ad_st.store_id is null
+)
+select co.country 
+from country co left join co_with_ci_without_store cw on co.country_id = cw.country_id
+where cw.country_id is null;
+```
+
+Avec des requêtes imbriquées
+
+```{.sql}
+SELECT co.country 
+from country co 
 WHERE NOT EXISTS (
   SELECT * 
-  FROM pagila.city C2 
-  WHERE C.country_id=C2.country_id AND C2.city_id NOT IN (
-    SELECT address.city_id 
-    FROM pagila.store 
-    JOIN pagila.address USING (address_id)
+  FROM city ci 
+  WHERE co.country_id=ci.country_id AND ci.city_id NOT IN 
+  	(
+	   SELECT address.city_id 
+	   FROM store JOIN address USING (address_id)
     )
 );
 ```
@@ -701,7 +779,7 @@ Plusieurs types de données permettent de représenter les instants (timestamp),
 Les *vues* permettent de donner un nom à une requête afin de pouvoir l'appeler plus tard sans la réécrire à chaque fois. Une vue s'enregistre dans un schéma.
 Par exemple, dans le schéma `World`, on pourrait créer une vue `VillesRepublic`  qui contient toutes les villes de la table `city` qui sont dans une république.
 
-On crée une vue avec `CREATE VIEW nom AS requete`. Étant donné que vous ne pouvez écrire que dans votre schéma personnel, il faudra nommer vos vues `entid.nom` où `entid` est votre identifiant ENT. Ainsi
+On crée une vue avec `CREATE VIEW nom AS requete`. Étant donné que vous ne pouvez écrire que dans votre schéma personnel, il faudra nommer vos vues `entid.nom` où `entid` est votre identifiant en salle de TP. Ainsi
 
 
 ```{.sql}
@@ -744,7 +822,7 @@ DROP VIEW entid.VillesRepublic ;
 
 supprime la vue créée précédemment.
 
-Dans votre schéma personnel (qui porte le nom de votre identifiant ENT), écrire une vue `film_id_horror` qui renvoie la liste des films de catégorie 'Horror'.
+Dans votre schéma personnel `entid` (il faut remplacer `entid` par votre nom de login), écrire une vue `film_id_horror` qui renvoie la liste des films de catégorie 'Horror'.
 
 
 
@@ -754,12 +832,10 @@ Dans votre schéma personnel (qui porte le nom de votre identifiant ENT), écrir
 ```{.sql}
 CREATE VIEW entid.film_id_horror
 AS
-( SELECT pagila.film_id 
-  FROM 
-	pagila.film_category JOIN 
-	pagila.category USING(category_id) 
-  WHERE 
-	category.name='Horror'
+( 
+  SELECT film_id 
+  FROM film_category JOIN 	category USING(category_id) 
+  WHERE category.name='Horror'
 ) ;
 ```
 
@@ -771,7 +847,7 @@ AS
 
 ## Fonctions SQL
 
-Dans votre schéma personnel (qui porte le nom de votre identifiant ENT), écrire une fonction SQL `film_id_cat` qui prend en paramètre une chaîne de caractère `s` et renvoie la liste des films de catégorie `s`. On rappelle la syntaxe :
+Dans votre schéma personnel `entid` (il faut remplacer `entid` par votre nom de login), écrire une fonction SQL `film_id_cat` qui prend en paramètre une chaîne de caractère `s` et renvoie la liste des films de catégorie `s`. La syntaxe est :
 
 
 
@@ -793,9 +869,9 @@ RETURNS TABLE(film_id smallint) AS
 $$
 	SELECT fc.film_id 
 	FROM 
-		pagila.film_category fc
+		film_category fc
   JOIN 
-		pagila.category ca
+		category ca
   ON (fc.category_id=ca.category_id)
 	WHERE 
     ca.name=s ;
@@ -810,8 +886,6 @@ Utilisez votre fonction pour écrire les requêtes suivantes :
 @. Quels sont les acteurs qui ont déjà joué dans un film d'horreur (catégorie 'Horror') ?
 
 
-
-
 ::: {.content-visible when-profile="solution"}
 
 ::: {.callout-tip title="Solution"}
@@ -821,14 +895,14 @@ Les solutions sont données en utilisant la fonction suivante
 
 ```{.sql}
 CREATE OR REPLACE FUNCTION 
-  entid.film_id_cat(s pagila.category.name%TYPE)
-RETURNS TABLE(film_id pagila.film.film_id%TYPE) 
+  entid.film_id_cat(s category.name%TYPE)
+RETURNS TABLE(film_id film.film_id%TYPE) 
 AS $$
 SELECT fc.film_id 
 FROM 
-	pagila.film_category fc 
+	film_category fc 
 JOIN 
-	pagila.category ca
+	category ca
 ON (fc.category_id=ca.category_id)
 WHERE 
   ca.name=s ;
@@ -840,50 +914,39 @@ $$ LANGUAGE sql;
 :::
 
 
-
-
 ::: {.content-visible when-profile="solution"}
 
 ::: {.callout-tip title="Solution"}
 
-```{.sql}
-SELECT DISTINCT ac.* 
-FROM 
-	pagila.actor ac 
-NATURAL JOIN
-  (SELECT fa.actor_id
-	 FROM 
-    pagila.film_actor fa
-   WHERE 
-    fa.film_id IN (
-      SELECT * 
-		  FROM entid.film_id_cat('Horror')
-    )
-  );
-```
-
-:::
-
-:::
-
-
-::: {.content-visible when-profile="solution"}
-
-ou
-
-
-::: {.callout-tip title="Solution"}
+Solution uniquement avec des jointures :
  
 ```{.sql}
 SELECT DISTINCT ac.*
 FROM 
-  pagila.actor ac 
+  actor ac 
 JOIN
-  pagila.film_actor fa ON (ac.actor_id=fa.actor_id)
-NATURAL JOIN
-  entid.film_id_cat('Horror') ;
+  film_actor fa  USING (actor_id)
+JOIN
+  film_id_cat('Horror') USING (film_id);
 ```
 (156 tuples renvoyés).
+
+
+Solution avec une ETC :
+
+```{.sql}
+with actor_with_horror as
+( 
+	select fa.actor_id
+	from film_actor fa
+	where fa.film_id in (
+		select *
+		from film_id_cat('Horror')
+	)
+)
+select distinct ac.*
+from actor ac join actor_with_horror using (actor_id);
+```
 
 :::
 
@@ -897,10 +960,10 @@ NATURAL JOIN
 
 ```{.sql}
 SELECT DISTINCT ac.*
-FROM pagila.actor ac NATURAL JOIN
-     (SELECT * FROM pagila.film_actor
+FROM actor ac NATURAL JOIN
+     (SELECT * FROM film_actor
       WHERE film_id NOT IN
-        (SELECT * FROM pagila.film_id_cat('Comedy') )
+        (SELECT * FROM film_id_cat('Comedy') )
       ) as X;
 ```
 
@@ -914,23 +977,60 @@ Elle répond à la question : *Quels sont les acteurs qui ont  joué dans un fil
 
 ::: {.callout-tip title="Solution"}
 
-Une réponse correcte est
+Réponse avec une jointure externe :
+
+```{.sql}
+with actor_with_comedy as
+(
+	select distinct actor_id
+	from film_actor fa 
+	join film_category fc using (film_id) 
+	join category c using (category_id)
+	where c.name='Comedy'
+)
+select distinct last_name, first_name
+from actor a left join actor_with_comedy ac using (actor_id)
+where ac.actor_id is null
+```
+
+Une autre solution avec `EXCEPT`
+```{.sql}
+with actor_without_comedy as 
+(
+	(
+		select distinct actor_id
+		from actor
+	)
+	except
+	(
+		select distinct actor_id
+		from film_actor
+		join film_category using (film_id) 
+		join category using (category_id)
+	  	WHERE name='Comedy'
+	)
+)
+select last_name, first_name
+from actor join actor_without_comedy using (actor_id);
+```
+
+Une autre réponse avec une sous-requête est
 
 ```{.sql}
 SELECT DISTINCT last_name, first_name
 FROM 
-  pagila.actor A1 
+  actor a1 
 WHERE 
   NOT EXISTS 
   (SELECT * 
   FROM 
-    pagila.film_actor A2, 
-    (pagila.film_category JOIN pagila.category using (category_id)) C 
+    film_actor a2
+    JOIN film_category using (film_id)
+    JOIN category using (category_id) 
   WHERE 
-	  A1.actor_id=A2.actor_id AND 
- 	  name='Comedy' AND 
-	  A2.film_id=C.film_id
-  ); 
+	  a1.actor_id = a2.actor_id 
+	  AND name='Comedy' 
+  );
 ```
 
 :::
@@ -939,7 +1039,7 @@ WHERE
 
 ::: {.content-visible when-profile="solution"}
 
-ou encore
+ou encore (qu'en pensez-vous ?) :
 
 ::: {.callout-tip title="Solution"}
 
@@ -947,11 +1047,11 @@ ou encore
 SELECT 
   DISTINCT ac.last_name, ac_first_name
 FROM 
-  pagila.actor ac
+  actor ac
 WHERE NOT EXISTS
   (SELECT * 
    FROM 
-    pagila.film_actor fa
+    film_actor fa
    WHERE film_id IN
      (SELECT * 
       FROM 
@@ -1001,7 +1101,7 @@ $$\pi_{\texttt{actor\_id}}\left(\texttt{film\_actor}\right) \setminus \pi_{\text
 :::
 
 
-@. Quels sont les acteurs qui ont joué dans un film d'horreur ('Horror') et dans un film pour enfant ('Children')? (130 lignes)
+@. Quels sont les acteurs qui ont joué dans un film d'horreur ('Horror') et dans un film pour enfant ('Children')? (129 lignes)
 
 ::: {.callout-caution}
 
@@ -1012,7 +1112,7 @@ Ici l'erreur la plus fréquente consiste à  écrire
 SELECT 
   actor_id 
 FROM 
-  pagila.film_actor AS fa
+  film_actor AS fa
 WHERE 
   fa.film_id IN (
     SELECT * 
@@ -1049,7 +1149,7 @@ En calcul relationnel, cela donne
 \end{align*}
 -->
 
-En algèbre relationnelle, cela donne : 
+En algèbre relationnelle, cela donne par exemple : 
 
 
 \begin{align*}
@@ -1068,22 +1168,34 @@ En algèbre relationnelle, cela donne :
 
 ::: {.callout-tip title="Solution"}
 
-En SQL, cela peut donner
-
+En SQL, cela peut s'écrire uniquement avec des jointures :
 
 ```{.sql}
-SELECT DISTINCT a.first_name, a.last_name  FROM pagila.actor a
+SELECT DISTINCT a.first_name, a.last_name
+FROM film_id_cat('Horror') fc1
+	 JOIN film_actor fa1 USING(film_id)
+     JOIN actor a USING(actor_id)
+     JOIN film_actor fa2 ON a.actor_id = fa2.actor_id
+     JOIN film_id_cat('Children') fc2 ON fa2.film_id = fc2.film_id;
+```
+
+Ou bien avec des sous-requêtes :
+
+```{.sql}
+SELECT DISTINCT a.first_name, a.last_name  
+FROM actor a
 WHERE EXISTS (SELECT film_id
               FROM film_actor AS fa1 NATURAL JOIN
                    entid.film_id_cat('Children')
-              WHERE  fa1.actor_id = a.actor_id) AND
+              WHERE  fa1.actor_id = a.actor_id
+      ) 
+      AND
       EXISTS (SELECT film_id
               FROM film_actor AS fa2 NATURAL JOIN
                    entid.film_id_cat('Horror')
-              WHERE  fa2.actor_id = a.actor_id) ;
+              WHERE  fa2.actor_id = a.actor_id
+      ) ;
 ```
-
-qui renvoie 129 tuples.
 
 :::
 

@@ -54,17 +54,17 @@ Présentation du schéma `nycflights`, pour l'entrainement à PostGres.
 
 :::
 
-Ce jeu de données est construit à partir du package {{< fa brands r-project >}} [`nycflights13`](https://github.com/tidyverse/nycflights13). 
+Ce jeu de données est construit à partir du package {{< fa brands r-project >}} [`nycflights13`](https://github.com/tidyverse/nycflights13){target="_blank"}. 
 
 > The `nycflights13` package contains information about all flights that departed from NYC (e.g. EWR, JFK and LGA) to destinations in the United States, Puerto Rico, and the American Virgin Islands) in 2013: 336,776 flights in total. To help understand what causes delays, it also includes a number of other useful datasets.
 
 > This package provides the following data tables.
 
-> - `?flights:` all flights that departed from NYC in 2013
-> - `?weather:` hourly meterological data for each airport
-> - `?planes`: construction information about each plane
-> - `?airports`: airport names and locations
-> - `?airlines`: translation between two letter carrier codes and names
+> - `flights`: all flights that departed from NYC in 2013
+> - `weather`: hourly meterological data for each airport
+> - `planes`: construction information about each plane
+> - `airports`: airport names and locations
+> - `airlines`: translation between two letter carrier codes and names
 
 ![Schema `nycflights` Generated using [DbSchema](https://dbschema.com)](/images/schema-nycflights.png)
 

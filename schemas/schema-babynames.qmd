@@ -61,7 +61,7 @@ Présentation du schéma `babynames`, pour l'entrainement à PostGres.
 ![Schema `babynames` Generated using [DbSchema](https://dbschema.com)](/images/schema-babynames.png)
 
 
-Ce jeu de données est fourni par l'INSEE [https://www.insee.fr/fr/statistiques/fichier/2540004/nat2021_csv.zip](https://www.insee.fr/fr/statistiques/fichier/2540004/nat2021_csv.zip) permet d'étudier l'évolution des prénoms donnés en France entre 1900 et aujourd'hui.
+Ce jeu de données est fourni par l'INSEE [https://www.insee.fr/fr/statistiques/fichier/2540004/nat2021_csv.zip](https://www.insee.fr/fr/statistiques/fichier/2540004/nat2021_csv.zip){target="_blank"} permet d'étudier l'évolution des prénoms donnés en France entre 1900 et aujourd'hui.
 
 Ce schéma ne comporte qu'une seule table.
 

@@ -127,8 +127,7 @@ WHERE continent = 'Europe' AND population > 1000000;
 
 ```{.sql}
 SELECT name
-FROM world.city JOIN 
-  world.country ON capital=id
+FROM world.city JOIN world.country ON capital=id
 WHERE continent = 'South America';
 ```
 ::: 
@@ -141,7 +140,7 @@ WHERE continent = 'South America';
 
 ```{.sql}
 SELECT name_country
-FROM world.country NATURAL JOIN world.countrylanguage
+FROM world.country JOIN world.countrylanguage USING (countrycode)
 WHERE isofficial AND language='French';
 ```
 ::: 
@@ -169,8 +168,8 @@ WHERE governmentform LIKE '%Monarchy%';
 WITH T1 AS (
   SELECT *
   FROM world.country
-  WHERE governmentform LIKE '%Monarchy%' AND continent='Europe' )
-
+  WHERE governmentform LIKE '%Monarchy%' AND continent='Europe' 
+)
 SELECT name_country
 FROM T1 JOIN world.city ON capital=id
 WHERE population < 1000000;
@@ -183,16 +182,21 @@ WHERE population < 1000000;
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 ```{.sql}
-WITH monarchy AS (
+WITH monarchy AS 
+(
   SELECT region
   FROM world.country
-  WHERE governmentform LIKE '%Monarchy%')
-
-(SELECT region 
- FROM world.country) 
+  WHERE governmentform LIKE '%Monarchy%'
+)
+(
+  SELECT region 
+  FROM world.country
+) 
 EXCEPT 
-(SELECT * 
- FROM monarchy);
+(
+  SELECT * 
+  FROM monarchy
+);
 ```
 ::: 
 :::
@@ -207,12 +211,15 @@ WITH R AS (
   FROM world.countrylanguage 
   WHERE isofficial
 )
-
-(SELECT DISTINCT language 
-FROM world.countrylanguage) 
+(
+  SELECT DISTINCT language 
+  FROM world.countrylanguage
+) 
 EXCEPT 
-(SELECT * 
-FROM R);
+(
+  SELECT * 
+  FROM R
+);
 ```
 ::: 
 :::
@@ -234,9 +241,8 @@ S AS (
   EXCEPT 
   SELECT * FROM R
 )
-
 SELECT name_country 
-FROM world.country NATURAL JOIN S;
+FROM world.country JOIN S USING (countrycode);
 ```
 ::: 
 :::
@@ -250,24 +256,22 @@ WITH R AS(
   SELECT DISTINCT T1.countrycode 
   FROM world.countrylanguage as T1 JOIN
       world.countrylanguage as T2 ON 
-      T1.countrycode = T2.countrycode
-  WHERE T1.language <> T2.language AND
-      T1.isofficial AND
-      T2.isofficial),
+      T1.countrycode = T2.countrycode AND T1.language <> T2.language 
+  WHERE T1.isofficial AND T2.isofficial
+),
 S AS (
   SELECT countrycode 
-  FROM world.countrylanguage
-  WHERE language='French' AND isofficial
+    FROM world.countrylanguage
+    WHERE language='French' AND isofficial
   EXCEPT 
-  (SELECT * FROM R)
+  SELECT * FROM R
 )
-
 SELECT name_country 
-FROM world.country NATURAL JOIN S;
+FROM world.country JOIN S USING(countrycode);
 ```
 
 
-En utilisant `EXCEPT` :
+Ou bien :
 ```{.sql}
 WITH OnlyFrench AS (
   (SELECT countrycode
@@ -278,9 +282,8 @@ WITH OnlyFrench AS (
   FROM countrylanguage
   WHERE isofficial AND language <> 'French')
 )
-
 SELECT name_country 
-FROM world.country NATURAL JOIN OnlyFrench;
+FROM world.country JOIN OnlyFrench USING(countrycode);
 ```
 ::: 
 :::
@@ -291,16 +294,19 @@ FROM world.country NATURAL JOIN OnlyFrench;
 ::: {.callout-tip title="Solution"}
 ```{.sql}
 WITH R AS (
-SELECT DISTINCT T1.countrycode FROM world.countrylanguage as T1
-                     JOIN world.countrylanguage as T2
-                     ON T1.countrycode = T2.countrycode
-WHERE T1.language <> T2.language AND
-     T1.language = 'French' AND
-     T1.isofficial AND
-     T2.isofficial)
-
-SELECT name_country FROM R NATURAL JOIN world.country;
+  SELECT DISTINCT T1.countrycode 
+  FROM world.countrylanguage as T1
+  JOIN world.countrylanguage as T2
+      ON T1.countrycode = T2.countrycode
+  WHERE T1.language <> T2.language AND
+      T1.language = 'French' AND
+      T1.isofficial AND 
+      T2.isofficial
+)
+SELECT name_country 
+FROM R JOIN world.country USING(countrycode);
 ```
+
 En utilisant `INTERSECT` :
 ```{.sql}
 WITH AlsoFrench AS (
@@ -312,10 +318,8 @@ WITH AlsoFrench AS (
   FROM world.countrylanguage
   WHERE isofficial AND language <> 'French')
 )
-
 SELECT name_country 
-FROM world.country NATURAL JOIN 
-     AlsoFrench;
+FROM world.country JOIN AlsoFrench USING(countrycode);
 ```
 ::: 
 :::
@@ -329,10 +333,9 @@ FROM world.country NATURAL JOIN
 WITH R AS (
   SELECT T1.region 
   FROM world.country AS T1 JOIN 
-       world.country AS T2 ON 
-       T1.region = T2.region
-  WHERE T1.governmentform <> T2.governmentform)
-
+       world.country AS T2 ON T1.region = T2.region
+  WHERE T1.governmentform <> T2.governmentform
+)
 SELECT region 
 FROM world.country 
 EXCEPT 
@@ -350,8 +353,8 @@ FROM R;
 
 ```{.sql}
 SELECT DISTINCT language
-FROM world.countrylanguage NATURAL JOIN 
-     world.city JOIN world.country ON capital=id
+FROM world.country co JOIN world.city ci ON co.capital=ci.id
+     JOIN world.countrylanguage cl ON co.countrycode=cl.countrycode
 WHERE population > 5000000 and isofficial;
 ```
 ::: 
@@ -365,9 +368,9 @@ WHERE population > 5000000 and isofficial;
 ```{.sql}
 WITH R AS (
   SELECT T1.countrycode 
-  FROM  world.countrylanguage AS T1 JOIN 
-        world.countrylanguage AS T2 ON T1.countrycode = T2.countrycode JOIN 
-        world.countrylanguage AS T3 ON T1.countrycode = T3.countrycode
+  FROM  world.countrylanguage AS T1 
+        JOIN world.countrylanguage AS T2 ON T1.countrycode = T2.countrycode 
+        JOIN world.countrylanguage AS T3 ON T1.countrycode = T3.countrycode
   WHERE T1.language <> T2.language AND
         T2.language <> T3.language AND
         T1.language <> T3.language AND
@@ -375,9 +378,8 @@ WITH R AS (
         T2.percentage > 10 AND
         T3.percentage > 10
 )
-
 SELECT DISTINCT name_country 
-FROM world.country NATURAL JOIN R;
+FROM world.country JOIN R USING(countrycode);
 ```
 
 ou 
@@ -388,14 +390,13 @@ WITH tpc AS (
   FROM world.countrylanguage
   WHERE percentage > 10), 
 three AS (
-    SELECT DISTINCT t1.countrycode
-    FROM tpc AS t1 JOIN 
-         tpc AS t2 ON (t1.countrycode=t2.countrycode AND t1.language < t2.language) JOIN
-         tpc AS t3 ON (t1.countrycode=t3.countrycode AND t3.language > t2.language)
+  SELECT DISTINCT t1.countrycode
+  FROM tpc AS t1  
+   JOIN tpc AS t2 ON (t1.countrycode=t2.countrycode AND t1.language<t2.language) 
+   JOIN tpc AS t3 ON (t1.countrycode=t3.countrycode AND t3.language>t2.language)
 )
-
-SELECT co.*
-FROM world.country co NATURAL JOIN three ;
+SELECT co.name_country
+FROM world.country co JOIN three USING(countrycode);
 ```
 ::: 
 :::
@@ -407,11 +408,9 @@ FROM world.country co NATURAL JOIN three ;
 ::: {.callout-tip title="Solution"}
 ```{.sql}
 SELECT DISTINCT T1.region
-FROM world.country AS T1 JOIN 
-     world.country AS T2 ON T1.region = T2.region
-WHERE T1.countrycode <> T2.countrycode AND 
-      (T1.lifeexpectancy - T2.lifeexpectancy >= 10 OR 
-       T2.lifeexpectancy - T1.lifeexpectancy >= 10);
+FROM world.country AS T1 JOIN world.country AS T2 
+     ON T1.region = T2.region AND T1.countrycode <> T2.countrycode
+WHERE ABS(T1.lifeexpectancy - T2.lifeexpectancy) >= 10;
 ```
 ::: 
 :::
@@ -429,11 +428,10 @@ WITH R AS (
   WHERE T1.language='French' AND 
         T2.language='English' AND 
         T1.isofficial AND 
-        T2.isofficial)
-      
+        T2.isofficial
+)
 SELECT name_country 
-FROM R NATURAL JOIN 
-     world.country;
+FROM R JOIN world.country USING (countrycode);
 ```
 
 ::: 
@@ -444,8 +442,8 @@ FROM R NATURAL JOIN
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
-Si `R`  et `S` sont deux tables de même schéma, une jointure naturelle des
-deux tables devrait (en première approximation) calculer l'intersection des deux tables. 
+Si `R`  et `S` sont deux tables de même schéma, on pourrait croire qu'une jointure naturelle des
+deux tables permet de calculer leur intersection. 
 
 Pourtant, du fait de la logique trivalente, si certaines colonnes contiennent des valeurs nulles
 ```{.sql}

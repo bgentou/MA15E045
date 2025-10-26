@@ -675,7 +675,7 @@ WHERE "name"  ='PATRICK' AND
 
 La manière la plus simple de répondre à cette question 10 est d'utiliser une *fenêtre glissante*. Les fenêtres glissantes étendent les fenêtres définies par `PARTITION BY ... ORDER BY ...`.
 
-La syntaxe de l'invocation des fonctions fenêtres est décrite dans la documentation [PostgreSQL](https://www.postgresql.org/docs/current/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS).
+La syntaxe de l'invocation des fonctions fenêtres est décrite dans la documentation [PostgreSQL](https://www.postgresql.org/docs/current/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS){target="_blank"}.
 
 L'invocation d'une fonction opérant sur une fenêtre suit la forme :
 

@@ -470,7 +470,7 @@ $$ ;
 
 ## Table de même schéma qu'une autre table
 
-[https://www.postgresql.org/docs/15/xfunc-sql.html](https://www.postgresql.org/docs/15/xfunc-sql.html)
+[https://www.postgresql.org/docs/15/xfunc-sql.html](https://www.postgresql.org/docs/15/xfunc-sql.html){target="_blank"}
 
 
 On veut maintenant récupérer une table de même schéma que `city`. 
@@ -741,7 +741,7 @@ CREATE OR REPLACE VIEW country_info AS
 ```
 
 
-[Stackoverflow](https://stackoverflow.com/questions/2560946/postgresql-group-concat-equivalent)
+[Stackoverflow](https://stackoverflow.com/questions/2560946/postgresql-group-concat-equivalent){target="_blank"}
 
 
 
@@ -791,7 +791,7 @@ Cela se produit
 
 ---
 
-- [Postgresql Bloggers](https://planet.postgresql.org)
+- [Postgresql Bloggers](https://planet.postgresql.org){target="_blank"}
 
 ---
 

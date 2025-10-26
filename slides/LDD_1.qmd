@@ -35,13 +35,6 @@ tables, des colonnes et des types des colonnes
 - Les *contraintes* décrivent des propriétés que devront vérifier
 toutes les mises en oeuvre (instances) du schéma *durant toute sa durée de vie*
 
-{{< fa triangle-exclamation >}} La définition d'un schéma de base ne s'arrête pas à la définition des
-tables, des colonnes et des types des colonnes
-
-
-Les *contraintes* décrivent des propriétés que devront vérifier
-toutes les mises en oeuvre (instances) du schémas *durant toute leur durée de vie*
-
 
 {{< fa hand-point-right >}}  Pour spécifier une *contrainte*, il suffit de préciser que le
 résultat d'une certaine requête doit toujours être vide
@@ -61,7 +54,7 @@ résultat d'une certaine requête doit toujours être vide
 
   - Contrainte de **vérification**  
 
-. . .
+---
 
 - Contraintes de table 
     
@@ -91,22 +84,20 @@ Les contrainte de type sont les plus simples à mettre en oeuvre.
 Au delà des types de base `varchar, integer, ...`  `PostgreSQL` propose
 des types sophistiqués pour :
 
-- [dates](https://www.postgresql.org/docs/current/datatype-datetime.html), 
+- [dates](https://www.postgresql.org/docs/current/datatype-datetime.html){target="_blank"}, 
 - [les estampilles avec ou sans
-fuseau horaire](https://www.postgresql.org/docs/current/datatype-datetime.html#DATATYPE-DATETIME-INPUT-TIME-STAMPS), 
+fuseau horaire](https://www.postgresql.org/docs/current/datatype-datetime.html#DATATYPE-DATETIME-INPUT-TIME-STAMPS){target="_blank"}, 
 - des types intervalles (`rangetype`), 
-- [des types énumérés](https://www.postgresql.org/docs/current/datatype-enum.html), 
-- [des types tableaux](https://www.postgresql.org/docs/current/arrays.html), 
+- [des types énumérés](https://www.postgresql.org/docs/current/datatype-enum.html){target="_blank"}, 
+- [des types tableaux](https://www.postgresql.org/docs/current/arrays.html){target="_blank"}, 
 - etc
 
 
 
 ## Consulter la liste des types
 
-[https://docs.postgresql.fr/docs/current/datatype.html](https://docs.postgresql.fr/docs/current/datatype.html)
+[https://docs.postgresql.fr/docs/current/datatype.html](https://docs.postgresql.fr/docs/current/datatype.html){target="_blank"}
 
-
-Il faut essayer d'utiliser ces types pour préciser les contenus des colonnes
 
 ::: {.callout-tip}
 
@@ -155,9 +146,7 @@ On peut imposer cela en
 ajoutant au schéma de la table  `Piece` une contrainte de
 type  `CHECK`
 
-
-
-## Exemple (suite)
+. . .
 
 ```{.sql}
 CREATE TABLE piece(
@@ -171,7 +160,7 @@ CREATE TABLE piece(
 
 ::: {.callout-note}
 
-Have a look at [PostGres Monetary type](https://www.postgresql.org/docs/current/datatype-money.html)
+Have a look at [PostGres Monetary type](https://www.postgresql.org/docs/current/datatype-money.html){target="_blank"}
 
 :::
 
@@ -257,11 +246,11 @@ est accepté  {{< fa champagne-glasses >}}
 
 ## {{< fa triangle-exclamation >}}  Valeurs nulles et  contraintes de tuple
 
-Les contraintes  `CHECK` sont satisfaites si l'expression associée vaut  `TRUE` ou  `NULL` 
+Les contraintes  `CHECK` sont satisfaites si l'expression associée vaut  `TRUE` ou  `UNKNOWN` 
 
 . . . 
 
-Comme une expression composée vaut parfois `NULL` si l'un
+Comme une expression composée vaut parfois `UNKNOWN` si l'un
 des opérandes vaut lui-même  `NULL`, les contraintes  `CHECK` ne
 suffisent pas à prévenir l'insertion de valeurs nulles
 
@@ -288,7 +277,7 @@ La présence possible des valeurs nulles rend beaucoup d'opérations complexes
 
 Il faut avoir en tête que en `SQL`, 
 
-- les booléens peuvent avoir trois valeurs : `TRUE, FALSE` et  `NULL` et que 
+- on utilise une logique trivalente : `TRUE, FALSE` et  `UNKNOWN`,
 
 - le fait qu'une expression ne vaille pas  `FALSE` ne veut pas dire qu'elle
 vaut  `TRUE` ...
@@ -332,7 +321,8 @@ ou un groupe de colonnes par rapport à toutes les lignes de la table
 
 - C'est une *contrainte de table* puisqu'elle fait intervenir tous les tuples de la table
 
----
+## Exemple de contrainte d'unicité   
+
 
 ```{sql}
 --| eval: false
@@ -385,9 +375,9 @@ CREATE TABLE fournisseur(
 
 ### Définition
 
-Une contrainte de type *clef primaire* indique qu'une colonne, ou un groupe de colonnes, 
-peuvent être utilisée comme un *identifiant* unique de ligne pour cette table.
+Une contrainte de type *clef primaire* indique qu'une colonne, ou un groupe de colonnes, peut être utilisée comme  *identifiant* unique de ligne pour cette table.
 
+{{< fa triangle-exclamation >}} Une table a au plus une clef primaire
 :::
 
 . . .
@@ -426,11 +416,6 @@ CREATE TABLE fournisseur(
 
 :::::
 
-::: {.aside}
-
-{{< fa triangle-exclamation >}} Une table a au plus une clef primaire
-
-:::
 
 
 
@@ -466,10 +451,8 @@ CREATE TABLE fournisseur(
 ```{.sql}
 CREATE TABLE piece(
     nomp VARCHAR(20) PRIMARY KEY,
-    prix MONEY CHECK 
-        (prix>= 0::MONEY),
-    prix_promo MONEY CHECK 
-        (prix_promo >= 0::MONEY),
+    prix MONEY CHECK (prix>= 0::MONEY),
+    prix_promo MONEY CHECK (prix_promo >= 0::MONEY),
     couleur VARCHAR(15),
     CHECK (prix > prix_promo)
 );
@@ -506,16 +489,13 @@ CREATE TABLE livraison(
  
 ```
 
-. . .
-
-::: {.aside}
+---
 
 - Il est désormais impossible de créer des livraisons pour lesquelles les valeurs non `NULL` de `nomp` 
 n'apparaissent pas dans la table `piece` et les valeurs non `NULL` de `idf` n'apparaissent pas dans la table `fournisseur`
 
 - On dit que la table des livraisons est la table qui référence et la table des pièces est la table référencée
 
-:::
 
 
 ## Définition de `world.countrylanguage`

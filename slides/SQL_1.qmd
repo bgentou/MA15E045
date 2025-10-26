@@ -41,10 +41,10 @@ Le SQL est un langage permettant :
 - SQL-2003, SQL-2008, SQL-2011, SQL-2016,
 - ...
 
-Nous utiliserons le dialecte `PostgreSQL` (https://www.postgresql.org)
+Nous utiliserons le dialecte `PostgreSQL` (https://www.postgresql.org){target="_blank"}
 
 
-La norme est révisée environ tous les 5 ans, acutellement ISO/IEC 9075-1:2023 de l'ISO (https://www.iso.org/)
+La norme est révisée environ tous les 5 ans, acutellement ISO/IEC 9075-1:2023 de l'ISO (https://www.iso.org/){target="_blank"}
 
 
 
@@ -374,7 +374,7 @@ Quand l'information est dispersée sur plusieurs tables, on utilise des *jointur
 
 ## Détails du schema `World`
 
-Images et tables créées grâce à DbSchema (https://dbschema.com)
+Images et tables créées grâce à DbSchema (https://dbschema.com){target="_blank"}
 
 
 

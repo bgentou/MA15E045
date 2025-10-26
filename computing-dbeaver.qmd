@@ -9,12 +9,18 @@ Guide pour utiliser le client *dBeaver* avec un tunnel `ssh`
 
 # Installer 
 
-À partir de [Dbeaver community edition](https://dbeaver.io/download/)
+À partir de [Dbeaver community edition](https://dbeaver.io/download/){target="_blank"}
+
+## Paramétrage pour éviter l'erreur `too many connections`
+
+Par défaut, Dbeaver crée une connexion par fenêtre de l'éditeur SQL. Si vous ne modifiez pas ce paramètre, votre compte sera bloqué rapidement par une erreur `FATAL: too many connections` car vous aurez atteint le nombre maximum de connexions auquel vous avez droit.
+
+**Lors de votre première utilisation du client**, il faut modifier ce paramètre en sélectionnant dans la barre de menu  `Editeur SQL`->`Open separate connection`->`never`. 
 
 
-# Survol
+## Survol
 
-{{< fa brands youtube >}} [Explorer les possibilités du client dBeaver](https://www.youtube.com/watch?v=qWhCmvg_Sqc)
+{{< fa brands youtube >}} [Explorer les possibilités du client dBeaver](https://www.youtube.com/watch?v=qWhCmvg_Sqc){target="_blank"}
 
 ::: {.callout-tip}
 
@@ -83,7 +89,7 @@ Si vous créez un nouveau projet avec une connexion déjà définie dans un autr
 
 ## `Bookmarks`/Signets
 Vous pouvez jeter un coup d'oeil à cette 
-[documentation sur les signets](https://github.com/dbeaver/dbeaver/wiki/Bookmarks).
+[documentation sur les signets](https://github.com/dbeaver/dbeaver/wiki/Bookmarks){target="_blank"}.
 
 ::: {.callout-tip}
 
@@ -109,7 +115,7 @@ simplement le comprendre.
 
 # Editeur SQL
 ::: {.callout-tip}
-[Documentation éditeur SQL dBeaver](https://dbeaver.com/docs/dbeaver/SQL-Editor/)
+[Documentation éditeur SQL dBeaver](https://dbeaver.com/docs/dbeaver/SQL-Editor/){target="_blank"}
 :::
 Pour écrire vos requètes, il faut utiliser l'éditeur SQL.
 
@@ -117,7 +123,7 @@ Supposons que vous vouliez écrire une requète sur le schéma  `world`.
 
 Dans votre projet, une fois créé le tunnel `ssh`, faire un clic droit sur la connexion de votre projet puis `Se connecter`. Si la connexion est réussie, une coche verte apparaît.
 
-::: {.callout-tip}
+::: {.callout-warning}
  Si votre connexion échoue, c'est certainement parce que votre tunnel `ssh` a été coupé à cause d'un temps d'inactivité trop long (erreur `timed out`). Il faut revenir dans le terminal de la commande `ssh`, faire un `Ctrl C` si le prompt `ssh` est toujours présent pour "tuer" le processus `ssh` puis relancer la commande `ssh` en utilisant l'historique des commandes du terminal (flèche vers le haut), enfin ressaisir votre mot de passe.
 
  Vous pouvez éventuellement allonger le *time out* ssh en ajoutant l'option `-o ConnectTimeout=1000` à la commande `ssh`, ici le délai sera de 1000s (environ 15min).
@@ -162,5 +168,5 @@ Petit inconvénient : des tips infondés d'erreurs de nom de table apparaissent 
 
 # Documentation
 
-- [Documentation dBeaver](https://dbeaver.com/docs/dbeaver/Application-Window-Overview/)
-- [wiki](https://github.com/dbeaver/dbeaver/wiki)
+- [Documentation dBeaver](https://dbeaver.com/docs/dbeaver/Application-Window-Overview/){target="_blank"}
+- [wiki](https://github.com/dbeaver/dbeaver/wiki){target="_blank"}

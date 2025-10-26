@@ -200,7 +200,7 @@ erDiagram
 La notation en pattes de corbeau est parfois/souvent présentée comme un variante de 
 la modélisation Entité-Association (de Chen)
 
-C'est le cas dans l'outil de dessin [`mermaid`](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
+C'est le cas dans l'outil de dessin [`mermaid`](https://mermaid.js.org/syntax/entityRelationshipDiagram.html){target="_blank"}
 
 :::
 
