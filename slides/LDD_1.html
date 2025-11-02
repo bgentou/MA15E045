@@ -575,7 +575,7 @@
 </div>
 </div>
 <div class="fragment">
-<p>Les définitions de table suivantes acceptent de ce fait les mêmes données</p>
+<p>Les définitions de table suivantes acceptent de ce fait les mêmes données :</p>
 <div class="columns">
 <div class="column">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> fournisseur(</span>
@@ -596,9 +596,9 @@
 </section><section id="clef-étrangère-1" class="slide level2 center"><h2>Clef étrangère</h2>
 <ul>
 <li><p>Une contrainte de clef étrangère stipule que les valeurs d’une colonne (ou d’un groupe de colonnes) doivent correspondre aux valeurs qui apparaissent dans les lignes d’une autre table.</p></li>
-<li><p>On dit que cela maintient l’<em>intégrité référentielle</em> entre les deux tables</p></li>
-<li><p>Soit les deux tables suivantes</p></li>
+<li><p>On dit que cela maintient l’<em>intégrité référentielle</em> entre les deux tables.</p></li>
 </ul>
+<p>Soit les deux tables suivantes :</p>
 <div class="columns">
 <div class="column">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> fournisseur(</span>
@@ -616,16 +616,12 @@
 <span id="cb12-7"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section><section id="clef-étrangère-references" class="slide level2 center"><h2>Clef étrangère : REFERENCES</h2>
+<p>Supposons également une table <code>livraison</code> qui stocke les livraisons de ces pièces.</p>
+<p>Il est important de s’assurer que la table <code>livraison</code> ne contient que des références de pièces et de fournisseurs qui existent dans la base.</p>
+<p>Pour cela, deux contraintes de <em>clef étrangère</em> sont <em>émises</em> par la table des livraisons :</p>
 <ul>
-<li><p>Soit également une table <code>livraison</code> qui stocke les livraisons de ces pièces</p></li>
-<li><p>Il est intéressant de s’assurer que la table <code>livraison</code> ne contient que des références de pièces et de fournisseurs qui existent dans la base</p></li>
-</ul>
-<p>Pour cela, deux contraintes de <em>clef étrangère</em> sont <em>émises</em> par la table des livraisons</p>
-<ul>
-<li>Une contrainte <em>référence</em> <code>piece</code>
-</li>
-<li>Une contrainte <em>référence</em> <code>fournisseur</code>
-</li>
+<li>Une contrainte <em>référentielle</em> vers la table <code>piece</code>.</li>
+<li>Une contrainte <em>référentielle</em> vers la table <code>fournisseur</code>.</li>
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" data-code-line-numbers="|3,4"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> livraison(</span>
@@ -638,8 +634,8 @@
 <span id="cb13-8"><a></a> </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section class="slide level2 center"><ul>
-<li><p>Il est désormais impossible de créer des livraisons pour lesquelles les valeurs non <code>NULL</code> de <code>nomp</code> n’apparaissent pas dans la table <code>piece</code> et les valeurs non <code>NULL</code> de <code>idf</code> n’apparaissent pas dans la table <code>fournisseur</code></p></li>
-<li><p>On dit que la table des livraisons est la table qui référence et la table des pièces est la table référencée</p></li>
+<li><p>Il est désormais impossible de créer des livraisons pour lesquelles les valeurs non <code>NULL</code> de <code>nomp</code> n’apparaissent pas dans la table <code>piece</code> et les valeurs non <code>NULL</code> de <code>idf</code> n’apparaissent pas dans la table <code>fournisseur</code>.</p></li>
+<li><p>On dit que la table des livraisons est la table qui référence et la table des pièces est la table référencée.</p></li>
 </ul></section><section id="définition-de-world.countrylanguage" class="slide level2 center"><h2>Définition de <code>world.countrylanguage</code>
 </h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a></a><span class="op">+</span><span class="co">-------------+--------------+-------------+</span></span>
@@ -701,13 +697,8 @@
 </h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country <span class="kw">ADD</span> </span>
 <span id="cb17-2"><a></a>    <span class="kw">CONSTRAINT</span> country_capital_fkey </span>
-<span id="cb17-3"><a></a>        <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (capital)   </span>
-<span id="cb17-4"><a></a>        <span class="kw">REFERENCES</span> world.city(<span class="kw">id</span>);  </span>
-<span id="cb17-5"><a></a></span>
-<span id="cb17-6"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country </span>
-<span id="cb17-7"><a></a>    <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> country_fk </span>
-<span id="cb17-8"><a></a>        <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (continent)   </span>
-<span id="cb17-9"><a></a>        <span class="kw">REFERENCES</span> world.code_continent(continent);  </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-3"><a></a>        <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (capital)  </span>
+<span id="cb17-4"><a></a>        <span class="kw">REFERENCES</span> world.city(<span class="kw">id</span>);  </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section><section id="fin" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Fin</h1>
 
 

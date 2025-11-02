@@ -243,9 +243,7 @@
 <h2 id="toc-title">Plan</h2>
 <ul>
 <li><a href="#/revisiter-le-schéma-world" id="/toc-revisiter-le-schéma-world">Revisiter le schéma world</a></li>
-<li><a href="#/une-contrainte-dexclusion" id="/toc-une-contrainte-dexclusion">Une contrainte d’exclusion</a></li>
-<li><a href="#/normalisation-de-textttcountry" id="/toc-normalisation-de-textttcountry">Normalisation de <span class="math inline">\(\texttt{country}\)</span></a></li>
-<li><a href="#/vues-régionales-et-continentales" id="/toc-vues-régionales-et-continentales">Vues régionales et continentales</a></li>
+<li><a href="#/contraintes-dexclusion" id="/toc-contraintes-dexclusion">Contraintes d’exclusion</a></li>
 <li><a href="#/fin" id="/toc-fin">Fin</a></li>
 </ul>
 </nav>
@@ -262,12 +260,12 @@
 <section id="conraintes-sur-la-table-country" class="slide level2 center">
 <h2>Conraintes sur la table <code>country</code></h2>
 <ul>
-<li><p>Un pays est identifié par son <code>countrycode</code></p></li>
-<li><p>Deux pays ne devraient pas avoir le même nom</p></li>
-<li><p>Une région ne devrait appartenir qu’à un seul continent</p></li>
-<li><p>La capitale d’un pays devrait être une ville connue dans <code>city</code></p></li>
-<li><p>La capitale d’un pays devrait être une ville de ce pays</p></li>
-<li><p>Les capitales de deux pays différents devraient être des villes différentes</p></li>
+<li><p>Un pays est identifié par son <code>countrycode</code>,</p></li>
+<li><p>Deux pays ne devraient pas avoir le même nom,</p></li>
+<li><p>Une région ne devrait appartenir qu’à un seul continent,</p></li>
+<li><p>La capitale d’un pays devrait être une ville connue dans <code>city</code>,</p></li>
+<li><p>La capitale d’un pays devrait être une ville de ce pays,</p></li>
+<li><p>Les capitales de deux pays différents devraient être des villes différentes,</p></li>
 <li><p>…</p></li>
 </ul>
 <p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Ce ne sont pas les seules contraintes possibles</p>
@@ -277,38 +275,38 @@
 <ul>
 <li><p>Un pays est identifié par son <code>countrycode</code> : <code>PRIMARY KEY</code></p></li>
 <li><p>Deux pays ne devraient pas avoir le même nom : <code>UNIQUE</code></p></li>
-<li><p><strong>Une région ne devrait appartenir qu’à un seul continent</strong> : ???</p></li>
+<li><p><strong>Une région ne devrait appartenir qu’à un seul continent</strong> : ??? -&gt; <code>EXCLUDE</code></p></li>
 <li><p>La capitale d’un pays devrait être une ville connue dans <code>city</code> : <code>REFERENCES</code></p></li>
-<li><p><strong>La capitale d’un pays devrait être une ville de ce pays</strong> : ???</p></li>
+<li><p><strong>La capitale d’un pays devrait être une ville de ce pays</strong> : ??? -&gt; trigger</p></li>
 <li><p>Les capitales de deux pays différents devraient être des villes différentes : <code>UNIQUE</code></p></li>
 <li><p>Deux pays différents ne peuvent avoir le même <code>code2</code> : <code>UNIQUE</code></p></li>
 </ul>
 </section>
 <section id="examen-du-schema-de-country" class="slide level2 center">
 <h2>Examen du schema de <code>country</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a></a><span class="op">+</span><span class="co">--------------------+---------------+-----------+----------+--------------+-------------+</span></span>
-<span id="cb1-2"><a></a>| <span class="kw">Column</span>             | <span class="kw">Type</span>          | Modifiers | <span class="kw">Storage</span>  | Stats target | Description |</span>
-<span id="cb1-3"><a></a>|<span class="co">--------------------+---------------+-----------+----------+--------------+-------------|</span></span>
-<span id="cb1-4"><a></a>| countrycode        | <span class="dt">character</span>(<span class="dv">3</span>)  |  <span class="kw">not</span> <span class="kw">null</span> | extended | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-5"><a></a>| name_country       | text          |  <span class="kw">not</span> <span class="kw">null</span> | extended | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-6"><a></a>| continent          | text          |  <span class="kw">not</span> <span class="kw">null</span> | extended | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-7"><a></a>| region             | text          |  <span class="kw">not</span> <span class="kw">null</span> | extended | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-8"><a></a>| surfacearea        | <span class="dt">real</span>          |  <span class="kw">not</span> <span class="kw">null</span> | plain    | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-9"><a></a>| indepyear          | <span class="dt">smallint</span>      |           | plain    | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-10"><a></a>| population_country | <span class="dt">integer</span>       |  <span class="kw">not</span> <span class="kw">null</span> | plain    | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-11"><a></a>| lifeexpectancy     | <span class="dt">real</span>          |           | plain    | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-12"><a></a>| gnp                | <span class="dt">numeric</span>(<span class="dv">10</span>,<span class="dv">2</span>) |           | main     | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-13"><a></a>| gnpold             | <span class="dt">numeric</span>(<span class="dv">10</span>,<span class="dv">2</span>) |           | main     | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-14"><a></a>| localname          | text          |  <span class="kw">not</span> <span class="kw">null</span> | extended | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-15"><a></a>| governmentform     | text          |  <span class="kw">not</span> <span class="kw">null</span> | extended | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-16"><a></a>| headofstate        | text          |           | extended | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-17"><a></a>| capital            | <span class="dt">integer</span>       |           | plain    | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-18"><a></a>| code2              | <span class="dt">character</span>(<span class="dv">2</span>)  |  <span class="kw">not</span> <span class="kw">null</span> | extended | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>      |</span>
-<span id="cb1-19"><a></a><span class="op">+</span><span class="co">--------------------+---------------+-----------+----------+--------------+-------------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Un schéma de table ne se réduit pas à la données des noms et domaines des colonnes</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a></a><span class="op">+</span><span class="co">--------------------+---------------+-----------+</span></span>
+<span id="cb1-2"><a></a>| <span class="kw">Column</span>             | <span class="kw">Type</span>          | Modifiers | </span>
+<span id="cb1-3"><a></a>|<span class="co">--------------------+---------------+-----------+-</span></span>
+<span id="cb1-4"><a></a>| countrycode        | <span class="dt">character</span>(<span class="dv">3</span>)  |  <span class="kw">not</span> <span class="kw">null</span> | </span>
+<span id="cb1-5"><a></a>| name_country       | text          |  <span class="kw">not</span> <span class="kw">null</span> | </span>
+<span id="cb1-6"><a></a>| continent          | text          |  <span class="kw">not</span> <span class="kw">null</span> | </span>
+<span id="cb1-7"><a></a>| region             | text          |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb1-8"><a></a>| surfacearea        | <span class="dt">real</span>          |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb1-9"><a></a>| indepyear          | <span class="dt">smallint</span>      |           | </span>
+<span id="cb1-10"><a></a>| population_country | <span class="dt">integer</span>       |  <span class="kw">not</span> <span class="kw">null</span> | </span>
+<span id="cb1-11"><a></a>| lifeexpectancy     | <span class="dt">real</span>          |           | </span>
+<span id="cb1-12"><a></a>| gnp                | <span class="dt">numeric</span>(<span class="dv">10</span>,<span class="dv">2</span>) |           | </span>
+<span id="cb1-13"><a></a>| gnpold             | <span class="dt">numeric</span>(<span class="dv">10</span>,<span class="dv">2</span>) |           | </span>
+<span id="cb1-14"><a></a>| localname          | text          |  <span class="kw">not</span> <span class="kw">null</span> | </span>
+<span id="cb1-15"><a></a>| governmentform     | text          |  <span class="kw">not</span> <span class="kw">null</span> | </span>
+<span id="cb1-16"><a></a>| headofstate        | text          |           | </span>
+<span id="cb1-17"><a></a>| capital            | <span class="dt">integer</span>       |           | </span>
+<span id="cb1-18"><a></a>| code2              | <span class="dt">character</span>(<span class="dv">2</span>)  |  <span class="kw">not</span> <span class="kw">null</span> | </span>
+<span id="cb1-19"><a></a><span class="op">+</span><span class="co">--------------------+---------------+-----------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Un schéma de table ne se réduit pas à la données des noms et domaines des colonnes.</p>
 </section>
-<section id="continued" class="slide level2 center">
-<h2>(continued)</h2>
+<section id="suite" class="slide level2 center">
+<h2>suite</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a></a><span class="kw">Indexes</span>:</span>
 <span id="cb2-2"><a></a>    <span class="ot">"country_pkey"</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span>, btree (countrycode)</span>
 <span id="cb2-3"><a></a><span class="kw">Check</span> <span class="kw">constraints</span>:</span>
@@ -320,8 +318,7 @@
 <span id="cb2-9"><a></a>                                     continent <span class="op">=</span> <span class="st">'Antarctica'</span>:<span class="ch">:text</span> <span class="kw">OR</span></span>
 <span id="cb2-10"><a></a>                                     continent <span class="op">=</span> <span class="st">'South America'</span>:<span class="ch">:text</span>),</span>
 <span id="cb2-11"><a></a><span class="kw">Foreign</span><span class="op">-</span><span class="kw">key</span> <span class="kw">constraints</span>:</span>
-<span id="cb2-12"><a></a>    <span class="ot">"country_capital_fkey"</span> <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (capital) <span class="kw">REFERENCES</span> city(<span class="kw">id</span>)</span>
-<span id="cb2-13"><a></a>    <span class="ot">"country_fk"</span> <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (continent) <span class="kw">REFERENCES</span> code_continent(continent)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-12"><a></a>    <span class="ot">"country_capital_fkey"</span> <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (capital) <span class="kw">REFERENCES</span> city(<span class="kw">id</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="ddl-pour-country" class="slide level2 center">
 <h2>DDL pour <code>country</code></h2>
@@ -353,49 +350,96 @@
 </section>
 <section id="ajout-de-contraintes-référentielles" class="slide level2 center">
 <h2>Ajout de contraintes référentielles</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a></a><span class="co">-- world.country foreign keys</span></span>
-<span id="cb4-2"><a></a></span>
-<span id="cb4-3"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb4-4"><a></a>  country_capital_fkey <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (capital) <span class="kw">REFERENCES</span> world.city(<span class="kw">id</span>);</span>
-<span id="cb4-5"><a></a></span>
-<span id="cb4-6"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb4-7"><a></a>  country_fk <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (continent) <span class="kw">REFERENCES</span> world.code_continent(continent);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Les contraintes <code>country_capital_fkey</code> et <code>country_fk</code> sont émises par la table <code>country</code></p>
-</section>
-<section id="contraintes-ajoutées" class="slide level2 center">
-<h2>Contraintes ajoutées</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a></a><span class="co">-- world.country foreign keys</span></span>
-<span id="cb5-2"><a></a></span>
-<span id="cb5-3"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb5-4"><a></a>  country_capital_fkey <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (capital) <span class="kw">REFERENCES</span> world.city(<span class="kw">id</span>);</span>
-<span id="cb5-5"><a></a></span>
-<span id="cb5-6"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb5-7"><a></a>  country_fk <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (continent) <span class="kw">REFERENCES</span> world.code_continent(continent);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> La contrainte <code>country_fk</code> sur <code>continent</code> remplit la même fonction que la contrainte <code>country_continent_check</code></p>
-<div class="fragment">
-<p><i class="fa-solid fa-lightbulb" aria-label="lightbulb"></i> <strong>Conseil:</strong></p>
 <ul>
-<li>Si le domaine est de grande cardinalité, utiliser une table pour représenter le domaine, et une contrainte référentielle</li>
-<li>Si le domaine est de petite cardinalité, une contrainte <code>CHECK</code> est aussi pratique (et sans doute plus efficace)</li>
+<li>Une contrainte d’intégrité référentielle impose l’inclusion de l’ensemble des valeurs d’une colonne (la colone qui référence) à l’ensemble des valeurs d’une autre colonne (la colonne référencée).</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>La colonne référencée est quasiment toujours la clé primaire d’une autre table. On peut alors définir la contrainte en n’indiquant que la table référencée (car la clé primaire est unique) :</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
+<span id="cb4-2"><a></a>  country_capital_fkey <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (capital) <span class="kw">REFERENCES</span> world.city;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<ul>
+<li>Si la colonne référencée n’est pas une clé primaire, elle doit vérifier une <strong>contrainte d’unicité</strong>. Il faut alors préciser le nom de la table et le nom de la colonne référencée avec cette syntaxe : <code>REFERENCES nom_table(nom_colonne)</code></li>
+</ul>
+</div>
+</section>
+<section id="gestion-de-la-mise-à-jour-ou-de-la-suppression-dun-attribut-référencé" class="slide level2 center">
+<h2>Gestion de la mise à jour ou de la suppression d’un attribut référencé</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Après la définition de la contrainte <code>country_capital_fkey</code>, la mise à jour ou la suppression d’une valeur de l’attribut <code>city.id</code> référencée dans l’attribut <code>country.capital</code> est bloquée par le SGBD.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>On peut définir différentes actions pour les rendre possibles :</p>
+<ul>
+<li><code>CASCADE</code> : supprime ou met à jour en cascade les lignes qui référencent la valeur supprimée ou mise à jour.</li>
 </ul>
 </div>
 <div class="fragment">
-<p><i class="fa-solid fa-brain" aria-label="brain"></i> Comment procéder pour mettre en œuvre une contrainte de domaine sur <code>region</code> ?</p>
+<ul>
+<li><code>SET NULL</code> : met à <code>NULL</code> la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour.</li>
+</ul>
 </div>
+<div class="fragment">
+<ul>
+<li><code>SET DEFAULT</code> : met à leur valeur par défaut la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour.</li>
+</ul>
+</div>
+</section>
+<section id="utilisation-de-laction-cascade" class="slide level2 center">
+<h2>Utilisation de l’action <code>CASCADE</code></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.city </span>
+<span id="cb5-2"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> city_countrycode_fkey </span>
+<span id="cb5-3"><a></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (countrycode) </span>
+<span id="cb5-4"><a></a>    <span class="kw">REFERENCES</span> world.country</span>
+<span id="cb5-5"><a></a>    <span class="kw">ON</span> <span class="kw">DELETE</span> <span class="kw">CASCADE</span></span>
+<span id="cb5-6"><a></a>    <span class="kw">ON</span> <span class="kw">UPDATE</span> <span class="kw">CASCADE</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Si un <code>countrycode</code> est suprrimé dans la table <code>country</code>, toutes les lignes de la table <code>city</code> où ce code est présent seront supprimées, et si ces lignes sont référencées dans un autre table, les lignes qui les référencent seront elles-mêmes supprimées et ainsi de suite “en cascade”.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Si un <code>countrycode</code> est mis à jour dans la table <code>country</code>, toutes les lignes de la table <code>city</code> où ce code est présent seront mises à jour, et si ces mises à jour sont référencées dans un autre table, les lignes qui les référencent seront elles-mêmes mises à jour et ainsi de suite “en cascade”.</li>
+</ul>
+</div>
+</section>
+<section id="utilisation-de-laction-set-null" class="slide level2 center">
+<h2>Utilisation de l’action <code>SET NULL</code></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.city </span>
+<span id="cb6-2"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> country_capital_fkey </span>
+<span id="cb6-3"><a></a>    <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (capital) </span>
+<span id="cb6-4"><a></a>    <span class="kw">REFERENCES</span> world.city(<span class="kw">id</span>)</span>
+<span id="cb6-5"><a></a>    <span class="kw">ON</span> <span class="kw">DELETE</span> <span class="kw">SET</span> <span class="kw">NULL</span></span>
+<span id="cb6-6"><a></a>    <span class="kw">ON</span> <span class="kw">UPDATE</span> <span class="kw">CASCADE</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Si un <code>id</code> est suprrimé dans la table <code>city</code>, les lignes de la table <code>country</code> où ce code est présent ne seront pas supprimées, la colonne <code>capital</code> sera mise à <code>NULL</code>. Cette action est possible car la valeur <code>NULL</code> est autorisée pour la colonne <code>capital</code>.</li>
+</ul>
 </section></section>
 <section>
-<section id="une-contrainte-dexclusion" class="title-slide slide level1 center" data-background-color="#1c191c">
-<h1>Une contrainte d’exclusion</h1>
+<section id="contraintes-dexclusion" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Contraintes d’exclusion</h1>
 
 </section>
 <section id="une-région-nappartient-quà-un-seul-continent" class="slide level2 center">
 <h2>Une région n’appartient qu’à un seul continent</h2>
 <p>Cette contrainte signifie que le résultat de la requête suivante est vide :</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb6-2"><a></a><span class="kw">FROM</span> </span>
-<span id="cb6-3"><a></a>  world.country c1 </span>
-<span id="cb6-4"><a></a><span class="kw">JOIN</span> </span>
-<span id="cb6-5"><a></a>  world.country c2 <span class="kw">ON</span> (c1.continent<span class="op">&lt;&gt;</span> c2.continent <span class="kw">AND</span> c1.region<span class="op">=</span>c2.region);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
+<span id="cb7-2"><a></a><span class="kw">FROM</span> </span>
+<span id="cb7-3"><a></a>  world.country c1 </span>
+<span id="cb7-4"><a></a><span class="kw">JOIN</span> </span>
+<span id="cb7-5"><a></a>  world.country c2 <span class="kw">ON</span> (c1.continent<span class="op">&lt;&gt;</span> c2.continent <span class="kw">AND</span> c1.region<span class="op">=</span>c2.region);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
 <p>On <em>exclut</em> l’existence de deux lignes qui coïncideraient sur <code>region</code> mais pas sur <code>continent</code></p>
 <p>Nous postulons l’existence d’une <strong>dépendance fonctionnelle</strong></p>
@@ -404,14 +448,15 @@
 </section>
 <section id="deux-attitudes" class="slide level2 center">
 <h2>Deux attitudes</h2>
-<p>Dans sa forme actuelle, la table <code>country</code> de <code>world</code> contient des informations <em>redondantes</em>: on répète plusieurs fois que la région <code>Western Europe</code> est située dans le continent <code>Europe</code></p>
-<p>Ces redondances représentent un gaspillage de mémoire (très modeste ici) et un risque pour le maintien de la cohérence de la base : chaque insertion, mise-à-jour est susceptible de mettre en défaut la dépendance fonctionnelle</p>
+<p>Dans sa forme actuelle, la table <code>country</code> de <code>world</code> contient des informations <em>redondantes</em>: on répète plusieurs fois que la région <code>Western Europe</code> est située dans le continent <code>Europe</code>.</p>
+<p>Ces redondances représentent un gaspillage de mémoire (très modeste ici) et un risque pour le maintien de la cohérence de la base : chaque insertion, mise-à-jour est susceptible de mettre en défaut la dépendance fonctionnelle.</p>
 <p>On peut considérer qu’il s’agit d’une <em>anomalie</em> de schéma et <strong>normaliser</strong> le schéma.</p>
 <p>La normalisation suppose une révision du schéma. Si le schéma est muni de vues et de fonctions, il faudra éventuellement réécrire ces vues et ces fonctions.</p>
-<div class="fragment">
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> On peut mettre en place une contrainte d’exclusion avec <code>EXCLUDE</code>.</p>
-<p>De cette façon, on ne touchera pas au schéma, les vues et les fonctions resteront utilisables. La contrainte d’exclusion permettra de maintenir la dépendance fonctionnelle.</p>
-</div>
+</section>
+<section id="autre-possibilité-avec-une-contrainte-dexclusion" class="slide level2 center">
+<h2>Autre possibilité avec une contrainte d’exclusion</h2>
+<p>Avec une contrainte d’exclusion (<code>EXCLUDE</code>), on ne touchera pas au schéma, les vues et les fonctions resteront utilisables.</p>
+<p>La contrainte d’exclusion permettra de maintenir la dépendance fonctionnelle.</p>
 </section>
 <section id="les-contraintes-dexclusion" class="slide level2 center">
 <h2>Les contraintes d’exclusion</h2>
@@ -425,35 +470,27 @@
 </div>
 <div class="callout-content">
 <ul>
-<li>Mise en place des dépendances fonctionnelles</li>
-<li>Mise en place de contraintes de non-recouvrement (données spatiales ou temporelles)</li>
-<li>Mise en place de contraintes très diverses</li>
+<li>Mise en place de dépendances fonctionnelles,</li>
+<li>Mise en place de contraintes de non-recouvrement (données spatiales ou temporelles),</li>
+<li>Mise en place de contraintes très diverses.</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Comment ?</strong></p>
-</div>
-<div class="callout-content">
-<p>L’ajout d’une contrainte d’exclusion crée automatiquement un index du type spécifié dans déclaration de constrainte</p>
-</div>
-</div>
-</div>
-<p><a href="https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-EXCLUSION" target="_blank">Documentation</a></p>
+<!--[Documentation](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-EXCLUSION){target="_blank"}
+-->
 </section>
-<section id="détails-syntaxiques" class="slide level2 center">
-<h2>Détails syntaxiques</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a></a>EXCLUDE </span>
-<span id="cb7-2"><a></a>  [ <span class="kw">USING</span> index_method ] </span>
-<span id="cb7-3"><a></a>  ( exclude_element <span class="kw">WITH</span> <span class="kw">operator</span> [, <span class="op">..</span>. ] ) </span>
-<span id="cb7-4"><a></a>  index_parameters </span>
-<span id="cb7-5"><a></a>  [ <span class="kw">WHERE</span> ( predicate ) ] </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="clause-exclude" class="slide level2 center">
+<h2>Clause EXCLUDE</h2>
+<p>Une clause <code>EXCLUDE</code> empêche que <em>deux</em> lignes vérifient toutes les comparaisons sur les colonnes spécifiées en utilisant les opérateurs indiqués par le mot clé <code>WITH</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> country</span>
+<span id="cb8-2"><a></a>   <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> xcl_country_region_continent </span>
+<span id="cb8-3"><a></a>      EXCLUDE <span class="kw">USING</span> GIST</span>
+<span id="cb8-4"><a></a>      (</span>
+<span id="cb8-5"><a></a>         region <span class="kw">WITH</span> <span class="op">=</span>, </span>
+<span id="cb8-6"><a></a>         continent <span class="kw">WITH</span> <span class="op">&lt;&gt;</span></span>
+<span id="cb8-7"><a></a>      );</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Cette contrainte d’exclusion empèche que deux lignes de la table <code>country</code> aient la colonne <code>region</code> égale et la colonne <code>continent</code> différente.</p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -463,272 +500,384 @@
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>La clause EXCLUDE définit une contrainte d’exclusion qui garantit que si <em>deux</em> lignes sont comparées sur la ou les colonnes spécifiées ou des expressions utilisant le ou les opérateurs spécifiés, seulement certaines de ces comparaisons, mais <em>pas toutes</em>, renverront TRUE.</p>
+<p>La clause <code>USING</code> définit le type d’index utilisé pour vérifier la contrainte d’exclusion.</p>
+<p>En pratique, le type d’index sera toujours <code>GiST</code> ou <code>SP-GiST</code> (<code>GIST</code> est l’acronyme de <em>Generalized Search Tree</em>).</p>
 </div>
 </div>
 </div>
-</section>
-<section id="remarques" class="slide level2 center">
-<h2>Remarques</h2>
-<p>Si tous les opérateurs spécifiés testent une égalité, ceci est équivalent à une contrainte UNIQUE bien qu’une contrainte unique ordinaire sera plus rapide.</p>
-<p>Néanmoins, ces contraintes d’exclusion peuvent spécifier des contraintes qui sont plus générales qu’une simple égalité.</p>
-<p>Vous pouvez spécifier qu’il n’y a pas deux lignes/tuples dans la table contenant des cercles se recouvrant surcharge en utilisant l’opérateur &amp;&amp;.</p>
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Le(s) opérateur(s) doivent être commutatif(s).</p>
-</section>
-<section id="mise-en-œuvre" class="slide level2 center">
-<h2>Mise en œuvre</h2>
-<p>Les contraintes d’exclusion sont implantées en utilisant un <em>index</em> qui a le même nom que la contrainte, donc chaque opérateur précisé doit être associé avec une classe d’opérateurs appropriée pour la méthode d’accès par index, nommée <code>méthode_index</code>.</p>
-<p>Chaque <code>élément_exclusion</code> définit une colonne de l’<code>index</code>, donc il peut spécifier en option une <em>collation</em>, une classe d’opérateur, des paramètres pour la classe d’opérateurs, et/ou des options de tri</p>
-<p>En pratique, la méthode d’accès sera toujours <code>GiST</code> ou <code>SP-GiST</code> (<code>GIST</code> est un acronyme qui renvoie à <em>Generalized Search Tree</em>).</p>
-</section>
-<section id="zoologie-des-index-b-tree-hash-gin" class="slide level2 center">
-<h2>Zoologie des index <code>B-tree</code>, <code>hash</code>, <code>GIN</code></h2>
-<p>Une stratégie d’indexation permet de gérer efficacement des conditions de la forme</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a></a><span class="op">&lt;</span>colonne indexée<span class="op">&gt;</span> <span class="op">&lt;</span>opérateur<span class="op">&gt;</span> <span class="op">&lt;</span>valeur de comparaison<span class="op">&gt;</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Les index de type <code>B-tree</code> sont appropriés pour les types ordonnés et les opérateurs <code>=</code>, <code>&lt;=</code>, <code>=&gt;</code></p>
-<p>Les index de type <code>B-tree</code> sont souvent utilisés pour réaliser les équi-jointures.</p>
-</section>
-<section id="méthodes-daccès-index-gist" class="slide level2 center">
-<h2>Méthodes d’accès (Index) <code>GiST</code></h2>
-<p>GiST: une infrastructure qui permet la mise en œuvre de différentes stratégies d’indexation.</p>
-<p>Les opérateurs susceptibles d’utiliser un index GiST peuvent varier selon la stratégie d’indexation</p>
-<div class="fragment">
-<p>La distribution standard de PostgreSQL comprend des classes d’opérateurs GiST pour plusieurs types de données géométriques (bidimensionnelles), qui permettent d’effectuer des requêtes indexées à l’aide de ces opérateurs</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a></a><span class="op">&lt;&lt;</span>   &amp;<span class="op">&lt;</span>   &amp;<span class="op">&gt;</span>   <span class="op">&gt;&gt;</span>   <span class="op">&lt;&lt;</span>|   &amp;<span class="op">&lt;</span>|   |&amp;<span class="op">&gt;</span>   |<span class="op">&gt;&gt;</span>   @<span class="op">&gt;</span>   <span class="op">&lt;</span>@   <span class="op">~=</span>   &amp;&amp;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="dans-world.country" class="slide level2 center">
-<h2>Dans <code>world.country</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country</span>
-<span id="cb10-2"><a></a><span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> xcl_country_region_continent </span>
-<span id="cb10-3"><a></a>EXCLUDE  <span class="kw">USING</span> GIST  (</span>
-<span id="cb10-4"><a></a>    region <span class="kw">WITH</span> <span class="op">=</span>, </span>
-<span id="cb10-5"><a></a>    continent <span class="kw">with</span> <span class="op">&lt;&gt;</span></span>
-<span id="cb10-6"><a></a>) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Avec cette contrainte d’exclusion, on interdit la présence de deux tuples dand la table <code>country</code>, coïncidant sur la colonne <code>region</code> mais pas sur la colonne <code>continent</code>.</p>
-</section>
-<section id="autre-exemple" class="slide level2 center">
-<h2>Autre exemple</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="kw">public</span>.zoo (</span>
-<span id="cb11-2"><a></a>  zoo_id <span class="dt">INTEGER</span> <span class="kw">DEFAULT</span> nextval(<span class="st">'public.zoo_zoo_id_seq'</span>:<span class="ch">:regclass</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb11-3"><a></a>  <span class="kw">PRIMARY</span> <span class="kw">KEY</span>, </span>
-<span id="cb11-4"><a></a>  cage   <span class="dt">INTEGER</span>,</span>
-<span id="cb11-5"><a></a>  animal TEXT,</span>
-<span id="cb11-6"><a></a>  <span class="kw">CONSTRAINT</span> zoo_pkey <span class="kw">PRIMARY</span> <span class="kw">KEY</span> ( zoo_id )</span>
-<span id="cb11-7"><a></a>  EXCLUDE <span class="kw">USING</span> GIST (</span>
-<span id="cb11-8"><a></a>    cage <span class="kw">WITH</span> <span class="op">=</span>, </span>
-<span id="cb11-9"><a></a>    animal <span class="kw">WITH</span> <span class="op">&lt;&gt;</span>)</span>
-<span id="cb11-10"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="question" class="slide level2 center">
-<h2>Question</h2>
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Comment utiliser les contraintes d’exclusion pour préciser que deux colonnes sont liées par une relation de monotonie ?</p>
-</section></section>
-<section>
-<section id="normalisation-de-textttcountry" class="title-slide slide level1 center" data-background-color="#1c191c">
-<h1>Normalisation de <span class="math inline">\(\texttt{country}\)</span></h1>
+<!--
+## Détails syntaxiques
 
-</section>
-<section id="section" class="slide level2 center">
-<h2></h2>
-<p>La normalisation des bases de données relationnelles est une activité en soi, guidée par des principes codifiés et des algorithmes établis (voir <a href="../slides/DF_norm_1.html">Normalisation I</a>, <a href="../slides/DF_norm_3.html">Normalisation II</a>)</p>
-<p>Ici, nous profitons de la simplicité du schéma <code>world</code> pour normaliser <code>country</code> à la main.</p>
-</section>
-<section id="éclatement-de-la-table-country" class="slide level2 center">
-<h2>Éclatement de la table <code>country</code></h2>
-<ul>
-<li><p>Mise en place d’une table <code>region_continent(region, continent)</code></p></li>
-<li><p>Émission d’une contrainte référentielle de <code>country</code> vers <code>region_continent</code></p></li>
-</ul>
-</section>
-<section id="préparation" class="slide level2 center">
-<h2>Préparation</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a></a><span class="kw">CREATE</span> <span class="kw">SCHEMA</span> monde <span class="kw">AUTHORIZATION</span> superdupont ;</span>
-<span id="cb12-2"><a></a></span>
-<span id="cb12-3"><a></a><span class="kw">GRANT</span> <span class="kw">ALL</span> <span class="kw">ON</span> <span class="kw">SCHEMA</span> monde <span class="kw">TO</span> superdupont ;</span>
-<span id="cb12-4"><a></a></span>
-<span id="cb12-5"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> monde.code_continent <span class="kw">AS</span> </span>
-<span id="cb12-6"><a></a>       <span class="kw">TABLE</span> world.code_continent ;</span>
-<span id="cb12-7"><a></a></span>
-<span id="cb12-8"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.code_continent <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb12-9"><a></a>  code_continent_pk <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (codecontinent);</span>
-<span id="cb12-10"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.code_continent <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb12-11"><a></a>  code_continent_un <span class="kw">UNIQUE</span> (continent);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="création-de-region_continent" class="slide level2 center">
-<h2>Création de <code>region_continent</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> monde.region_continent <span class="kw">AS</span> </span>
-<span id="cb13-2"><a></a>  <span class="kw">SELECT</span> <span class="kw">DISTINCT</span> </span>
-<span id="cb13-3"><a></a>    region, continent </span>
-<span id="cb13-4"><a></a>  <span class="kw">FROM</span> </span>
-<span id="cb13-5"><a></a>    world.country c ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La requête suivante renvoie une table vide:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span> </span>
-<span id="cb14-2"><a></a><span class="kw">FROM</span> </span>
-<span id="cb14-3"><a></a>  monde.region_continent rc1 </span>
-<span id="cb14-4"><a></a><span class="kw">JOIN</span> </span>
-<span id="cb14-5"><a></a>  monde.region_continent rc2 </span>
-<span id="cb14-6"><a></a><span class="kw">ON</span> (</span>
-<span id="cb14-7"><a></a>    rc1.region<span class="op">=</span>rc2.region <span class="kw">AND</span> </span>
-<span id="cb14-8"><a></a>  rc1.continent<span class="op">&lt;&gt;</span> rc2.continent</span>
-<span id="cb14-9"><a></a>) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.region_continent <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb15-2"><a></a>    region_continent_pk <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (region);</span>
-<span id="cb15-3"><a></a></span>
-<span id="cb15-4"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> <span class="kw">mode</span>.region_continent <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb15-5"><a></a>  region_continent_fk <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (continent) </span>
-<span id="cb15-6"><a></a>  <span class="kw">REFERENCES</span> monde.code_continent(continent);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="création-de-la-table-monde.country" class="slide level2 center">
-<h2>Création de la table <code>monde.country</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> monde.country <span class="kw">AS</span>  </span>
-<span id="cb16-2"><a></a>  <span class="kw">SELECT</span>  </span>
-<span id="cb16-3"><a></a>    countrycode, name_country, region, surfacearea, </span>
-<span id="cb16-4"><a></a>    indepyear, population_country, </span>
-<span id="cb16-5"><a></a>    lifeexpectancy, gnp, gnpold, localname,</span>
-<span id="cb16-6"><a></a>    governmentform, headofstate, capital,  code2            </span>
-<span id="cb16-7"><a></a>  <span class="kw">FROM</span> </span>
-<span id="cb16-8"><a></a>    world.country ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> sans colonne <code>continent</code></p>
-</section>
-<section id="mise-en-place-des-contraintes-sur-monde.country" class="slide level2 center">
-<h2>Mise en place des contraintes sur <code>monde.country</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.country <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb17-2"><a></a>  country_pk <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (countrycode);</span>
-<span id="cb17-3"><a></a></span>
-<span id="cb17-4"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.country <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb17-5"><a></a>  country_un_name <span class="kw">UNIQUE</span> (name_country);</span>
-<span id="cb17-6"><a></a></span>
-<span id="cb17-7"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.country <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb17-8"><a></a>  country_un_code2 <span class="kw">UNIQUE</span> (code2);</span>
-<span id="cb17-9"><a></a></span>
-<span id="cb17-10"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.country <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> </span>
-<span id="cb17-11"><a></a>  country_un_capital <span class="kw">UNIQUE</span> (capital);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.country <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> country_fk </span>
-<span id="cb18-2"><a></a>  <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (region) <span class="kw">REFERENCES</span> monde.region_continent(region) </span>
-<span id="cb18-3"><a></a>  <span class="kw">ON</span> <span class="kw">DELETE</span> <span class="kw">SET</span> <span class="kw">NULL</span> </span>
-<span id="cb18-4"><a></a>  <span class="kw">ON</span> <span class="kw">UPDATE</span> <span class="kw">CASCADE</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="copie-de-city" class="slide level2 center">
-<h2>Copie de <code>city</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> monde.city <span class="kw">AS</span> </span>
-<span id="cb19-2"><a></a>  <span class="kw">TABLE</span> world.city;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> On a copié le schéma a minima (sans les contraintes)</p>
-</section>
-<section id="dans-un-pays-plusieurs-villes-peuvent-elles-porter-le-même-nom" class="slide level2 center">
-<h2>Dans un pays plusieurs villes peuvent elles porter le même nom ?</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb20-2"><a></a><span class="kw">FROM</span> </span>
-<span id="cb20-3"><a></a>  monde.city c </span>
-<span id="cb20-4"><a></a><span class="kw">JOIN</span> </span>
-<span id="cb20-5"><a></a>  monde.city c2 </span>
-<span id="cb20-6"><a></a><span class="kw">ON</span> (c.name <span class="op">=</span> c2.name <span class="kw">AND</span> </span>
-<span id="cb20-7"><a></a>    c.countrycode <span class="op">=</span> c2.countrycode  <span class="kw">AND</span> </span>
-<span id="cb20-8"><a></a>    c.<span class="kw">id</span> <span class="op">&lt;&gt;</span> c2.<span class="kw">id</span>) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>renvoie 48 lignes</p>
-<div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a></a><span class="kw">SELECT</span> <span class="op">*</span></span>
-<span id="cb21-2"><a></a><span class="kw">FROM</span> </span>
-<span id="cb21-3"><a></a>  monde.city c </span>
-<span id="cb21-4"><a></a><span class="kw">JOIN</span> </span>
-<span id="cb21-5"><a></a>  monde.city c2 </span>
-<span id="cb21-6"><a></a><span class="kw">ON</span> (c.name <span class="op">=</span> c2.name <span class="kw">AND</span> </span>
-<span id="cb21-7"><a></a>    c.countrycode <span class="op">=</span> c2.countrycode  <span class="kw">AND</span></span>
-<span id="cb21-8"><a></a>    c.district <span class="op">=</span> c2.district  <span class="kw">AND</span></span>
-<span id="cb21-9"><a></a>    c.<span class="kw">id</span> <span class="op">&lt;&gt;</span> c2.<span class="kw">id</span>) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>renvoie 2 lignes</p>
-</div>
-</section>
-<section id="existe-t-il-un-pays-dont-la-capitale-est-dans-un-autre-pays" class="slide level2 center">
-<h2>Existe-t-il un pays dont la capitale est dans un autre pays ?</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a></a><span class="kw">SELECT</span> c. countrycode, c.name_country, cc.name, cc.countrycode</span>
-<span id="cb22-2"><a></a><span class="kw">FROM</span> </span>
-<span id="cb22-3"><a></a>  world.country c </span>
-<span id="cb22-4"><a></a><span class="kw">JOIN</span> </span>
-<span id="cb22-5"><a></a>  world.city cc </span>
-<span id="cb22-6"><a></a><span class="kw">ON</span> (c.capital <span class="op">=</span> cc.<span class="kw">id</span>  <span class="kw">AND</span> </span>
-<span id="cb22-7"><a></a>    cc.countrycode <span class="op">&lt;&gt;</span> c.countrycode) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>renvoie 0 lignes <i class="fa-solid fa-champagne-glasses" aria-label="champagne-glasses"></i></p>
-</section>
-<section id="blocages-possibles" class="slide level2 center">
-<h2><i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> Blocages possibles</h2>
-<p>Si</p>
-<ul>
-<li><code>city</code> emet une contrainte référentielle sur <code>country</code> (<code>countrycode</code>)</li>
-<li><code>country</code> emet une contrainte référentielle sur <code>city</code> (<code>capital</code> <span class="math inline">\(\rightarrow\)</span> <code>id</code>)</li>
-</ul>
-<p>Risque de blocage : qui précède la capitale ou le pays ?</p>
-</section>
-<section id="émission-de-la-contrainte-de-city-vers-country" class="slide level2 center">
-<h2>Émission de la contrainte de <code>city</code> vers <code>country</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.city </span>
-<span id="cb23-2"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> city_fk <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (countrycode) </span>
-<span id="cb23-3"><a></a>      <span class="kw">REFERENCES</span> monde.country(countrycode) </span>
-<span id="cb23-4"><a></a>  <span class="kw">ON</span> <span class="kw">DELETE</span> <span class="kw">SET</span> <span class="kw">NULL</span> <span class="kw">ON</span> <span class="kw">UPDATE</span> <span class="kw">CASCADE</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="table-countrylanguage" class="slide level2 center">
-<h2>Table <code>countrylanguage</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> monde.countrylanguage  <span class="kw">AS</span> </span>
-<span id="cb24-2"><a></a>  <span class="kw">TABLE</span> world.countrylanguage ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.countrylanguage </span>
-<span id="cb25-2"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> countrylanguage_fk </span>
-<span id="cb25-3"><a></a>        <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (countrycode) <span class="kw">REFERENCES</span> monde.country(countrycode) </span>
-<span id="cb25-4"><a></a>        <span class="kw">ON</span> <span class="kw">DELETE</span> <span class="kw">CASCADE</span> </span>
-<span id="cb25-5"><a></a>      <span class="kw">ON</span> <span class="kw">UPDATE</span> <span class="kw">CASCADE</span>;</span>
-<span id="cb25-6"><a></a></span>
-<span id="cb25-7"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.countrylanguage </span>
-<span id="cb25-8"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> countrylanguage_pk </span>
-<span id="cb25-9"><a></a>    <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (<span class="ot">"language"</span>,countrycode);</span>
-<span id="cb25-10"><a></a></span>
-<span id="cb25-11"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> monde.countrylanguage </span>
-<span id="cb25-12"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> countrylanguage_check </span>
-<span id="cb25-13"><a></a>    <span class="kw">CHECK</span> (percentage <span class="op">&lt;=</span> <span class="fl">100.0</span> <span class="kw">AND</span> percentage <span class="op">&gt;=</span><span class="fl">0.0</span> );</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+```{.sql}
+EXCLUDE 
+  [ USING index_method ] 
+  ( exclude_element WITH operator [, ... ] ) 
+  index_parameters 
+  [ WHERE ( predicate ) ] 
+```
+
+
+
+## Remarques 
+
+Si tous les opérateurs spécifiés testent une égalité, ceci est équivalent à une contrainte UNIQUE bien qu'une contrainte unique ordinaire sera plus rapide. 
+
+Néanmoins, ces contraintes d'exclusion peuvent spécifier des contraintes qui sont plus générales qu'une simple égalité. 
+
+Vous pouvez spécifier qu'il n'y a pas deux lignes dans la table contenant des cercles de surcharge en utilisant l'opérateur &&. 
+
+ Le(s) opérateur(s) doivent être commutatif(s).
+
+
+## Mise en œuvre 
+
+Les contraintes d'exclusion sont implantées en utilisant un *index* qui a le même nom que la contrainte, donc chaque opérateur précisé doit être associé avec une classe d'opérateurs appropriée  pour la méthode d'accès par index, nommée `méthode_index`. 
+
+Chaque `élément_exclusion` définit une colonne de l'`index`, donc il peut spécifier en option une *collation*, une classe d'opérateur, des paramètres pour la classe d'opérateurs, et/ou des options de tri 
+
+En pratique, la méthode d'accès sera toujours `GiST` ou `SP-GiST` (`GIST` est un acronyme qui renvoie 
+à *Generalized Search Tree*). 
+
+
+## Zoologie des index  `B-tree`, `hash`, `GIN`
+
+Une stratégie d'indexation permet de gérer efficacement des conditions de la forme 
+
+```{.sql}
+<colonne indexée> <opérateur> <valeur de comparaison>
+```
+
+Les index de type `B-tree` sont appropriés pour les types ordonnés et les opérateurs `=`, `<=`, `=>`
+
+Les index de type `B-tree` sont souvent utilisés pour réaliser les équi-jointures.  
+
+## Méthodes d'accès (Index) `GiST`
+
+GiST: une infrastructure qui permet la mise en  œuvre de différentes stratégies d'indexation. 
+
+Les opérateurs susceptibles d'utiliser un index  GiST peuvent varier selon la stratégie d'indexation.
+
+. . .
+
+La distribution standard de PostgreSQL comprend des classes d'opérateurs GiST pour plusieurs types de données géométriques (bidimensionnelles), qui permettent d'effectuer des requêtes indexées à l'aide de ces opérateurs 
+
+```{.sql}
+<<   &<   &>   >>   <<|   &<|   |&>   |>>   @>   <@   ~=   &&
+```
+-->
+<!--
+## Contraintes ajoutées
+
+```{.sql}
+-- world.country foreign keys
+
+ALTER TABLE world.country ADD CONSTRAINT 
+  country_capital_fkey FOREIGN KEY (capital) REFERENCES world.city(id);
+
+ALTER TABLE world.country ADD CONSTRAINT 
+  country_fk FOREIGN KEY (continent) REFERENCES world.code_continent(continent);
+```
+
+ La contrainte `country_fk` sur `continent` remplit la même fonction que la 
+contrainte `country_continent_check`
+
+. . .
+
+ **Conseil:** 
+
+- Si le domaine est de grande cardinalité, utiliser une table pour représenter le domaine, 
+et une contrainte référentielle
+- Si le domaine est de petite cardinalité, une contrainte `CHECK` est aussi pratique (et sans doute plus efficace)
+
+. . .
+
+ Comment procéder pour mettre en œuvre une contrainte de domaine sur `region` ? 
+-->
+<!--
+# Normalisation de $\texttt{country}$   {background-color="#1c191c"}
+
+
+## 
+
+
+La normalisation des bases de données relationnelles est une activité en soi, guidée par des principes 
+codifiés et des algorithmes établis (voir [Normalisation I](/slides/DF_norm_1.qmd), [Normalisation II](/slides/DF_norm_3.qmd))
+
+Ici, nous profitons de la simplicité du schéma `world` pour normaliser `country` à la main. 
+
+## Éclatement de la table `country`
+
+- Mise en place d'une table `region_continent(region, continent)`
+
+- Émission d'une contrainte référentielle de `country` vers `region_continent`
+
+
+
+## Préparation
+
+```{.sql}
+CREATE SCHEMA monde AUTHORIZATION superdupont ;
+
+GRANT ALL ON SCHEMA monde TO superdupont ;
+
+CREATE TABLE monde.code_continent AS 
+       TABLE world.code_continent ;
+
+ALTER TABLE monde.code_continent ADD CONSTRAINT 
+  code_continent_pk PRIMARY KEY (codecontinent);
+ALTER TABLE monde.code_continent ADD CONSTRAINT 
+  code_continent_un UNIQUE (continent);
+```
+
+
+
+## Création de `region_continent`
+
+```{.sql}
+CREATE TABLE monde.region_continent AS 
+  SELECT DISTINCT 
+    region, continent 
+  FROM 
+    world.country c ;
+```
+
+
+La requête suivante renvoie une table vide:
+
+```{.sql}
+SELECT * 
+FROM 
+  monde.region_continent rc1 
+JOIN 
+  monde.region_continent rc2 
+ON (
+    rc1.region=rc2.region AND 
+  rc1.continent<> rc2.continent
+) ;
+```
+
+
+
+```{.sql}
+ALTER TABLE monde.region_continent ADD CONSTRAINT 
+    region_continent_pk PRIMARY KEY (region);
+
+ALTER TABLE mode.region_continent ADD CONSTRAINT 
+  region_continent_fk FOREIGN KEY (continent) 
+  REFERENCES monde.code_continent(continent);
+```
+
+
+## Création de la table `monde.country`
+
+```{.sql}
+CREATE TABLE monde.country AS  
+  SELECT  
+    countrycode, name_country, region, surfacearea, 
+    indepyear, population_country, 
+    lifeexpectancy, gnp, gnpold, localname,
+    governmentform, headofstate, capital,  code2            
+  FROM 
+    world.country ;
+```
+
+ sans colonne `continent`
+
+
+
+## Mise en place des contraintes sur `monde.country`
+
+
+```{.sql}
+ALTER TABLE monde.country ADD CONSTRAINT 
+  country_pk PRIMARY KEY (countrycode);
+
+ALTER TABLE monde.country ADD CONSTRAINT 
+  country_un_name UNIQUE (name_country);
+
+ALTER TABLE monde.country ADD CONSTRAINT 
+  country_un_code2 UNIQUE (code2);
+
+ALTER TABLE monde.country ADD CONSTRAINT 
+  country_un_capital UNIQUE (capital);
+```
+
+. . .
+
+```{.sql}
+ALTER TABLE monde.country ADD CONSTRAINT country_fk 
+  FOREIGN KEY (region) REFERENCES monde.region_continent(region) 
+  ON DELETE SET NULL 
+  ON UPDATE CASCADE;
+```
+
+
+
+
+## Copie de `city`
+
+```{.sql}
+CREATE TABLE monde.city AS 
+  TABLE world.city;
+```
+
+ On a copié le schéma a minima (sans les contraintes)
+
+
+## Dans un pays plusieurs villes peuvent elles porter le même nom ?
+
+
+
+```{.sql}
+SELECT *
+FROM 
+  monde.city c 
+JOIN 
+  monde.city c2 
+ON (c.name = c2.name AND 
+    c.countrycode = c2.countrycode  AND 
+    c.id <> c2.id) ;
+```
+
+renvoie 48 lignes 
+
+. . .
+
+```{.sql}
+SELECT *
+FROM 
+  monde.city c 
+JOIN 
+  monde.city c2 
+ON (c.name = c2.name AND 
+    c.countrycode = c2.countrycode  AND
+    c.district = c2.district  AND
+    c.id <> c2.id) ;
+```
+
+renvoie 2 lignes 
+
+
+
+
+## Existe-t-il un pays dont la capitale est dans un autre pays ?
+
+```{.sql}
+SELECT c. countrycode, c.name_country, cc.name, cc.countrycode
+FROM 
+  world.country c 
+JOIN 
+  world.city cc 
+ON (c.capital = cc.id  AND 
+    cc.countrycode <> c.countrycode) ;
+```
+
+renvoie 0 lignes 
+
+
+##    Blocages possibles
+
+Si 
+
+- `city` emet une contrainte référentielle sur `country` (`countrycode`)
+- `country` emet une contrainte référentielle sur `city` (`capital` $\rightarrow$ `id`)
+
+Risque de blocage : qui précède la capitale ou le pays ? 
+
+
+
+
+## Émission de la contrainte de `city` vers `country`
+
+```{.sql}
+ALTER TABLE monde.city 
+  ADD CONSTRAINT city_fk FOREIGN KEY (countrycode) 
+      REFERENCES monde.country(countrycode) 
+  ON DELETE SET NULL ON UPDATE CASCADE;
+```
+
+
+
+## Table `countrylanguage` 
+
+```{.sql}
+CREATE TABLE monde.countrylanguage  AS 
+  TABLE world.countrylanguage ;
+```
+
+. . .
+
+
+```{.sql}
+ALTER TABLE monde.countrylanguage 
+  ADD CONSTRAINT countrylanguage_fk 
+        FOREIGN KEY (countrycode) REFERENCES monde.country(countrycode) 
+        ON DELETE CASCADE 
+      ON UPDATE CASCADE;
+
+ALTER TABLE monde.countrylanguage 
+  ADD CONSTRAINT countrylanguage_pk 
+    PRIMARY KEY ("language",countrycode);
+
+ALTER TABLE monde.countrylanguage 
+  ADD CONSTRAINT countrylanguage_check 
+    CHECK (percentage <= 100.0 AND percentage >=0.0 );
+```
+
+-->
 <!-- ![](/images//bd_2023-monde.png) -->
-</div>
-</section></section>
-<section>
-<section id="vues-régionales-et-continentales" class="title-slide slide level1 center" data-background-color="#1c191c">
-<h1>Vues régionales et continentales</h1>
+<!--
+# Les vues {background-color="#1c191c"}
 
-</section>
-<section id="synthèse-régionale" class="slide level2 center">
-<h2>Synthèse régionale</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">VIEW</span> monde.regionale <span class="kw">AS</span> (</span>
-<span id="cb26-2"><a></a><span class="kw">SELECT</span> C.region, </span>
-<span id="cb26-3"><a></a>       <span class="fu">SUM</span>(c.population_country) <span class="kw">AS</span> population_region,</span>
-<span id="cb26-4"><a></a>       <span class="fu">SUM</span>(<span class="fu">COALESCE</span>(c.surfacearea, <span class="dv">0</span>)) <span class="kw">AS</span> surfacearea_region,</span>
-<span id="cb26-5"><a></a>       <span class="fu">SUM</span>(c.gnp) <span class="kw">AS</span> gnp_region,</span>
-<span id="cb26-6"><a></a>       <span class="fu">SUM</span>(c.gnpold) <span class="kw">AS</span> gnpold_region</span>
-<span id="cb26-7"><a></a><span class="kw">FROM</span> monde.country c </span>
-<span id="cb26-8"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> c.region ) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="synthèse-continentale" class="slide level2 center">
-<h2>Synthèse continentale</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a></a><span class="kw">SELECT</span> r.<span class="op">*</span> </span>
-<span id="cb27-2"><a></a><span class="kw">FROM</span> </span>
-<span id="cb27-3"><a></a>  monde.regionale r </span>
-<span id="cb27-4"><a></a><span class="kw">JOIN</span> </span>
-<span id="cb27-5"><a></a>  monde.region_continent rc </span>
-<span id="cb27-6"><a></a><span class="kw">ON</span> (r.region<span class="op">=</span>rc.region <span class="kw">AND</span> rc.continent<span class="op">=</span><span class="st">'Europe'</span>) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a></a><span class="kw">SELECT</span> r.<span class="op">*</span> </span>
-<span id="cb28-2"><a></a><span class="kw">FROM</span> </span>
-<span id="cb28-3"><a></a>  monde.regionale r </span>
-<span id="cb28-4"><a></a><span class="kw">WHERE</span> </span>
-<span id="cb28-5"><a></a>  r.region <span class="kw">IN</span> (</span>
-<span id="cb28-6"><a></a>    <span class="kw">SELECT</span> </span>
-<span id="cb28-7"><a></a>      region</span>
-<span id="cb28-8"><a></a>    <span class="kw">FROM</span> </span>
-<span id="cb28-9"><a></a>      monde.region_continent</span>
-<span id="cb28-10"><a></a>    <span class="kw">WHERE</span> </span>
-<span id="cb28-11"><a></a>      continent<span class="op">=</span><span class="st">'Europe'</span></span>
-<span id="cb28-12"><a></a>  ) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="fragment">
-<pre><code>+----------------+-----------------+------------------+----------+-------------+
+
+
+## Synthèse régionale 
+
+```{.sql}
+CREATE OR REPLACE VIEW regionale AS (
+SELECT C.region, 
+       SUM(c.population_country) AS population_region,
+       SUM(COALESCE(c.surfacearea, 0)) AS surfacearea_region,
+       SUM(c.gnp) AS gnp_region,
+       SUM(c.gnpold) AS gnpold_region
+FROM country c 
+GROUP BY c.region ) ;
+```
+
+
+
+## Synthèse continentale
+
+```{.sql}
+SELECT r.* 
+FROM 
+  regionale r 
+JOIN 
+  region_continent rc 
+ON (r.region=rc.region AND rc.continent='Europe') ;
+```
+
+. . .
+
+```{.sql}
+SELECT r.* 
+FROM 
+  regionale r 
+WHERE 
+  r.region IN (
+    SELECT 
+      region
+    FROM 
+      monde.region_continent
+    WHERE 
+      continent='Europe'
+  ) ;
+```
+
+. . .
+
+```
++----------------+-----------------+------------------+----------+-------------+
 |region          |population_region|surfacearea_region|gnp_region|gnpold_region|
 +----------------+-----------------+------------------+----------+-------------+
 |Western Europe  |        183247600|         1108456.5|4673272.00|   4578420.00|
@@ -736,22 +885,28 @@
 |Baltic Countries|          7561900|          175117.0|  22418.00|     18595.00|
 |Nordic Countries|         24166400|         1321901.0| 676655.00|    677698.00|
 |British Islands |         63398500|          313173.0|1454251.00|   1369962.00|
-|Eastern Europe  |        307026000|          18814094| 659980.00|    792589.00|</code></pre>
-</div>
-</section>
-<section id="synthèse-continentale-1" class="slide level2 center">
-<h2>Synthèse continentale</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb30-1"><a></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">VIEW</span> monde.continentale <span class="kw">AS</span> (</span>
-<span id="cb30-2"><a></a><span class="kw">SELECT</span> rc.continent, </span>
-<span id="cb30-3"><a></a>       <span class="fu">SUM</span>(r.population_region) <span class="kw">AS</span> population,</span>
-<span id="cb30-4"><a></a>       <span class="fu">SUM</span>(r.surfacearea_region) <span class="kw">AS</span> surfacearea,</span>
-<span id="cb30-5"><a></a>       <span class="fu">SUM</span>(r.gnp_region) <span class="kw">AS</span> gcp,</span>
-<span id="cb30-6"><a></a>       <span class="fu">SUM</span>(r.gnpold_region) <span class="kw">AS</span> gcpold</span>
-<span id="cb30-7"><a></a><span class="kw">FROM</span> monde.regionale r <span class="kw">JOIN</span> monde.region_continent rc </span>
-<span id="cb30-8"><a></a>     <span class="kw">ON</span> (r.region<span class="op">=</span>rc.region) </span>
-<span id="cb30-9"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> rc.continent;) ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<pre><code>+-------------+----------+-----------+----------+----------+
+|Eastern Europe  |        307026000|          18814094| 659980.00|    792589.00|
+```
+
+
+## Synthèse continentale
+
+```{.sql}
+CREATE OR REPLACE VIEW monde.continentale AS (
+SELECT rc.continent, 
+       SUM(r.population_region) AS population,
+       SUM(r.surfacearea_region) AS surfacearea,
+       SUM(r.gnp_region) AS gcp,
+       SUM(r.gnpold_region) AS gcpold
+FROM monde.regionale r JOIN monde.region_continent rc 
+     ON (r.region=rc.region) 
+GROUP BY rc.continent;) ;
+```
+
+. . .
+
+```
++-------------+----------+-----------+----------+----------+
 |continent    |population|surfacearea|gcp       |gcpold    |
 +-------------+----------+-----------+----------+----------+
 |South America| 345780000|   17864926|1511874.00|1520641.00|
@@ -760,8 +915,9 @@
 |Antarctica   |         0|   13132101|      0.00|          |
 |Africa       | 784475000|   30250376| 580375.00| 553264.00|
 |Europe       | 730074600|   23049132|9498865.00|9382001.00|
-|Asia         |3705025700|   31881006|7655392.00|8251969.00|</code></pre>
-</div>
+|Asia         |3705025700|   31881006|7655392.00|8251969.00|
+```
+-->
 </section></section>
 <section id="fin" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Fin</h1>
@@ -775,7 +931,7 @@
 <p> </p>
 </div>
 <div class="header-text">
-<p>Corriger et commenter un schéma</p>
+<p>Compléter les contraintes d’un schéma</p>
 </div>
 <div class="sb-title">
 <p> </p>

@@ -2093,7 +2093,7 @@
     "href": "slides/SQL_3.html#fonctions-fenêtres",
     "title": "BD IV: SQL III",
     "section": "Fonctions fenêtres",
-    "text": "Fonctions fenêtres\nSoit f est une fonction d’agrégation (SUM, AVG, MAX, MIN, COUNT, etc.)\n\nf(...) OVER (PARTITION BY attribut),  \n\neffectue le calcul sur le groupe de lignes auquel appartient la ligne courante après un partitionnement selon attribut (la “fenêtre” de la ligne courante)."
+    "text": "Fonctions fenêtres\nSoit f est une fonction d’agrégation (SUM, AVG, MAX, MIN, COUNT, etc.)\n\nf(...) OVER (PARTITION BY attribut) \n\neffectue le calcul sur le groupe de lignes auquel appartient la ligne courante après un partitionnement selon attribut.\nCe groupe de lignes est le cadre de la fonction fenêtre pour la ligne courante."
   },
   {
     "objectID": "slides/SQL_3.html#exemple-de-fonctions-fenêtres",
@@ -2114,7 +2114,7 @@
     "href": "slides/SQL_3.html#fonctions-fenêtres-avec-une-clause-order-by",
     "title": "BD IV: SQL III",
     "section": "Fonctions fenêtres avec une clause ORDER BY\n",
-    "text": "Fonctions fenêtres avec une clause ORDER BY\n\n\n\n\n\n\n\nImportant\n\n\nAvec une clause ORDER BY, la fenêtre est restreinte aux lignes qui précèdent la ligne courante (selon l’ordre indiqué dans ORDER BY), après partitionnement.\nLa ligne courante est incluse dans le calcul.\n\n\n\n\n\n\nOn ajoute ORDER BY lifeexpectancy à l’exemple précédent :\nSELECT region, name_country, lifeexpectancy, \n     min(lifeexpectancy) OVER (PARTITION BY region ORDER BY lifeexpectancy),  \n     max(lifeexpectancy) OVER (PARTITION BY region ORDER BY lifeexpectancy)   \nFROM world.country \nWHERE region LIKE '%Countries'\nORDER BY region, lifeexpectancy ;\n\nLes 3 premières lignes :\n|name_country |lifeexpecta|min |max |\n|-------------|-----------|----|----|\n|Latvia       |68,4       |68,4|68,4|\n|Lithuania    |69,1       |68,4|69,1|\n|Estonia      |69,5       |68,4|69,5|\n...\n\n\n\n\n\n\n\n\n\nNote\n\n\nLa colonne min n’a pas changé car la première ligne de la fenêtre contient la valeur minimale de la fenêtre puisqu’on a fait ORDER BY lifeexpectancy.\nLa colonne max a changé. Elle est maintenant identique à la colonne lifeexpectancy car la ligne courante contient la valeur maximale parmi les lignes qui la précèdent dans “la fenêtre” selon l’ordre lifeexpectancy."
+    "text": "Fonctions fenêtres avec une clause ORDER BY\n\n\nf(...) OVER (\n    PARTITION BY attribut1\n    ORDER BY attribut2 \n  )\n\nLa clause ORDER BY attribut2 :\n\nordonne les lignes de la fenêtre définie par PARTITION BY attribut1,\nrestreint le cadre de la fenêtre, selon cet ordre, de la première ligne jusqu’aux lignes pour lesquelles attribut2 à la même valeur que dans la ligne courante."
   },
   {
     "objectID": "slides/SQL_3.html#exemple-de-fonction-fenêtre-avec-une-clause-order-by",
@@ -2597,28 +2597,28 @@
     "href": "slides/LDD_2.html#conraintes-sur-la-table-country",
     "title": "BD VII: Corriger le schéma World",
     "section": "Conraintes sur la table country",
-    "text": "Conraintes sur la table country\n\nUn pays est identifié par son countrycode\nDeux pays ne devraient pas avoir le même nom\nUne région ne devrait appartenir qu’à un seul continent\nLa capitale d’un pays devrait être une ville connue dans city\nLa capitale d’un pays devrait être une ville de ce pays\nLes capitales de deux pays différents devraient être des villes différentes\n…\n\n Ce ne sont pas les seules contraintes possibles"
+    "text": "Conraintes sur la table country\n\nUn pays est identifié par son countrycode,\nDeux pays ne devraient pas avoir le même nom,\nUne région ne devrait appartenir qu’à un seul continent,\nLa capitale d’un pays devrait être une ville connue dans city,\nLa capitale d’un pays devrait être une ville de ce pays,\nLes capitales de deux pays différents devraient être des villes différentes,\n…\n\n Ce ne sont pas les seules contraintes possibles"
   },
   {
     "objectID": "slides/LDD_2.html#mise-en-œuvre-des-contraintes",
     "href": "slides/LDD_2.html#mise-en-œuvre-des-contraintes",
     "title": "BD VII: Corriger le schéma World",
     "section": "Mise en œuvre des contraintes",
-    "text": "Mise en œuvre des contraintes\n\nUn pays est identifié par son countrycode : PRIMARY KEY\nDeux pays ne devraient pas avoir le même nom : UNIQUE\nUne région ne devrait appartenir qu’à un seul continent : ???\nLa capitale d’un pays devrait être une ville connue dans city : REFERENCES\nLa capitale d’un pays devrait être une ville de ce pays : ???\nLes capitales de deux pays différents devraient être des villes différentes : UNIQUE\nDeux pays différents ne peuvent avoir le même code2 : UNIQUE"
+    "text": "Mise en œuvre des contraintes\n\nUn pays est identifié par son countrycode : PRIMARY KEY\nDeux pays ne devraient pas avoir le même nom : UNIQUE\nUne région ne devrait appartenir qu’à un seul continent : ??? -&gt; EXCLUDE\nLa capitale d’un pays devrait être une ville connue dans city : REFERENCES\nLa capitale d’un pays devrait être une ville de ce pays : ??? -&gt; trigger\nLes capitales de deux pays différents devraient être des villes différentes : UNIQUE\nDeux pays différents ne peuvent avoir le même code2 : UNIQUE"
   },
   {
     "objectID": "slides/LDD_2.html#examen-du-schema-de-country",
     "href": "slides/LDD_2.html#examen-du-schema-de-country",
     "title": "BD VII: Corriger le schéma World",
     "section": "Examen du schema de country",
-    "text": "Examen du schema de country\n+--------------------+---------------+-----------+----------+--------------+-------------+\n| Column             | Type          | Modifiers | Storage  | Stats target | Description |\n|--------------------+---------------+-----------+----------+--------------+-------------|\n| countrycode        | character(3)  |  not null | extended | &lt;null&gt;       | &lt;null&gt;      |\n| name_country       | text          |  not null | extended | &lt;null&gt;       | &lt;null&gt;      |\n| continent          | text          |  not null | extended | &lt;null&gt;       | &lt;null&gt;      |\n| region             | text          |  not null | extended | &lt;null&gt;       | &lt;null&gt;      |\n| surfacearea        | real          |  not null | plain    | &lt;null&gt;       | &lt;null&gt;      |\n| indepyear          | smallint      |           | plain    | &lt;null&gt;       | &lt;null&gt;      |\n| population_country | integer       |  not null | plain    | &lt;null&gt;       | &lt;null&gt;      |\n| lifeexpectancy     | real          |           | plain    | &lt;null&gt;       | &lt;null&gt;      |\n| gnp                | numeric(10,2) |           | main     | &lt;null&gt;       | &lt;null&gt;      |\n| gnpold             | numeric(10,2) |           | main     | &lt;null&gt;       | &lt;null&gt;      |\n| localname          | text          |  not null | extended | &lt;null&gt;       | &lt;null&gt;      |\n| governmentform     | text          |  not null | extended | &lt;null&gt;       | &lt;null&gt;      |\n| headofstate        | text          |           | extended | &lt;null&gt;       | &lt;null&gt;      |\n| capital            | integer       |           | plain    | &lt;null&gt;       | &lt;null&gt;      |\n| code2              | character(2)  |  not null | extended | &lt;null&gt;       | &lt;null&gt;      |\n+--------------------+---------------+-----------+----------+--------------+-------------+\n Un schéma de table ne se réduit pas à la données des noms et domaines des colonnes"
+    "text": "Examen du schema de country\n+--------------------+---------------+-----------+\n| Column             | Type          | Modifiers | \n|--------------------+---------------+-----------+-\n| countrycode        | character(3)  |  not null | \n| name_country       | text          |  not null | \n| continent          | text          |  not null | \n| region             | text          |  not null |\n| surfacearea        | real          |  not null |\n| indepyear          | smallint      |           | \n| population_country | integer       |  not null | \n| lifeexpectancy     | real          |           | \n| gnp                | numeric(10,2) |           | \n| gnpold             | numeric(10,2) |           | \n| localname          | text          |  not null | \n| governmentform     | text          |  not null | \n| headofstate        | text          |           | \n| capital            | integer       |           | \n| code2              | character(2)  |  not null | \n+--------------------+---------------+-----------+\n Un schéma de table ne se réduit pas à la données des noms et domaines des colonnes."
   },
   {
     "objectID": "slides/LDD_2.html#continued",
     "href": "slides/LDD_2.html#continued",
     "title": "BD VII: Corriger le schéma World",
     "section": "(continued)",
-    "text": "(continued)\nIndexes:\n    \"country_pkey\" PRIMARY KEY, btree (countrycode)\nCheck constraints:\n    \"country_continent_check\" CHECK (continent = 'Asia'::text OR \n                                     continent = 'Europe'::text OR \n                                     continent = 'North America'::text OR \n                                     continent = 'Africa'::text OR\n                                     continent = 'Oceania'::text OR\n                                     continent = 'Antarctica'::text OR\n                                     continent = 'South America'::text),\nForeign-key constraints:\n    \"country_capital_fkey\" FOREIGN KEY (capital) REFERENCES city(id)\n    \"country_fk\" FOREIGN KEY (continent) REFERENCES code_continent(continent)"
+    "text": "(continued)\nIndexes:\n    \"country_pkey\" PRIMARY KEY, btree (countrycode)\nCheck constraints:\n    \"country_continent_check\" CHECK (continent = 'Asia'::text OR \n                                     continent = 'Europe'::text OR \n                                     continent = 'North America'::text OR \n                                     continent = 'Africa'::text OR\n                                     continent = 'Oceania'::text OR\n                                     continent = 'Antarctica'::text OR\n                                     continent = 'South America'::text),\nForeign-key constraints:\n    \"country_capital_fkey\" FOREIGN KEY (capital) REFERENCES city(id)"
   },
   {
     "objectID": "slides/LDD_2.html#ddl-pour-country",
@@ -2632,7 +2632,7 @@
     "href": "slides/LDD_2.html#ajout-de-contraintes-référentielles",
     "title": "BD VII: Corriger le schéma World",
     "section": "Ajout de contraintes référentielles",
-    "text": "Ajout de contraintes référentielles\n-- world.country foreign keys\n\nALTER TABLE world.country ADD CONSTRAINT \n  country_capital_fkey FOREIGN KEY (capital) REFERENCES world.city(id);\n\nALTER TABLE world.country ADD CONSTRAINT \n  country_fk FOREIGN KEY (continent) REFERENCES world.code_continent(continent);\n Les contraintes country_capital_fkey et country_fk sont émises par la table country"
+    "text": "Ajout de contraintes référentielles\n\nUne contrainte d’intégrité référentielle impose l’inclusion de l’ensemble des valeurs d’une colonne (la colone qui référence) à l’ensemble des valeurs d’une autre colonne (la colonne référencée).\n\n\n\nLa colonne référencée est quasiment toujours la clé primaire d’une autre table. On peut alors définir la contrainte en n’indiquant que la table référencée (car la clé primaire est unique) :\n\nALTER TABLE world.country ADD CONSTRAINT \n  country_capital_fkey FOREIGN KEY (capital) REFERENCES world.city;\n\n\n\nSi la colonne référencée n’est pas une clé primaire, elle doit vérifier une contrainte d’unicité. Il faut alors préciser le nom de la table et le nom de la colonne référencée avec cette syntaxe : REFERENCES nom_table(nom_colonne)"
   },
   {
     "objectID": "slides/LDD_2.html#contraintes-ajoutées",
@@ -2653,14 +2653,14 @@
     "href": "slides/LDD_2.html#deux-attitudes",
     "title": "BD VII: Corriger le schéma World",
     "section": "Deux attitudes",
-    "text": "Deux attitudes\nDans sa forme actuelle, la table country de world contient des informations redondantes: on répète plusieurs fois que la région Western Europe est située dans le continent Europe\nCes redondances représentent un gaspillage de mémoire (très modeste ici) et un risque pour le maintien de la cohérence de la base : chaque insertion, mise-à-jour est susceptible de mettre en défaut la dépendance fonctionnelle\nOn peut considérer qu’il s’agit d’une anomalie de schéma et normaliser le schéma.\nLa normalisation suppose une révision du schéma. Si le schéma est muni de vues et de fonctions, il faudra éventuellement réécrire ces vues et ces fonctions.\n\n On peut mettre en place une contrainte d’exclusion avec EXCLUDE.\nDe cette façon, on ne touchera pas au schéma, les vues et les fonctions resteront utilisables. La contrainte d’exclusion permettra de maintenir la dépendance fonctionnelle."
+    "text": "Deux attitudes\nDans sa forme actuelle, la table country de world contient des informations redondantes: on répète plusieurs fois que la région Western Europe est située dans le continent Europe.\nCes redondances représentent un gaspillage de mémoire (très modeste ici) et un risque pour le maintien de la cohérence de la base : chaque insertion, mise-à-jour est susceptible de mettre en défaut la dépendance fonctionnelle.\nOn peut considérer qu’il s’agit d’une anomalie de schéma et normaliser le schéma.\nLa normalisation suppose une révision du schéma. Si le schéma est muni de vues et de fonctions, il faudra éventuellement réécrire ces vues et ces fonctions."
   },
   {
     "objectID": "slides/LDD_2.html#les-contraintes-dexclusion",
     "href": "slides/LDD_2.html#les-contraintes-dexclusion",
     "title": "BD VII: Corriger le schéma World",
     "section": "Les contraintes d’exclusion",
-    "text": "Les contraintes d’exclusion\n\n\n\n\n\n\nObjectifs\n\n\n\nMise en place des dépendances fonctionnelles\nMise en place de contraintes de non-recouvrement (données spatiales ou temporelles)\nMise en place de contraintes très diverses\n\n\n\n\n\n\n\n\n\n\nComment ?\n\n\nL’ajout d’une contrainte d’exclusion crée automatiquement un index du type spécifié dans déclaration de constrainte\n\n\n\nDocumentation"
+    "text": "Les contraintes d’exclusion\n\n\n\n\n\n\nObjectifs\n\n\n\nMise en place de dépendances fonctionnelles,\nMise en place de contraintes de non-recouvrement (données spatiales ou temporelles),\nMise en place de contraintes très diverses."
   },
   {
     "objectID": "slides/LDD_2.html#détails-syntaxiques",
@@ -2695,21 +2695,21 @@
     "href": "slides/LDD_2.html#méthodes-daccès-index-gist",
     "title": "BD VII: Corriger le schéma World",
     "section": "Méthodes d’accès (Index) GiST",
-    "text": "Méthodes d’accès (Index) GiST\nGiST: une infrastructure qui permet la mise en œuvre de différentes stratégies d’indexation.\nLes opérateurs susceptibles d’utiliser un index GiST peuvent varier selon la stratégie d’indexation\n\nLa distribution standard de PostgreSQL comprend des classes d’opérateurs GiST pour plusieurs types de données géométriques (bidimensionnelles), qui permettent d’effectuer des requêtes indexées à l’aide de ces opérateurs\n&lt;&lt;   &&lt;   &&gt;   &gt;&gt;   &lt;&lt;|   &&lt;|   |&&gt;   |&gt;&gt;   @&gt;   &lt;@   ~=   &&"
+    "text": "Méthodes d’accès (Index) GiST\nGiST: une infrastructure qui permet la mise en œuvre de différentes stratégies d’indexation.\nLes opérateurs susceptibles d’utiliser un index GiST peuvent varier selon la stratégie d’indexation.\n\nLa distribution standard de PostgreSQL comprend des classes d’opérateurs GiST pour plusieurs types de données géométriques (bidimensionnelles), qui permettent d’effectuer des requêtes indexées à l’aide de ces opérateurs\n&lt;&lt;   &&lt;   &&gt;   &gt;&gt;   &lt;&lt;|   &&lt;|   |&&gt;   |&gt;&gt;   @&gt;   &lt;@   ~=   &&"
   },
   {
     "objectID": "slides/LDD_2.html#dans-world.country",
     "href": "slides/LDD_2.html#dans-world.country",
     "title": "BD VII: Corriger le schéma World",
     "section": "Dans world.country",
-    "text": "Dans world.country\nALTER TABLE world.country\nADD CONSTRAINT xcl_country_region_continent \nEXCLUDE  USING GIST  (\n    region WITH =, \n    continent with &lt;&gt;\n) ;\nAvec cette contrainte d’exclusion, on interdit la présence de deux tuples dand la table country, coïncidant sur la colonne region mais pas sur la colonne continent."
+    "text": "Dans world.country\nALTER TABLE world.country\nADD CONSTRAINT xcl_country_region_continent \nEXCLUDE  USING GIST  (\n    region WITH =, \n    continent WITH &lt;&gt;\n) ;\nAvec cette contrainte d’exclusion, on interdit la présence de deux tuples dand la table country, coïncidant sur la colonne region mais pas sur la colonne continent."
   },
   {
     "objectID": "slides/LDD_2.html#autre-exemple",
     "href": "slides/LDD_2.html#autre-exemple",
     "title": "BD VII: Corriger le schéma World",
     "section": "Autre exemple",
-    "text": "Autre exemple\nCREATE TABLE public.zoo (\n  zoo_id INTEGER DEFAULT nextval('public.zoo_zoo_id_seq'::regclass) NOT NULL,\n  PRIMARY KEY, \n  cage   INTEGER,\n  animal TEXT,\n  CONSTRAINT zoo_pkey PRIMARY KEY ( zoo_id )\n  EXCLUDE USING GIST (\n    cage WITH =, \n    animal WITH &lt;&gt;)\n);"
+    "text": "Autre exemple\nCREATE TABLE public.zoo (\n  zoo_id INTEGER DEFAULT nextval('public.zoo_zoo_id_seq'::regclass) NOT NULL,\n  PRIMARY KEY, \n  cage INTEGER,\n  animal TEXT,\n  CONSTRAINT zoo_pkey PRIMARY KEY ( zoo_id )\n  EXCLUDE USING GIST (\n    cage WITH =, \n    animal WITH &lt;&gt;)\n);"
   },
   {
     "objectID": "slides/LDD_2.html#question",
@@ -2856,7 +2856,7 @@
     "href": "slides/LDD_0.html#exemple-avec-valeurs-par-défaut",
     "title": "BD II: SQL LDD",
     "section": "Exemple avec valeurs par défaut",
-    "text": "Exemple avec valeurs par défaut\nCREATE TABLE livraison(\n    numLiv INT,\n    nomf VARCHAR(20),\n    nomp VARCHAR(20),\n    dateliv DATE DEFAULT NOW(),\n    quantite INT DEFAULT 1\n);\n\n\n\n\n\n\n\nValeurs par défaut\n\n\n\nPour dateliv, c’est la date courante lors de l’insertion de la ligne dans la table\nPour quantite, c’est une constante"
+    "text": "Exemple avec valeurs par défaut\nCREATE TABLE livraison(\n    numLiv INT,\n    nomf VARCHAR(20),\n    nomp VARCHAR(20),\n    dateliv DATE DEFAULT NOW(),\n    quantite INT DEFAULT 1\n);\n\n\n\n\n\n\n\nValeurs par défaut\n\n\n\nPour dateliv, c’est la date courante lors de l’insertion de la ligne dans la table,\nPour quantite, c’est une constante."
   },
   {
     "objectID": "slides/LDD_0.html#exemple-schéma-world",
@@ -2891,14 +2891,14 @@
     "href": "slides/LDD_0.html#contenu-des-relations",
     "title": "BD II: SQL LDD",
     "section": "Contenu des relations",
-    "text": "Contenu des relations\nOn peut gérer le contenu des tables directement dans le langage SQL.\nOn peut donc :\n\nAjouter des tuples à une table : INSERT INTO ...\nMettre à jour des tuples d’une relation : UPDATE ...\nSupprimer des tuples : DELETE FROM ..."
+    "text": "Contenu des relations\nOn peut gérer le contenu des tables directement dans le langage SQL :\n\nAjouter des tuples à une table : INSERT INTO ...\nMettre à jour des tuples d’une relation : UPDATE ...\nSupprimer des tuples : DELETE FROM ..."
   },
   {
     "objectID": "slides/LDD_0.html#insertion-de-tuples-syntaxe",
     "href": "slides/LDD_0.html#insertion-de-tuples-syntaxe",
     "title": "BD II: SQL LDD",
     "section": "Insertion de tuples : syntaxe",
-    "text": "Insertion de tuples : syntaxe\nINSERT INTO &lt;nom_relation&gt;\n    [(nom_attrib [, nom_attrib]*)]\n    VALUES (valeur [, valeur]*);\n\nINSERT INTO piece VALUES('x21', 1.51, 'rouge');\n\nINSERT INTO piece (nomp,couleur) VALUES('x22', 'vert');\n\n+--------+--------+-----------+\n| nomp   | prix   | couleur   |\n|--------+--------+-----------|\n| x21    | 1.51   | rouge     |\n| x22    | &lt;null&gt; | vert      |\n+--------+--------+-----------+\n\n\n\n\n\n\nAttention\n\n\n\nLes valeurs doivent être fournies dans l’ordre de déclaration des attributs\nLes valeurs non spécifiées sont affectées à NULL"
+    "text": "Insertion de tuples : syntaxe\nINSERT INTO &lt;nom_relation&gt;\n    [(nom_attrib [, nom_attrib]*)]\n    VALUES (valeur [, valeur]*);\n\nINSERT INTO piece VALUES('x21', 1.51, 'rouge');\n\nINSERT INTO piece (nomp,couleur) VALUES('x22', 'vert');\n\n+--------+--------+-----------+\n| nomp   | prix   | couleur   |\n|--------+--------+-----------|\n| x21    | 1.51   | rouge     |\n| x22    | &lt;null&gt; | vert      |\n+--------+--------+-----------+\n\n\n\n\n\n\nAttention\n\n\n\nLes valeurs doivent être fournies dans l’ordre de déclaration des attributs,\nLes valeurs non spécifiées sont affectées à NULL"
   },
   {
     "objectID": "slides/LDD_0.html#insertion-exemple-suite",
@@ -2912,14 +2912,14 @@
     "href": "slides/LDD_0.html#remarques",
     "title": "BD II: SQL LDD",
     "section": "Remarques",
-    "text": "Remarques\nLa dernière partie du constructeur multiligne, qui commence avec VALUES est souvent appelée la liste de valeurs.\n\nUne liste de valeurs peut être définie sans référence à une table existante et définir à la volée une nouvelle table virtuelle/éphémère.\n\n\nSELECT *\nFROM (\n  VALUES\n    ('robe', 'logged in', '2011-01-10 10:15 AM EST'::timestamptz),\n    ('lhsu', 'logged out', '2011-01-11 10:20 AM EST'::timestamptz)\n) AS l (user_name, description, log_ts);\n\n\n\nQuand on utilise VALUES pour définir une table virtuelle, il faut spécifier le nom des colonnes.\nPar défaut, les types des colonnes sont inférés. Si l’inférence de type n’est pas possible, il faut effectuer explicitement des conversions de type comme ici avec ::timestamptz."
+    "text": "Remarques\nLa dernière partie du constructeur multiligne, qui commence avec VALUES est souvent appelée la liste de valeurs.\n\nUne liste de valeurs peut être définie sans référence à une table existante et définir à la volée une nouvelle table virtuelle/éphémère.\n\n\nSELECT *\nFROM (\n  VALUES\n    ('robe', 'logged in', '2011-01-10 10:15 AM EST'::timestamptz),\n    ('lhsu', 'logged out', '2011-01-11 10:20 AM EST'::timestamptz)\n) AS l (user_name, description, log_ts);\n\n\n\n\n\n\nNote\n\n\nQuand on utilise VALUES pour définir une table virtuelle, il faut spécifier le nom des colonnes.\nPar défaut, les types des colonnes sont inférés. Si l’inférence de type n’est pas possible, il faut effectuer explicitement des conversions de type comme ici avec ::timestamptz."
   },
   {
     "objectID": "slides/LDD_0.html#exemple-insertion-de-tuples-suite",
     "href": "slides/LDD_0.html#exemple-insertion-de-tuples-suite",
     "title": "BD II: SQL LDD",
     "section": "Exemple : Insertion de tuples (suite)",
-    "text": "Exemple : Insertion de tuples (suite)\nINSERT INTO livraison\n    VALUES\n    (1, 'fournisseur1', 'x21', '2019-07-13', 2);\n\n-- Avec des colonnes pas renseignées\n\nINSERT INTO livraison\n   (numliv, dateliv, quantite)\n    VALUES\n   (2, '2018-07-29', 10);\n\n\n+----------+--------------+--------+------------+------------+\n| numliv   | nomf         | nomp   | dateliv    | quantite   |\n|----------+--------------+--------+------------+------------|\n| 1        | fournisseur1 | x21    | 2019-07-13 | 2          |\n| 2        | &lt;null&gt;       | &lt;null&gt; | 2018-07-29 | 10         |\n+----------+--------------+--------+------------+------------+\n\n\n\n\n\n\nRappel\n\n\n\nLes valeurs doivent être fournies dans l’ordre de déclaration des attributs\nLes valeurs non spécifiées sont affectées à NULL."
+    "text": "Exemple : Insertion de tuples (suite)\nINSERT INTO livraison\n    VALUES\n    (1, 'fournisseur1', 'x21', '2019-07-13', 2);\n\n-- Avec des colonnes non renseignées\n\nINSERT INTO livraison\n   (numliv, dateliv, quantite)\n    VALUES\n   (2, '2018-07-29', 10);\n\n\n+----------+--------------+--------+------------+------------+\n| numliv   | nomf         | nomp   | dateliv    | quantite   |\n|----------+--------------+--------+------------+------------|\n| 1        | fournisseur1 | x21    | 2019-07-13 | 2          |\n| 2        | &lt;null&gt;       | &lt;null&gt; | 2018-07-29 | 10         |\n+----------+--------------+--------+------------+------------+"
   },
   {
     "objectID": "slides/LDD_0.html#insertion-de-tuples-par-requête",
@@ -2940,14 +2940,14 @@
     "href": "slides/LDD_0.html#mise-à-jour-de-colonnes-de-cellules",
     "title": "BD II: SQL LDD",
     "section": "Mise à jour de colonnes, de cellules",
-    "text": "Mise à jour de colonnes, de cellules\n\nOn peut mettre à jour des tuples existants par le biais d’une requête\n\nSoit tous les tuples de la table,\nSoit l’ensemble des tuples vérifiants une condition donnée\n\n\n\nUPDATE nom_relation\nSET nom_attribut = &lt;expression de valeur&gt; \n    [ , nom_attribut = &lt;expression de valeur&gt; ]*\n[WHERE &lt;condition de recherche&gt; ];"
+    "text": "Mise à jour de colonnes, de cellules\nOn peut mettre à jour des tuples d’une table par le biais d’une requête UPDATE.\nUPDATE nom_table1\nSET nom_attribut = &lt;expression de valeur&gt; \n    [ , nom_attribut = &lt;expression de valeur&gt; ]\n[FROM nom_table2 [, [JOIN] nom_table3]]\n[WHERE &lt;condition de recherche&gt; ];\n\n\n\n\n\n\n\nNote\n\n\n&lt;expression de valeur&gt; peut être :\n\nNULL,\nune constante explicite,\nune expression arithmétique sur les attributs des tables des clauses SET ou FROM,\nle résultat d’une requête scalaire.\n\n\n\n\n\n\n\n\n\n\n\n\nAvertissement\n\n\nOn ne peut pas utiliser la notation nom_table.nom_attribut dans la clause SET."
   },
   {
     "objectID": "slides/LDD_0.html#mise-à-jour-conditionnelle-de-tuples",
     "href": "slides/LDD_0.html#mise-à-jour-conditionnelle-de-tuples",
     "title": "BD II: SQL LDD",
     "section": "Mise à jour conditionnelle de tuples",
-    "text": "Mise à jour conditionnelle de tuples\nLe WHERE permet de sélectionner les tuples à mettre à jour\nUPDATE Fournisseur\nSET VilleF='St.Petersburg'\nWHERE VilleF='Leningrad';\nOn peut aussi effectuer des opérations sur les tuples à mettre à jour.\n\n\n\n\n\n\nLa clause &lt;expression de valeur&gt; peut être :\n\n\n\nNULL\nUne constante (explicite ou via une requête)\nUne expression arithmétique sur les attributs de la table à modifier"
+    "text": "Mise à jour conditionnelle de tuples\nLe WHERE permet de sélectionner les tuples à mettre à jour\nUPDATE Fournisseur\nSET villef='St.Petersburg'\nWHERE villef='Leningrad';\n\n\n\n\n\n\n\nExemple de mise à jour de tuples\n\n\nAugmentation du prix d’une pièce\nUPDATE Piece\nSET prix = prix * 1.05\nWHERE nomp = 'x21';\n\nCalcul de la nouvelle valeur par une sous-requête\nUPDATE Piece\nSET Prix = (\n    SELECT prix\n    FROM Piece\n    WHERE nomp = 'x21'\n)\nWHERE Prix &lt;= 1000;\n\n\nUPDATE nécessitant plusieurs tables\nOn peut avoir besoin de plusieurs tables pour sélectionner les tuples à mettre à jour.\nLa syntaxe à utiliser dépend du SGBD.\nAvec PostgreSQL, on écrira les tables suplémentaires dans une clause FROM (JOIN possible).\nUPDATE Piece p\nSET p.prix = p.prix * 1.1\nFROM Livraison l\nWHERE\n    p.nomp = l.nomp\n    AND l.quantite &gt; 2* (SELECT MIN(quantite) FROM Livraison);\n\n\n\n\n\n\nMise en garde\n\n\nSi, pour une même ligne de la table Piece, plusieurs lignes de la table Livraison vérifient la condition, la mise à jour n’est effectuée qu’une seule fois.\n\n\n\n\n\nUPDATE avec CTE\nIl est parfois pratique d’écrire une CTE pour définir les couples (identifiant, nouvelle valeur).\nWITH r AS (\n  SELECT p.nomp AS id, p.prix * 1.1 AS newvalue\n  FROM Piece p\n  JOIN Livraison l ON p.nomp = l.nomp\n  WHERE l.quantite &gt; 2* (SELECT MIN(quantite) FROM Livraison)\n)\nUPDATE Piece p\nSET prix = r.newvalue\nFROM r\nWHERE p.nomp = r.id\n\n\nSuppression de tuples\n\n\n\nSuppression de tuples : syntaxe\nDELETE FROM &lt;nom_relation&gt;\n[WHERE &lt;condition de recherche&gt;];\n\n\n\n\n\n\nImportant\n\n\nL’oubli de la clause where supprime toutes les données de la table.\n\n\n\n\nExemple\nDELETE FROM Fournisseur\nWHERE NomF = 'FastDelivery';\nOn supprime dans Fournisseur les tuples correspondant au fournisseur nommé 'FastDelivery'\n\n\n\nSuppression de tuples avec requête imbriquée\nDELETE FROM Livraison\nWHERE NomP IN (\n    SELECT NomP\n    FROM Piece\n    WHERE Couleur='Rouge'\n);\n\n\nDELETE FROM &lt;table&gt; USING &lt;t&gt; WHERE ...\n\n\n\n\n\n\nNote\n\n\nSouvent, dans un DELETE, on souhaite sélectionner des lignes en utilisant les données d’autres tables.\nPostgreSQL ne supporte pas l’utilisation de JOIN dans la clause FROM d’une instruction DELETE.\nOn utilise une clause USING.\n\n\n\nDELETE FROM monschema.city AS ci\nUSING monschema.country AS co\nWHERE \n  ci.countrycode = co.countrycode AND \n  co.region= 'Eastern Europe' AND \n  co.indepyear = 1991 ;\n\n\nSuppression de données et contraintes d’intégrité référentielle\n\n\n\n\n\n\nAvertissement\n\n\nLa requête précédente pose-t’elle problème ?\n\n\n\n\nLes identifiants de l’attribut country.capital pour les pays vérifiant country.region = 'Eastern Europe' AND  country.indepyear = 1991 ne seront plus référencés dans la table city.\n\n\n\n\nRésumé\n\n\nOn a vu comment créer des tables (de façon simplifiée) et gérer le contenu de celles-ci,\nOn peut spécifier bien plus de contraintes dans la partie création de tables,\nL’ajout ou la suppression de données n’est pas libre : les contraintes (de clés notamment) doivent être satisfaites après l’exécution des mises à jours.\n\n\n\n\nFin\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\nSQL : Définition de données, Insertion, …"
   },
   {
     "objectID": "slides/LDD_0.html#mise-à-jour-de-tuples-exemple",
@@ -2968,7 +2968,7 @@
     "href": "slides/LDD_0.html#suppression-de-tuples-syntaxe",
     "title": "BD II: SQL LDD",
     "section": "Suppression de tuples : syntaxe",
-    "text": "Suppression de tuples : syntaxe\nDELETE FROM &lt;nom_relation&gt;\n[WHERE &lt;condition de recherche&gt;];\n\n\n\n\n\n\nImportant\n\n\nL’oubli de la clause where supprime toutes les données de la table.\n\n\n\n\nExemple\nDELETE FROM Fournisseur\nWHERE NomF = 'FastDelivery';\nOn supprime dans Fournisseur les tuples correspondant au fournisseur nommé 'FastDelivery'"
+    "text": "Suppression de tuples : syntaxe\nDELETE FROM &lt;nom_relation&gt;\n[WHERE &lt;condition de recherche&gt;];\n\n\n\n\n\n\nImportant\n\n\nL’oubli de la clause where supprime toutes les données de la table."
   },
   {
     "objectID": "slides/LDD_0.html#suppression-de-tuples-avec-requête-imbriquée",
@@ -2982,7 +2982,7 @@
     "href": "slides/LDD_0.html#delete-from-table-using-t-where-...",
     "title": "BD II: SQL LDD",
     "section": "DELETE FROM <table> USING <t> WHERE ...",
-    "text": "DELETE FROM &lt;table&gt; USING &lt;t&gt; WHERE ...\n\n\n\n\n\n\nNote\n\n\nSouvent, lorsque vous supprimez des données d’une table, vous souhaitez supprimer ces données en fonction de leur présence dans un autre ensemble de données.\nSpécifiez cet ensemble supplémentaire avec le prédicat USING"
+    "text": "DELETE FROM &lt;table&gt; USING &lt;t&gt; WHERE ...\n\n\n\n\n\n\nNote\n\n\nSouvent, dans un DELETE, on souhaite sélectionner des lignes en utilisant les données d’autres tables.\nPostgreSQL ne supporte pas l’utilisation de JOIN dans la clause FROM d’une instruction DELETE.\nOn utilise une clause USING.\n\n\n\nDELETE FROM monschema.city AS ci\nUSING monschema.country AS co\nWHERE \n  ci.countrycode = co.countrycode AND \n  co.region= 'Eastern Europe' AND \n  co.indepyear = 1991 ;"
   },
   {
     "objectID": "slides/LDD_0.html#delete-from-table-using-t-where-...-1",
@@ -3983,21 +3983,21 @@
     "href": "slides/LDD_1.html#clef-primaire-primary-key",
     "title": "BD : Contraintes",
     "section": "Clef primaire : PRIMARY KEY\n",
-    "text": "Clef primaire : PRIMARY KEY\n\n\n\n\n\n\n\nDéfinition\n\n\nUne contrainte de type clef primaire indique qu’une colonne, ou un groupe de colonnes, peut être utilisée comme identifiant unique de ligne pour cette table.\n Une table a au plus une clef primaire\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nCeci nécessite que les valeurs soient à la fois uniques et NON NULL.\n\n\n\n\n\nLes définitions de table suivantes acceptent de ce fait les mêmes données\n\n\nCREATE TABLE fournisseur(\n    nomf VARCHAR(20) NOT NULL,\n    villef VARCHAR(20) NOT NULL,\n    UNIQUE(nomf, villef)  \n);\n\nCREATE TABLE fournisseur(\n    nomf VARCHAR(20),\n    villef VARCHAR(20),\n    PRIMARY KEY (nomf, villef)  \n);"
+    "text": "Clef primaire : PRIMARY KEY\n\n\n\n\n\n\n\nDéfinition\n\n\nUne contrainte de type clef primaire indique qu’une colonne, ou un groupe de colonnes, peut être utilisée comme identifiant unique de ligne pour cette table.\n Une table a au plus une clef primaire\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nCeci nécessite que les valeurs soient à la fois uniques et NON NULL.\n\n\n\n\n\nLes définitions de table suivantes acceptent de ce fait les mêmes données :\n\n\nCREATE TABLE fournisseur(\n    nomf VARCHAR(20) NOT NULL,\n    villef VARCHAR(20) NOT NULL,\n    UNIQUE(nomf, villef)  \n);\n\nCREATE TABLE fournisseur(\n    nomf VARCHAR(20),\n    villef VARCHAR(20),\n    PRIMARY KEY (nomf, villef)  \n);"
   },
   {
     "objectID": "slides/LDD_1.html#clef-étrangère-1",
     "href": "slides/LDD_1.html#clef-étrangère-1",
     "title": "BD : Contraintes",
     "section": "Clef étrangère",
-    "text": "Clef étrangère\n\nUne contrainte de clef étrangère stipule que les valeurs d’une colonne (ou d’un groupe de colonnes) doivent correspondre aux valeurs qui apparaissent dans les lignes d’une autre table.\nOn dit que cela maintient l’intégrité référentielle entre les deux tables\nSoit les deux tables suivantes\n\n\n\nCREATE TABLE fournisseur(\n    idf INT PRIMARY KEY,\n    nomf VARCHAR(20),\n    villef VARCHAR(20)\n);\n\nCREATE TABLE piece(\n    nomp VARCHAR(20) PRIMARY KEY,\n    prix MONEY CHECK (prix&gt;= 0::MONEY),\n    prix_promo MONEY CHECK (prix_promo &gt;= 0::MONEY),\n    couleur VARCHAR(15),\n    CHECK (prix &gt; prix_promo)\n);"
+    "text": "Clef étrangère\n\nUne contrainte de clef étrangère stipule que les valeurs d’une colonne (ou d’un groupe de colonnes) doivent correspondre aux valeurs qui apparaissent dans les lignes d’une autre table.\nOn dit que cela maintient l’intégrité référentielle entre les deux tables.\n\nSoit les deux tables suivantes :\n\n\nCREATE TABLE fournisseur(\n    idf INT PRIMARY KEY,\n    nomf VARCHAR(20),\n    villef VARCHAR(20)\n);\n\nCREATE TABLE piece(\n    nomp VARCHAR(20) PRIMARY KEY,\n    prix MONEY CHECK (prix&gt;= 0::MONEY),\n    prix_promo MONEY CHECK (prix_promo &gt;= 0::MONEY),\n    couleur VARCHAR(15),\n    CHECK (prix &gt; prix_promo)\n);"
   },
   {
     "objectID": "slides/LDD_1.html#clef-étrangère-references",
     "href": "slides/LDD_1.html#clef-étrangère-references",
     "title": "BD : Contraintes",
     "section": "Clef étrangère : REFERENCES",
-    "text": "Clef étrangère : REFERENCES\n\nSoit également une table livraison qui stocke les livraisons de ces pièces\nIl est intéressant de s’assurer que la table livraison ne contient que des références de pièces et de fournisseurs qui existent dans la base\n\nPour cela, deux contraintes de clef étrangère sont émises par la table des livraisons\n\nUne contrainte référence piece\n\nUne contrainte référence fournisseur\n\n\n\nCREATE TABLE livraison(\n    numliv INT PRIMARY KEY,\n    idf INT REFERENCES fournisseur,   \n    nomp VARCHAR(20) REFERENCES piece,  \n    dateLiv DATE DEFAULT NOW(),\n    quantite INT DEFAULT 1 CHECK (quantite&gt;=0)\n);"
+    "text": "Clef étrangère : REFERENCES\nSupposons également une table livraison qui stocke les livraisons de ces pièces.\nIl est important de s’assurer que la table livraison ne contient que des références de pièces et de fournisseurs qui existent dans la base.\nPour cela, deux contraintes de clef étrangère sont émises par la table des livraisons :\n\nUne contrainte référentielle vers la table piece.\nUne contrainte référentielle vers la table fournisseur.\n\n\nCREATE TABLE livraison(\n    numliv INT PRIMARY KEY,\n    idf INT REFERENCES fournisseur,   \n    nomp VARCHAR(20) REFERENCES piece,  \n    dateLiv DATE DEFAULT NOW(),\n    quantite INT DEFAULT 1 CHECK (quantite&gt;=0)\n);"
   },
   {
     "objectID": "slides/LDD_1.html#définition-de-world.countrylanguage",
@@ -4018,7 +4018,7 @@
     "href": "slides/LDD_1.html#foreign-keys-emitted-by-world.country",
     "title": "BD : Contraintes",
     "section": "Foreign keys emitted by world.country\n",
-    "text": "Foreign keys emitted by world.country\n\nALTER TABLE world.country ADD \n    CONSTRAINT country_capital_fkey \n        FOREIGN KEY (capital)   \n        REFERENCES world.city(id);  \n\nALTER TABLE world.country \n    ADD CONSTRAINT country_fk \n        FOREIGN KEY (continent)   \n        REFERENCES world.code_continent(continent);"
+    "text": "Foreign keys emitted by world.country\n\nALTER TABLE world.country ADD \n    CONSTRAINT country_capital_fkey \n        FOREIGN KEY (capital)  \n        REFERENCES world.city(id);"
   },
   {
     "objectID": "slides/Modelisation_1.html#pourquoi",
@@ -5335,5 +5335,152 @@
     "title": "BD : Contraintes",
     "section": "Exemple de contrainte d’unicité",
     "text": "Exemple de contrainte d’unicité\n\nCREATE TABLE piece(\n    nomp VARCHAR(20) NOT NULL UNIQUE,  \n    prix money CHECK (prix&gt;= 0::money),\n    prix_promo MONEY CHECK (prix_promo &gt;= 0::MONEY),\n    couleur VARCHAR(15),\n    CHECK (prix &gt; prix_promo)\n);"
+  },
+  {
+    "objectID": "slides/SQL_3.html#clause-range-dans-une-fonction-fenêtre",
+    "href": "slides/SQL_3.html#clause-range-dans-une-fonction-fenêtre",
+    "title": "BD IV: SQL III",
+    "section": "Clause RANGE dans une fonction fenêtre",
+    "text": "Clause RANGE dans une fonction fenêtre\nIl est possible d’ajouter une clause RANGE à une clause ORDER BY pour modifier le cadre de la fenêtre :\nf(...) OVER (\n    PARTITION BY attribut1\n    ORDER BY attribut2 \n    RANGE BETWEEN ... AND ...\n  )\nOn utilise les mots clés UNBOUNDED, PRECEDING, FOLLOWING et CURRENT ROW pour spécifier les bornes de l’intervalle que doit respecter attribut2.\n\n\n\n\n\n\nNote\n\n\n\n\nRANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING : le cadre s’étend à tout le groupe défini par la partition.\n\nRANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW : le cadre s’étend de la première ligne du groupe défini par la partition à la ligne courante."
+  },
+  {
+    "objectID": "slides/SQL_3.html#exemple-de-clause-range-dans-une-fonction-fenêtre",
+    "href": "slides/SQL_3.html#exemple-de-clause-range-dans-une-fonction-fenêtre",
+    "title": "BD IV: SQL III",
+    "section": "Exemple de clause RANGE dans une fonction fenêtre",
+    "text": "Exemple de clause RANGE dans une fonction fenêtre\nCalcul d’une moyenne mobile sur l’intervalle des GNP du même continent compris dans l’intervalle [GNP de la ligne courante - 1000 , GNP de la ligne courante + 1000] :\nSELECT \n  continent, name_country, \n  AVG(gnp) OVER \n  (\n    PARTITION BY continent  \n    ORDER BY gnp DESC\n    RANGE BETWEEN 10000 PRECEDING AND 10000 FOLLOWING \n  ) mob_avg_gnp\nFROM world.country c \nORDER BY continent, gnp DESC;\nCalcul d’une moyenne mobile sur l’intervalle des GNP du même continent compris dans l’intervalle [GNP de la ligne courante - 1000 , GNP de la ligne courante] :\nSELECT \n  continent, name_country, \n  AVG(gnp) OVER \n  (\n    PARTITION BY continent  \n    ORDER BY gnp DESC\n    RANGE BETWEEN 10000 PRECEDING AND CURRENT ROW \n  ) mob_avg_gnp\nFROM world.country c \nORDER BY continent, gnp DESC;"
+  },
+  {
+    "objectID": "slides/SQL_3.html#exemples-de-clause-range-dans-une-fonction-fenêtre",
+    "href": "slides/SQL_3.html#exemples-de-clause-range-dans-une-fonction-fenêtre",
+    "title": "BD IV: SQL III",
+    "section": "Exemples de clause RANGE dans une fonction fenêtre",
+    "text": "Exemples de clause RANGE dans une fonction fenêtre\n\n\nCalcul d’une moyenne mobile sur l’intervalle [GNP ligne courante - 1000 , GNP ligne courante + 1000]\nSELECT \n  continent, name_country, \n  AVG(gnp) OVER \n  (\n    PARTITION BY continent  \n    ORDER BY gnp DESC\n    RANGE BETWEEN 10000 PRECEDING AND 10000 FOLLOWING \n  ) mob_avg_gnp\nFROM world.country c \nORDER BY continent, gnp DESC;\n\nCalcul d’une moyenne mobile sur l’intervalle [GNP ligne courante - 1000 , GNP ligne courante]\nSELECT \n  continent, name_country, \n  AVG(gnp) OVER \n  (\n    PARTITION BY continent  \n    ORDER BY gnp DESC\n    RANGE BETWEEN 10000 PRECEDING AND CURRENT ROW \n  ) mob_avg_gnp\nFROM world.country c \nORDER BY continent, gnp DESC;"
+  },
+  {
+    "objectID": "slides/LDD_0.html#calcul-de-la-nouvelle-valeur-par-une-sous-requête",
+    "href": "slides/LDD_0.html#calcul-de-la-nouvelle-valeur-par-une-sous-requête",
+    "title": "BD II: SQL LDD",
+    "section": "Calcul de la nouvelle valeur par une sous-requête",
+    "text": "Calcul de la nouvelle valeur par une sous-requête\nUPDATE Piece\nSET Prix = (\n    SELECT prix\n    FROM Piece\n    WHERE nomp = 'x21'\n)\nWHERE Prix &lt;= 1000;"
+  },
+  {
+    "objectID": "slides/LDD_0.html#update-nécessitant-plusieurs-tables",
+    "href": "slides/LDD_0.html#update-nécessitant-plusieurs-tables",
+    "title": "BD II: SQL LDD",
+    "section": "UPDATE nécessitant plusieurs tables",
+    "text": "UPDATE nécessitant plusieurs tables\nOn peut avoir besoin de plusieurs tables pour sélectionner les tuples à mettre à jour.\nLa syntaxe à utiliser dépend du SGBD.\nAvec PostgreSQL, on écrira les tables suplémentaires dans une clause FROM (JOIN possible).\nUPDATE Piece p\nSET p.prix = p.prix * 1.1\nFROM Livraison l\nWHERE\n    p.nomp = l.nomp\n    AND l.quantite &gt; 2* (SELECT MIN(quantite) FROM Livraison);\n\n\n\n\n\n\nMise en garde\n\n\nSi, pour une même ligne de la table Piece, plusieurs lignes de la table Livraison vérifient la condition, la mise à jour n’est effectuée qu’une seule fois."
+  },
+  {
+    "objectID": "slides/LDD_0.html#update-avec-cte",
+    "href": "slides/LDD_0.html#update-avec-cte",
+    "title": "BD II: SQL LDD",
+    "section": "UPDATE avec CTE",
+    "text": "UPDATE avec CTE\nIl est parfois pratique d’écrire une CTE pour définir les couples (identifiant, nouvelle valeur).\nWITH r AS (\n  SELECT p.nomp AS id, p.prix * 1.1 AS newvalue\n  FROM Piece p\n  JOIN Livraison l ON p.nomp = l.nomp\n  WHERE l.quantite &gt; 2* (SELECT MIN(quantite) FROM Livraison)\n)\nUPDATE Piece p\nSET prix = r.newvalue\nFROM r\nWHERE p.nomp = r.id"
+  },
+  {
+    "objectID": "slides/LDD_0.html#suppression-de-données-et-contraintes-dintégrité-référentielle",
+    "href": "slides/LDD_0.html#suppression-de-données-et-contraintes-dintégrité-référentielle",
+    "title": "BD II: SQL LDD",
+    "section": "Suppression de données et contraintes d’intégrité référentielle",
+    "text": "Suppression de données et contraintes d’intégrité référentielle\n\n\n\n\n\n\nAvertissement\n\n\nLa requête précédente pose-t’elle problème ?\n\n\n\n\nLes identifiants de l’attribut country.capital pour les pays vérifiant country.region = 'Eastern Europe' AND  country.indepyear = 1991 ne seront plus référencés dans la table city."
+  },
+  {
+    "objectID": "slides/LDD_0.html#exemple-de-mise-à-jour-de-tuples",
+    "href": "slides/LDD_0.html#exemple-de-mise-à-jour-de-tuples",
+    "title": "BD II: SQL LDD",
+    "section": "Exemple de mise à jour de tuples",
+    "text": "Exemple de mise à jour de tuples\nAugmentation du prix d’une pièce\nUPDATE Piece\nSET prix = prix * 1.05\nWHERE nomp = 'x21';"
+  },
+  {
+    "objectID": "slides/LDD_0.html#utilisation-de-la-clause-from",
+    "href": "slides/LDD_0.html#utilisation-de-la-clause-from",
+    "title": "BD II: SQL LDD",
+    "section": "Utilisation de la clause FROM",
+    "text": "Utilisation de la clause FROM\n\nOn peut avoir besoin de plusieurs tables pour sélectionner les tuples à mettre à jour.\nLa syntaxe à utiliser varie un peu selon le SGBD.\nAvec PostgreSQL, on écrira les tables suplémentaires dans une clause FROM (JOIN possible si au moins deux tables supplémentaires).\n\nUPDATE Piece p\nSET p.prix = p.prix * 1.1\nFROM Livraison l\nWHERE\n    p.nomp = l.nomp\n    AND l.quantite &gt; 2* (SELECT MIN(quantite) FROM Livraison);\n\n\n\n\n\n\nMise en garde\n\n\nSi, pour une même ligne de la table Piece, plusieurs lignes de la table Livraison vérifient la condition, la mise à jour n’est effectuée qu’une seule fois."
+  },
+  {
+    "objectID": "slides/LDD_0.html#utilisation-de-la-clause-using",
+    "href": "slides/LDD_0.html#utilisation-de-la-clause-using",
+    "title": "BD II: SQL LDD",
+    "section": "Utilisation de la clause USING",
+    "text": "Utilisation de la clause USING\n\nOn peut avoir besoin de plusieurs tables pour sélectionner les tuples à supprimer.\nLa syntaxe à utiliser varie un peu selon le SGBD. PostgreSQL ne supporte pas l’utilisation de JOIN dans la clause FROM d’une instruction DELETE.\nOn écrira les tables suplémentaires dans une clause USING (JOIN possible si au moins deux tables supplémentaires).\n\nDELETE FROM monschema.city AS ci\nUSING monschema.country AS co\nWHERE \n  ci.countrycode = co.countrycode AND \n  co.region= 'Eastern Europe' AND \n  co.indepyear = 1991 ;"
+  },
+  {
+    "objectID": "slides/LDD_0.html#exemple-de-suppression-de-tuples",
+    "href": "slides/LDD_0.html#exemple-de-suppression-de-tuples",
+    "title": "BD II: SQL LDD",
+    "section": "Exemple de suppression de tuples",
+    "text": "Exemple de suppression de tuples\nDELETE FROM Fournisseur\nWHERE NomF = 'FastDelivery';\nOn supprime dans Fournisseur les tuples correspondant au fournisseur nommé 'FastDelivery'"
+  },
+  {
+    "objectID": "slides/LDD_0.html#suppression-de-tuples-1",
+    "href": "slides/LDD_0.html#suppression-de-tuples-1",
+    "title": "BD II: SQL LDD",
+    "section": "Suppression de tuples",
+    "text": "Suppression de tuples\nDELETE FROM &lt;nom_relation&gt;\n[USING nom_table2 [, [JOIN] nom_table3]]\n[WHERE &lt;condition de recherche&gt;];\n\n\n\n\n\n\nImportant\n\n\nL’oubli de la clause where supprime toutes les données de la table."
+  },
+  {
+    "objectID": "slides/LDD_2.html#mise-à-jour-ou-suppression-dun-attribut-référencée",
+    "href": "slides/LDD_2.html#mise-à-jour-ou-suppression-dun-attribut-référencée",
+    "title": "BD VII: Corriger le schéma World",
+    "section": "Mise à jour ou suppression d’un attribut référencée",
+    "text": "Mise à jour ou suppression d’un attribut référencée\nOn peut définir différentes actions pour rendre possible ces mises à jour ou suppressions :\n\nCASCADE : supprime ou met à jour en cascade les lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\nSET NULL : met à NULL la ou les colonnes pour les lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\n\nSET DEFAULT : met à leur valeur par défaut la ou les colonnes pour les lignes qui référencent la valeur supprimée ou mise à jour."
+  },
+  {
+    "objectID": "slides/LDD_2.html#utilisation-de-laction-cascade",
+    "href": "slides/LDD_2.html#utilisation-de-laction-cascade",
+    "title": "BD VII: Corriger le schéma World",
+    "section": "Utilisation de l’action CASCADE",
+    "text": "Utilisation de l’action CASCADE\nALTER TABLE world.city \n  ADD CONSTRAINT city_countrycode_fkey \n    FOREIGN KEY (countrycode) \n    REFERENCES world.country\n    ON DELETE CASCADE\n    ON UPDATE CASCADE;\n\nSi un countrycode est suprrimé dans la table country, toutes les lignes de la table city où ce code est présent seront supprimées, et si ces lignes sont référencées dans un autre table, les lignes qui les référencent seront elles-mêmes supprimées et ainsi de suite “en cascade”.\n\n\n\nSi un countrycode est mis à jour dans la table country, toutes les lignes de la table city où ce code est présent seront mises à jour, et si ces mises à jour sont référencées dans un autre table, les lignes qui les référencent seront elles-mêmes mises à jour et ainsi de suite “en cascade”."
+  },
+  {
+    "objectID": "slides/LDD_2.html#utilisation-de-laction-set-null",
+    "href": "slides/LDD_2.html#utilisation-de-laction-set-null",
+    "title": "BD VII: Corriger le schéma World",
+    "section": "Utilisation de l’action SET NULL",
+    "text": "Utilisation de l’action SET NULL\nALTER TABLE world.city \n  ADD CONSTRAINT country_capital_fkey \n    FOREIGN KEY (capital) \n    REFERENCES world.city(id)\n    ON DELETE SET NULL\n    ON UPDATE CASCADE;\n\nSi un id est suprrimé dans la table city, les lignes de la table country où ce code est présent ne seront pas supprimées, la colonne capital sera mise à NULL. Cette action est possible car la valeur NULL est autorisée pour la colonne capital."
+  },
+  {
+    "objectID": "slides/LDD_2.html#mise-à-jour-ou-suppression-dun-attribut-référencé",
+    "href": "slides/LDD_2.html#mise-à-jour-ou-suppression-dun-attribut-référencé",
+    "title": "BD VII: Corriger le schéma World",
+    "section": "Mise à jour ou suppression d’un attribut référencé",
+    "text": "Mise à jour ou suppression d’un attribut référencé\n\n\n\n\n\n\nImportant\n\n\nAprès la définition de la contrainte country_capital_fkey, la mise à jour ou la suppression d’une valeur de l’attribut city.id référencée dans l’attribut country.capital est bloquée par le SGBD.\n\n\n\nOn peut définir différentes actions pour les rendre possibles :\n\nCASCADE : supprime ou met à jour en cascade les lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\nSET NULL : met à NULL la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\n\nSET DEFAULT : met à leur valeur par défaut la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour."
+  },
+  {
+    "objectID": "slides/LDD_2.html#autre-possibilité-avec-une-contrainte-dexclusion",
+    "href": "slides/LDD_2.html#autre-possibilité-avec-une-contrainte-dexclusion",
+    "title": "BD VII: Corriger le schéma World",
+    "section": "Autre possibilité avec une contrainte d’exclusion",
+    "text": "Autre possibilité avec une contrainte d’exclusion\nAvec une contrainte d’exclusion (EXCLUDE), on ne touchera pas au schéma, les vues et les fonctions resteront utilisables.\nLa contrainte d’exclusion permettra de maintenir la dépendance fonctionnelle."
+  },
+  {
+    "objectID": "slides/LDD_2.html#gestion-de-la-mise-à-jour-ou-suppression-dun-attribut-référencé",
+    "href": "slides/LDD_2.html#gestion-de-la-mise-à-jour-ou-suppression-dun-attribut-référencé",
+    "title": "BD VII: Corriger le schéma World",
+    "section": "Gestion de la mise à jour ou suppression d’un attribut référencé",
+    "text": "Gestion de la mise à jour ou suppression d’un attribut référencé\n\n\n\n\n\n\nImportant\n\n\nAprès la définition de la contrainte country_capital_fkey, la mise à jour ou la suppression d’une valeur de l’attribut city.id référencée dans l’attribut country.capital est bloquée par le SGBD.\n\n\n\nOn peut définir différentes actions pour les rendre possibles :\n\nCASCADE : supprime ou met à jour en cascade les lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\nSET NULL : met à NULL la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\n\nSET DEFAULT : met à leur valeur par défaut la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour."
+  },
+  {
+    "objectID": "slides/LDD_2.html#clause-exclude",
+    "href": "slides/LDD_2.html#clause-exclude",
+    "title": "BD VII: Corriger le schéma World",
+    "section": "Clause EXCLUDE",
+    "text": "Clause EXCLUDE\nUne clause EXCLUDE empêche que deux lignes vérifient toutes les comparaisons sur les colonnes spécifiées en utilisant les opérateurs indiqués par le mot clé WITH.\nALTER TABLE country\n   ADD CONSTRAINT xcl_country_region_continent \n      EXCLUDE USING GIST\n      (\n         region WITH =, \n         continent WITH &lt;&gt;\n      );\nCette contrainte d’exclusion empèche que deux lignes de la table country aient la colonne region égale et la colonne continent différente.\n\n\n\n\n\n\nNote\n\n\nLa clause USING définit le type d’index utilisé pour vérifier la contrainte d’exclusion.\nEn pratique, le type d’index sera toujours GiST ou SP-GiST (GIST est l’acronyme de Generalized Search Tree)."
+  },
+  {
+    "objectID": "slides/LDD_2.html#gestion-de-la-mise-à-jour-ou-de-la-suppression-dun-attribut-référencé",
+    "href": "slides/LDD_2.html#gestion-de-la-mise-à-jour-ou-de-la-suppression-dun-attribut-référencé",
+    "title": "BD VII: Corriger le schéma World",
+    "section": "Gestion de la mise à jour ou de la suppression d’un attribut référencé",
+    "text": "Gestion de la mise à jour ou de la suppression d’un attribut référencé\n\n\n\n\n\n\nImportant\n\n\nAprès la définition de la contrainte country_capital_fkey, la mise à jour ou la suppression d’une valeur de l’attribut city.id référencée dans l’attribut country.capital est bloquée par le SGBD.\n\n\n\n\nOn peut définir différentes actions pour les rendre possibles :\n\nCASCADE : supprime ou met à jour en cascade les lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\n\nSET NULL : met à NULL la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\n\nSET DEFAULT : met à leur valeur par défaut la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour."
+  },
+  {
+    "objectID": "slides/LDD_2.html#suite",
+    "href": "slides/LDD_2.html#suite",
+    "title": "BD VII: Corriger le schéma World",
+    "section": "suite",
+    "text": "suite\nIndexes:\n    \"country_pkey\" PRIMARY KEY, btree (countrycode)\nCheck constraints:\n    \"country_continent_check\" CHECK (continent = 'Asia'::text OR \n                                     continent = 'Europe'::text OR \n                                     continent = 'North America'::text OR \n                                     continent = 'Africa'::text OR\n                                     continent = 'Oceania'::text OR\n                                     continent = 'Antarctica'::text OR\n                                     continent = 'South America'::text),\nForeign-key constraints:\n    \"country_capital_fkey\" FOREIGN KEY (capital) REFERENCES city(id)"
   }
 ]

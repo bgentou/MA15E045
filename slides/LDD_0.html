@@ -11,9 +11,7 @@
 <link href="../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/grid-htext-1.0.0/grid_htext.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
-<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Équipe BD">
@@ -352,8 +350,8 @@
 </div>
 <div class="callout-content">
 <ul>
-<li><p>Pour <code>dateliv</code>, c’est la date courante lors de l’insertion de la ligne dans la table</p></li>
-<li><p>Pour <code>quantite</code>, c’est une constante</p></li>
+<li><p>Pour <code>dateliv</code>, c’est la date courante lors de l’insertion de la ligne dans la table,</p></li>
+<li><p>Pour <code>quantite</code>, c’est une constante.</p></li>
 </ul>
 </div>
 </div>
@@ -467,8 +465,7 @@
 </section>
 <section id="contenu-des-relations" class="slide level2 center">
 <h2>Contenu des relations</h2>
-<p>On peut gérer le contenu des tables directement dans le langage <code>SQL</code>.</p>
-<p>On peut donc :</p>
+<p>On peut gérer le contenu des tables directement dans le langage <code>SQL</code> :</p>
 <ul>
 <li class="fragment"><p>Ajouter des tuples à une table : <code>INSERT INTO ...</code></p></li>
 <li class="fragment"><p>Mettre à jour des tuples d’une relation : <code>UPDATE ...</code></p></li>
@@ -506,7 +503,7 @@
 </div>
 <div class="callout-content">
 <ul>
-<li>Les valeurs doivent être fournies dans l’ordre de déclaration des attributs</li>
+<li>Les valeurs doivent être fournies dans l’ordre de déclaration des attributs,</li>
 <li>Les valeurs non spécifiées sont affectées à <code>NULL</code></li>
 </ul>
 </div>
@@ -544,19 +541,29 @@
 <span id="cb15-4"><a></a>    ('robe', 'logged in', '2011-01-10 10:15 AM EST'::timestamptz),</span>
 <span id="cb15-5"><a></a>    ('lhsu', 'logged out', '2011-01-11 10:20 AM EST'::timestamptz)</span>
 <span id="cb15-6"><a></a>) AS l (user_name, description, log_ts);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<aside><div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
 <p>Quand on utilise <code>VALUES</code> pour définir une table virtuelle, il faut spécifier le nom des colonnes.</p>
 <p>Par défaut, les types des colonnes sont inférés. Si l’inférence de type n’est pas possible, il faut effectuer explicitement des conversions de type comme ici avec <code>::timestamptz</code>.</p>
-</div></aside></section>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="exemple-insertion-de-tuples-suite" class="slide level2 center">
 <h2>Exemple : Insertion de tuples (suite)</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a></a><span class="kw">INSERT</span> <span class="kw">INTO</span> livraison</span>
 <span id="cb16-2"><a></a>    <span class="kw">VALUES</span></span>
 <span id="cb16-3"><a></a>    (<span class="dv">1</span>, <span class="st">'fournisseur1'</span>, <span class="st">'x21'</span>, <span class="st">'2019-07-13'</span>, <span class="dv">2</span>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a></a><span class="co">-- Avec des colonnes pas renseignées</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a></a><span class="co">-- Avec des colonnes non renseignées</span></span>
 <span id="cb17-2"><a></a></span>
 <span id="cb17-3"><a></a><span class="kw">INSERT</span> <span class="kw">INTO</span> livraison</span>
 <span id="cb17-4"><a></a>   (numliv, dateliv, quantite)</span>
@@ -570,22 +577,6 @@
 <span id="cb18-4"><a></a>| <span class="dv">1</span>        | fournisseur1 | x21    | <span class="dv">2019</span><span class="op">-</span><span class="dv">07</span><span class="op">-</span><span class="dv">13</span> | <span class="dv">2</span>          |</span>
 <span id="cb18-5"><a></a>| <span class="dv">2</span>        | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span>       | <span class="op">&lt;</span><span class="kw">null</span><span class="op">&gt;</span> | <span class="dv">2018</span><span class="op">-</span><span class="dv">07</span><span class="op">-</span><span class="dv">29</span> | <span class="dv">10</span>         |</span>
 <span id="cb18-6"><a></a><span class="op">+</span><span class="co">----------+--------------+--------+------------+------------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Rappel</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li>Les valeurs doivent être fournies dans l’ordre de déclaration des attributs</li>
-<li>Les valeurs non spécifiées sont affectées à <code>NULL</code>.</li>
-</ul>
-</div>
-</div>
-</div>
 </div>
 </section>
 <section id="insertion-de-tuples-par-requête" class="slide level2 center">
@@ -632,71 +623,129 @@
 </section>
 <section id="mise-à-jour-de-colonnes-de-cellules" class="slide level2 center">
 <h2>Mise à jour de colonnes, de cellules</h2>
-<ul>
-<li><p>On peut mettre à jour des tuples existants par le biais d’une requête</p>
-<ul>
-<li>Soit tous les tuples de la table,</li>
-<li>Soit l’ensemble des tuples vérifiants une condition donnée</li>
-</ul></li>
-</ul>
-<div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a></a><span class="kw">UPDATE</span> nom_relation</span>
+<p>On peut mettre à jour des tuples d’une table par le biais d’une requête <code>UPDATE</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a></a><span class="kw">UPDATE</span> nom_table1</span>
 <span id="cb21-2"><a></a><span class="kw">SET</span> nom_attribut <span class="op">=</span> <span class="op">&lt;</span>expression de valeur<span class="op">&gt;</span> </span>
-<span id="cb21-3"><a></a>    [ , nom_attribut <span class="op">=</span> <span class="op">&lt;</span>expression de valeur<span class="op">&gt;</span> ]<span class="op">*</span></span>
-<span id="cb21-4"><a></a>[<span class="kw">WHERE</span> <span class="op">&lt;</span>condition de recherche<span class="op">&gt;</span> ];</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="mise-à-jour-conditionnelle-de-tuples" class="slide level2 center">
-<h2>Mise à jour conditionnelle de tuples</h2>
-<p>Le <code>WHERE</code> permet de sélectionner les tuples à mettre à jour</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a></a><span class="kw">UPDATE</span> Fournisseur</span>
-<span id="cb22-2"><a></a><span class="kw">SET</span> VilleF<span class="op">=</span><span class="st">'St.Petersburg'</span></span>
-<span id="cb22-3"><a></a><span class="kw">WHERE</span> VilleF<span class="op">=</span><span class="st">'Leningrad'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>On peut aussi effectuer des opérations sur les tuples à mettre à jour.</p>
+<span id="cb21-3"><a></a>    [ , nom_attribut <span class="op">=</span> <span class="op">&lt;</span>expression de valeur<span class="op">&gt;</span> ]</span>
+<span id="cb21-4"><a></a>[<span class="kw">FROM</span> nom_table2 [, [<span class="kw">JOIN</span>] nom_table3]]</span>
+<span id="cb21-5"><a></a>[<span class="kw">WHERE</span> <span class="op">&lt;</span>condition de recherche<span class="op">&gt;</span> ];</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>La clause <code>&lt;expression de valeur&gt;</code> peut être :</strong></p>
+<p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
+<p><code>&lt;expression de valeur&gt;</code> peut être :</p>
 <ul>
-<li><p><code>NULL</code></p></li>
-<li><p>Une constante (explicite ou via une requête)</p></li>
-<li><p>Une expression arithmétique sur les attributs de la table à modifier</p></li>
+<li><code>NULL</code>,</li>
+<li>une constante explicite,</li>
+<li>une expression arithmétique sur les attributs des tables des clauses <code>SET</code> ou <code>FROM</code>,</li>
+<li>le résultat d’une requête scalaire.</li>
 </ul>
 </div>
 </div>
 </div>
+</div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Avertissement</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>On ne peut pas</strong> utiliser la notation <code>nom_table.nom_attribut</code> dans la clause <code>SET</code>.</p>
+</div>
+</div>
+</div>
+<!-- 
+## Mise à jour conditionnelle de tuples
+
+Le `WHERE` permet de sélectionner les tuples à mettre à jour
+
+```{.sql}
+UPDATE Fournisseur
+SET villef='St.Petersburg'
+WHERE villef='Leningrad';
+```
+
+On peut aussi effectuer des opérations sur les tuples à mettre à jour.-->
+</div>
 </section>
-<section id="mise-à-jour-de-tuples-exemple" class="slide level2 center">
-<h2>Mise à jour de tuples (exemple)</h2>
+<section id="exemple-de-mise-à-jour-de-tuples" class="slide level2 center">
+<h2>Exemple de mise à jour de tuples</h2>
 <p>Augmentation du prix d’une pièce</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a></a><span class="kw">UPDATE</span> Piece</span>
-<span id="cb23-2"><a></a><span class="kw">SET</span> Prix <span class="op">=</span> Prix <span class="op">*</span> <span class="fl">1.05</span></span>
-<span id="cb23-3"><a></a><span class="kw">WHERE</span> NomP <span class="op">=</span> <span class="st">'x21'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a></a><span class="kw">UPDATE</span> Piece</span>
+<span id="cb22-2"><a></a><span class="kw">SET</span> prix <span class="op">=</span> prix <span class="op">*</span> <span class="fl">1.05</span></span>
+<span id="cb22-3"><a></a><span class="kw">WHERE</span> nomp <span class="op">=</span> <span class="st">'x21'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="mise-à-jour-par-requête" class="slide level2 center">
-<h2>Mise à jour par requête</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a></a><span class="kw">UPDATE</span> Piece</span>
-<span id="cb24-2"><a></a><span class="kw">SET</span> Prix <span class="op">=</span> (</span>
-<span id="cb24-3"><a></a>    <span class="kw">SELECT</span> Prix</span>
-<span id="cb24-4"><a></a>    <span class="kw">FROM</span> Piece</span>
-<span id="cb24-5"><a></a>    <span class="kw">WHERE</span> NomP <span class="op">=</span> <span class="st">'x21'</span></span>
-<span id="cb24-6"><a></a>)</span>
-<span id="cb24-7"><a></a><span class="kw">WHERE</span> Prix <span class="op">&lt;=</span> <span class="dv">1000</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="calcul-de-la-nouvelle-valeur-par-une-sous-requête" class="slide level2 center">
+<h2>Calcul de la nouvelle valeur par une sous-requête</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a></a><span class="kw">UPDATE</span> Piece</span>
+<span id="cb23-2"><a></a><span class="kw">SET</span> Prix <span class="op">=</span> (</span>
+<span id="cb23-3"><a></a>    <span class="kw">SELECT</span> prix</span>
+<span id="cb23-4"><a></a>    <span class="kw">FROM</span> Piece</span>
+<span id="cb23-5"><a></a>    <span class="kw">WHERE</span> nomp <span class="op">=</span> <span class="st">'x21'</span></span>
+<span id="cb23-6"><a></a>)</span>
+<span id="cb23-7"><a></a><span class="kw">WHERE</span> Prix <span class="op">&lt;=</span> <span class="dv">1000</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="utilisation-de-la-clause-from" class="slide level2 center">
+<h2>Utilisation de la clause <code>FROM</code></h2>
+<ul>
+<li><p>On peut avoir besoin de plusieurs tables pour sélectionner les tuples à mettre à jour.</p></li>
+<li><p>La syntaxe à utiliser varie un peu selon le SGBD.</p></li>
+<li><p>Avec PostgreSQL, on écrira les tables suplémentaires dans une clause <code>FROM</code> (<code>JOIN</code> possible si au moins deux tables supplémentaires).</p></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a></a><span class="kw">UPDATE</span> Piece p</span>
+<span id="cb24-2"><a></a><span class="kw">SET</span> p.prix <span class="op">=</span> p.prix <span class="op">*</span> <span class="fl">1.1</span></span>
+<span id="cb24-3"><a></a><span class="kw">FROM</span> Livraison l</span>
+<span id="cb24-4"><a></a><span class="kw">WHERE</span></span>
+<span id="cb24-5"><a></a>    p.nomp <span class="op">=</span> l.nomp</span>
+<span id="cb24-6"><a></a>    <span class="kw">AND</span> l.quantite <span class="op">&gt;</span> <span class="dv">2</span><span class="op">*</span> (<span class="kw">SELECT</span> <span class="fu">MIN</span>(quantite) <span class="kw">FROM</span> Livraison);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p>Si, pour une même ligne de la table <code>Piece</code>, plusieurs lignes de la table <code>Livraison</code> vérifient la condition, la mise à jour n’est effectuée qu’une seule fois.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="update-avec-cte" class="slide level2 center">
+<h2><code>UPDATE</code> avec CTE</h2>
+<p>Il est parfois pratique d’écrire une CTE pour définir les couples (identifiant, nouvelle valeur).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a></a><span class="kw">WITH</span> r <span class="kw">AS</span> (</span>
+<span id="cb25-2"><a></a>  <span class="kw">SELECT</span> p.nomp <span class="kw">AS</span> <span class="kw">id</span>, p.prix <span class="op">*</span> <span class="fl">1.1</span> <span class="kw">AS</span> newvalue</span>
+<span id="cb25-3"><a></a>  <span class="kw">FROM</span> Piece p</span>
+<span id="cb25-4"><a></a>  <span class="kw">JOIN</span> Livraison l <span class="kw">ON</span> p.nomp <span class="op">=</span> l.nomp</span>
+<span id="cb25-5"><a></a>  <span class="kw">WHERE</span> l.quantite <span class="op">&gt;</span> <span class="dv">2</span><span class="op">*</span> (<span class="kw">SELECT</span> <span class="fu">MIN</span>(quantite) <span class="kw">FROM</span> Livraison)</span>
+<span id="cb25-6"><a></a>)</span>
+<span id="cb25-7"><a></a><span class="kw">UPDATE</span> Piece p</span>
+<span id="cb25-8"><a></a><span class="kw">SET</span> prix <span class="op">=</span> r.newvalue</span>
+<span id="cb25-9"><a></a><span class="kw">FROM</span> r</span>
+<span id="cb25-10"><a></a><span class="kw">WHERE</span> p.nomp <span class="op">=</span> r.<span class="kw">id</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section></section>
 <section>
 <section id="suppression-de-tuples" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Suppression de tuples</h1>
 
 </section>
-<section id="suppression-de-tuples-syntaxe" class="slide level2 center">
-<h2>Suppression de tuples : syntaxe</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a></a><span class="kw">DELETE</span> <span class="kw">FROM</span> <span class="op">&lt;</span>nom_relation<span class="op">&gt;</span></span>
-<span id="cb25-2"><a></a>[<span class="kw">WHERE</span> <span class="op">&lt;</span>condition de recherche<span class="op">&gt;</span>];</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="suppression-de-tuples-1" class="slide level2 center">
+<h2>Suppression de tuples</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a></a><span class="kw">DELETE</span> <span class="kw">FROM</span> <span class="op">&lt;</span>nom_relation<span class="op">&gt;</span></span>
+<span id="cb26-2"><a></a>[<span class="kw">USING</span> nom_table2 [, [<span class="kw">JOIN</span>] nom_table3]]</span>
+<span id="cb26-3"><a></a>[<span class="kw">WHERE</span> <span class="op">&lt;</span>condition de recherche<span class="op">&gt;</span>];</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -710,88 +759,53 @@
 </div>
 </div>
 </div>
-<div class="fragment">
-<h3 id="exemple-3">Exemple</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a></a><span class="kw">DELETE</span> <span class="kw">FROM</span> Fournisseur</span>
-<span id="cb26-2"><a></a><span class="kw">WHERE</span> NomF <span class="op">=</span> <span class="st">'FastDelivery'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exemple-de-suppression-de-tuples" class="slide level2 center">
+<h2>Exemple de suppression de tuples</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a></a><span class="kw">DELETE</span> <span class="kw">FROM</span> Fournisseur</span>
+<span id="cb27-2"><a></a><span class="kw">WHERE</span> NomF <span class="op">=</span> <span class="st">'FastDelivery'</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>On supprime dans <code>Fournisseur</code> les tuples correspondant au fournisseur nommé <code>'FastDelivery'</code></p>
-</div>
 </section>
 <section id="suppression-de-tuples-avec-requête-imbriquée" class="slide level2 center">
 <h2>Suppression de tuples avec requête imbriquée</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a></a><span class="kw">DELETE</span> <span class="kw">FROM</span> Livraison</span>
-<span id="cb27-2"><a></a><span class="kw">WHERE</span> NomP <span class="kw">IN</span> (</span>
-<span id="cb27-3"><a></a>    <span class="kw">SELECT</span> NomP</span>
-<span id="cb27-4"><a></a>    <span class="kw">FROM</span> Piece</span>
-<span id="cb27-5"><a></a>    <span class="kw">WHERE</span> Couleur<span class="op">=</span><span class="st">'Rouge'</span></span>
-<span id="cb27-6"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a></a><span class="kw">DELETE</span> <span class="kw">FROM</span> Livraison</span>
+<span id="cb28-2"><a></a><span class="kw">WHERE</span> NomP <span class="kw">IN</span> (</span>
+<span id="cb28-3"><a></a>    <span class="kw">SELECT</span> NomP</span>
+<span id="cb28-4"><a></a>    <span class="kw">FROM</span> Piece</span>
+<span id="cb28-5"><a></a>    <span class="kw">WHERE</span> Couleur<span class="op">=</span><span class="st">'Rouge'</span></span>
+<span id="cb28-6"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="delete-from-table-using-t-where-..." class="slide level2 center">
-<h2><code>DELETE FROM &lt;table&gt; USING &lt;t&gt; WHERE ...</code></h2>
-<div class="callout callout-note callout-titled callout-style-default">
+<section id="utilisation-de-la-clause-using" class="slide level2 center">
+<h2>Utilisation de la clause <code>USING</code></h2>
+<ul>
+<li><p>On peut avoir besoin de plusieurs tables pour sélectionner les tuples à supprimer.</p></li>
+<li><p>La syntaxe à utiliser varie un peu selon le SGBD. PostgreSQL ne supporte pas l’utilisation de <code>JOIN</code> dans la clause <code>FROM</code> d’une instruction <code>DELETE</code>.</p></li>
+<li><p>On écrira les tables suplémentaires dans une clause <code>USING</code> (<code>JOIN</code> possible si au moins deux tables supplémentaires).</p></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource {sql} number-lines code-with-copy"><code class="sourceCode"><span id="cb29-1"><a></a>DELETE FROM monschema.city AS ci</span>
+<span id="cb29-2"><a></a>USING monschema.country AS co</span>
+<span id="cb29-3"><a></a>WHERE </span>
+<span id="cb29-4"><a></a>  ci.countrycode = co.countrycode AND </span>
+<span id="cb29-5"><a></a>  co.region= 'Eastern Europe' AND </span>
+<span id="cb29-6"><a></a>  co.indepyear = 1991 ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="suppression-de-données-et-contraintes-dintégrité-référentielle" class="slide level2 center">
+<h2>Suppression de données et contraintes d’intégrité référentielle</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<p><strong>Avertissement</strong></p>
 </div>
 <div class="callout-content">
-<p>Souvent, lorsque vous supprimez des données d’une table, vous souhaitez supprimer ces données en fonction de leur présence dans un autre ensemble de données.</p>
-<p>Spécifiez cet ensemble supplémentaire avec le prédicat <code>USING</code></p>
+<p>La requête précédente pose-t’elle problème ?</p>
 </div>
 </div>
-</div>
-</section>
-<section id="delete-from-table-using-t-where-...-1" class="slide level2 smaller center">
-<h2><code>DELETE FROM &lt;table&gt; USING &lt;t&gt; WHERE ...</code></h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Astuce</strong></p>
-</div>
-<div class="callout-content">
-<p>Souvent, lorsque vous supprimez des données d’une table, vous souhaitez supprimer ces données en fonction de leur présence dans un autre ensemble de données.</p>
-<p>Spécifiez cet ensemble supplémentaire avec le prédicat <code>USING</code></p>
-</div>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource {sql} number-lines code-with-copy"><code class="sourceCode"><span id="cb28-1"><a></a>DELETE FROM monschema.city </span>
-<span id="cb28-2"><a></a>USING monschema.country AS co</span>
-<span id="cb28-3"><a></a>WHERE </span>
-<span id="cb28-4"><a></a>  city.countrycode = co.countrycode AND </span>
-<span id="cb28-5"><a></a>  co.region= 'Eastern Europe' AND </span>
-<span id="cb28-6"><a></a>  co.indepyear = 1991 ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section class="slide level2 center">
-
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p>La requête suivante pose-t’elle problème ?</p>
-</div>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb29-1"><a></a><span class="kw">DELETE</span> <span class="kw">FROM</span> Piece</span>
-<span id="cb29-2"><a></a><span class="kw">WHERE</span> NomP <span class="kw">IN</span> (</span>
-<span id="cb29-3"><a></a>  <span class="kw">SELECT</span> NomP</span>
-<span id="cb29-4"><a></a>  <span class="kw">FROM</span> Livraison</span>
-<span id="cb29-5"><a></a>  <span class="kw">WHERE</span> Quantite<span class="op">&gt;</span><span class="dv">10</span></span>
-<span id="cb29-6"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<p>Peut-être !</p>
 </div>
 <div class="fragment">
-<p>Cela dépend des contraintes d’intégrité qui pèsent sur la base</p>
+<p>Les identifiants de l’attribut <code>country.capital</code> pour les pays vérifiant <code>country.region = 'Eastern Europe' AND  country.indepyear = 1991</code> ne seront plus référencés dans la table <code>city</code>.</p>
 </div>
 </section></section>
 <section>
