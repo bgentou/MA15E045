@@ -2926,7 +2926,7 @@
     "href": "slides/LDD_0.html#insertion-de-tuples-par-requête",
     "title": "BD II: SQL LDD",
     "section": "Insertion de tuples par requête",
-    "text": "Insertion de tuples par requête\n\nOn peut faire une insertion par le biais d’une requête,\nLa clause VALUES est remplacée par une requête,\nLes résultats de la requête sont insérés comme valeurs dans la table.\nPour respecter les contraintes d’unicité, le mot clé DISTINCT peut être nécessaire, en particulier lorsqu’il y a une jointure. . . .\n\nExemple 1\nINSERT INTO FournisseursParisiens (\n  SELECT *\n  FROM Fournisseur\n  WHERE VilleF='Paris'\n);"
+    "text": "Insertion de tuples par requête\n\nOn peut faire une insertion par le biais d’une requête,\nLa clause VALUES est remplacée par une requête,\nLes résultats de la requête sont insérés comme valeurs dans la table.\nPour respecter les contraintes d’unicité, le mot clé DISTINCT peut être nécessaire, en particulier lorsqu’il y a une jointure.\n\n\nExemple 1\nINSERT INTO FournisseursParisiens (\n  SELECT *\n  FROM Fournisseur\n  WHERE VilleF='Paris'\n);"
   },
   {
     "objectID": "slides/LDD_0.html#exemple-2",
