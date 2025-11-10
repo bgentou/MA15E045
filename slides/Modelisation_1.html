@@ -205,7 +205,7 @@
 </div>
 <div class="fragment">
 <ul>
-<li>Un formalisme pour décrire les <em>informations</em> à intégrer dqns une base</li>
+<li>Un formalisme pour décrire les <em>informations</em> à intégrer dans une base</li>
 <li>Un formalisme pour décrire les liens entre ses informations</li>
 <li>Un formalisme lisible par les humains</li>
 <li>Un formalisme traduisible dans un <em>Langage de Définition de Données</em>, c’est-à-dire dans un langage où tout doit se décrire à l’aide de tables et de contraintes</li>
@@ -236,8 +236,8 @@
 <h1>Entités</h1>
 
 </section>
-<section class="slide level2 center">
-
+<section id="entités-1" class="slide level2 center">
+<h2>Entités</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -247,7 +247,11 @@
 <p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
-<p>Une <em>entité</em> est un ensemble d’objets apparentés. Les éléments d’une entite sont appelées <em>instances</em>.</p>
+<p>Dans la modélisation EA, on repère d’abord les ensembles d’objets (concrets ou abstraits) répondant à un même prototype, c’est-à-dire ayant des propriétés communes. Ils sont nommés <strong>entités</strong>.</p>
+<ul>
+<li><em>entité</em> (Modèle EA) <span class="math inline">\(\longleftrightarrow\)</span> ensemble (théorie des ensembles).</li>
+<li><em>instance</em> (Modèle EA) <span class="math inline">\(\longleftrightarrow\)</span> élément (théorie des ensembles).</li>
+</ul>
 </div>
 </div>
 </div>
@@ -257,11 +261,10 @@
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<p><strong>Représentation</strong></p>
 </div>
 <div class="callout-content">
-<p>Tout ensemble d’objets n’est pas nécessairement considéré comme une entité.</p>
-<p>C’est la décision de l’équipe de modélisation qui constitue les entités.</p>
+<p>Dans les diagrammes EA, les entités sont représentées par des rectangles. Le nom de l’entité est inscrit au centre du rectangle.</p>
 </div>
 </div>
 </div>
@@ -284,11 +287,22 @@
 <li><code>planes</code> : les avions (aéronefs)</li>
 </ul>
 </section>
-<section id="les-noms-et-les-notations-graphiques" class="slide level2 center">
-<h2>Les noms et les notations graphiques</h2>
-<p>Les entités sont généralement associées à des noms (substantifs). Une entité est en effet une collection d’objets apparentés (avec des caractériques communes)</p>
-<div class="fragment">
-<p>Dans les diagrammes EA, les entités sont représentées par des rectangles. Le nom de l’entité est inscrit au centre du rectangle.</p>
+<section id="les-noms-dentités" class="slide level2 center">
+<h2>Les noms d’entités</h2>
+<p>Les entités sont généralement associées à des noms (substantifs). Une entité est en effet une collection d’objets apparentés (avec des propriétés communes).</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Tout ensemble d’objets n’est pas nécessairement considéré comme une entité.</p>
+<p>C’est la décision de l’équipe de modélisation qui constitue les entités.</p>
+</div>
+</div>
 </div>
 </section>
 <section id="instances-et-entités" class="slide level2 center">
@@ -308,12 +322,22 @@
 </div>
 <div class="fragment">
 <p>Dans <code>word</code>, le pays <code>Luxemburg</code> est une instance de <code>country</code>.</p>
-<p>Les instances d’une entité sont <em>discernables</em> (pas d’éléments dupliqués)</p>
-
+<p>Les instances d’une entité sont <em>discernables</em> (pas d’éléments dupliqués).</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<aside><div>
-<p>Le jargon de la modélisation EA nomme des notions qui sont déjà présentes dans la théorie naïve des ensembles (le langage des mathématiciens)</p>
-</div></aside></section>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Le jargon de la modélisation EA renomme des notions déjà présentes dans la théorie des ensembles utilisée en Mathématiques.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="attributs" class="slide level2 center">
 <h2>Attributs</h2>
 <div class="callout callout-note callout-titled callout-style-default">
@@ -325,17 +349,32 @@
 <p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
-<p>Un <em>attribut</em> est une fonction qui envoie une <em>entité</em> dans un <em>domaine</em> (ensemble de valeurs, type)</p>
+<p>Après avoir choisi les entités, on recherche les propriétés qui les caractérisent. Elles sont nommées <strong>attributs</strong>.</p>
+<ul>
+<li><em>attribut</em> (Modèle EA) <span class="math inline">\(\longleftrightarrow\)</span> fonction qui envoie une <em>entité</em> dans un <em>domaine</em> (ensemble de valeurs, type)</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p>Dans <code>world</code>, l’attribut <code>name</code> envoie <code>country</code> vers l’ensemble des chaînes de caractères. Dans l’égalité <code>name(Luxemburg) = "Luxemburg"</code>, à gauche <code>Luxemburg</code> désigne le pays, à droite, <code>"Luxemburg"</code> est une chaîne de caractères</p>
-<p>L’attribut <code>population</code> envoie <code>country</code> vers les entiers (positifs)</p>
+<p>Dans <code>world</code>, l’attribut <code>name</code> envoie <code>country</code> vers l’ensemble des chaînes de caractères. Dans l’égalité <code>name(Luxemburg) = "Luxemburg"</code>, à gauche <code>Luxemburg</code> désigne le pays, à droite, <code>"Luxemburg"</code> est une chaîne de caractères.</p>
+<p>L’attribut <code>population</code> envoie <code>country</code> vers les entiers (positifs).</p>
 </div>
 <div class="fragment">
-<p>Dans les diagrammes EA, les attributs sont représentés par des ellipses. Le nom de l’attribut est placé au centre de l’ellipse</p>
-<p>Un arête relie l’ellipse attribut au rectangle entité.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Représentation</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans les diagrammes EA, les attributs sont représentés par des ellipses. Le nom de l’attribut est placé au centre de l’ellipse.</p>
+<p>Une arête relie l’ellipse attribut au rectangle entité.</p>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="attributs-notation-graphique" class="slide level2 center">
@@ -450,7 +489,10 @@
 <p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
-<p>Pour une entité, un <em>identifiant</em> est un attribut qui envoie deux instances distinctes vers deux valeurs distinctes du domaine.</p>
+<p>Pour une entité, un <strong>identifiant</strong> est un attribut qui identifie de manière unique chaque instance.</p>
+<ul>
+<li><em>identifiant</em> (Modèle EA) <span class="math inline">\(\longleftrightarrow\)</span> fonction injective qui envoie une <em>entité</em> dans un <em>domaine</em> (ensemble de valeurs, type)</li>
+</ul>
 </div>
 </div>
 </div>
@@ -460,12 +502,11 @@
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Astuce</strong></p>
+<p><strong>Représentation</strong></p>
 </div>
 <div class="callout-content">
-<p>Un identifiant est un attribut (une fonction) <em>injectif(ve)</em></p>
-<p>Dans un schéma EA, on choisit un attribut injectif et on le désigne comme identifiant en soulignant le nom de l’attribut.</p>
-<p><i class="fa-solid fa-skull-bones" aria-label="skull-bones"></i> L’identifiant d’une entité n’est pas le nom de l’entité</p>
+<p>Dans un schéma EA, on représente un identifiant comme un attribut dont on <strong>souligne</strong> le nom.</p>
+<p>L’identifiant d’une entité n’est pas le nom de l’entité (contrairement à la terminologie des langages de programmation).</p>
 </div>
 </div>
 </div>
@@ -480,6 +521,19 @@
 </div></aside></section>
 <section id="identifiant-représentation" class="slide level2 center">
 <h2>Identifiant (représentation)</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>On distingue les identifiants en les soulignant.</p>
+</div>
+</div>
+</div>
 <div class="cell" data-eval="true" data-layout-align="default">
 <div class="cell-output-display">
 <div id="er2-identifiants">
@@ -589,19 +643,6 @@
 </div>
 </div>
 </div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p>On singularise les identifiants en les soulignant.</p>
-</div>
-</div>
-</div>
 </section></section>
 <section>
 <section id="associations" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -619,9 +660,14 @@
 <p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
-<p>Une association <span class="math inline">\(\mathcal{A}\)</span> $entre les entités <span class="math inline">\(E_1,E_2, \ldots, E_k\)</span>, est un sous-ensemble de <span class="math inline">\(E_1 \times E_2 \times \ldots \times E_k\)</span></p>
-<p>Les entités <span class="math inline">\(E_1,E_2, \ldots, E_k\)</span> <em>participent</em> à l’association <span class="math inline">\(A\)</span>.</p>
-<p>Les éléments de l’association sont (aussi) appelés <em>instance</em></p>
+<p>L’étape suivante de la modélisation consiste à étudier comment sont associées les entités. On définit des <strong>associations</strong> entre les entités.</p>
+<ul>
+<li><p>association entre les entités <span class="math inline">\(E_1,E_2, \ldots, E_k\)</span> (modèle EA)</p>
+<p><span class="math inline">\(\longleftrightarrow\)</span> relation sur les ensembles <span class="math inline">\(E_1,E_2, \ldots, E_k\)</span>, c.a.d partie de <span class="math inline">\(E_1 \times E_2 \times \ldots \times E_k\)</span> (théorie des ensembles).</p></li>
+</ul>
+<p>On dit que les entités <span class="math inline">\(E_1,E_2, \ldots, E_k\)</span> <em>participent</em> à l’association <span class="math inline">\(A\)</span>.</p>
+<p>On parle d’<em>instance</em> à propos d’un élément d’une association.</p>
+<p>Une instance d’association donne des instances d’entités associées.</p>
 <p>Dans un diagramme EA, une association est représentée par un losange. Le nom de l’association est inscrit au centre du losange. Les rectangles des entités participantes sont reliés au losange de l’association par des arêtes.</p>
 </div>
 </div>
@@ -635,7 +681,7 @@
 <p><strong>Remarque</strong></p>
 </div>
 <div class="callout-content">
-<p>Une association porte un nom</p>
+<p>Une association porte un nom.</p>
 <p>Une association peut posséder des attributs qui sont des fonctions de l’association vers un domaine/type.</p>
 </div>
 </div>
@@ -838,10 +884,12 @@
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>Une association est représentée par un losange, elle est nommée.</p>
-<p>Le losange est relié aux dfférentes entités participantes par une arête</p>
-<p>Le nom d’une association reflète (en principe) la signification de cette association.</p>
-<p>Le nom d’une association renvoie souvent à un verbe, pas forcémment d’action</p>
+<ul>
+<li><p>Une association est représentée par un losange, elle est nommée.</p></li>
+<li><p>Le losange est relié aux dfférentes entités participantes par une arête.</p></li>
+<li><p>Le nom d’une association reflète (en principe) la signification de cette association.</p></li>
+<li><p>Le nom d’une association renvoie souvent à un verbe, pas forcémment d’action.</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -1067,20 +1115,20 @@
 </section>
 <section id="partipations-multiples-à-une-association" class="slide level2 center">
 <h2>Partipations multiples à une association</h2>
-<p><i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> Une même entité peut participer <em>plusieurs fois</em> à une même association</p>
+<p><i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> Une même entité peut participer <em>plusieurs fois</em> à une même association.</p>
 <p>On distingue ces participations grâce à des <em>rôles</em> qui étiquettent les arêtes qui relient le rectangle entité au losange association.</p>
 </section>
 <section id="exemples-de-rôle-dans-une-association-réflexive" class="slide level2 center">
 <h2>Exemples de rôle dans une association réflexive</h2>
-<p>Dans une base de donnée généalogique, on part d’une entité <code>individu</code>. On définit une auto-association <code>mère</code> qui relie l’entité <code>individu</code> avec elle-même.</p>
+<p>Dans une base de donnée généalogique, on part d’une entité <code>individu</code>. On définit une auto-association <code>est-mère-de</code> qui relie l’entité <code>individu</code> avec elle-même.</p>
 <div class="fragment">
-<p>Cette auto-association n’est pas symétrique: quand on écrit qu’<em>Elizabeth</em> est mère de <em>Charles</em>, <em>Elisabeth</em> et <em>Charles</em> ne jouent pas le même rôle.</p>
+<p>Cette auto-association n’est pas symétrique: quand on écrit qu’<em>Elizabeth</em> <code>est-mère-de</code> <em>Charles</em>, <em>Elisabeth</em> et <em>Charles</em> ne jouent pas le même rôle.</p>
 </div>
 <div class="fragment">
-<p>Dans une instance <span class="math inline">\((x,y)\)</span> de l’association <code>mère</code> <span class="math inline">\(x\)</span> joue le rôle de la génitrice, <span class="math inline">\(y\)</span> de l’enfant.</p>
+<p>Dans une instance <span class="math inline">\((x,y)\)</span> de l’association <code>est-mère-de</code>, <span class="math inline">\(x\)</span> joue le rôle de la mère, <span class="math inline">\(y\)</span> de l’enfant.</p>
 </div>
 <div class="fragment">
-<p>On peut rendre compte de ces rôles en marquant les arêtes qui lient l’entité <code>individu</code> à l’association <code>mère</code> (pour <code>est-maman-de</code>)</p>
+<p>On peut rendre compte de ces rôles en marquant les arêtes qui lient l’entité <code>individu</code> à l’association <code>est-mère-de</code>.</p>
 </div>
 </section>
 <section class="slide level2 center">
@@ -1089,35 +1137,35 @@
 <div class="cell-output-display">
 <div id="er6-roles">
 <div>
-<svg width="960" height="480" viewbox="0.00 0.00 358.21 55.10" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 51.1)">
+<svg width="960" height="480" viewbox="0.00 0.00 384.49 55.03" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 51.03)">
 <title>ER</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-51.1 354.21,-51.1 354.21,4 -4,4"></polygon>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-51.03 380.49,-51.03 380.49,4 -4,4"></polygon>
 <!-- individu -->
 <g id="node1" class="node">
 <title>individu</title>
-<polygon fill="none" stroke="black" points="62.5,-41.55 0.16,-41.55 0.16,-5.55 62.5,-5.55 62.5,-41.55"></polygon>
-<text text-anchor="middle" x="31.33" y="-19.35" font-family="Helvetica,Arial,sans-serif" font-size="14.00">individu</text>
+<polygon fill="none" stroke="black" points="62.5,-41.51 0.16,-41.51 0.16,-5.51 62.5,-5.51 62.5,-41.51"></polygon>
+<text text-anchor="middle" x="31.33" y="-19.31" font-family="Helvetica,Arial,sans-serif" font-size="14.00">individu</text>
 </g>
-<!-- mère -->
+<!-- est&#45;mère&#45;de -->
 <g id="node2" class="node">
-<title>mère</title>
-<ellipse fill="none" stroke="black" cx="319.33" cy="-23.55" rx="30.76" ry="18"></ellipse>
-<text text-anchor="middle" x="319.33" y="-19.35" font-family="Helvetica,Arial,sans-serif" font-size="14.00">mère</text>
+<title>est-mère-de</title>
+<ellipse fill="none" stroke="black" cx="319.33" cy="-23.51" rx="57.3" ry="18"></ellipse>
+<text text-anchor="middle" x="319.33" y="-19.31" font-family="Helvetica,Arial,sans-serif" font-size="14.00">est-mère-de</text>
 </g>
-<!-- individu&#45;&#45;mère -->
+<!-- individu&#45;&#45;est&#45;mère&#45;de -->
 <g id="edge1" class="edge">
-<title>individu--mère</title>
-<path fill="none" stroke="black" d="M62.7,-27.95C118.54,-31.11 234.44,-31.08 289.3,-27.87"></path>
-<text text-anchor="start" x="126.61" y="-34.5" font-family="Helvetica,Arial,sans-serif" font-size="14.00">génitrice</text>
-<text text-anchor="start" x="62.7" y="-32.15" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+<title>individu--est-mère-de</title>
+<path fill="none" stroke="black" d="M62.7,-27.91C111.18,-30.66 204.92,-31 264.7,-28.94"></path>
+<text text-anchor="start" x="130.7" y="-34.43" font-family="Helvetica,Arial,sans-serif" font-size="14.00">mère</text>
+<text text-anchor="start" x="62.7" y="-32.11" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
 </g>
-<!-- mère&#45;&#45;individu -->
+<!-- est&#45;mère&#45;de&#45;&#45;individu -->
 <g id="edge2" class="edge">
-<title>mère--individu</title>
-<path fill="none" stroke="black" d="M289.33,-19.23C234.44,-16.01 118.38,-15.99 62.58,-19.16"></path>
-<text text-anchor="start" x="141.31" y="-4.2" font-family="Helvetica,Arial,sans-serif" font-size="14.00">enfant</text>
-<text text-anchor="start" x="62.58" y="-6.56" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:1</text>
+<title>est-mère-de--individu</title>
+<path fill="none" stroke="black" d="M264.83,-18.09C204.98,-16.03 110.96,-16.37 62.51,-19.12"></path>
+<text text-anchor="start" x="124.41" y="-4.2" font-family="Helvetica,Arial,sans-serif" font-size="14.00">enfant</text>
+<text text-anchor="start" x="62.51" y="-6.52" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:1</text>
 </g>
 </g>
 </svg>
@@ -1162,12 +1210,12 @@
 </section>
 <section id="une-association-darité-supérireure-à-2" class="slide level2 center">
 <h2>Une association d’arité supérireure à 2</h2>
-<p>Pour construire un modèle des vols aériens (comme dans <code>nycflights13</code>), on définit des entités <code>airline</code> <code>plane</code>, <code>airport</code> et une association quaternaire <code>flight</code></p>
+<p>Pour construire un modèle des vols aériens (comme dans <code>nycflights13</code>), on définit des entités <code>airline</code> <code>plane</code>, <code>airport</code> et une association quaternaire <code>flight</code>.</p>
 <div class="fragment">
-<p>L’association <code>flight</code> est quaternaire: une instance de <code>flight</code> associe un aéroport d’origine à un aéroport de destination (2 arêtes entre <code>airport</code> et <code>flight</code>), elle associe aussi une instance de <code>plane</code> et une instance de <code>airline</code></p>
+<p>L’association <code>flight</code> est quaternaire: une instance de <code>flight</code> associe un aéroport d’origine à un aéroport de destination (2 arêtes entre <code>airport</code> et <code>flight</code>), elle associe aussi une instance de <code>plane</code> et une instance de <code>airline</code>.</p>
 </div>
 <div class="fragment">
-<p>On distingue les deux participations de <code>airport</code> à <code>flight</code> par des rôles</p>
+<p>On distingue les deux participations de <code>airport</code> à <code>flight</code> par des rôles.</p>
 </div>
 </section>
 <section class="slide level2 center">
@@ -1238,11 +1286,41 @@
 <h1>Cardinalités</h1>
 
 </section>
-<section id="principe-et-objet" class="slide level2 center">
-<h2>Principe et objet</h2>
-<p>Dans une association entre plusieurs entités, les instances d’une entité peuvent participer a priori 0, 1, ou un nombre illimité de fois aux instances de l’association</p>
-<p>Pour traduire les associations dans le langage des tables et des contraintes (LDD), il est très utile d’encadrer le plus précisément possible le nombre de participations d’une instance d’une entité aux instances d’une associations</p>
-<p>Les <em>cardinalités</em> sont des décorations sur les arêtes qui relient entités et associations</p>
+<section id="définition-6" class="slide level2 center">
+<h2>Définition</h2>
+<p>Dans une association entre plusieurs entités, les instances d’une entité peuvent participer a priori à 0, 1, ou un nombre illimité de fois aux instances de l’association.</p>
+<p>Pour traduire les associations dans le langage des tables et des contraintes (LDD), il est très utile d’encadrer le plus précisément possible le nombre de participations d’une instance d’une entité aux instances d’une associations.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>On appelle <strong>cardinalités</strong> de l’association <span class="math inline">\(A\)</span> pour l’entité <span class="math inline">\(E\)</span> le couple <span class="math inline">\((n_{min},n_{max})\)</span> noté <span class="math inline">\(n_{min} \text{:} n_{max}\)</span> où :</p>
+<ul>
+<li><span class="math inline">\(n_{min}\)</span> = nombre minimal d’instances de <span class="math inline">\(A\)</span> dans lesquelles une instance de E peut être présente.</li>
+<li><span class="math inline">\(n_{max}\)</span> = nombre maximal d’instances de <span class="math inline">\(A\)</span> dans lesquelles une instance de E peut être présente.</li>
+</ul>
+<p>On évalue les cardinalités par 0, 1 et “plusieurs” noté <span class="math inline">\(n\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Les <em>cardinalités</em> sont notées sur les arêtes qui relient entités et associations.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="cas-des-relations-binaires-2-entités" class="slide level2 center">
 <h2>Cas des relations binaires (2 entités)</h2>
@@ -1251,14 +1329,14 @@
 <h2>Exemples <code>1:1</code></h2>
 <p>Dans le modèle <code>world</code>,</p>
 <ul>
-<li>une instance de <code>city</code> apparaît <code>1</code> et <code>1</code> seule fois dans l’association <code>is-in</code>. On dira que <code>is-in</code> est de cardinalité <code>1:1</code> du côté de <code>city</code>. Une ville se situe sur le territoire d’un pays (et d’un seul)</li>
+<li>une instance de <code>city</code> apparaît <code>1</code> et <code>1</code> seule fois dans l’association <code>is-in</code>. On dira que <code>is-in</code> est de cardinalité <code>1:1</code> du côté de <code>city</code>. Une ville se situe sur le territoire d’un pays (et d’un seul).</li>
 </ul>
 </section>
 <section id="exemples-1n" class="slide level2 center">
 <h2>Exemples <code>1:n</code></h2>
 <p>Dans le modèle <code>world</code>,</p>
 <ul>
-<li>une instance de <code>country</code> peut apparaître une nombre arbitraire de fois dans l’association ‘is-in’. On dira que <code>is-in</code> est de cardinalité <code>0:n</code> du côté de <code>city</code>. Un territoire peut ne comporter aucune ville de population supérieure à un seuil. Il n’y a pas de borne a priori sur le nombre de grandes villes situées sur un territoire</li>
+<li>une instance de <code>country</code> peut apparaître une nombre arbitraire de fois dans l’association ‘is-in’. On dira que <code>is-in</code> est de cardinalité <code>0:n</code> du côté de <code>city</code>. Un territoire peut ne comporter aucune ville de population supérieure à un seuil. Il n’y a pas de borne a priori sur le nombre de grandes villes situées sur un territoire.</li>
 </ul>
 </section>
 <section id="exemples-0n" class="slide level2 center">
@@ -1271,8 +1349,8 @@
 </section>
 <section id="diagrammes" class="slide level2 center">
 <h2>Diagrammes</h2>
-<p>Une indication de cardinalité comporte une borne inférieure (0 ou 1) et une borne supérieure (1 ou <span class="math inline">\(n\)</span>)</p>
-<p>On décore le lien entité-association avec l’indication de cardinalité</p>
+<p>Une indication de cardinalité comporte une borne inférieure (0 ou 1) et une borne supérieure (1 ou <span class="math inline">\(n\)</span>).</p>
+<p>On décore le lien entité-association avec l’indication de cardinalité.</p>
 </section>
 <section id="représentation-graphique-des-cardinalités" class="slide level2 center">
 <h2>Représentation graphique des cardinalités</h2>
@@ -1535,7 +1613,7 @@
 <h1>Entités faibles</h1>
 
 </section>
-<section id="définition-6" class="slide level2 center">
+<section id="définition-8" class="slide level2 center">
 <h2>Définition</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -1777,7 +1855,7 @@
 </section>
 <section id="identifiant-pour-les-entités-faibles" class="slide level2 center">
 <h2>Identifiant pour les entités faibles</h2>
-<p>Pour identifier une instance d’une entité faible, on utilise l’identifiant de l’instance associée de l’entité faible et on le complète à l’aide d’un <em>identifiant relatif</em>.</p>
+<p>Pour identifier une instance d’une entité faible, on utilise l’identifiant de l’instance associée de l’entité forte et on le complète à l’aide d’un <em>identifiant relatif</em>.</p>
 <p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Deux instances distinctes d’une identité faible peuvent porter le même identifiant relatif (si elles sont parties de deux instances différentes de l’entité forte).</p>
 <div class="fragment">
 <p>Nous ajoutons à notre modèle EA un identifiant relatif/faible <code>id</code> pour l’entité faible <code>nut1</code></p>
@@ -2020,17 +2098,13 @@
 </div>
 </div>
 </div>
-</section>
-<section class="slide level2 center">
-
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> entia non sunt multiplicanda praeter necessitatem</p>
 </section></section>
 <section>
 <section id="associations-faibles" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Associations faibles</h1>
 
 </section>
-<section id="définition-7" class="slide level2 center">
+<section id="définition-9" class="slide level2 center">
 <h2>Définition</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -2200,7 +2274,7 @@
 <h1>Associations <em>est-un</em></h1>
 
 </section>
-<section id="définition-8" class="slide level2 center">
+<section id="définition-10" class="slide level2 center">
 <h2>Définition</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">

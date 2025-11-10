@@ -4025,7 +4025,7 @@
     "href": "slides/Modelisation_1.html#pourquoi",
     "title": "Modélisation I : Entité/Association",
     "section": "Pourquoi ?",
-    "text": "Pourquoi ?\nPour construire/concevoir des bases de données utiles, il n’est pas facile d’utiliser immédiatement le Langage de Définition de Données (partie de SQL)\n\nIl est plus raisonnable de s’appuyer sur\n\n\n\nUn formalisme pour décrire les informations à intégrer dqns une base\nUn formalisme pour décrire les liens entre ses informations\nUn formalisme lisible par les humains\nUn formalisme traduisible dans un Langage de Définition de Données, c’est-à-dire dans un langage où tout doit se décrire à l’aide de tables et de contraintes"
+    "text": "Pourquoi ?\nPour construire/concevoir des bases de données utiles, il n’est pas facile d’utiliser immédiatement le Langage de Définition de Données (partie de SQL)\n\nIl est plus raisonnable de s’appuyer sur\n\n\n\nUn formalisme pour décrire les informations à intégrer dans une base\nUn formalisme pour décrire les liens entre ses informations\nUn formalisme lisible par les humains\nUn formalisme traduisible dans un Langage de Définition de Données, c’est-à-dire dans un langage où tout doit se décrire à l’aide de tables et de contraintes"
   },
   {
     "objectID": "slides/Modelisation_1.html#comment",
@@ -4060,21 +4060,21 @@
     "href": "slides/Modelisation_1.html#les-noms-et-les-notations-graphiques",
     "title": "Modélisation I : Entité/Association",
     "section": "Les noms et les notations graphiques",
-    "text": "Les noms et les notations graphiques\nLes entités sont généralement associées à des noms (substantifs). Une entité est en effet une collection d’objets apparentés (avec des caractériques communes)\n\nDans les diagrammes EA, les entités sont représentées par des rectangles. Le nom de l’entité est inscrit au centre du rectangle."
+    "text": "Les noms et les notations graphiques\nLes entités sont généralement associées à des noms (substantifs). Une entité est en effet une collection d’objets apparentés (avec des propriétés communes). . . .\nDans les diagrammes EA, les entités sont représentées par des rectangles. Le nom de l’entité est inscrit au centre du rectangle."
   },
   {
     "objectID": "slides/Modelisation_1.html#instances-et-entités",
     "href": "slides/Modelisation_1.html#instances-et-entités",
     "title": "Modélisation I : Entité/Association",
     "section": "Instances et Entités",
-    "text": "Instances et Entités\n\n\n\n\n\n\nDéfinition\n\n\nUne instance est un élément d’une entité.\n\n\n\n\nDans word, le pays Luxemburg est une instance de country.\nLes instances d’une entité sont discernables (pas d’éléments dupliqués)\n\n\n\nLe jargon de la modélisation EA nomme des notions qui sont déjà présentes dans la théorie naïve des ensembles (le langage des mathématiciens)"
+    "text": "Instances et Entités\n\n\n\n\n\n\nDéfinition\n\n\nUne instance est un élément d’une entité.\n\n\n\n\nDans word, le pays Luxemburg est une instance de country.\nLes instances d’une entité sont discernables (pas d’éléments dupliqués).\n\n\n\n\n\n\nNote\n\n\nLe jargon de la modélisation EA renomme des notions déjà présentes dans la théorie des ensembles utilisée en Mathématiques."
   },
   {
     "objectID": "slides/Modelisation_1.html#attributs",
     "href": "slides/Modelisation_1.html#attributs",
     "title": "Modélisation I : Entité/Association",
     "section": "Attributs",
-    "text": "Attributs\n\n\n\n\n\n\nDéfinition\n\n\nUn attribut est une fonction qui envoie une entité dans un domaine (ensemble de valeurs, type)\n\n\n\n\nDans world, l’attribut name envoie country vers l’ensemble des chaînes de caractères. Dans l’égalité name(Luxemburg) = \"Luxemburg\", à gauche Luxemburg désigne le pays, à droite, \"Luxemburg\" est une chaîne de caractères\nL’attribut population envoie country vers les entiers (positifs)\n\n\nDans les diagrammes EA, les attributs sont représentés par des ellipses. Le nom de l’attribut est placé au centre de l’ellipse\nUn arête relie l’ellipse attribut au rectangle entité."
+    "text": "Attributs\n\n\n\n\n\n\nDéfinition\n\n\nAprès avoir choisi les entités, on recherche les propriétés qui les caractérisent. Elles sont nommées attributs.\n\nattribut (Modèle EA) \\(\\longleftrightarrow\\) fonction qui envoie une entité dans un domaine (ensemble de valeurs, type)\n\n\n\n\n\nDans world, l’attribut name envoie country vers l’ensemble des chaînes de caractères. Dans l’égalité name(Luxemburg) = \"Luxemburg\", à gauche Luxemburg désigne le pays, à droite, \"Luxemburg\" est une chaîne de caractères.\nL’attribut population envoie country vers les entiers (positifs).\n\n\n\n\n\n\n\n\nReprésentation\n\n\nDans les diagrammes EA, les attributs sont représentés par des ellipses. Le nom de l’attribut est placé au centre de l’ellipse.\nUne arête relie l’ellipse attribut au rectangle entité."
   },
   {
     "objectID": "slides/Modelisation_1.html#attributs-notation-graphique",
@@ -4088,7 +4088,7 @@
     "href": "slides/Modelisation_1.html#identifiant",
     "title": "Modélisation I : Entité/Association",
     "section": "Identifiant",
-    "text": "Identifiant\n\n\n\n\n\n\nDéfinition\n\n\nPour une entité, un identifiant est un attribut qui envoie deux instances distinctes vers deux valeurs distinctes du domaine.\n\n\n\n\n\n\n\n\n\nAstuce\n\n\nUn identifiant est un attribut (une fonction) injectif(ve)\nDans un schéma EA, on choisit un attribut injectif et on le désigne comme identifiant en soulignant le nom de l’attribut.\n L’identifiant d’une entité n’est pas le nom de l’entité"
+    "text": "Identifiant\n\n\n\n\n\n\nDéfinition\n\n\nPour une entité, un identifiant est un attribut qui identifie de manière unique chaque instance.\n\nidentifiant (Modèle EA) \\(\\longleftrightarrow\\) fonction injective qui envoie une entité dans un domaine (ensemble de valeurs, type)\n\n\n\n\n\n\n\n\n\n\nReprésentation\n\n\nDans un schéma EA, on représente un identifiant comme un attribut dont on souligne le nom.\nL’identifiant d’une entité n’est pas le nom de l’entité (contrairement à la terminologie des langages de programmation)."
   },
   {
     "objectID": "slides/Modelisation_1.html#identifiant-exemple",
@@ -4102,7 +4102,7 @@
     "href": "slides/Modelisation_1.html#identifiant-représentation",
     "title": "Modélisation I : Entité/Association",
     "section": "Identifiant (représentation)",
-    "text": "Identifiant (représentation)\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\niso\n\niso3\n\n\n\ncountry--iso\n\n\n\n\ncity\n\ncity\n\n\n\nname1\n\nname\n\n\n\ncity--name1\n\n\n\n\nlanguage\n\nlanguage\n\n\n\nname2\n\nname\n\n\n\nlanguage--name2\n\n\n\n\nname0\n\nname\n\n\n\nname0--country\n\n\n\n\npopulation\n\npopulation\n\n\n\npopulation--country\n\n\n\n\ngovernmentForm\n\ngovernmentForm\n\n\n\ngovernmentForm--country\n\n\n\n\nheadOfState\n\nheadOfState\n\n\n\nheadOfState--country\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nOn singularise les identifiants en les soulignant."
+    "text": "Identifiant (représentation)\n\n\n\n\n\n\nNote\n\n\nOn distingue les identifiants en les soulignant.\n\n\n\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\niso\n\niso3\n\n\n\ncountry--iso\n\n\n\n\ncity\n\ncity\n\n\n\nname1\n\nname\n\n\n\ncity--name1\n\n\n\n\nlanguage\n\nlanguage\n\n\n\nname2\n\nname\n\n\n\nlanguage--name2\n\n\n\n\nname0\n\nname\n\n\n\nname0--country\n\n\n\n\npopulation\n\npopulation\n\n\n\npopulation--country\n\n\n\n\ngovernmentForm\n\ngovernmentForm\n\n\n\ngovernmentForm--country\n\n\n\n\nheadOfState\n\nheadOfState\n\n\n\nheadOfState--country"
   },
   {
     "objectID": "slides/Modelisation_1.html#association-exemple",
@@ -4123,7 +4123,7 @@
     "href": "slides/Modelisation_1.html#remarques-suite",
     "title": "Modélisation I : Entité/Association",
     "section": "Remarques (suite)",
-    "text": "Remarques (suite)\n\n\n\n\n\n\nNote\n\n\nUne association est représentée par un losange, elle est nommée.\nLe losange est relié aux dfférentes entités participantes par une arête\nLe nom d’une association reflète (en principe) la signification de cette association.\nLe nom d’une association renvoie souvent à un verbe, pas forcémment d’action\n\n\n\n\n\n\n\n\n\nAvertissement\n\n\nIl n’est pas toujours évident de lire sur le graphique le rôle joué par les différentes entités participantes dans une association. Bien nommer aide."
+    "text": "Remarques (suite)\n\n\n\n\n\n\nNote\n\n\n\nUne association est représentée par un losange, elle est nommée.\nLe losange est relié aux dfférentes entités participantes par une arête.\nLe nom d’une association reflète (en principe) la signification de cette association.\nLe nom d’une association renvoie souvent à un verbe, pas forcémment d’action.\n\n\n\n\n\n\n\n\n\n\nAvertissement\n\n\nIl n’est pas toujours évident de lire sur le graphique le rôle joué par les différentes entités participantes dans une association. Bien nommer aide."
   },
   {
     "objectID": "slides/Modelisation_1.html#attributs-dassociation",
@@ -4137,21 +4137,21 @@
     "href": "slides/Modelisation_1.html#partipations-multiples-à-une-association",
     "title": "Modélisation I : Entité/Association",
     "section": "Partipations multiples à une association",
-    "text": "Partipations multiples à une association\n Une même entité peut participer plusieurs fois à une même association\nOn distingue ces participations grâce à des rôles qui étiquettent les arêtes qui relient le rectangle entité au losange association."
+    "text": "Partipations multiples à une association\n Une même entité peut participer plusieurs fois à une même association.\nOn distingue ces participations grâce à des rôles qui étiquettent les arêtes qui relient le rectangle entité au losange association."
   },
   {
     "objectID": "slides/Modelisation_1.html#exemples-de-rôle-dans-une-association-réflexive",
     "href": "slides/Modelisation_1.html#exemples-de-rôle-dans-une-association-réflexive",
     "title": "Modélisation I : Entité/Association",
     "section": "Exemples de rôle dans une association réflexive",
-    "text": "Exemples de rôle dans une association réflexive\nDans une base de donnée généalogique, on part d’une entité individu. On définit une auto-association mère qui relie l’entité individu avec elle-même.\n\nCette auto-association n’est pas symétrique: quand on écrit qu’Elizabeth est mère de Charles, Elisabeth et Charles ne jouent pas le même rôle.\n\n\nDans une instance \\((x,y)\\) de l’association mère \\(x\\) joue le rôle de la génitrice, \\(y\\) de l’enfant.\n\n\nOn peut rendre compte de ces rôles en marquant les arêtes qui lient l’entité individu à l’association mère (pour est-maman-de)"
+    "text": "Exemples de rôle dans une association réflexive\nDans une base de donnée généalogique, on part d’une entité individu. On définit une auto-association est-mère-de qui relie l’entité individu avec elle-même.\n\nCette auto-association n’est pas symétrique: quand on écrit qu’Elizabeth est-mère-de Charles, Elisabeth et Charles ne jouent pas le même rôle.\n\n\nDans une instance \\((x,y)\\) de l’association est-mère-de, \\(x\\) joue le rôle de la mère, \\(y\\) de l’enfant.\n\n\nOn peut rendre compte de ces rôles en marquant les arêtes qui lient l’entité individu à l’association est-mère-de."
   },
   {
     "objectID": "slides/Modelisation_1.html#une-association-darité-supérireure-à-2",
     "href": "slides/Modelisation_1.html#une-association-darité-supérireure-à-2",
     "title": "Modélisation I : Entité/Association",
     "section": "Une association d’arité supérireure à 2",
-    "text": "Une association d’arité supérireure à 2\nPour construire un modèle des vols aériens (comme dans nycflights13), on définit des entités airline plane, airport et une association quaternaire flight\n\nL’association flight est quaternaire: une instance de flight associe un aéroport d’origine à un aéroport de destination (2 arêtes entre airport et flight), elle associe aussi une instance de plane et une instance de airline\n\n\nOn distingue les deux participations de airport à flight par des rôles"
+    "text": "Une association d’arité supérireure à 2\nPour construire un modèle des vols aériens (comme dans nycflights13), on définit des entités airline plane, airport et une association quaternaire flight.\n\nL’association flight est quaternaire: une instance de flight associe un aéroport d’origine à un aéroport de destination (2 arêtes entre airport et flight), elle associe aussi une instance de plane et une instance de airline.\n\n\nOn distingue les deux participations de airport à flight par des rôles."
   },
   {
     "objectID": "slides/Modelisation_1.html#principe-et-objet",
@@ -4172,14 +4172,14 @@
     "href": "slides/Modelisation_1.html#exemples-11",
     "title": "Modélisation I : Entité/Association",
     "section": "Exemples 1:1",
-    "text": "Exemples 1:1\nDans le modèle world,\n\nune instance de city apparaît 1 et 1 seule fois dans l’association is-in. On dira que is-in est de cardinalité 1:1 du côté de city. Une ville se situe sur le territoire d’un pays (et d’un seul)"
+    "text": "Exemples 1:1\nDans le modèle world,\n\nune instance de city apparaît 1 et 1 seule fois dans l’association is-in. On dira que is-in est de cardinalité 1:1 du côté de city. Une ville se situe sur le territoire d’un pays (et d’un seul)."
   },
   {
     "objectID": "slides/Modelisation_1.html#exemples-1n",
     "href": "slides/Modelisation_1.html#exemples-1n",
     "title": "Modélisation I : Entité/Association",
     "section": "Exemples 1:n",
-    "text": "Exemples 1:n\nDans le modèle world,\n\nune instance de country peut apparaître une nombre arbitraire de fois dans l’association ‘is-in’. On dira que is-in est de cardinalité 0:n du côté de city. Un territoire peut ne comporter aucune ville de population supérieure à un seuil. Il n’y a pas de borne a priori sur le nombre de grandes villes situées sur un territoire"
+    "text": "Exemples 1:n\nDans le modèle world,\n\nune instance de country peut apparaître une nombre arbitraire de fois dans l’association ‘is-in’. On dira que is-in est de cardinalité 0:n du côté de city. Un territoire peut ne comporter aucune ville de population supérieure à un seuil. Il n’y a pas de borne a priori sur le nombre de grandes villes situées sur un territoire."
   },
   {
     "objectID": "slides/Modelisation_1.html#exemples-0n",
@@ -4193,7 +4193,7 @@
     "href": "slides/Modelisation_1.html#diagrammes",
     "title": "Modélisation I : Entité/Association",
     "section": "Diagrammes",
-    "text": "Diagrammes\nUne indication de cardinalité comporte une borne inférieure (0 ou 1) et une borne supérieure (1 ou \\(n\\))\nOn décore le lien entité-association avec l’indication de cardinalité"
+    "text": "Diagrammes\nUne indication de cardinalité comporte une borne inférieure (0 ou 1) et une borne supérieure (1 ou \\(n\\)).\nOn décore le lien entité-association avec l’indication de cardinalité."
   },
   {
     "objectID": "slides/Modelisation_1.html#représentation-graphique-des-cardinalités",
@@ -4214,7 +4214,7 @@
     "href": "slides/Modelisation_1.html#définition-6",
     "title": "Modélisation I : Entité/Association",
     "section": "Définition",
-    "text": "Définition\n\n\n\n\n\n\nNote\n\n\nUne entité faible \\(E\\) est définie relativement à une entité \\(A\\). C’est une collection d’objets apparentés (comme une entité), mais chaque instance de \\(E\\) est liée (est partie de) à une et une seule instance de \\(A\\)."
+    "text": "Définition\nDans une association entre plusieurs entités, les instances d’une entité peuvent participer a priori à 0, 1, ou un nombre illimité de fois aux instances de l’association.\nPour traduire les associations dans le langage des tables et des contraintes (LDD), il est très utile d’encadrer le plus précisément possible le nombre de participations d’une instance d’une entité aux instances d’une associations.\n\n\n\n\n\n\nDéfinition\n\n\nOn appelle cardinalités de l’association \\(A\\) pour l’entité \\(E\\) le couple \\((n_{min},n_{max})\\) noté \\(n_{min} \\text{:} n_{max}\\) où :\n\n\\(n_{min}\\) = nombre minimal d’instances de \\(A\\) dans lesquelles une instance de E peut être présente.\n\\(n_{max}\\) = nombre maximal d’instances de \\(A\\) dans lesquelles une instance de E peut être présente.\n\nOn évalue les cardinalités par 0, 1 et “plusieurs” noté \\(n\\).\n\n\n\n\n\n\n\n\n\nNote\n\n\nLes cardinalités sont notées sur les arêtes qui relient entités et associations."
   },
   {
     "objectID": "slides/Modelisation_1.html#exemple",
@@ -4235,7 +4235,7 @@
     "href": "slides/Modelisation_1.html#identifiant-pour-les-entités-faibles",
     "title": "Modélisation I : Entité/Association",
     "section": "Identifiant pour les entités faibles",
-    "text": "Identifiant pour les entités faibles\nPour identifier une instance d’une entité faible, on utilise l’identifiant de l’instance associée de l’entité faible et on le complète à l’aide d’un identifiant relatif.\n Deux instances distinctes d’une identité faible peuvent porter le même identifiant relatif (si elles sont parties de deux instances différentes de l’entité forte).\n\nNous ajoutons à notre modèle EA un identifiant relatif/faible id pour l’entité faible nut1\nPour identifier une instance de nut1, il faut disposer de son identifiant relatif id et de l’identifiant iso3 de l’instance associée dans l’entité forte.\nOn dit que l’association faible is-in est identifiante"
+    "text": "Identifiant pour les entités faibles\nPour identifier une instance d’une entité faible, on utilise l’identifiant de l’instance associée de l’entité forte et on le complète à l’aide d’un identifiant relatif.\n Deux instances distinctes d’une identité faible peuvent porter le même identifiant relatif (si elles sont parties de deux instances différentes de l’entité forte).\n\nNous ajoutons à notre modèle EA un identifiant relatif/faible id pour l’entité faible nut1\nPour identifier une instance de nut1, il faut disposer de son identifiant relatif id et de l’identifiant iso3 de l’instance associée dans l’entité forte.\nOn dit que l’association faible is-in est identifiante"
   },
   {
     "objectID": "slides/Modelisation_1.html#définition-7",
@@ -4270,7 +4270,7 @@
     "href": "slides/Modelisation_1.html#définition-8",
     "title": "Modélisation I : Entité/Association",
     "section": "Définition",
-    "text": "Définition\n\n\n\n\n\n\nDéfinition\n\n\nUne association est-un entre une entité A et une entité B indique que toute instance (élément) de A est aussi instance (élément) de B (autrement dit en langage ensembliste que A ⊆ B)\nOn note graphiquement les associations est-un avec un symbole spécial : un triangle (A ◃ B)\n\n\n\n\n\n\n\n\n\n\nRemarques\n\n\n\nUne association est-un est binaire\nUne entité peut participer à plusieurs associations est-un\nSi A ◃ B on dit (souvent) que A est une spécialisation de B"
+    "text": "Définition\n\n\n\n\n\n\nNote\n\n\nUne entité faible \\(E\\) est définie relativement à une entité \\(A\\). C’est une collection d’objets apparentés (comme une entité), mais chaque instance de \\(E\\) est liée (est partie de) à une et une seule instance de \\(A\\)."
   },
   {
     "objectID": "slides/Modelisation_1.html#propriété",
@@ -5482,5 +5482,47 @@
     "title": "BD VII: gestion avancée des contraintes",
     "section": "suite",
     "text": "suite\nIndexes:\n    \"country_pkey\" PRIMARY KEY, btree (countrycode)\nCheck constraints:\n    \"country_continent_check\" CHECK (continent = 'Asia'::text OR \n                                     continent = 'Europe'::text OR \n                                     continent = 'North America'::text OR \n                                     continent = 'Africa'::text OR\n                                     continent = 'Oceania'::text OR\n                                     continent = 'Antarctica'::text OR\n                                     continent = 'South America'::text),\nForeign-key constraints:\n    \"country_capital_fkey\" FOREIGN KEY (capital) REFERENCES city(id)"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#définition",
+    "href": "slides/Modelisation_1.html#définition",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Définition",
+    "text": "Définition\nDans la modélisation EA, on repère d’abord les ensembles d’objets (concrets ou abstraits) répondant à un même prototype, c’est-à-dire ayant des propriétés communes. Ils sont nommés entités.\n\nentité (Modèle EA) \\(\\longleftrightarrow\\) ensemble (théorie des ensembles).\ninstance (Modèle EA) \\(\\longleftrightarrow\\) élément (théorie des ensembles).\n\n\n\n\n\n\n\nNote\n\n\nTout ensemble d’objets n’est pas nécessairement considéré comme une entité.\nC’est la décision de l’équipe de modélisation qui constitue les entités."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#définition-5",
+    "href": "slides/Modelisation_1.html#définition-5",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Définition",
+    "text": "Définition\n\n\n\n\n\n\nNote\n\n\nUne entité faible \\(E\\) est définie relativement à une entité \\(A\\). C’est une collection d’objets apparentés (comme une entité), mais chaque instance de \\(E\\) est liée (est partie de) à une et une seule instance de \\(A\\)."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#définition-9",
+    "href": "slides/Modelisation_1.html#définition-9",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Définition",
+    "text": "Définition\n\n\n\n\n\n\nNote\n\n\nUne association qui relie une entité faible à une entité forte qui participe à l’identification des instances de l’entité faible est dite faible.\nLes instances de l’entité faible participentt à cette association faible avec une cardinalité 1:1\nLes instances de l’entité forte participent à l’association faible avec une cardinalitę 0:n"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#définition-10",
+    "href": "slides/Modelisation_1.html#définition-10",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Définition",
+    "text": "Définition\n\n\n\n\n\n\nDéfinition\n\n\nUne association est-un entre une entité A et une entité B indique que toute instance (élément) de A est aussi instance (élément) de B (autrement dit en langage ensembliste que A ⊆ B)\nOn note graphiquement les associations est-un avec un symbole spécial : un triangle (A ◃ B)\n\n\n\n\n\n\n\n\n\n\nRemarques\n\n\n\nUne association est-un est binaire\nUne entité peut participer à plusieurs associations est-un\nSi A ◃ B on dit (souvent) que A est une spécialisation de B"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#entités-1",
+    "href": "slides/Modelisation_1.html#entités-1",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Entités",
+    "text": "Entités\n\n\n\n\n\n\nDéfinition\n\n\nDans la modélisation EA, on repère d’abord les ensembles d’objets (concrets ou abstraits) répondant à un même prototype, c’est-à-dire ayant des propriétés communes. Ils sont nommés entités.\n\nentité (Modèle EA) \\(\\longleftrightarrow\\) ensemble (théorie des ensembles).\ninstance (Modèle EA) \\(\\longleftrightarrow\\) élément (théorie des ensembles).\n\n\n\n\n\n\n\n\n\n\nReprésentation\n\n\nDans les diagrammes EA, les entités sont représentées par des rectangles. Le nom de l’entité est inscrit au centre du rectangle."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#les-noms-dentités",
+    "href": "slides/Modelisation_1.html#les-noms-dentités",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Les noms d’entités",
+    "text": "Les noms d’entités\nLes entités sont généralement associées à des noms (substantifs). Une entité est en effet une collection d’objets apparentés (avec des propriétés communes).\n\n\n\n\n\n\nNote\n\n\nTout ensemble d’objets n’est pas nécessairement considéré comme une entité.\nC’est la décision de l’équipe de modélisation qui constitue les entités."
   }
 ]
