@@ -4214,14 +4214,14 @@
     "href": "slides/Modelisation_1.html#définition-6",
     "title": "Modélisation I : Entité/Association",
     "section": "Définition",
-    "text": "Définition\nDans une association entre plusieurs entités, les instances d’une entité peuvent participer a priori à 0, 1, ou un nombre illimité de fois aux instances de l’association.\nPour traduire les associations dans le langage des tables et des contraintes (LDD), il est très utile d’encadrer le plus précisément possible le nombre de participations d’une instance d’une entité aux instances d’une associations.\n\n\n\n\n\n\nDéfinition\n\n\nOn appelle cardinalités de l’association \\(A\\) pour l’entité \\(E\\) le couple \\((n_{min},n_{max})\\) noté \\(n_{min} \\text{:} n_{max}\\) où :\n\n\\(n_{min}\\) = nombre minimal d’instances de \\(A\\) dans lesquelles une instance de E peut être présente.\n\\(n_{max}\\) = nombre maximal d’instances de \\(A\\) dans lesquelles une instance de E peut être présente.\n\nOn évalue les cardinalités par 0, 1 et “plusieurs” noté \\(n\\).\n\n\n\n\n\n\n\n\n\nNote\n\n\nLes cardinalités sont notées sur les arêtes qui relient entités et associations."
+    "text": "Définition\nDans une association entre plusieurs entités, les instances d’une entité peuvent participer a priori à 0, 1, ou un nombre illimité de fois aux instances de l’association.\nPour traduire les associations dans le langage des tables et des contraintes (LDD), il est très utile d’encadrer le plus précisément possible le nombre de participations d’une instance d’une entité aux instances d’une associations.\n\n\n\n\n\n\nDéfinition\n\n\nOn appelle cardinalités de l’association \\(A\\) pour l’entité \\(E\\) le couple \\((n_{min},n_{max})\\) noté \\(n_{min} \\text{:} n_{max}\\) où :\n\n\\(n_{min}\\) = nombre minimal d’instances de \\(A\\) dans lesquelles une instance de \\(E\\) peut être présente.\n\\(n_{max}\\) = nombre maximal d’instances de \\(A\\) dans lesquelles une instance de \\(E\\) peut être présente.\n\nOn évalue les cardinalités par 0, 1 et “plusieurs” noté \\(n\\).\n\n\n\n\n\n\n\n\n\nNote\n\n\nLes cardinalités sont notées sur les arêtes qui relient entités et associations."
   },
   {
     "objectID": "slides/Modelisation_1.html#exemple",
     "href": "slides/Modelisation_1.html#exemple",
     "title": "Modélisation I : Entité/Association",
     "section": "Exemple",
-    "text": "Exemple\nDans world, on peut considérer que les instances de country sont des unités territoriales de niveau 0. Ces unités territoriales de niveau 1 sont parfois découpées en unités territoriales de niveau 1 : les régions en France, en Italie, les Länder en Allemagne, …\nChaque unité territoriale de niveau 1 est située dans une et une seule unité territoriale de niveau 0, elle fait partie de l’unité territoriale de niveau 0.\nUnités territoriales\n\nNous allons ajouter à notre modèle EA Géographie une entité faible appelée nut1 (pour Nouvelle Unité Territoriale de niveau 1)\nL’entité faible nut1 est liée à l’entité forte country par une association faible is-in."
+    "text": "Exemple\nDans world, on peut considérer que les instances de country sont des unités territoriales de niveau 0. Ces unités territoriales de niveau 1 sont parfois découpées en unités territoriales de niveau 1 : les régions en France, en Italie, les Länder en Allemagne, …\nChaque unité territoriale de niveau 1 est située dans une et une seule unité territoriale de niveau 0, elle fait partie de l’unité territoriale de niveau 0.\nUnités territoriales\n\nNous allons ajouter à notre modèle EA Géographie une entité faible appelée nut1 (pour Nouvelle Unité Territoriale de niveau 1).\nL’entité faible nut1 est liée à l’entité forte country par une association faible is-in."
   },
   {
     "objectID": "slides/Modelisation_1.html#diagrammes-pour-les-entités-faibles",
@@ -4235,7 +4235,7 @@
     "href": "slides/Modelisation_1.html#identifiant-pour-les-entités-faibles",
     "title": "Modélisation I : Entité/Association",
     "section": "Identifiant pour les entités faibles",
-    "text": "Identifiant pour les entités faibles\nPour identifier une instance d’une entité faible, on utilise l’identifiant de l’instance associée de l’entité forte et on le complète à l’aide d’un identifiant relatif.\n Deux instances distinctes d’une identité faible peuvent porter le même identifiant relatif (si elles sont parties de deux instances différentes de l’entité forte).\n\nNous ajoutons à notre modèle EA un identifiant relatif/faible id pour l’entité faible nut1\nPour identifier une instance de nut1, il faut disposer de son identifiant relatif id et de l’identifiant iso3 de l’instance associée dans l’entité forte.\nOn dit que l’association faible is-in est identifiante"
+    "text": "Identifiant pour les entités faibles\nPour identifier une instance d’une entité faible, on utilise l’identifiant de l’instance associée de l’entité forte et on le complète à l’aide d’un identifiant relatif.\n Deux instances distinctes d’une identité faible peuvent porter le même identifiant relatif (si elles sont parties de deux instances différentes de l’entité forte).\n\nNous ajoutons à notre modèle EA un identifiant relatif/faible id pour l’entité faible nut1.\nPour identifier une instance de nut1, il faut disposer de son identifiant relatif id et de l’identifiant iso3 de l’instance associée dans l’entité forte.\nOn dit que l’association faible is-in est identifiante."
   },
   {
     "objectID": "slides/Modelisation_1.html#définition-7",
@@ -4256,7 +4256,7 @@
     "href": "slides/Modelisation_1.html#association-darité-quelconque-en-associations-binaires",
     "title": "Modélisation I : Entité/Association",
     "section": "Association d’arité quelconque en associations binaires",
-    "text": "Association d’arité quelconque en associations binaires\nOn définit une entité faible de même nom que l’association.\nPour chaque entité participant à l’association, on définit une association faible entre l’entité participante et la nouvelle entité faible.\nSi une entité participe plusieurs fois à l’association, on définit autant d’associations faibles qu’on nomme à l’aide des rôles\nL’entité faible participe aux associations faibles avec une cardinalité 1:1\nLes entités participantes sont reliées aux associations faibles avec les cardinalités de leur participation à l’associatoin \\(n\\)-aire."
+    "text": "Association d’arité quelconque en associations binaires\nOn définit une entité faible de même nom que l’association.\nPour chaque entité participant à l’association, on définit une association faible entre l’entité participante et la nouvelle entité faible.\nSi une entité participe plusieurs fois à l’association, on définit autant d’associations faibles qu’on nomme à l’aide des rôles.\nL’entité faible participe aux associations faibles avec une cardinalité 1:1.\nLes entités participantes sont reliées aux associations faibles avec les cardinalités de leur participation à l’associatoin \\(n\\)-aire."
   },
   {
     "objectID": "slides/Modelisation_1.html#transformation-du-diagramme-des-vols",
@@ -5502,7 +5502,7 @@
     "href": "slides/Modelisation_1.html#définition-9",
     "title": "Modélisation I : Entité/Association",
     "section": "Définition",
-    "text": "Définition\n\n\n\n\n\n\nNote\n\n\nUne association qui relie une entité faible à une entité forte qui participe à l’identification des instances de l’entité faible est dite faible.\nLes instances de l’entité faible participentt à cette association faible avec une cardinalité 1:1\nLes instances de l’entité forte participent à l’association faible avec une cardinalitę 0:n"
+    "text": "Définition\n\n\n\n\n\n\nNote\n\n\nUne association qui relie une entité faible à une entité forte qui participe à l’identification des instances de l’entité faible est dite faible.\nLes instances de l’entité faible participentt à cette association faible avec une cardinalité 1:1.\nLes instances de l’entité forte participent à l’association faible avec une cardinalitę 0:n."
   },
   {
     "objectID": "slides/Modelisation_1.html#définition-10",
@@ -5524,5 +5524,19 @@
     "title": "Modélisation I : Entité/Association",
     "section": "Les noms d’entités",
     "text": "Les noms d’entités\nLes entités sont généralement associées à des noms (substantifs). Une entité est en effet une collection d’objets apparentés (avec des propriétés communes).\n\n\n\n\n\n\nNote\n\n\nTout ensemble d’objets n’est pas nécessairement considéré comme une entité.\nC’est la décision de l’équipe de modélisation qui constitue les entités."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#représentation-graphique-des-cardinalités-world",
+    "href": "slides/Modelisation_1.html#représentation-graphique-des-cardinalités-world",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Représentation graphique des cardinalités (world)",
+    "text": "Représentation graphique des cardinalités (world)\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\niso\n\niso3\n\n\n\ncountry--iso\n\n\n\n\ncity\n\ncity\n\n\n\nname1\n\nname\n\n\n\ncity--name1\n\n\n\n\nid\n\nid\n\n\n\ncity--id\n\n\n\n\nis-in\n\nis-in\n\n\n\ncity--is-in\n\n1:1\n\n\n\nis-capital\n\nis-capital\n\n\n\ncity--is-capital\n\n0:1\n\n\n\nlanguage\n\nlanguage\n\n\n\nname2\n\nname\n\n\n\nlanguage--name2\n\n\n\n\nisol\n\niso\n\n\n\nlanguage--isol\n\n\n\n\nis-spoken-in\n\nis-spoken-in\n\n\n\nlanguage--is-spoken-in\n\n0:n\n\n\n\nname0\n\nname\n\n\n\nname0--country\n\n\n\n\npopulation\n\npopulation\n\n\n\npopulation--country\n\n\n\n\ngovernmentForm\n\ngovernmentForm\n\n\n\ngovernmentForm--country\n\n\n\n\nheadOfState\n\nheadOfState\n\n\n\nheadOfState--country\n\n\n\n\nis-in--country\n\n0:n\n\n\n\nis-spoken-in--country\n\n0:n\n\n\n\nis-capital--country\n\n0:1"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#représentation-graphique-des-cardinalités-nycflights13",
+    "href": "slides/Modelisation_1.html#représentation-graphique-des-cardinalités-nycflights13",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Représentation graphique des cardinalités (nycflights13)",
+    "text": "Représentation graphique des cardinalités (nycflights13)\nOn peut utilement préciser les cardinalités dans notre schéma des vols.\n\n\n\n\n\n\nER\n\n\n\nairport\n\nairport\n\n\n\nflight\n\nflight\n\n\n\nairport--flight\n\norig\n0:n\n\n\n\nplane\n\nplane\n\n\n\nairline\n\nairline\n\n\n\nflight--airport\n\ndest\n0:n\n\n\n\nflight--plane\n\n0:n\n\n\n\nflight--airline\n\n0:n"
   }
 ]

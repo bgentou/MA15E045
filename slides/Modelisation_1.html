@@ -1301,8 +1301,8 @@
 <div class="callout-content">
 <p>On appelle <strong>cardinalités</strong> de l’association <span class="math inline">\(A\)</span> pour l’entité <span class="math inline">\(E\)</span> le couple <span class="math inline">\((n_{min},n_{max})\)</span> noté <span class="math inline">\(n_{min} \text{:} n_{max}\)</span> où :</p>
 <ul>
-<li><span class="math inline">\(n_{min}\)</span> = nombre minimal d’instances de <span class="math inline">\(A\)</span> dans lesquelles une instance de E peut être présente.</li>
-<li><span class="math inline">\(n_{max}\)</span> = nombre maximal d’instances de <span class="math inline">\(A\)</span> dans lesquelles une instance de E peut être présente.</li>
+<li><span class="math inline">\(n_{min}\)</span> = nombre minimal d’instances de <span class="math inline">\(A\)</span> dans lesquelles une instance de <span class="math inline">\(E\)</span> peut être présente.</li>
+<li><span class="math inline">\(n_{max}\)</span> = nombre maximal d’instances de <span class="math inline">\(A\)</span> dans lesquelles une instance de <span class="math inline">\(E\)</span> peut être présente.</li>
 </ul>
 <p>On évalue les cardinalités par 0, 1 et “plusieurs” noté <span class="math inline">\(n\)</span>.</p>
 </div>
@@ -1347,13 +1347,8 @@
 <li>une instance de <code>country</code> peut apparaître une nombre arbitraire de fois dans l’association ‘is-spoken-in’. On dira que <code>is-spoken-in</code> est de cardinalité <code>0:n</code> du côté de <code>country</code>.</li>
 </ul>
 </section>
-<section id="diagrammes" class="slide level2 center">
-<h2>Diagrammes</h2>
-<p>Une indication de cardinalité comporte une borne inférieure (0 ou 1) et une borne supérieure (1 ou <span class="math inline">\(n\)</span>).</p>
-<p>On décore le lien entité-association avec l’indication de cardinalité.</p>
-</section>
-<section id="représentation-graphique-des-cardinalités" class="slide level2 center">
-<h2>Représentation graphique des cardinalités</h2>
+<section id="représentation-graphique-des-cardinalités-world" class="slide level2 center">
+<h2>Représentation graphique des cardinalités (<code>world</code>)</h2>
 <div class="cell" data-eval="true" data-layout-align="default">
 <div class="cell-output-display">
 <div id="er4-cardi">
@@ -1540,8 +1535,8 @@
 </div>
 </div>
 </section>
-<section id="représentation-graphique-des-cardinalités-suite" class="slide level2 center">
-<h2>Représentation graphique des cardinalités (suite)</h2>
+<section id="représentation-graphique-des-cardinalités-nycflights13" class="slide level2 center">
+<h2>Représentation graphique des cardinalités (<code>nycflights13</code>)</h2>
 <p>On peut utilement préciser les cardinalités dans notre schéma des vols.</p>
 <div class="cell" data-eval="true" data-layout-align="default">
 <div class="cell-output-display">
@@ -1635,7 +1630,7 @@
 <p>Chaque unité territoriale de niveau <code>1</code> est située dans une et une seule unité territoriale de niveau <code>0</code>, elle fait partie de l’unité territoriale de niveau <code>0</code>.</p>
 <p><a href="https://en.wikipedia.org/wiki/Nomenclature_of_Territorial_Units_for_Statistics" target="_blank">Unités territoriales</a></p>
 <div class="fragment">
-<p>Nous allons ajouter à notre modèle EA Géographie une entité faible appelée <code>nut1</code> (pour <em>Nouvelle Unité Territoriale</em> de niveau 1)</p>
+<p>Nous allons ajouter à notre modèle EA Géographie une entité faible appelée <code>nut1</code> (pour <em>Nouvelle Unité Territoriale</em> de niveau 1).</p>
 <p>L’entité faible <code>nut1</code> est liée à l’entité forte <code>country</code> par une association faible <code>is-in</code>.</p>
 </div>
 </section>
@@ -1858,9 +1853,9 @@
 <p>Pour identifier une instance d’une entité faible, on utilise l’identifiant de l’instance associée de l’entité forte et on le complète à l’aide d’un <em>identifiant relatif</em>.</p>
 <p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Deux instances distinctes d’une identité faible peuvent porter le même identifiant relatif (si elles sont parties de deux instances différentes de l’entité forte).</p>
 <div class="fragment">
-<p>Nous ajoutons à notre modèle EA un identifiant relatif/faible <code>id</code> pour l’entité faible <code>nut1</code></p>
+<p>Nous ajoutons à notre modèle EA un identifiant relatif/faible <code>id</code> pour l’entité faible <code>nut1</code>.</p>
 <p>Pour identifier une instance de <code>nut1</code>, il faut disposer de son identifiant relatif <code>id</code> et de l’identifiant <code>iso3</code> de l’instance associée dans l’entité forte.</p>
-<p>On dit que l’association faible <code>is-in</code> est <em>identifiante</em></p>
+<p>On dit que l’association faible <code>is-in</code> est <em>identifiante</em>.</p>
 </div>
 </section>
 <section class="slide level2 center">
@@ -2116,8 +2111,8 @@
 </div>
 <div class="callout-content">
 <p>Une association qui relie une entité faible à une entité forte qui participe à l’identification des instances de l’entité faible est dite faible.</p>
-<p>Les instances de l’entité faible participentt à cette association faible avec une cardinalité 1:1</p>
-<p>Les instances de l’entité forte participent à l’association faible avec une cardinalitę 0:n</p>
+<p>Les instances de l’entité faible participentt à cette association faible avec une cardinalité 1:1.</p>
+<p>Les instances de l’entité forte participent à l’association faible avec une cardinalitę 0:n.</p>
 </div>
 </div>
 </div>
@@ -2135,8 +2130,8 @@
 <h2>Association d’arité quelconque en associations binaires</h2>
 <p>On définit une entité faible de même nom que l’association.</p>
 <p>Pour chaque entité participant à l’association, on définit une association faible entre l’entité participante et la nouvelle entité faible.</p>
-<p>Si une entité participe plusieurs fois à l’association, on définit autant d’associations faibles qu’on nomme à l’aide des rôles</p>
-<p>L’entité faible participe aux associations faibles avec une cardinalité <code>1:1</code></p>
+<p>Si une entité participe plusieurs fois à l’association, on définit autant d’associations faibles qu’on nomme à l’aide des rôles.</p>
+<p>L’entité faible participe aux associations faibles avec une cardinalité <code>1:1</code>.</p>
 <p>Les entités participantes sont reliées aux associations faibles avec les cardinalités de leur participation à l’associatoin <span class="math inline">\(n\)</span>-aire.</p>
 </section>
 <section id="transformation-du-diagramme-des-vols" class="slide level2 center">
