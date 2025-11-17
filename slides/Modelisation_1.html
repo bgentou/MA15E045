@@ -1500,8 +1500,8 @@
 <h1>Entités faibles</h1>
 
 </section>
-<section id="entités-et-associations-faibles" class="slide level2 center">
-<h2>Entités et associations faibles</h2>
+<section id="entités-faibles-1" class="slide level2 center">
+<h2>Entités faibles</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1512,7 +1512,6 @@
 </div>
 <div class="callout-content">
 <p>Si les instances d’une entité <span class="math inline">\(E\)</span> ne sont identifiables que par rapport aux instances d’une autre entité <span class="math inline">\(F\)</span>, on dit que <span class="math inline">\(E\)</span> est une <strong>entité faible</strong> associée à l’entité forte <span class="math inline">\(F\)</span>.</p>
-<p>L’<strong>association</strong> qui lie l’entité faible <span class="math inline">\(E\)</span> à son entité de référence F est également dite <strong>faible</strong>.</p>
 </div>
 </div>
 </div>
@@ -1526,7 +1525,41 @@
 </div>
 <div class="callout-content">
 <p>L’association faible entre l’entité faible <span class="math inline">\(E\)</span> et l’entité forte de référence est <strong>identifiante</strong>.</p>
-<p>L’identifiant de l’entité faible E est construit en accord avec l’association faible identifiante par concaténation de l’identifiant de <span class="math inline">\(F\)</span> et d’un <em>identifiant relatif</em> qui distingue les différentes instances de <span class="math inline">\(E\)</span> associées à la même instance de <span class="math inline">\(F\)</span>.</p>
+<p>L’identifiant de l’entité faible <span class="math inline">\(E\)</span> est construit en accord avec l’association faible identifiante par concaténation de l’identifiant de <span class="math inline">\(F\)</span> et d’un <em>identifiant relatif</em> qui distingue les différentes instances de <span class="math inline">\(E\)</span> associées à la même instance de <span class="math inline">\(F\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="associations-faibles" class="slide level2 center">
+<h2>Associations faibles</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>L’<strong>association</strong> qui lie l’entité faible <span class="math inline">\(E\)</span> à son entité de référence <span class="math inline">\(F\)</span> est dite <strong>faible</strong>.</p>
+<p>En effet, les instances de l’association sont déjà donné par l’identifiant de l’entité faible.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Cardinalités des associations faibles</strong></p>
+</div>
+<div class="callout-content">
+<p>Une association faible a pour cardinalités :</p>
+<ul>
+<li><strong>du côté de l’entité faible 1:1</strong>, car elle n’existe que par référence à l’entité forte.</li>
+<li><strong>du côté de l’entité forte</strong>, en général <strong>0:n</strong>, car elle existe indépendamment de l’entité faible.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1548,7 +1581,7 @@
 <p><strong>Choisir de définir une entité comme faible</strong></p>
 </div>
 <div class="callout-content">
-<p>Une même entité peut être définie comme faible ou non selon les choix du système d’information. La principale question à se poser est comment est déterminé l’identidiant. Si il est formé par concaténation à partir de l’identifiant d’une autre entité, on a affaire à une entité faible.</p>
+<p>Une même entité peut être définie comme faible ou non selon les choix du système d’information. La principale question à se poser est : comment est déterminé l’identidiant ? Si il est formé par concaténation à partir de l’identifiant d’une autre entité, on a affaire à une entité faible.</p>
 </div>
 </div>
 </div>
@@ -1602,26 +1635,6 @@
 </div>
 </div>
 </div>
-</section>
-<section id="cardinalités-des-associations-faibles" class="slide level2 center">
-<h2>Cardinalités des associations faibles</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p>Une association faible a pour cardinalités :</p>
-<ul>
-<li><strong>du côté de l’entité faible 1:1</strong>, car elle n’existe que par référence à l’entité forte.</li>
-<li><strong>du côté de l’entité forte</strong>, en général <strong>0:n</strong>, car elle existe indépendamment de l’entité faible.</li>
-</ul>
-</div>
-</div>
-</div>
 </section></section>
 <section>
 <section id="décomposition-des-associations-darité-k-geqslant-4" class="title-slide slide level1 center" data-background-color="#1c191c">
@@ -1643,8 +1656,8 @@
 <div class="callout-content">
 <p>Soit <span class="math inline">\(A\)</span> une association d’arité <span class="math inline">\(k\)</span> qui associe les k entités <span class="math inline">\(E_1\)</span>, <span class="math inline">\(\dots\)</span> , <span class="math inline">\(E_k\)</span></p>
 <ul>
-<li>on définit une nouvelle entité <span class="math inline">\(F\)</span> qui remplace l’association <span class="math inline">\(A\)</span>. On lui donne le nom de l’association.</li>
-<li>on définit <span class="math inline">\(k\)</span> associations binaires <span class="math inline">\(A_k\)</span> entre <span class="math inline">\(F\)</span> et chacune des entités <span class="math inline">\(E_k\)</span>.</li>
+<li>On définit une nouvelle entité <span class="math inline">\(F\)</span> qui remplace l’association <span class="math inline">\(A\)</span>. On lui donne le nom de l’association.</li>
+<li>On définit <span class="math inline">\(k\)</span> associations binaires <span class="math inline">\(A_k\)</span> entre <span class="math inline">\(F\)</span> et chacune des entités <span class="math inline">\(E_k\)</span>.</li>
 </ul>
 </div>
 </div>
@@ -1810,7 +1823,6 @@
 </div>
 <div class="callout-content">
 <p>Une association <em>est-un</em> (is-a) entre une entité <span class="math inline">\(E\)</span> et une entité <span class="math inline">\(F\)</span> indique que toute instance de <span class="math inline">\(E\)</span> est aussi instance de <span class="math inline">\(F\)</span> (autrement dit en langage ensembliste que <span class="math inline">\(E \subseteq F\)</span>).</p>
-<p>On note graphiquement les associations <em>est-un</em> avec un symbole spécial : un triangle (<span class="math inline">\(E \triangleleft F\)</span>) ou un demi-disque (<span class="math inline">\(E\,\)</span><code>D</code><span class="math inline">\(F\)</span>).</p>
 <p>On dit que <span class="math inline">\(E\)</span> est une <strong>spécialisation</strong> de <span class="math inline">\(F\)</span> ou que <span class="math inline">\(F\)</span> est une généralisation de <span class="math inline">\(E\)</span>.</p>
 </div>
 </div>
@@ -1827,8 +1839,7 @@
 <div class="callout-content">
 <ul>
 <li>Une association <em>est-un</em> est binaire,</li>
-<li>Une entité peut participer à plusieurs associations <em>est-un</em>,</li>
-<li>Pour simplifier l’écriture</li>
+<li>Une entité peut participer à plusieurs associations <em>est-un</em>.</li>
 </ul>
 </div>
 </div>
@@ -1849,8 +1860,9 @@
 <div class="callout-content">
 <ul>
 <li><code>1:1</code> du côté de l’entité spécialisée</li>
-<li><code>0:1</code> du côté de l’entité générale</li>
+<li><code>0:1</code> du côté de l’entité générale.</li>
 </ul>
+<p><em>Remarque</em> : si la cardinalité minimale est également 1 du côté de l’entité générale, il y a un problème de conseption : l’existence de deux entités distinctes pose question et il n’y a pas de notion de spécialisation.</p>
 </div>
 </div>
 </div>
@@ -1870,7 +1882,7 @@
 </section>
 <section id="exemple-1" class="slide level2 center">
 <h2>Exemple</h2>
-<p>Dans le système d’information d’une assurance, un assuré peut être une entreprise, un particulier ou les deux</p>
+<p>Dans le système d’information d’une assurance, un assuré peut être une entreprise, peut être un particulier :</p>
 <ul>
 <li>Entités : ASSURE, ENTREPRISE, PARTICULIER,</li>
 <li>Propriétés d’un assuré : N°Assuré, Nom, Adresse, type et tél,</li>
@@ -1880,6 +1892,19 @@
 </section>
 <section id="mcd-de-la-spécialisation" class="slide level2 center">
 <h2>MCD de la spécialisation</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Représentation graphique de la spécialisation</strong></p>
+</div>
+<div class="callout-content">
+<p>On note graphiquement les associations <em>est-un</em> avec un symbole spécial : un triangle (c.a.d. une demi-association) dont la pointe est du côté de l’entité générale.</p>
+</div>
+</div>
+</div>
 <div class="cell" data-eval="true" data-layout-align="default">
 <div class="cell-output-display">
 <div id="taxo">
@@ -1978,9 +2003,9 @@
 </div>
 </div>
 </section>
-<section id="autre-représentation-du-mcd-de-la-spécialisation" class="slide level2 center">
-<h2>Autre représentation du MCD de la spécialisation</h2>
-<p>Dans cette représentation, on relie toutes les spécialisations à un seul symbole, ce qui permet de représenter simplement les contraintes de spécialisation (cf.&nbsp;chapitre suivant).</p>
+<section id="autre-représentation-de-la-spécialisation-dans-le-mcd" class="slide level2 center">
+<h2>Autre représentation de la spécialisation dans le MCD</h2>
+<p>Dans cette représentation, on relie toutes les spécialisations à un seul symbole, ce qui permet de représenter plus simplement les contraintes de spécialisation (cf.&nbsp;chapitre suivant).</p>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1998,6 +2023,7 @@
 <img data-src="..\images/specialisation.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="restructuration-des-spécialisations" class="slide level2 center">
 <h2>Restructuration des spécialisations</h2>
+<p>Pour simplifier le MCD (et le futur MLD, donc la base de données)</p>
 <ul>
 <li>Éliminer les entités mères (spécialisation totale avec peu d’attributs propres à l’entié mère)</li>
 </ul>
@@ -2024,7 +2050,6 @@
 <h2>Types de contraintes</h2>
 <ul>
 <li>Contraintes de spécialisation</li>
-<li>Restrictions et sous-types d’associations</li>
 <li>Contraintes intra-associations</li>
 <li>Contraintes inter-associations</li>
 </ul>
@@ -2043,22 +2068,36 @@
 </section>
 <section id="exemples-de-contraintes-de-spécialisation" class="slide level2 center">
 <h2>Exemples de contraintes de spécialisation</h2>
+<p>En reprenant l’exemple du chapitre précédent, on note <span class="math inline">\(E\)</span> l’ensemble des assurés, <span class="math inline">\(E_p\)</span> l’ensemble des particuliers, <span class="math inline">\(E_e\)</span> l’ensemble des entreprises.</p>
 <ul>
-<li>Les particuliers et les entreprises forment une partition de l’entité ASSURE, alors on a une contrainte de spécialisation exclusive et totale, notée <code>XT</code>.</li>
-</ul>
-
-<img data-src="..\images/specialisation_disjointe_totale.png" class="quarto-figure quarto-figure-center r-stretch"><ul>
-<li>Tout assuré ne peut pas être à la fois un particulier et une entreprise mais peut être ni l’un l’autre, alors on a une contrainte de spécialisation exclusive, notée <code>X</code>.</li>
-<li>Tout assuré peut être à la fois un particulier et une entreprise mais ne peut pas être ni l’un l’autre, alors on a une contrainte de spécialisation totale, notée <code>T</code>.</li>
+<li><p>Si <span class="math inline">\(E_p \cap E_e = \emptyset\)</span>, alors on a une contrainte de spécialisation exclusive.<br> Un assuré ne peut pas être à la fois un particulier et une entreprise mais peut être ni l’un l’autre.</p></li>
+<li><p>Si <span class="math inline">\(E_p \cup E_e = E\)</span>, alors on a une contrainte de spécialisation totale.<br><br>
+Un assuré peut être à la fois un particulier et une entreprise mais ne peut pas être ni l’un l’autre.</p></li>
+<li><p>Si <span class="math inline">\(E_p \cup E_e = E\)</span> et <span class="math inline">\(E_p \cap E_e = \emptyset\)</span>, alors on a une contrainte de spécialisation exclusive et totale.<br> Un assuré ne peut pas être à la fois un particulier et une entreprise et ne peut pas être ni l’un l’autre.</p></li>
 </ul>
 </section>
+<section class="slide level2 center">
+
+
+<img data-src="..\images/specialisation_disjointe_totale.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="contraintes-intra-association-cif" class="slide level2 center">
 <h2>Contraintes intra-association : CIF</h2>
 <p>Pour les associations ternaires, les cardinalités ne suffisent pas à définir toutes les contraintes interne à l’association.</p>
-<p>Soit une association ternaire <span class="math inline">\(A\)</span> entre les entités <span class="math inline">\(E_1\)</span>, <span class="math inline">\(E_2\)</span> et <span class="math inline">\(E_3\)</span>, on peut avoir la contrainte suivante suivante :</p>
-<p><strong>Une occurence de <span class="math inline">\(E_2\)</span> ne peut être associée qu’à au plus une occurence de <span class="math inline">\(E_3\)</span></strong>.</p>
-<p>Autrement dit, il y a une dépendance fonctionnelle dans l’ensemble des occurences de l’association entre l’entité <span class="math inline">\(E_2\)</span> et l’entité <span class="math inline">\(E_3\)</span>.</p>
-<p>On parle de <strong>contrainte d’intégrité fonctionnelle</strong> (CIF).</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Soit <span class="math inline">\(A\)</span> une association ternaire entre des entités <span class="math inline">\(E_1\)</span>, <span class="math inline">\(E_2\)</span> et <span class="math inline">\(E_3\)</span>, on appelle <strong>contrainte d’intégrité fonctionnelle</strong> (CIF) de <span class="math inline">\(E_2\)</span> vers <span class="math inline">\(E_3\)</span> par rapport à <span class="math inline">\(A\)</span>, la contrainte suivante :</p>
+<p><strong>Une occurence de <span class="math inline">\(E_2\)</span> est associée par <span class="math inline">\(A\)</span> à au plus une occurence de <span class="math inline">\(E_3\)</span></strong></p>
+</div>
+</div>
+</div>
+<p>Autrement dit, il y a une dépendance fonctionnelle dans l’ensemble des occurences de l’association <span class="math inline">\(A\)</span> entre l’entité <span class="math inline">\(E_2\)</span> et l’entité <span class="math inline">\(E_3\)</span>.</p>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -2068,7 +2107,10 @@
 <p><strong>Avertissement</strong></p>
 </div>
 <div class="callout-content">
-<p>Cette contrainte ne concerne que les cas où la cardinalité maximale du coté de <span class="math inline">\(E_2\)</span> et <span class="math inline">\(E_3\)</span> est <code>n</code>.</p>
+<ul>
+<li><p>Cette contrainte ne concerne que les cas où la cardinalité maximale du coté de <span class="math inline">\(E_2\)</span> et <span class="math inline">\(E_3\)</span> est <span class="math inline">\(n\)</span>.</p></li>
+<li><p>Elle ne concerne pas les associations binaires car dans ce cas, les cardinalités définissent déjà les CIF.</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -2084,6 +2126,7 @@
 <section id="contraintes-inter-association" class="slide level2 center">
 <h2>Contraintes inter-association</h2>
 <p>Expriment des contraintes entre 2 ou plusieurs associations. On s’intéresse à la participation des occurences d’une entité <span class="math inline">\(E\)</span> aux occurences de plusieurs associations <span class="math inline">\(A_1\)</span>, <span class="math inline">\(A_2\)</span>, <span class="math inline">\(\dots\)</span></p>
+<p>On note <span class="math inline">\(E_1\)</span>, respectivement <span class="math inline">\(E_2\)</span> l’ensemble des instances de <span class="math inline">\(E\)</span> qui participent à l’association <span class="math inline">\(A_1\)</span>, respectivement <span class="math inline">\(A_2\)</span>.</p>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -2093,14 +2136,14 @@
 <p><strong>Avertissement</strong></p>
 </div>
 <div class="callout-content">
-<p>Ces contraintes ne concerne que les cas où la cardinalité minimal du côté de <span class="math inline">\(E\)</span> est <code>0</code>.</p>
+<p>Ces contraintes ne concerne que les cas où la cardinalité minimal du côté de <span class="math inline">\(E\)</span> est <span class="math inline">\(0\)</span>.</p>
 </div>
 </div>
 </div>
 </section>
 <section id="exclusivité-de-participation-x" class="slide level2 center">
 <h2>Exclusivité de participation : X</h2>
-<p>Si une occurence de <span class="math inline">\(E\)</span> participe à une occurence de <span class="math inline">\(A_1\)</span>, alors elle ne participe pas à une occurence de <span class="math inline">\(A_2\)</span> et vice-versa.</p>
+<p><span class="math inline">\(E_1 \cap E_2 = \emptyset \quad\)</span> autrement dit, si une occurence de <span class="math inline">\(E\)</span> participe à une occurence de <span class="math inline">\(A_1\)</span>, alors elle ne participe pas à une occurence de <span class="math inline">\(A_2\)</span> et vice-versa.</p>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -2110,7 +2153,7 @@
 <p><strong>Exemple</strong></p>
 </div>
 <div class="callout-content">
-<p>Un article peut être acheté chez des fournisseurs, approvisionné par les unités de production extérieurs ou élaboré localement dans le domaine, mais pas à la fois acheté et approvisionné.</p>
+<p>Un article peut être acheté chez des fournisseurs ou approvisionné par une unité de production de l’entreprise, mais pas à la fois acheté et approvisionné en interne.</p>
 </div>
 </div>
 </div>
@@ -2118,7 +2161,7 @@
 <img data-src="..\images/contrainte-X.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="simultanéité-de-participation-à-plusieurs-associations-s" class="slide level2 center">
 <h2>Simultanéité de participation à plusieurs associations : S</h2>
-<p>Une occurence de <span class="math inline">\(E\)</span> participe à une occurence de <span class="math inline">\(A_1\)</span> si et seulement si elle participe à une occurence de <span class="math inline">\(A_2\)</span>.</p>
+<p><span class="math inline">\(E_1 = E_2 \quad\)</span> autrement dit, une occurence de <span class="math inline">\(E\)</span> participe à une occurence de <span class="math inline">\(A_1\)</span> si et seulement si elle participe à une occurence de <span class="math inline">\(A_2\)</span>.</p>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -2136,7 +2179,7 @@
 <img data-src="..\images/contrainte-S.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="totalité-de-participation-t" class="slide level2 center">
 <h2>Totalité de participation : T</h2>
-<p>Si une occurence de <span class="math inline">\(E\)</span> ne participe pas à une occurence de <span class="math inline">\(A_1\)</span>, alors elle participe à une occurence de <span class="math inline">\(A_2\)</span>.</p>
+<p><span class="math inline">\(E_1 \cup E_2 = \emptyset \quad\)</span> autrement dit, si une occurence de <span class="math inline">\(E\)</span> ne participe pas à une occurence de <span class="math inline">\(A_1\)</span>, alors elle participe à une occurence de <span class="math inline">\(A_2\)</span>.</p>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -2146,7 +2189,7 @@
 <p><strong>Exemple</strong></p>
 </div>
 <div class="callout-content">
-<p>Dans le SI d’une assurance, tout véhicule est minimum relié soit à un contrat par l’association “couvrir”, soit à un sinistre par l’association “implique”, soit les deux.</p>
+<p>Dans le SI d’une assurance, tout véhicule est présent dans la base parce qu’il est relié soit à un contrat par l’association “couvrir”, soit à un sinistre par l’association “est-impliqué”, soit les deux.</p>
 </div>
 </div>
 </div>
@@ -2154,7 +2197,7 @@
 <img data-src="..\images/contrainte-T.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="exclusivité-et-totalité-de-participation-xt" class="slide level2 center">
 <h2>Exclusivité et totalité de participation : XT</h2>
-<p>Une occurence de <span class="math inline">\(E\)</span> participe soit à une occurence de <span class="math inline">\(A_1\)</span>, soit à une occurence de <span class="math inline">\(A_2\)</span> mais jamais aux deux.</p>
+<p><span class="math inline">\(E_1 \cup E_2 = E \text{ et } E_1 \cap E_2 = \emptyset \quad\)</span> autrement dit, une occurence de <span class="math inline">\(E\)</span> participe soit à une occurence de <span class="math inline">\(A_1\)</span>, soit à une occurence de <span class="math inline">\(A_2\)</span> mais jamais aux deux.</p>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -2172,7 +2215,7 @@
 <img data-src="..\images/contrainte-XT.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="inclusion-i" class="slide level2 center">
 <h2>Inclusion : I</h2>
-<p>Si une occurence de <span class="math inline">\(E\)</span> participe à une occurence de <span class="math inline">\(A_1\)</span>, alors elle participe à une occurence de <span class="math inline">\(A_2\)</span>.</p>
+<p><span class="math inline">\(E_1 \subseteq E_2 \quad\)</span> autrement dit, si une occurence de <span class="math inline">\(E\)</span> participe à une occurence de <span class="math inline">\(A_1\)</span>, alors elle participe à une occurence de <span class="math inline">\(A_2\)</span>.</p>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
