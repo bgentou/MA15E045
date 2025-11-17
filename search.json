@@ -4214,21 +4214,21 @@
     "href": "slides/Modelisation_1.html#définition-6",
     "title": "Modélisation I : Entité/Association",
     "section": "Définition",
-    "text": "Définition\nDans une association entre plusieurs entités, les instances d’une entité peuvent participer a priori à 0, 1, ou un nombre illimité de fois aux instances de l’association.\nPour traduire les associations dans le langage des tables et des contraintes (LDD), il est très utile d’encadrer le plus précisément possible le nombre de participations d’une instance d’une entité aux instances d’une associations.\n\n\n\n\n\n\nDéfinition\n\n\nOn appelle cardinalités de l’association \\(A\\) pour l’entité \\(E\\) le couple \\((n_{min},n_{max})\\) noté \\(n_{min} \\text{:} n_{max}\\) où :\n\n\\(n_{min}\\) = nombre minimal d’instances de \\(A\\) dans lesquelles une instance de \\(E\\) peut être présente.\n\\(n_{max}\\) = nombre maximal d’instances de \\(A\\) dans lesquelles une instance de \\(E\\) peut être présente.\n\nOn évalue les cardinalités par 0, 1 et “plusieurs” noté \\(n\\).\n\n\n\n\n\n\n\n\n\nNote\n\n\nLes cardinalités sont notées sur les arêtes qui relient entités et associations."
+    "text": "Définition\nDans une association entre plusieurs entités, les instances d’une entité peuvent participer a priori à 0, 1, ou un nombre illimité de fois aux instances de l’association.\nPour traduire les associations dans le langage des tables et des contraintes (LDD), il est très utile d’encadrer le plus précisément possible le nombre de participations d’une instance d’une entité aux instances d’une associations.\n\n\n\n\n\n\nDéfinition\n\n\nOn appelle cardinalités de l’association \\(A\\) pour l’entité \\(E\\) le couple \\((n_{min},n_{max})\\) noté \\(n_{min} \\text{:} n_{max}\\) où :\n\n\\(n_{min}\\) = nombre minimal d’instances de \\(A\\) dans lesquelles une instance de \\(E\\) peut être présente.\n\\(n_{max}\\) = nombre maximal d’instances de \\(A\\) dans lesquelles une instance de \\(E\\) peut être présente.\n\nOn évalue en général les cardinalités par 0, 1 ou “plusieurs” noté \\(n\\).\n\n\n\n\n\n\n\n\n\nNote\n\n\nLes cardinalités sont notées sur les arêtes qui relient entités et associations."
   },
   {
     "objectID": "slides/Modelisation_1.html#exemple",
     "href": "slides/Modelisation_1.html#exemple",
     "title": "Modélisation I : Entité/Association",
     "section": "Exemple",
-    "text": "Exemple\nDans world, on peut considérer que les instances de country sont des unités territoriales de niveau 0. Ces unités territoriales de niveau 1 sont parfois découpées en unités territoriales de niveau 1 : les régions en France, en Italie, les Länder en Allemagne, …\nChaque unité territoriale de niveau 1 est située dans une et une seule unité territoriale de niveau 0, elle fait partie de l’unité territoriale de niveau 0.\nUnités territoriales\n\nNous allons ajouter à notre modèle EA Géographie une entité faible appelée nut1 (pour Nouvelle Unité Territoriale de niveau 1).\nL’entité faible nut1 est liée à l’entité forte country par une association faible is-in."
+    "text": "Exemple\nDans le système d’information de l’université Paris-Cité, si on considère les salles et les bâtiments :\n\nBâtiment est une entité forte,\nSalle est une entité faible.\n\nEn effet, les salles sont toujours identifiées en référence au bâtiment dans lesquelles elles se trouvent, par exemple ‘SG 2005’, ‘HaF 13E’.\n\n\n\n\n\n\nChoisir de définir une entité comme faible\n\n\nUne même entité peut être définie comme faible ou non selon les choix du système d’information. La principale question à se poser est comment est déterminé l’identidiant. Si il est formé par concaténation à partir de l’identifiant d’une autre entité, on a affaire à une entité faible."
   },
   {
     "objectID": "slides/Modelisation_1.html#diagrammes-pour-les-entités-faibles",
     "href": "slides/Modelisation_1.html#diagrammes-pour-les-entités-faibles",
     "title": "Modélisation I : Entité/Association",
     "section": "Diagrammes pour les entités faibles",
-    "text": "Diagrammes pour les entités faibles\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\niso\n\niso3\n\n\n\ncountry--iso\n\n\n\n\ncity\n\ncity\n\n\n\nname1\n\nname\n\n\n\ncity--name1\n\n\n\n\nid\n\nid\n\n\n\ncity--id\n\n\n\n\nis-in\n\nis-in\n\n\n\ncity--is-in\n\n1:1\n\n\n\nis-capital\n\nis-capital\n\n\n\ncity--is-capital\n\n0:1\n\n\n\nlanguage\n\nlanguage\n\n\n\nname2\n\nname\n\n\n\nlanguage--name2\n\n\n\n\nisol\n\niso\n\n\n\nlanguage--isol\n\n\n\n\nis-spoken-in\n\nis-spoken-in\n\n\n\nlanguage--is-spoken-in\n\n0:n\n\n\n\nname0\n\nname\n\n\n\nname0--country\n\n\n\n\npopulation\n\npopulation\n\n\n\npopulation--country\n\n\n\n\ngovernmentForm\n\ngovernmentForm\n\n\n\ngovernmentForm--country\n\n\n\n\nheadOfState\n\nheadOfState\n\n\n\nheadOfState--country\n\n\n\n\nis-in--country\n\n0:n\n\n\n\nis-spoken-in--country\n\n0:n\n\n\n\nis-capital--country\n\n0:1\n\n\n\nnut1\n\n\nnut1\n\n\n\nis-in2\n\n\nis-in\n\n\n\nnut1--is-in2\n\n1:1\n\n\n\nis-in2--country\n\n0:n"
+    "text": "Diagrammes pour les entités faibles\nOn distingue les entités et les associations faibles en doublant le trait extérieur.\n\n\n\n\n\n\nER\n\n\n\nBâtiment\n\nBâtiment\n\n\n\nis-in\n\n\nis-in\n\n\n\nBâtiment--is-in\n\n0:n\n\n\n\nSalle\n\n\nSalle\n\n\n\nis-in--Salle\n\n1:1"
   },
   {
     "objectID": "slides/Modelisation_1.html#identifiant-pour-les-entités-faibles",
@@ -4249,14 +4249,14 @@
     "href": "slides/Modelisation_1.html#exemple-1",
     "title": "Modélisation I : Entité/Association",
     "section": "Exemple",
-    "text": "Exemple\nDans nycflights, si on représente les vols (flight) comme des entités faibles, les associations entre vols et aéroports (décolle de, atterrit à) sont des associations faibles, chaque instance de flight participe une fois exactement à chaque association faible."
+    "text": "Exemple\nDans le système d’information d’une assurance, un assuré peut être une entreprise, un particulier ou les deux\n\nEntités : ASSURE, ENTREPRISE, PARTICULIER,\nPropriétés d’un assuré : N°Assuré, Nom, Adresse, type et tél,\nUn particulier a en plus une profession,\nUne entreprise a en plus un N°SIREN et une forme juridique."
   },
   {
     "objectID": "slides/Modelisation_1.html#association-darité-quelconque-en-associations-binaires",
     "href": "slides/Modelisation_1.html#association-darité-quelconque-en-associations-binaires",
     "title": "Modélisation I : Entité/Association",
     "section": "Association d’arité quelconque en associations binaires",
-    "text": "Association d’arité quelconque en associations binaires\nOn définit une entité faible de même nom que l’association.\nPour chaque entité participant à l’association, on définit une association faible entre l’entité participante et la nouvelle entité faible.\nSi une entité participe plusieurs fois à l’association, on définit autant d’associations faibles qu’on nomme à l’aide des rôles.\nL’entité faible participe aux associations faibles avec une cardinalité 1:1.\nLes entités participantes sont reliées aux associations faibles avec les cardinalités de leur participation à l’associatoin \\(n\\)-aire."
+    "text": "Association d’arité quelconque en associations binaires\nPour simplifier la compléxité des calculs à faire par le SGDB, on décompose systématiquement les associations d’arité \\(k \\geqslant 4\\) en une entité faible et \\(k\\) associations binaires.\nC’est possible mais pas indispensable pour les associations ternaires.\n\n\n\n\n\n\nProcédé de décomposition\n\n\nSoit \\(A\\) une association d’arité \\(k\\) qui associe les k entités \\(E_1\\), \\(\\dots\\) , \\(E_k\\)\n\non définit une nouvelle entité \\(F\\) qui remplace l’association \\(A\\). On lui donne le nom de l’association.\non définit \\(k\\) associations binaires \\(A_k\\) entre \\(F\\) et chacune des entités \\(E_k\\).\n\n\n\n\n\n\n\n\n\n\nCardinalités\n\n\nPour chaque association \\(A_k\\) :\n\nL’entité faible \\(F\\) a une cardinalité 1:1.\nL’entité \\(E_k\\) conserve la cardinalité qu’elle avait pour l’association \\(A\\)."
   },
   {
     "objectID": "slides/Modelisation_1.html#transformation-du-diagramme-des-vols",
@@ -4298,21 +4298,21 @@
     "href": "slides/Modelisation_1.html#compléter-le-schéma",
     "title": "Modélisation I : Entité/Association",
     "section": "Compléter le schéma",
-    "text": "Compléter le schéma\nLe schéma/diagramme ne restitue pas toujours intégralement les informations récoltées pendant la phase de définition du système d’information\nLes contraintes de cardinalité ne sont pas les seules possibles\nLes autres contraintes rentrent dans la catégorie des contraintes dites externes (elles sont externes au diagramme)\nLes contraintes externes doivent être consignées et prises en compte ultérieurement lors de la traduction en modèle relationnel"
+    "text": "Compléter le schéma\nLe diagramme E/A à ce stade ne restitue pas toujours intégralement les informations récoltées pendant la phase de définition du système d’information.\nLes contraintes de cardinalité ne sont pas les seules possibles."
   },
   {
     "objectID": "slides/Modelisation_1.html#types-de-contraintes",
     "href": "slides/Modelisation_1.html#types-de-contraintes",
     "title": "Modélisation I : Entité/Association",
     "section": "Types de contraintes",
-    "text": "Types de contraintes\n\nContraintes d’exclusion\n\nDans nycflights, deux instances de l’association flights portant sur le même aéronef ne devraient pas se chevaucher dans le temps\n\nContraintes de spécialisation\n\nContrainte de spécialisation disjointe : une instance appartient à au plus une spécialisation\nContrainte de spécialisation totale : une instance appartient à au moins une spécialisation\nContrainte de spécialisation disjointe et totale : une instance appartient à exactement une spécialisation"
+    "text": "Types de contraintes\n\nContraintes de spécialisation\nRestrictions et sous-types d’associations\nContraintes intra-associations\nContraintes inter-associations"
   },
   {
     "objectID": "slides/Modelisation_1.html#restructuration-des-spécialisations",
     "href": "slides/Modelisation_1.html#restructuration-des-spécialisations",
     "title": "Modélisation I : Entité/Association",
     "section": "Restructuration des spécialisations",
-    "text": "Restructuration des spécialisations\nPourquoi ?\n\nPlusieurs manières de procéder:\n\nÉliminer les entités mères (spécialisation totale avec peu d’attributs propres à l’entié mère)\n\nOU\n\nÉliminer les entités filles (entités filles ont peu d’attributs propres, participent à peu d’associations)\n\nOU\n\nSimuler la spécialisation avec une association faible (les entités filles sont vues comme des entités faibles)"
+    "text": "Restructuration des spécialisations\n\nÉliminer les entités mères (spécialisation totale avec peu d’attributs propres à l’entié mère)\n\nOU\n\nÉliminer les entités filles (entités filles ont peu d’attributs propres, participent à peu d’associations)\n\nOU\n\nSimuler la spécialisation avec une association faible (les entités filles sont vues comme des entités faibles)"
   },
   {
     "objectID": "slides/Modelisation_1.html#sites-et-livres",
@@ -5502,7 +5502,7 @@
     "href": "slides/Modelisation_1.html#définition-9",
     "title": "Modélisation I : Entité/Association",
     "section": "Définition",
-    "text": "Définition\n\n\n\n\n\n\nNote\n\n\nUne association qui relie une entité faible à une entité forte qui participe à l’identification des instances de l’entité faible est dite faible.\nLes instances de l’entité faible participentt à cette association faible avec une cardinalité 1:1.\nLes instances de l’entité forte participent à l’association faible avec une cardinalitę 0:n."
+    "text": "Définition\n\n\n\n\n\n\nDéfinition\n\n\nUne association est-un entre une entité A et une entité B indique que toute instance (élément) de A est aussi instance (élément) de B (autrement dit en langage ensembliste que A ⊆ B)\nOn note graphiquement les associations est-un avec un symbole spécial : un triangle (A ◃ B)\n\n\n\n\n\n\n\n\n\n\nRemarques\n\n\n\nUne association est-un est binaire\nUne entité peut participer à plusieurs associations est-un\nSi A ◃ B on dit (souvent) que A est une spécialisation de B"
   },
   {
     "objectID": "slides/Modelisation_1.html#définition-10",
@@ -5530,14 +5530,14 @@
     "href": "slides/Modelisation_1.html#représentation-graphique-des-cardinalités-world",
     "title": "Modélisation I : Entité/Association",
     "section": "Représentation graphique des cardinalités (world)",
-    "text": "Représentation graphique des cardinalités (world)\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\niso\n\niso3\n\n\n\ncountry--iso\n\n\n\n\ncity\n\ncity\n\n\n\nname1\n\nname\n\n\n\ncity--name1\n\n\n\n\nid\n\nid\n\n\n\ncity--id\n\n\n\n\nis-in\n\nis-in\n\n\n\ncity--is-in\n\n1:1\n\n\n\nis-capital\n\nis-capital\n\n\n\ncity--is-capital\n\n0:1\n\n\n\nlanguage\n\nlanguage\n\n\n\nname2\n\nname\n\n\n\nlanguage--name2\n\n\n\n\nisol\n\niso\n\n\n\nlanguage--isol\n\n\n\n\nis-spoken-in\n\nis-spoken-in\n\n\n\nlanguage--is-spoken-in\n\n0:n\n\n\n\nname0\n\nname\n\n\n\nname0--country\n\n\n\n\npopulation\n\npopulation\n\n\n\npopulation--country\n\n\n\n\ngovernmentForm\n\ngovernmentForm\n\n\n\ngovernmentForm--country\n\n\n\n\nheadOfState\n\nheadOfState\n\n\n\nheadOfState--country\n\n\n\n\nis-in--country\n\n0:n\n\n\n\nis-spoken-in--country\n\n0:n\n\n\n\nis-capital--country\n\n0:1"
+    "text": "Représentation graphique des cardinalités (world)\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\ncity\n\ncity\n\n\n\nis-in\n\nis-in\n\n\n\ncity--is-in\n\n1:1\n\n\n\nis-capital\n\nis-capital\n\n\n\ncity--is-capital\n\n0:1\n\n\n\nlanguage\n\nlanguage\n\n\n\nis-spoken-in\n\nis-spoken-in\n\n\n\nlanguage--is-spoken-in\n\n0:n\n\n\n\nis-in--country\n\n0:n\n\n\n\nis-spoken-in--country\n\n0:n\n\n\n\nis-capital--country\n\n0:1"
   },
   {
     "objectID": "slides/Modelisation_1.html#représentation-graphique-des-cardinalités-nycflights13",
     "href": "slides/Modelisation_1.html#représentation-graphique-des-cardinalités-nycflights13",
     "title": "Modélisation I : Entité/Association",
     "section": "Représentation graphique des cardinalités (nycflights13)",
-    "text": "Représentation graphique des cardinalités (nycflights13)\nOn peut utilement préciser les cardinalités dans notre schéma des vols.\n\n\n\n\n\n\nER\n\n\n\nairport\n\nairport\n\n\n\nflight\n\nflight\n\n\n\nairport--flight\n\norig\n0:n\n\n\n\nplane\n\nplane\n\n\n\nairline\n\nairline\n\n\n\nflight--airport\n\ndest\n0:n\n\n\n\nflight--plane\n\n0:n\n\n\n\nflight--airline\n\n0:n"
+    "text": "Représentation graphique des cardinalités (nycflights13)\nLes cardinalités du MCD des vols.\n\n\n\n\n\n\nER\n\n\n\nairport\n\nairport\n\n\n\nflight\n\nflight\n\n\n\nairport--flight\n\norig\n0:n\n\n\n\nplane\n\nplane\n\n\n\nairline\n\nairline\n\n\n\nflight--airport\n\ndest\n0:n\n\n\n\nflight--plane\n\n0:n\n\n\n\nflight--airline\n\n0:n"
   },
   {
     "objectID": "workshops/td7.html#exercice-1",
@@ -5566,5 +5566,173 @@
     "title": "TD 6 : Contraintes",
     "section": "Contraintes EXCLUDE",
     "text": "Contraintes EXCLUDE\nLes contraintes NOT NULL, DEFAULT, KEY, CHECK portent uniquement sur une ligne tandis que la contrainte UNIQUE permet uniquement de tester des égalités entre lignes. On veut parfois vérifier une condition plus riche sur deux lignes. Par exemple, si notre table contient des réservations d’une salle entre start_date et end_date, on ne veut pas que deux réservations se chevauchent. On écrira:\nCREATE TABLE reservation(\n    start_date DATE, \n    end_date DATE,\n\n    EXCLUDE USING gist (\n        daterange(start_date, end_date) WITH &&)\n);"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#entités-et-associations-faibles",
+    "href": "slides/Modelisation_1.html#entités-et-associations-faibles",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Entités et associations faibles",
+    "text": "Entités et associations faibles\n\n\n\n\n\n\nDéfinition\n\n\nSi les instances d’une entité \\(E\\) ne sont identifiables que par rapport aux instances d’une autre entité \\(F\\), on dit que \\(E\\) est une entité faible associée à l’entité forte \\(F\\).\nL’association qui lie l’entité faible \\(E\\) à son entité de référence F est également dite faible.\n\n\n\n\n\n\n\n\n\nIdentifiant d’entité faible\n\n\nL’association faible entre l’entité faible \\(E\\) et l’entité forte de référence est identifiante.\nL’identifiant de l’entité faible E est construit en accord avec l’association faible identifiante par concaténation de l’identifiant de \\(F\\) et d’un identifiant relatif qui distingue les différentes instances de \\(E\\) associées à la même instance de \\(F\\)."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#cardinalités-des-associations-faibles",
+    "href": "slides/Modelisation_1.html#cardinalités-des-associations-faibles",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Cardinalités des associations faibles",
+    "text": "Cardinalités des associations faibles\n\n\n\n\n\n\nNote\n\n\nUne association faible a pour cardinalités :\n\ndu côté de l’entité faible 1:1, car elle n’existe que par référence à l’entité forte.\ndu côté de l’entité forte, en général 0:n, car elle existe indépendamment de l’entité faible."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#transformation-du-diagramme-des-vols-nycflights",
+    "href": "slides/Modelisation_1.html#transformation-du-diagramme-des-vols-nycflights",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Transformation du diagramme des vols nycflights",
+    "text": "Transformation du diagramme des vols nycflights\nOn décompose l’association quaternaire flight en une entité faible flight, et quatre associations faibles dest, orig, operates, uses.\n\n\n\n\n\n\n\nER\n\n\n\nairport\n\nairport\n\n\n\norig\n\n\norig\n\n\n\nairport--orig\n\n0:n\n\n\n\ndest\n\n\ndest\n\n\n\nairport--dest\n\n0:n\n\n\n\nplane\n\nplane\n\n\n\nairline\n\nairline\n\n\n\nflight\n\n\nflight\n\n\n\noperates\n\n\noperates\n\n\n\nflight--operates\n\n1:1\n\n\n\nuses\n\n\nuses\n\n\n\nflight--uses\n\n1:1\n\n\n\norig--flight\n\n1:1\n\n\n\ndest--flight\n\n1:1\n\n\n\noperates--airline\n\n0:n\n\n\n\nuses--plane\n\n0:n"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#associations-est-un",
+    "href": "slides/Modelisation_1.html#associations-est-un",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Associations est-un",
+    "text": "Associations est-un\n\n\n\n\n\n\nDéfinition\n\n\nUne association est-un (is-a) entre une entité \\(E\\) et une entité \\(F\\) indique que toute instance de \\(E\\) est aussi instance de \\(F\\) (autrement dit en langage ensembliste que \\(E \\subseteq F\\)).\nOn note graphiquement les associations est-un avec un symbole spécial : un triangle (\\(E \\triangleleft F\\)) ou un demi-disque (\\(E\\,\\)D\\(F\\)).\nOn dit que \\(E\\) est une spécialisation de \\(F\\) ou que \\(F\\) est une généralisation de \\(E\\).\n\n\n\n\n\n\n\n\n\n\nRemarques\n\n\n\nUne association est-un est binaire,\nUne entité peut participer à plusieurs associations est-un,\nPour simplifier l’écriture"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#cardinalités-1",
+    "href": "slides/Modelisation_1.html#cardinalités-1",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Cardinalités",
+    "text": "Cardinalités\nPour les associations est-un, il n’est pas nécessaire de préciser les cardinalités car on a la propriété suivante.\n\n\n\n\n\n\nCardinalités des associations est-un\n\n\n\n1:1 du côté de l’entité spécialisée\n0:1 du côté de l’entité générale\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nL’association est identifiante : une instance de l’entité spécialisée hérite de l’identifiant de l’entité générale."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#cardinalités-2",
+    "href": "slides/Modelisation_1.html#cardinalités-2",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Cardinalités",
+    "text": "Cardinalités\nPour les associations est-un, il n’est pas nécessaire de préciser les cardinalités car on a la propriété suivante.\n\n\n\n\n\n\nCardinalités des associations est-un\n\n\n\n1:1 du côté de l’entité spécialisée\n0:1 du côté de l’entité générale\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nL’association est identifiante : une instance de l’entité spécialisée hérite de l’identifiant de l’entité générale."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#entités-faibles---entités-fortes",
+    "href": "slides/Modelisation_1.html#entités-faibles---entités-fortes",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Entités faibles -> entités fortes",
+    "text": "Entités faibles -&gt; entités fortes\nUne entité faible issue de la décomposition d’une association d’arité \\(\\geqslant 3\\) peut être transformée en forte ainsi que les associations créées.\nEn effet, il peut être intéressant d’identifier l’entité faible de manière indépendante."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#autre-exemple-dentité-faible",
+    "href": "slides/Modelisation_1.html#autre-exemple-dentité-faible",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Autre exemple d’entité faible",
+    "text": "Autre exemple d’entité faible\nPour les vols aériens, si on se réfère aux numéros de vols, on peut écrire :\n\n\n\n\n\n\nER\n\n\n\nDate-heure\n\nDate-heure\n\n\n\nheure-départ\n\n\nheure-départ\n\n\n\nDate-heure--heure-départ\n\n0:n\n\n\n\nVol\n\n\nVol\n\n\n\nSalle\n\n\nSalle\n\n\n\nheure-départ--Salle\n\n1:1"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#contraintes-de-spécialisation",
+    "href": "slides/Modelisation_1.html#contraintes-de-spécialisation",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Contraintes de spécialisation",
+    "text": "Contraintes de spécialisation\nLes différentes spécialisations d’une entité peuvent vérifiées :\n\nune contrainte de spécialisation disjointe ou exclusive : une instance appartient à au plus une spécialisation.\nOn note X dans la représentation de la spécialisation.\nune contrainte de spécialisation totale : une instance appartient à au moins une spécialisation.\nOn note T dans la représentation de la spécialisation.\nune contrainte de spécialisation disjointe et totale : une instance appartient à exactement une spécialisation. Les spécialisations forment alors une partition de l’entité mère.\nOn note XT dans la représentation de la spécialisation."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#exemples-11-dans-le-modèle-world",
+    "href": "slides/Modelisation_1.html#exemples-11-dans-le-modèle-world",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Exemples 1:1 dans le modèle world",
+    "text": "Exemples 1:1 dans le modèle world\n\nune instance de city apparaît 1 et 1 seule fois dans l’association is-in. On dira que is-in est de cardinalité 1:1 du côté de city. Une ville se situe sur le territoire d’un pays (et d’un seul)."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#exemples-0n-dans-le-modèle-world",
+    "href": "slides/Modelisation_1.html#exemples-0n-dans-le-modèle-world",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Exemples 0:n dans le modèle world",
+    "text": "Exemples 0:n dans le modèle world\n\nune instance de country peut apparaître une nombre arbitraire de fois dans l’association ‘is-in’. On dira que is-in est de cardinalité 0:n du côté de country. Un territoire peut ne comporter aucune ville de population supérieure à un seuil. Il n’y a pas de borne a priori sur le nombre de grandes villes situées sur un territoire.\nune instance de language peut apparaître une nombre arbitraire de fois dans l’association is-spoken-in. On dira que is-spoken-in est de cardinalité 0:n du côté de language.\nune instance de country peut apparaître une nombre arbitraire de fois dans l’association ‘is-spoken-in’. On dira que is-spoken-in est de cardinalité 0:n du côté de country."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#exemple-de-contraintes-de-spécialisation",
+    "href": "slides/Modelisation_1.html#exemple-de-contraintes-de-spécialisation",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Exemple de contraintes de spécialisation",
+    "text": "Exemple de contraintes de spécialisation\nSi on considère que :\n\nTout assuré ne peut pas être à la fois un particulier et une entreprise mais et ne peut pas être ni l’un l’autre, alors on a une contrainte de spécialisation exclusive et totale, notée XT.\n\n\n\nTout assuré ne peut pas être à la fois un particulier et une entreprise mais peut être ni l’un l’autre, alors on a une contrainte de spécialisation exclusive, notée X.\nTout assuré peut être à la fois un particulier et une entreprise mais ne peut pas être ni l’un l’autre, alors on a une contrainte de spécialisation totale, notée T."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#exemple-11-dans-le-modèle-world",
+    "href": "slides/Modelisation_1.html#exemple-11-dans-le-modèle-world",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Exemple 1:1 dans le modèle world",
+    "text": "Exemple 1:1 dans le modèle world\n\nune instance de city apparaît 1 et 1 seule fois dans l’association is-in. On dira que is-in est de cardinalité 1:1 du côté de city. Une ville se situe sur le territoire d’un pays (et d’un seul)."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#mcd-de-la-spécialisation",
+    "href": "slides/Modelisation_1.html#mcd-de-la-spécialisation",
+    "title": "Modélisation I : Entité/Association",
+    "section": "MCD de la spécialisation",
+    "text": "MCD de la spécialisation\n\n\n\n\n\n\nER\n\n\n\nASSURE\n\nASSURE\n\n\n\nN°Assuré\n\n\"N°Assuré\"\n\n\n\nASSURE--N°Assuré\n\n\n\n\nENTREPRISE\n\nENTREPRISE\n\n\n\nis-a-2\n\nest-un\n\n\n\nENTREPRISE--is-a-2\n\n\n\n\nPARTICULIER\n\nPARTICULIER\n\n\n\nis-a-1\n\nest-un\n\n\n\nPARTICULIER--is-a-1\n\n\n\n\nis-a-1--ASSURE\n\n\n\n\nis-a-2--ASSURE\n\n\n\n\nN°SIREN\n\nN°SIREN\n\n\n\nN°SIREN--ENTREPRISE\n\n\n\n\nprofession\n\nprofession\n\n\n\nprofession--PARTICULIER"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#autre-représentation-du-mcd-de-la-spécialisation",
+    "href": "slides/Modelisation_1.html#autre-représentation-du-mcd-de-la-spécialisation",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Autre représentation du MCD de la spécialisation",
+    "text": "Autre représentation du MCD de la spécialisation\nDans cette représentation, on relie toutes les spécialisations à un seul symbole, ce qui permet de représenter simplement les contraintes de spécialisation (cf. chapitre suivant).\n\n\n\n\n\n\nAvertissement\n\n\nCela ne représente plus une association is-a."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#exemples-de-contraintes-de-spécialisation",
+    "href": "slides/Modelisation_1.html#exemples-de-contraintes-de-spécialisation",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Exemples de contraintes de spécialisation",
+    "text": "Exemples de contraintes de spécialisation\n\nLes particuliers et les entreprises forment une partition de l’entité ASSURE, alors on a une contrainte de spécialisation exclusive et totale, notée XT.\n\n\n\nTout assuré ne peut pas être à la fois un particulier et une entreprise mais peut être ni l’un l’autre, alors on a une contrainte de spécialisation exclusive, notée X.\nTout assuré peut être à la fois un particulier et une entreprise mais ne peut pas être ni l’un l’autre, alors on a une contrainte de spécialisation totale, notée T."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#contraintes-intra-association-cif",
+    "href": "slides/Modelisation_1.html#contraintes-intra-association-cif",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Contraintes intra-association : CIF",
+    "text": "Contraintes intra-association : CIF\nLes cardinalités ne suffisent à définir toutes les contraintes à l’intérieur d’une association.\nDans une association ternaire \\(A\\) entre les entités \\(E_1\\), \\(E_2\\) et \\(E_3\\), on peut avoir la contrainte suivante suivante :\nUne occurence de \\(E_2\\) ne peut être associée qu’à au plus une occurence de \\(E_3\\).\nAutrement dit, il y a une dépendance fonctionnelle dans l’ensemble des occurences de l’association entre l’entité \\(E_2\\) et l’entité \\(E_3\\).\nOn parle de contrainte d’intégrité fonctionnelle (CIF)."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#exemple-de-cif",
+    "href": "slides/Modelisation_1.html#exemple-de-cif",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Exemple de CIF",
+    "text": "Exemple de CIF\nOn représente le système d’information d’un syndic de copropriété qui imppose la règle suivante :\n\nLes entreprises qui signent un contrat d’entretien pour une copropriété ne peuvent le faire que pour un seul type de travaux."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#contraintes-inter-association",
+    "href": "slides/Modelisation_1.html#contraintes-inter-association",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Contraintes inter-association",
+    "text": "Contraintes inter-association\nExpriment des contraintes entre 2 ou plusieurs associations. On s’intéresse à la participation des occurences d’une entité aux occurences de plusieurs associations."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#exclusivité-de-participation-x",
+    "href": "slides/Modelisation_1.html#exclusivité-de-participation-x",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Exclusivité de participation : X",
+    "text": "Exclusivité de participation : X\nExemple : un article peut être acheté chez des fournisseurs, approvisionné par les unités de production extérieurs ou élaboré localement dans le domaine, mais pas à la fois acheté et approvisionné."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#simultanéité-de-participation-à-plusieurs-associations-s",
+    "href": "slides/Modelisation_1.html#simultanéité-de-participation-à-plusieurs-associations-s",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Simultanéité de participation à plusieurs associations : S",
+    "text": "Simultanéité de participation à plusieurs associations : S\nExemple : une commande portant sur des articles est obligatoirement passée par un client et réciproquement."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#totalité-de-participation-t",
+    "href": "slides/Modelisation_1.html#totalité-de-participation-t",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Totalité de participation : T",
+    "text": "Totalité de participation : T\nExemple : dans le SI d’une assurance, tout véhicule est minimum relié soit à un contrat par l’association “couvrir”, soit à un sinistre par l’association “implique”, soit les deux."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#exclusivité-et-totalité-de-participation-xt",
+    "href": "slides/Modelisation_1.html#exclusivité-et-totalité-de-participation-xt",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Exclusivité et totalité de participation : XT",
+    "text": "Exclusivité et totalité de participation : XT\nExemple : toute commande est soit passée par un client soit provient d’un service."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#inclusion-i",
+    "href": "slides/Modelisation_1.html#inclusion-i",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Inclusion : I",
+    "text": "Inclusion : I\nExemple : une personne qui effectue un prêt doit avoir souscrit un abonnement"
   }
 ]
