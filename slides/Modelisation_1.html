@@ -1995,7 +1995,21 @@
 </div>
 </div>
 
-<img data-src="..\images/specialisation.png" class="quarto-figure quarto-figure-center r-stretch"></section></section>
+<img data-src="..\images/specialisation.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="restructuration-des-spécialisations" class="slide level2 center">
+<h2>Restructuration des spécialisations</h2>
+<ul>
+<li>Éliminer les entités mères (spécialisation totale avec peu d’attributs propres à l’entié mère)</li>
+</ul>
+<p>OU</p>
+<ul>
+<li>Éliminer les entités filles (entités filles ont peu d’attributs propres, participent à peu d’associations)</li>
+</ul>
+<p>OU</p>
+<ul>
+<li>Simuler la spécialisation avec une association faible (les entités filles sont vues comme des entités faibles)</li>
+</ul>
+</section></section>
 <section>
 <section id="contraintes" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Contraintes</h1>
@@ -2040,11 +2054,24 @@
 </section>
 <section id="contraintes-intra-association-cif" class="slide level2 center">
 <h2>Contraintes intra-association : CIF</h2>
-<p>Les cardinalités ne suffisent à définir toutes les contraintes à l’intérieur d’une association.</p>
-<p>Dans une association ternaire <span class="math inline">\(A\)</span> entre les entités <span class="math inline">\(E_1\)</span>, <span class="math inline">\(E_2\)</span> et <span class="math inline">\(E_3\)</span>, on peut avoir la contrainte suivante suivante :</p>
+<p>Pour les associations ternaires, les cardinalités ne suffisent pas à définir toutes les contraintes interne à l’association.</p>
+<p>Soit une association ternaire <span class="math inline">\(A\)</span> entre les entités <span class="math inline">\(E_1\)</span>, <span class="math inline">\(E_2\)</span> et <span class="math inline">\(E_3\)</span>, on peut avoir la contrainte suivante suivante :</p>
 <p><strong>Une occurence de <span class="math inline">\(E_2\)</span> ne peut être associée qu’à au plus une occurence de <span class="math inline">\(E_3\)</span></strong>.</p>
 <p>Autrement dit, il y a une dépendance fonctionnelle dans l’ensemble des occurences de l’association entre l’entité <span class="math inline">\(E_2\)</span> et l’entité <span class="math inline">\(E_3\)</span>.</p>
 <p>On parle de <strong>contrainte d’intégrité fonctionnelle</strong> (CIF).</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Avertissement</strong></p>
+</div>
+<div class="callout-content">
+<p>Cette contrainte ne concerne que les cas où la cardinalité maximale du coté de <span class="math inline">\(E_2\)</span> et <span class="math inline">\(E_3\)</span> est <code>n</code>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="exemple-de-cif" class="slide level2 center">
 <h2>Exemple de CIF</h2>
@@ -2056,47 +2083,111 @@
 <img data-src="..\images/contrainte-CIF.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="contraintes-inter-association" class="slide level2 center">
 <h2>Contraintes inter-association</h2>
-<p>Expriment des contraintes entre 2 ou plusieurs associations. On s’intéresse à la participation des occurences d’une entité aux occurences de plusieurs associations.</p>
+<p>Expriment des contraintes entre 2 ou plusieurs associations. On s’intéresse à la participation des occurences d’une entité <span class="math inline">\(E\)</span> aux occurences de plusieurs associations <span class="math inline">\(A_1\)</span>, <span class="math inline">\(A_2\)</span>, <span class="math inline">\(\dots\)</span></p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Avertissement</strong></p>
+</div>
+<div class="callout-content">
+<p>Ces contraintes ne concerne que les cas où la cardinalité minimal du côté de <span class="math inline">\(E\)</span> est <code>0</code>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="exclusivité-de-participation-x" class="slide level2 center">
 <h2>Exclusivité de participation : X</h2>
-<p><em>Exemple</em> : un article peut être acheté chez des fournisseurs, approvisionné par les unités de production extérieurs ou élaboré localement dans le domaine, mais pas à la fois acheté et approvisionné.</p>
+<p>Si une occurence de <span class="math inline">\(E\)</span> participe à une occurence de <span class="math inline">\(A_1\)</span>, alors elle ne participe pas à une occurence de <span class="math inline">\(A_2\)</span> et vice-versa.</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Exemple</strong></p>
+</div>
+<div class="callout-content">
+<p>Un article peut être acheté chez des fournisseurs, approvisionné par les unités de production extérieurs ou élaboré localement dans le domaine, mais pas à la fois acheté et approvisionné.</p>
+</div>
+</div>
+</div>
 
 <img data-src="..\images/contrainte-X.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="simultanéité-de-participation-à-plusieurs-associations-s" class="slide level2 center">
 <h2>Simultanéité de participation à plusieurs associations : S</h2>
-<p><em>Exemple</em> : une commande portant sur des articles est obligatoirement passée par un client et réciproquement.</p>
+<p>Une occurence de <span class="math inline">\(E\)</span> participe à une occurence de <span class="math inline">\(A_1\)</span> si et seulement si elle participe à une occurence de <span class="math inline">\(A_2\)</span>.</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Exemple</strong></p>
+</div>
+<div class="callout-content">
+<p>Une commande portant sur des articles est obligatoirement passée par un client et réciproquement.</p>
+</div>
+</div>
+</div>
 
 <img data-src="..\images/contrainte-S.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="totalité-de-participation-t" class="slide level2 center">
 <h2>Totalité de participation : T</h2>
-<p><em>Exemple</em> : dans le SI d’une assurance, tout véhicule est minimum relié soit à un contrat par l’association “couvrir”, soit à un sinistre par l’association “implique”, soit les deux.</p>
+<p>Si une occurence de <span class="math inline">\(E\)</span> ne participe pas à une occurence de <span class="math inline">\(A_1\)</span>, alors elle participe à une occurence de <span class="math inline">\(A_2\)</span>.</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Exemple</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans le SI d’une assurance, tout véhicule est minimum relié soit à un contrat par l’association “couvrir”, soit à un sinistre par l’association “implique”, soit les deux.</p>
+</div>
+</div>
+</div>
 
 <img data-src="..\images/contrainte-T.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="exclusivité-et-totalité-de-participation-xt" class="slide level2 center">
 <h2>Exclusivité et totalité de participation : XT</h2>
-<p><em>Exemple</em> : toute commande est soit passée par un client soit provient d’un service.</p>
+<p>Une occurence de <span class="math inline">\(E\)</span> participe soit à une occurence de <span class="math inline">\(A_1\)</span>, soit à une occurence de <span class="math inline">\(A_2\)</span> mais jamais aux deux.</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Exemple</strong></p>
+</div>
+<div class="callout-content">
+<p>Toute commande est soit passée par un client soit provient d’un service.</p>
+</div>
+</div>
+</div>
 
 <img data-src="..\images/contrainte-XT.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="inclusion-i" class="slide level2 center">
 <h2>Inclusion : I</h2>
-<p><em>Exemple</em> : une personne qui effectue un prêt doit avoir souscrit un abonnement</p>
+<p>Si une occurence de <span class="math inline">\(E\)</span> participe à une occurence de <span class="math inline">\(A_1\)</span>, alors elle participe à une occurence de <span class="math inline">\(A_2\)</span>.</p>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Exemple</strong></p>
+</div>
+<div class="callout-content">
+<p>Une personne qui effectue un prêt doit avoir souscrit un abonnement.</p>
+</div>
+</div>
+</div>
 
-<img data-src="..\images/contrainte-I.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="restructuration-des-spécialisations" class="slide level2 center">
-<h2>Restructuration des spécialisations</h2>
-<ul>
-<li>Éliminer les entités mères (spécialisation totale avec peu d’attributs propres à l’entié mère)</li>
-</ul>
-<p>OU</p>
-<ul>
-<li>Éliminer les entités filles (entités filles ont peu d’attributs propres, participent à peu d’associations)</li>
-</ul>
-<p>OU</p>
-<ul>
-<li>Simuler la spécialisation avec une association faible (les entités filles sont vues comme des entités faibles)</li>
-</ul>
-</section></section>
+<img data-src="..\images/contrainte-I.png" class="quarto-figure quarto-figure-center r-stretch"></section></section>
 <section>
 <section id="références" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Références</h1>

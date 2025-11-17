@@ -5684,7 +5684,7 @@
     "href": "slides/Modelisation_1.html#contraintes-intra-association-cif",
     "title": "Modélisation I : Entité/Association",
     "section": "Contraintes intra-association : CIF",
-    "text": "Contraintes intra-association : CIF\nLes cardinalités ne suffisent à définir toutes les contraintes à l’intérieur d’une association.\nDans une association ternaire \\(A\\) entre les entités \\(E_1\\), \\(E_2\\) et \\(E_3\\), on peut avoir la contrainte suivante suivante :\nUne occurence de \\(E_2\\) ne peut être associée qu’à au plus une occurence de \\(E_3\\).\nAutrement dit, il y a une dépendance fonctionnelle dans l’ensemble des occurences de l’association entre l’entité \\(E_2\\) et l’entité \\(E_3\\).\nOn parle de contrainte d’intégrité fonctionnelle (CIF)."
+    "text": "Contraintes intra-association : CIF\nPour les associations ternaires, les cardinalités ne suffisent pas à définir toutes les contraintes interne à l’association.\nSoit une association ternaire \\(A\\) entre les entités \\(E_1\\), \\(E_2\\) et \\(E_3\\), on peut avoir la contrainte suivante suivante :\nUne occurence de \\(E_2\\) ne peut être associée qu’à au plus une occurence de \\(E_3\\).\nAutrement dit, il y a une dépendance fonctionnelle dans l’ensemble des occurences de l’association entre l’entité \\(E_2\\) et l’entité \\(E_3\\).\nOn parle de contrainte d’intégrité fonctionnelle (CIF).\n\n\n\n\n\n\nAvertissement\n\n\nCette contrainte ne concerne que les cas où la cardinalité maximale du coté de \\(E_2\\) et \\(E_3\\) est n."
   },
   {
     "objectID": "slides/Modelisation_1.html#exemple-de-cif",
@@ -5698,41 +5698,41 @@
     "href": "slides/Modelisation_1.html#contraintes-inter-association",
     "title": "Modélisation I : Entité/Association",
     "section": "Contraintes inter-association",
-    "text": "Contraintes inter-association\nExpriment des contraintes entre 2 ou plusieurs associations. On s’intéresse à la participation des occurences d’une entité aux occurences de plusieurs associations."
+    "text": "Contraintes inter-association\nExpriment des contraintes entre 2 ou plusieurs associations. On s’intéresse à la participation des occurences d’une entité \\(E\\) aux occurences de plusieurs associations \\(A_1\\), \\(A_2\\), \\(\\dots\\)\n\n\n\n\n\n\nAvertissement\n\n\nCes contraintes ne concerne que les cas où la cardinalité minimal du côté de \\(E\\) est 0."
   },
   {
     "objectID": "slides/Modelisation_1.html#exclusivité-de-participation-x",
     "href": "slides/Modelisation_1.html#exclusivité-de-participation-x",
     "title": "Modélisation I : Entité/Association",
     "section": "Exclusivité de participation : X",
-    "text": "Exclusivité de participation : X\nExemple : un article peut être acheté chez des fournisseurs, approvisionné par les unités de production extérieurs ou élaboré localement dans le domaine, mais pas à la fois acheté et approvisionné."
+    "text": "Exclusivité de participation : X\nSi une occurence de \\(E\\) participe à une occurence de \\(A_1\\), alors elle ne participe pas à une occurence de \\(A_2\\) et vice-versa.\n\n\n\n\n\n\nExemple\n\n\nUn article peut être acheté chez des fournisseurs, approvisionné par les unités de production extérieurs ou élaboré localement dans le domaine, mais pas à la fois acheté et approvisionné."
   },
   {
     "objectID": "slides/Modelisation_1.html#simultanéité-de-participation-à-plusieurs-associations-s",
     "href": "slides/Modelisation_1.html#simultanéité-de-participation-à-plusieurs-associations-s",
     "title": "Modélisation I : Entité/Association",
     "section": "Simultanéité de participation à plusieurs associations : S",
-    "text": "Simultanéité de participation à plusieurs associations : S\nExemple : une commande portant sur des articles est obligatoirement passée par un client et réciproquement."
+    "text": "Simultanéité de participation à plusieurs associations : S\nUne occurence de \\(E\\) participe à une occurence de \\(A_1\\) si et seulement si elle participe à une occurence de \\(A_2\\).\n\n\n\n\n\n\nExemple\n\n\nUne commande portant sur des articles est obligatoirement passée par un client et réciproquement."
   },
   {
     "objectID": "slides/Modelisation_1.html#totalité-de-participation-t",
     "href": "slides/Modelisation_1.html#totalité-de-participation-t",
     "title": "Modélisation I : Entité/Association",
     "section": "Totalité de participation : T",
-    "text": "Totalité de participation : T\nExemple : dans le SI d’une assurance, tout véhicule est minimum relié soit à un contrat par l’association “couvrir”, soit à un sinistre par l’association “implique”, soit les deux."
+    "text": "Totalité de participation : T\nSi une occurence de \\(E\\) ne participe pas à une occurence de \\(A_1\\), alors elle participe à une occurence de \\(A_2\\).\n\n\n\n\n\n\nExemple\n\n\nDans le SI d’une assurance, tout véhicule est minimum relié soit à un contrat par l’association “couvrir”, soit à un sinistre par l’association “implique”, soit les deux."
   },
   {
     "objectID": "slides/Modelisation_1.html#exclusivité-et-totalité-de-participation-xt",
     "href": "slides/Modelisation_1.html#exclusivité-et-totalité-de-participation-xt",
     "title": "Modélisation I : Entité/Association",
     "section": "Exclusivité et totalité de participation : XT",
-    "text": "Exclusivité et totalité de participation : XT\nExemple : toute commande est soit passée par un client soit provient d’un service."
+    "text": "Exclusivité et totalité de participation : XT\nUne occurence de \\(E\\) participe soit à une occurence de \\(A_1\\), soit à une occurence de \\(A_2\\) mais jamais aux deux.\n\n\n\n\n\n\nExemple\n\n\nToute commande est soit passée par un client soit provient d’un service."
   },
   {
     "objectID": "slides/Modelisation_1.html#inclusion-i",
     "href": "slides/Modelisation_1.html#inclusion-i",
     "title": "Modélisation I : Entité/Association",
     "section": "Inclusion : I",
-    "text": "Inclusion : I\nExemple : une personne qui effectue un prêt doit avoir souscrit un abonnement"
+    "text": "Inclusion : I\nSi une occurence de \\(E\\) participe à une occurence de \\(A_1\\), alors elle participe à une occurence de \\(A_2\\).\n\n\n\n\n\n\nExemple\n\n\nUne personne qui effectue un prêt doit avoir souscrit un abonnement."
   }
 ]
