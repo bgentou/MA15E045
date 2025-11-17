@@ -4067,14 +4067,14 @@
     "href": "slides/Modelisation_1.html#instances-et-entités",
     "title": "Modélisation I : Entité/Association",
     "section": "Instances et Entités",
-    "text": "Instances et Entités\n\n\n\n\n\n\nDéfinition\n\n\nUne instance est un élément d’une entité.\n\n\n\n\nDans word, le pays Luxemburg est une instance de country.\nLes instances d’une entité sont discernables (pas d’éléments dupliqués).\n\n\n\n\n\n\nNote\n\n\nLe jargon de la modélisation EA renomme des notions déjà présentes dans la théorie des ensembles utilisée en Mathématiques."
+    "text": "Instances et Entités\n\n\n\n\n\n\nDéfinition\n\n\nUne instance ou occurence est un élément d’une entité.\n\n\n\n\nDans word, le pays Luxemburg est une instance de country.\nLes instances d’une entité sont discernables (pas d’éléments dupliqués).\n\n\n\n\n\n\nNote\n\n\nLe jargon de la modélisation EA renomme des notions déjà présentes dans la théorie des ensembles utilisée en Mathématiques."
   },
   {
     "objectID": "slides/Modelisation_1.html#attributs",
     "href": "slides/Modelisation_1.html#attributs",
     "title": "Modélisation I : Entité/Association",
     "section": "Attributs",
-    "text": "Attributs\n\n\n\n\n\n\nDéfinition\n\n\nAprès avoir choisi les entités, on recherche les propriétés qui les caractérisent. Elles sont nommées attributs.\n\nattribut (Modèle EA) \\(\\longleftrightarrow\\) fonction qui envoie une entité dans un domaine (ensemble de valeurs, type)\n\n\n\n\n\nDans world, l’attribut name envoie country vers l’ensemble des chaînes de caractères. Dans l’égalité name(Luxemburg) = \"Luxemburg\", à gauche Luxemburg désigne le pays, à droite, \"Luxemburg\" est une chaîne de caractères.\nL’attribut population envoie country vers les entiers (positifs).\n\n\n\n\n\n\n\n\nReprésentation\n\n\nDans les diagrammes EA, les attributs sont représentés par des ellipses. Le nom de l’attribut est placé au centre de l’ellipse.\nUne arête relie l’ellipse attribut au rectangle entité."
+    "text": "Attributs\n\n\n\n\n\n\nDéfinition\n\n\nAprès avoir choisi les entités, on recherche les propriétés qui les caractérisent. Elles sont nommées attributs.\n\nattribut (Modèle EA) \\(\\longleftrightarrow\\) fonction qui envoie une entité dans un domaine (ensemble de valeurs, type)\n\n\n\n\n\nDans world, l’attribut name envoie country vers l’ensemble des chaînes de caractères. Dans l’égalité name(Luxemburg) = \"Luxemburg\", à gauche Luxemburg désigne le pays, à droite, \"Luxemburg\" est une chaîne de caractères.\nL’attribut population envoie country vers les entiers (positifs).\n\n\n\n\n\n\n\n\nReprésentation\n\n\nDans les diagrammes EA, on peut utiliser deux styles de représentation :\n\nstyle 1 : les attributs sont représentés par des ellipses avec le nom de l’attribut à l’intérieur. Une arête relie l’ellipse attribut au rectangle entité.\nstyle 2 : les attributs sont représentés comme une liste dans le rectangle de l’entité, sous un trait horizontal."
   },
   {
     "objectID": "slides/Modelisation_1.html#attributs-notation-graphique",
@@ -4088,14 +4088,14 @@
     "href": "slides/Modelisation_1.html#identifiant",
     "title": "Modélisation I : Entité/Association",
     "section": "Identifiant",
-    "text": "Identifiant\n\n\n\n\n\n\nDéfinition\n\n\nPour une entité, un identifiant est un attribut qui identifie de manière unique chaque instance.\n\nidentifiant (Modèle EA) \\(\\longleftrightarrow\\) fonction injective qui envoie une entité dans un domaine (ensemble de valeurs, type)\n\n\n\n\n\n\n\n\n\n\nReprésentation\n\n\nDans un schéma EA, on représente un identifiant comme un attribut dont on souligne le nom.\nL’identifiant d’une entité n’est pas le nom de l’entité (contrairement à la terminologie des langages de programmation)."
+    "text": "Identifiant\n\n\n\n\n\n\nDéfinition\n\n\nPour une entité, un identifiant est un attribut qui identifie de manière unique chaque instance.\n\nidentifiant (Modèle EA) \\(\\longleftrightarrow\\) fonction injective qui envoie une entité dans un domaine (ensemble de valeurs, type).\n\n\n\n\n\n\n\n\n\n\nRègle\n\n\nIl faut définir ou créer un identifiant pour chaque entité.\n\n\n\n\n\n\n\n\n\nReprésentation\n\n\nDans un schéma EA, on représente un identifiant comme un attribut dont on souligne le nom.\nDans le style 2, on le souligne et on le place en tête de liste.\nL’identifiant d’une entité n’est pas le nom de l’entité (contrairement à la terminologie des langages de programmation)."
   },
   {
     "objectID": "slides/Modelisation_1.html#identifiant-exemple",
     "href": "slides/Modelisation_1.html#identifiant-exemple",
     "title": "Modélisation I : Entité/Association",
     "section": "Identifiant (exemple)",
-    "text": "Identifiant (exemple)\nLa norme ISO-3166 associe à chaque pays un code en deux lettres (alpha-2). Pour le Luxemburg, il s’agit de LU\nLa norme ISO-3166 associe à chaque pays un code en trois lettres (alpha-3). Pour le Luxemburg, il s’agit de LUX\n\n\nNorme ISO 3166 selon Wikipedia"
+    "text": "Identifiant (exemple)\nLa norme ISO-3166 associe à chaque pays un code en deux lettres (alpha-2). Pour le Luxemburg, il s’agit de LU\nLa norme ISO-3166 associe à chaque pays un code en trois lettres (alpha-3). Pour le Luxemburg, il s’agit de LUX"
   },
   {
     "objectID": "slides/Modelisation_1.html#identifiant-représentation",
@@ -4130,7 +4130,7 @@
     "href": "slides/Modelisation_1.html#attributs-dassociation",
     "title": "Modélisation I : Entité/Association",
     "section": "Attributs d’association",
-    "text": "Attributs d’association\nUne association peut posséder des attributs.\nGraphiquement, les attributs d’association sont représentés comme les attributs d’entité, par des ellipses. Les ellipses sont reliées au losange de l’association par une arête\n\nDans world, l’association is-spoken-in peut être munie d’un attribut official qui précise si une langue donnée est officielle dans un territoire donné."
+    "text": "Attributs d’association\nUne association peut posséder des attributs qui sont des fonctions de l’association vers un domaine/type.\n\n\n\n\n\n\nExemple\n\n\nDans world, l’association is-spoken-in peut être munie\n\nd’un attribut official qui précise si une langue donnée est officielle dans un territoire donné,\nd’un attribut percentage qui précise le poucentage de la population qui parle cette langue dans un territoire donné."
   },
   {
     "objectID": "slides/Modelisation_1.html#partipations-multiples-à-une-association",
@@ -4249,7 +4249,7 @@
     "href": "slides/Modelisation_1.html#exemple-1",
     "title": "Modélisation I : Entité/Association",
     "section": "Exemple",
-    "text": "Exemple\nDans le système d’information d’une assurance, un assuré peut être une entreprise, peut être un particulier :\n\nEntités : ASSURE, ENTREPRISE, PARTICULIER,\nPropriétés d’un assuré : N°Assuré, Nom, Adresse, type et tél,\nUn particulier a en plus une profession,\nUne entreprise a en plus un N°SIREN et une forme juridique."
+    "text": "Exemple\nDans le système d’information de l’université Paris-Cité, si on considère les salles et les bâtiments :\n\nBâtiment est une entité forte,\nSalle est une entité faible.\n\nEn effet, les salles sont toujours identifiées en référence au bâtiment dans lesquelles elles se trouvent, par exemple ‘SG 2005’, ‘HaF 13E’.\n\n\n\n\n\n\nChoisir de définir une entité comme faible\n\n\nUne même entité peut être définie comme faible ou non selon les choix du système d’information. La principale question à se poser est : comment est déterminé l’identidiant ? Si il est formé par concaténation à partir de l’identifiant d’une autre entité, on a affaire à une entité faible."
   },
   {
     "objectID": "slides/Modelisation_1.html#association-darité-quelconque-en-associations-binaires",
@@ -4284,7 +4284,7 @@
     "href": "slides/Modelisation_1.html#exemple-2",
     "title": "Modélisation I : Entité/Association",
     "section": "Exemple",
-    "text": "Exemple\nUn médecin peut exercer en mode libéral, au sein d’un cabinet, ou dans une clinique (ou les deux) ou exercer en milieu hospitalier.\nIl est aussi possible qu’un médecin partage son temps entre une activité hospitalière et une activité libérale.\nOn peut définir une entité générale médecin et deux entités spécialisées hospitalier et libéral. Les entités spécialisées sont reliées à l’entité générale par une association est-un.\n Une association est-un nous indique qu’une entité (un emsemble) est incluse dans une autre entité (un au ensemble)\nTout attribut (fonction) défini sur l’entité générale est défini sur les entités spécialisées\nCertains attributs peuvent être définis sur une entité spécialisée sans être définis sur toute l’entité générale\nPar exemple, on peut définir un attribut hôpital pour l’entité hospitalier, et un attribut cabinet pour l’entité libéral."
+    "text": "Exemple\nDans le système d’information d’une assurance, un assuré peut être une entreprise, peut être un particulier :\n\nEntités : ASSURE, ENTREPRISE, PARTICULIER,\nPropriétés d’un assuré : N°Assuré, Nom, Adresse, type et tél,\nUn particulier a en plus une profession,\nUne entreprise a en plus un N°SIREN et une forme juridique."
   },
   {
     "objectID": "slides/Modelisation_1.html#diagramme",
@@ -5530,7 +5530,7 @@
     "href": "slides/Modelisation_1.html#représentation-graphique-des-cardinalités-world",
     "title": "Modélisation I : Entité/Association",
     "section": "Représentation graphique des cardinalités (world)",
-    "text": "Représentation graphique des cardinalités (world)\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\ncity\n\ncity\n\n\n\nis-in\n\nis-in\n\n\n\ncity--is-in\n\n1:1\n\n\n\nis-capital\n\nis-capital\n\n\n\ncity--is-capital\n\n0:1\n\n\n\nlanguage\n\nlanguage\n\n\n\nis-spoken-in\n\nis-spoken-in\n\n\n\nlanguage--is-spoken-in\n\n0:n\n\n\n\nis-in--country\n\n0:n\n\n\n\nis-spoken-in--country\n\n0:n\n\n\n\nis-capital--country\n\n0:1"
+    "text": "Représentation graphique des cardinalités (world)"
   },
   {
     "objectID": "slides/Modelisation_1.html#représentation-graphique-des-cardinalités-nycflights13",
@@ -5698,42 +5698,42 @@
     "href": "slides/Modelisation_1.html#contraintes-inter-association",
     "title": "Modélisation I : Entité/Association",
     "section": "Contraintes inter-association",
-    "text": "Contraintes inter-association\nExpriment des contraintes entre 2 ou plusieurs associations. On s’intéresse à la participation des occurences d’une entité \\(E\\) aux occurences de plusieurs associations \\(A_1\\), \\(A_2\\), \\(\\dots\\)\nOn note \\(E_1\\), respectivement \\(E_2\\) l’ensemble des instances de \\(E\\) qui participent à l’association \\(A_1\\), respectivement \\(A_2\\).\n\n\n\n\n\n\nAvertissement\n\n\nCes contraintes ne concerne que les cas où la cardinalité minimal du côté de \\(E\\) est \\(0\\)."
+    "text": "Contraintes inter-association\nExpriment des contraintes entre 2 ou plusieurs associations. On s’intéresse à la participation des occurences d’une entité \\(E\\) aux occurences de plusieurs associations \\(A_1\\), \\(A_2\\), \\(\\dots\\)\nOn note \\(E_1\\), respectivement \\(E_2\\) l’ensemble des instances de \\(E\\) qui participent à l’association \\(A_1\\), respectivement \\(A_2\\).\n\n\n\n\n\n\n\nAvertissement\n\n\nCes contraintes ne concerne que les cas où la cardinalité minimal du côté de \\(E\\) est \\(0\\).\n\n\n\n\n\n\n\n\n\n\n\nAvertissement\n\n\n\nElles doivent intervenir rarement, dans des cas où la modélisation est difficile.\nElles invitent à s’interroger sur la modélisation choisie car elle signifie une forme de redondance qu’il faut tenter d’éviter."
   },
   {
     "objectID": "slides/Modelisation_1.html#exclusivité-de-participation-x",
     "href": "slides/Modelisation_1.html#exclusivité-de-participation-x",
     "title": "Modélisation I : Entité/Association",
     "section": "Exclusivité de participation : X",
-    "text": "Exclusivité de participation : X\n\\(E_1 \\cap E_2 = \\emptyset \\quad\\) autrement dit, si une occurence de \\(E\\) participe à une occurence de \\(A_1\\), alors elle ne participe pas à une occurence de \\(A_2\\) et vice-versa.\n\n\n\n\n\n\nExemple\n\n\nUn article peut être acheté chez des fournisseurs ou approvisionné par une unité de production de l’entreprise, mais pas à la fois acheté et approvisionné en interne."
+    "text": "Exclusivité de participation : X\n\\(E_1 \\cap E_2 = \\emptyset \\quad\\) autrement dit, si une occurence de \\(E\\) participe à une occurence de \\(A_1\\), alors elle ne participe pas à une occurence de \\(A_2\\) et vice-versa.\n\n\n\n\n\n\n\nExemple\n\n\nUn article peut être acheté chez des fournisseurs ou approvisionné par une unité de production de l’entreprise, mais pas à la fois acheté et approvisionné en interne."
   },
   {
     "objectID": "slides/Modelisation_1.html#simultanéité-de-participation-à-plusieurs-associations-s",
     "href": "slides/Modelisation_1.html#simultanéité-de-participation-à-plusieurs-associations-s",
     "title": "Modélisation I : Entité/Association",
     "section": "Simultanéité de participation à plusieurs associations : S",
-    "text": "Simultanéité de participation à plusieurs associations : S\n\\(E_1 = E_2 \\quad\\) autrement dit, une occurence de \\(E\\) participe à une occurence de \\(A_1\\) si et seulement si elle participe à une occurence de \\(A_2\\).\n\n\n\n\n\n\nExemple\n\n\nUne commande portant sur des articles est obligatoirement passée par un client et réciproquement."
+    "text": "Simultanéité de participation à plusieurs associations : S\n\\(E_1 = E_2 \\quad\\) autrement dit, une occurence de \\(E\\) participe à une occurence de \\(A_1\\) si et seulement si elle participe à une occurence de \\(A_2\\).\n\n\n\n\n\n\n\nExemple\n\n\nUne commande portant sur des articles est obligatoirement passée par un client et réciproquement."
   },
   {
     "objectID": "slides/Modelisation_1.html#totalité-de-participation-t",
     "href": "slides/Modelisation_1.html#totalité-de-participation-t",
     "title": "Modélisation I : Entité/Association",
     "section": "Totalité de participation : T",
-    "text": "Totalité de participation : T\n\\(E_1 \\cup E_2 = \\emptyset \\quad\\) autrement dit, si une occurence de \\(E\\) ne participe pas à une occurence de \\(A_1\\), alors elle participe à une occurence de \\(A_2\\).\n\n\n\n\n\n\nExemple\n\n\nDans le SI d’une assurance, tout véhicule est présent dans la base parce qu’il est relié soit à un contrat par l’association “couvrir”, soit à un sinistre par l’association “est-impliqué”, soit les deux."
+    "text": "Totalité de participation : T\n\\(E_1 \\cup E_2 = \\emptyset \\quad\\) autrement dit, si une occurence de \\(E\\) ne participe pas à une occurence de \\(A_1\\), alors elle participe à une occurence de \\(A_2\\).\n\n\n\n\n\n\n\nExemple\n\n\nDans le SI d’une assurance, tout véhicule est présent dans la base parce qu’il est relié soit à un contrat par l’association “couvrir”, soit à un sinistre par l’association “est-impliqué”, soit les deux."
   },
   {
     "objectID": "slides/Modelisation_1.html#exclusivité-et-totalité-de-participation-xt",
     "href": "slides/Modelisation_1.html#exclusivité-et-totalité-de-participation-xt",
     "title": "Modélisation I : Entité/Association",
     "section": "Exclusivité et totalité de participation : XT",
-    "text": "Exclusivité et totalité de participation : XT\n\\(E_1 \\cup E_2 = E \\text{ et } E_1 \\cap E_2 = \\emptyset \\quad\\) autrement dit, une occurence de \\(E\\) participe soit à une occurence de \\(A_1\\), soit à une occurence de \\(A_2\\) mais jamais aux deux.\n\n\n\n\n\n\nExemple\n\n\nToute commande est soit passée par un client soit provient d’un service."
+    "text": "Exclusivité et totalité de participation : XT\n\\(E_1 \\cup E_2 = E \\text{ et } E_1 \\cap E_2 = \\emptyset \\quad\\) autrement dit, une occurence de \\(E\\) participe soit à une occurence de \\(A_1\\), soit à une occurence de \\(A_2\\) mais jamais aux deux.\n\n\n\n\n\n\n\nExemple\n\n\nToute commande est soit passée par un client soit provient d’un service."
   },
   {
     "objectID": "slides/Modelisation_1.html#inclusion-i",
     "href": "slides/Modelisation_1.html#inclusion-i",
     "title": "Modélisation I : Entité/Association",
     "section": "Inclusion : I",
-    "text": "Inclusion : I\n\\(E_1 \\subseteq E_2 \\quad\\) autrement dit, si une occurence de \\(E\\) participe à une occurence de \\(A_1\\), alors elle participe à une occurence de \\(A_2\\).\n\n\n\n\n\n\nExemple\n\n\nUne personne qui effectue un prêt doit avoir souscrit un abonnement."
+    "text": "Inclusion : I\n\\(E_1 \\subseteq E_2 \\quad\\) autrement dit, si une occurence de \\(E\\) participe à une occurence de \\(A_1\\), alors elle participe à une occurence de \\(A_2\\).\n\n\n\n\n\n\n\nExemple\n\n\nUne personne qui effectue un prêt doit avoir souscrit un abonnement."
   },
   {
     "objectID": "slides/Modelisation_1.html#autre-représentation-de-la-spécialisation-dans-le-mcd",
@@ -5755,5 +5755,75 @@
     "title": "Modélisation I : Entité/Association",
     "section": "Associations faibles",
     "text": "Associations faibles\n\n\n\n\n\n\nDéfinition\n\n\nL’association qui lie l’entité faible \\(E\\) à son entité de référence \\(F\\) est dite faible.\nEn effet, les instances de l’association sont déjà donné par l’identifiant de l’entité faible.\n\n\n\n\n\n\n\n\n\nCardinalités des associations faibles\n\n\nUne association faible a pour cardinalités :\n\ndu côté de l’entité faible 1:1, car elle n’existe que par référence à l’entité forte.\ndu côté de l’entité forte, en général 0:n, car elle existe indépendamment de l’entité faible."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#mcd-style-1-du-schéma-world",
+    "href": "slides/Modelisation_1.html#mcd-style-1-du-schéma-world",
+    "title": "Modélisation I : Entité/Association",
+    "section": "MCD style 1 du schéma world",
+    "text": "MCD style 1 du schéma world\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\niso\n\niso3\n\n\n\ncountry--iso\n\n\n\n\ncity\n\ncity\n\n\n\nname1\n\nname\n\n\n\ncity--name1\n\n\n\n\nid\n\nid\n\n\n\ncity--id\n\n\n\n\nis-in\n\nis-in\n\n\n\ncity--is-in\n\n\n\n\nis-capital\n\nis-capital\n\n\n\ncity--is-capital\n\n\n\n\nlanguage\n\nlanguage\n\n\n\nname2\n\nname\n\n\n\nlanguage--name2\n\n\n\n\nisol\n\niso\n\n\n\nlanguage--isol\n\n\n\n\nis-spoken-in\n\nis-spoken-in\n\n\n\nlanguage--is-spoken-in\n\n\n\n\nofficial\n\nofficial\n\n\n\nname0\n\nname\n\n\n\nname0--country\n\n\n\n\npopulation\n\npopulation\n\n\n\npopulation--country\n\n\n\n\ngovernmentForm\n\ngovernmentForm\n\n\n\ngovernmentForm--country\n\n\n\n\nheadOfState\n\nheadOfState\n\n\n\nheadOfState--country\n\n\n\n\nis-in--country\n\n\n\n\nis-spoken-in--country\n\n\n\n\nis-spoken-in--official\n\n\n\n\nis-capital--country"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#remarques",
+    "href": "slides/Modelisation_1.html#remarques",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Remarques",
+    "text": "Remarques\n\n\n\n\n\n\nNote\n\n\nLe nom d’une association reflète (en principe) la signification de cette association. Il renvoie souvent à un verbe, pas forcémment d’action.\n\n\n\n\n\n\n\n\n\nAvertissement\n\n\nIl n’est pas toujours évident de lire sur le graphique le rôle joué par les différentes entités participantes dans une association. Bien nommer aide."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#mcd-style-1-du-schéma-world-1",
+    "href": "slides/Modelisation_1.html#mcd-style-1-du-schéma-world-1",
+    "title": "Modélisation I : Entité/Association",
+    "section": "MCD style 1 du schéma world",
+    "text": "MCD style 1 du schéma world\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\niso\n\niso3\n\n\n\ncountry--iso\n\n\n\n\ncity\n\ncity\n\n\n\nname1\n\nname\n\n\n\ncity--name1\n\n\n\n\nid\n\nid\n\n\n\ncity--id\n\n\n\n\nis-in\n\nis-in\n\n\n\ncity--is-in\n\n\n\n\nis-capital\n\nis-capital\n\n\n\ncity--is-capital\n\n\n\n\nlanguage\n\nlanguage\n\n\n\nname2\n\nname\n\n\n\nlanguage--name2\n\n\n\n\nisol\n\niso\n\n\n\nlanguage--isol\n\n\n\n\nis-spoken-in\n\nis-spoken-in\n\n\n\nlanguage--is-spoken-in\n\n\n\n\nofficial\n\nofficial\n\n\n\nname0\n\nname\n\n\n\nname0--country\n\n\n\n\npopulation\n\npopulation\n\n\n\npopulation--country\n\n\n\n\ngovernmentForm\n\ngovernmentForm\n\n\n\ngovernmentForm--country\n\n\n\n\nheadOfState\n\nheadOfState\n\n\n\nheadOfState--country\n\n\n\n\nis-in--country\n\n\n\n\nis-spoken-in--country\n\n\n\n\nis-spoken-in--official\n\n\n\n\nis-capital--country"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#mcd-style-2-du-schéma-world",
+    "href": "slides/Modelisation_1.html#mcd-style-2-du-schéma-world",
+    "title": "Modélisation I : Entité/Association",
+    "section": "MCD style 2 du schéma world",
+    "text": "MCD style 2 du schéma world"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#représentation-graphique",
+    "href": "slides/Modelisation_1.html#représentation-graphique",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Représentation graphique",
+    "text": "Représentation graphique\nDans un diagramme EA, deux styles de représentation :\n\nstyle 1 : une association est représentée par un losange. Le nom de l’association est inscrit au centre du losange.\nstyle 2 : une association est représentée par un rectangle aux coins nettement arrondis. Le nom de l’association est inscrit en haut, séparé des noms d’attributs par un trait horizontal.\nL’association est reliée aux entités participantes par des arêtes.\n\nLes attributs d’association sont représentés comme les attributs d’entité selon le style choisi.\n\n\n\n\n\n\n\nAvertissement\n\n\nIl n’est pas toujours évident de lire sur le graphique le rôle joué par les différentes entités participantes dans une association. Bien nommer aide."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#attributs-représentation-style-1",
+    "href": "slides/Modelisation_1.html#attributs-représentation-style-1",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Attributs (représentation style 1)",
+    "text": "Attributs (représentation style 1)\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\ncity\n\ncity\n\n\n\nname1\n\nname\n\n\n\ncity--name1\n\n\n\n\nlanguage\n\nlanguage\n\n\n\nname2\n\nname\n\n\n\nlanguage--name2\n\n\n\n\nname0\n\nname\n\n\n\nname0--country\n\n\n\n\npopulation\n\npopulation\n\n\n\npopulation--country\n\n\n\n\ngovernmentForm\n\ngovernmentForm\n\n\n\ngovernmentForm--country\n\n\n\n\nheadOfState\n\nheadOfState\n\n\n\nheadOfState--country"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#attributs-représentation-style-2",
+    "href": "slides/Modelisation_1.html#attributs-représentation-style-2",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Attributs (représentation style 2)",
+    "text": "Attributs (représentation style 2)"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#identifiant-représentation-style-2",
+    "href": "slides/Modelisation_1.html#identifiant-représentation-style-2",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Identifiant (représentation style 2)",
+    "text": "Identifiant (représentation style 2)\n\n\n\n\n\n\nNote\n\n\nOn distingue les identifiants en les soulignant et en les plaçant en tête."
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#représentation-graphique-de-la-spécialisation-style-1",
+    "href": "slides/Modelisation_1.html#représentation-graphique-de-la-spécialisation-style-1",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Représentation graphique de la spécialisation (style 1)",
+    "text": "Représentation graphique de la spécialisation (style 1)\nDans le style 1, on note graphiquement les associations est-un avec un symbole spécial : un triangle (c.a.d. une demi-association) dont la pointe est du côté de l’entité générale.\n\n\n\n\n\n\nER\n\n\n\nASSURE\n\nASSURE\n\n\n\nN°Assuré\n\n\"N°Assuré\"\n\n\n\nASSURE--N°Assuré\n\n\n\n\nENTREPRISE\n\nENTREPRISE\n\n\n\nis-a-2\n\nest-un\n\n\n\nENTREPRISE--is-a-2\n\n\n\n\nPARTICULIER\n\nPARTICULIER\n\n\n\nis-a-1\n\nest-un\n\n\n\nPARTICULIER--is-a-1\n\n\n\n\nis-a-1--ASSURE\n\n\n\n\nis-a-2--ASSURE\n\n\n\n\nN°SIREN\n\nN°SIREN\n\n\n\nN°SIREN--ENTREPRISE\n\n\n\n\nprofession\n\nprofession\n\n\n\nprofession--PARTICULIER"
+  },
+  {
+    "objectID": "slides/Modelisation_1.html#représentation-de-la-spécialisation-style-2",
+    "href": "slides/Modelisation_1.html#représentation-de-la-spécialisation-style-2",
+    "title": "Modélisation I : Entité/Association",
+    "section": "Représentation de la spécialisation (style 2)",
+    "text": "Représentation de la spécialisation (style 2)\nDans le style 2, on relie toutes les spécialisations à un seul symbole, ce qui permet de représenter plus simplement les contraintes de spécialisation (cf. chap. suivant).\n\n\n\n\n\n\nAvertissement\n\n\nCela ne représente plus une association is-a."
   }
 ]
