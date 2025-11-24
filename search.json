@@ -2408,35 +2408,35 @@
     "href": "slides/Modelisation_2.html#entre-modèle-ea-et-modèle-relationnel",
     "title": "Modélisation II :",
     "section": "Entre modèle EA et modèle relationnel",
-    "text": "Entre modèle EA et modèle relationnel\nDans le modèle EA\n\nPlusieurs types de briques de bases : Entités (noms) et Associations (verbes)\nPas a priori de moyen de représenter les schémas EA dans le formatlisme EA\nUn formalisme accessible (en principe) aux usagers du système d’information\n\nDans le modèles relationnel\n\nUne seule brique de base : les tables\nUn schéma est décrit par des tuples insérés dans les tables de la métabase"
+    "text": "Entre modèle EA et modèle relationnel\nDans le modèle conceptuel des données (modèle EA)\n\nPlusieurs types de briques de bases : Entités (noms) et Associations (verbes)\nUn formalisme accessible (en principe) aux usagers du système d’information\n\nDans le modèle logique des données relationnel (MRD)\n\nUne seule brique de base : les tables"
   },
   {
     "objectID": "slides/Modelisation_2.html#objectifs",
     "href": "slides/Modelisation_2.html#objectifs",
     "title": "Modélisation II :",
     "section": "Objectifs",
-    "text": "Objectifs\nUne technique de traduction du formalisme EA vers le formalisme relationnel\nTraduction des associations selon l’arité et les cardinalités\nVisualisation des contraintes référentielles via les pattes de corbeaux\nUn formalisme graphique très proche du modèle relationnel\nUn formalisme graphique utilisé en rétro-ingénierie\nUn formalisme graphique utilisé pour documenter les bases de données relationnelles"
+    "text": "Objectifs\n\nUne technique de traduction du formalisme EA vers le formalisme relationnel.\nVisualisation des contraintes référentielles via les pattes de corbeaux.\nUn formalisme graphique très proche de la description physique en SQL.\nUn formalisme graphique utilisé pour documenter les bases de données relationnelles"
   },
   {
     "objectID": "slides/Modelisation_2.html#origines",
     "href": "slides/Modelisation_2.html#origines",
     "title": "Modélisation II :",
     "section": "Origines",
-    "text": "Origines\nCréé par Gordon Everest (fin des années 1970)\nNormalisé par Finkelstein et Martin"
+    "text": "Origines\n\nCréé par Gordon Everest (fin des années 1970)\nNormalisé par Finkelstein et Martin"
   },
   {
     "objectID": "slides/Modelisation_2.html#diagrammes",
     "href": "slides/Modelisation_2.html#diagrammes",
     "title": "Modélisation II :",
     "section": "Diagrammes",
-    "text": "Diagrammes\n\n\n\n\n\n\nDeux briques de base\n\n\nLes diagrammes en pattes de corbeau sont formés de tables et de liens entre tables.\n\n\n\n\n\n\n\n\n\nLes tables \n\n\nreprésentent :\n\ndes entités fortes\ndes entités faibles issues de la traduction d’associations \\(n\\)-aires et/ou d’associations plusieurs-vers-plusieurs\n\n\n\n\n\n\n\n\n\n\nLes liens \n\n\nreprésentent des associations binaires un-un, ou un-vers-plusieurs\nLes cardinalités sont visualisées par les extrémités des liens"
+    "text": "Diagrammes\nDeux briques de base\nLes modèles relationnelles des données (MRD) sont formés :\n\nde tables,\nde liens entre tables.\n\nLes liens \n\nReprésentent des associations binaires un-un, ou un-vers-plusieurs\nLes cardinalités sont visualisées par les extrémités des liens"
   },
   {
     "objectID": "slides/Modelisation_2.html#les-cardinalités",
     "href": "slides/Modelisation_2.html#les-cardinalités",
     "title": "Modélisation II :",
     "section": "Les cardinalités",
-    "text": "Les cardinalités\n\n\n\n\nSymbole (gauche)\n\n\nSymbole (droite)\n\n\nInterprétation\n\n\n\n\n\n\n|o\n\n\no|\n\n\nZero ou un\n\n\n\n\n||\n\n\n||\n\n\nExactement un\n\n\n\n\n}o\n\n\no{\n\n\nZero ou plus (pas de borne supérieure)\n\n\n\n\n}|\n\n\n|{\n\n\nun ou plus (pas de borne supérieure)"
+    "text": "Les cardinalités\n\n\n\n\nSymbole\n\n\nInterprétation\n\n\n\n\n\n\n\n\n\nZero ou un\n\n\n\n\n\n\n\nExactement un\n\n\n\n\n\n\n\nZero ou plus (pas de borne supérieure)\n\n\n\n\n\n\n\nun ou plus (pas de borne supérieure)"
   },
   {
     "objectID": "slides/Modelisation_2.html#aliases",
@@ -2450,14 +2450,14 @@
     "href": "slides/Modelisation_2.html#liens-non-identifiants-exemples",
     "title": "Modélisation II :",
     "section": "Liens non-identifiants : exemples",
-    "text": "Liens non-identifiants : exemples\n\n\n\n\n\n\n\nerDiagram\n    COUNTRY ||..o{ CITY : contains\n    COUNTRY {\n      string(3) countrycode PK\n      string name_country\n      numeric population_country\n      integer capital  FK\n    }\n    CITY {\n      integer id PK\n      string(3) countrycode FK\n      string name\n      numeric population\n    }\n    CITY |o..o| COUNTRY : is-capital\n\n\n\n\n\n\n\n\nUne instance de COUNTRY contient entre \\(0\\) et un nombre non borné d’instances de CITY (patte de corbeau côté CITY)\nUne instance de CITY est toujours située sur une et une seule instance de COUNTRY\nUne instance de CITY est la capitale de \\(0\\) ou \\(1\\) intance de COUNTRY\nUne instance de COUNTRY possède \\(0\\) ou \\(1\\) capitale"
+    "text": "Liens non-identifiants : exemples\n\n\n\n\n\n\n\n\n\nUne instance de COUNTRY contient entre \\(0\\) et un nombre non borné d’instances de CITY (patte de corbeau côté CITY)\nUne instance de CITY est toujours située sur une et une seule instance de COUNTRY\nUne instance de CITY est la capitale de \\(0\\) ou \\(1\\) intance de COUNTRY\nUne instance de COUNTRY possède \\(0\\) ou \\(1\\) capitale"
   },
   {
     "objectID": "slides/Modelisation_2.html#liens-identifiants",
     "href": "slides/Modelisation_2.html#liens-identifiants",
     "title": "Modélisation II :",
     "section": "Liens identifiants",
-    "text": "Liens identifiants\n\n\n\n\n\n\nNote\n\n\nUn lien est identifiant si la clé primaire de l’émetteur contient une référence à la clé primaire de la table destinataire.\n\n\n\n\n\n\n\nExemple\n\nDans le schéma world le lien entre countrylanguage et country est identifiant : la clé primaire de countrylanguage est formée par (countrycode, language). L’attribut countrycode de countrylanguage fait référence à l’attribut countrycode de country (clé primaire de country)\n\n\n\n\n\n\n\n\nerDiagram\n    COUNTRY ||--|{ COUNTRYLANGUAGE : speaks\n    COUNTRY {\n      string countrycode\n      string name_country\n      numeric population_country\n    }\n    COUNTRYLANGUAGE {\n      string countrycode\n      string language\n      boolean isofficial\n      numeric percentage\n    }"
+    "text": "Liens identifiants\nLes liens identifiants correspondent à des contraintes référentielles (comme les liens non-identifiants).\nLes liens identifiants témoignent du fait que les constituants de la clé primaire de la table intermédiaire (ici iso3 et isol) font référence aux clés primaires des tables COUNTRY (iso3) et LANGUAGE (isol)."
   },
   {
     "objectID": "slides/Modelisation_2.html#les-pattes-de-corbeau-comme-variante-du-modèle-entité-association",
@@ -2471,21 +2471,21 @@
     "href": "slides/Modelisation_2.html#exemple-association-binaire-plusieurs-un-dans-schéma-world",
     "title": "Modélisation II :",
     "section": "Exemple association binaire plusieurs-un dans schéma world",
-    "text": "Exemple association binaire plusieurs-un dans schéma world\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\niso\n\niso3\n\n\n\ncountry--iso\n\n\n\n\ncity\n\ncity\n\n\n\nname1\n\nname\n\n\n\ncity--name1\n\n\n\n\nid\n\nid\n\n\n\ncity--id\n\n\n\n\nis-in\n\nis-in\n\n\n\ncity--is-in\n\n1:1\n\n\n\nname0\n\nname\n\n\n\nname0--country\n\n\n\n\npopulation\n\npopulation\n\n\n\npopulation--country\n\n\n\n\ngovernmentForm\n\ngovernmentForm\n\n\n\ngovernmentForm--country\n\n\n\n\nheadOfState\n\nheadOfState\n\n\n\nheadOfState--country\n\n\n\n\nis-in--country\n\n0:n"
+    "text": "Exemple association binaire plusieurs-un dans schéma world\n //| label: “er4-cardi” //| eval: true //| echo: false graph ER { fontname=“Helvetica,Arial,sans-serif” node [fontname=“Helvetica,Arial,sans-serif”] edge [fontname=“Helvetica,Arial,sans-serif”] layout=fdp node [shape=box]; country; city node [shape=ellipse]; {node [label=“name”] name0; name1;} population; governmentForm; headOfState; {node [label=&lt;iso3&gt;] iso;}; {node [label=&lt;id&gt;] id;}; node [shape=diamond]; “is-in” ;\nname0 -- country;\npopulation -- country;\ngovernmentForm – country; headOfState – country; city – name1; country – iso ; city – id ; city – “is-in” [label=“1:1”,len=1.00]; “is-in” – country [label=“0:n”,len=1.00] ; }\n\n\n\n\n## Traduction \n\n::: {.columns}\n::: {.column}\n\n![](/images/MRD_world_cardinalites.svg){fig-align=\"left\" width=\"100%\"}\n\n:::\n\n\n::: {.column}\n\nUn lien *non-identifiant* depuis la table représentant l'entité de cardinalité $0:1$ (`CITY`) vers la table représentant la cardinalité $0:n$ (`COUNTRY`)\n\nLes éventuels attributs propres de l'association sont représentés par des attributs  de la table représentant l'entité de cardinalité $0:1$\n\n::: {.callout-caution}\n\nLa patte de corbeau `0{` est placée du côté  de la table représentant l'entité de cardinalité $0:1$ (`CITY`)\n\n:::\n\n:::\n::: \n\n# Traduction d'une association binaire *plusieurs-plusieurs* en pattes de corbeau {background-color=\"#1c191c\"}\n\n\n## Une association *plusieurs-plusieurs*\n\n![](/images/MRD_country_langage_cardinalites.svg){fig-align=\"left\" width=\"100%\"}\n\n\n## Transformation préalable à l'aide d'une entité faible\n\n\n\n```{dot}\n//| label: \"er4-cardi\"\n//| eval: true\n//| echo: false\ngraph ER {\n    fontname=\"Helvetica,Arial,sans-serif\"\n    node [fontname=\"Helvetica,Arial,sans-serif\"]\n    edge [fontname=\"Helvetica,Arial,sans-serif\"]\n    layout=fdp\n    node [shape=box]; country; language;\n    node [shape=ellipse]; {node [label=\"name\"] name0; name2;}\n        population; governmentForm; headOfState; {node [label=&lt;&lt;u&gt;iso3&lt;/u&gt;&gt;] iso;};\n    {node [label=&lt;&lt;u&gt;iso&lt;/u&gt;&gt;] isol;} ; percentage ; isofficial \n  node [shape=box, peripheries=2] ; countrylanguage\n  node [shape=diamond, peripheries=2]; speaks ;  \"is-spoken\" ;\n  \n    name0 -- country;\n    population -- country;\n  governmentForm -- country; \n  headOfState -- country;\n    language -- name2;\n  country -- iso ;\n  language -- isol ;\n  language -- \"is-spoken\"  [label=\"0:n\",len=1.00] ;\n  \"is-spoken\" -- \"countrylanguage\"   [label=\"1:1\",len=1.00] ; \n  country -- speaks [label=\"0:n\", len=1.00];\n  speaks -- countrylanguage [label=\"1:1\",len=1.00] ;\n  countrylanguage -- isofficial ;\n  countrylanguage -- percentage ;\n}"
   },
   {
     "objectID": "slides/Modelisation_2.html#traduction",
     "href": "slides/Modelisation_2.html#traduction",
     "title": "Modélisation II :",
     "section": "Traduction",
-    "text": "Traduction\n\n\n\n\n\n\n\nerDiagram\n    COUNTRY ||..o{ CITY : contains\n    COUNTRY {\n      string(3) iso3 PK\n      string name_country\n      numeric population_country\n      string governmentForm\n      string headOfState\n    }\n    CITY {\n      integer id PK\n      string(3) iso3 FK\n      string name\n      numeric population\n    }\n\n\n\n\n\n\n\nUn lien non-identifiant depuis la table représentant l’entité de cardinalité \\(0:1\\) (CITY) vers la table représentant la cardinalité \\(0:n\\) (COUNTRY)\nLes éventuels attributs propres de l’association sont représentés par des attributs de la table représentant l’entité de cardinalité \\(0:1\\)\n\n\n\n\n\n\nMise en garde\n\n\nLa patte de corbeau 0{ est placée du côté de la table représentant l’entité de cardinalité \\(0:1\\) (CITY)"
+    "text": "Traduction\n\n\n\n\n\n\n\n\nLa table obtenue par traduction de l’entité faible est appelée table intermédiaire\nLa table intermédiaire COUNTRYLANGUAGE comporte les attributs propres (percentage, isofficial) de l’association originelle (qui sont aussi ceux de l’entité faible)\nLes deux associations faibles issues de l’entité faible sont traduites en liens identifiants entre l’entité intermédiaire et les tables traduisant les entités (ici COUNTRY et LANGUAGE)"
   },
   {
     "objectID": "slides/Modelisation_2.html#une-association-plusieurs-plusieurs",
     "href": "slides/Modelisation_2.html#une-association-plusieurs-plusieurs",
     "title": "Modélisation II :",
     "section": "Une association plusieurs-plusieurs",
-    "text": "Une association plusieurs-plusieurs\n\n\n\n\n\n\nER\n\n\n\ncountry\n\ncountry\n\n\n\niso\n\niso3\n\n\n\ncountry--iso\n\n\n\n\nlanguage\n\nlanguage\n\n\n\nname2\n\nname\n\n\n\nlanguage--name2\n\n\n\n\nisol\n\niso\n\n\n\nlanguage--isol\n\n\n\n\nis-spoken-in\n\nis-spoken-in\n\n\n\nlanguage--is-spoken-in\n\n0:n\n\n\n\nname0\n\nname\n\n\n\nname0--country\n\n\n\n\npopulation\n\npopulation\n\n\n\npopulation--country\n\n\n\n\ngovernmentForm\n\ngovernmentForm\n\n\n\ngovernmentForm--country\n\n\n\n\nheadOfState\n\nheadOfState\n\n\n\nheadOfState--country\n\n\n\n\npercentage\n\npercentage\n\n\n\nisofficial\n\nisofficial\n\n\n\nis-spoken-in--country\n\n0:n\n\n\n\nis-spoken-in--percentage\n\n\n\n\nis-spoken-in--isofficial"
+    "text": "Une association plusieurs-plusieurs"
   },
   {
     "objectID": "slides/Modelisation_2.html#transformation-préalable-à-laide-dune-entité-faible",
@@ -2520,14 +2520,14 @@
     "href": "slides/Modelisation_2.html#exemple-de-lassociation-flight",
     "title": "Modélisation II :",
     "section": "Exemple de l’association flight",
-    "text": "Exemple de l’association flight\n\n\n\n\n\n\n\n\n\nER\n\n\n\nairport\n\nairport\n\n\n\nflight\n\nflight\n\n\n\nairport--flight\n\norig\n0:n\n\n\n\nplane\n\nplane\n\n\n\nairline\n\nairline\n\n\n\nflight--airport\n\ndest\n0:n\n\n\n\nflight--plane\n\n0:n\n\n\n\nflight--airline\n\n0:n"
+    "text": "Exemple de l’association flight\n\n\n\n\n\n\nER\n\n\n\nairport\n\nairport\n\n\n\nflight\n\nflight\n\n\n\nairport--flight\n\norig\n0:n\n\n\n\nplane\n\nplane\n\n\n\nairline\n\nairline\n\n\n\nflight--airport\n\ndest\n0:n\n\n\n\nflight--plane\n\n0:n\n\n\n\nflight--airline\n\n0:n"
   },
   {
     "objectID": "slides/Modelisation_2.html#transformation-de-lassociation-quarternaire-en-quatre-associations-binaires-faibles",
     "href": "slides/Modelisation_2.html#transformation-de-lassociation-quarternaire-en-quatre-associations-binaires-faibles",
     "title": "Modélisation II :",
     "section": "Transformation de l’association quarternaire en quatre associations binaires (faibles)",
-    "text": "Transformation de l’association quarternaire en quatre associations binaires (faibles)\n\n\n\n\n\n\n\n\n\nER\n\n\n\nairport\n\nairport\n\n\n\norig\n\n\norig\n\n\n\nairport--orig\n\n0:n\n\n\n\ndest\n\n\ndest\n\n\n\nairport--dest\n\n0:n\n\n\n\nplane\n\nplane\n\n\n\nairline\n\nairline\n\n\n\nflight\n\n\nflight\n\n\n\noperates\n\n\noperates\n\n\n\nflight--operates\n\n1:1\n\n\n\nuses\n\n\nuses\n\n\n\nflight--uses\n\n1:1\n\n\n\norig--flight\n\n1:1\n\n\n\ndest--flight\n\n1:1\n\n\n\noperates--airline\n\n0:n\n\n\n\nuses--plane\n\n0:n\n\n\n\n\n\n\n\n\n\nL’association quarternaire est transformée en\n\nune entité faible. Chaque instance de cette entité faible représente une instance de l’association quaternaire\nquatre associations binaires faibles. Une instance de l’association binaire faible relie une instance de l’entité faible (association quaternaire) à l’instance de entité participante concernée\n\nEntre l’entité faible et une association faible, la cardinalité est toujours 1:1"
+    "text": "Transformation de l’association quarternaire en quatre associations binaires (faibles)\nL’association quarternaire est transformée en\n\nune entité faible. Chaque instance de cette entité faible représente une instance de l’association quaternaire,\nOn obtient quatre associations binaires qui sont du type 1 à 1 ou 1 à plusieurs que l’on traduit selon la méthode vue précédemment.\n\nPour mémoire : du côté de l’entité faible, la cardinalité d’une association faible est toujours 1:1"
   },
   {
     "objectID": "slides/Modelisation_2.html#traduction-en-pattes-de-corbeau",
@@ -2540,8 +2540,8 @@
     "objectID": "slides/Modelisation_2.html#un-traduction-immédiate",
     "href": "slides/Modelisation_2.html#un-traduction-immédiate",
     "title": "Modélisation II :",
-    "section": "Un traduction immédiate ",
-    "text": "Un traduction immédiate \nChaque table du modèle en pattes de corbeau correspond à une table/relation du modèle relationnel.\nLes liens du modèle en pattes de corbeau se traduisent en contraintes référentielles\n\n La proximité entre le modèle relationnel et les diagrammes en pattes de corbeau ouvrent la voie à la rétro-ingénierie"
+    "section": "Un traduction immédiate",
+    "text": "Un traduction immédiate\n\nChaque table du MRD correspond à une table SQL.\nLes identifiants sont définis comme clés primaires.\nLes liens du MRD se traduisent en contraintes d’intégrité référentielle.\nLes contraintes du MCD se traduisent autant que possible en contraintes SQL selon les possibilités du SGBD choisi."
   },
   {
     "objectID": "slides/Modelisation_2.html#rétro-ingénierie-reverse-engineering",
@@ -5839,5 +5839,131 @@
     "title": "TD 8 : Modélisation",
     "section": "Exercice (Tournois)",
     "text": "Exercice (Tournois)\nLors du dernier TP, vous avez étudié un SI portant sur des tournois.\nLe diagramme E/A proposé est le suivant :\n\n\n\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nIl est décidé d’utiliser pour les identifiants des matchs la méthode suivante : pour un tournoi et un type de match (simple F, simple H, etc.) le match n°1 est la finale, les n°2 et 3 sont les demi-finales, etc.\nComment faut-il modifier le modèle ?\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nY-a-t-il des contraintes d’intégrité fonctionnelle (CIF) ?\nPour rappel, les CIF concernent les liaisons de cardinalité maximale \\(n\\) dans les associations ternaires.\n\nsi parmi les occurences de l’association \\(A\\), on a une dépendance fonctionnelle \\(E_1 \\rightarrow E_2\\), on dit qu’on a une CIF \\(E_1 \\rightarrow E_2\\) par rapport à \\(A\\).\nsi parmi les occurences de l’association \\(A\\), on a une dépendance fonctionnelle \\((E_1, E_2) \\rightarrow E_3\\), on dit qu’on a une CIF \\((E_1,E_2) \\rightarrow E_3\\) par rapport à \\(A\\).\n\nPar exemple, si on supposait qu’un joueur ne peut pas avoir deux entraineurs en même temps (ce qui n’est pas dit dans l’énoncé), on aurait une CIF (JOUEUR, DATE) \\(\\rightarrow\\) ENTRAINEUR par rapport à l’association “est entrainé par”.\nEn reprenant la représentation du cours, on écrit :\n\n\n\n\n\nMais pour les CIF du type \\((E_1, E_2) \\rightarrow E_3\\), le formalisme suivant est lisible :\n\n\n\n\n\nCette CIF dit la chose suivante : deux entraineurs différents ne peuvent pas commencer à entrainer un même joueur à la même date.\nEst-ce que cette CIF suffit à décrire la totalité de la contrainte ? Que faut-il vérifier au-delà ?\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nPour la composition des matchs, on pouvait envisager trois solutions :\n\nPremière solution : Une association «participer» indique les compositions des matches. Une association «gagner» indique le ou les gagnants (double).\nSeconde solution : une association «participer» portant une propriété prenant la valeur vrai ou faux selon que le joueur a gagné ou non.\nTroisième solution : deux associations «gagner» et «perdre».\n\nSi on choisit la première ou la troisième solution, quelle contrainte faut-il ajouter ?\nParmi les trois solutions, lesquelles permettent de décrire complètement le SI ?\nPourquoi a-t-on choisi la deuxième solution ?"
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#les-liens-dans-un-mrd",
+    "href": "slides/Modelisation_2.html#les-liens-dans-un-mrd",
+    "title": "Modélisation II :",
+    "section": "Les liens dans un MRD",
+    "text": "Les liens dans un MRD\n\n\n\n\n\n\nAvertissement\n\n\n\nUn lien dans un MRD définit une contrainte d’intégrité référentielle entre deux tables.\nIl ne peut pas représenter directement un association d’arité supérieure à 2.\nIl ne porte pas d’attributs propres."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#interprétation-des-cardinalités-du-mrd",
+    "href": "slides/Modelisation_2.html#interprétation-des-cardinalités-du-mrd",
+    "title": "Modélisation II :",
+    "section": "Interprétation des cardinalités du MRD",
+    "text": "Interprétation des cardinalités du MRD\n\n\n\n\n\n\n\n\n\nAssociation is-in : une valeur de l’attribut countrycode de COUNTRY (donc une instance de COUNTRY car c’est l’identifiant) peut être référencée plusieurs fois dans la table CITY.\nAssociation is-capital : une valeur de l’attribut id de CITY (donc une instance de CITY) est référencée au plus une fois dans la table COUNTRY."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#association-binaire-0-à-plusieurs-ou-1-à-plusieurs-du-mcd",
+    "href": "slides/Modelisation_2.html#association-binaire-0-à-plusieurs-ou-1-à-plusieurs-du-mcd",
+    "title": "Modélisation II :",
+    "section": "Association binaire 0 à plusieurs ou 1 à plusieurs du MCD",
+    "text": "Association binaire 0 à plusieurs ou 1 à plusieurs du MCD\n //| label: “er4-cardi” //| eval: true //| echo: false graph ER { fontname=“Helvetica,Arial,sans-serif” node [fontname=“Helvetica,Arial,sans-serif”] edge [fontname=“Helvetica,Arial,sans-serif”] layout=fdp node [shape=box]; country; city node [shape=ellipse]; {node [label=“name”] name0; name1;} population; governmentForm; headOfState; {node [label=&lt;iso3&gt;] iso;}; {node [label=&lt;id&gt;] id;}; node [shape=diamond]; “is-in” ;\nname0 -- country;\npopulation -- country;\ngovernmentForm – country; headOfState – country; city – name1; country – iso ; city – id ; city – “is-in” [label=“1:1”,len=1.00]; “is-in” – country [label=“0:n”,len=1.00] ; }\n\n\n\n### Traduction de la relation `is-in` de `World`\n\n::: {.columns}\n::: {.column}\n\n![](/images/MCD_world_cardinalites.svg){fig-align=\"left\" width=\"100%\"}\n\n:::\n\n\n::: {.column}\n\nUn lien *non-identifiant* depuis la table représentant l'entité de cardinalité $0:1$ (`CITY`) vers la table représentant la cardinalité $0:n$ (`COUNTRY`)\n\nLes éventuels attributs propres de l'association sont représentés par des attributs  de la table représentant l'entité de cardinalité $0:1$\n\n::: {.callout-caution}\n\nLa patte de corbeau `0{` est placée du côté  de la table représentant l'entité de cardinalité $0:1$ (`CITY`)\n\n:::\n\n:::\n::: \n\n# Traduction d'une association binaire *plusieurs-plusieurs* en pattes de corbeau {background-color=\"#1c191c\"}\n\n\n## Une association *plusieurs-plusieurs*\n\n![](/images/MRD_country_langage_cardinalites.svg){fig-align=\"left\" width=\"100%\"}\n\n\n## Transformation préalable à l'aide d'une entité faible\n\n\n\n```{dot}\n//| label: \"er4-cardi\"\n//| eval: true\n//| echo: false\ngraph ER {\n    fontname=\"Helvetica,Arial,sans-serif\"\n    node [fontname=\"Helvetica,Arial,sans-serif\"]\n    edge [fontname=\"Helvetica,Arial,sans-serif\"]\n    layout=fdp\n    node [shape=box]; country; language;\n    node [shape=ellipse]; {node [label=\"name\"] name0; name2;}\n        population; governmentForm; headOfState; {node [label=&lt;&lt;u&gt;iso3&lt;/u&gt;&gt;] iso;};\n    {node [label=&lt;&lt;u&gt;iso&lt;/u&gt;&gt;] isol;} ; percentage ; isofficial \n  node [shape=box, peripheries=2] ; countrylanguage\n  node [shape=diamond, peripheries=2]; speaks ;  \"is-spoken\" ;\n  \n    name0 -- country;\n    population -- country;\n  governmentForm -- country; \n  headOfState -- country;\n    language -- name2;\n  country -- iso ;\n  language -- isol ;\n  language -- \"is-spoken\"  [label=\"0:n\",len=1.00] ;\n  \"is-spoken\" -- \"countrylanguage\"   [label=\"1:1\",len=1.00] ; \n  country -- speaks [label=\"0:n\", len=1.00];\n  speaks -- countrylanguage [label=\"1:1\",len=1.00] ;\n  countrylanguage -- isofficial ;\n  countrylanguage -- percentage ;\n}"
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#les-entités",
+    "href": "slides/Modelisation_2.html#les-entités",
+    "title": "Modélisation II :",
+    "section": "Les entités",
+    "text": "Les entités\n\nEntité forte du MCD \\(\\rightarrow\\) table du MRD de même nom et de mêmes attributs\nEntité faible du MCD \\(\\rightarrow\\) table du MRD de même nom et de mêmes attributs\nEntité spécialisée du MCD \\(\\rightarrow\\) table du MRD de même nom et de mêmes attributs\nLes identifiants des entités deviennent les identifiants (clés primaires) des tables.\nOn décompose les identifiants concaténés des entités faibles en autant d’attributs qui forment ensemble la clé primaire de la table créée."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#associations-binaires-1-à-1-1-à-plusieurs-plusieurs-à-plusieurs",
+    "href": "slides/Modelisation_2.html#associations-binaires-1-à-1-1-à-plusieurs-plusieurs-à-plusieurs",
+    "title": "Modélisation II :",
+    "section": "Associations binaires 1 à 1, 1 à plusieurs, plusieurs à plusieurs",
+    "text": "Associations binaires 1 à 1, 1 à plusieurs, plusieurs à plusieurs\n\n\n\n\n\n\nDéfinition\n\n\nOn dit qu’une association binaire du MCD est de type \\(a\\) à \\(b\\) si la cardinalité maximale de l’associaiton est \\(a\\) pour une entité, \\(b\\) pour l’autre."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#exemples-sur-le-mcd-world",
+    "href": "slides/Modelisation_2.html#exemples-sur-le-mcd-world",
+    "title": "Modélisation II :",
+    "section": "Exemples sur le MCD World",
+    "text": "Exemples sur le MCD World\n\n\nis-capital est une association \\(1\\) à \\(1\\).\nis-in est une association \\(1\\) à plusieurs.\nis-spoken-in est une association plusieurs à plusieurs."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#association-binaire-1-à-1-du-mcd",
+    "href": "slides/Modelisation_2.html#association-binaire-1-à-1-du-mcd",
+    "title": "Modélisation II :",
+    "section": "Association binaire 1 à 1 du MCD",
+    "text": "Association binaire 1 à 1 du MCD\nTraduction de la relation is-capital de World\nOn c"
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#association-binaire-1-à-plusieurs-du-mcd",
+    "href": "slides/Modelisation_2.html#association-binaire-1-à-plusieurs-du-mcd",
+    "title": "Modélisation II :",
+    "section": "Association binaire 1 à plusieurs du MCD",
+    "text": "Association binaire 1 à plusieurs du MCD\n //| label: “er4-cardi” //| eval: true //| echo: false graph ER { fontname=“Helvetica,Arial,sans-serif” node [fontname=“Helvetica,Arial,sans-serif”] edge [fontname=“Helvetica,Arial,sans-serif”] layout=fdp node [shape=box]; country; city node [shape=ellipse]; {node [label=“name”] name0; name1;} population; governmentForm; headOfState; {node [label=&lt;iso3&gt;] iso;}; {node [label=&lt;id&gt;] id;}; node [shape=diamond]; “is-in” ;\nname0 -- country;\npopulation -- country;\ngovernmentForm – country; headOfState – country; city – name1; country – iso ; city – id ; city – “is-in” [label=“1:1”,len=1.00]; “is-in” – country [label=“0:n”,len=1.00] ; }\n\n\n\n### Traduction de la relation `is-in` de `World`\n\n\nUn lien *non-identifiant* depuis la table représentant l'entité de cardinalité $0:1$ (`CITY`) vers la table représentant la cardinalité $0:n$ (`COUNTRY`)\n\nLes éventuels attributs propres de l'association sont représentés par des attributs  de la table représentant l'entité de cardinalité $0:1$\n\n\n\n\n# Traduction d'une association binaire *plusieurs-plusieurs* en pattes de corbeau {background-color=\"#1c191c\"}\n\n\n## Une association *plusieurs-plusieurs*\n\n![](/images/MRD_country_langage_cardinalites.svg){fig-align=\"left\" width=\"100%\"}\n\n\n## Transformation préalable à l'aide d'une entité faible\n\n\n\n```{dot}\n//| label: \"er4-cardi\"\n//| eval: true\n//| echo: false\ngraph ER {\n    fontname=\"Helvetica,Arial,sans-serif\"\n    node [fontname=\"Helvetica,Arial,sans-serif\"]\n    edge [fontname=\"Helvetica,Arial,sans-serif\"]\n    layout=fdp\n    node [shape=box]; country; language;\n    node [shape=ellipse]; {node [label=\"name\"] name0; name2;}\n        population; governmentForm; headOfState; {node [label=&lt;&lt;u&gt;iso3&lt;/u&gt;&gt;] iso;};\n    {node [label=&lt;&lt;u&gt;iso&lt;/u&gt;&gt;] isol;} ; percentage ; isofficial \n  node [shape=box, peripheries=2] ; countrylanguage\n  node [shape=diamond, peripheries=2]; speaks ;  \"is-spoken\" ;\n  \n    name0 -- country;\n    population -- country;\n  governmentForm -- country; \n  headOfState -- country;\n    language -- name2;\n  country -- iso ;\n  language -- isol ;\n  language -- \"is-spoken\"  [label=\"0:n\",len=1.00] ;\n  \"is-spoken\" -- \"countrylanguage\"   [label=\"1:1\",len=1.00] ; \n  country -- speaks [label=\"0:n\", len=1.00];\n  speaks -- countrylanguage [label=\"1:1\",len=1.00] ;\n  countrylanguage -- isofficial ;\n  countrylanguage -- percentage ;\n}"
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#traduction-des-associations-binaires-1-à-1-du-mcd",
+    "href": "slides/Modelisation_2.html#traduction-des-associations-binaires-1-à-1-du-mcd",
+    "title": "Modélisation II :",
+    "section": "Traduction des associations binaires 1 à 1 du MCD",
+    "text": "Traduction des associations binaires 1 à 1 du MCD\nSoit \\(A\\) une association 1 à 1 entre deux \\(E_1\\) et \\(E_2\\) telle que le taux de participation des instances de \\(E_1\\) à l’association \\(A\\) est plus grand que celui des instances de \\(E_2\\).\n\nTraduction en tables de \\(E_1\\) et \\(E_2\\).\nAjout d’un attribut dans \\(E_1\\) (une clé étrangère) qui référence l’identifiant de \\(E_2\\) (la clé primaire de \\(E_2\\)).\nAjout des attributs de \\(A\\) dans \\(E_1\\).\nCréation d’un lien entre les deux tables.\nOn fait figurer du coté de la clé étrangère les cardinalités de \\(A\\) qui dans le modèle E/A, étaient du côté l’entité référencée.\n\n\n\n\n\n\n\nChoix entre \\(E_1\\) et \\(E_2\\)\n\n\n\nChoisir \\(E_2\\) plutôt que \\(E_1\\) est possible.\nPour les instances de \\(E_1\\) qui ne participent pas à l’association, les âttributs ajoutés par traduction de \\(A\\) seront NULL.\nOn choisit \\(E_1\\) plutôt que \\(E_2\\) pour minimiser le nombre de valeur NULL."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#exemple-de-la-relation-is-capital-de-world",
+    "href": "slides/Modelisation_2.html#exemple-de-la-relation-is-capital-de-world",
+    "title": "Modélisation II :",
+    "section": "Exemple de la relation is-capital de World",
+    "text": "Exemple de la relation is-capital de World"
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#traduction-des-associations-binaires-1-à-plusieurs-du-mcd",
+    "href": "slides/Modelisation_2.html#traduction-des-associations-binaires-1-à-plusieurs-du-mcd",
+    "title": "Modélisation II :",
+    "section": "Traduction des associations binaires 1 à plusieurs du MCD",
+    "text": "Traduction des associations binaires 1 à plusieurs du MCD\nSoit \\(A\\) une association 1 à plusieurs entre deux \\(E_1\\) et \\(E_2\\) (plusieurs du côté de \\(E_2\\)) :\n\nTraduction en tables de \\(E_1\\) et \\(E_2\\).\nAjout d’un attribut dans \\(E_1\\) (une clé étrangère) qui référence l’identifiant de \\(E_2\\) (la clé primaire de \\(E_2\\)).\nAjout des attributs de \\(A\\) dans \\(E_1\\).\nCréation d’un lien entre les deux tables.\nOn fait figurer du coté de la clé étrangère les cardinalités de \\(A\\) qui dans le modèle E/A, étaient du côté l’entité référencée."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#exemple-de-la-relation-is-in-de-world",
+    "href": "slides/Modelisation_2.html#exemple-de-la-relation-is-in-de-world",
+    "title": "Modélisation II :",
+    "section": "Exemple de la relation is-in de World",
+    "text": "Exemple de la relation is-in de World"
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#traduction-des-associations-binaires-plusieurs-à-plusieurs",
+    "href": "slides/Modelisation_2.html#traduction-des-associations-binaires-plusieurs-à-plusieurs",
+    "title": "Modélisation II :",
+    "section": "Traduction des associations binaires plusieurs à plusieurs",
+    "text": "Traduction des associations binaires plusieurs à plusieurs\nSoit \\(A\\) une association plusieurs à plusieurs entre deux \\(E_1\\) et \\(E_2\\) :\n\nTraduction en tables de \\(E_1\\) et \\(E_2\\).\nTraduction de \\(A\\) en une entité faible intermédiaire dont l’identifiant est le couple des identifiants de \\(E_1\\) et \\(E_2\\).\nCréation de deux associations binaires faibles \\(A_1\\) et \\(A_2\\) respectivement entre \\(A\\) et \\(E_1\\) et entre \\(A\\) et \\(E_2\\).\nTraduction des associations faibles \\(A_1\\) et \\(A_2\\) de type 1 à plusieurs selon la méthode précédente."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#traduction-des-associations-faibles-et-des-spécialisations",
+    "href": "slides/Modelisation_2.html#traduction-des-associations-faibles-et-des-spécialisations",
+    "title": "Modélisation II :",
+    "section": "Traduction des associations faibles et des spécialisations",
+    "text": "Traduction des associations faibles et des spécialisations\n\nLes spécialisations et les associations faibles du modèle E/A sont des associations binaires un à plusieurs qui sont traduites selon le principe précédent.\nPour les spécialisations, comme l’entité spécialisée n’avait pas d’identifiant, l’attribut introduit par traduction de l’association de spécialisation devient la clé primaire.\nPour les entités faibles, l’assocation faible avec l’entité forte de référence est déjà traduite par décomposition de l’identifiant concaténé en deux attributs qui forment la clé primaire de la table traduisant l’entité faible."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#exemple-de-la-relation-is-spoken-in-de-world",
+    "href": "slides/Modelisation_2.html#exemple-de-la-relation-is-spoken-in-de-world",
+    "title": "Modélisation II :",
+    "section": "Exemple de la relation is-spoken-in de World",
+    "text": "Exemple de la relation is-spoken-in de World"
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#traduction-dans-le-mrd",
+    "href": "slides/Modelisation_2.html#traduction-dans-le-mrd",
+    "title": "Modélisation II :",
+    "section": "Traduction dans le MRD",
+    "text": "Traduction dans le MRD\n\n\n\n\n\nerDiagram\n    AIRPORT ||--o{ FLIGHT : takes-off\n    AIRPORT ||--o{ FLIGHT : lands-at\n    AIRLINE ||--o{ FLIGHT : operates\n    PLANE   ||--o{ FLIGHT : uses\n    AIRPORT {\n      string(3) faa PK\n      string name \n      numeric lat\n      numeric lon\n    }\n    AIRLINE {\n      string(3) faa PK\n      string name \n    }\n    PLANE {\n      string(3) tailnum PK \n      string model\n      string manufacturer\n      int year\n    }\n    FLIGHT {\n      string(3) origin  PK, FK\n      string(3) dest PK, FK\n      string tailnum PK, FK\n      string carrier PK, FK\n      int num PK\n      datetime dep_time PK\n    }"
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#exemple-du-mcd-world",
+    "href": "slides/Modelisation_2.html#exemple-du-mcd-world",
+    "title": "Modélisation II :",
+    "section": "Exemple du MCD World",
+    "text": "Exemple du MCD World\nLes entités COUNTRY, CITY et LANGUAGE sont traduits en 3 tables:\n\nCOUNTRY d’identifiant countrycode,\nCITY d’identifiant id,\nLANGAGE d’identifiant name."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#mrd-flight",
+    "href": "slides/Modelisation_2.html#mrd-flight",
+    "title": "Modélisation II :",
+    "section": "MRD flight",
+    "text": "MRD flight\n\n\n\n\n\n\nER\n\n\n\nairport\n\nairport\n\n\n\norig\n\n\norig\n\n\n\nairport--orig\n\n0:n\n\n\n\ndest\n\n\ndest\n\n\n\nairport--dest\n\n0:n\n\n\n\nplane\n\nplane\n\n\n\nairline\n\nairline\n\n\n\nflight\n\n\nflight\n\n\n\noperates\n\n\noperates\n\n\n\nflight--operates\n\n1:1\n\n\n\nuses\n\n\nuses\n\n\n\nflight--uses\n\n1:1\n\n\n\norig--flight\n\n1:1\n\n\n\ndest--flight\n\n1:1\n\n\n\noperates--airline\n\n0:n\n\n\n\nuses--plane\n\n0:n"
   }
 ]

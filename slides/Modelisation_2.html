@@ -11,11 +11,13 @@
 <link href="../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/grid-htext-1.0.0/grid_htext.css" rel="stylesheet">
 <script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
-<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet"><meta charset="utf-8">
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Équipe BD">
-  <meta name="dcterms.date" content="2025-11-14">
+  <meta name="dcterms.date" content="2025-11-24">
   <title>MA15E045 - Automne 2025 – Modélisation II :</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -34,6 +36,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-fc22af260e9e2d20ec1df9e302aeb234.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -128,6 +196,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <script>
   MathJax = {
     loader: {
@@ -147,7 +218,7 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <meta property="og:title" content="Modélisation II : – MA15E045 - Automne 2025">
-<meta property="og:description" content="Traduction d’un’ MCD (Modèle E/A) en MLD (Modèle relationnel)">
+<meta property="og:description" content="Traduction d’un MCD (Modèle E/A) en MLD (Modèle relationnel)">
 <meta property="og:site_name" content="MA15E045 - Automne 2025">
 </head>
 <body class="quarto-light">
@@ -156,7 +227,7 @@
 
 <section id="title-slide" data-background-color="#1c191c" class="quarto-title-block center">
   <h1 class="title">Modélisation II :</h1>
-  <p class="subtitle">Traduction d’un’ MCD (Modèle E/A) en MLD (Modèle relationnel)</p>
+  <p class="subtitle">Traduction d’un MCD (Modèle E/A) en MLD (Modèle relationnel)</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -169,17 +240,680 @@
     </div>
 </div>
 
-  <p class="date">2025-11-14</p>
+  <p class="date">2025-11-24</p>
 </section><section id="TOC">
 <nav role="doc-toc"> 
 <h2 id="toc-title">Plan</h2>
 <ul>
-<li><a href="#/a-venir" id="/toc-a-venir">A venir</a></li>
+<li><a href="#/introduction" id="/toc-introduction">Introduction</a></li>
+<li><a href="#/formalisme-du-modèle-relationnel-des-données" id="/toc-formalisme-du-modèle-relationnel-des-données">Formalisme du Modèle Relationnel des Données</a></li>
+<li><a href="#/traduction-du-mcd-en-mrd" id="/toc-traduction-du-mcd-en-mrd">Traduction du MCD en MRD</a></li>
+<li><a href="#/traduction-dune-association-n-aire-n2" id="/toc-traduction-dune-association-n-aire-n2">Traduction d’une association <span class="math inline">\(n\)</span>-aire (<span class="math inline">\(n&gt;2\)</span>)</a></li>
+<li><a href="#/du-mrd-à-la-description-physique-des-données-sql" id="/toc-du-mrd-à-la-description-physique-des-données-sql">Du MRD à la Description Physique des Données (SQL)</a></li>
+<li><a href="#/au-de-delà-des-modèles-ea-et-relationnels" id="/toc-au-de-delà-des-modèles-ea-et-relationnels">Au de delà des modèles EA et Relationnels</a></li>
+<li><a href="#/fin" id="/toc-fin">Fin</a></li>
 </ul>
 </nav>
 </section>
-<section id="a-venir" class="title-slide slide level1 center">
-<h1>A venir</h1>
+<section>
+<section id="introduction" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Introduction</h1>
+
+</section>
+<section id="entre-modèle-ea-et-modèle-relationnel" class="slide level2 center">
+<h2>Entre modèle EA et modèle relationnel</h2>
+<p>Dans le modèle conceptuel des données (modèle EA)</p>
+<ul>
+<li>Plusieurs types de briques de bases : Entités (noms) et Associations (verbes)</li>
+<li>Un formalisme accessible (en principe) aux usagers du système d’information</li>
+</ul>
+<p>Dans le modèle logique des données relationnel (MRD)</p>
+<ul>
+<li>Une seule brique de base : les tables</li>
+</ul>
+</section></section>
+<section>
+<section id="formalisme-du-modèle-relationnel-des-données" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Formalisme du Modèle Relationnel des Données</h1>
+
+</section>
+<section id="objectifs" class="slide level2 center">
+<h2>Objectifs</h2>
+<ul>
+<li><p>Une technique de traduction du formalisme EA vers le formalisme relationnel.</p></li>
+<li><p>Visualisation des <em>contraintes référentielles</em> via les <em>pattes de corbeaux</em>.</p></li>
+<li><p>Un formalisme graphique très proche de la description physique en SQL.</p></li>
+<li><p>Un formalisme graphique utilisé pour documenter les bases de données relationnelles</p></li>
+</ul>
+</section>
+<section id="origines" class="slide level2 center">
+<h2>Origines</h2>
+<ul>
+<li><p>Créé par Gordon Everest (fin des années 1970)</p></li>
+<li><p>Normalisé par Finkelstein et Martin</p></li>
+</ul>
+</section>
+<section id="diagrammes" class="slide level2 center">
+<h2>Diagrammes</h2>
+<h3 id="deux-briques-de-base">Deux briques de base</h3>
+<p>Les modèles relationnelles des données (MRD) sont formés :</p>
+<ul>
+<li>de <em>tables</em>,</li>
+<li>de <em>liens</em> entre tables.</li>
+</ul>
+<h3 id="les-liens">Les liens <i class="fa-solid fa-arrows-left-right-to-line" aria-label="arrows-left-right-to-line"></i></h3>
+<ul>
+<li><p>Représentent des associations <em>binaires</em> un-un, ou un-vers-plusieurs</p></li>
+<li><p>Les cardinalités sont visualisées par les extrémités des liens</p></li>
+</ul>
+</section>
+<section id="les-cardinalités" class="slide level2 center">
+<h2>Les cardinalités</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;">
+Symbole
+</th>
+<th>
+Interprétation
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+<img data-src="..\images/MRD_0_1.png" class="quarto-figure quarto-figure-center" style="width:25.0%">
+</td>
+<td>
+Zero ou un
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<img data-src="..\images/MRD_1_1.png" class="quarto-figure quarto-figure-left" style="width:20.0%">
+</td>
+<td>
+Exactement un
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<img data-src="..\images/MRD_0_n.png" class="quarto-figure quarto-figure-left" style="width:25.0%">
+</td>
+<td>
+Zero ou plus (pas de borne supérieure)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+<img data-src="..\images/MRD_1_n.png" class="quarto-figure quarto-figure-left" style="width:20.0%">
+</td>
+<td>
+un ou plus (pas de borne supérieure)
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="interprétation-des-cardinalités-du-mrd" class="slide level2 center">
+<h2>Interprétation des cardinalités du MRD</h2>
+<div class="columns">
+<div class="column">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="..\images/MRD_world_city-country.svg" class="quarto-figure quarto-figure-left" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column">
+<ul>
+<li><p>Association <em>is-in</em> : une valeur de l’attribut <code>countrycode</code> de <code>COUNTRY</code> (donc une instance de <em>COUNTRY</em> car c’est l’identifiant) peut être référencée plusieurs fois dans la table <code>CITY</code>.</p></li>
+<li><p>Association <em>is-capital</em> : une valeur de l’attribut <code>id</code> de <code>CITY</code> (donc une instance de <em>CITY</em>) est référencée au plus une fois dans la table <code>COUNTRY</code>.</p></li>
+</ul>
+</div></div>
+</section>
+<section id="les-liens-dans-un-mrd" class="slide level2 center">
+<h2>Les liens dans un MRD</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Avertissement</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Un lien dans un MRD définit une contrainte d’intégrité référentielle entre <em>deux</em> tables.</p></li>
+<li><p>Il ne peut pas représenter directement un association d’arité supérieure à 2.</p></li>
+<li><p>Il ne porte pas d’attributs propres.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="traduction-du-mcd-en-mrd" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Traduction du MCD en MRD</h1>
+
+</section>
+<section id="les-entités" class="slide level2 center">
+<h2>Les entités</h2>
+<ul>
+<li>Entité forte du MCD <span class="math inline">\(\rightarrow\)</span> table du MRD de même nom et de mêmes attributs</li>
+<li>Entité faible du MCD <span class="math inline">\(\rightarrow\)</span> table du MRD de même nom et de mêmes attributs</li>
+<li>Entité spécialisée du MCD <span class="math inline">\(\rightarrow\)</span> table du MRD de même nom et de mêmes attributs</li>
+<li>Les identifiants des entités deviennent les identifiants (clés primaires) des tables.</li>
+<li>On décompose les identifiants concaténés des entités faibles en autant d’attributs qui forment ensemble la clé primaire de la table créée.</li>
+</ul>
+</section>
+<section id="exemple-du-mcd-world" class="slide level2 center">
+<h2>Exemple du MCD <code>World</code></h2>
+<p>Les entités COUNTRY, CITY et LANGUAGE sont traduits en 3 tables:</p>
+<ul>
+<li><code>COUNTRY</code> d’identifiant <code>countrycode</code>,</li>
+<li><code>CITY</code> d’identifiant <code>id</code>,</li>
+<li><code>LANGAGE</code> d’identifiant <code>name</code>.</li>
+</ul>
+</section>
+<section id="associations-binaires-1-à-1-1-à-plusieurs-plusieurs-à-plusieurs" class="slide level2 center">
+<h2>Associations binaires <em>1 à 1</em>, <em>1 à plusieurs</em>, <em>plusieurs à plusieurs</em></h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>On dit qu’une association binaire du MCD est de type <span class="math inline">\(a\)</span> à <span class="math inline">\(b\)</span> si la cardinalité maximale de l’associaiton est <span class="math inline">\(a\)</span> pour une entité, <span class="math inline">\(b\)</span> pour l’autre.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exemples-sur-le-mcd-world" class="slide level2 center">
+<h2>Exemples sur le MCD <code>World</code></h2>
+
+<img data-src="..\images/MCD_world_cardinalites.svg" class="quarto-figure quarto-figure-left r-stretch" style="width:80.0%"><ul>
+<li><code>is-capital</code> est une association <span class="math inline">\(1\)</span> à <span class="math inline">\(1\)</span>.</li>
+<li><code>is-in</code> est une association <span class="math inline">\(1\)</span> à plusieurs.</li>
+<li><code>is-spoken-in</code> est une association plusieurs à plusieurs.</li>
+</ul>
+</section>
+<section id="traduction-des-associations-binaires-1-à-1-du-mcd" class="slide level2 center">
+<h2>Traduction des associations binaires <em>1 à 1</em> du MCD</h2>
+<p>Soit <span class="math inline">\(A\)</span> une association <em>1 à 1</em> entre deux <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span> telle que le taux de participation des instances de <span class="math inline">\(E_1\)</span> à l’association <span class="math inline">\(A\)</span> est plus grand que celui des instances de <span class="math inline">\(E_2\)</span>.</p>
+<ul>
+<li>Traduction en tables de <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span>.</li>
+<li>Ajout d’un attribut dans <span class="math inline">\(E_1\)</span> (une clé étrangère) qui référence l’identifiant de <span class="math inline">\(E_2\)</span> (la clé primaire de <span class="math inline">\(E_2\)</span>).</li>
+<li>Ajout des attributs de <span class="math inline">\(A\)</span> dans <span class="math inline">\(E_1\)</span>.</li>
+<li>Création d’un lien entre les deux tables.</li>
+<li>On fait figurer du coté de la clé étrangère les cardinalités de <span class="math inline">\(A\)</span> qui dans le modèle E/A, étaient du côté l’entité référencée.</li>
+</ul>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Choix entre <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span></strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Choisir <span class="math inline">\(E_2\)</span> plutôt que <span class="math inline">\(E_1\)</span> est possible.</li>
+<li>Pour les instances de <span class="math inline">\(E_1\)</span> qui ne participent pas à l’association, les âttributs ajoutés par traduction de <span class="math inline">\(A\)</span> seront <code>NULL</code>.</li>
+<li>On choisit <span class="math inline">\(E_1\)</span> plutôt que <span class="math inline">\(E_2\)</span> pour minimiser le nombre de valeur <code>NULL</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="exemple-de-la-relation-is-capital-de-world" class="slide level2 center">
+<h2>Exemple de la relation <code>is-capital</code> de <code>World</code></h2>
+<div class="quarto-layout-panel" data-layout="[50,50]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="..\images/MCD_world_is-capital.svg" class="quarto-figure quarto-figure-left"></p>
+</figure>
+</div>
+</div>
+<div id="second-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="..\images/MRD_world_is-capital.svg" class="quarto-figure quarto-figure-right"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="traduction-des-associations-binaires-1-à-plusieurs-du-mcd" class="slide level2 center">
+<h2>Traduction des associations binaires <em>1 à plusieurs</em> du MCD</h2>
+<p>Soit <span class="math inline">\(A\)</span> une association <em>1 à plusieurs</em> entre deux <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span> (plusieurs du côté de <span class="math inline">\(E_2\)</span>) :</p>
+<ul>
+<li>Traduction en tables de <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span>.</li>
+<li>Ajout d’un attribut dans <span class="math inline">\(E_1\)</span> (une clé étrangère) qui référence l’identifiant de <span class="math inline">\(E_2\)</span> (la clé primaire de <span class="math inline">\(E_2\)</span>).</li>
+<li>Ajout des attributs de <span class="math inline">\(A\)</span> dans <span class="math inline">\(E_1\)</span>.</li>
+<li>Création d’un lien entre les deux tables.</li>
+<li>On fait figurer du coté de la clé étrangère les cardinalités de <span class="math inline">\(A\)</span> qui dans le modèle E/A, étaient du côté l’entité référencée.</li>
+</ul>
+</section>
+<section id="exemple-de-la-relation-is-in-de-world" class="slide level2 center">
+<h2>Exemple de la relation <code>is-in</code> de <code>World</code></h2>
+<div class="quarto-layout-panel" data-layout="[50,50]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="..\images/MCD_world_is-in.svg" class="quarto-figure quarto-figure-left"></p>
+</figure>
+</div>
+</div>
+<div id="second-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="..\images/MRD_world_is-in.svg" class="quarto-figure quarto-figure-left"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="traduction-des-associations-faibles-et-des-spécialisations" class="slide level2 center">
+<h2>Traduction des associations faibles et des spécialisations</h2>
+<ul>
+<li><p>Les spécialisations et les associations faibles du modèle E/A sont des associations binaires <em>un à plusieurs</em> qui sont traduites selon le principe précédent.</p></li>
+<li><p>Pour les spécialisations, comme l’entité spécialisée n’avait pas d’identifiant, l’attribut introduit par traduction de l’association de spécialisation devient la clé primaire.</p></li>
+<li><p>Pour les entités faibles, l’assocation faible avec l’entité forte de référence est déjà traduite par décomposition de l’identifiant concaténé en deux attributs qui forment la clé primaire de la table traduisant l’entité faible.</p></li>
+</ul>
+</section>
+<section id="traduction-des-associations-binaires-plusieurs-à-plusieurs" class="slide level2 center">
+<h2>Traduction des associations binaires <em>plusieurs à plusieurs</em></h2>
+<p>Soit <span class="math inline">\(A\)</span> une association <em>plusieurs à plusieurs</em> entre deux <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span> :</p>
+<ul>
+<li>Traduction en tables de <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span>.</li>
+<li>Traduction de <span class="math inline">\(A\)</span> en une entité faible intermédiaire dont l’identifiant est le couple des identifiants de <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span>.</li>
+<li>Création de deux associations binaires faibles <span class="math inline">\(A_1\)</span> et <span class="math inline">\(A_2\)</span> respectivement entre <span class="math inline">\(A\)</span> et <span class="math inline">\(E_1\)</span> et entre <span class="math inline">\(A\)</span> et <span class="math inline">\(E_2\)</span>.</li>
+<li>Traduction des associations faibles <span class="math inline">\(A_1\)</span> et <span class="math inline">\(A_2\)</span> de type 1 à plusieurs selon la méthode précédente.</li>
+</ul>
+</section>
+<section id="exemple-de-la-relation-is-spoken-in-de-world" class="slide level2 center">
+<h2>Exemple de la relation <code>is-spoken-in</code> de <code>World</code></h2>
+<div class="quarto-layout-panel" data-layout="[50,50]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="..\images/MCD_world_is-spoken-in.svg" class="quarto-figure quarto-figure-left"></p>
+</figure>
+</div>
+</div>
+<div id="second-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="..\images/MRD_world_is-spoken-in.svg" class="quarto-figure quarto-figure-left"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="traduction-dune-association-n-aire-n2" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Traduction d’une association <span class="math inline">\(n\)</span>-aire (<span class="math inline">\(n&gt;2\)</span>)</h1>
+
+</section>
+<section id="exemple-de-lassociation-flight" class="slide level2 center">
+<h2>Exemple de l’association <code>flight</code></h2>
+<div class="cell" data-eval="true" data-layout-align="default">
+<div class="cell-output-display">
+<div id="nyc-quaternaire">
+<div>
+<svg width="960" height="480" viewbox="0.00 0.00 494.00 332.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
+<title>ER</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-328 490,-328 490,4 -4,4"></polygon>
+<!-- airport -->
+<g id="node1" class="node">
+<title>airport</title>
+<polygon fill="none" stroke="black" points="54,-180 0,-180 0,-144 54,-144 54,-180"></polygon>
+<text text-anchor="middle" x="27" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">airport</text>
+</g>
+<!-- flight -->
+<g id="node4" class="node">
+<title>flight</title>
+<polygon fill="none" stroke="black" points="315,-180 269.61,-162 315,-144 360.39,-162 315,-180"></polygon>
+<text text-anchor="middle" x="315" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">flight</text>
+</g>
+<!-- airport&#45;&#45;flight -->
+<g id="edge1" class="edge">
+<title>airport--flight</title>
+<path fill="none" stroke="black" d="M54.09,-166.15C106.74,-169.47 222.77,-169.61 280.7,-166.56"></path>
+<text text-anchor="middle" x="156.12" y="-170.55" font-family="Helvetica,Arial,sans-serif" font-size="14.00">orig</text>
+<text text-anchor="middle" x="63.04" y="-170.35" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+</g>
+<!-- plane -->
+<g id="node2" class="node">
+<title>plane</title>
+<polygon fill="none" stroke="black" points="486,-36 432,-36 432,0 486,0 486,-36"></polygon>
+<text text-anchor="middle" x="459" y="-13.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">plane</text>
+</g>
+<!-- airline -->
+<g id="node3" class="node">
+<title>airline</title>
+<polygon fill="none" stroke="black" points="486,-324 432,-324 432,-288 486,-288 486,-324"></polygon>
+<text text-anchor="middle" x="459" y="-301.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">airline</text>
+</g>
+<!-- flight&#45;&#45;airport -->
+<g id="edge2" class="edge">
+<title>flight--airport</title>
+<path fill="none" stroke="black" d="M280.83,-157.45C223.02,-154.39 107.06,-154.52 54.28,-157.84"></path>
+<text text-anchor="middle" x="156.28" y="-145.04" font-family="Helvetica,Arial,sans-serif" font-size="14.00">dest</text>
+<text text-anchor="middle" x="63.23" y="-145.24" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+</g>
+<!-- flight&#45;&#45;plane -->
+<g id="edge4" class="edge">
+<title>flight--plane</title>
+<path fill="none" stroke="black" d="M328.03,-148.97C353.79,-123.21 411.25,-65.75 440.76,-36.24"></path>
+<text text-anchor="middle" x="431.81" y="-40.44" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+</g>
+<!-- flight&#45;&#45;airline -->
+<g id="edge3" class="edge">
+<title>flight--airline</title>
+<path fill="none" stroke="black" d="M328.03,-175.03C353.79,-200.79 411.25,-258.25 440.76,-287.76"></path>
+<text text-anchor="middle" x="431.81" y="-275.16" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+</g>
+</g>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="transformation-de-lassociation-quarternaire-en-quatre-associations-binaires-faibles" class="slide level2 center">
+<h2>Transformation de l’association quarternaire en quatre associations binaires (faibles)</h2>
+<p>L’association quarternaire est transformée en</p>
+<ul>
+<li>une entité faible. Chaque instance de cette entité faible représente une instance de l’association quaternaire,</li>
+<li>On obtient quatre associations binaires qui sont du type <em>1 à 1</em> ou <em>1 à plusieurs</em> que l’on traduit selon la méthode vue précédemment.</li>
+</ul>
+<p>Pour mémoire : du côté de l’entité faible, la cardinalité d’une association faible est toujours <code>1:1</code></p>
+</section>
+<section id="mrd-flight" class="slide level2 center">
+<h2>MRD <code>flight</code></h2>
+<div class="cell" data-eval="true" data-layout-align="default">
+<div class="cell-output-display">
+<div id="nyc-quaternaire">
+<div>
+<svg width="960" height="480" viewbox="0.00 0.00 494.00 332.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
+<title>ER</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-328 490,-328 490,4 -4,4"></polygon>
+<!-- airport -->
+<g id="node1" class="node">
+<title>airport</title>
+<polygon fill="none" stroke="black" points="54,-180 0,-180 0,-144 54,-144 54,-180"></polygon>
+<text text-anchor="middle" x="27" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">airport</text>
+</g>
+<!-- orig -->
+<g id="node5" class="node">
+<title>orig</title>
+<polygon fill="none" stroke="black" points="165.59,-211.7 128.09,-193.75 165.59,-175.8 203.1,-193.75 165.59,-211.7"></polygon>
+<polygon fill="none" stroke="black" points="165.59,-216.12 118.85,-193.75 165.59,-171.38 212.34,-193.75 165.59,-216.12"></polygon>
+<text text-anchor="middle" x="165.59" y="-189.55" font-family="Helvetica,Arial,sans-serif" font-size="14.00">orig</text>
+</g>
+<!-- airport&#45;&#45;orig -->
+<g id="edge1" class="edge">
+<title>airport--orig</title>
+<path fill="none" stroke="black" d="M54.05,-168.2C76.9,-173.43 109.65,-180.93 133.75,-186.45"></path>
+<text text-anchor="middle" x="63" y="-172.4" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+</g>
+<!-- dest -->
+<g id="node6" class="node">
+<title>dest</title>
+<polygon fill="none" stroke="black" points="165.73,-149.73 128.22,-131.78 165.73,-113.83 203.23,-131.78 165.73,-149.73"></polygon>
+<polygon fill="none" stroke="black" points="165.73,-154.15 118.98,-131.78 165.73,-109.41 212.47,-131.78 165.73,-154.15"></polygon>
+<text text-anchor="middle" x="165.73" y="-127.58" font-family="Helvetica,Arial,sans-serif" font-size="14.00">dest</text>
+</g>
+<!-- airport&#45;&#45;dest -->
+<g id="edge2" class="edge">
+<title>airport--dest</title>
+<path fill="none" stroke="black" d="M54.08,-156.1C76.79,-151.16 109.27,-144.08 133.36,-138.83"></path>
+<text text-anchor="middle" x="63.02" y="-143.5" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+</g>
+<!-- plane -->
+<g id="node2" class="node">
+<title>plane</title>
+<polygon fill="none" stroke="black" points="486,-36 432,-36 432,0 486,0 486,-36"></polygon>
+<text text-anchor="middle" x="459" y="-13.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">plane</text>
+</g>
+<!-- airline -->
+<g id="node3" class="node">
+<title>airline</title>
+<polygon fill="none" stroke="black" points="486,-324 432,-324 432,-288 486,-288 486,-324"></polygon>
+<text text-anchor="middle" x="459" y="-301.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">airline</text>
+</g>
+<!-- flight -->
+<g id="node4" class="node">
+<title>flight</title>
+<polygon fill="none" stroke="black" points="342,-180 288,-180 288,-144 342,-144 342,-180"></polygon>
+<polygon fill="none" stroke="black" points="346,-184 284,-184 284,-140 346,-140 346,-184"></polygon>
+<text text-anchor="middle" x="315" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">flight</text>
+</g>
+<!-- operates -->
+<g id="node7" class="node">
+<title>operates</title>
+<polygon fill="none" stroke="black" points="393.77,-260.72 332.86,-242.58 393.77,-224.44 454.69,-242.58 393.77,-260.72"></polygon>
+<polygon fill="none" stroke="black" points="393.77,-264.92 318.74,-242.58 393.77,-220.24 468.8,-242.58 393.77,-264.92"></polygon>
+<text text-anchor="middle" x="393.77" y="-238.38" font-family="Helvetica,Arial,sans-serif" font-size="14.00">operates</text>
+</g>
+<!-- flight&#45;&#45;operates -->
+<g id="edge5" class="edge">
+<title>flight--operates</title>
+<path fill="none" stroke="black" d="M336.52,-184.02C349.19,-196.97 364.98,-213.12 376.76,-225.18"></path>
+<text text-anchor="middle" x="327.58" y="-188.22" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
+</g>
+<!-- uses -->
+<g id="node8" class="node">
+<title>uses</title>
+<polygon fill="none" stroke="black" points="389.97,-102.99 350.68,-85.07 389.97,-67.15 429.26,-85.07 389.97,-102.99"></polygon>
+<polygon fill="none" stroke="black" points="389.97,-107.38 341.07,-85.07 389.97,-62.77 438.87,-85.07 389.97,-107.38"></polygon>
+<text text-anchor="middle" x="389.97" y="-80.87" font-family="Helvetica,Arial,sans-serif" font-size="14.00">uses</text>
+</g>
+<!-- flight&#45;&#45;uses -->
+<g id="edge6" class="edge">
+<title>flight--uses</title>
+<path fill="none" stroke="black" d="M336.68,-139.75C348.79,-127.32 363.59,-112.14 374.52,-100.92"></path>
+<text text-anchor="middle" x="327.74" y="-127.15" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
+</g>
+<!-- orig&#45;&#45;flight -->
+<g id="edge3" class="edge">
+<title>orig--flight</title>
+<path fill="none" stroke="black" d="M198.01,-186.86C223.5,-181.44 258.78,-173.95 283.92,-168.6"></path>
+<text text-anchor="middle" x="274.98" y="-172.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
+</g>
+<!-- dest&#45;&#45;flight -->
+<g id="edge4" class="edge">
+<title>dest--flight</title>
+<path fill="none" stroke="black" d="M198.86,-138.49C224.19,-143.62 258.89,-150.64 283.75,-155.67"></path>
+<text text-anchor="middle" x="274.81" y="-143.07" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
+</g>
+<!-- operates&#45;&#45;airline -->
+<g id="edge7" class="edge">
+<title>operates--airline</title>
+<path fill="none" stroke="black" d="M411.59,-259.91C420.5,-268.56 431.26,-279.03 440.29,-287.8"></path>
+<text text-anchor="middle" x="431.34" y="-275.2" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+</g>
+<!-- uses&#45;&#45;plane -->
+<g id="edge8" class="edge">
+<title>uses--plane</title>
+<path fill="none" stroke="black" d="M405.63,-69.85C415.98,-59.8 429.58,-46.59 440.46,-36.02"></path>
+<text text-anchor="middle" x="431.51" y="-40.22" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+</g>
+</g>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="traduction-dans-le-mrd" class="slide level2 center">
+<h2>Traduction dans le MRD</h2>
+<div class="cell" data-reveal="true" data-eval="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">erDiagram
+    AIRPORT ||--o{ FLIGHT : takes-off
+    AIRPORT ||--o{ FLIGHT : lands-at
+    AIRLINE ||--o{ FLIGHT : operates
+    PLANE   ||--o{ FLIGHT : uses
+    AIRPORT {
+      string(3) faa PK
+      string name 
+      numeric lat
+      numeric lon
+    }
+    AIRLINE {
+      string(3) faa PK
+      string name 
+    }
+    PLANE {
+      string(3) tailnum PK 
+      string model
+      string manufacturer
+      int year
+    }
+    FLIGHT {
+      string(3) origin  PK, FK
+      string(3) dest PK, FK
+      string tailnum PK, FK
+      string carrier PK, FK
+      int num PK
+      datetime dep_time PK
+    }
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="du-mrd-à-la-description-physique-des-données-sql" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Du MRD à la Description Physique des Données (SQL)</h1>
+
+</section>
+<section id="un-traduction-immédiate" class="slide level2 center">
+<h2>Un traduction immédiate</h2>
+<ul>
+<li><p>Chaque table du MRD correspond à une table SQL.</p></li>
+<li><p>Les identifiants sont définis comme clés primaires.</p></li>
+<li><p>Les liens du MRD se traduisent en contraintes d’intégrité référentielle.</p></li>
+<li><p>Les contraintes du MCD se traduisent autant que possible en contraintes SQL selon les possibilités du SGBD choisi.</p></li>
+</ul>
+</section>
+<section id="schéma-world" class="slide level2 center">
+<h2>Schéma <code>world</code></h2>
+
+<img data-src="..\images/MRD_world.svg" class="r-stretch quarto-figure-center"><p class="caption">schema <code>world</code></p></section>
+<section id="ldd-create-schema-if-not-exists-world" class="slide level2 smaller center">
+<h2>LDD <code>CREATE SCHEMA IF NOT EXISTS world;</code></h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a></a><span class="kw">CREATE</span>  <span class="kw">TABLE</span> world.region_continent ( </span>
+<span id="cb1-2"><a></a>    region               text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb1-3"><a></a>    continent            text    ,</span>
+<span id="cb1-4"><a></a>    <span class="kw">CONSTRAINT</span> pk_region_continent <span class="kw">PRIMARY</span> <span class="kw">KEY</span> ( region )</span>
+<span id="cb1-5"><a></a> );</span>
+<span id="cb1-6"><a></a></span>
+<span id="cb1-7"><a></a><span class="kw">CREATE</span>  <span class="kw">TABLE</span> world.city ( </span>
+<span id="cb1-8"><a></a>    <span class="kw">id</span>                   <span class="dt">integer</span>  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb1-9"><a></a>    name                 text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb1-10"><a></a>    countrycode          <span class="dt">char</span>(<span class="dv">3</span>)  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb1-11"><a></a>    district             text  ,</span>
+<span id="cb1-12"><a></a>    population           <span class="dt">integer</span> ,</span>
+<span id="cb1-13"><a></a>    <span class="kw">CONSTRAINT</span> city_pkey <span class="kw">PRIMARY</span> <span class="kw">KEY</span> ( <span class="kw">id</span> )</span>
+<span id="cb1-14"><a></a> );</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="créations-de-tables-suite" class="slide level2 smaller center">
+<h2>Créations de tables (suite)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a></a><span class="kw">CREATE</span>  <span class="kw">TABLE</span> world.country ( </span>
+<span id="cb2-2"><a></a>    countrycode          <span class="dt">char</span>(<span class="dv">3</span>)  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb2-3"><a></a>    name_country         text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb2-4"><a></a>    region               text  ,  </span>
+<span id="cb2-5"><a></a>    surfacearea          <span class="dt">real</span>   ,</span>
+<span id="cb2-6"><a></a>    indepyear            <span class="dt">smallint</span>    ,</span>
+<span id="cb2-7"><a></a>    population_country   <span class="dt">integer</span>     ,</span>
+<span id="cb2-8"><a></a>    lifeexpectancy       <span class="dt">real</span>    ,</span>
+<span id="cb2-9"><a></a>    gnp                  <span class="dt">numeric</span>(<span class="dv">10</span>,<span class="dv">2</span>)    ,</span>
+<span id="cb2-10"><a></a>    gnpold               <span class="dt">numeric</span>(<span class="dv">10</span>,<span class="dv">2</span>)    ,</span>
+<span id="cb2-11"><a></a>    localname            text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb2-12"><a></a>    governmentform       text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb2-13"><a></a>    headofstate          text    ,</span>
+<span id="cb2-14"><a></a>    capital              <span class="dt">integer</span>    ,</span>
+<span id="cb2-15"><a></a>    code2                <span class="dt">char</span>(<span class="dv">2</span>)  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb2-16"><a></a>    <span class="kw">CONSTRAINT</span> country_pkey <span class="kw">PRIMARY</span> <span class="kw">KEY</span> ( countrycode )</span>
+<span id="cb2-17"><a></a> );</span>
+<span id="cb2-18"><a></a></span>
+<span id="cb2-19"><a></a></span>
+<span id="cb2-20"><a></a><span class="kw">CREATE</span>  <span class="kw">TABLE</span> world.countrylanguage ( </span>
+<span id="cb2-21"><a></a>    countrycode          <span class="dt">char</span>(<span class="dv">3</span>)  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb2-22"><a></a>    <span class="ot">"language"</span>           text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb2-23"><a></a>    isofficial           <span class="dt">boolean</span>  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb2-24"><a></a>    percentage           <span class="dt">real</span>  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
+<span id="cb2-25"><a></a>    <span class="kw">CONSTRAINT</span> countrylanguage_pkey <span class="kw">PRIMARY</span> <span class="kw">KEY</span> ( countrycode, <span class="ot">"language"</span> )</span>
+<span id="cb2-26"><a></a> );</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="les-contraintes-référentielles" class="slide level2 smaller center">
+<h2>Les contraintes référentielles</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.city </span>
+<span id="cb3-2"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> city_country_fk </span>
+<span id="cb3-3"><a></a>  <span class="kw">FOREIGN</span> <span class="kw">KEY</span> ( countrycode ) </span>
+<span id="cb3-4"><a></a>  <span class="kw">REFERENCES</span> world.country( countrycode ) </span>
+<span id="cb3-5"><a></a>  <span class="kw">ON</span> <span class="kw">DELETE</span> <span class="kw">SET</span> <span class="kw">NULL</span> <span class="kw">ON</span> <span class="kw">UPDATE</span> <span class="kw">CASCADE</span> <span class="kw">DEFERRABLE</span>;</span>
+<span id="cb3-6"><a></a></span>
+<span id="cb3-7"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country </span>
+<span id="cb3-8"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> country_capital_fkey </span>
+<span id="cb3-9"><a></a>  <span class="kw">FOREIGN</span> <span class="kw">KEY</span> ( capital ) <span class="kw">REFERENCES</span> world.city( <span class="kw">id</span> ) </span>
+<span id="cb3-10"><a></a>  <span class="kw">ON</span> <span class="kw">DELETE</span> <span class="kw">SET</span> <span class="kw">NULL</span> <span class="kw">ON</span> <span class="kw">UPDATE</span> <span class="kw">CASCADE</span>;</span>
+<span id="cb3-11"><a></a></span>
+<span id="cb3-12"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country </span>
+<span id="cb3-13"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> country_region_fk </span>
+<span id="cb3-14"><a></a>  <span class="kw">FOREIGN</span> <span class="kw">KEY</span> ( region ) <span class="kw">REFERENCES</span> world.region_continent( region ) </span>
+<span id="cb3-15"><a></a>  <span class="kw">ON</span> <span class="kw">DELETE</span> <span class="kw">SET</span> <span class="kw">NULL</span> <span class="kw">ON</span> <span class="kw">UPDATE</span> <span class="kw">CASCADE</span> <span class="kw">DEFERRABLE</span>;</span>
+<span id="cb3-16"><a></a></span>
+<span id="cb3-17"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.countrylanguage </span>
+<span id="cb3-18"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> countrylanguage_countrycode_fkey </span>
+<span id="cb3-19"><a></a>  <span class="kw">FOREIGN</span> <span class="kw">KEY</span> ( countrycode ) </span>
+<span id="cb3-20"><a></a>  <span class="kw">REFERENCES</span> world.country( countrycode );</span>
+<span id="cb3-21"><a></a></span>
+<span id="cb3-22"><a></a></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section></section>
+<section>
+<section id="au-de-delà-des-modèles-ea-et-relationnels" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Au de delà des modèles EA et Relationnels</h1>
+
+</section>
+<section id="la-modélisation-un-exercice-très-général" class="slide level2 center">
+<h2>La modélisation : un exercice très général</h2>
+<p>En Informatique, la modélisation concerne aussi la conception des interfaces humains-machines, des sites WWW, des traitements divers, des entrepots de données, des lacs de données, ….</p>
+<p>Chaque situation a suscité une méthode apropriée</p>
+<div class="fragment">
+<p>Quelques exemples :</p>
+<ul>
+<li>Modèles Relation-Objet (Object Relational Model ORM)</li>
+<li>UML (Universal Modeling Language)</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Les modèles EA et pattes de corbeau ne sont que la partie émergée d’un iceberg</p>
+</div>
+</section></section>
+<section id="fin" class="title-slide slide level1 center" data-background-color="#1c191c">
+<h1>Fin</h1>
 
 
 <div class="reveal-header">
