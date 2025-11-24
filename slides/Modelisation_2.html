@@ -323,15 +323,15 @@ Interprétation
 <tbody>
 <tr>
 <td style="text-align:center;">
-<img data-src="..\images/MRD_0_1.png" class="quarto-figure quarto-figure-center" style="width:25.0%">
+<img data-src="..\images/modelisation/MRD_0_1.png" class="quarto-figure quarto-figure-center" style="width:25.0%">
 </td>
 <td>
-Zero ou un
+Zéro ou un
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-<img data-src="..\images/MRD_1_1.png" class="quarto-figure quarto-figure-left" style="width:20.0%">
+<img data-src="..\images/modelisation/MRD_1_1.png" class="quarto-figure quarto-figure-left" style="width:20.0%">
 </td>
 <td>
 Exactement un
@@ -339,18 +339,18 @@ Exactement un
 </tr>
 <tr>
 <td style="text-align:center;">
-<img data-src="..\images/MRD_0_n.png" class="quarto-figure quarto-figure-left" style="width:25.0%">
+<img data-src="..\images/modelisation/MRD_0_n.png" class="quarto-figure quarto-figure-left" style="width:25.0%">
 </td>
 <td>
-Zero ou plus (pas de borne supérieure)
+Zéro ou plus (pas de borne supérieure)
 </td>
 </tr>
 <tr>
 <td style="text-align:center;">
-<img data-src="..\images/MRD_1_n.png" class="quarto-figure quarto-figure-left" style="width:20.0%">
+<img data-src="..\images/modelisation/MRD_1_n.png" class="quarto-figure quarto-figure-left" style="width:20.0%">
 </td>
 <td>
-un ou plus (pas de borne supérieure)
+Un ou plus (pas de borne supérieure)
 </td>
 </tr>
 </tbody>
@@ -362,13 +362,13 @@ un ou plus (pas de borne supérieure)
 <div class="column">
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="..\images/MRD_world_city-country.svg" class="quarto-figure quarto-figure-left" style="width:100.0%"></p>
+<p><img data-src="..\images/modelisation/MRD_world_city-country.svg" class="quarto-figure quarto-figure-left" style="width:100.0%"></p>
 </figure>
 </div>
 </div><div class="column">
 <ul>
-<li><p>Association <em>is-in</em> : une valeur de l’attribut <code>countrycode</code> de <code>COUNTRY</code> (donc une instance de <em>COUNTRY</em> car c’est l’identifiant) peut être référencée plusieurs fois dans la table <code>CITY</code>.</p></li>
-<li><p>Association <em>is-capital</em> : une valeur de l’attribut <code>id</code> de <code>CITY</code> (donc une instance de <em>CITY</em>) est référencée au plus une fois dans la table <code>COUNTRY</code>.</p></li>
+<li><p>Association <em>is-in</em> : une valeur de l’attribut <code>countrycode</code> de <code>COUNTRY</code> (donc une instance de <em>COUNTRY</em> car c’est l’identifiant) peut être référencée 0 à plusieurs fois dans la table <code>CITY</code>.</p></li>
+<li><p>Association <em>is-capital</em> : une valeur de l’attribut <code>id</code> de <code>CITY</code> (donc une instance de <em>CITY</em>) est référencée 0 à 1 fois dans la table <code>COUNTRY</code>.</p></li>
 </ul>
 </div></div>
 </section>
@@ -427,7 +427,7 @@ un ou plus (pas de borne supérieure)
 <p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
-<p>On dit qu’une association binaire du MCD est de type <span class="math inline">\(a\)</span> à <span class="math inline">\(b\)</span> si la cardinalité maximale de l’associaiton est <span class="math inline">\(a\)</span> pour une entité, <span class="math inline">\(b\)</span> pour l’autre.</p>
+<p>On dit qu’une association binaire du MCD est de type <span class="math inline">\(a\)</span> à <span class="math inline">\(b\)</span> si la cardinalité maximale de l’association est <span class="math inline">\(a\)</span> pour une entité, <span class="math inline">\(b\)</span> pour l’autre.</p>
 </div>
 </div>
 </div>
@@ -435,10 +435,10 @@ un ou plus (pas de borne supérieure)
 <section id="exemples-sur-le-mcd-world" class="slide level2 center">
 <h2>Exemples sur le MCD <code>World</code></h2>
 
-<img data-src="..\images/MCD_world_cardinalites.svg" class="quarto-figure quarto-figure-left r-stretch" style="width:80.0%"><ul>
-<li><code>is-capital</code> est une association <span class="math inline">\(1\)</span> à <span class="math inline">\(1\)</span>.</li>
-<li><code>is-in</code> est une association <span class="math inline">\(1\)</span> à plusieurs.</li>
-<li><code>is-spoken-in</code> est une association plusieurs à plusieurs.</li>
+<img data-src="..\images/modelisation/MCD_world_cardinalites.svg" class="quarto-figure quarto-figure-left r-stretch" style="width:80.0%"><ul>
+<li><code>is-capital</code> est une association <em><span class="math inline">\(1\)</span> à <span class="math inline">\(1\)</span></em>.</li>
+<li><code>is-in</code> est une association <em><span class="math inline">\(1\)</span> à plusieurs</em>.</li>
+<li><code>is-spoken-in</code> est une association <em>plusieurs à plusieurs</em>.</li>
 </ul>
 </section>
 <section id="traduction-des-associations-binaires-1-à-1-du-mcd" class="slide level2 center">
@@ -476,14 +476,14 @@ un ou plus (pas de borne supérieure)
 <div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="..\images/MCD_world_is-capital.svg" class="quarto-figure quarto-figure-left"></p>
+<p><img data-src="..\images/modelisation/MCD_world_is-capital.svg" class="quarto-figure quarto-figure-left"></p>
 </figure>
 </div>
 </div>
 <div id="second-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-right">
 <figure>
-<p><img data-src="..\images/MRD_world_is-capital.svg" class="quarto-figure quarto-figure-right"></p>
+<p><img data-src="..\images/modelisation/MRD_world_is-capital.svg" class="quarto-figure quarto-figure-right"></p>
 </figure>
 </div>
 </div>
@@ -508,14 +508,14 @@ un ou plus (pas de borne supérieure)
 <div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="..\images/MCD_world_is-in.svg" class="quarto-figure quarto-figure-left"></p>
+<p><img data-src="..\images/modelisation/MCD_world_is-in.svg" class="quarto-figure quarto-figure-left"></p>
 </figure>
 </div>
 </div>
 <div id="second-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-left">
+<div class="quarto-figure quarto-figure-right">
 <figure>
-<p><img data-src="..\images/MRD_world_is-in.svg" class="quarto-figure quarto-figure-left"></p>
+<p><img data-src="..\images/modelisation/MRD_world_is-in.svg" class="quarto-figure quarto-figure-right"></p>
 </figure>
 </div>
 </div>
@@ -547,14 +547,14 @@ un ou plus (pas de borne supérieure)
 <div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="..\images/MCD_world_is-spoken-in.svg" class="quarto-figure quarto-figure-left"></p>
+<p><img data-src="..\images/modelisation/MCD_world_is-spoken-in.svg" class="quarto-figure quarto-figure-left"></p>
 </figure>
 </div>
 </div>
 <div id="second-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<div class="quarto-figure quarto-figure-left">
+<div class="quarto-figure quarto-figure-right">
 <figure>
-<p><img data-src="..\images/MRD_world_is-spoken-in.svg" class="quarto-figure quarto-figure-left"></p>
+<p><img data-src="..\images/modelisation/MRD_world_is-spoken-in.svg" class="quarto-figure quarto-figure-right"></p>
 </figure>
 </div>
 </div>
@@ -793,8 +793,8 @@ un ou plus (pas de borne supérieure)
       string(3) dest PK, FK
       string tailnum PK, FK
       string carrier PK, FK
-      int num PK
-      datetime dep_time PK
+      int num
+      datetime dep_time
     }
 </pre>
 </div>
@@ -820,7 +820,7 @@ un ou plus (pas de borne supérieure)
 <section id="schéma-world" class="slide level2 center">
 <h2>Schéma <code>world</code></h2>
 
-<img data-src="..\images/MRD_world.svg" class="r-stretch quarto-figure-center"><p class="caption">schema <code>world</code></p></section>
+<img data-src="..\images/modelisation/MRD_world1.svg" class="r-stretch quarto-figure-center"><p class="caption">schema <code>world</code></p></section>
 <section id="ldd-create-schema-if-not-exists-world" class="slide level2 smaller center">
 <h2>LDD <code>CREATE SCHEMA IF NOT EXISTS world;</code></h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a></a><span class="kw">CREATE</span>  <span class="kw">TABLE</span> world.region_continent ( </span>

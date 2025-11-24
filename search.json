@@ -2436,7 +2436,7 @@
     "href": "slides/Modelisation_2.html#les-cardinalités",
     "title": "Modélisation II :",
     "section": "Les cardinalités",
-    "text": "Les cardinalités\n\n\n\n\nSymbole\n\n\nInterprétation\n\n\n\n\n\n\n\n\n\nZero ou un\n\n\n\n\n\n\n\nExactement un\n\n\n\n\n\n\n\nZero ou plus (pas de borne supérieure)\n\n\n\n\n\n\n\nun ou plus (pas de borne supérieure)"
+    "text": "Les cardinalités\n\n\n\n\nSymbole\n\n\nInterprétation\n\n\n\n\n\n\n\n\n\nZéro ou un\n\n\n\n\n\n\n\nExactement un\n\n\n\n\n\n\n\nZéro ou plus (pas de borne supérieure)\n\n\n\n\n\n\n\nUn ou plus (pas de borne supérieure)"
   },
   {
     "objectID": "slides/Modelisation_2.html#aliases",
@@ -5852,7 +5852,7 @@
     "href": "slides/Modelisation_2.html#interprétation-des-cardinalités-du-mrd",
     "title": "Modélisation II :",
     "section": "Interprétation des cardinalités du MRD",
-    "text": "Interprétation des cardinalités du MRD\n\n\n\n\n\n\n\n\n\nAssociation is-in : une valeur de l’attribut countrycode de COUNTRY (donc une instance de COUNTRY car c’est l’identifiant) peut être référencée plusieurs fois dans la table CITY.\nAssociation is-capital : une valeur de l’attribut id de CITY (donc une instance de CITY) est référencée au plus une fois dans la table COUNTRY."
+    "text": "Interprétation des cardinalités du MRD\n\n\n\n\n\n\n\n\n\nAssociation is-in : une valeur de l’attribut countrycode de COUNTRY (donc une instance de COUNTRY car c’est l’identifiant) peut être référencée 0 à plusieurs fois dans la table CITY.\nAssociation is-capital : une valeur de l’attribut id de CITY (donc une instance de CITY) est référencée 0 à 1 fois dans la table COUNTRY."
   },
   {
     "objectID": "slides/Modelisation_2.html#association-binaire-0-à-plusieurs-ou-1-à-plusieurs-du-mcd",
@@ -5873,7 +5873,7 @@
     "href": "slides/Modelisation_2.html#associations-binaires-1-à-1-1-à-plusieurs-plusieurs-à-plusieurs",
     "title": "Modélisation II :",
     "section": "Associations binaires 1 à 1, 1 à plusieurs, plusieurs à plusieurs",
-    "text": "Associations binaires 1 à 1, 1 à plusieurs, plusieurs à plusieurs\n\n\n\n\n\n\nDéfinition\n\n\nOn dit qu’une association binaire du MCD est de type \\(a\\) à \\(b\\) si la cardinalité maximale de l’associaiton est \\(a\\) pour une entité, \\(b\\) pour l’autre."
+    "text": "Associations binaires 1 à 1, 1 à plusieurs, plusieurs à plusieurs\n\n\n\n\n\n\nDéfinition\n\n\nOn dit qu’une association binaire du MCD est de type \\(a\\) à \\(b\\) si la cardinalité maximale de l’association est \\(a\\) pour une entité, \\(b\\) pour l’autre."
   },
   {
     "objectID": "slides/Modelisation_2.html#exemples-sur-le-mcd-world",
@@ -5950,7 +5950,7 @@
     "href": "slides/Modelisation_2.html#traduction-dans-le-mrd",
     "title": "Modélisation II :",
     "section": "Traduction dans le MRD",
-    "text": "Traduction dans le MRD\n\n\n\n\n\nerDiagram\n    AIRPORT ||--o{ FLIGHT : takes-off\n    AIRPORT ||--o{ FLIGHT : lands-at\n    AIRLINE ||--o{ FLIGHT : operates\n    PLANE   ||--o{ FLIGHT : uses\n    AIRPORT {\n      string(3) faa PK\n      string name \n      numeric lat\n      numeric lon\n    }\n    AIRLINE {\n      string(3) faa PK\n      string name \n    }\n    PLANE {\n      string(3) tailnum PK \n      string model\n      string manufacturer\n      int year\n    }\n    FLIGHT {\n      string(3) origin  PK, FK\n      string(3) dest PK, FK\n      string tailnum PK, FK\n      string carrier PK, FK\n      int num PK\n      datetime dep_time PK\n    }"
+    "text": "Traduction dans le MRD\n\n\n\n\n\nerDiagram\n    AIRPORT ||--o{ FLIGHT : takes-off\n    AIRPORT ||--o{ FLIGHT : lands-at\n    AIRLINE ||--o{ FLIGHT : operates\n    PLANE   ||--o{ FLIGHT : uses\n    AIRPORT {\n      string(3) faa PK\n      string name \n      numeric lat\n      numeric lon\n    }\n    AIRLINE {\n      string(3) faa PK\n      string name \n    }\n    PLANE {\n      string(3) tailnum PK \n      string model\n      string manufacturer\n      int year\n    }\n    FLIGHT {\n      string(3) origin  PK, FK\n      string(3) dest PK, FK\n      string tailnum PK, FK\n      string carrier PK, FK\n      int num\n      datetime dep_time\n    }"
   },
   {
     "objectID": "slides/Modelisation_2.html#exemple-du-mcd-world",
