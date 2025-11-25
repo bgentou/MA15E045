@@ -2520,7 +2520,7 @@
     "href": "slides/Modelisation_2.html#exemple-de-lassociation-flight",
     "title": "Modélisation II :",
     "section": "Exemple de l’association flight",
-    "text": "Exemple de l’association flight\n\n\n\n\n\n\nER\n\n\n\nairport\n\nairport\n\n\n\nflight\n\nflight\n\n\n\nairport--flight\n\norig\n0:n\n\n\n\nplane\n\nplane\n\n\n\nairline\n\nairline\n\n\n\nflight--airport\n\ndest\n0:n\n\n\n\nflight--plane\n\n0:n\n\n\n\nflight--airline\n\n0:n"
+    "text": "Exemple de l’association flight\nMCD avant décomposition\n\n\n\n\n\n\nER\n\n\n\nAIRPORT\n\nAIRPORT\n\n\n\nflight\n\nflight\n\n\n\nAIRPORT--flight\n\norig\n0:n\n\n\n\nPLANE\n\nPLANE\n\n\n\nAIRLINE\n\nAIRLINE\n\n\n\nflight--AIRPORT\n\ndest\n0:n\n\n\n\nflight--PLANE\n\n0:n\n\n\n\nflight--AIRLINE\n\n0:n"
   },
   {
     "objectID": "slides/Modelisation_2.html#transformation-de-lassociation-quarternaire-en-quatre-associations-binaires-faibles",
@@ -5880,7 +5880,7 @@
     "href": "slides/Modelisation_2.html#exemples-sur-le-mcd-world",
     "title": "Modélisation II :",
     "section": "Exemples sur le MCD World",
-    "text": "Exemples sur le MCD World\n\n\nis-capital est une association \\(1\\) à \\(1\\).\nis-in est une association \\(1\\) à plusieurs.\nis-spoken-in est une association plusieurs à plusieurs."
+    "text": "Exemples sur le MCD World\n\n\n\n\n\n\n\n\n\n\n\n\nis-capital est une association \\(1\\) à \\(1\\).\nis-in est une association \\(1\\) à plusieurs.\nis-spoken-in est une association plusieurs à plusieurs."
   },
   {
     "objectID": "slides/Modelisation_2.html#association-binaire-1-à-1-du-mcd",
@@ -5901,7 +5901,7 @@
     "href": "slides/Modelisation_2.html#traduction-des-associations-binaires-1-à-1-du-mcd",
     "title": "Modélisation II :",
     "section": "Traduction des associations binaires 1 à 1 du MCD",
-    "text": "Traduction des associations binaires 1 à 1 du MCD\nSoit \\(A\\) une association 1 à 1 entre deux \\(E_1\\) et \\(E_2\\) telle que le taux de participation des instances de \\(E_1\\) à l’association \\(A\\) est plus grand que celui des instances de \\(E_2\\).\n\nTraduction en tables de \\(E_1\\) et \\(E_2\\).\nAjout d’un attribut dans \\(E_1\\) (une clé étrangère) qui référence l’identifiant de \\(E_2\\) (la clé primaire de \\(E_2\\)).\nAjout des attributs de \\(A\\) dans \\(E_1\\).\nCréation d’un lien entre les deux tables.\nOn fait figurer du coté de la clé étrangère les cardinalités de \\(A\\) qui dans le modèle E/A, étaient du côté l’entité référencée.\n\n\n\n\n\n\n\nChoix entre \\(E_1\\) et \\(E_2\\)\n\n\n\nChoisir \\(E_2\\) plutôt que \\(E_1\\) est possible.\nPour les instances de \\(E_1\\) qui ne participent pas à l’association, les âttributs ajoutés par traduction de \\(A\\) seront NULL.\nOn choisit \\(E_1\\) plutôt que \\(E_2\\) pour minimiser le nombre de valeur NULL."
+    "text": "Traduction des associations binaires 1 à 1 du MCD\nSoit \\(A\\) une association 1 à 1 entre deux \\(E_1\\) et \\(E_2\\) telle que le taux de participation des instances de \\(E_1\\) à l’association \\(A\\) est plus grand que celui des instances de \\(E_2\\).\n\nTraduction en tables de \\(E_1\\) et \\(E_2\\).\nAjout d’un attribut dans \\(E_1\\) (une clé étrangère) qui référence l’identifiant de \\(E_2\\) (la clé primaire de \\(E_2\\)).\nAjout des attributs de \\(A\\) dans \\(E_1\\).\nCréation d’un lien entre les deux tables.\nOn fait figurer du coté de la clé étrangère les cardinalités de \\(A\\) qui dans le modèle E/A, étaient du côté l’entité référencée.\n\n\n\n\n\n\n\n\nChoix entre \\(E_1\\) et \\(E_2\\)\n\n\n\nPour les instances de \\(E_1\\) qui ne participent pas à l’association, les âttributs ajoutés par traduction de \\(A\\) seront NULL.\nOn choisit \\(E_1\\) plutôt que \\(E_2\\) pour minimiser le nombre de valeur NULL. Mais choisir \\(E_2\\) plutôt que \\(E_1\\) est possible."
   },
   {
     "objectID": "slides/Modelisation_2.html#exemple-de-la-relation-is-capital-de-world",
@@ -5929,7 +5929,7 @@
     "href": "slides/Modelisation_2.html#traduction-des-associations-binaires-plusieurs-à-plusieurs",
     "title": "Modélisation II :",
     "section": "Traduction des associations binaires plusieurs à plusieurs",
-    "text": "Traduction des associations binaires plusieurs à plusieurs\nSoit \\(A\\) une association plusieurs à plusieurs entre deux \\(E_1\\) et \\(E_2\\) :\n\nTraduction en tables de \\(E_1\\) et \\(E_2\\).\nTraduction de \\(A\\) en une entité faible intermédiaire dont l’identifiant est le couple des identifiants de \\(E_1\\) et \\(E_2\\).\nCréation de deux associations binaires faibles \\(A_1\\) et \\(A_2\\) respectivement entre \\(A\\) et \\(E_1\\) et entre \\(A\\) et \\(E_2\\).\nTraduction des associations faibles \\(A_1\\) et \\(A_2\\) de type 1 à plusieurs selon la méthode précédente."
+    "text": "Traduction des associations binaires plusieurs à plusieurs\nSoit \\(A\\) une association plusieurs à plusieurs entre deux entités \\(E_1\\) et \\(E_2\\) :\n\nTraduction en tables de \\(E_1\\) et \\(E_2\\).\nTraduction de \\(A\\) en une entité faible intermédiaire dont l’identifiant est le couple des identifiants de \\(E_1\\) et \\(E_2\\).\nCréation de deux associations binaires faibles \\(A_1\\) et \\(A_2\\) respectivement entre \\(A\\) et \\(E_1\\) et entre \\(A\\) et \\(E_2\\).\nTraduction en tables de cette décomposition.\n\n\n\n\n\n\n\n\nRemarque\n\n\nDu côté de l’entité faible, la cardinalité d’une association faible est toujours 1:1 donc les associations faibles sont de type un à plusieurs ou un à un."
   },
   {
     "objectID": "slides/Modelisation_2.html#traduction-des-associations-faibles-et-des-spécialisations",
@@ -5964,6 +5964,48 @@
     "href": "slides/Modelisation_2.html#mrd-flight",
     "title": "Modélisation II :",
     "section": "MRD flight",
-    "text": "MRD flight\n\n\n\n\n\n\nER\n\n\n\nairport\n\nairport\n\n\n\norig\n\n\norig\n\n\n\nairport--orig\n\n0:n\n\n\n\ndest\n\n\ndest\n\n\n\nairport--dest\n\n0:n\n\n\n\nplane\n\nplane\n\n\n\nairline\n\nairline\n\n\n\nflight\n\n\nflight\n\n\n\noperates\n\n\noperates\n\n\n\nflight--operates\n\n1:1\n\n\n\nuses\n\n\nuses\n\n\n\nflight--uses\n\n1:1\n\n\n\norig--flight\n\n1:1\n\n\n\ndest--flight\n\n1:1\n\n\n\noperates--airline\n\n0:n\n\n\n\nuses--plane\n\n0:n"
+    "text": "MRD flight"
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#décomposition-de-lassociation-n-aire",
+    "href": "slides/Modelisation_2.html#décomposition-de-lassociation-n-aire",
+    "title": "Modélisation II :",
+    "section": "Décomposition de l’association \\(n\\)-aire",
+    "text": "Décomposition de l’association \\(n\\)-aire\n\nL’association \\(n\\)-aire \\(A\\) est transformée en une entité faible \\(A\\). Chaque instance de cette entité faible représente une instance de l’association quaternaire.\nCréation de quatre associations binaires qui sont du 1 à plusieurs (ou éventuellement 1 à 1).\nTraduction en table de cette décomposition."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#traduction-dune-association-n-aire",
+    "href": "slides/Modelisation_2.html#traduction-dune-association-n-aire",
+    "title": "Modélisation II :",
+    "section": "Traduction d’une association \\(n\\)-aire",
+    "text": "Traduction d’une association \\(n\\)-aire\nSoient \\(n&gt;2\\), \\(E_1\\), \\(\\dots\\), \\(E_n\\) des entités et \\(A\\) une association \\(n\\)-aire entre ces entités.\n\nDécomposition de l’association \\(A\\) en une entité faible et \\(n\\) associations binaires de type 1 à plusieurs ou 1 à 1.\nTraduction en tables de cette décomposition."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#mcd-flight-décomposé",
+    "href": "slides/Modelisation_2.html#mcd-flight-décomposé",
+    "title": "Modélisation II :",
+    "section": "MCD flight décomposé",
+    "text": "MCD flight décomposé\n\n\n\n\n\n\nER\n\n\n\nAIRPORT\n\nAIRPORT\n\n\n\norig\n\n\norig\n\n\n\nAIRPORT--orig\n\n0:n\n\n\n\ndest\n\n\ndest\n\n\n\nAIRPORT--dest\n\n0:n\n\n\n\nPLANE\n\nPLANE\n\n\n\nAIRLINE\n\nAIRLINE\n\n\n\nFLIGHT\n\n\nFLIGHT\n\n\n\noperates\n\n\noperates\n\n\n\nFLIGHT--operates\n\n1:1\n\n\n\nuses\n\n\nuses\n\n\n\nFLIGHT--uses\n\n1:1\n\n\n\norig--FLIGHT\n\n1:1\n\n\n\ndest--FLIGHT\n\n1:1\n\n\n\noperates--AIRLINE\n\n0:n\n\n\n\nuses--PLANE\n\n0:n"
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#mrd-world",
+    "href": "slides/Modelisation_2.html#mrd-world",
+    "title": "Modélisation II :",
+    "section": "MRD world",
+    "text": "MRD world"
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#mrd-simplifié-world",
+    "href": "slides/Modelisation_2.html#mrd-simplifié-world",
+    "title": "Modélisation II :",
+    "section": "MRD simplifié world",
+    "text": "MRD simplifié world\n\n\n\n\n\n\nSimplification\n\n\n\nOn peut choisir de supprimer la table LANGUAGE car elle n’a pas d’autre attribut que l’identifiant.\nMais cela supprime une contrainte d’intégrité référentielle, c.a.d. la contrainte d’appartenance de l’attribut is-spohen-in.language à un ensemble déterminé de valeurs : les valeurs stockées dans language.name."
+  },
+  {
+    "objectID": "slides/Modelisation_2.html#ldd-world",
+    "href": "slides/Modelisation_2.html#ldd-world",
+    "title": "Modélisation II :",
+    "section": "LDD world",
+    "text": "LDD world\nCREATE  TABLE world.region_continent ( \n    region               text  NOT NULL  ,\n    continent            text    ,\n    CONSTRAINT pk_region_continent PRIMARY KEY ( region )\n );\n\nCREATE  TABLE world.city ( \n    id                   integer  NOT NULL  ,\n    name                 text  NOT NULL  ,\n    countrycode          char(3)  NOT NULL  ,\n    district             text  ,\n    population           integer ,\n    CONSTRAINT city_pkey PRIMARY KEY ( id )\n );"
   }
 ]

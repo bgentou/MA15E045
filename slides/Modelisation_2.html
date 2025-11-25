@@ -196,9 +196,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <script>
   MathJax = {
     loader: {
@@ -434,8 +431,18 @@ Un ou plus (pas de borne supérieure)
 </section>
 <section id="exemples-sur-le-mcd-world" class="slide level2 center">
 <h2>Exemples sur le MCD <code>World</code></h2>
-
-<img data-src="..\images/modelisation/MCD_world_cardinalites.svg" class="quarto-figure quarto-figure-left r-stretch" style="width:80.0%"><ul>
+<div class="quarto-layout-panel" data-layout="[100]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="..\images/modelisation/MCD_world_cardinalites.svg" class="quarto-figure quarto-figure-left"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
 <li><code>is-capital</code> est une association <em><span class="math inline">\(1\)</span> à <span class="math inline">\(1\)</span></em>.</li>
 <li><code>is-in</code> est une association <em><span class="math inline">\(1\)</span> à plusieurs</em>.</li>
 <li><code>is-spoken-in</code> est une association <em>plusieurs à plusieurs</em>.</li>
@@ -451,7 +458,8 @@ Un ou plus (pas de borne supérieure)
 <li>Création d’un lien entre les deux tables.</li>
 <li>On fait figurer du coté de la clé étrangère les cardinalités de <span class="math inline">\(A\)</span> qui dans le modèle E/A, étaient du côté l’entité référencée.</li>
 </ul>
-<div class="callout callout-important callout-titled callout-style-default">
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
@@ -461,10 +469,10 @@ Un ou plus (pas de borne supérieure)
 </div>
 <div class="callout-content">
 <ul>
-<li>Choisir <span class="math inline">\(E_2\)</span> plutôt que <span class="math inline">\(E_1\)</span> est possible.</li>
 <li>Pour les instances de <span class="math inline">\(E_1\)</span> qui ne participent pas à l’association, les âttributs ajoutés par traduction de <span class="math inline">\(A\)</span> seront <code>NULL</code>.</li>
-<li>On choisit <span class="math inline">\(E_1\)</span> plutôt que <span class="math inline">\(E_2\)</span> pour minimiser le nombre de valeur <code>NULL</code>.</li>
+<li>On choisit <span class="math inline">\(E_1\)</span> plutôt que <span class="math inline">\(E_2\)</span> pour minimiser le nombre de valeur <code>NULL</code>. Mais choisir <span class="math inline">\(E_2\)</span> plutôt que <span class="math inline">\(E_1\)</span> est possible.</li>
 </ul>
+</div>
 </div>
 </div>
 </div>
@@ -532,13 +540,28 @@ Un ou plus (pas de borne supérieure)
 </section>
 <section id="traduction-des-associations-binaires-plusieurs-à-plusieurs" class="slide level2 center">
 <h2>Traduction des associations binaires <em>plusieurs à plusieurs</em></h2>
-<p>Soit <span class="math inline">\(A\)</span> une association <em>plusieurs à plusieurs</em> entre deux <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span> :</p>
+<p>Soit <span class="math inline">\(A\)</span> une association <em>plusieurs à plusieurs</em> entre deux entités <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span> :</p>
 <ul>
 <li>Traduction en tables de <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span>.</li>
 <li>Traduction de <span class="math inline">\(A\)</span> en une entité faible intermédiaire dont l’identifiant est le couple des identifiants de <span class="math inline">\(E_1\)</span> et <span class="math inline">\(E_2\)</span>.</li>
 <li>Création de deux associations binaires faibles <span class="math inline">\(A_1\)</span> et <span class="math inline">\(A_2\)</span> respectivement entre <span class="math inline">\(A\)</span> et <span class="math inline">\(E_1\)</span> et entre <span class="math inline">\(A\)</span> et <span class="math inline">\(E_2\)</span>.</li>
-<li>Traduction des associations faibles <span class="math inline">\(A_1\)</span> et <span class="math inline">\(A_2\)</span> de type 1 à plusieurs selon la méthode précédente.</li>
+<li>Traduction en tables de cette décomposition.</li>
 </ul>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Remarque</strong></p>
+</div>
+<div class="callout-content">
+<p>Du côté de l’entité faible, la cardinalité d’une association faible est toujours <code>1:1</code> donc les associations faibles sont de type <em>un à plusieurs</em> ou <em>un à un</em>.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="exemple-de-la-relation-is-spoken-in-de-world" class="slide level2 center">
 <h2>Exemple de la relation <code>is-spoken-in</code> de <code>World</code></h2>
@@ -566,65 +589,74 @@ Un ou plus (pas de borne supérieure)
 <h1>Traduction d’une association <span class="math inline">\(n\)</span>-aire (<span class="math inline">\(n&gt;2\)</span>)</h1>
 
 </section>
+<section id="traduction-dune-association-n-aire" class="slide level2 center">
+<h2>Traduction d’une association <span class="math inline">\(n\)</span>-aire</h2>
+<p>Soient <span class="math inline">\(n&gt;2\)</span>, <span class="math inline">\(E_1\)</span>, <span class="math inline">\(\dots\)</span>, <span class="math inline">\(E_n\)</span> des entités et <span class="math inline">\(A\)</span> une association <span class="math inline">\(n\)</span>-aire entre ces entités.</p>
+<ul>
+<li>Décomposition de l’association <span class="math inline">\(A\)</span> en une entité faible et <span class="math inline">\(n\)</span> associations binaires de type <em>1 à plusieurs</em> ou <em>1 à 1</em>.</li>
+<li>Traduction en tables de cette décomposition.</li>
+</ul>
+</section>
 <section id="exemple-de-lassociation-flight" class="slide level2 center">
 <h2>Exemple de l’association <code>flight</code></h2>
+<p>MCD avant décomposition</p>
 <div class="cell" data-eval="true" data-layout-align="default">
 <div class="cell-output-display">
 <div id="nyc-quaternaire">
 <div>
-<svg width="960" height="480" viewbox="0.00 0.00 494.00 332.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<svg width="960" height="480" viewbox="0.00 0.00 514.00 332.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
 <title>ER</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-328 490,-328 490,4 -4,4"></polygon>
-<!-- airport -->
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-328 510,-328 510,4 -4,4"></polygon>
+<!-- AIRPORT -->
 <g id="node1" class="node">
-<title>airport</title>
-<polygon fill="none" stroke="black" points="54,-180 0,-180 0,-144 54,-144 54,-180"></polygon>
-<text text-anchor="middle" x="27" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">airport</text>
+<title>AIRPORT</title>
+<polygon fill="none" stroke="black" points="75.9,-180 0.1,-180 0.1,-144 75.9,-144 75.9,-180"></polygon>
+<text text-anchor="middle" x="38" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">AIRPORT</text>
 </g>
 <!-- flight -->
 <g id="node4" class="node">
 <title>flight</title>
-<polygon fill="none" stroke="black" points="315,-180 269.61,-162 315,-144 360.39,-162 315,-180"></polygon>
-<text text-anchor="middle" x="315" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">flight</text>
+<polygon fill="none" stroke="black" points="326,-180 280.61,-162 326,-144 371.39,-162 326,-180"></polygon>
+<text text-anchor="middle" x="326" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">flight</text>
 </g>
-<!-- airport&#45;&#45;flight -->
+<!-- AIRPORT&#45;&#45;flight -->
 <g id="edge1" class="edge">
-<title>airport--flight</title>
-<path fill="none" stroke="black" d="M54.09,-166.15C106.74,-169.47 222.77,-169.61 280.7,-166.56"></path>
-<text text-anchor="middle" x="156.12" y="-170.55" font-family="Helvetica,Arial,sans-serif" font-size="14.00">orig</text>
-<text text-anchor="middle" x="63.04" y="-170.35" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+<title>AIRPORT--flight</title>
+<path fill="none" stroke="black" d="M75.95,-166.75C132.46,-169.48 237.88,-169.42 292.01,-166.55"></path>
+<text text-anchor="middle" x="172.7" y="-170.85" font-family="Helvetica,Arial,sans-serif" font-size="14.00">orig</text>
+<text text-anchor="middle" x="84.89" y="-170.95" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
 </g>
-<!-- plane -->
+<!-- PLANE -->
 <g id="node2" class="node">
-<title>plane</title>
-<polygon fill="none" stroke="black" points="486,-36 432,-36 432,0 486,0 486,-36"></polygon>
-<text text-anchor="middle" x="459" y="-13.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">plane</text>
+<title>PLANE</title>
+<polygon fill="none" stroke="black" points="500.61,-36 439.39,-36 439.39,0 500.61,0 500.61,-36"></polygon>
+<text text-anchor="middle" x="470" y="-13.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">PLANE</text>
 </g>
-<!-- airline -->
+<!-- AIRLINE -->
 <g id="node3" class="node">
-<title>airline</title>
-<polygon fill="none" stroke="black" points="486,-324 432,-324 432,-288 486,-288 486,-324"></polygon>
-<text text-anchor="middle" x="459" y="-301.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">airline</text>
+<title>AIRLINE</title>
+<polygon fill="none" stroke="black" points="505.99,-324 434.01,-324 434.01,-288 505.99,-288 505.99,-324"></polygon>
+<text text-anchor="middle" x="470" y="-301.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">AIRLINE</text>
 </g>
-<!-- flight&#45;&#45;airport -->
+<!-- flight&#45;&#45;AIRPORT -->
 <g id="edge2" class="edge">
-<title>flight--airport</title>
-<path fill="none" stroke="black" d="M280.83,-157.45C223.02,-154.39 107.06,-154.52 54.28,-157.84"></path>
-<text text-anchor="middle" x="156.28" y="-145.04" font-family="Helvetica,Arial,sans-serif" font-size="14.00">dest</text>
-<text text-anchor="middle" x="63.23" y="-145.24" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+<title>flight--AIRPORT</title>
+<path fill="none" stroke="black" d="M291.83,-157.45C237.74,-154.59 132.76,-154.52 76.24,-157.24"></path>
+<text text-anchor="middle" x="172.76" y="-144.74" font-family="Helvetica,Arial,sans-serif" font-size="14.00">dest</text>
+<text text-anchor="middle" x="85.18" y="-144.64" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
 </g>
-<!-- flight&#45;&#45;plane -->
+<!-- flight&#45;&#45;PLANE -->
 <g id="edge4" class="edge">
-<title>flight--plane</title>
-<path fill="none" stroke="black" d="M328.03,-148.97C353.79,-123.21 411.25,-65.75 440.76,-36.24"></path>
-<text text-anchor="middle" x="431.81" y="-40.44" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+<title>flight--PLANE</title>
+<path fill="none" stroke="black" d="M339.03,-148.97C364.79,-123.21 422.25,-65.75 451.76,-36.24"></path>
+<text text-anchor="middle" x="442.81" y="-40.44" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
 </g>
-<!-- flight&#45;&#45;airline -->
+<!-- flight&#45;&#45;AIRLINE -->
 <g id="edge3" class="edge">
-<title>flight--airline</title>
-<path fill="none" stroke="black" d="M328.03,-175.03C353.79,-200.79 411.25,-258.25 440.76,-287.76"></path>
-<text text-anchor="middle" x="431.81" y="-275.16" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+<title>flight--AIRLINE</title>
+<path fill="none" stroke="black" d="M339.03,-175.03C364.79,-200.79 422.25,-258.25 451.76,-287.76"></path>
+<text text-anchor="middle" x="442.81" y="-275.16" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
 </g>
 </g>
 </svg>
@@ -633,125 +665,116 @@ Un ou plus (pas de borne supérieure)
 </div>
 </div>
 </section>
-<section id="transformation-de-lassociation-quarternaire-en-quatre-associations-binaires-faibles" class="slide level2 center">
-<h2>Transformation de l’association quarternaire en quatre associations binaires (faibles)</h2>
-<p>L’association quarternaire est transformée en</p>
-<ul>
-<li>une entité faible. Chaque instance de cette entité faible représente une instance de l’association quaternaire,</li>
-<li>On obtient quatre associations binaires qui sont du type <em>1 à 1</em> ou <em>1 à plusieurs</em> que l’on traduit selon la méthode vue précédemment.</li>
-</ul>
-<p>Pour mémoire : du côté de l’entité faible, la cardinalité d’une association faible est toujours <code>1:1</code></p>
-</section>
-<section id="mrd-flight" class="slide level2 center">
-<h2>MRD <code>flight</code></h2>
+<section id="mcd-flight-décomposé" class="slide level2 center">
+<h2>MCD <code>flight</code> décomposé</h2>
 <div class="cell" data-eval="true" data-layout-align="default">
 <div class="cell-output-display">
 <div id="nyc-quaternaire">
 <div>
-<svg width="960" height="480" viewbox="0.00 0.00 494.00 332.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<svg width="960" height="480" viewbox="0.00 0.00 514.00 332.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 328)">
 <title>ER</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-328 490,-328 490,4 -4,4"></polygon>
-<!-- airport -->
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-328 510,-328 510,4 -4,4"></polygon>
+<!-- AIRPORT -->
 <g id="node1" class="node">
-<title>airport</title>
-<polygon fill="none" stroke="black" points="54,-180 0,-180 0,-144 54,-144 54,-180"></polygon>
-<text text-anchor="middle" x="27" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">airport</text>
+<title>AIRPORT</title>
+<polygon fill="none" stroke="black" points="75.9,-180 0.1,-180 0.1,-144 75.9,-144 75.9,-180"></polygon>
+<text text-anchor="middle" x="38" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">AIRPORT</text>
 </g>
 <!-- orig -->
 <g id="node5" class="node">
 <title>orig</title>
-<polygon fill="none" stroke="black" points="165.59,-211.7 128.09,-193.75 165.59,-175.8 203.1,-193.75 165.59,-211.7"></polygon>
-<polygon fill="none" stroke="black" points="165.59,-216.12 118.85,-193.75 165.59,-171.38 212.34,-193.75 165.59,-216.12"></polygon>
-<text text-anchor="middle" x="165.59" y="-189.55" font-family="Helvetica,Arial,sans-serif" font-size="14.00">orig</text>
+<polygon fill="none" stroke="black" points="179.46,-212.76 141.96,-194.81 179.46,-176.87 216.97,-194.81 179.46,-212.76"></polygon>
+<polygon fill="none" stroke="black" points="179.46,-217.18 132.72,-194.81 179.46,-172.44 226.21,-194.81 179.46,-217.18"></polygon>
+<text text-anchor="middle" x="179.46" y="-190.61" font-family="Helvetica,Arial,sans-serif" font-size="14.00">orig</text>
 </g>
-<!-- airport&#45;&#45;orig -->
+<!-- AIRPORT&#45;&#45;orig -->
 <g id="edge1" class="edge">
-<title>airport--orig</title>
-<path fill="none" stroke="black" d="M54.05,-168.2C76.9,-173.43 109.65,-180.93 133.75,-186.45"></path>
-<text text-anchor="middle" x="63" y="-172.4" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+<title>AIRPORT--orig</title>
+<path fill="none" stroke="black" d="M75.91,-170.79C98.33,-176 126.41,-182.51 147.67,-187.44"></path>
+<text text-anchor="middle" x="84.85" y="-174.99" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
 </g>
 <!-- dest -->
 <g id="node6" class="node">
 <title>dest</title>
-<polygon fill="none" stroke="black" points="165.73,-149.73 128.22,-131.78 165.73,-113.83 203.23,-131.78 165.73,-149.73"></polygon>
-<polygon fill="none" stroke="black" points="165.73,-154.15 118.98,-131.78 165.73,-109.41 212.47,-131.78 165.73,-154.15"></polygon>
-<text text-anchor="middle" x="165.73" y="-127.58" font-family="Helvetica,Arial,sans-serif" font-size="14.00">dest</text>
+<polygon fill="none" stroke="black" points="179.51,-148.73 142,-130.78 179.51,-112.83 217.01,-130.78 179.51,-148.73"></polygon>
+<polygon fill="none" stroke="black" points="179.51,-153.15 132.76,-130.78 179.51,-108.41 226.25,-130.78 179.51,-153.15"></polygon>
+<text text-anchor="middle" x="179.51" y="-126.58" font-family="Helvetica,Arial,sans-serif" font-size="14.00">dest</text>
 </g>
-<!-- airport&#45;&#45;dest -->
+<!-- AIRPORT&#45;&#45;dest -->
 <g id="edge2" class="edge">
-<title>airport--dest</title>
-<path fill="none" stroke="black" d="M54.08,-156.1C76.79,-151.16 109.27,-144.08 133.36,-138.83"></path>
-<text text-anchor="middle" x="63.02" y="-143.5" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+<title>AIRPORT--dest</title>
+<path fill="none" stroke="black" d="M75.92,-153.63C98.19,-148.72 126.03,-142.58 147.24,-137.9"></path>
+<text text-anchor="middle" x="84.87" y="-157.83" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
 </g>
-<!-- plane -->
+<!-- PLANE -->
 <g id="node2" class="node">
-<title>plane</title>
-<polygon fill="none" stroke="black" points="486,-36 432,-36 432,0 486,0 486,-36"></polygon>
-<text text-anchor="middle" x="459" y="-13.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">plane</text>
+<title>PLANE</title>
+<polygon fill="none" stroke="black" points="500.61,-36 439.39,-36 439.39,0 500.61,0 500.61,-36"></polygon>
+<text text-anchor="middle" x="470" y="-13.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">PLANE</text>
 </g>
-<!-- airline -->
+<!-- AIRLINE -->
 <g id="node3" class="node">
-<title>airline</title>
-<polygon fill="none" stroke="black" points="486,-324 432,-324 432,-288 486,-288 486,-324"></polygon>
-<text text-anchor="middle" x="459" y="-301.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">airline</text>
+<title>AIRLINE</title>
+<polygon fill="none" stroke="black" points="505.99,-324 434.01,-324 434.01,-288 505.99,-288 505.99,-324"></polygon>
+<text text-anchor="middle" x="470" y="-301.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">AIRLINE</text>
 </g>
-<!-- flight -->
+<!-- FLIGHT -->
 <g id="node4" class="node">
-<title>flight</title>
-<polygon fill="none" stroke="black" points="342,-180 288,-180 288,-144 342,-144 342,-180"></polygon>
-<polygon fill="none" stroke="black" points="346,-184 284,-184 284,-140 346,-140 346,-184"></polygon>
-<text text-anchor="middle" x="315" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">flight</text>
+<title>FLIGHT</title>
+<polygon fill="none" stroke="black" points="358.79,-180 293.21,-180 293.21,-144 358.79,-144 358.79,-180"></polygon>
+<polygon fill="none" stroke="black" points="362.77,-184 289.23,-184 289.23,-140 362.77,-140 362.77,-184"></polygon>
+<text text-anchor="middle" x="326" y="-157.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">FLIGHT</text>
 </g>
 <!-- operates -->
 <g id="node7" class="node">
 <title>operates</title>
-<polygon fill="none" stroke="black" points="393.77,-260.72 332.86,-242.58 393.77,-224.44 454.69,-242.58 393.77,-260.72"></polygon>
-<polygon fill="none" stroke="black" points="393.77,-264.92 318.74,-242.58 393.77,-220.24 468.8,-242.58 393.77,-264.92"></polygon>
-<text text-anchor="middle" x="393.77" y="-238.38" font-family="Helvetica,Arial,sans-serif" font-size="14.00">operates</text>
+<polygon fill="none" stroke="black" points="406.26,-262.03 345.35,-243.89 406.26,-225.75 467.18,-243.89 406.26,-262.03"></polygon>
+<polygon fill="none" stroke="black" points="406.26,-266.23 331.24,-243.89 406.26,-221.55 481.29,-243.89 406.26,-266.23"></polygon>
+<text text-anchor="middle" x="406.26" y="-239.69" font-family="Helvetica,Arial,sans-serif" font-size="14.00">operates</text>
 </g>
-<!-- flight&#45;&#45;operates -->
+<!-- FLIGHT&#45;&#45;operates -->
 <g id="edge5" class="edge">
-<title>flight--operates</title>
-<path fill="none" stroke="black" d="M336.52,-184.02C349.19,-196.97 364.98,-213.12 376.76,-225.18"></path>
-<text text-anchor="middle" x="327.58" y="-188.22" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
+<title>FLIGHT--operates</title>
+<path fill="none" stroke="black" d="M347.93,-184.38C360.93,-197.64 377.15,-214.19 389.19,-226.47"></path>
+<text text-anchor="middle" x="338.99" y="-188.58" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
 </g>
 <!-- uses -->
 <g id="node8" class="node">
 <title>uses</title>
-<polygon fill="none" stroke="black" points="389.97,-102.99 350.68,-85.07 389.97,-67.15 429.26,-85.07 389.97,-102.99"></polygon>
-<polygon fill="none" stroke="black" points="389.97,-107.38 341.07,-85.07 389.97,-62.77 438.87,-85.07 389.97,-107.38"></polygon>
-<text text-anchor="middle" x="389.97" y="-80.87" font-family="Helvetica,Arial,sans-serif" font-size="14.00">uses</text>
+<polygon fill="none" stroke="black" points="400.48,-103.49 361.19,-85.56 400.48,-67.64 439.77,-85.56 400.48,-103.49"></polygon>
+<polygon fill="none" stroke="black" points="400.48,-107.87 351.58,-85.56 400.48,-63.26 449.38,-85.56 400.48,-107.87"></polygon>
+<text text-anchor="middle" x="400.48" y="-81.36" font-family="Helvetica,Arial,sans-serif" font-size="14.00">uses</text>
 </g>
-<!-- flight&#45;&#45;uses -->
+<!-- FLIGHT&#45;&#45;uses -->
 <g id="edge6" class="edge">
-<title>flight--uses</title>
-<path fill="none" stroke="black" d="M336.68,-139.75C348.79,-127.32 363.59,-112.14 374.52,-100.92"></path>
-<text text-anchor="middle" x="327.74" y="-127.15" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
+<title>FLIGHT--uses</title>
+<path fill="none" stroke="black" d="M347.54,-139.89C359.57,-127.55 374.28,-112.45 385.13,-101.31"></path>
+<text text-anchor="middle" x="338.6" y="-127.29" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
 </g>
-<!-- orig&#45;&#45;flight -->
+<!-- orig&#45;&#45;FLIGHT -->
 <g id="edge3" class="edge">
-<title>orig--flight</title>
-<path fill="none" stroke="black" d="M198.01,-186.86C223.5,-181.44 258.78,-173.95 283.92,-168.6"></path>
-<text text-anchor="middle" x="274.98" y="-172.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
+<title>orig--FLIGHT</title>
+<path fill="none" stroke="black" d="M211.62,-187.61C234.45,-182.5 265.16,-175.62 289.01,-170.28"></path>
+<text text-anchor="middle" x="280.06" y="-174.48" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
 </g>
-<!-- dest&#45;&#45;flight -->
+<!-- dest&#45;&#45;FLIGHT -->
 <g id="edge4" class="edge">
-<title>dest--flight</title>
-<path fill="none" stroke="black" d="M198.86,-138.49C224.19,-143.62 258.89,-150.64 283.75,-155.67"></path>
-<text text-anchor="middle" x="274.81" y="-143.07" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
+<title>dest--FLIGHT</title>
+<path fill="none" stroke="black" d="M212.02,-137.71C234.86,-142.58 265.46,-149.1 289.2,-154.16"></path>
+<text text-anchor="middle" x="280.25" y="-141.56" font-family="Helvetica,Arial,sans-serif" font-size="14.00">1:1</text>
 </g>
-<!-- operates&#45;&#45;airline -->
+<!-- operates&#45;&#45;AIRLINE -->
 <g id="edge7" class="edge">
-<title>operates--airline</title>
-<path fill="none" stroke="black" d="M411.59,-259.91C420.5,-268.56 431.26,-279.03 440.29,-287.8"></path>
-<text text-anchor="middle" x="431.34" y="-275.2" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+<title>operates--AIRLINE</title>
+<path fill="none" stroke="black" d="M424.02,-261.19C432.56,-269.52 442.81,-279.5 451.45,-287.93"></path>
+<text text-anchor="middle" x="442.51" y="-275.33" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
 </g>
-<!-- uses&#45;&#45;plane -->
+<!-- uses&#45;&#45;PLANE -->
 <g id="edge8" class="edge">
-<title>uses--plane</title>
-<path fill="none" stroke="black" d="M405.63,-69.85C415.98,-59.8 429.58,-46.59 440.46,-36.02"></path>
-<text text-anchor="middle" x="431.51" y="-40.22" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
+<title>uses--PLANE</title>
+<path fill="none" stroke="black" d="M416.25,-70.23C426.67,-60.11 440.37,-46.8 451.33,-36.15"></path>
+<text text-anchor="middle" x="442.38" y="-40.35" font-family="Helvetica,Arial,sans-serif" font-size="14.00">0:n</text>
 </g>
 </g>
 </svg>
@@ -760,49 +783,10 @@ Un ou plus (pas de borne supérieure)
 </div>
 </div>
 </section>
-<section id="traduction-dans-le-mrd" class="slide level2 center">
-<h2>Traduction dans le MRD</h2>
-<div class="cell" data-reveal="true" data-eval="true" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class=""><p></p>
-<div>
-<pre class="mermaid mermaid-js">erDiagram
-    AIRPORT ||--o{ FLIGHT : takes-off
-    AIRPORT ||--o{ FLIGHT : lands-at
-    AIRLINE ||--o{ FLIGHT : operates
-    PLANE   ||--o{ FLIGHT : uses
-    AIRPORT {
-      string(3) faa PK
-      string name 
-      numeric lat
-      numeric lon
-    }
-    AIRLINE {
-      string(3) faa PK
-      string name 
-    }
-    PLANE {
-      string(3) tailnum PK 
-      string model
-      string manufacturer
-      int year
-    }
-    FLIGHT {
-      string(3) origin  PK, FK
-      string(3) dest PK, FK
-      string tailnum PK, FK
-      string carrier PK, FK
-      int num
-      datetime dep_time
-    }
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section></section>
+<section id="mrd-flight" class="slide level2 center">
+<h2>MRD <code>flight</code></h2>
+
+<img data-src="..\images/modelisation/MRD_flight.svg" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section></section>
 <section>
 <section id="du-mrd-à-la-description-physique-des-données-sql" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Du MRD à la Description Physique des Données (SQL)</h1>
@@ -817,12 +801,32 @@ Un ou plus (pas de borne supérieure)
 <li><p>Les contraintes du MCD se traduisent autant que possible en contraintes SQL selon les possibilités du SGBD choisi.</p></li>
 </ul>
 </section>
-<section id="schéma-world" class="slide level2 center">
-<h2>Schéma <code>world</code></h2>
+<section id="mrd-world" class="slide level2 center">
+<h2>MRD <code>world</code></h2>
 
-<img data-src="..\images/modelisation/MRD_world1.svg" class="r-stretch quarto-figure-center"><p class="caption">schema <code>world</code></p></section>
-<section id="ldd-create-schema-if-not-exists-world" class="slide level2 smaller center">
-<h2>LDD <code>CREATE SCHEMA IF NOT EXISTS world;</code></h2>
+<img data-src="..\images/modelisation/MRD_world1.svg" class="r-stretch"></section>
+<section id="mrd-simplifié-world" class="slide level2 center">
+<h2>MRD simplifié <code>world</code></h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Simplification</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>On peut choisir de supprimer la table <code>LANGUAGE</code> car elle n’a pas d’autre attribut que l’identifiant.</li>
+<li>Mais cela supprime une contrainte d’intégrité référentielle, c.a.d. la contrainte d’appartenance de l’attribut <code>is-spohen-in.language</code> à un ensemble déterminé de valeurs : les valeurs stockées dans <code>language.name</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<img data-src="..\images/modelisation/MRD_world2.svg" class="r-stretch"></section>
+<section id="ldd-world" class="slide level2 smaller center">
+<h2>LDD <code>world</code></h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a></a><span class="kw">CREATE</span>  <span class="kw">TABLE</span> world.region_continent ( </span>
 <span id="cb1-2"><a></a>    region               text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
 <span id="cb1-3"><a></a>    continent            text    ,</span>
