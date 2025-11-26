@@ -36,72 +36,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-      }
-    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-    div.sourceCode
-      { color: #24292e;  }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #24292e; } /* Normal */
-    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
-    code span.an { color: #6a737d; } /* Annotation */
-    code span.at { color: #d73a49; } /* Attribute */
-    code span.bn { color: #005cc5; } /* BaseN */
-    code span.bu { color: #d73a49; } /* BuiltIn */
-    code span.cf { color: #d73a49; } /* ControlFlow */
-    code span.ch { color: #032f62; } /* Char */
-    code span.cn { color: #005cc5; } /* Constant */
-    code span.co { color: #6a737d; } /* Comment */
-    code span.cv { color: #6a737d; } /* CommentVar */
-    code span.do { color: #6a737d; } /* Documentation */
-    code span.dt { color: #d73a49; } /* DataType */
-    code span.dv { color: #005cc5; } /* DecVal */
-    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
-    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
-    code span.fl { color: #005cc5; } /* Float */
-    code span.fu { color: #6f42c1; } /* Function */
-    code span.im { color: #032f62; } /* Import */
-    code span.in { color: #6a737d; } /* Information */
-    code span.kw { color: #d73a49; } /* Keyword */
-    code span.op { color: #24292e; } /* Operator */
-    code span.ot { color: #6f42c1; } /* Other */
-    code span.pp { color: #d73a49; } /* Preprocessor */
-    code span.re { color: #6a737d; } /* RegionMarker */
-    code span.sc { color: #005cc5; } /* SpecialChar */
-    code span.ss { color: #032f62; } /* SpecialString */
-    code span.st { color: #032f62; } /* String */
-    code span.va { color: #e36209; } /* Variable */
-    code span.vs { color: #032f62; } /* VerbatimString */
-    code span.wa { color: #ff5555; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-fc22af260e9e2d20ec1df9e302aeb234.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -497,6 +431,19 @@ Un ou plus (pas de borne supérieure)
 </div>
 </div>
 </div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>La cardinalité maximale 1 du MRD sur la clé étrangère <code>capital</code> de <code>COUNTRY</code> se traduira en SQL par une contrainte <code>UNIQUE</code> sur <code>capital</code>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="traduction-des-associations-binaires-1-à-plusieurs-du-mcd" class="slide level2 center">
 <h2>Traduction des associations binaires <em>1 à plusieurs</em> du MCD</h2>
@@ -529,6 +476,19 @@ Un ou plus (pas de borne supérieure)
 </div>
 </div>
 </div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>La cardinalité minimale 1 du côté de CITY dans le MCD n’est pas traduite dans le MRD mais elle se traduira en SQL par une contrainte <code>NOT NULL</code> sur la clé étrangère <code>countrycode</code> de la table <code>CITY</code>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="traduction-des-associations-faibles-et-des-spécialisations" class="slide level2 center">
 <h2>Traduction des associations faibles et des spécialisations</h2>
@@ -537,6 +497,48 @@ Un ou plus (pas de borne supérieure)
 <li><p>Pour les spécialisations, comme l’entité spécialisée n’avait pas d’identifiant, l’attribut introduit par traduction de l’association de spécialisation devient la clé primaire.</p></li>
 <li><p>Pour les entités faibles, l’assocation faible avec l’entité forte de référence est déjà traduite par décomposition de l’identifiant concaténé en deux attributs qui forment la clé primaire de la table traduisant l’entité faible.</p></li>
 </ul>
+</section>
+<section id="exemple-de-traduction-dune-association-faible" class="slide level2 center">
+<h2>Exemple de traduction d’une association faible</h2>
+<div class="quarto-layout-panel" data-layout="[50,50]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="..\images/modelisation/MCD_entite-faible.drawio.svg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div id="second-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="..\images/modelisation/MRD_entite-faible.drawio.svg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exemple-de-traduction-dune-spécialisation" class="slide level2 center">
+<h2>Exemple de traduction d’une spécialisation</h2>
+<div class="quarto-layout-panel" data-layout="[50,50]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="..\images/modelisation/MCD_entite-specialisee.drawio.svg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+<div id="second-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="..\images/modelisation/MRD_entite-specialisee.drawio.svg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="traduction-des-associations-binaires-plusieurs-à-plusieurs" class="slide level2 center">
 <h2>Traduction des associations binaires <em>plusieurs à plusieurs</em></h2>
@@ -583,7 +585,31 @@ Un ou plus (pas de borne supérieure)
 </div>
 </div>
 </div>
-</section></section>
+</section>
+<section id="mrd-world" class="slide level2 center">
+<h2>MRD <code>world</code></h2>
+
+<img data-src="..\images/modelisation/MRD_world1.svg" class="r-stretch"></section>
+<section id="mrd-world-simplifié" class="slide level2 center">
+<h2>MRD <code>world</code> simplifié</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Simplification</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>On peut choisir de supprimer la table <code>LANGUAGE</code> car elle n’a pas d’autre attribut que l’identifiant.</li>
+<li>Mais cela supprime une contrainte d’intégrité référentielle, c.a.d. la contrainte d’appartenance de l’attribut <code>is-spohen-in.language</code> à un ensemble déterminé de valeurs : les valeurs stockées dans <code>language.name</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<img data-src="..\images/modelisation/MRD_world2.svg" class="r-stretch"></section></section>
 <section>
 <section id="traduction-dune-association-n-aire-n2" class="title-slide slide level1 center" data-background-color="#1c191c">
 <h1>Traduction d’une association <span class="math inline">\(n\)</span>-aire (<span class="math inline">\(n&gt;2\)</span>)</h1>
@@ -792,107 +818,77 @@ Un ou plus (pas de borne supérieure)
 <h1>Du MRD à la Description Physique des Données (SQL)</h1>
 
 </section>
-<section id="un-traduction-immédiate" class="slide level2 center">
-<h2>Un traduction immédiate</h2>
+<section id="une-traduction-immédiate" class="slide level2 center">
+<h2>Une traduction immédiate</h2>
 <ul>
 <li><p>Chaque table du MRD correspond à une table SQL.</p></li>
-<li><p>Les identifiants sont définis comme clés primaires.</p></li>
-<li><p>Les liens du MRD se traduisent en contraintes d’intégrité référentielle.</p></li>
+<li><p>Les identifiants sont définis comme <strong>clés primaires</strong>.</p></li>
+<li><p>Les liens du MRD se traduisent en <strong>contraintes d’intégrité référentielle</strong>.</p></li>
 <li><p>Les contraintes du MCD se traduisent autant que possible en contraintes SQL selon les possibilités du SGBD choisi.</p></li>
 </ul>
 </section>
-<section id="mrd-world" class="slide level2 center">
-<h2>MRD <code>world</code></h2>
-
-<img data-src="..\images/modelisation/MRD_world1.svg" class="r-stretch"></section>
-<section id="mrd-simplifié-world" class="slide level2 center">
-<h2>MRD simplifié <code>world</code></h2>
-<div class="callout callout-note callout-titled callout-style-default">
+<section id="contraintes-unique-traduites-des-cardinalités-du-mrd" class="slide level2 center">
+<h2>Contraintes <code>UNIQUE</code> traduites des cardinalités du MRD</h2>
+<div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Simplification</strong></p>
+<p><strong>Important</strong></p>
 </div>
 <div class="callout-content">
-<ul>
-<li>On peut choisir de supprimer la table <code>LANGUAGE</code> car elle n’a pas d’autre attribut que l’identifiant.</li>
-<li>Mais cela supprime une contrainte d’intégrité référentielle, c.a.d. la contrainte d’appartenance de l’attribut <code>is-spohen-in.language</code> à un ensemble déterminé de valeurs : les valeurs stockées dans <code>language.name</code>.</li>
-</ul>
+<p>Une <em>cardinalité maximale 1 du MRD</em> sur une clé étrangère se traduit en SQL par une contrainte <code>UNIQUE</code> sur cette clé étrangère.</p>
 </div>
 </div>
 </div>
-
-<img data-src="..\images/modelisation/MRD_world2.svg" class="r-stretch"></section>
-<section id="ldd-world" class="slide level2 smaller center">
-<h2>LDD <code>world</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a></a><span class="kw">CREATE</span>  <span class="kw">TABLE</span> world.region_continent ( </span>
-<span id="cb1-2"><a></a>    region               text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb1-3"><a></a>    continent            text    ,</span>
-<span id="cb1-4"><a></a>    <span class="kw">CONSTRAINT</span> pk_region_continent <span class="kw">PRIMARY</span> <span class="kw">KEY</span> ( region )</span>
-<span id="cb1-5"><a></a> );</span>
-<span id="cb1-6"><a></a></span>
-<span id="cb1-7"><a></a><span class="kw">CREATE</span>  <span class="kw">TABLE</span> world.city ( </span>
-<span id="cb1-8"><a></a>    <span class="kw">id</span>                   <span class="dt">integer</span>  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb1-9"><a></a>    name                 text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb1-10"><a></a>    countrycode          <span class="dt">char</span>(<span class="dv">3</span>)  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb1-11"><a></a>    district             text  ,</span>
-<span id="cb1-12"><a></a>    population           <span class="dt">integer</span> ,</span>
-<span id="cb1-13"><a></a>    <span class="kw">CONSTRAINT</span> city_pkey <span class="kw">PRIMARY</span> <span class="kw">KEY</span> ( <span class="kw">id</span> )</span>
-<span id="cb1-14"><a></a> );</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="créations-de-tables-suite" class="slide level2 smaller center">
-<h2>Créations de tables (suite)</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a></a><span class="kw">CREATE</span>  <span class="kw">TABLE</span> world.country ( </span>
-<span id="cb2-2"><a></a>    countrycode          <span class="dt">char</span>(<span class="dv">3</span>)  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb2-3"><a></a>    name_country         text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb2-4"><a></a>    region               text  ,  </span>
-<span id="cb2-5"><a></a>    surfacearea          <span class="dt">real</span>   ,</span>
-<span id="cb2-6"><a></a>    indepyear            <span class="dt">smallint</span>    ,</span>
-<span id="cb2-7"><a></a>    population_country   <span class="dt">integer</span>     ,</span>
-<span id="cb2-8"><a></a>    lifeexpectancy       <span class="dt">real</span>    ,</span>
-<span id="cb2-9"><a></a>    gnp                  <span class="dt">numeric</span>(<span class="dv">10</span>,<span class="dv">2</span>)    ,</span>
-<span id="cb2-10"><a></a>    gnpold               <span class="dt">numeric</span>(<span class="dv">10</span>,<span class="dv">2</span>)    ,</span>
-<span id="cb2-11"><a></a>    localname            text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb2-12"><a></a>    governmentform       text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb2-13"><a></a>    headofstate          text    ,</span>
-<span id="cb2-14"><a></a>    capital              <span class="dt">integer</span>    ,</span>
-<span id="cb2-15"><a></a>    code2                <span class="dt">char</span>(<span class="dv">2</span>)  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb2-16"><a></a>    <span class="kw">CONSTRAINT</span> country_pkey <span class="kw">PRIMARY</span> <span class="kw">KEY</span> ( countrycode )</span>
-<span id="cb2-17"><a></a> );</span>
-<span id="cb2-18"><a></a></span>
-<span id="cb2-19"><a></a></span>
-<span id="cb2-20"><a></a><span class="kw">CREATE</span>  <span class="kw">TABLE</span> world.countrylanguage ( </span>
-<span id="cb2-21"><a></a>    countrycode          <span class="dt">char</span>(<span class="dv">3</span>)  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb2-22"><a></a>    <span class="ot">"language"</span>           text  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb2-23"><a></a>    isofficial           <span class="dt">boolean</span>  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb2-24"><a></a>    percentage           <span class="dt">real</span>  <span class="kw">NOT</span> <span class="kw">NULL</span>  ,</span>
-<span id="cb2-25"><a></a>    <span class="kw">CONSTRAINT</span> countrylanguage_pkey <span class="kw">PRIMARY</span> <span class="kw">KEY</span> ( countrycode, <span class="ot">"language"</span> )</span>
-<span id="cb2-26"><a></a> );</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="exemple-de-lassociation-is-capital-de-world" class="slide level2 center">
+<h2>Exemple de l’association <code>is-capital</code> de <code>World</code></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="..\images/modelisation/MRD_world_is-capital.svg" class="quarto-figure quarto-figure-center" style="height:40.0%"></p>
+</figure>
+</div>
+<p>On ajoute une contrainte <code>UNIQUE</code> sur la clé étrangère <code>capital</code> de la table <code>country</code>.</p>
 </section>
-<section id="les-contraintes-référentielles" class="slide level2 smaller center">
-<h2>Les contraintes référentielles</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.city </span>
-<span id="cb3-2"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> city_country_fk </span>
-<span id="cb3-3"><a></a>  <span class="kw">FOREIGN</span> <span class="kw">KEY</span> ( countrycode ) </span>
-<span id="cb3-4"><a></a>  <span class="kw">REFERENCES</span> world.country( countrycode ) </span>
-<span id="cb3-5"><a></a>  <span class="kw">ON</span> <span class="kw">DELETE</span> <span class="kw">SET</span> <span class="kw">NULL</span> <span class="kw">ON</span> <span class="kw">UPDATE</span> <span class="kw">CASCADE</span> <span class="kw">DEFERRABLE</span>;</span>
-<span id="cb3-6"><a></a></span>
-<span id="cb3-7"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country </span>
-<span id="cb3-8"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> country_capital_fkey </span>
-<span id="cb3-9"><a></a>  <span class="kw">FOREIGN</span> <span class="kw">KEY</span> ( capital ) <span class="kw">REFERENCES</span> world.city( <span class="kw">id</span> ) </span>
-<span id="cb3-10"><a></a>  <span class="kw">ON</span> <span class="kw">DELETE</span> <span class="kw">SET</span> <span class="kw">NULL</span> <span class="kw">ON</span> <span class="kw">UPDATE</span> <span class="kw">CASCADE</span>;</span>
-<span id="cb3-11"><a></a></span>
-<span id="cb3-12"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.country </span>
-<span id="cb3-13"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> country_region_fk </span>
-<span id="cb3-14"><a></a>  <span class="kw">FOREIGN</span> <span class="kw">KEY</span> ( region ) <span class="kw">REFERENCES</span> world.region_continent( region ) </span>
-<span id="cb3-15"><a></a>  <span class="kw">ON</span> <span class="kw">DELETE</span> <span class="kw">SET</span> <span class="kw">NULL</span> <span class="kw">ON</span> <span class="kw">UPDATE</span> <span class="kw">CASCADE</span> <span class="kw">DEFERRABLE</span>;</span>
-<span id="cb3-16"><a></a></span>
-<span id="cb3-17"><a></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> world.countrylanguage </span>
-<span id="cb3-18"><a></a>  <span class="kw">ADD</span> <span class="kw">CONSTRAINT</span> countrylanguage_countrycode_fkey </span>
-<span id="cb3-19"><a></a>  <span class="kw">FOREIGN</span> <span class="kw">KEY</span> ( countrycode ) </span>
-<span id="cb3-20"><a></a>  <span class="kw">REFERENCES</span> world.country( countrycode );</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="contraintes-not-null-traduites-des-cardinalités-du-mcd" class="slide level2 center">
+<h2>Contraintes <code>NOT NULL</code> traduites des cardinalités du MCD</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Une cardinalité minimale 1 du MCD du côté de l’entité à laquelle on ajoute une clé étrangère n’est pas traduite dans le MRD mais elle se traduit en SQL par une contrainte <code>NOT NULL</code> sur la clé étrangère.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exemple-de-lassociation-is-in-de-world" class="slide level2 center">
+<h2>Exemple de l’association <code>is-in</code> de <code>World</code></h2>
+<div class="quarto-layout-panel" data-layout="[50,50]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="..\images/modelisation/MCD_world_is-in.svg" class="quarto-figure quarto-figure-left"></p>
+</figure>
+</div>
+</div>
+<div id="second-column" class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="..\images/modelisation/MRD_world_is-in.svg" class="quarto-figure quarto-figure-right"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>On ajoute une contrainte <code>NOT NULL</code> sur la clé étrangère <code>countrycode</code> de la table <code>city</code>.</p>
 </section></section>
 <section>
 <section id="au-delà-des-modèles-ea-et-relationnels" class="title-slide slide level1 center" data-background-color="#1c191c">

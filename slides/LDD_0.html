@@ -360,6 +360,10 @@
 </section>
 <section id="exemple-schéma-world" class="slide level2 smaller center">
 <h2>Exemple : schéma <code>world</code></h2>
+
+<img data-src="..\images/modelisation/MRD_world2.svg" class="r-stretch"></section>
+<section class="slide level2 center">
+
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource {sql} number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a></a>CREATE TABLE world.city (</span>
 <span id="cb7-2"><a></a>    id int4 NOT NULL,</span>
 <span id="cb7-3"><a></a>    name text NOT NULL,</span>
@@ -402,10 +406,6 @@
 </div>
 </div>
 </section>
-<section class="slide level2 center">
-
-
-<img data-src="..\images/schema-world.png" class="r-stretch"></section>
 <section id="exemple-schéma-world-suite" class="slide level2 smaller center">
 <h2>Exemple: schéma <code>world</code> (suite)</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource {sql} number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a></a>CREATE TABLE world.country (</span>
@@ -435,10 +435,6 @@
 <span id="cb10-25"><a></a>    CONSTRAINT country_pkey PRIMARY KEY (countrycode)</span>
 <span id="cb10-26"><a></a>);</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section class="slide level2 center">
-
-
-<img data-src="..\images/layout_world.png" class="r-stretch"></section>
 <section id="suppression-dune-table" class="slide level2 center">
 <h2>Suppression d’une table</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a></a><span class="kw">DROP</span> <span class="kw">TABLE</span> fournisseur;</span>
@@ -527,7 +523,7 @@
 <section class="slide level2 center">
 
 
-<img data-src="..\images/schema-world.png" class="r-stretch"></section>
+<img data-src="..\images/modelisation/MRD_world2.svg" class="r-stretch"></section>
 <section id="remarques" class="slide level2 center">
 <h2>Remarques</h2>
 <p>La dernière partie du constructeur multiligne, qui commence avec <code>VALUES</code> est souvent appelée la <em>liste de valeurs</em>.</p>
