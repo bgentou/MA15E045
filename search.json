@@ -4032,5 +4032,33 @@
     "title": "TD 9 : Modèle relationnel des données",
     "section": "Exercice",
     "text": "Exercice\nOn reprend un MCD élaboré dans un TD précédent :\n\n\n\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nConvertir ce diagramme E/A en un modèle relationnel.\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuelles sont les clés étrangères sur lesquelles il faut ajouter une contrainte NOT NULL ou UNIQUE ?\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nEcrire en SQL la définition des données du modèle relationnel en essayant d’implémenter les contraintes du diagramme E/A."
+  },
+  {
+    "objectID": "exams/cc2-2025-12-02.html",
+    "href": "exams/cc2-2025-12-02.html",
+    "title": "CC2 du 2 décembre 2025",
+    "section": "",
+    "text": "L3 MIASHS/Ingémath/METIS\nUniversité Paris Cité\nCourse Homepage"
+  },
+  {
+    "objectID": "exams/cc2-2025-12-02.html#exercice-1",
+    "href": "exams/cc2-2025-12-02.html#exercice-1",
+    "title": "CC2 du 2 décembre 2025",
+    "section": "Exercice 1",
+    "text": "Exercice 1\nOn veut concevoir une base de données pour enregistrer des opérations chirugicales dans une clinique.\nDoivent être enregistrés dans la base :\n\nles soignants avec un numéro, un nom et un prénom.\nles patients avec un nom, un prénom et un numéro de sécurité sociale. Un nouveau patient est enregistré avant la création de l’opération qui le concerne.\n\nLa future interface de saisie d’une opération se présentera ainsi :\n\nSaisie du numéro de patient.\nSaisie de la date-heure et de la durée.\nSaisie de la liste des spécialités nécessaires avec, pour chaque spécialité le nombre d’heures x personnes nécessaires. Au moins une spécialité est requise pour chaque opération.\nLes spécialités sont choisies à chaque fois parmi une liste préalablement enregistrée dans la base de données.\n\nUne fois l’opération enregistrée dans la base de données, une deuxième interface permettra d’affecter les soignants nécessaires à chaque opération :\n\nPour chaque opération, on enregistre les soignants qui interviendront et la spécialité dans laquelle chacun interviendra avec le nombre d’heures de son intervention pour cette spécialité.\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nSans justifier vos choix, écrire un diagramme E/A, avec les cardinalités, représentant la modélisation conceptuelle des données de ce SI.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nExplications de certaines cardinalités :\n\nchaque fois qu’il y a une liste, cela correspond à une cardinalité maximale plusieurs.\nlors de la création d’une opération dans la base, au moins une spécialité est requise donc la cardinalité minimale de l’association requiert est 1 du côté opération.\nl’enregistrement des soignants intervenant sur une opération est effectué après la création de l’opération dans la base, donc la cardinalité minimale de l’association intervient est 0 du côté opération."
+  },
+  {
+    "objectID": "exams/cc2-2025-12-02.html#exercice-2",
+    "href": "exams/cc2-2025-12-02.html#exercice-2",
+    "title": "CC2 du 2 décembre 2025",
+    "section": "Exercice 2",
+    "text": "Exercice 2\nOn veut créer une BDD pour enregistrer la liste des acteurs ayant joué dans les films en VO et la liste de ceux qui ont fait les voix des versions doublées. On a choisi le modèle conceptuel des données ci-dessous.\nIndications complémentaires :\n\nl’entité FILM DOUBLÉ représente les versions non originales des films.\nl’association joue enregistre les acteurs de chaque film en VO, en indiquant le nom du rôle joué.\nl’association doublure enregistre pour chaque version non originale d’un film, et chaque acteur qui y joue (rôle acteur), le nom de celui qui fait sa doublure (rôle voix).\n\n\n\n\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nConvertir ce diagramme E/A en un modèle relationnel.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\n\n\n\n\n\n\n\n\nQuestion\n\n\n\n\n\n\nQuelles sont les clés étrangères sur lesquelles il faudra ajouter une contrainte NOT NULL ou UNIQUE lors de la définition des tables en SQL ? Justifier.\n\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nLors de la définition des tables en SQL, il faudra ajouter :\n\nD’après le MCD, une contrainte NOT NULL sur la colonne id_film_vo de la table FILM_DOUBLE pour traduire la cardinalité minimale 1 de l’association traduction du côté de FILM DOUBLÉ.\nD’après le MCD, une contrainte NOT NULL sur la colonne id_film_vo de la table FILM_DOUBLE pour traduire la cardinalité minimale 1 de l’association dans la langue du côté de FILM DOUBLÉ."
+  },
+  {
+    "objectID": "exams/cc2-2025-12-02.html#exercice-3",
+    "href": "exams/cc2-2025-12-02.html#exercice-3",
+    "title": "CC2 du 2 décembre 2025",
+    "section": "Exercice 3",
+    "text": "Exercice 3\nVoici le modèle relationnel des données d’un SI :\n\n\n\n\n\nOn connaît de plus les contraintes suivantes :\n\nles attributs nommés numéro sont des entiers.\nun client doit avoir un nom.\nun produit doit avoir un prix qui sera de type money.\nil n’y pas de commande sans numéro de client.\nla date d’une commande est de type timestamptz, elle ne peut pas être vide et elle est définie par défaut à l’heure de création de la commande.\nla quantité d’une ligne de commande est un entier, elle ne peut pas être vide.\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nTraduire en SQL ce modèle relationnel en codant toutes les informations connues.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\ndrop table client, commande,produit,ligne_commande;\nCREATE TABLE client(\n   numero INTEGER,\n   nom VARCHAR(50) NOT NULL,\n   CONSTRAINT client_pk PRIMARY KEY (numero)  \n);\n\nCREATE TABLE commande(\n   numero INTEGER,\n   client INTEGER NOT NULL,\n   date TIMESTAMPTZ DEFAULT now(),\n   CONSTRAINT commande_pk PRIMARY KEY (numero),\n   CONSTRAINT commande_client_fk \n      FOREIGN KEY (client)\n      REFERENCES client(numero)\n);\n\nCREATE TABLE produit(\n   numero INTEGER,\n   nom VARCHAR(50),\n   prix MONEY NOT NULL,\n   CONSTRAINT produit_pk PRIMARY KEY (numero)  \n);\n\nCREATE TABLE ligne_commande(\n   commande INTEGER,\n   produit INTEGER,\n   quantite INTEGER NOT NULL,\n   CONSTRAINT ligne_commande_pk PRIMARY KEY (commande,produit),\n   CONSTRAINT ligne_commande_commande_fk \n      FOREIGN KEY (commande)  \n      REFERENCES commande(numero),\n   CONSTRAINT ligne_commande_produit_fk \n      FOREIGN KEY (produit)  \n      REFERENCES produit(numero)\n);"
   }
 ]
