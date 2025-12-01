@@ -1754,7 +1754,7 @@
     "href": "slides/DF_norm_1.html#question-principale",
     "title": "Normalisation I",
     "section": "Question principale",
-    "text": "Question principale\n\nComment vérifier si un ensemble \\(\\Sigma\\) de DF implique une DF \\(X\\rightarrow Y\\)~?\n\n\n\nPar les équivalences présentées précédemment, la question se ramène à :\n\nComment vérifier si un ensemble \\(\\Sigma\\) de DF implique une DF \\(X\\rightarrow A\\) où \\(A\\) est un attribut~?"
+    "text": "Question principale\n\nComment vérifier si un ensemble \\(\\Sigma\\) de DF implique une DF \\(X\\rightarrow Y\\) ?\n\n\n\nPar les équivalences présentées précédemment, la question se ramène à :\n\nComment vérifier si un ensemble \\(\\Sigma\\) de DF implique une DF \\(X\\rightarrow A\\) où \\(A\\) est un attribut ?"
   },
   {
     "objectID": "slides/DF_norm_1.html#fermeture-dun-ensemble-dattributs-1",
@@ -1775,14 +1775,14 @@
     "href": "slides/DF_norm_1.html#section-2",
     "title": "Normalisation I",
     "section": "",
-    "text": "Soit \\(\\Sigma\\) un ensemble de DF sur un schéma \\(\\mathcal{A}\\) et \\(X\\subset\\mathcal{A}\\)\n\n\n\n\n\\begin{algorithm} \\caption{Fermeture} \\begin{algorithmic} \\Procedure{Fermeture}{$X, Σ$} \\State $X^c ← X$ \\Repeat \\State stop ← \\True \\Comment{Arrêt si Point Fixe atteint} \\For{$(Y → Z) ∈ Σ$} \\If{$Y ⊆ X^c ∧ ¬ Z ⊆ X^c$} \\State $X^c ← X^c ∪ Z$ \\State stop ← \\False \\Comment{Point Fixe pas atteint} \\Break \\EndIf \\EndFor \\Until{stop} \\Return $X^c$ \\EndProcedure \\end{algorithmic} \\end{algorithm}\n\n\n\nXc &lt;-  X\n\nwhile (exists Y -&gt; Z in Σ with Y ⊂ Xc and not Z ⊂ Xc) {\n  Xc &lt;- Xc ∪ Z\n}\n\nreturn Xc"
+    "text": "Soit \\(\\Sigma\\) un ensemble de DF sur un schéma \\(\\mathcal{A}\\) et \\(X\\subset\\mathcal{A}\\)\n\n\n\n\n\n\nAlgorithme\n\n\nFermeture(X, Σ)\n   Xc = X\n    while (exists Y -&gt; Z in Σ with Y ⊂ Xc and not Z ⊂ Xc)\n       Xc = Xc ∪ Z\n    return Xc"
   },
   {
     "objectID": "slides/DF_norm_1.html#exemple-de-calcul-de-fermeture",
     "href": "slides/DF_norm_1.html#exemple-de-calcul-de-fermeture",
     "title": "Normalisation I",
     "section": "Exemple de calcul de fermeture",
-    "text": "Exemple de calcul de fermeture\n\\(\\mathcal{A}=\\{ABCDEF\\}\\) \\(\\Sigma=\\{A\\rightarrow C, BC\\rightarrow D, AD\\rightarrow E\\}\\) \\(X=\\{A,B\\}\\)\n\n\\(X_c=\\{A,B\\}\\)\n\\(A\\rightarrow C\\) donc on obtient \\(X^cc=\\{A,B,C\\}\\)\n\\(BC\\rightarrow D\\) donc on obtient \\(X^c=\\{A,B,C,D\\}\\)\n\\(AD\\rightarrow E\\) donc on obtient \\(X^c=\\{A,B,C,D, E\\}\\)\nOn obtient \\(X^+=\\{A,B,C,D, E\\}\\)"
+    "text": "Exemple de calcul de fermeture\n\\(\\mathcal{A}=\\{ABCDEF\\}\\), \\(\\Sigma=\\{A\\rightarrow C, BC\\rightarrow D, AD\\rightarrow E\\}\\), \\(X=\\{A,B\\}\\)\n\n\\(X_c=\\{A,B\\}\\)\n\\(A\\rightarrow C\\) donc on obtient \\(X^cc=\\{A,B,C\\}\\)\n\\(BC\\rightarrow D\\) donc on obtient \\(X^c=\\{A,B,C,D\\}\\)\n\\(AD\\rightarrow E\\) donc on obtient \\(X^c=\\{A,B,C,D, E\\}\\)\nOn obtient \\(X^+=\\{A,B,C,D, E\\}\\)"
   },
   {
     "objectID": "slides/DF_norm_1.html#terminaison-de-lalgorithme",
@@ -1796,21 +1796,21 @@
     "href": "slides/DF_norm_1.html#correction-de-lalgorithme-de-fermeture",
     "title": "Normalisation I",
     "section": "Correction de l’algorithme de fermeture \n",
-    "text": "Correction de l’algorithme de fermeture \n\n\nL’algorithme calcule uniquement des attributs dans la fermeture car on a toujours \\(X^c \\subset X^+\\) (récurrence sur le nombre d’itérations de la boucle repeat)\nL’algorithme calcule tous les attributs dans la fermeture: \\(X_c=X^+\\) quand l’algorithme se termine\n\n\n\nLe dernier point est le plus délicat. Que peut signifier le fait qu’il existe au moins un attribut \\(Y\\in X^+\\) qui n’appartienn pas à valeur terminale de \\(X^c\\) ?"
+    "text": "Correction de l’algorithme de fermeture \n\n\nL’algorithme calcule uniquement des attributs dans la fermeture car on a toujours \\(X^c \\subset X^+\\) (récurrence sur le nombre d’itérations de la boucle while).\nL’algorithme calcule tous les attributs dans la fermeture: \\(X_c=X^+\\) quand l’algorithme se termine.\n\n\n\nLe dernier point est le plus délicat. Que peut signifier le fait qu’il existe au moins un attribut \\(Y\\in X^+\\) qui n’appartienne pas à valeur terminale de \\(X^c\\) ?"
   },
   {
     "objectID": "slides/DF_norm_1.html#calcul-de-la-fermeture-transitive-exemple",
     "href": "slides/DF_norm_1.html#calcul-de-la-fermeture-transitive-exemple",
     "title": "Normalisation I",
     "section": "Calcul de la fermeture transitive : exemple",
-    "text": "Calcul de la fermeture transitive : exemple\n\n\nSoit \\(R\\) d’ensemble d’attributs\n\\[\\mathcal{A} =\\{A,B,C,D,E,F,G\\}\\]\nSoit \\(X=\\{B,D\\} \\subset \\mathcal{A}\\)\nEt \\(Σ\\) l’ensemble de dépendances fonctionnelles ci-contre\n\n\n\n\\(\\Sigma\\)\n\n\n\n\\(A,B \\rightarrow C\\)\n\n\n\\(C \\rightarrow A\\)\n\n\n\\(B,C \\rightarrow D\\)\n\n\n\\(A,C,D \\rightarrow B\\)\n\n\n\\(F\\rightarrow A,C\\)\n\n\n\\(D \\rightarrow E,G\\)\n\n\n\\(B,E \\rightarrow C\\)\n\n\n\\(C,G \\rightarrow B,D\\)\n\n\n\\(C,E \\rightarrow A,G\\)\n\n\n\n\n\nMontrer que \\(X^+=\\{A,B,C,D,E,G\\}\\)\nDonner une clef de \\(R\\)"
+    "text": "Calcul de la fermeture transitive : exemple\n\n\nSoit \\(R\\) d’ensemble d’attributs\n\\(\\mathcal{A} =\\{A,B,C,D,E,F,G\\}\\)\nSoit \\(X=\\{B,D\\} \\subset \\mathcal{A}\\)\nEt \\(Σ\\) l’ensemble de dépendances fonctionnelles ci-contre\n\n\n\n\\(\\Sigma\\)\n\n\n\n\\(A,B \\rightarrow C\\)\n\n\n\\(C \\rightarrow A\\)\n\n\n\\(B,C \\rightarrow D\\)\n\n\n\\(A,C,D \\rightarrow B\\)\n\n\n\\(F\\rightarrow A,C\\)\n\n\n\\(D \\rightarrow E,G\\)\n\n\n\\(B,E \\rightarrow C\\)\n\n\n\\(C,G \\rightarrow B,D\\)\n\n\n\\(C,E \\rightarrow A,G\\)\n\n\n\n\n\nMontrer que \\(X^+=\\{A,B,C,D,E,G\\}\\)\nDonner une clef de \\(R\\) : par exemple \\(\\{A,B,F\\}\\), \\(\\{E,F\\}\\), \\(\\{F,G\\}\\). Il n’y a pas unicité."
   },
   {
     "objectID": "slides/DF_norm_1.html#forme-normale-de-boyce-codd-fnbc",
     "href": "slides/DF_norm_1.html#forme-normale-de-boyce-codd-fnbc",
     "title": "Normalisation I",
     "section": "Forme normale de Boyce-Codd (FNBC)",
-    "text": "Forme normale de Boyce-Codd (FNBC)\n\n\n\n\n\n\nDéfinition\n\n\nUn schéma \\(\\mathcal{A}\\) est en FNBC par rapport à un ensemble de dépendances fonctionnelles \\(\\Sigma\\) sur \\(\\mathcal{A}\\)\nsi\npour toute DF non triviale \\(X\\rightarrow Y\\) impliquée par \\(\\Sigma\\) (Σ ⊧ X → Y avec \\(¬ Y ⊂ X\\)), \\(X\\) est une super-clef\n\n\n\n\n\n\n \\((\\mathcal{A},\\Sigma)\\) est en FNBC si pour toute DF non triviale impliquée par \\(\\Sigma\\), le membre de gauche (le déterminant) est une super-clef"
+    "text": "Forme normale de Boyce-Codd (FNBC)\n\n\n\n\n\n\nDéfinition\n\n\nUn schéma \\(\\mathcal{A}\\) est en FNBC par rapport à un ensemble de dépendances fonctionnelles \\(\\Sigma\\) sur \\(\\mathcal{A}\\)\nsi\nQuelque soit la DF non triviale \\(X\\rightarrow Y\\) impliquée par \\(\\Sigma\\) (Σ ⊧ X → Y avec \\(¬ Y ⊂ X\\)), \\(X\\) est une super-clef\n\n\n\n\n\n\n \\((\\mathcal{A},\\Sigma)\\) est en FNBC si pour toute DF non triviale impliquée par \\(\\Sigma\\), le membre de gauche (le déterminant) est une super-clef"
   },
   {
     "objectID": "slides/DF_norm_1.html#fnbc-exemple-1",
@@ -1964,7 +1964,7 @@
     "href": "slides/DF_norm_1.html#algorithme-de-poursuite-exemple-2-1",
     "title": "Normalisation I",
     "section": "Algorithme de poursuite : exemple 2",
-    "text": "Algorithme de poursuite : exemple 2\nConsidérons l’exemple : \\(\\mathcal{A}=\\{A,B,C,D\\}\\) avec \\(\\mathcal{A}_1=\\{A,B\\}\\), \\(\\mathcal{A}_2=\\{B,C\\}\\) et \\(\\mathcal{A}_3=\\{C,D\\}\\)\nSoit \\(\\Sigma=\\{{C}\\rightarrow{D}; {B}\\rightarrow{A}\\}\\).\nSoit \\(t=(a,b,c,d)\\). Soit \\(t_1,t_2,t_3\\) les tuples de \\(R\\) suivants:\n\n\n\nA\nB\nC\nD\n\n\n\n\\(t_2\\)\n\\(a_2\\)\nb\nc\n\\(d_2\\)\n\n\n\\(t_3\\)\n\\(a_3\\)\n\\(b_3\\)\nc\nd\n\n\n\nOn a pris \\(c_1,d_1, a_2,d_2, a_3,b_3\\) comme valeurs variables et a,b,c,d comme constantes"
+    "text": "Algorithme de poursuite : exemple 2\nConsidérons l’exemple : \\(\\mathcal{A}=\\{A,B,C,D\\}\\) avec \\(\\mathcal{A}_1=\\{A,B\\}\\), \\(\\mathcal{A}_2=\\{B,C\\}\\) et \\(\\mathcal{A}_3=\\{C,D\\}\\)\nSoit \\(\\Sigma=\\{{C}\\rightarrow{D}; {B}\\rightarrow{A}\\}\\).\nSoit \\(t=(a,b,c,d)\\). Soit \\(t_1,t_2,t_3\\) les tuples de \\(R\\) suivants:\n\n\n\nA\nB\nC\nD\n\n\n\n\\(t_1\\)\na\nb\n\\(c_1\\)\n\\(d_1\\)\n\n\n\\(t_2\\)\n\\(a_2\\)\nb\nc\n\\(d_2\\)\n\n\n\\(t_3\\)\n\\(a_3\\)\n\\(b_3\\)\nc\nd\n\n\n\nOn a pris \\(c_1,d_1, a_2,d_2, a_3,b_3\\) comme valeurs variables et a,b,c,d comme constantes"
   },
   {
     "objectID": "slides/DF_norm_1.html#algorithme-de-poursuite---exemple-2",
@@ -1985,7 +1985,7 @@
     "href": "slides/DF_norm_1.html#algorithme-de-poursuite---exemple-3",
     "title": "Normalisation I",
     "section": "Algorithme de poursuite - exemple 3",
-    "text": "Algorithme de poursuite - exemple 3\nConsidérons toujours l’exemple : \\(\\mathcal{A}=\\{A,B,C,D\\}\\) avec\n\\(\\mathcal{A}_1=\\{A,B\\}\\), \\(\\mathcal{A}_2=\\{B,C\\}\\) et \\(\\mathcal{A}_3=\\{C,D\\}\\)\nMais avec \\(\\Sigma=\\{{B}\\rightarrow{AD}\\}\\).\n\n\nA\nB\nC\nD\n\n\n\na\nb\n\\(c_1\\)\n\\(d_1\\)\n\n\n\\(a_2\\)\nb\nc\n\\(d_2\\)\n\n\n\\(a_3\\)\n\\(b_3\\)\nc\nd\n\n\n\nDans ce cas, en utilisant la seule DF \\({B}\\rightarrow{AD}\\), on obtient \\(a_2=a\\) et \\(d_1=d_2\\) :\n\n\nA\nB\nC\nD\n\n\n\na\nb\n\\(c_1\\)\n\\(d_1\\)\n\n\na\nb\nc\n\\(d_1\\)\n\n\n\\(a_3\\)\n\\(b_3\\)\nc\nd\n\n\n\n\n\n\n\n\n\nNote\n\n\nMais on ne peut aller plus loin : la jointure des projections contient des tuples qui ne sont pas dans la relation originelle"
+    "text": "Algorithme de poursuite - exemple 3\nConsidérons toujours l’exemple : \\(\\mathcal{A}=\\{A,B,C,D\\}\\) avec\n\\(\\mathcal{A}_1=\\{A,B\\}\\), \\(\\mathcal{A}_2=\\{B,C\\}\\) et \\(\\mathcal{A}_3=\\{C,D\\}\\)\nMais avec \\(\\Sigma=\\{{B}\\rightarrow{AD}\\}\\).\n\n\nA\nB\nC\nD\n\n\n\na\nb\n\\(c_1\\)\n\\(d_1\\)\n\n\n\\(a_2\\)\nb\nc\n\\(d_2\\)\n\n\n\\(a_3\\)\n\\(b_3\\)\nc\nd\n\n\n\nDans ce cas, en utilisant la seule DF \\({B}\\rightarrow{AD}\\), on obtient \\(a_2=a\\) et \\(d_1=d_2\\) :\n\n\nA\nB\nC\nD\n\n\n\na\nb\n\\(c_1\\)\n\\(d_1\\)\n\n\na\nb\nc\n\\(d_1\\)\n\n\n\\(a_3\\)\n\\(b_3\\)\nc\nd\n\n\n\n\n\n\n\n\n\nNote\n\n\nMais on ne peut pas aller plus loin : la jointure des projections contient des tuples qui ne sont pas dans la relation originelle"
   },
   {
     "objectID": "slides/DF_norm_1.html#algorithme",
@@ -2315,14 +2315,14 @@
   {
     "objectID": "slides/DF_norm_3.html#algorithme",
     "href": "slides/DF_norm_3.html#algorithme",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Algorithme",
-    "text": "Algorithme\n\n\n\\begin{algorithm} \\caption{Décomposition FNBC} \\begin{algorithmic} \\Procedure{DecompositionFNBC}{$\\mathcal{A}, Σ$} \\State \\Comment{Initialisation de la décomposition} \\State $D ← \\{\\mathcal{A}\\}$ \\State \\While{Exists some $\\mathcal{B} \\in D$ which is not in BCNF w.r.t. $\\Sigma \\models X → X^+ \\cap \\mathcal{B}$, $X \\subsetneq \\mathcal{B}$} \\State $Y \\leftarrow X^+ \\cap \\mathcal{B} \\setminus X$ \\State $D \\leftarrow D \\setminus \\{\\mathcal{B}\\} \\cup \\{ X \\cup Y, \\mathcal{B} \\setminus Y \\}$ \\EndWhile \\State \\Return $D$ \\EndProcedure \\end{algorithmic} \\end{algorithm}"
+    "text": "Algorithme\n\n\n\\begin{algorithm} \\caption{Decomposition FN3} \\begin{algorithmic} \\Procedure{DecompositionFN3}{$\\mathcal{A}, Σ$} \\State \\Comment{Initialisation de la décomposition} \\State $D ← ∅$ \\State \\Comment{Mise en forme des courverture minimale de Σ} \\State Σ' ← \\Call{MinCover}{$Σ$} \\State \\For{Each distinct determinant $X$ amongst FDs in Σ'} \\State $Y ← \\{y : X → y ∈ Σ'\\}$ \\State $D ← D \\cup \\{X \\cup Y\\}$ \\Comment{ Ajouter $X \\cup Y$ à $D$} \\EndFor \\State \\State $\\mathcal{B} ← $ Attributes in $\\mathcal{A}$ that do not occur in $D$ \\State $D ← D \\cup \\{\\mathcal{B}\\}$ \\State \\If{No component of $D$ includes a key for $\\mathcal{A}, Σ$} \\State $D ← D \\cup $ some key for $\\mathcal{A}, Σ$ \\EndIf \\State \\Return $D$ \\EndProcedure \\end{algorithmic} \\end{algorithm}"
   },
   {
     "objectID": "slides/DF_norm_3.html#limites-de-la-décomposition-fnbc",
     "href": "slides/DF_norm_3.html#limites-de-la-décomposition-fnbc",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Limites de la décomposition FNBC",
     "text": "Limites de la décomposition FNBC\n\n\n\n\n\n\nNote\n\n\nIl existe des couples schéma/Ensemble de DFs (\\(\\mathcal{A}, \\Sigma\\)) pour lesquels toute décomposition FNBC entraine une perte de dépendances fonctionnelles"
   },
@@ -2336,7 +2336,7 @@
   {
     "objectID": "slides/DF_norm_3.html#limites-de-la-décomposition-fnbc-suite",
     "href": "slides/DF_norm_3.html#limites-de-la-décomposition-fnbc-suite",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Limites de la décomposition FNBC (suite)",
     "text": "Limites de la décomposition FNBC (suite)\n\n\n\n\n\n\n\nÀ noter\n\n\nOn peut vérifier qu’aucune décomposition FNBC de \\(\\mathcal{A}\\) ne préserve toutes les dépendances fonctionnelles."
   },
@@ -2350,63 +2350,63 @@
   {
     "objectID": "slides/DF_norm_3.html#pour-réaliser-cet-objectif",
     "href": "slides/DF_norm_3.html#pour-réaliser-cet-objectif",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Pour réaliser cet objectif",
     "text": "Pour réaliser cet objectif\nUne étape cruciale : réécrire l’ensemble de DFs"
   },
   {
     "objectID": "slides/DF_norm_3.html#algorithme-de-construction-de-couverture-irredondante",
     "href": "slides/DF_norm_3.html#algorithme-de-construction-de-couverture-irredondante",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Algorithme de construction de couverture irredondante",
     "text": "Algorithme de construction de couverture irredondante\n\n\n\\begin{algorithm} \\caption{Couverture irredondante} \\begin{algorithmic} \\Procedure{MinCover}{$Σ$} \\State Σ' ← ∅ \\State \\Comment{Normaliser les éléments de Σ} \\For{$(X → Y) ∈ Σ$} \\For{$y ∈ Y$} \\State Σ' ← Σ' ∪ {X → y} \\EndFor \\EndFor \\State \\Comment{Éliminer les dépendances redondantes dans Σ'} \\State \\Comment{Miniser les dépendances dans Σ'} \\Return Σ' \\EndProcedure \\end{algorithmic} \\end{algorithm}"
   },
   {
     "objectID": "slides/DF_norm_3.html#détails",
     "href": "slides/DF_norm_3.html#détails",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Détails",
     "text": "Détails\n\n\n\n\n\\begin{algorithm} \\caption{Éliminer les dépendances redondantes dans Σ' (détail)} \\begin{algorithmic} \\Repeat \\State s ← \\True \\For{$(X → y) ∈ Σ'$} \\If{$Σ' \\setminus {X → y} ⊧ X → y$} \\State $Σ' ← Σ' \\setminus {X → y}$ \\State s ← \\False \\EndIf \\EndFor \\Until{s} \\end{algorithmic} \\end{algorithm}\n\n\n\n\n\n\\begin{algorithm} \\caption{Miniser les dépendances dans Σ' (détail)} \\begin{algorithmic} \\Repeat \\State s ← \\True \\For{$(X → y) ∈ Σ'$} \\For{$x ∈ X$} \\If{$Σ' \\setminus {X → y} ⊧ X \\setminus {x} → y$} \\State $Σ' ← (Σ' \\setminus {X → y}) ∪ X \\setminus {x} → y$ \\State s ← \\False \\Break \\EndIf \\EndFor \\EndFor \\Until{s} \\end{algorithmic} \\end{algorithm}"
   },
   {
     "objectID": "slides/DF_norm_3.html#définition-forme-normale-3-fn3",
     "href": "slides/DF_norm_3.html#définition-forme-normale-3-fn3",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Définition : forme normale 3 (FN3)",
     "text": "Définition : forme normale 3 (FN3)\n\n\n\n\n\n\nImportant\n\n\nUn schéma relationnel \\(\\mathcal{A}\\) est en forme normale 3 (FN3) relativement à un ensemble de DF Σ ssi pour toute dépendance non triviale X → Yde Σ, on a\n\nle membre gauche X est une super-clé ou\n\nle membre droit Y fait partie d’une clé\n\n\n\n\n\n\nLe schéma \\(\\mathcal{A} =\\) {Ville, Rue, Numéro, #Bureau_vote} est en FN3 relativement à Σ = { Ville, Nom, Rue → #Bureau_vote,  #Bureau_vote  →  Ville }\nMais ce schéma n’est pas en FNBC."
   },
   {
     "objectID": "slides/DF_norm_3.html#pourquoi-deux-notions-de-forme-normale",
     "href": "slides/DF_norm_3.html#pourquoi-deux-notions-de-forme-normale",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Pourquoi deux notions de forme normale ?",
     "text": "Pourquoi deux notions de forme normale ?\n\n\n\n\n\n\nProposition\n\n\nSi un schéma \\(\\mathcal{A}\\) est en forme normale Boyce-Codd (FNBC) relativement à un ensemble de DF Σ, alors \\(\\mathcal{A}\\) est en forme normale 3 (FN3) relativement à Σ\n\n\n\n\n\nLa réciproque est fausse"
   },
   {
     "objectID": "slides/DF_norm_3.html#exercice",
     "href": "slides/DF_norm_3.html#exercice",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Exercice",
-    "text": "Exercice\n\\(\\mathcal{A}=\\) (A, B, C, D, E) et Σ={A → C, BC → D, AD → E}\n\nQuelles sont les clés ?\nLe schéma est-il en FNBC ?\nSi non, propopsez une décomposition SPI en FNBC. Est-elle sans perte de DF?\nLe schéma est-il en FN3 ?"
+    "text": "Exercice\n\\(\\mathcal{A}=\\) (A, B, C, D, E) et Σ={A → C, BC → D, AD → E}\n\nQuelles sont les clés ?\nLe schéma est-il en FN3 ?"
   },
   {
     "objectID": "slides/DF_norm_3.html#intérêt-de-la-forme-normale-3-fn3",
     "href": "slides/DF_norm_3.html#intérêt-de-la-forme-normale-3-fn3",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Intérêt de la forme normale 3 (FN3)",
     "text": "Intérêt de la forme normale 3 (FN3)\nRedondance limitée\n\nPossibilité de décomposition SPI et sans perte de Dépendances Fonctionnelles"
   },
   {
     "objectID": "slides/DF_norm_3.html#algorithme-1",
     "href": "slides/DF_norm_3.html#algorithme-1",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Algorithme",
-    "text": "Algorithme\n\n\n\\begin{algorithm} \\caption{Decomposition FN3} \\begin{algorithmic} \\Procedure{DecompositionFN3}{$\\mathcal{A}, Σ$} \\State \\Comment{Initialisation de la décomposition} \\State $D ← ∅$ \\State \\Comment{Mise en forme des courverture minimale de Σ} \\State Σ' ← \\Call{MinCover}{$Σ$} \\State \\For{Each distinct determinant $X$ amongst FDs in Σ'} \\State $Y ← \\{y : X → y ∈ Σ'\\}$ \\State $D ← D \\cup \\{X \\cup Y\\}$ \\Comment{ Ajouter $X \\cup Y$ à $D$} \\EndFor \\State \\State $\\mathcal{B} ← $ Attributes in $\\mathcal{A}$ that do not occur in $D$ \\State $D ← D \\cup \\{\\mathcal{B}\\}$ \\State \\If{No component of $D$ includes a key for $\\mathcal{A}, Σ$} \\State $D ← D \\cup $ some key for $\\mathcal{A}, Σ$ \\EndIf \\State \\Return $D$ \\EndProcedure \\end{algorithmic} \\end{algorithm}"
+    "text": "Algorithme\n\n\n\\begin{algorithm} \\caption{Décomposition FNBC} \\begin{algorithmic} \\Procedure{DecompositionFNBC}{$\\mathcal{A}, Σ$} \\State \\Comment{Initialisation de la décomposition} \\State $D ← \\{\\mathcal{A}\\}$ \\State \\While{$\\exists \\mathcal{B} \\in D$ not in BCNF w.r.t. $\\Sigma \\models X → X^+ \\cap \\mathcal{B}$, $X \\subsetneq \\mathcal{B}$} \\State $Y \\leftarrow X^+ \\cap \\mathcal{B} \\setminus X\\qquad$ \\Comment{DF non triviale! $Y \\neq \\emptyset$} \\State $D \\leftarrow D \\setminus \\{\\mathcal{B}\\} \\cup \\{ X \\cup Y, \\mathcal{B} \\setminus Y \\}$ \\EndWhile \\State \\Return $D$ \\EndProcedure \\end{algorithmic} \\end{algorithm}"
   },
   {
     "objectID": "slides/DF_norm_3.html#preuves",
     "href": "slides/DF_norm_3.html#preuves",
-    "title": "Normalisation II : Décomposition FN3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Preuves",
     "text": "Preuves\nTerminaison \n\nFN3 \n\nSPI \n\nSPDF"
   },
@@ -4060,5 +4060,299 @@
     "title": "CC2 du 2 décembre 2025",
     "section": "Exercice 3",
     "text": "Exercice 3\nVoici le modèle relationnel des données d’un SI :\n\n\n\n\n\nOn connaît de plus les contraintes suivantes :\n\nles attributs nommés numéro sont des entiers.\nun client doit avoir un nom.\nun produit doit avoir un prix qui sera de type money.\nil n’y pas de commande sans numéro de client.\nla date d’une commande est de type timestamptz, elle ne peut pas être vide et elle est définie par défaut à l’heure de création de la commande.\nla quantité d’une ligne de commande est un entier, elle ne peut pas être vide.\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nTraduire en SQL ce modèle relationnel en codant toutes les informations connues.\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\ndrop table client, commande,produit,ligne_commande;\nCREATE TABLE client(\n   numero INTEGER,\n   nom VARCHAR(50) NOT NULL,\n   CONSTRAINT client_pk PRIMARY KEY (numero)  \n);\n\nCREATE TABLE commande(\n   numero INTEGER,\n   client INTEGER NOT NULL,\n   date TIMESTAMPTZ DEFAULT now(),\n   CONSTRAINT commande_pk PRIMARY KEY (numero),\n   CONSTRAINT commande_client_fk \n      FOREIGN KEY (client)\n      REFERENCES client(numero)\n);\n\nCREATE TABLE produit(\n   numero INTEGER,\n   nom VARCHAR(50),\n   prix MONEY NOT NULL,\n   CONSTRAINT produit_pk PRIMARY KEY (numero)  \n);\n\nCREATE TABLE ligne_commande(\n   commande INTEGER,\n   produit INTEGER,\n   quantite INTEGER NOT NULL,\n   CONSTRAINT ligne_commande_pk PRIMARY KEY (commande,produit),\n   CONSTRAINT ligne_commande_commande_fk \n      FOREIGN KEY (commande)  \n      REFERENCES commande(numero),\n   CONSTRAINT ligne_commande_produit_fk \n      FOREIGN KEY (produit)  \n      REFERENCES produit(numero)\n);"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#algorithme-1",
+    "href": "slides/DF_norm_1.html#algorithme-1",
+    "title": "Normalisation I",
+    "section": "Algorithme",
+    "text": "Algorithme\n\n\n\\begin{algorithm} \\caption{Décomposition FNBC} \\begin{algorithmic} \\Procedure{DecompositionFNBC}{$\\mathcal{A}, Σ$} \\State \\Comment{Initialisation de la décomposition} \\State $D ← \\{\\mathcal{A}\\}$ \\State \\While{$\\exists \\mathcal{B} \\in D$ not in BCNF w.r.t. $\\Sigma \\models X → X^+ \\cap \\mathcal{B}$, $X \\subsetneq \\mathcal{B}$} \\State $Y \\leftarrow X^+ \\cap \\mathcal{B} \\setminus X\\qquad$ \\Comment{DF non triviale! $Y \\neq \\emptyset$} \\State $D \\leftarrow D \\setminus \\{\\mathcal{B}\\} \\cup \\{ X \\cup Y, \\mathcal{B} \\setminus Y \\}$ \\EndWhile \\State \\Return $D$ \\EndProcedure \\end{algorithmic} \\end{algorithm}"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#algorithme-de-calcul-dune-fermeture",
+    "href": "slides/DF_norm_1.html#algorithme-de-calcul-dune-fermeture",
+    "title": "Normalisation I",
+    "section": "Algorithme de calcul d’une fermeture",
+    "text": "Algorithme de calcul d’une fermeture\nSoit \\(\\Sigma\\) un ensemble de DF sur un schéma \\(\\mathcal{A}\\) et \\(X\\subset\\mathcal{A}\\)\n\nFermeture(X, Σ)\n\n    Xc =  X\n\n        while (exists Y -&gt; Z in Σ with Y ⊂ Xc and not Z ⊂ Xc)\n\n    Xc = Xc ∪ Z\n\n    return Xc"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#projection-dun-ensemble-de-df",
+    "href": "slides/DF_norm_1.html#projection-dun-ensemble-de-df",
+    "title": "Normalisation I",
+    "section": "Projection d’un ensemble de DF",
+    "text": "Projection d’un ensemble de DF\nSoientt \\(\\mathcal{A}\\) un schéma de relation (\\(\\mathcal{A}\\) est un ensemble d’attributs) et \\(\\Sigma\\) un ensemble de DF sur \\(\\mathcal{A}\\)\nSoit \\(\\mathcal{A}_1\\subset  \\mathcal{A}\\) un sous-ensemble d’attributs\n\n\n\n\n\n\nDéfinition\n\n\n\\[\\pi_{\\mathcal{A}_1}(\\Sigma)=\\left\\{ X\\to Y \\mid \\Sigma\\models X\\to Y \\text{ et } X,Y\\subset \\mathcal{A}_1\\right\\}\\]\n\n\n\n\n\n\n\n\n\n\nCaractérisation\n\n\nSi \\(X\\subset {\\mathcal{A}}_1\\) on a l’équivalence \\[X\\to Y \\in \\pi_{{\\mathcal{A}}_1}(\\Sigma) \\iff Y\\subset\\left\\{X\\right\\}^+∩{\\mathcal{A}}_1\\]\n\n\n\n\n\\(\\pi_{\\mathcal{A}_1}(\\Sigma)\\) est l’ensemble des DF de la forme \\(X\\to Y\\) impliquées par \\(\\Sigma\\) et telles que \\(X\\subset \\mathcal{A}_1\\) et \\(Y\\subset \\mathcal{A}_1\\)"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#exemple-4",
+    "href": "slides/DF_norm_1.html#exemple-4",
+    "title": "Normalisation I",
+    "section": "Exemple",
+    "text": "Exemple\n\n\\({\\mathcal{A}}=\\left\\{A,B,C\\right\\}\\) et \\(\\Sigma=\\left\\{A\\to B, B\\to C, C\\to A\\right\\}\\)\n\\(\\pi^{}_{\\left\\{A,B\\right\\}}(\\Sigma)\\) est équivalent à \\(\\left\\{A\\to B, B\\to A\\right\\}\\)"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#calcul-de-pi_mathcala_1sigma",
+    "href": "slides/DF_norm_1.html#calcul-de-pi_mathcala_1sigma",
+    "title": "Normalisation I",
+    "section": "Calcul de \\(\\pi_{{\\mathcal{A}}_1}(\\Sigma)\\)\n",
+    "text": "Calcul de \\(\\pi_{{\\mathcal{A}}_1}(\\Sigma)\\)\n\nOn calcule un ensemble de DF équivalent à \\(\\pi_{\\mathcal{A}_1}(\\Sigma)\\)\n\n\n\\begin{algorithm} \\caption{Projection de DF} \\begin{algorithmic} \\Procedure{Projection}{$\\mathcal{A}_1, Σ$} \\State P ← ∅ \\For{$X ⊂ \\mathcal{A}_1$, $X ≠ ∅$, $X ≠ \\mathcal{A}_1$} \\State Y ← $X^+ ∩ \\mathcal{A}_1$ \\State P ← P ∪ $\\{ X → Y\\}$ \\EndFor \\Return P \\EndProcedure \\end{algorithmic} \\end{algorithm}\n\n\n\n\nL’ensemble de DF obtenu est équivalent à \\(\\pi_{{\\mathcal{A}}_1}(\\Sigma)\\)Très coûteux ! Le nombre de sous-ensembles \\(X\\) considérés est \\(2^{\\#{\\mathcal{A}}_1}-2\\)"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#exemple-5",
+    "href": "slides/DF_norm_1.html#exemple-5",
+    "title": "Normalisation I",
+    "section": "Exemple",
+    "text": "Exemple\n\n\n\\({\\mathcal{A}}=\\left\\{A,B,C,D,E\\right\\}\\) et \\(\\Sigma=\\left\\{A\\to C, BC\\to D, AD\\to E\\right\\}\\)\n\n\n\n\n\n\\(\\pi_{AC}(\\Sigma)\\) est équivalent à \\(\\left\\{A\\to C\\right\\}\\) car\\(\\left\\{A\\right\\}^+=\\left\\{A,C\\right\\}\\) et \\(\\left\\{C\\right\\}^+=\\left\\{C\\right\\}\\)\n\n\n\n\n\n\n\\(\\pi_{ABD}(\\Sigma)\\) est équivalent à \\(\\left\\{AB\\to D\\right\\}\\) car\\(\\left\\{A\\right\\}^+=\\left\\{A,C\\right\\}\\), \\(\\left\\{B\\right\\}^+=\\left\\{D\\right\\}\\), \\(\\left\\{D\\right\\}^+=\\left\\{D\\right\\}\\),\\(\\left\\{A,B\\right\\}^+=\\left\\{A,B,C,D,E\\right\\}\\), \\(\\left\\{A,D\\right\\}^+=\\left\\{A,D,C,E\\right\\}\\), \\(\\left\\{B,D\\right\\}^+=\\left\\{B,D\\right\\}\\)\n\n\n\n\n\n\n\\(\\pi_{ABCE}(\\Sigma)\\) est équivalent à \\(\\left\\{A\\to C, AB \\to CE, AE\\to C, ABC\\to E, ABE\\to C\\right\\}\\)\\(A^+=AC \\quad B^+=B \\quad C^+=C \\quad E^+=E\\)\\(AB^+=ABCDE \\quad AC^+=AC \\quad AE^+=AEC\\)\\(BC^+=BCD \\quad BE^+=BE \\quad CE^+=CE\\)\\(ABC^+=ABCDE \\quad ABE^+=ABECD\\)\\(BCE^+=BCED \\quad ACE^+=ACE\\)\n\n\n\n\n\nSimplification : \\(\\pi_{ABCE}(\\Sigma)\\) équivaut à \\(\\left\\{A\\to C, AB\\to E\\right\\}\\)"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#préservation-de-dépendances-fonctionnelles",
+    "href": "slides/DF_norm_1.html#préservation-de-dépendances-fonctionnelles",
+    "title": "Normalisation I",
+    "section": "Préservation de dépendances fonctionnelles",
+    "text": "Préservation de dépendances fonctionnelles\n\n\n\n\n\n\nDéfinition : décomposition sans perte de DF\n\n\nSoit \\(\\mathcal{A}\\) un schéma de relation et \\(\\Sigma\\) un ensemble de DF sur \\(\\mathcal{A}\\).\nSoit \\(\\left\\{ \\mathcal{A}_1,\\dots, \\mathcal{A}_k\\right\\}\\) une décomposition du schéma \\(\\mathcal{A}\\) (\\(\\mathcal{A}_i\\neq \\emptyset, 1\\leq i\\leq k\\) et \\(\\mathcal{A}= \\bigcup_{i=1}^k \\mathcal{A}_i\\))\nLa décomposition \\(\\left\\{\\mathcal{A}_1,\\dots, \\mathcal{A}_k\\right\\}\\) préserve \\(\\Sigma\\) si l’ensemble des dépendances fonctionnelles locales \\(\\bigcup_{i=1}^k \\pi_{\\mathcal{A}_i}(\\Sigma)\\) est équivalent à \\(\\Sigma\\)\n\n\n\n\n\nPuisque \\(\\Sigma ⊧ \\bigcup_{i=1}^k \\pi_{\\mathcal{A}_i}(\\Sigma)\\), la décomposition préserve \\(\\Sigma\\) si et seulement si toutes les DF de \\(\\Sigma\\) sont impliquées par les DF locales"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#algorithme-pour-tester-si-bigcup_i1k-pi_mathcala_isigma-models-x-rightarrow-y",
+    "href": "slides/DF_norm_1.html#algorithme-pour-tester-si-bigcup_i1k-pi_mathcala_isigma-models-x-rightarrow-y",
+    "title": "Normalisation I",
+    "section": "Algorithme pour tester si \\(\\bigcup_{i=1}^k \\pi_{\\mathcal{A}_i}(\\Sigma) \\models X \\rightarrow Y\\)\n",
+    "text": "Algorithme pour tester si \\(\\bigcup_{i=1}^k \\pi_{\\mathcal{A}_i}(\\Sigma) \\models X \\rightarrow Y\\)\n\n\n\n\\begin{algorithm} \\caption{X → Y est-elle impliquée par les dépendances projetées?} \\begin{algorithmic} \\Procedure{Implique}{$\\left\\{ \\mathcal{A}_1,\\dots, \\mathcal{A}_k\\right\\}, Σ, X, Y$} \\State Z ← X \\State continuer ← \\True \\While{continuer} \\State $W ← Z$ \\For{i ∈ 1, ..., k} \\State $W ← W ∪ \\bigl((W ∩ \\mathcal{A}_i)^+ ∩ \\mathcal{A}_i\\bigr)$ \\EndFor \\If{W ≠ Z} \\State Z ← W \\Else \\State continuer ← \\False \\EndIf \\EndWhile \\If{Y ⊆ Z} \\Return \\True \\Else \\Return \\False \\EndIf \\EndProcedure \\end{algorithmic} \\end{algorithm}"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#exemple-i-1",
+    "href": "slides/DF_norm_1.html#exemple-i-1",
+    "title": "Normalisation I",
+    "section": "Exemple I",
+    "text": "Exemple I\n\n\\(\\mathcal{A}=\\left\\{A,B,C,D\\right\\}\\),\n\\(\\mathcal{A}_1=\\left\\{A,B\\right\\}\\), \\(\\mathcal{A}_2=\\left\\{B,C\\right\\}\\), \\(\\mathcal{A}_3=\\left\\{C,D\\right\\}\\)\n\\(\\Sigma=\\left\\{A\\to B, B\\to C, C\\to D, D\\to A\\right\\}\\)\nEst-ce que la décomposition \\(\\left\\{\\mathcal{A}_1,\\mathcal{A}_2,\\mathcal{A}_3\\right\\}\\) préserve \\(\\Sigma\\) ?\n\n\n\nLes DF locales impliquent \\(A\\to B\\), \\(B\\to C\\), \\(C\\to D\\) (ce sont DF locales)\n\n\n\n\nEst-ce que les DF locales impliquent \\(D\\to A\\) ?\n\n\n\nCommencer avec \\(Z ← \\{D\\}\\)\n\n\\((\\{D\\}∩\\{CD\\})^+ ∩ \\{CD\\}=\\{D\\}^+ ∩\\{CD\\}=\\{DABC\\} ∩ \\{CD\\}=\\{CD\\}\\), ajouter \\(C\\)\n\\((\\{DC\\}∩ \\{BC\\})^+ ∩ \\{BC\\}=\\{C\\}^+ ∩ \\{BC\\}=\\{CDAB\\}∩ \\{BC=B\\}\\), ajouter \\(B\\)\n\\((\\{DCB\\}∩ \\{AB\\})^+ ∩ \\{AB\\}=\\{B\\}^+ ∩ \\{AB\\}=\\{BCDA\\} ∩ \\{AB\\}\\), ajouter \\(A\\)\n\\(\\{DCBA\\}\\) contient \\(A\\) donc \\(D\\to A\\) est préservée"
+  },
+  {
+    "objectID": "slides/DF_norm_1.html#exemple-ii-1",
+    "href": "slides/DF_norm_1.html#exemple-ii-1",
+    "title": "Normalisation I",
+    "section": "Exemple II",
+    "text": "Exemple II\n\n\\(\\mathcal{A}=\\) {Ville, CP, Rue, Numero}\n\\(\\Sigma=\\) { CP →  Ville, {Ville, Rue, Numero} → CP}\n\\(\\mathcal{A}_1=\\) {Ville, CP} \\(\\mathcal{A}_2=\\) {Rue, Numero, CP}\nEst-ce que la décomposition \\(\\{\\mathcal{A}_1, \\mathcal{A}_2 \\}\\) préserve \\(\\Sigma\\) ?\n\n\n\n\nCP →  Ville est préservée car elle est locale à \\(\\mathcal{A}_1\\)\n\n\n\n\n\nEst-ce que {Ville, Rue, Numero} → CP est préservée par \\(\\mathcal{A}_1, \\mathcal{A}_2\\) ?\n\n\n\nZ ← {Ville, Rue, Numero}\n\n\\((\\texttt{Z} ∩ \\texttt{{Ville, CP}})^+\\) ∩ {Ville, CP} = {Ville} rien à ajouter\n\\((\\texttt{Z} ∩ \\texttt{{Rue, Numero, CP}})^+\\) ∩ {Rue, Numero, CP} = {Rue, Numero}, rien à ajouter\n\n\n\nDonc Ville, Rue, Numero → CP n’est pas préservée"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#objectif",
+    "href": "slides/DF_norm_3.html#objectif",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Objectif",
+    "text": "Objectif\n\n\n\n\n\n\n\nConstruire\n\n\nUne décomposition :\n\nSans Perte d’Information (SPI)\nSans perte de Dépendances Fonctionnelles\nDont les éléments sont en FN3 par rapports aux dépendances projetées"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#forme-normale-de-boyce-codd-fnbc",
+    "href": "slides/DF_norm_3.html#forme-normale-de-boyce-codd-fnbc",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Forme normale de Boyce-Codd (FNBC)",
+    "text": "Forme normale de Boyce-Codd (FNBC)\n\n\n\n\n\n\nDéfinition\n\n\nUn schéma \\(\\mathcal{A}\\) est en FNBC par rapport à un ensemble de dépendances fonctionnelles \\(\\Sigma\\) sur \\(\\mathcal{A}\\)\nsi\nQuelque soit la DF non triviale \\(X\\rightarrow Y\\) impliquée par \\(\\Sigma\\) (Σ ⊧ X → Y avec \\(¬ Y ⊂ X\\)), \\(X\\) est une super-clef\n\n\n\n\n\n\n \\((\\mathcal{A},\\Sigma)\\) est en FNBC si pour toute DF non triviale impliquée par \\(\\Sigma\\), le membre de gauche (le déterminant) est une super-clef"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#fnbc-exemple-1",
+    "href": "slides/DF_norm_3.html#fnbc-exemple-1",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "FNBC : exemple 1",
+    "text": "FNBC : exemple 1\n\nSchéma \\(\\mathcal{A}=\\{\\texttt{V\\#, Vnom, Vville, P\\#, Pnom, Pville, Qte}\\}\\)\n\n\nEnsemble de dépendances fonctionnelles \\(\\Sigma\\) :\nV# ⟶ Vnom Vville\nP# ⟶ Pnom Pville\nV# P# ⟶ Qte\n\n\\(\\mathcal{A}\\) n’est pas en FNBC par rapport \\(\\Sigma\\).\nEn effet ni V# ni P# ne sont des super-clefs"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#fnbc-exemple-2",
+    "href": "slides/DF_norm_3.html#fnbc-exemple-2",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "FNBC : exemple 2",
+    "text": "FNBC : exemple 2\nSchéma Films(titre, année, durée, genre, producteur, acteur)\n\nOn a la dépendance suivante titre, année ⟶ durée, genre, producteur\ntitre, année, acteur est la seule clef\nLa DF titre, année ⟶ durée, genre, producteur} viole la condition de FNBC"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#fnbc-exemple-3",
+    "href": "slides/DF_norm_3.html#fnbc-exemple-3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "FNBC : exemple 3",
+    "text": "FNBC : exemple 3\nTrois schémas en FNBC :\n\n\nRelation\nClef\n\n\n\nVendeur(V#, Vnom, Vville)\nV#\n\n\nProduit(P#, Pnom, Pville)\nP#\n\n\nLivraison(V#, P#, Qte)\n(V#,P#)"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#schéma-avec-deux-attributs",
+    "href": "slides/DF_norm_3.html#schéma-avec-deux-attributs",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Schéma avec deux attributs",
+    "text": "Schéma avec deux attributs\n\n\n\n\n\n\nProposition\n\n\nSoit \\(\\mathcal{A}=\\{A,B\\}\\) un schéma avec deux attributs et \\(\\Sigma\\) un ensemble de DF non triviales.\n\\(\\mathcal{A}\\) est toujours en FNBC par rapport à \\(\\Sigma\\)\n\n\n\n\n\nPreuve. On distingue 4 cas\n\n\\(\\Sigma=\\emptyset\\)\n\\(\\Sigma=\\{A\\rightarrow B\\}\\)\n\\(\\Sigma=\\{B\\rightarrow A\\}\\)\n\\(\\Sigma=\\{A\\rightarrow B, B\\rightarrow A\\}\\)"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#pourquoi-deux-notions-de-forme-normale-1",
+    "href": "slides/DF_norm_3.html#pourquoi-deux-notions-de-forme-normale-1",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Pourquoi deux notions de forme normale ?",
+    "text": "Pourquoi deux notions de forme normale ?\n\n\n\n\n\n\nProposition\n\n\nSi un schéma \\(\\mathcal{A}\\) est en forme normale Boyce-Codd (FNBC) relativement à un ensemble de DF Σ, alors \\(\\mathcal{A}\\) est en forme normale 3 (FN3) relativement à Σ\n\n\n\n\n\nLa réciproque est fausse"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#exercice-1",
+    "href": "slides/DF_norm_3.html#exercice-1",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Exercice",
+    "text": "Exercice\n\\(\\mathcal{A}=\\) (A, B, C, D, E) et Σ={A → C, BC → D, AD → E}\n\nQuelles sont les clés ?\nLe schéma est-il en FNBC ?\nSi non, propopsez une décomposition SPI en FNBC. Est-elle sans perte de DF?\nLe schéma est-il en FN3 ?"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#décomposition-dun-schéma-de-relation",
+    "href": "slides/DF_norm_3.html#décomposition-dun-schéma-de-relation",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Décomposition d’un schéma de relation",
+    "text": "Décomposition d’un schéma de relation\n\n\n\n\n\n\nDéfinition\n\n\nSoit \\(\\mathcal{A}\\) un schéma de relation\nUn décomposition de \\(\\mathcal{A}\\) est un ensemble \\(\\{\\mathcal{A}_1,..., \\mathcal{A}_k\\}\\) de sous-ensembles de \\(\\mathcal{A}\\) tel que\n\\[\\mathcal{A}_i\\not=\\emptyset, 1\\le i\\le k, \\quad \\text{ et } \\quad \\mathcal{A} = \\bigcup_{i=1}^k \\mathcal{A}_i\\]\n\n\n\n\n Une décomposition n’est pas nécessairement une partition. On n’impose pas que les \\(\\mathcal{A}_i\\) soient deux à deux disjoints."
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#exemple-de-décomposition-i",
+    "href": "slides/DF_norm_3.html#exemple-de-décomposition-i",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Exemple de décomposition I",
+    "text": "Exemple de décomposition I\nVendeur(V#, Vnom, Vville)\nProduit(P#, Pnom, Pville)\nLivraison(V#, P#, Qte)\nest une décomposition du schéma\nR(V#, Vnom, Vville, P#, Pnom, Pville, Qte)"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#exemple-de-décomposition-ii",
+    "href": "slides/DF_norm_3.html#exemple-de-décomposition-ii",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Exemple de décomposition II",
+    "text": "Exemple de décomposition II\nSchéma :\nFilms(titre, année, durée, genre, producteur, acteur)\n\nUne décomposition :\nFilms1(titre, année, durée, genre, producteur)\nFilms2(titre, année, acteur)\n\n\nFilms1 est FNBC par rapport à \\(\\Sigma_1=\\{\\texttt{titre, année ⟶ durée, genre, producteur}\\}\\)\n\n\nFilms2 est en FNBC par rapport à \\(\\Sigma_2=\\emptyset\\)"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#propriétés-dune-décomposition",
+    "href": "slides/DF_norm_3.html#propriétés-dune-décomposition",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Propriétés d’une décomposition",
+    "text": "Propriétés d’une décomposition\nOn ne peut pas décomposer arbitrairement\nToutes les décompositions ne sont pas intéressantes\n\n\n\n\n\n\n\nConditions pour une décomposition raisonnable :\n\n\n\nDécomposition sans perte d’information\nDécomposition sans perte de dépendance fonctionnelle"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#décomposition-sans-perte-dinformation-1",
+    "href": "slides/DF_norm_3.html#décomposition-sans-perte-dinformation-1",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Décomposition sans perte d’information",
+    "text": "Décomposition sans perte d’information\nIdée : Si on remplace le schéma\n(V#, Vnom, Vville, P#, Pnom, Pville, Qte)\npar les trois schémas\nVendeur(V#, Vnom, Vville)\nProduit(P#, Pnom, Pville)\nLivraison(V#, P#, Qte)\nalors au lieu de stocker une relation R(V#, Vnom, Vville, P#, Pnom, Pville, Qte), on stockera ses projections:\n\\[\\pi_{\\texttt{V\\#,Vnom,Vville}}(\\texttt{R}) \\qquad \\pi_{\\texttt{P\\#,Pnom,Pville}}(\\texttt{R}) \\qquad \\pi_{\\texttt{V\\#,P\\#,Qte}}(\\texttt{R})\\]\n Peut-on retrouver R à partir de ces trois projections ?"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#décomposition-sans-perte-dinformation-2",
+    "href": "slides/DF_norm_3.html#décomposition-sans-perte-dinformation-2",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Décomposition sans perte d’information",
+    "text": "Décomposition sans perte d’information\n\nLa décomposition doit garantir que pour toute relation R, ses projections contiennent la même information que R au sens que l’on doit pouvoir reconstruire R à partir de ses projections\nComment tenter de reconstruire R à partir de ses projections ?\n\nOn considère la jointure naturelle\n\\[\\pi_{\\texttt{V\\#,Vnom,Vville}}(\\texttt{R}) \\bowtie \\pi_{\\texttt{P\\#,Pnom,Pville}}(\\texttt{R}) \\bowtie \\pi_{\\texttt{V\\#,P\\#,Qte}}(\\texttt{R})\\]"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#décomposition-sans-perte-dinformation-3",
+    "href": "slides/DF_norm_3.html#décomposition-sans-perte-dinformation-3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Décomposition sans perte d’information",
+    "text": "Décomposition sans perte d’information\nLa propriété souhaitée s’écrit donc\n\\[R = \\pi_{\\texttt{V\\#,Vnom,Vville}}(\\texttt{R}) \\bowtie \\pi_{\\texttt{P\\#,Pnom,Pville}}(\\texttt{R}) \\bowtie \\pi_{\\texttt{V\\#,P\\#,Qte}}(\\texttt{R})\\]\npour toute relation R(V#, Vnom, Vville, P#, Pnom, Pville, Qte) satisfaisant les DF\n\n\nEst ce vrai?\nIntuitivement, oui : à partir d’un tuple de Livraison(V#,P#,Qte)\nV# permet de récupérer toutes les informations sur le vendeur (V# ⟶ Vnom Vville)\nP# permet de récupérer toutes les informations sur le produit (P# ⟶ Pnom Pville)\n La propriété d’être sans perte d’information est liée à l’ensemble de DF considéré"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#décomposition-sans-perte-dinformation-lossless-join",
+    "href": "slides/DF_norm_3.html#décomposition-sans-perte-dinformation-lossless-join",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Décomposition sans perte d’information (lossless join)",
+    "text": "Décomposition sans perte d’information (lossless join)\n\n\n\n\n\n\nDéfinition\n\n\nSoit \\(\\mathcal{A}\\) un schéma de relation et \\(\\Sigma\\) un ensemble de DF sur \\(\\mathcal{A}\\).\nUne décomposition \\(\\{\\mathcal{A}_1,..., \\mathcal{A}_k\\}\\) est sans perte d’information par rapport à \\(\\Sigma\\) si pour toute relation \\(R\\) de schéma \\(\\mathcal{A}\\) satisfaisant \\(\\Sigma\\) on a\n\\[R= \\pi_{\\mathcal{A}_1}(R) \\bowtie \\pi_{\\mathcal{A}_2}(R) \\bowtie...\\bowtie\\pi_{\\mathcal{A}_k}(R)\\]"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#exemple-de-décomposition-avec-perte-dinformation",
+    "href": "slides/DF_norm_3.html#exemple-de-décomposition-avec-perte-dinformation",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Exemple de décomposition avec perte d’information",
+    "text": "Exemple de décomposition avec perte d’information\n\\(\\mathcal{A}=\\{A,B,C\\} \\quad  \\Sigma=\\{AB\\rightarrow C\\}\\)\nDécomposition \\(\\mathcal{A}_1=\\{A,B\\}  \\quad  \\mathcal{A}_2=\\{B,C\\}\\)\n\n\nSoit \\(R\\) la relation\n\n\nA\nB\nC\n\n\n\n1\n2\n3\n\n\n4\n2\n5\n\n\n\n\n\\(\\pi_{AB}(R)=\\)\n\n\nA\nB\n\n\n\n1\n2\n\n\n4\n2\n\n\n\n\n\\(\\pi_{BC}(R)=\\)\n\n\nB\nC\n\n\n\n2\n3\n\n\n2\n5\n\n\n\n\n\\(\\pi_{AB}(R) \\bowtie \\pi_{BC}(R)=\\)\n\n\nA\nB\nC\n\n\n\n1\n2\n3\n\n\n4\n2\n5\n\n\n1\n2\n5\n\n\n4\n2\n3"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#algorithme-de-poursuite-chase-algorithm",
+    "href": "slides/DF_norm_3.html#algorithme-de-poursuite-chase-algorithm",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Algorithme de poursuite (chase algorithm)",
+    "text": "Algorithme de poursuite (chase algorithm)\n\nComment déterminer si une décomposition est sans perte d’information?\nSi \\(R\\) est une relation de schéma \\(\\mathcal{A}\\) on a toujours que\n\n\\[R ⊆ \\pi_{\\mathcal{A}_1}(R) \\bowtie \\pi_{\\mathcal{A}_2}(R) \\bowtie...\\bowtie\\pi_{\\mathcal{A}_k}(R)\\]\npar définition de la jointure naturelle et de la projection\n\nLe seul problème est que les jointures peuvent générer des tuples supplémentaires\nMais comme \\(R\\) est supposée vérifier les DF de \\(\\Sigma\\), l’inclusion inverse est garantie dans certains cas\n\nPour le savoir, un algorithme simple existe appelé algorithme de poursuite"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple",
+    "href": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Algorithme de poursuite : exemple",
+    "text": "Algorithme de poursuite : exemple\nSi on remplace le schéma (V#, Vnom, Vville, P#, Pnom, Pville, Qte) par\nVendeur(V#, Vnom, Vville)}\nProduit(P#, Pnom, Pville)}\nLivraison(V#, P#, Qte)\nA-t-on\n\\[\\pi_{\\texttt{V\\#,Vnom,Vville}}(\\texttt{R}) \\bowtie \\pi_{\\texttt{P\\#,Pnom,Pville}}(\\texttt{R}) \\bowtie \\pi_{\\texttt{V\\#,P\\#,Qte}}(R) \\subset \\texttt{R} \\quad ?\\]"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple-1",
+    "href": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple-1",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Algorithme de poursuite : exemple",
+    "text": "Algorithme de poursuite : exemple\nSoit \\(t\\) un tuple dans la jointure\n\n\nV#\nVnom\nVville\nP#\nPnom\nPville\nQte\n\n\n\\(a\\)\n\\(b\\)\n\\(c\\)\n\\(d\\)\n\\(e\\)\n\\(f\\)\n\\(g\\)\n\n\n\n\\((a, b, c)\\in \\pi_{\\texttt{V\\#,Vnom,Vville}}(\\texttt{R})\\) donc il existe \\(e_1, f_1, g_1\\) tels que \\((a, b, c, d_1, e_1, f_1, g_1) \\in \\texttt{R}\\)\n\\((d,e,f) \\in \\pi_{\\texttt{P\\#,Pnom,Pville}}(\\texttt{R})\\) donc il existe \\(a_2, b_2, c_2, g_2\\) tels que \\((a_2, b_2, c_2, d, e, f, g_2)\\in \\texttt{R}\\)\n\\((a,d,g)\\in \\pi_{\\texttt{V\\#,P\\#,Qte}}(R)\\) donc il existe \\(b_3,c_3,e_3,f_3\\) tels que \\((a,b_3,c_3,d,e_3,f_3,g)\\in \\texttt{R}\\)\nOn peut le représenter comme ceci :\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nV#\nVnom\nVville\nP#\nPnom\nPville\nQte\n\n\n\nVendeur\n\\(a\\)\n\\(b\\)\n\\(c\\)\n\\(d_1\\)\n\\(e_1\\)\n\\(f_1\\)\n\\(g_1\\)\n\n\nProduit\n\\(a_2\\)\n\\(b_2\\)\n\\(c_2\\)\n\\(d\\)\n\\(e\\)\n\\(f\\)\n\\(g_2\\)\n\n\nLivraison\n\\(a\\)\n\\(b_3\\)\n\\(c_3\\)\n\\(d\\)\n\\(e_3\\)\n\\(f_3\\)\n\\(g\\)\n\n\n\n\n\nVendeur (resp. Produit, Livraison) désigne l’ensemble des tuples de \\(R\\) qui se projettent sur \\(a,b,c\\) (resp. \\(d,e,f\\) et \\(a,d,g\\)) lorsque on projette \\(R\\) sur V#,Vnom,Vville (resp. P#, Pnom, Pville et V#, P#, Qte)"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple-2",
+    "href": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple-2",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Algorithme de poursuite : exemple",
+    "text": "Algorithme de poursuite : exemple\n\n\n\n\n\n\n\n\n\n\n\n\n\nV#\nVnom\nVville\nP#\nPnom\nPville\nQte\n\n\n\nVendeur\n\\(a\\)\n\\(b\\)\n\\(c\\)\n\\(d_1\\)\n\\(e_1\\)\n\\(f_1\\)\n\\(g_1\\)\n\n\nProduit\n\\(a_2\\)\n\\(b_2\\)\n\\(c_2\\)\n\\(d\\)\n\\(e\\)\n\\(f\\)\n\\(g_2\\)\n\n\nLivraison\n\\(a\\)\n\\(b_3\\)\n\\(c_3\\)\n\\(d\\)\n\\(e_3\\)\n\\(f_3\\)\n\\(g\\)\n\n\n\nV# ⟶ Vnom, Vville donc \\(b_3=b\\) et \\(c_3=c\\)\n\n\n\nV#\nVnom\nVville\nP#\nPnom\nPville\nQte\n\n\n\nVendeur\n\\(a\\)\n\\(b\\)\n\\(c\\)\n\\(d_1\\)\n\\(e_1\\)\n\\(f_1\\)\n\\(g_1\\)\n\n\nProduit\n\\(a_2\\)\n\\(b_2\\)\n\\(c_2\\)\n\\(d\\)\n\\(e\\)\n\\(f\\)\n\\(g_2\\)\n\n\nLivraison\n\\(a\\)\n\\(b\\)\n\\(c\\)\n\\(d\\)\n\\(e_3\\)\n\\(f_3\\)\n\\(g\\)"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple-suite",
+    "href": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple-suite",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Algorithme de poursuite : exemple (suite)",
+    "text": "Algorithme de poursuite : exemple (suite)\nP#⟶ Pnom, Pville donc \\(e_3=e\\) et \\(f_3=f\\)\n\n\n\nV#\nVnom\nVville\nP#\nPnom\nPville\nQte\n\n\n\nVendeur\n\\(a\\)\n\\(b\\)\n\\(c\\)\n\\(d_1\\)\n\\(e_1\\)\n\\(f_1\\)\n\\(g_1\\)\n\n\nProduit\n\\(a_2\\)\n\\(b_2\\)\n\\(c_2\\)\n\\(d\\)\n\\(e\\)\n\\(f\\)\n\\(g_2\\)\n\n\nLivraison\n\\(a\\)\n\\(b\\)\n\\(c\\)\n\\(d\\)\n\\(e\\)\n\\(f\\)\n\\(g\\)\n\n\n\nOn a obtenu une ligne égale au tuple \\(t=(a,b,c,d,e,f,g)\\) donc \\(t\\in \\texttt{R}\\) (tous les tuples qui se projettent sur \\(a,f,g\\) coïncident avec \\(t\\))\nOn en déduit que la décomposition est Sans Perte d’Information (SPI)"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#algorithme-de-poursuite-cas-général",
+    "href": "slides/DF_norm_3.html#algorithme-de-poursuite-cas-général",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Algorithme de poursuite : cas général",
+    "text": "Algorithme de poursuite : cas général\n\nEntrée : un schéma \\(\\mathcal{A}\\), une décomposition \\(\\{\\mathcal{A}_1,...,\\mathcal{A}_k\\}\\) et un ensemble \\(\\Sigma\\) de DF\nPour chaque attribut de \\(\\mathcal{A}\\), choisir un symbole (par exemple \\(a\\), \\(b\\), \\(c\\),…). La correspondance doit être injective.\nConstruire un tableau dont les colonnes sont les attributs de \\(\\mathcal{A}\\)\n\nLe tableau a une ligne pour chaque \\(\\mathcal{A}_i\\)\nSur la ligne associée à \\(\\mathcal{A}_i\\), les positions correspondant à \\(\\mathcal{A}_i\\) sont remplies avec les symboles choisis.\nLes autres positions sont remplies avec les symboles indicés par \\(i\\)\n\nRépéter tant que possible : s’il existe une DF \\(X\\rightarrow Y\\) dans \\(\\Sigma\\) et deux lignes du tableau en accord sur \\(X\\), égaliser ces deux lignes sur \\(Y\\)\nSortie : Si on obtient une ligne sans valeur indicée, la décomposition est sans perte d’information, sinon il y a perte d’information"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#commentaires-sur-lalgorithme-de-poursuite",
+    "href": "slides/DF_norm_3.html#commentaires-sur-lalgorithme-de-poursuite",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Commentaires sur l’algorithme de poursuite",
+    "text": "Commentaires sur l’algorithme de poursuite\nL’objectif de l’algorithme de poursuite est de vérifier que tout tuple de \\(\\pi_{\\mathcal{A}_1}(R) \\bowtie \\pi_{\\mathcal{A}_2}(R) \\bowtie...\\bowtie\\pi_{\\mathcal{A}_k}(R)\\) est aussi un tuple de \\(R\\)\nÀ l’initialisation, on part d’un tuple de \\(\\pi_{\\mathcal{A}_1}(R) \\bowtie \\pi_{\\mathcal{A}_2}(R) \\bowtie...\\bowtie\\pi_{\\mathcal{A}_k}(R)\\) qu’on note symboliquement \\((a, b, c, \\ldots)\\) avec des symboles non indicés\nPour chaque \\(i \\leq k\\), on utilise le fait que pour chaque tuple de \\(\\pi_{\\mathcal{A}_i}(R)\\) il existe un ensemble de tuples de \\(R\\) qui coïncident avec \\((a, b, c, \\ldots)\\) sur \\(\\mathcal{A}_i\\). On note génériquement ces tuples de \\(R\\) en indiçant les noms de variables par \\(i\\) pour toutes les variables qui ne sont pas dans \\(\\mathcal{A}_i\\)\nChacun des sous-ensembles de tuples indicés par \\(i \\leq k\\) définit un sous-ensemble de tuples de \\(R\\)\nOn veut se convaincre que \\((a, b, c, \\ldots)\\) appartient à l’un de ces sous-ensembles\n\nL’algorithme de poursuite utilise les DF de Σ, pour restreindre les \\(k\\) sous-ensembles"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#commentaires-suite",
+    "href": "slides/DF_norm_3.html#commentaires-suite",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Commentaires (suite)",
+    "text": "Commentaires (suite)\nL’algorithme de poursuite est un algorithme de réécriture\n\nL’algorithme de poursuite est non-déterministe : à chaque étape, il est parfois possible d’invoquer plusieurs DFs pour réécrire une ou plusieurs lignes\n\n\nUn point important de l’analyse de l’algorithme de poursuite consiste à vérifier que ce non-déterminisme n’est pas un problème : l’algorithme de poursuite termine par un succès ou un échec (blocage) quelle que soit la suite des choix effectués\n\nPreuve ()."
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple-2-1",
+    "href": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple-2-1",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Algorithme de poursuite : exemple 2",
+    "text": "Algorithme de poursuite : exemple 2\nConsidérons l’exemple : \\(\\mathcal{A}=\\{A,B,C,D\\}\\) avec \\(\\mathcal{A}_1=\\{A,B\\}\\), \\(\\mathcal{A}_2=\\{B,C\\}\\) et \\(\\mathcal{A}_3=\\{C,D\\}\\)\nSoit \\(\\Sigma=\\{{C}\\rightarrow{D}; {B}\\rightarrow{A}\\}\\).\nSoit \\(t=(a,b,c,d)\\). Soit \\(t_1,t_2,t_3\\) les tuples de \\(R\\) suivants:\n\n\n\nA\nB\nC\nD\n\n\n\n\\(t_1\\)\na\nb\n\\(c_1\\)\n\\(d_1\\)\n\n\n\\(t_2\\)\n\\(a_2\\)\nb\nc\n\\(d_2\\)\n\n\n\\(t_3\\)\n\\(a_3\\)\n\\(b_3\\)\nc\nd\n\n\n\nOn a pris \\(c_1,d_1, a_2,d_2, a_3,b_3\\) comme valeurs variables et a,b,c,d comme constantes"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#algorithme-de-poursuite---exemple-2",
+    "href": "slides/DF_norm_3.html#algorithme-de-poursuite---exemple-2",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Algorithme de poursuite - exemple 2",
+    "text": "Algorithme de poursuite - exemple 2\n\n\n\nA\nB\nC\nD\n\n\n\n\\(t_1\\)\na\nb\n\\(c_1\\)\n\\(d_1\\)\n\n\n\\(t_2\\)\n\\(a_2\\)\nb\nc\n\\(d_2\\)\n\n\n\\(t_3\\)\n\\(a_3\\)\n\\(b_3\\)\nc\nd\n\n\n\nPar la dépendance \\({B}\\rightarrow{A}\\), il vient :\n\n\n\nA\nB\nC\nD\n\n\n\n\\(t_1\\)\na\nb\n\\(c_1\\)\n\\(d_1\\)\n\n\n\\(t_2\\)\na\nb\nc\n\\(d_2\\)\n\n\n\\(t_3\\)\n\\(a_3\\)\n\\(b_3\\)\nc\nd"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple-2-2",
+    "href": "slides/DF_norm_3.html#algorithme-de-poursuite-exemple-2-2",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Algorithme de poursuite : exemple 2",
+    "text": "Algorithme de poursuite : exemple 2\nPar la dépendance \\({C}\\rightarrow{D}\\), il vient :\n\n\n\nA\nB\nC\nD\n\n\n\n\\(t_1\\)\na\nb\n\\(c_1\\)\n\\(d_1\\)\n\n\n\\(t_2\\)\na\nb\nc\nd\n\n\n\\(t_3\\)\n\\(a_3\\)\n\\(b_3\\)\nc\nd\n\n\n\nOn a bien fait apparaître \\(t\\) qui appartient donc à \\(R\\)."
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#algorithme-de-poursuite---exemple-3",
+    "href": "slides/DF_norm_3.html#algorithme-de-poursuite---exemple-3",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Algorithme de poursuite - exemple 3",
+    "text": "Algorithme de poursuite - exemple 3\nConsidérons toujours l’exemple : \\(\\mathcal{A}=\\{A,B,C,D\\}\\) avec\n\\(\\mathcal{A}_1=\\{A,B\\}\\), \\(\\mathcal{A}_2=\\{B,C\\}\\) et \\(\\mathcal{A}_3=\\{C,D\\}\\)\nMais avec \\(\\Sigma=\\{{B}\\rightarrow{AD}\\}\\).\n\n\nA\nB\nC\nD\n\n\n\na\nb\n\\(c_1\\)\n\\(d_1\\)\n\n\n\\(a_2\\)\nb\nc\n\\(d_2\\)\n\n\n\\(a_3\\)\n\\(b_3\\)\nc\nd\n\n\n\nDans ce cas, en utilisant la seule DF \\({B}\\rightarrow{AD}\\), on obtient \\(a_2=a\\) et \\(d_1=d_2\\) :\n\n\nA\nB\nC\nD\n\n\n\na\nb\n\\(c_1\\)\n\\(d_1\\)\n\n\na\nb\nc\n\\(d_1\\)\n\n\n\\(a_3\\)\n\\(b_3\\)\nc\nd\n\n\n\n\n\n\n\n\n\nNote\n\n\nMais on ne peut pas aller plus loin : la jointure des projections contient des tuples qui ne sont pas dans la relation originelle"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#remarques",
+    "href": "slides/DF_norm_3.html#remarques",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Remarques",
+    "text": "Remarques\n\n\n\n\n\n\n\nProposition\n\n\n\nL’algorithme termine\nLes éléments de la décomposition finale sont en FNBC\nLa décomposition est Sans Perte d’Information (SPI)"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#preuves-1",
+    "href": "slides/DF_norm_3.html#preuves-1",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Preuves \n",
+    "text": "Preuves \n\n\nLa terminaison est triviale : à chaque itération le nombre de parties de \\(\\mathcal{A}\\) dans \\(D\\) augmente de \\(1\\) et ce nombre ne peut dépasser \\(\\# \\mathcal{A}\\)\nLa seconde propriété est triviale aussi\nLa propriété SPI se vérifie avec l’algorithme de poursuite (et son analyse): chaque itération de la boucle While est SPI."
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#section-1",
+    "href": "slides/DF_norm_3.html#section-1",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "",
+    "text": "\\(\\mathcal{A} =\\) {Ville, Rue, Numéro, #Bureau_vote}\nΣ = { Ville, Nom, Rue → #Bureau_vote,  #Bureau_vote  →  Ville }\n\nDeux clés Ville, Nom, Rue et #Bureau_vote, Nom, Rue\n\n\n#Bureau_vote  →  Ville ne satisfait pas le critère FNBC\n\n\nL’algorithme de décomposition en FNBC conduit à la décomposition {#Bureau_vote,Ville} et {#Bureau_vote, Nom, Rue}\nLa DF Ville, Nom, Rue → #Bureau_vote n’est pas préservée\nLa décomposition préserve l’information (SPI) mais pas les dépendances fonctionnelles."
   }
 ]
