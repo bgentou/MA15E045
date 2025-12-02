@@ -214,7 +214,7 @@
   };
   </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <meta property="og:title" content="Normalisation II : Décompositions FN3 et FNBC – MA15E045 - Automne 2025">
-<meta property="og:description" content="Pertes de Dépendances Fonctionnelles. Décomposition FN3. Décomposition FNBC.">
+<meta property="og:description" content="Décomposition FN3. Décomposition FNBC.">
 <meta property="og:site_name" content="MA15E045 - Automne 2025">
 </head>
 <body class="quarto-light">
@@ -222,7 +222,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-color="#1c191c" class="quarto-title-block center"><h1 class="title">Normalisation II : Décompositions FN3 et FNBC</h1>
-  <p class="subtitle">Pertes de Dépendances Fonctionnelles. Décomposition FN3. Décomposition FNBC.</p>
+  <p class="subtitle">Décomposition FN3. Décomposition FNBC.</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -280,7 +280,7 @@
 </ul>
 </div>
 </section><section id="algorithme-de-construction-de-couverture-irredondante" class="slide level2 scrollable center"><h2>Algorithme de construction de couverture irredondante</h2>
-<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-indent-size="1.2em" data-comment-delimiter="//" data-pseudocode-number="1" data-line-number="true" data-no-end="false" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-comment-delimiter="//" data-indent-size="1.2em" data-pseudocode-number="1" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{Couverture irredondante} \begin{algorithmic} \Procedure{MinCover}{$Σ$} \State Σ' ← ∅ \State \Comment{Normaliser les éléments de Σ} \For{$(X → Y) ∈ Σ$} \For{$y ∈ Y$} \State Σ' ← Σ' ∪ {X → y} \EndFor \EndFor \State \Comment{Éliminer les dépendances redondantes dans Σ'} \State \Comment{Miniser les dépendances dans Σ'} \Return Σ' \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -288,13 +288,13 @@
 </section><section id="détails" class="slide level2 center"><h2>Détails</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-indent-size="1.2em" data-comment-delimiter="//" data-pseudocode-number="1" data-line-number="true" data-no-end="false" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-comment-delimiter="//" data-indent-size="1.2em" data-pseudocode-number="1" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{Éliminer les dépendances redondantes dans Σ' (détail)} \begin{algorithmic} \Repeat \State s ← \True \For{$(X → y) ∈ Σ'$} \If{$Σ' \setminus {X → y} ⊧ X → y$} \State $Σ' ← Σ' \setminus {X → y}$ \State s ← \False \EndIf \EndFor \Until{s} \end{algorithmic} \end{algorithm}
 </div>
 </div>
 </div><div class="column" style="width:55%;">
-<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-indent-size="1.2em" data-comment-delimiter="//" data-pseudocode-number="1" data-line-number="true" data-no-end="false" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-comment-delimiter="//" data-indent-size="1.2em" data-pseudocode-number="1" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{Miniser les dépendances dans Σ' (détail)} \begin{algorithmic} \Repeat \State s ← \True \For{$(X → y) ∈ Σ'$} \For{$x ∈ X$} \If{$Σ' \setminus {X → y} ⊧ X \setminus {x} → y$} \State $Σ' ← (Σ' \setminus {X → y}) ∪ X \setminus {x} → y$ \State s ← \False \Break \EndIf \EndFor \EndFor \Until{s} \end{algorithmic} \end{algorithm}
 </div>
@@ -378,7 +378,7 @@
 </section></section><section><section id="algorithme-de-décomposition-en-fn3" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Algorithme de Décomposition en FN3</h1>
 
 </section><section id="algorithme" class="slide level2 smaller center"><h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-indent-size="1.2em" data-comment-delimiter="//" data-pseudocode-number="1" data-line-number="true" data-no-end="false" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-comment-delimiter="//" data-indent-size="1.2em" data-pseudocode-number="1" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{Decomposition FN3} \begin{algorithmic} \Procedure{DecompositionFN3}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← ∅$ \State \Comment{Mise en forme des courverture minimale de Σ} \State Σ' ← \Call{MinCover}{$Σ$} \State \For{Each distinct determinant $X$ amongst FDs in Σ'} \State $Y ← \{y : X → y ∈ Σ'\}$ \State $D ← D \cup \{X \cup Y\}$ \Comment{ Ajouter $X \cup Y$ à $D$} \EndFor \State \State $\mathcal{B} ← $ Attributes in $\mathcal{A}$ that do not occur in $D$ \State $D ← D \cup \{\mathcal{B}\}$ \State \If{No component of $D$ includes a key for $\mathcal{A}, Σ$} \State $D ← D \cup $ some key for $\mathcal{A}, Σ$ \EndIf \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -1265,7 +1265,7 @@
 </section></section><section><section id="décomposition-fnbc-spi" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition FNBC SPI</h1>
 
 </section><section id="algorithme-1" class="slide level2 center"><h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-caption-prefix="Algorithme" data-indent-size="1.2em" data-comment-delimiter="//" data-pseudocode-number="1" data-line-number="true" data-no-end="false" data-line-number-punc=":">
+<div class="pseudocode-container quarto-float" data-line-number="true" data-caption-prefix="Algorithme" data-line-number-punc=":" data-comment-delimiter="//" data-indent-size="1.2em" data-pseudocode-number="1" data-no-end="false">
 <div class="pseudocode">
 \begin{algorithm} \caption{Décomposition FNBC} \begin{algorithmic} \Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← \{\mathcal{A}\}$ \State \While{$\exists \mathcal{B} \in D$ not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$} \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X\qquad$ \Comment{DF non triviale! $Y \neq \emptyset$} \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$ \EndWhile \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -1353,7 +1353,7 @@
 <p> </p>
 </div>
 <div class="header-text">
-<p>Pertes de Dépendances Fonctionnelles. Décomposition FN3. Décomposition FNBC.</p>
+<p>Décomposition FN3. Décomposition FNBC.</p>
 </div>
 <div class="sb-title">
 <p> </p>

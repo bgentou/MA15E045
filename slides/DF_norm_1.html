@@ -243,6 +243,7 @@
 <li><a href="#/clef-et-super-clef" id="/toc-clef-et-super-clef">Clef et super-clef</a></li>
 <li><a href="#/fermeture-dun-ensemble-dattributs" id="/toc-fermeture-dun-ensemble-dattributs">Fermeture d’un ensemble d’attributs</a></li>
 <li><a href="#/d%C3%A9composition-dun-sh%C3%A9ma" id="/toc-décomposition-dun-shéma">Décomposition d’un shéma</a></li>
+<li><a href="#/d%C3%A9composition-sans-perte-dinformation-spi" id="/toc-décomposition-sans-perte-dinformation-spi">Décomposition sans perte d’information (SPI)</a></li>
 <li><a href="#/projection-dun-ensemble-de-d%C3%A9pendances-fonctionnelles" id="/toc-projection-dun-ensemble-de-dépendances-fonctionnelles">Projection d’un ensemble de dépendances fonctionnelles</a></li>
 <li><a href="#/perte-de-d%C3%A9pendances-fonctionnelles" id="/toc-perte-de-dépendances-fonctionnelles">Perte de dépendances fonctionnelles</a></li>
 <li><a href="#/d%C3%A9tection-de-perte-de-df" id="/toc-détection-de-perte-de-df">Détection de perte de DF</a></li>
@@ -1060,22 +1061,13 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p>Donner une clef de <span class="math inline">\(R\)</span> : par exemple <span class="math inline">\(\{A,B,F\}\)</span>, <span class="math inline">\(\{E,F\}\)</span>, <span class="math inline">\(\{F,G\}\)</span>. Il n’y a pas unicité.</p>
 </div>
 </section></section><section><section id="décomposition-dun-shéma" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition d’un shéma</h1>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Définition</strong></p>
-</div>
-<div class="callout-content">
+
+</section><section id="définition-5" class="slide level2 center"><h2>Définition</h2>
 <p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation</p>
 <p>Un <em>décomposition</em> de <span class="math inline">\(\mathcal{A}\)</span> est un ensemble <span class="math inline">\(\{\mathcal{A}_1,..., \mathcal{A}_k\}\)</span> de sous-ensembles de <span class="math inline">\(\mathcal{A}\)</span> tel que</p>
 <p><span class="math display">\[\mathcal{A}_i\not=\emptyset, 1\le i\le k, \quad \text{ et } \quad \mathcal{A} = \bigcup_{i=1}^k \mathcal{A}_i\]</span></p>
-</div>
-</div>
-</div>
-</section><section class="slide level2 center"><div class="callout callout-important callout-titled callout-style-default">
+</section></section><section id="décomposition-sans-perte-dinformation-spi" class="title-slide slide level1 center"><h1>Décomposition sans perte d’information (SPI)</h1>
+<div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
@@ -1090,7 +1082,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </div>
 </div>
 </div>
-</section></section><section><section id="projection-dun-ensemble-de-dépendances-fonctionnelles" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Projection d’un ensemble de dépendances fonctionnelles</h1>
+</section><section><section id="projection-dun-ensemble-de-dépendances-fonctionnelles" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Projection d’un ensemble de dépendances fonctionnelles</h1>
 
 </section><section id="projection-dun-ensemble-de-df" class="slide level2 center"><h2>Projection d’un ensemble de DF</h2>
 <p>Soientt <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation (<span class="math inline">\(\mathcal{A}\)</span> est un ensemble d’attributs) et <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span></p>
@@ -1131,7 +1123,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </ul></section><section id="calcul-de-pi_mathcala_1sigma" class="slide level2 center"><h2>Calcul de <span class="math inline">\(\pi_{{\mathcal{A}}_1}(\Sigma)\)</span>
 </h2>
 <p>On calcule un ensemble de DF équivalent à <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span></p>
-<div class="pseudocode-container quarto-float" data-line-number-punc=":" data-comment-delimiter="//" data-indent-size="1.2em" data-pseudocode-number="1" data-line-number="true" data-no-end="false" data-caption-prefix="Algorithme">
+<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-indent-size="1.2em" data-line-number="true" data-caption-prefix="Algorithme" data-comment-delimiter="//" data-no-end="false" data-line-number-punc=":">
 <div class="pseudocode">
 \begin{algorithm} \caption{Projection de DF} \begin{algorithmic} \Procedure{Projection}{$\mathcal{A}_1, Σ$} \State P ← ∅ \For{$X ⊂ \mathcal{A}_1$, $X ≠ ∅$, $X ≠ \mathcal{A}_1$} \State Y ← $X^+ ∩ \mathcal{A}_1$ \State P ← P ∪ $\{ X → Y\}$ \EndFor \Return P \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -1197,7 +1189,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 
 </section><section id="algorithme-pour-tester-si-bigcup_i1k-pi_mathcala_isigma-models-x-rightarrow-y" class="slide level2 smaller center"><h2>Algorithme pour tester si <span class="math inline">\(\bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma) \models X \rightarrow Y\)</span>
 </h2>
-<div class="pseudocode-container quarto-float" data-line-number-punc=":" data-comment-delimiter="//" data-indent-size="1.2em" data-pseudocode-number="1" data-line-number="true" data-no-end="false" data-caption-prefix="Algorithme">
+<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-indent-size="1.2em" data-line-number="true" data-caption-prefix="Algorithme" data-comment-delimiter="//" data-no-end="false" data-line-number-punc=":">
 <div class="pseudocode">
 \begin{algorithm} \caption{X → Y est-elle impliquée par les dépendances projetées?} \begin{algorithmic} \Procedure{Implique}{$\left\{ \mathcal{A}_1,\dots, \mathcal{A}_k\right\}, Σ, X, Y$} \State Z ← X \State continuer ← \True \While{continuer} \State $W ← Z$ \For{i ∈ 1, ..., k} \State $W ← W ∪ \bigl((W ∩ \mathcal{A}_i)^+ ∩ \mathcal{A}_i\bigr)$ \EndFor \If{W ≠ Z} \State Z ← W \Else \State continuer ← \False \EndIf \EndWhile \If{Y ⊆ Z} \Return \True \Else \Return \False \EndIf \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
@@ -1268,7 +1260,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p> </p>
 </div>
 <div class="header-text">
-<p>Dépendances Fonctionnelles. Clés. Fermetures. Décompositions</p>
+<p>Dépendances Fonctionnelles. Clés. Fermetures. Décompositions. Perte d’informations. Perte de DF.</p>
 </div>
 <div class="sb-title">
 <p> </p>
