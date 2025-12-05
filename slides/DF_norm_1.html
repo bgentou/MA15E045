@@ -240,7 +240,7 @@
 <ul>
 <li><a href="#/introduction" id="/toc-introduction">Introduction</a></li>
 <li><a href="#/d%C3%A9pendances-fonctionnelles" id="/toc-dépendances-fonctionnelles">Dépendances fonctionnelles</a></li>
-<li><a href="#/clef-et-super-clef" id="/toc-clef-et-super-clef">Clef et super-clef</a></li>
+<li><a href="#/cl%C3%A9-et-sur-cl%C3%A9" id="/toc-clé-et-sur-clé">Clé et sur-clé</a></li>
 <li><a href="#/fermeture-dun-ensemble-dattributs" id="/toc-fermeture-dun-ensemble-dattributs">Fermeture d’un ensemble d’attributs</a></li>
 <li><a href="#/d%C3%A9composition-dun-sh%C3%A9ma" id="/toc-décomposition-dun-shéma">Décomposition d’un shéma</a></li>
 <li><a href="#/perte-de-d%C3%A9pendances-fonctionnelles" id="/toc-perte-de-dépendances-fonctionnelles">Perte de dépendances fonctionnelles</a></li>
@@ -411,18 +411,7 @@
 </div>
 </section></section><section><section id="dépendances-fonctionnelles" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Dépendances fonctionnelles</h1>
 
-</section><section class="slide level2 center"><p>Une dépendance fonctionnelle est une forme particulière de <em>contrainte d’intégrité</em> portant sur <em>une</em> relation/table : il s’agit d’une forme particulière contrainte d’exclusion <code>EXCLUDE</code></p>
-<p>C’est la <em>réalité</em> modélisée qui impose ces contraintes</p>
-<div class="fragment">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Exemple :</strong></p>
-</div>
-<div class="callout-content">
+</section><section id="exemple" class="slide level2 center"><h2>Exemple</h2>
 <p><code>R(V#, Vnom, Vville, P#, Pnom, Pville, Qte)</code></p>
 <p>Un ensemble de dépendances fonctionnelles qu’on peut raisonnablement supposer :</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a></a>V# ⟶ Vnom Vville</span>
@@ -435,12 +424,7 @@
 <li>si 2 tuples de <code>R</code> ont la même valeur de <code>P#</code> alors ils ont la même valeur de <code>Pnom</code> et <code>Pville</code>
 </li>
 <li>…</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</section><section id="df-exemple-suite" class="slide level2 smaller center"><h2>DF exemple (suite)</h2>
+</ul></section><section id="df-exemple-suite" class="slide level2 smaller center"><h2>DF exemple (suite)</h2>
 <table class="caption-top">
 <thead><tr class="header">
 <th style="text-align: right;">V#</th>
@@ -502,7 +486,7 @@
 <div class="fragment">
 <ul>
 <li><p><code>R</code> satisfait <code>V#</code> ⟶ <code>Vnom Vville</code> et <code>P#</code> ⟶ <code>Pnom Pville</code></p></li>
-<li><p><code>R</code> viole <code>V# P#</code> ⟶ <code>Qte</code></p></li>
+<li><p><code>R</code> ne respecte pas <code>V# P#</code> ⟶ <code>Qte</code></p></li>
 </ul>
 </div>
 </section><section id="autre-exemple" class="slide level2 smaller center"><h2>Autre Exemple</h2>
@@ -605,9 +589,9 @@
 <div class="callout-content">
 <p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation (<span class="math inline">\(\mathcal{A}\)</span> est un ensemble d’attributs)</p>
 <p>Une <em>dépendance fonctionnelle</em> sur <span class="math inline">\(\mathcal{A}\)</span> est une expression de la forme</p>
-<p><span class="math display">\[X → Y\]</span></p>
-<p>où <span class="math inline">\(X ⊆ \mathcal{A}\)</span> et <span class="math inline">\(Y ⊆ \mathcal{A}\)</span></p>
-<p>Une relation <span class="math inline">\(R\)</span> de schéma <span class="math inline">\(\mathcal{A}\)</span> satisfait <span class="math inline">\(X → Y\)</span> si pour tous tuples <span class="math inline">\(s,t ∈ R\)</span> on a</p>
+<p><span class="math display">\[X \to Y\]</span></p>
+<p>où <span class="math inline">\(X \subseteq \mathcal{A}\)</span> et <span class="math inline">\(Y \subseteq \mathcal{A}\)</span></p>
+<p>Une relation <span class="math inline">\(R\)</span> de schéma <span class="math inline">\(\mathcal{A}\)</span> satisfait <span class="math inline">\(X \to Y\)</span> si pour tous tuples <span class="math inline">\(s,t ∈ R\)</span> on a</p>
 <p><span class="math display">\[\bigl(∀ A∈ X\ s.A=t.A\bigr) ⟹ \bigl(\forall A∈ Y\ s.A=t.A\bigr)\]</span></p>
 <p>(si <span class="math inline">\(s\)</span> et <span class="math inline">\(t\)</span> coïncident sur <span class="math inline">\(X\)</span> alors <span class="math inline">\(s\)</span> et <span class="math inline">\(t\)</span> coïncident sur <span class="math inline">\(Y\)</span>)</p>
 <p>Une relation <span class="math inline">\(R\)</span>, de schéma <span class="math inline">\(\mathcal{A}\)</span>, satisfait un ensemble <span class="math inline">\(\Sigma\)</span> de DF si <span class="math inline">\(R\)</span> satisfait chaque DF de <span class="math inline">\(\Sigma\)</span></p>
@@ -619,7 +603,8 @@
 <ul>
 <li><p><code>Actor_id ⟶ last_name</code>, <code>first_name</code></p></li>
 <li><p>car <code>Actor_id</code> est une clé…</p></li>
-</ul></section><section class="slide level2 center"><div class="callout callout-important callout-titled callout-style-default">
+</ul></section><section id="dépendance-fonctionnelle-élémentaire" class="slide level2 center"><h2>Dépendance fonctionnelle élémentaire</h2>
+<div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
@@ -628,7 +613,7 @@
 <p><strong>Définition : dépendance élémentaire</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math inline">\(A_1,...,A_p \rightarrow Y\)</span> est une dépendance <em>élémentaire</em> si pour tout <span class="math inline">\(j\leq p\)</span> : <span class="math inline">\(A_1,...,A_{j-1}, A_{j+1},..., A_p\not\rightarrow Y\)</span></p>
+<p><span class="math inline">\(A_1,...,A_p \to Y\)</span> est une dépendance <em>élémentaire</em> si pour tout <span class="math inline">\(j\leqslant p\)</span> : <span class="math inline">\(A_1,...,A_{j-1}, A_{j+1},..., A_p\not\to Y\)</span></p>
 </div>
 </div>
 </div>
@@ -637,12 +622,22 @@
 <li><p><code>No_insee ⟶ sexe, mois_naiss, jour_naiss</code> est élémentaire.</p></li>
 <li><p><code>No_insee, jour_naiss ⟶ sexe, mois_naiss, ville_naiss</code> n’est pas élémentaire …</p></li>
 </ul>
-
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<aside><div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
 <p><code>No_insee</code> suffit</p>
-</div></aside></section><section id="dépendance-fonctionnelle-triviale" class="slide level2 center"><h2>Dépendance fonctionnelle triviale</h2>
-<p>Une DF triviale est une DF satisfaite par toute relation</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="dépendance-fonctionnelle-triviale" class="slide level2 center"><h2>Dépendance fonctionnelle triviale</h2>
+<p>Une DF triviale est une DF satisfaite par toute relation.</p>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -653,7 +648,7 @@
 </div>
 <div class="callout-content">
 <p>Soient <span class="math inline">\(X,Y⊂ \mathcal{A}\)</span></p>
-<p><span class="math inline">\(X\rightarrow Y\)</span> est une dépendance triviale si <span class="math inline">\(Y ⊂ X\)</span></p>
+<p><span class="math inline">\(X\to Y\)</span> est une dépendance triviale si <span class="math inline">\(Y \subset X\)</span></p>
 </div>
 </div>
 </div>
@@ -667,44 +662,7 @@
 <p><strong>Exemple</strong></p>
 </div>
 <div class="callout-content">
-<p><code>No_insee</code> ⟶ <code>No_insee</code> est triviale</p>
-</div>
-</div>
-</div>
-</div>
-</section><section id="implication-pour-les-df" class="slide level2 center"><h2>Implication pour les DF</h2>
-<ul>
-<li><p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation ( <span class="math inline">\(\mathcal{A}\)</span> est un ensemble d’attributs) et <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span></p></li>
-<li><p>Exemple : <span class="math inline">\(\mathcal{A}=\{A,B,C\}\)</span> et <span class="math inline">\(\Sigma=\{A\rightarrow B, B\rightarrow C\}\)</span></p></li>
-<li><p>Les DF données impliquent d’autres DF additionnelles</p></li>
-</ul>
-<div class="fragment">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Exemple I</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math inline">\(A\rightarrow B\)</span> et <span class="math inline">\(B\rightarrow C\)</span> impliquent <span class="math inline">\(A\rightarrow C\)</span></p>
-<p>c’est-à-dire : toute relation de schéma <span class="math inline">\(\mathcal{A}\)</span> qui satisfait <span class="math inline">\(A\rightarrow B\)</span> et <span class="math inline">\(B\rightarrow C\)</span> satisfait également <span class="math inline">\(A\rightarrow C\)</span></p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Exemple II</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math inline">\(A\rightarrow C\)</span>, <span class="math inline">\(BC\rightarrow D\)</span>, <span class="math inline">\(AD\rightarrow E\)</span> impliquent <span class="math inline">\(AB\rightarrow E\)</span></p>
+<p><code>No_insee</code> <span class="math inline">\(\to\)</span> <code>No_insee</code> est triviale</p>
 </div>
 </div>
 </div>
@@ -719,9 +677,21 @@
 <p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
-<p>Un ensemble <span class="math inline">\(\Sigma\)</span> de DF <em>implique</em> une autre DF <span class="math inline">\(X\rightarrow Y\)</span> si toute relation (instance) qui satisfait <span class="math inline">\(\Sigma\)</span> satisfait également <span class="math inline">\(X\rightarrow Y\)</span>.</p>
-<p>Notation pour <span class="math inline">\(\Sigma\)</span> implique <span class="math inline">\(X\rightarrow Y\)</span> :</p>
-<p><span class="math display">\[\Sigma \models X \rightarrow Y\]</span></p>
+<p>Un ensemble <span class="math inline">\(\Sigma\)</span> de DF <em>implique</em> une autre DF <span class="math inline">\(X\to Y\)</span> si toute relation qui satisfait <span class="math inline">\(\Sigma\)</span> satisfait également <span class="math inline">\(X\to Y\)</span>.</p>
+<p>Notation pour <span class="math inline">\(\Sigma\)</span> implique <span class="math inline">\(X\to Y\)</span> : <span class="math inline">\(\quad \quad\Sigma \models X \to Y\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Exemple I</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(A\to B\)</span> et <span class="math inline">\(B\to C\)</span> impliquent <span class="math inline">\(A\to C\)</span>.</p>
 </div>
 </div>
 </div>
@@ -732,17 +702,16 @@
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Exemple</strong></p>
+<p><strong>Exemple II</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math inline">\(\Sigma=\{A\rightarrow B, B\rightarrow C\}\)</span> implique</p>
-<p><span class="math inline">\(A\rightarrow B\)</span>, <span class="math inline">\(B\rightarrow C\)</span>, <span class="math inline">\(A\rightarrow C\)</span>, <span class="math inline">\(A,B\rightarrow C\)</span>, …</p>
-<p>mais aussi les DF triviales <span class="math inline">\(A\rightarrow A\)</span>, <span class="math inline">\(AB\rightarrow A\)</span>, …</p>
+<p><span class="math inline">\(A\to C\)</span>, <span class="math inline">\(BC\to D\)</span>, <span class="math inline">\(AD\to E\)</span> impliquent <span class="math inline">\(AB\to E\)</span>.</p>
 </div>
 </div>
 </div>
 </div>
-</section><section class="slide level2 center"><p>Trois règles d’inférence (faciles à vérifier) :</p>
+</section><section id="règles-dinférence" class="slide level2 center"><h2>Règles d’inférence</h2>
+<p>Les règles d’inférence permettent de calculer toutes les DF impliquées par un ensemble donné de DF.</p>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -753,9 +722,9 @@
 </div>
 <div class="callout-content">
 <ul>
-<li><p><em>Transitivité</em> : <span class="math inline">\(\{ X\rightarrow Y, Y\rightarrow Z\} \models X\rightarrow Z\)</span></p></li>
-<li><p><em>Augmentation</em> : <span class="math inline">\(X\rightarrow Y \models \{X,Z\} \rightarrow \{Y,Z\}\)</span></p></li>
-<li><p><em>Réflexivité</em> : <span class="math inline">\(\varnothing \models \{X,Y\}\rightarrow X\)</span> (DF triviale)</p></li>
+<li><p><em>Transitivité</em> : <span class="math inline">\(\{ X\to Y, Y\to Z\} \models X\to Z\)</span></p></li>
+<li><p><em>Augmentation</em> : <span class="math inline">\(X\to Y \models \{X,Z\} \to \{Y,Z\}\)</span></p></li>
+<li><p><em>Réflexivité</em> : <span class="math inline">\(\varnothing \models \{X,Y\}\to X\)</span> (DF triviale)</p></li>
 </ul>
 </div>
 </div>
@@ -768,83 +737,8 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
    \text{si } s.Y =t.Y &amp;  \text{alors } s.Z= t.Z
 \end{cases}
 \]</span> On a alors aussi <span class="math inline">\(\forall s,t \in \mathcal{R}\)</span>, si <span class="math inline">\(s.X =t.X\)</span> alors <span class="math inline">\(s.Z= t.Z\)</span></p>
-</section><section id="tables-de-vérité" class="slide level2 center"><h2>Tables de vérité</h2>
-<table class="caption-top">
-<thead><tr class="header">
-<th style="text-align: left;">p</th>
-<th style="text-align: left;">q</th>
-<th style="text-align: left;">r</th>
-<th style="text-align: left;">p ⇒ q</th>
-<th style="text-align: left;">q ⇒ r</th>
-<th style="text-align: left;">p ⇒ r</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">FALSE</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">TRUE</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">FALSE</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">FALSE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-<td style="text-align: left;">TRUE</td>
-</tr>
-</tbody>
-</table></section><section class="slide level2 center"><div class="callout callout-important callout-titled callout-style-default">
+</section><section id="calcul-sur-les-df" class="slide level2 center"><h2>Calcul sur les DF</h2>
+<div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
@@ -853,22 +747,38 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p><strong>Théorème</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math inline">\(\Sigma \models X\rightarrow Y\)</span></p>
+<p><span class="math inline">\(\Sigma \models X\to Y\)</span></p>
 <p>si et seulement si</p>
-<p><span class="math inline">\(X\rightarrow Y\)</span> peut-être dérivée de <span class="math inline">\(\Sigma\)</span> par applications successives des trois règles d’Armstrong</p>
+<p><span class="math inline">\(X\to Y\)</span> peut-être dérivée de <span class="math inline">\(\Sigma\)</span> par applications successives des trois règles d’Armstrong.</p>
 </div>
 </div>
 </div>
-</section><section id="preuve" class="slide level2 center"><h2>Preuve</h2>
-<h3 id="section-1"><i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i></h3>
-</section><section class="slide level2 center"><p>De ces 3 règles, on déduit d’autres règles :</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Des 3 règles d’Armstrong, on déduit d’autres règles :</p>
 <ul>
-<li><p><em>Union</em> : <span class="math inline">\(\{X\rightarrow Y, X\rightarrow Z\} \models X\rightarrow \{Y,Z\}\)</span></p></li>
-<li><p><em>Séparation</em> : <span class="math inline">\(X\rightarrow \{Y,Z\} \models X\rightarrow Y\)</span></p></li>
+<li><p><em>Union</em> : <span class="math inline">\(\{X\to Y, X\to Z\} \models X\to \{Y,Z\}\)</span></p></li>
+<li><p><em>Séparation</em> : <span class="math inline">\(X\to \{Y,Z\} \models X\to Y\)</span></p></li>
 <li><p>…</p></li>
-</ul></section><section class="slide level2 center"></section></section><section><section id="clef-et-super-clef" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Clef et super-clef</h1>
-
-</section><section class="slide level2 center"><p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma et <span class="math inline">\(\Sigma\)</span> une ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span></p>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="exemple-2" class="slide level2 center"><h2>Exemple</h2>
+<p>Soient <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation ( <span class="math inline">\(\mathcal{A}\)</span> est un ensemble d’attributs)</p>
+<p>On considère l’ensemble de DF <span class="math inline">\(\Sigma=\{A\to B, B\to C\}\)</span></p>
+<ul>
+<li>
+<span class="math inline">\(\Sigma\)</span> implique <span class="math inline">\(A\to B\)</span>, <span class="math inline">\(B\to C\)</span>, <span class="math inline">\(A\to C\)</span>, <span class="math inline">\(AB\to C\)</span>, …</li>
+<li>mais aussi les DF triviales <span class="math inline">\(A\to A\)</span>, <span class="math inline">\(AB\to A\)</span>, …</li>
+</ul></section><section id="ensembles-de-df-équivalents" class="slide level2 center"><h2>Ensembles de DF équivalents</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -878,56 +788,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
-<p>Un ensemble d’attributs <span class="math inline">\(X\)</span> est une <strong>super-clef</strong> si</p>
-<p><span class="math inline">\(\Sigma \models X \rightarrow \mathcal{A}\)</span></p>
-<p>c-à-d si <span class="math inline">\(X\)</span> détermine tous les attributs de <span class="math inline">\(\mathcal{A}\)</span></p>
-</div>
-</div>
-</div>
-</section><section class="slide level2 center"><div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Définition</strong></p>
-</div>
-<div class="callout-content">
-<p>Un ensemble d’attributs <span class="math inline">\(X\)</span> est une <strong>clef</strong> si <span class="math inline">\(X\)</span> est une super-clef et si tout sous-ensemble <span class="math inline">\(Y\subset X\)</span> tel que <span class="math inline">\(Y\not=X\)</span> n’est pas une super-clef</p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Exemple</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math inline">\(R(A,B,C) \qquad \Sigma = \{A\rightarrow B, B\rightarrow C\}\)</span></p>
-<p>Super-clefs : <span class="math inline">\(A\)</span>, <span class="math inline">\(AB\)</span>, <span class="math inline">\(AC\)</span>, <span class="math inline">\(ABC\)</span></p>
-<p>Clef : <span class="math inline">\(A\)</span> (la seule)</p>
-</div>
-</div>
-</div>
-</div>
-</section><section id="exemples-1" class="slide level2 center"><h2>Exemples</h2>
-<p><span class="math inline">\(\mathcal{A}=\{A,B,C,D\}\)</span>,</p>
-<p><span class="math inline">\(\Sigma= \{AB\rightarrow C, C\rightarrow A, BC\rightarrow D\}\)</span>|</p>
-<p><span class="math inline">\(\Sigma'=\{AB\rightarrow D\}\)</span></p>
-<p><span class="math inline">\(\Sigma\models\Sigma'\)</span></p>
-</section><section class="slide level2 center"><div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Définition</strong></p>
-</div>
-<div class="callout-content">
+<p>Soit <span class="math inline">\(\Sigma\)</span> et <span class="math inline">\(\Sigma'\)</span> deux ensemble de DF sur un schéma <span class="math inline">\(\mathcal{A}\)</span></p>
 <p><span class="math inline">\(\Sigma\)</span> est <em>équivalent</em> à <span class="math inline">\(\Sigma'\)</span></p>
 <p>ssi</p>
 <p><span class="math inline">\(\Sigma\models\Sigma'\)</span> et <span class="math inline">\(\Sigma'\models\Sigma\)</span></p>
@@ -935,23 +796,61 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </div>
 </div>
 <div class="fragment">
-<p>Exemples</p>
+<p>Exemples simples :</p>
 <ul>
-<li><p><span class="math inline">\(X\rightarrow A_1,...,A_n\)</span> est équivalent à <span class="math inline">\(X\rightarrow A_1\)</span>, …, <span class="math inline">\(X\rightarrow A_n\)</span></p></li>
-<li><p><span class="math inline">\(XY\rightarrow YZ\)</span> est équivalent à <span class="math inline">\(XY\rightarrow Z\)</span></p></li>
+<li><p><span class="math inline">\(\{X\to A_1,...,A_n\}\)</span> est équivalent à <span class="math inline">\(\{X\to A_1, ..., X\to A_n\}\)</span></p></li>
+<li><p><span class="math inline">\(XY\to YZ\)</span> est équivalent à <span class="math inline">\(XY\to Z\)</span></p></li>
 </ul>
 </div>
+</section></section><section><section id="clé-et-sur-clé" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Clé et sur-clé</h1>
+
+</section><section id="définitions" class="slide level2 center"><h2>Définitions</h2>
+<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma et <span class="math inline">\(\Sigma\)</span> une ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition : sur-clé</strong></p>
+</div>
+<div class="callout-content">
+<p>Un ensemble d’attributs <span class="math inline">\(X\)</span> est une <strong>sur-clé</strong> (ou super-clé) si <span class="math inline">\(\Sigma \models X \to \mathcal{A}\)</span></p>
+<p>c-à-d si <span class="math inline">\(X\)</span> détermine tous les attributs de <span class="math inline">\(\mathcal{A}\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition : clé</strong></p>
+</div>
+<div class="callout-content">
+<p>Un ensemble d’attributs <span class="math inline">\(X\)</span> est une <strong>clé</strong> si <span class="math inline">\(X\)</span> est une sur-clé et si tout sous-ensemble <span class="math inline">\(Y\subset X\)</span> tel que <span class="math inline">\(Y\not=X\)</span> n’est pas une sur-clé.</p>
+<p>Autrement dit, <span class="math inline">\(X\)</span> est une clé si <span class="math inline">\(X\)</span> est une sur-clé minimale au sens de l’inclusion.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="exemple-3" class="slide level2 center"><h2>Exemple</h2>
+<p><span class="math inline">\(R(A,B,C) \qquad \Sigma = \{A\to B, B\to C\}\)</span></p>
+<p>Sur-clé : <span class="math inline">\(A\)</span>, <span class="math inline">\(AB\)</span>, <span class="math inline">\(AC\)</span>, <span class="math inline">\(ABC\)</span></p>
+<p>Clé : <span class="math inline">\(A\)</span> (la seule)</p>
 </section></section><section><section id="fermeture-dun-ensemble-dattributs" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Fermeture d’un ensemble d’attributs</h1>
 
 </section><section id="question-principale" class="slide level2 center"><h2>Question principale</h2>
 <ul>
-<li>Comment vérifier si un ensemble <span class="math inline">\(\Sigma\)</span> de DF implique une DF <span class="math inline">\(X\rightarrow Y\)</span> ?</li>
+<li>Comment vérifier si un ensemble <span class="math inline">\(\Sigma\)</span> de DF implique une DF <span class="math inline">\(X\to Y\)</span> ?</li>
 </ul>
 <div class="fragment">
 <ul>
 <li>Par les équivalences présentées précédemment, la question se ramène à :</li>
 </ul>
-<p>Comment vérifier si un ensemble <span class="math inline">\(\Sigma\)</span> de DF implique une DF <span class="math inline">\(X\rightarrow A\)</span> où <span class="math inline">\(A\)</span> est un attribut ?</p>
+<p>Comment vérifier si un ensemble <span class="math inline">\(\Sigma\)</span> de DF implique une DF <span class="math inline">\(X\to A\)</span> où <span class="math inline">\(A\)</span> est un attribut ?</p>
 </div>
 </section><section id="fermeture-dun-ensemble-dattributs-1" class="slide level2 center"><h2>Fermeture d’un ensemble d’attributs</h2>
 <p>Soit <span class="math inline">\(X \subset\mathcal{A}\)</span> un sous-ensemble d’attributs et <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span></p>
@@ -965,7 +864,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </div>
 <div class="callout-content">
 <p>La fermeture de <span class="math inline">\(X\)</span> par rapport à <span class="math inline">\(\Sigma\)</span> est</p>
-<p><span class="math display">\[X^+=\{ A\in\mathcal{A} \mid \Sigma\models X\rightarrow A \}\]</span></p>
+<p><span class="math display">\[X^+=\{ A\in\mathcal{A} \mid \Sigma\models X\to A \}\]</span></p>
 </div>
 </div>
 </div>
@@ -975,28 +874,23 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </div></aside></section><section id="exemple-de-fermeture" class="slide level2 center"><h2>Exemple de fermeture</h2>
 <ul>
 <li><span class="math inline">\(R(ABCDE)\)</span></li>
-<li><span class="math inline">\(\Sigma=\{AB\rightarrow C, C\rightarrow D, E\rightarrow D\}\)</span></li>
+<li><span class="math inline">\(\Sigma=\{AB\to C, C\to D, E\to D\}\)</span></li>
 <li><span class="math inline">\(\{A,B\}^+=\{A,B,C,D\}\)</span></li>
 </ul></section><section id="algorithme-de-calcul-dune-fermeture" class="slide level2 center"><h2>Algorithme de calcul d’une fermeture</h2>
 <p>Soit <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur un schéma <span class="math inline">\(\mathcal{A}\)</span> et <span class="math inline">\(X\subset\mathcal{A}\)</span></p>
-<p><span style="font-weight: bold;"></span></p>
-<pre><code>Fermeture(X, Σ)
-
-    Xc :=  X
-
-        while (exists Y -&gt; Z in Σ with Y ⊂ Xc and not Z ⊂ Xc)
-
-    Xc := Xc ∪ Z
-
-    return Xc</code></pre>
-<p></p>
+<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:1em;padding:10px;border:1px solid #220f61ff;">Fermeture(X, Σ)
+   Xc :=  X
+   while (exists Y -&gt; Z in Σ with Y ⊂ Xc and Z ⊄ Xc)
+      Xc := Xc ∪ Z
+   return Xc
+</pre>
 </section><section id="exemple-de-calcul-de-fermeture" class="slide level2 center"><h2>Exemple de calcul de fermeture</h2>
-<p><span class="math inline">\(\mathcal{A}=\{ABCDEF\}\)</span>, <span class="math inline">\(\Sigma=\{A\rightarrow C, BC\rightarrow D, AD\rightarrow E\}\)</span>, <span class="math inline">\(X=\{A,B\}\)</span></p>
+<p><span class="math inline">\(\mathcal{A}=\{ABCDEF\}\)</span>, <span class="math inline">\(\Sigma=\{A\to C, BC\to D, AD\to E\}\)</span>, <span class="math inline">\(X=\{A,B\}\)</span></p>
 <ul>
 <li><p><span class="math inline">\(X_c=\{A,B\}\)</span></p></li>
-<li><p><span class="math inline">\(A\rightarrow C\)</span> donc on obtient <span class="math inline">\(X^cc=\{A,B,C\}\)</span></p></li>
-<li><p><span class="math inline">\(BC\rightarrow D\)</span> donc on obtient <span class="math inline">\(X^c=\{A,B,C,D\}\)</span></p></li>
-<li><p><span class="math inline">\(AD\rightarrow E\)</span> donc on obtient <span class="math inline">\(X^c=\{A,B,C,D, E\}\)</span></p></li>
+<li><p><span class="math inline">\(A\to C\)</span> donc on obtient <span class="math inline">\(X_c=\{A,B,C\}\)</span></p></li>
+<li><p><span class="math inline">\(BC\to D\)</span> donc on obtient <span class="math inline">\(X_c=\{A,B,C,D\}\)</span></p></li>
+<li><p><span class="math inline">\(AD\to E\)</span> donc on obtient <span class="math inline">\(X_c=\{A,B,C,D, E\}\)</span></p></li>
 <li><p>On obtient <span class="math inline">\(X^+=\{A,B,C,D, E\}\)</span></p></li>
 </ul></section><section id="terminaison-de-lalgorithme" class="slide level2 center"><h2>Terminaison de l’algorithme</h2>
 <p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> <span class="math inline">\(X^c\)</span> grandit à chaque itération</p>
@@ -1009,60 +903,92 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </ul>
 
 <aside><div>
-<p>Le dernier point est le plus délicat. Que peut signifier le fait qu’il existe au moins un attribut <span class="math inline">\(Y\in X^+\)</span> qui n’appartienne pas à valeur terminale de <span class="math inline">\(X^c\)</span> ?</p>
+<p>Le dernier point est le plus délicat. Que peut signifier le fait qu’il existe au moins un attribut <span class="math inline">\(Y\in X^+\)</span> qui n’appartienne pas à la valeur terminale de <span class="math inline">\(X^c\)</span> ?</p>
 </div></aside></section><section id="calcul-de-la-fermeture-transitive-exemple" class="slide level2 center"><h2>Calcul de la fermeture transitive : exemple</h2>
 <div class="columns">
 <div class="column" style="width:75%;">
 <p>Soit <span class="math inline">\(R\)</span> d’ensemble d’attributs</p>
 <p><span class="math inline">\(\mathcal{A} =\{A,B,C,D,E,F,G\}\)</span></p>
 <p>Soit <span class="math inline">\(X=\{B,D\} \subset \mathcal{A}\)</span></p>
-<p>Et <span class="math inline">\(Σ\)</span> l’ensemble de dépendances fonctionnelles ci-contre</p>
+<p>Et <span class="math inline">\(\Sigma\)</span> l’ensemble de dépendances fonctionnelles ci-contre</p>
 </div><div class="column" style="width:25%;">
-<table class="caption-top">
-<thead><tr class="header">
-<th style="text-align: center;"><span class="math inline">\(\Sigma\)</span></th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(A,B \rightarrow C\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(C \rightarrow A\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(B,C \rightarrow D\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(A,C,D \rightarrow B\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(F\rightarrow A,C\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(D \rightarrow E,G\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(B,E \rightarrow C\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(C,G \rightarrow B,D\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(C,E \rightarrow A,G\)</span></td>
-</tr>
-</tbody>
-</table>
+<p><span class="math inline">\(A,B \to C\)</span> <span class="math inline">\(C \to A\)</span> <span class="math inline">\(B,C \to D\)</span> <span class="math inline">\(A,C,D \to B\)</span> <span class="math inline">\(F\to A,C\)</span> <span class="math inline">\(D \to E,G\)</span> <span class="math inline">\(B,E \to C\)</span> <span class="math inline">\(C,G \to B,D\)</span> <span class="math inline">\(C,E \to A,G\)</span></p>
 </div></div>
 <div class="fragment">
 <p>Montrer que <span class="math inline">\(X^+=\{A,B,C,D,E,G\}\)</span></p>
-<p>Donner une clef de <span class="math inline">\(R\)</span> : par exemple <span class="math inline">\(\{A,B,F\}\)</span>, <span class="math inline">\(\{E,F\}\)</span>, <span class="math inline">\(\{F,G\}\)</span>. Il n’y a pas unicité.</p>
+<p>Donner une clé de <span class="math inline">\(R\)</span> : par exemple <span class="math inline">\(\{A,B,F\}\)</span>, <span class="math inline">\(\{E,F\}\)</span>, <span class="math inline">\(\{F,G\}\)</span>. Il n’y a pas unicité.</p>
+</div>
+</section><section id="fermeture-et-clé" class="slide level2 center"><h2>Fermeture et clé</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Propriété</strong></p>
+</div>
+<div class="callout-content">
+<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma, <span class="math inline">\(X \subset \mathcal{A}\)</span> est une clé de <span class="math inline">\(\mathcal{A}\)</span> si et seulement si</p>
+<ul>
+<li>
+<span class="math inline">\(X^+ = \mathcal{A}\)</span>,</li>
+<li>
+<span class="math inline">\(\forall \ Y \subsetneq X\)</span>, <span class="math inline">\(\quad Y^+ \subsetneq X\)</span>
+</li>
+</ul>
+<p>où <span class="math inline">\(\subsetneq\)</span> signifie “strictement inclus”.</p>
+</div>
+</div>
+</div>
+</section><section id="fermeture-et-équivalence-de-df" class="slide level2 center"><h2>Fermeture et équivalence de DF</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Propriété</strong></p>
+</div>
+<div class="callout-content">
+<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma, <span class="math inline">\(\Sigma_1\)</span> et <span class="math inline">\(\Sigma_2\)</span> deux ensembles de DF sur <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<p><strong><span class="math inline">\(\Sigma_1\)</span> et <span class="math inline">\(\Sigma_2\)</span> sont équivalents</strong> si et seulement si <span class="math inline">\(\quad \forall\ X \subset \mathcal{A},\ \ X^+_{\Sigma_1} = X^+_{\Sigma_2}\)</span>.</p>
+<p>où <span class="math inline">\(X^+_{\Sigma_1}\)</span> et <span class="math inline">\(X^+_{\Sigma_2}\)</span> sont les fermetures transitives de <span class="math inline">\(X\)</span> respectivement selon <span class="math inline">\(\Sigma_1\)</span> et <span class="math inline">\(\Sigma_2\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>justification</strong></p>
+</div>
+<div class="callout-content">
+<p>Cette propriété dit que <span class="math inline">\(\Sigma_1\)</span> et <span class="math inline">\(\Sigma_2\)</span> sont équivalents si, pour tout ensemble d’attributs <span class="math inline">\(X\)</span> , les ensembles <span class="math inline">\(X^+\)</span> de tous les attributs déterminés par <span class="math inline">\(X\)</span> sont identiques selon <span class="math inline">\(\Sigma_1\)</span> et selon <span class="math inline">\(\Sigma_2\)</span>.</p>
+</div>
+</div>
 </div>
 </section></section><section><section id="décomposition-dun-shéma" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition d’un shéma</h1>
 
-</section><section id="définition-5" class="slide level2 center"><h2>Définition</h2>
-<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation</p>
-<p>Un <em>décomposition</em> de <span class="math inline">\(\mathcal{A}\)</span> est un ensemble <span class="math inline">\(\{\mathcal{A}_1,..., \mathcal{A}_k\}\)</span> de sous-ensembles de <span class="math inline">\(\mathcal{A}\)</span> tel que</p>
-<p><span class="math display">\[\forall i \in [1,k], \mathcal{A}_i\not=\emptyset,\quad \text{ et } \quad \mathcal{A} = \bigcup_{i=1}^k \mathcal{A}_i\]</span></p>
+</section><section id="décomposition" class="slide level2 center"><h2>Décomposition</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma, on dit que <span class="math inline">\(\left\{\mathcal{A}_1,\dots ,\mathcal{A}_k\right\}\)</span> est une décomposition de <span class="math inline">\(\mathcal{A}\)</span> si et seulement si,</p>
+<ul>
+<li>pour tout <span class="math inline">\(i\)</span>, <span class="math inline">\(\mathcal{A}_i  \not=\emptyset\)</span>,</li>
+<li><span class="math inline">\({\displaystyle \bigcup_{i=1}^k \mathcal{A}_i  = \mathcal{A}}\)</span></li>
+</ul>
+</div>
+</div>
+</div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1094,9 +1020,9 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation et <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span>.</p>
 <p>Une décomposition <span class="math inline">\(\mathcal{D} = \{\mathcal{A}_1,..., \mathcal{A}_n\}\)</span> est <em>sans perte d’information par rapport à</em> <span class="math inline">\(\Sigma\)</span> si pour toute relation <span class="math inline">\(R\)</span> de schéma <span class="math inline">\(\mathcal{A}\)</span> satisfaisant <span class="math inline">\(\Sigma\)</span>, il existe une famille de relations <span class="math inline">\((R_1,..., R_m)\)</span> vérifiant</p>
 <ul>
-<li><span class="math inline">\(\forall k \in [1,m], \exists l \in [1,n], R_k = \pi_{\mathcal{A}_l}(R)\)</span></li>
+<li><span class="math inline">\(\forall\, k \in [1,m], \exists\, l \in [1,n], \ R_k = \pi_{\mathcal{A}_l}(R)\)</span></li>
 <li>
-<span class="math inline">\(R= R_1 \bowtie_1 R_2 \bowtie_2...\bowtie_{m-1} R_m\)</span> où les <span class="math inline">\(\bowtie_i\)</span> sont des jointures.</li>
+<span class="math inline">\(R= R_1 \bowtie_1 R_2 \bowtie_2...\bowtie_{m-1} R_m \quad\)</span> où les <span class="math inline">\(\bowtie_i\)</span> sont des jointures.</li>
 </ul>
 </div>
 </div>
@@ -1105,8 +1031,6 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </section></section><section><section id="perte-de-dépendances-fonctionnelles" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Perte de dépendances fonctionnelles</h1>
 
 </section><section id="projection-dun-ensemble-de-df" class="slide level2 center"><h2>Projection d’un ensemble de DF</h2>
-<p>Soientt <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation (<span class="math inline">\(\mathcal{A}\)</span> est un ensemble d’attributs) et <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span></p>
-<p>Soit <span class="math inline">\(\mathcal{A}_1\subset  \mathcal{A}\)</span> un sous-ensemble d’attributs</p>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1116,97 +1040,173 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
+<p>Soient <span class="math inline">\(\mathcal{A}\)</span> et <span class="math inline">\(\mathcal{A}_1\)</span> deux shémas tels que <span class="math inline">\(\mathcal{A}_1 \subset \mathcal{A}\)</span>, et <span class="math inline">\(\Sigma\)</span> un ensemble de dépendances.</p>
+<p>On appelle projection de <span class="math inline">\(\Sigma\)</span> sur <span class="math inline">\(\mathcal{A}_1\)</span> et on note <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span> l’ensemble</p>
 <p><span class="math display">\[\pi_{\mathcal{A}_1}(\Sigma)=\left\{ X\to Y \mid \Sigma\models X\to Y \text{ et } X,Y\subset \mathcal{A}_1\right\}\]</span></p>
+<p>Autrement dit, <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span> est l’ensemble des dépendances impliquées par <span class="math inline">\(\Sigma\)</span> qui sont locales à <span class="math inline">\(\mathcal{A}_1\)</span>.</p>
 </div>
 </div>
 </div>
-
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Caractérisation</strong></p>
-</div>
-<div class="callout-content">
-<p>Si <span class="math inline">\(X\subset {\mathcal{A}}_1\)</span> on a l’équivalence <span class="math display">\[X\to Y \in \pi_{{\mathcal{A}}_1}(\Sigma) \iff Y\subset\left\{X\right\}^+∩{\mathcal{A}}_1\]</span></p>
-</div>
-</div>
-</div>
-<aside><div>
-<p><span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span> est l’ensemble des DF de la forme <span class="math inline">\(X\to Y\)</span> impliquées par <span class="math inline">\(\Sigma\)</span> et telles que <span class="math inline">\(X\subset \mathcal{A}_1\)</span> et <span class="math inline">\(Y\subset \mathcal{A}_1\)</span></p>
-</div></aside></section><section id="exemple-4" class="slide level2 center"><h2>Exemple</h2>
+</section><section id="exemple-4" class="slide level2 center"><h2>Exemple</h2>
 <ul>
 <li><p><span class="math inline">\({\mathcal{A}}=\left\{A,B,C\right\}\)</span> et <span class="math inline">\(\Sigma=\left\{A\to B, B\to C, C\to A\right\}\)</span></p></li>
 <li><p><span class="math inline">\(\pi^{}_{\left\{A,B\right\}}(\Sigma)\)</span> est équivalent à <span class="math inline">\(\left\{A\to B, B\to A\right\}\)</span></p></li>
-</ul></section><section id="calcul-de-pi_mathcala_1sigma" class="slide level2 center"><h2>Calcul de <span class="math inline">\(\pi_{{\mathcal{A}}_1}(\Sigma)\)</span>
-</h2>
-<p>On calcule un ensemble de DF équivalent à <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span></p>
-<div class="pseudocode-container quarto-float" data-comment-delimiter="//" data-pseudocode-number="1" data-indent-size="1.2em" data-line-number-punc=":" data-line-number="true" data-no-end="false" data-caption-prefix="Algorithme">
-<div class="pseudocode">
-\begin{algorithm} \caption{Projection de DF} \begin{algorithmic} \Procedure{Projection}{$\mathcal{A}_1, Σ$} \State P := ∅ \For{$X ⊂ \mathcal{A}_1$, $X ≠ ∅$, $X ≠ \mathcal{A}_1$} \State Y := $X^+ ∩ \mathcal{A}_1$ \State P := P ∪ $\{ X → Y\}$ \EndFor \Return P \EndProcedure \end{algorithmic} \end{algorithm}
-</div>
-</div>
-
-<aside><div>
-<p>L’ensemble de DF obtenu est équivalent à <span class="math inline">\(\pi_{{\mathcal{A}}_1}(\Sigma)\)</span><br><span class="alert">Très coûteux !</span> Le nombre de sous-ensembles <span class="math inline">\(X\)</span> considérés est <span class="math inline">\(2^{\#{\mathcal{A}}_1}-2\)</span></p>
-</div></aside></section><section id="exemple-5" class="slide level2 smaller center"><h2>Exemple</h2>
-<ul>
-<li>
-<span class="math inline">\({\mathcal{A}}=\left\{A,B,C,D,E\right\}\)</span> et <span class="alert"><span class="math inline">\(\Sigma=\left\{A\to C, BC\to D, AD\to E\right\}\)</span></span>
-</li>
-</ul>
-<div class="fragment">
-<ul>
-<li>
-<span class="math inline">\(\pi_{AC}(\Sigma)\)</span> est équivalent à <span class="math inline">\(\left\{A\to C\right\}\)</span> car<br><span class="math inline">\(\left\{A\right\}^+=\left\{A,C\right\}\)</span> et <span class="math inline">\(\left\{C\right\}^+=\left\{C\right\}\)</span>
-</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>
-<span class="math inline">\(\pi_{ABD}(\Sigma)\)</span> est équivalent à <span class="math inline">\(\left\{AB\to D\right\}\)</span> car<br><span class="math inline">\(\left\{A\right\}^+=\left\{A,C\right\}\)</span>, <span class="math inline">\(\left\{B\right\}^+=\left\{D\right\}\)</span>, <span class="math inline">\(\left\{D\right\}^+=\left\{D\right\}\)</span>,<br><span class="math inline">\(\left\{A,B\right\}^+=\left\{A,B,C,D,E\right\}\)</span>, <span class="math inline">\(\left\{A,D\right\}^+=\left\{A,D,C,E\right\}\)</span>, <span class="math inline">\(\left\{B,D\right\}^+=\left\{B,D\right\}\)</span>
-</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>
-<span class="math inline">\(\pi_{ABCE}(\Sigma)\)</span> est équivalent à <span class="math inline">\(\left\{A\to C, AB \to CE, AE\to C, ABC\to E, ABE\to C\right\}\)</span><br><span class="math inline">\(A^+=AC \quad B^+=B \quad C^+=C \quad E^+=E\)</span><br><span class="math inline">\(AB^+=ABCDE \quad AC^+=AC \quad AE^+=AEC\)</span><br><span class="math inline">\(BC^+=BCD \quad BE^+=BE \quad CE^+=CE\)</span><br><span class="math inline">\(ABC^+=ABCDE \quad ABE^+=ABECD\)</span><br><span class="math inline">\(BCE^+=BCED \quad ACE^+=ACE\)</span>
-</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Simplification&nbsp;: <span class="math inline">\(\pi_{ABCE}(\Sigma)\)</span> équivaut à <span class="math inline">\(\left\{A\to C, AB\to E\right\}\)</span>
-</li>
-</ul>
-</div>
-</section><section id="préservation-de-dépendances-fonctionnelles" class="slide level2 center"><h2>Préservation de dépendances fonctionnelles</h2>
+</ul></section><section id="fermeture-et-projection-de-df" class="slide level2 center"><h2>Fermeture et projection de DF</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Définition : décomposition sans perte de DF</strong></p>
+<p><strong>Propriété</strong></p>
+</div>
+<div class="callout-content">
+<p>Si <span class="math inline">\(X\subset {\mathcal{A}}_1\)</span> on a l’équivalence <span class="math display">\[X\to Y \in \pi_{{\mathcal{A}}_1}(\Sigma) \iff Y\subset\left\{X\right\}^+\cap{\mathcal{A}}_1\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="algorithme-de-calcul-de-pi_mathcala_1sigma" class="slide level2 center"><h2>Algorithme de calcul de <span class="math inline">\(\pi_{{\mathcal{A}}_1}(\Sigma)\)</span>
+</h2>
+<p>Cet algorithme calcule un ensemble de DF équivalent à <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span></p>
+<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:1em;padding:10px;border:1px solid #220f61ff;">Projection(A1, Σ)
+   P := ∅
+   for X ⊂ A1, X ≠ ∅, X ≠ A1
+      Y := X+ ∩ A1  
+      if Y\X ≠ ∅ 
+         P := P ∪ { X → Y\X }
+   return P
+</pre>
+<p><span class="math inline">\(P\)</span> est un ensemble de DF équivalent à <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span>.</p>
+
+<aside><div>
+<p>L’ensemble de DF obtenu est équivalent à <span class="math inline">\(\pi_{{\mathcal{A}}_1}(\Sigma)\)</span><br><span class="alert">Très coûteux !</span> Le nombre de sous-ensembles <span class="math inline">\(X\)</span> considérés est <span class="math inline">\(2^{\#{\mathcal{A}}_1}-2\)</span></p>
+</div></aside></section><section id="exemples-1" class="slide level2 smaller center scrollable"><h2>Exemples</h2>
+<p><span class="math inline">\({\mathcal{A}}=\left\{A,B,C,D,E\right\}\)</span> et <span class="alert"><span class="math inline">\(\Sigma=\left\{A\to C, BC\to D, AD\to E\right\}\)</span></span></p>
+<div class="columns">
+<div class="column">
+<ol type="1">
+<li>
+<span class="math inline">\(\pi_{\{AC\}}(\Sigma)\)</span> est équivalent à <span class="math inline">\(\left\{A\to C\right\}\)</span> car
+<ul>
+<li>on initialise <span class="math inline">\(P=\emptyset\)</span> puis on calcule</li>
+<li>
+<span class="math inline">\(\left\{A\right\}^+=\left\{A,C\right\}\)</span> donc <span class="math inline">\(P=\left\{A\to C\right\}\)</span> puis</li>
+<li>
+<span class="math inline">\(\left\{C\right\}^+=\left\{C\right\}\)</span> donc <span class="math inline">\(P\)</span> inchangé.</li>
+<li>L’algorithme se termine avec <span class="math inline">\(P=\left\{A\to C\right\}\)</span>
+</li>
+</ul>
+</li>
+<li><ul>
+<li>
+<span class="math inline">\(\pi_{ABD}(\Sigma)\)</span> est équivalent à <span class="math inline">\(\left\{AB\to D\right\}\)</span> car<br><ul>
+<li>
+<span class="math inline">\(\left\{A\right\}^+=\left\{A,C\right\}\)</span>, <span class="math inline">\(P\)</span> vide</li>
+<li>
+<span class="math inline">\(\left\{B\right\}^+=\left\{B\right\}\)</span>, <span class="math inline">\(P\)</span> vide</li>
+<li>
+<span class="math inline">\(\left\{D\right\}^+=\left\{D\right\}\)</span>, <span class="math inline">\(P\)</span> vide</li>
+<li>
+<span class="math inline">\(\left\{A,B\right\}^+=\left\{A,B,C,D,E\right\}\)</span>, <span class="math inline">\(P=\left\{AB\to D\right\}\)</span>
+</li>
+<li>
+<span class="math inline">\(\left\{A,D\right\}^+=\left\{A,D,C,E\right\}\)</span>, <span class="math inline">\(P\)</span> inchangé</li>
+<li>
+<span class="math inline">\(\left\{B,D\right\}^+=\left\{B,D\right\}\)</span>, <span class="math inline">\(P\)</span> inchangé.</li>
+<li>L’algorithme se termine avec <span class="math inline">\(P=\left\{AB\to D\right\}\)</span>
+</li>
+</ul>
+</li>
+</ul></li>
+</ol>
+</div><div class="column">
+<ol start="3" type="1">
+<li><ul>
+<li>
+<span class="math inline">\(\pi_{ABCE}(\Sigma)\)</span> est équivalent à</li>
+<li>
+<span class="math inline">\(\left\{A\to C, AB \to CE, AE\to C, ABC\to E, ABE\to C\right\}\)</span><br>
+</li>
+<li>
+<span class="math inline">\(A^+=AC \quad B^+=B \quad C^+=C \quad E^+=E\)</span><br>
+</li>
+<li>
+<span class="math inline">\(AB^+=ABCDE \quad AC^+=AC \quad AE^+=AEC\)</span><br>
+</li>
+<li>
+<span class="math inline">\(BC^+=BCD \quad BE^+=BE \quad CE^+=CE\)</span><br>
+</li>
+<li>
+<span class="math inline">\(ABC^+=ABCDE \quad ABE^+=ABECD\)</span><br>
+</li>
+<li><span class="math inline">\(BCE^+=BCED \quad ACE^+=ACE\)</span></li>
+<li>L’algorithme se termine avec <span class="math inline">\(P=\left\{A\to C, AB \to CE, AE\to C, ABC\to E, ABE\to C\right\}\)</span>.</li>
+<li>Simplification&nbsp;: <span class="math inline">\(\pi_{ABCE}(\Sigma)\)</span> équivaut à <span class="math inline">\(\left\{A\to C, AB\to E\right\}\)</span> qui est minimal.</li>
+</ul></li>
+</ol>
+</div></div>
+</section><section id="décomposition-sans-perte-de-df" class="slide level2 center"><h2>Décomposition sans perte de DF</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
 </div>
 <div class="callout-content">
 <p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation et <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span>.</p>
-<p>Soit <span class="math inline">\(\left\{ \mathcal{A}_1,\dots, \mathcal{A}_k\right\}\)</span> une décomposition du schéma <span class="math inline">\(\mathcal{A}\)</span></p>
-<p>La décomposition <span class="math inline">\(\left\{\mathcal{A}_1,\dots, \mathcal{A}_k\right\}\)</span> <em>préserve</em> <span class="math inline">\(\Sigma\)</span> si l’ensemble des <em>dépendances fonctionnelles locales</em> <span class="math inline">\(\bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)\)</span> est équivalent à <span class="math inline">\(\Sigma\)</span>.</p>
+<p>Soit <span class="math inline">\(\left\{ \mathcal{A}_1,\dots, \mathcal{A}_k\right\}\)</span> une décomposition du schéma <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<p>La décomposition <span class="math inline">\(\left\{\mathcal{A}_1,\dots, \mathcal{A}_k\right\}\)</span> <em>préserve</em> <span class="math inline">\(\Sigma\)</span> si l’ensemble des <em>dépendances fonctionnelles locales</em> <span class="math inline">\({\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)}\)</span> est équivalent à <span class="math inline">\(\Sigma\)</span>.</p>
 </div>
 </div>
 </div>
 
 <aside><div>
 <p>Puisque <span class="math inline">\(\Sigma ⊧ \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)\)</span>, la décomposition préserve <span class="math inline">\(\Sigma\)</span> si et seulement si toutes les DF de <span class="math inline">\(\Sigma\)</span> sont impliquées par les DF locales.</p>
-</div></aside></section><section id="algorithme-pour-tester-si-une-df-est-préservée" class="slide level2 smaller center"><h2>Algorithme pour tester si une DF est préservée</h2>
-<div class="pseudocode-container quarto-float" data-comment-delimiter="//" data-pseudocode-number="1" data-indent-size="1.2em" data-line-number-punc=":" data-line-number="true" data-no-end="false" data-caption-prefix="Algorithme">
-<div class="pseudocode">
-\begin{algorithm} \caption{X → Y est-elle impliquée par les dépendances projetées?} \begin{algorithmic} \Procedure{Implique}{$\left\{ \mathcal{A}_1,\dots, \mathcal{A}_k\right\}, Σ, X, Y$} \State Z := X \State continuer := \True \While{continuer} \State $W := Z$ \For{i ∈ 1, ..., k} \State $W := W ∪ \bigl((W ∩ \mathcal{A}_i)^+ ∩ \mathcal{A}_i\bigr)$ \EndFor \If{W ≠ Z} \State Z := W \Else \State continuer := \False \EndIf \EndWhile \If{Y ⊆ Z} \Return \True \Else \Return \False \EndIf \EndProcedure \end{algorithmic} \end{algorithm}
+</div></aside></section><section id="fermeture-et-préservation-de-dépendances-fonctionnelles" class="slide level2 center"><h2>Fermeture et préservation de dépendances fonctionnelles</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition : préservation de DF</strong></p>
+</div>
+<div class="callout-content">
+<p>Soit un schéma <span class="math inline">\(\mathcal{A}\)</span> et une décomposition <span class="math inline">\(\left\{\mathcal{A}_1,\dots ,\mathcal{A}_k\right\}\)</span>.</p>
+<p>La DF <span class="math inline">\(X\to Y\)</span> est préservée si et seulement la fermeture de <span class="math inline">\(X\)</span> par rapport à la réunion des DF locales <span class="math inline">\({\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)}\)</span> contient <span class="math inline">\(Y\)</span>.</p>
+</div>
+</div>
+</div>
+</section><section id="algorithme-de-calcul-de-la-fermeture-dans-la-décomposition" class="slide level2 center"><h2>Algorithme de calcul de la fermeture dans la décomposition</h2>
+<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:1em;padding:10px;border:1px solid #220f61ff;">Fermeture({A1,...,Ak}, Σ, X)
+   Z := X
+   go := True
+   while go
+      For i ∈ {1, ..., k}
+         W := W ∪ ((W ∩ Ai)+ ∩ Ai)
+      if W ≠ Z
+         Z := W
+      else
+         go := False
+   return Z
+</pre>
+<p>L’algorithme retourne la fermeture de <span class="math inline">\(X\)</span> par rapport à <span class="math inline">\({\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)}\)</span>.</p>
+</section><section class="slide level2 center"><div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Si au cours du calcul, on obtient que <span class="math inline">\(Y\subset Z\)</span>, on peut conclure immédiatement que <span class="math inline">\(X\to Y\)</span> est préservée.</p></li>
+<li><p>L’intérêt de cet algorithme est qu’il n’est pas nécessaire de calculer les DF locales.</p></li>
+</ul>
+</div>
 </div>
 </div>
 </section><section id="exemple-i-1" class="slide level2 smaller center scrollable"><h2>Exemple I</h2>
@@ -1218,21 +1218,20 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </ul>
 <div class="fragment">
 <ul>
-<li>Les DF locales impliquent <span class="math inline">\(A\to B\)</span>, <span class="math inline">\(B\to C\)</span>, <span class="math inline">\(C\to D\)</span> (ce sont DF locales)</li>
+<li>Les DF locales <span class="math inline">\(A\to B\)</span>, <span class="math inline">\(B\to C\)</span>, <span class="math inline">\(C\to D\)</span> sont locales donc conservées.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Est-ce que les DF locales impliquent <span class="math inline">\(D\to A\)</span> ?</li>
+<li>Est-ce que les DF locales impliquent <span class="math inline">\(D\to A\)</span> ? . . .</li>
 </ul>
-</div>
-<div class="fragment">
-<p>Commencer avec <span class="math inline">\(Z := \{D\}\)</span></p>
+<p>Vérifions le en appliquant l’algorithme précédent.</p>
+<p>Initialisation <span class="math inline">\(Z := \{D\}\)</span></p>
 <ol type="1">
-<li class="fragment"><p><span class="math inline">\((\{D\}∩\{CD\})^+ ∩ \{CD\}=\{D\}^+ ∩\{CD\}=\{DABC\} ∩ \{CD\}=\{CD\}\)</span>, ajouter <span class="math inline">\(C\)</span></p></li>
-<li class="fragment"><p><span class="math inline">\((\{DC\}∩ \{BC\})^+ ∩ \{BC\}=\{C\}^+ ∩ \{BC\}=\{CDAB\}∩ \{BC=B\}\)</span>, ajouter <span class="math inline">\(B\)</span></p></li>
-<li class="fragment"><p><span class="math inline">\((\{DCB\}∩ \{AB\})^+ ∩ \{AB\}=\{B\}^+ ∩ \{AB\}=\{BCDA\} ∩ \{AB\}\)</span>, ajouter <span class="math inline">\(A\)</span></p></li>
-<li class="fragment"><p><span class="math inline">\(\{DCBA\}\)</span> contient <span class="math inline">\(A\)</span> donc <span class="math inline">\(D\to A\)</span> est préservée</p></li>
+<li class="fragment"><p><span class="math inline">\((\{D\}\cap\{CD\})^+ \cap \{CD\}=\{D\}^+ \cap\{CD\}=\{DABC\} \cap \{CD\}=\{CD\}\)</span>, <span class="math inline">\(Z := \{CD\}\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\((\{DC\}\cap \{BC\})^+ \cap \{BC\}=\{C\}^+ \cap \{BC\}=\{CDAB\}\cap \{BC\}=\{BC\}\)</span>, <span class="math inline">\(Z := \{BCD\}\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\((\{DCB\}\cap \{AB\})^+ \cap \{AB\}=\{B\}^+ \cap \{AB\}=\{BCDA\} \cap \{AB\}\)</span>, <span class="math inline">\(Z := \{ABCD\}\)</span></p></li>
+<li class="fragment"><p><span class="math inline">\(\{DCBA\}\)</span> contient <span class="math inline">\(A\)</span> donc <span class="math inline">\(D\to A\)</span> est préservée.</p></li>
 </ol>
 </div>
 </section><section id="exemple-ii-1" class="slide level2 smaller center scrollable"><h2>Exemple II</h2>
@@ -1255,10 +1254,10 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </ul>
 </div>
 <div class="fragment">
-<p><code>Z := {Ville, Rue, Numero}</code></p>
+<p><span class="math inline">\(\verb!Z := {Ville, Rue, Numero}!\)</span></p>
 <ol type="1">
-<li><p><span class="math inline">\((\texttt{Z} ∩ \texttt{{Ville, CP}})^+\)</span> ∩ <code>{Ville, CP}</code> = <code>{Ville}</code> <em>rien à ajouter</em></p></li>
-<li><p><span class="math inline">\((\texttt{Z} ∩ \texttt{{Rue, Numero, CP}})^+\)</span> ∩ <code>{Rue, Numero, CP}</code> = <code>{Rue, Numero}</code>, <em>rien à ajouter</em></p></li>
+<li><p><span class="math inline">\(\verb!(Z !\cap \verb!{Ville, CP})!^+ \cap \verb!{Ville, CP} = {Ville}!\)</span>, <em>rien à ajouter</em>, <span class="math inline">\(\verb!Z := {Ville, Rue, Numero}!\)</span></p></li>
+<li><p><span class="math inline">\(\verb!(Z !\cap \verb!{Rue, Numero, CP})!^+ \cap \verb!{Rue, Numero, CP} = {Rue, Numero}!\)</span>, <em>rien à ajouter</em>, <span class="math inline">\(\verb!Z := {Ville, Rue, Numero}!\)</span></p></li>
 </ol>
 </div>
 <div class="fragment">
