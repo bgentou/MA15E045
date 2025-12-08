@@ -230,7 +230,7 @@
 Équipe BD 
 </div>
         <p class="quarto-title-affiliation">
-            <a href="https://u-paris.fr">LPSM Université Paris-Cité</a>
+            <a href="https://u-paris.fr">Université Paris-Cité</a>
           </p>
     </div>
 </div>
@@ -245,7 +245,7 @@
 <li><a href="#/forme-normale-3-fn3" id="/toc-forme-normale-3-fn3">Forme Normale 3 (FN3)</a></li>
 <li><a href="#/algorithme-de-d%C3%A9composition-en-fn3-spi-et-spd" id="/toc-algorithme-de-décomposition-en-fn3-spi-et-spd">Algorithme de décomposition en FN3 SPI et SPD</a></li>
 <li><a href="#/forme-normale-de-boyce-codd" id="/toc-forme-normale-de-boyce-codd">Forme normale de Boyce-Codd</a></li>
-<li><a href="#/d%C3%A9composition-fnbc-spi" id="/toc-décomposition-fnbc-spi">Décomposition FNBC SPI</a></li>
+<li><a href="#/algorithme-de-d%C3%A9composition-fnbc-spi" id="/toc-algorithme-de-décomposition-fnbc-spi">Algorithme de décomposition FNBC SPI</a></li>
 <li><a href="#/d%C3%A9composition-fnbc-et-pertes-de-df" id="/toc-décomposition-fnbc-et-pertes-de-df">Décomposition FNBC et pertes de DF</a></li>
 <li><a href="#/fin" id="/toc-fin">Fin</a></li>
 </ul></nav></section><section><section id="décomposition-dune-relation" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition d’une relation</h1>
@@ -354,7 +354,7 @@
 <pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:1em;padding:10px;border:1px solid #220f61ff;">fonction projection(A1, Σ)
    P := ∅
    for X ⊂ A1, X ≠ ∅, X ≠ A1
-      Y := X+ ∩ A1  
+      Y := X⁺ ∩ A1  
       if Y ⊄ X     // X → Y n'est pas triviale
          P := P ⋃ { X → Y\X }
    return P
@@ -485,8 +485,9 @@
    Z := X
    go := True
    while go
+      W := Z
       For i ∈ {1, ..., k}
-         W := W ⋃ ((W ∩ Ai)+ ∩ Ai)
+         W := W ⋃ ((W ∩ Ai)⁺ ∩ Ai)
       if W ≠ Z
          Z := W
       else
@@ -907,7 +908,7 @@
 </tr>
 </tbody>
 </table>
-<p><code>V#</code> ⟶ <code>Vnom</code>, <code>Vville</code> donc <span class="math inline">\(b_3=b\)</span> et <span class="math inline">\(c_3=c\)</span></p>
+<p><code>V#</code> → <code>Vnom</code>, <code>Vville</code> donc <span class="math inline">\(b_3=b\)</span> et <span class="math inline">\(c_3=c\)</span></p>
 <table class="caption-top">
 <thead><tr class="header">
 <th style="text-align: center;"></th>
@@ -952,7 +953,7 @@
 </tr>
 </tbody>
 </table></section><section id="algorithme-de-poursuite-exemple-suite" class="slide level2 smaller center"><h2>Algorithme de poursuite : exemple (suite)</h2>
-<p><code>P#⟶ Pnom, Pprix</code> donc <span class="math inline">\(e_3=e\)</span> et <span class="math inline">\(f_3=f\)</span></p>
+<p><code>P#→ Pnom, Pprix</code> donc <span class="math inline">\(e_3=e\)</span> et <span class="math inline">\(f_3=f\)</span></p>
 <table class="caption-top">
 <thead><tr class="header">
 <th style="text-align: center;"></th>
@@ -1346,6 +1347,47 @@ des choix effectués
 </div>
 </div>
 </div>
+</section><section id="exemple-1" class="slide level2 smaller center"><h2>Exemple</h2>
+<p>Schéma <code>Employé=(#projet, #employé, nom_employé, fonction)</code></p>
+<p>On suppose qu’on a les dépendances :</p>
+<ul>
+<li><code>#projet, #employé → fonction</code></li>
+<li><code>#employé → nom_employé</code></li>
+</ul>
+<p>Le schéma est-il en FN2 ?</p>
+<div class="fragment">
+<p>Le schéma <code>Employé</code> n’est pas en FN2 à cause de la DF <code>#employé → nom_employé</code>.</p>
+<p>On peut illustrer le problème de redondance par ces exemples de tuples :</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: center;"><code>#projet</code></th>
+<th style="text-align: center;"><code>#employé</code></th>
+<th style="text-align: center;"><code>nom_employé</code></th>
+<th style="text-align: center;"><code>fonction</code></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">p1</td>
+<td style="text-align: center;">e1</td>
+<td style="text-align: center;">n1</td>
+<td style="text-align: center;">f1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">p2</td>
+<td style="text-align: center;">e1</td>
+<td style="text-align: center;">n1</td>
+<td style="text-align: center;">f2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">p3</td>
+<td style="text-align: center;">e1</td>
+<td style="text-align: center;">n1</td>
+<td style="text-align: center;">f3</td>
+</tr>
+</tbody>
+</table>
+<p>On constate bien une redondance pour la projection sur <code>(#employé, nom_employé)</code>.</p>
+</div>
 </section><section id="forme-normale-3-fn3-1" class="slide level2 center"><h2>Forme normale 3 (FN3)</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -1381,7 +1423,7 @@ des choix effectués
 </div>
 </div>
 </div>
-</section><section id="exemple-fn3" class="slide level2 smaller center scrollable"><h2>Exemple FN3</h2>
+</section><section id="exemple-1-1" class="slide level2 smaller center scrollable"><h2>Exemple 1</h2>
 <p><span class="math inline">\(\mathcal{A_1}=(\texttt{V\#, Vnom, Vville}) \quad \mathcal{A_2}=(\texttt{P\#, Pnom, Pprix}) \quad \mathcal{A_3}=(\texttt{V\#, P\#, Qte})\)</span></p>
 <p><span class="math inline">\(\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}\)</span></p>
 <p>La décomposition est-elle</p>
@@ -1405,28 +1447,74 @@ des choix effectués
 <li>Elle est SPI (montré précédemment).</li>
 </ol>
 </div>
-</section><section id="exemple-non-fn3" class="slide level2 smaller center scrollable"><h2>Exemple non FN3</h2>
-<p><span class="math inline">\(\mathcal{A}=\)</span> <code>(A, B, C, D, E)</code> et <code>Σ={A → C, BC → D, AD → E}</code></p>
+</section><section id="exemple-2" class="slide level2 smaller center"><h2>Exemple 2</h2>
+<p>Schéma <code>Employé=(#employé, nom_employé, #service, nom_service)</code></p>
+<p>On suppose qu’on a les dépendances :</p>
+<ul>
+<li><code>#employé → nom_employé, #service</code></li>
+<li><code>#service → nom_service</code></li>
+</ul>
+<p>Le schéma est-il en FN2, FN3 ?</p>
+<div class="fragment">
+<p>Le schéma <code>Employé</code> a pour clé <code>#employé</code> qui est réduite à un attribut. Il est donc en FN2.</p>
+<p>Il n’est pas en FN3 à cause de la DF <code>#service → nom_service</code>.</p>
+<p>On peut illustrer les redondances par ces exemples de tuples :</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: center;"><code>#employé</code></th>
+<th style="text-align: center;"><code>nom_employé</code></th>
+<th style="text-align: center;"><code>#service</code></th>
+<th style="text-align: center;"><code>nom_service</code></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">e1</td>
+<td style="text-align: center;">n1</td>
+<td style="text-align: center;">s1</td>
+<td style="text-align: center;">ns1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">e2</td>
+<td style="text-align: center;">n2</td>
+<td style="text-align: center;">s1</td>
+<td style="text-align: center;">ns1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">e3</td>
+<td style="text-align: center;">n3</td>
+<td style="text-align: center;">s1</td>
+<td style="text-align: center;">ns1</td>
+</tr>
+</tbody>
+</table>
+<p>On constate bien une redondance pour la projection sur <code>(#service, nom_service)</code>.</p>
+</div>
+</section><section id="exercice-3" class="slide level2 smaller center scrollable"><h2>Exercice 3</h2>
+<p><span class="math inline">\(\mathcal{A}= (\verb!A, B, C, D, E!)\)</span> et <span class="math inline">\(\Sigma=\{\verb!A → C ; BC → D ; AD → E!\}\)</span></p>
 <ol type="1">
-<li><p>Quelles sont les clés ?</p></li>
-<li><p>Le schéma est-il en FN3 ? en FN2 ?</p></li>
-<li><p>Clé unique <span class="math inline">\(\verb!AB!\)</span>.</p></li>
+<li>Quelles sont les clés ?</li>
+<li>Le schéma est-il en FN2 ? en FN3 ?</li>
 </ol>
+<div class="fragment">
+<ol type="1">
+<li>Clé unique <span class="math inline">\(\verb!AB!\)</span>.
 <ul>
 <li>
 <span class="math inline">\(\verb!A!\)</span> et <span class="math inline">\(\verb!B!\)</span> ne sont jamais à droite d’une dépendance donc toute clé doit contenir <span class="math inline">\(\{AB\}\)</span>.</li>
 <li>
 <span class="math inline">\(\{AB\}^+ = \mathcal{A}\)</span>, <span class="math inline">\(\{A\}^+ = \mathcal{AC}\)</span>, <span class="math inline">\(\{B\}^+ = \mathcal{B}\)</span>.</li>
 </ul>
-<ol start="2" type="1">
+</li>
 <li>Ni FN2, ni FN3 car :
 <ul>
 <li>
-<span class="math inline">\(A → C\)</span> ne vérifie pas la règle FN2.</li>
+<span class="math inline">\(A \to C\)</span> ne vérifie pas la règle FN2.</li>
 <li>Aucune des DF de <span class="math inline">\(\Sigma\)</span> ne vérifie la régle FN3.</li>
 </ul>
 </li>
-</ol></section></section><section><section id="algorithme-de-décomposition-en-fn3-spi-et-spd" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Algorithme de décomposition en FN3 SPI et SPD</h1>
+</ol>
+</div>
+</section></section><section><section id="algorithme-de-décomposition-en-fn3-spi-et-spd" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Algorithme de décomposition en FN3 SPI et SPD</h1>
 <!-- //idée mais non SPD chercher un algorithme
 ## Décomposition en FN2
 
@@ -1500,34 +1588,78 @@ On peut vérifier :
 </div>
 </div>
 </div>
-</section><section id="exemple-1" class="slide level2 smaller center"><h2>Exemple 1</h2>
+</section><section id="exemple-1-2" class="slide level2 smaller center"><h2>Exemple 1</h2>
+<p>Schéma <span class="math inline">\(\verb! Employé!=(\verb!#projet, #employé, nom_employé, fonction!)\)</span></p>
+<p><span class="math inline">\(\Sigma = \{\verb! #projet #employé → fonction ; #employé → nom_employé! \}\)</span></p>
+<div class="fragment">
+<p>Le schéma <span class="math inline">\(\verb!Employé!\)</span> n’est pas en FN2 à cause de la DF <span class="math inline">\(\verb!#employé → nom_employé!\)</span>.</p>
+<p>Appliquons l’algorithme de construction d’une décomposition FN3.</p>
+</div>
+<div class="fragment">
+<ul>
+<li><p><span class="math inline">\(\Sigma\)</span> est irredondante.</p></li>
+<li><p>Pour le déterminant <span class="math inline">\(\verb! #employé!\)</span> : <span class="math inline">\(\  Y = \{\verb!nom_employé!\}\)</span>, <span class="math inline">\(\ \mathcal{A_1}= (\verb!#employé!) \cup Y = (\verb!#employé!, \verb!nom_employé!)\)</span>,</p></li>
+<li><p>Pour le déterminant <span class="math inline">\(\verb! #projet!, \verb!#employé!\)</span> : <span class="math inline">\(\  Y = \{\verb!fonction!\}\)</span>, <span class="math inline">\(\  \mathcal{A_2}= (\verb!#projet!, \verb!#employé!) \cup Y = (\verb!#projet!, \verb!#employé!, \verb!fonction!)\)</span>,</p></li>
+<li><p><span class="math inline">\(\  D=\left\{\mathcal{A_1}, \mathcal{A_2}\right\}\)</span>, tous les attributs initiaux sont présents dans la décomposition. <span class="math inline">\(B = \emptyset\)</span>. On n’ajoute rien.</p></li>
+<li><p>Le schéma initial a pour clé <span class="math inline">\((\verb!#projet!, \verb!#employé!)\)</span> qui est présente dans <span class="math inline">\(\mathcal{A_2}\)</span> donc on n’ajoute rien à la décomposition.</p></li>
+<li><p><span class="math inline">\(\left\{\mathcal{A_1}, \mathcal{A_2}\right\}\)</span> est une décomposition de <span class="math inline">\(\verb!Employé!\)</span> en FN3 SPI et SPD.</p></li>
+</ul>
+</div>
+</section><section id="exemple-2-1" class="slide level2 smaller center"><h2>Exemple 2</h2>
+<p>Schéma <span class="math inline">\(\verb! Employé!=(\verb!#employé, nom_employé, #service, nom_service!)\)</span></p>
+<p><span class="math inline">\(\Sigma = \{ \verb!#employé → nom_employé ; #employé → #service ; #service → nom_service! \}\)</span></p>
+<div class="fragment">
+<p>Le schéma <span class="math inline">\(\verb!Employé!\)</span> a pour clé <span class="math inline">\(\verb!#employé!\)</span>, il est donc en FN2 mais pas en FN3 à cause de la DF <span class="math inline">\(\verb!#service → nom_service!\)</span>.</p>
+<p>Appliquons l’algorithme de construction d’une décomposition FN3.</p>
+</div>
+<div class="fragment">
+<ul>
+<li><p><span class="math inline">\(\Sigma\)</span> est irredondante.</p></li>
+<li><p>Pour le déterminant <span class="math inline">\(\verb! #employé!\)</span> : <span class="math inline">\(\  Y = \{\verb!nom_employé, #service!\}\)</span>, <span class="math inline">\(\ \mathcal{A_1}= (\verb!#employé!) \cup Y = (\verb!#employé, nom_employé, #service!)\)</span>.</p></li>
+<li><p>Pour le déterminant <span class="math inline">\(\verb! #service!\)</span> : <span class="math inline">\(\  Y = \{\verb!nom_service!\}\)</span>, <span class="math inline">\(\  \mathcal{A_2}= (\verb!#service!) \cup Y = (\verb!#service!, \verb!nom_service!)\)</span>.</p></li>
+<li><p><span class="math inline">\(D=\left\{\mathcal{A_1}, \mathcal{A_2}\right\}\)</span>. Tous les attributs initiaux sont présents dans la décomposition. <span class="math inline">\(B = \emptyset\)</span>. On n’ajoute rien.</p></li>
+<li><p>Le schéma initial a pour clé <span class="math inline">\((\verb!#employé!)\)</span> qui est présente dans <span class="math inline">\(\mathcal{A_1}\)</span> donc on n’ajoute rien à la décomposition.</p></li>
+<li><p><span class="math inline">\(\left\{\mathcal{A_1}, \mathcal{A_2}\right\}\)</span> est une décomposition de <span class="math inline">\(\verb!Employé!\)</span> en FN3 SPI et SPD.</p></li>
+</ul>
+</div>
+</section><section id="exemple-3" class="slide level2 smaller center"><h2>Exemple 3</h2>
 <p><span class="math inline">\(\mathcal{A}=(\texttt{V\#, Vnom, Vville, P\#, Pnom, Pprix, Qte})\)</span></p>
 <p><span class="math inline">\(\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}\)</span></p>
 <p>Appliquer l’algorithme de décomposition à ce schéma relativement à <span class="math inline">\(\Sigma\)</span>.</p>
 <div class="fragment">
-<p><span class="math inline">\(\Sigma\)</span> a pour couverture irredondante <span class="math display">\[\Sigma' = \{\texttt{V\#} \to \texttt{Vnom}, \ \texttt{V\#} \to \texttt{Vville},\ \texttt{P\#} \to \texttt{Pnom}, \ \texttt{P\#} \to \texttt{Pprix},\ \texttt{V\# P\#} \to \texttt{Qte} \}\]</span></p>
+<p><span class="math inline">\(\Sigma\)</span> a pour couverture irredondante <span class="math inline">\(\Sigma' = \{\texttt{V\#} \to \texttt{Vnom}, \ \texttt{V\#} \to \texttt{Vville},\ \texttt{P\#} \to \texttt{Pnom}, \ \texttt{P\#} \to \texttt{Pprix},\ \texttt{V\# P\#} \to \texttt{Qte} \}\)</span></p>
 <ul>
-<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{Vnom, Vville}\}\)</span>. <span class="math inline">\(\mathcal{A_1}= \texttt{V\#} \cup Y = (\texttt{V\#, Vnom, Vville})\)</span> <span class="math inline">\(D=\left\{\mathcal{A_1}\right\}\)</span></p></li>
-<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{Pnom, Pprix}\}\)</span>. <span class="math inline">\(\mathcal{A_2}= \texttt{P\#} \cup Y = (\texttt{P\#, Pnom, Pprix})\)</span>. <span class="math inline">\(D=\left\{\mathcal{A_1}, \mathcal{A_2}\right\}\)</span></p></li>
-<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{Qte}\}\)</span>. <span class="math inline">\(\mathcal{A_3}= \texttt{V\# P\#} \cup Y = (\texttt{V\# P\#, Qte})\)</span>. <span class="math inline">\(D=\left\{\mathcal{A_1}, \mathcal{A_2}, \mathcal{A_3}\right\}\)</span></p></li>
-<li><p><span class="math inline">\(B = \emptyset\)</span></p></li>
+<li><p>Pour le déterminant <span class="math inline">\(\texttt{V\#}\)</span> : <span class="math inline">\(\quad Y = \{\texttt{Vnom, Vville}\}\)</span>, <span class="math inline">\(\quad \mathcal{A_1}= (\texttt{V\#}) \cup Y = (\texttt{V\#, Vnom, Vville})\)</span>,</p></li>
+<li><p>Pour le déterminant <span class="math inline">\(\texttt{P\#}\)</span> : <span class="math inline">\(\quad Y = \{\texttt{Pnom, Pprix}\}\)</span>, <span class="math inline">\(\quad \mathcal{A_2}= (\texttt{P\#}) \cup Y = (\texttt{P\#, Pnom, Pprix})\)</span>,</p></li>
+<li><p>Pour le déterminant <span class="math inline">\(\texttt{V\# P\#}\)</span> : <span class="math inline">\(\quad Y = \{\texttt{Qte}\}\)</span>. <span class="math inline">\(\quad \mathcal{A_3}= (\texttt{V\# P\#}) \cup Y = (\texttt{V\# P\#, Qte})\)</span>,</p></li>
+<li><p><span class="math inline">\(D=\left\{\mathcal{A_1}, \mathcal{A_2}, \mathcal{A_3}\right\}\)</span>. Tous les attributs initiaux sont présents dans la décomposition. <span class="math inline">\(B = \emptyset\)</span>. On n’ajoute rien.</p></li>
+<li><p>Le schéma initial a une clé unique <span class="math inline">\(\verb!V# P#!\)</span>. Elle est déjà incluse dans un des schémas présents donc on n’ajoute rien à la décomposition.</p></li>
 </ul>
-<p>On obtient la même décomposition que celle déjà étudiée.</p>
+<p>On obtient la même décomposition que celle déjà étudiée. <span class="math inline">\(\mathcal{A_1}=(\texttt{V\#, Vnom, Vville}), \quad \mathcal{A_2}=(\texttt{P\#, Pnom, Pprix}), \quad \mathcal{A_3}=(\texttt{V\#, P\#, Qte})\)</span></p>
 </div>
-</section><section id="exemple-2" class="slide level2 smaller center"><h2>Exemple 2</h2>
-<p><span class="math inline">\(\mathcal{A}=\)</span> <code>(A, B, C, D, E)</code> et <code>Σ={A → C, BC → D, AD → E}</code></p>
+</section><section id="exemple-4" class="slide level2 smaller center"><h2>Exemple 4</h2>
+<p><span class="math inline">\(\mathcal{A}= (\verb!A, B, C, D, E!)\)</span> et <span class="math inline">\(\Sigma =\{\verb!A → C ; BC → D ; AD → E!\}\)</span></p>
 <p>Appliquer l’algorithme de décomposition à ce schéma relativement à <span class="math inline">\(\Sigma\)</span>.</p>
 <div class="fragment">
+<ul>
+<li>
 <p>En utilisant l’algorithme de calcul d’une couverture irredondante :</p>
 <ul>
-<li><p>La première phase de sélection donne <span class="math inline">\(\{A → C, BC → D, AD → E\}\)</span></p></li>
-<li><p>La deuxième phase d’élimination d’attribut ne change rien donc <span class="math inline">\(\Sigma\)</span> est sous forme irredondante.</p></li>
-<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{C}\}\)</span>. <span class="math inline">\(\mathcal{A_1}= (\texttt{A,C})\)</span> <span class="math inline">\(D=\left\{\mathcal{A_1}\right\}\)</span></p></li>
-<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{D}\}\)</span>. <span class="math inline">\(\mathcal{A_2}= (\texttt{B,C,D})\)</span>. <span class="math inline">\(D=\left\{\mathcal{A_1}, \mathcal{A_2}\right\}\)</span></p></li>
-<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{E}\}\)</span>. <span class="math inline">\(\mathcal{A_3}= (\texttt{A,D,E})\)</span>. <span class="math inline">\(D=\left\{\mathcal{A_1}, \mathcal{A_2}, \mathcal{A_3}\right\}\)</span></p></li>
-<li><p><span class="math inline">\(B = \emptyset\)</span></p></li>
-<li><p>On a vu précédemment que le schéma a une clé unique <span class="math inline">\(\verb!AB!\)</span>.</p></li>
-<li><p>On ajoute le schéma <span class="math inline">\(\mathcal{A_4}=(\texttt{AB})\)</span> à la décomposition pour assurer une décomposition SPI.</p></li>
+<li>La première phase de sélection donne <span class="math inline">\(\{A → C, BC → D, AD → E\}\)</span>,</li>
+<li>La deuxième phase d’élimination d’attribut ne change rien.</li>
+<li>
+<span class="math inline">\(\Sigma\)</span> est sous forme irredondante.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><p>Pour le déterminant <span class="math inline">\(\texttt{A}\)</span> : <span class="math inline">\(\quad Y = \{\texttt{C}\}\)</span>, <span class="math inline">\(\quad \mathcal{A_1}= (\texttt{A,C})\)</span>,</p></li>
+<li><p>Pour le déterminant <span class="math inline">\(\texttt{BC}\)</span> : <span class="math inline">\(\quad Y = \{\texttt{D}\}\)</span>, <span class="math inline">\(\quad \mathcal{A_2}= (\texttt{B,C,D})\)</span>,</p></li>
+<li><p>Pour le déterminant <span class="math inline">\(\texttt{AD}\)</span> : <span class="math inline">\(\quad Y = \{\texttt{E}\}\)</span>, <span class="math inline">\(\quad \mathcal{A_3}= (\texttt{A,D,E})\)</span>,</p></li>
+<li><p><span class="math inline">\(D=\left\{\mathcal{A_1}, \mathcal{A_2}, \mathcal{A_3}\right\}\)</span>. Tous les attributs initiaux sont présents dans la décomposition. On n’ajoute rien.</p></li>
+<li><p>On a vu précédemment que le schéma initial a une clé unique <span class="math inline">\(\verb!AB!\)</span>. <strong>Elle n’est incluse dans aucun des schémas présents donc on ajoute le schéma <span class="math inline">\(\mathcal{A_4}=(\texttt{A,B})\)</span> à la décomposition pour assurer une décomposition SPI</strong>.</p></li>
 <li><p>On obtient la décomposition <span class="math inline">\(\{(\texttt{A,C}), (\texttt{A,B,C,D}), (\texttt{A,D,E}), (\texttt{A,B})\}\)</span>.</p></li>
 </ul>
 </div>
@@ -1579,14 +1711,8 @@ On peut vérifier :
 </div>
 </div>
 </section><section id="fnbc-exemple-1" class="slide level2 smaller center"><h2>FNBC : exemple 1</h2>
-<ul>
-<li>Schéma <span class="math inline">\(\mathcal{A}=\{\texttt{V\#, Vnom, Vville, P\#, Pnom, Pprix, Qte}\}\)</span>
-</li>
-</ul>
-<p>Ensemble de dépendances fonctionnelles <span class="math inline">\(\Sigma\)</span> :</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a></a>V# ⟶ Vnom Vville</span>
-<span id="cb5-2"><a></a>P# ⟶ Pnom Pprix</span>
-<span id="cb5-3"><a></a>V# P# ⟶ Qte</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math inline">\(\mathcal{A}=(\texttt{V\#, Vnom, Vville, P\#, Pnom, Pprix, Qte})\)</span></p>
+<p><span class="math inline">\(\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}\)</span></p>
 <div class="fragment">
 <p><span class="math inline">\(\mathcal{A}\)</span> n’est pas en FNBC par rapport <span class="math inline">\(\Sigma\)</span>. En effet ni <span class="math inline">\(\texttt{V\#}\)</span> ni <span class="math inline">\(\texttt{P\#}\)</span> ne sont des sur-clés.</p>
 </div>
@@ -1594,15 +1720,11 @@ On peut vérifier :
 <p>Mais la décomposition <span class="math inline">\(\mathcal{A_1}=(\texttt{V\#, Vnom, Vville}) \quad \mathcal{A_2}=(\texttt{P\#, Pnom, Pprix}) \quad \mathcal{A_3}=(\texttt{V\#, P\#, Qte})\)</span> est en FNBC.</p>
 </div>
 </section><section id="fnbc-exemple-2" class="slide level2 smaller center"><h2>FNBC : exemple 2</h2>
-<p>Schéma <code>Projet(#projet, #employé, localisation, fonction)</code></p>
-<p>On suppose qu’on a les dépendances :</p>
-<ul>
-<li><code>#projet, #employé ⟶ localisation, fonction</code></li>
-<li><code>localisation ⟶ #projet</code></li>
-</ul>
-<p>Le schéma <code>Projet</code> est en FN3 mais n’est pas en FNBC.</p>
-<p>D’après les DF, il subsiste des redondances.</p>
-<p>On peut avoir les tuples :</p>
+<p>Schéma <span class="math inline">\(\verb!Projet! = (\verb!#projet, #employé, localisation, fonction!)\)</span></p>
+<p><span class="math inline">\(\Sigma = \{\verb! #projet #employé! \to \verb!localisation fonction ! ; \verb! localisation! \to \verb!#projet ! \}\)</span></p>
+<div class="fragment">
+<p>Le schéma <span class="math inline">\(\verb!Projet!\)</span> est en FN3 mais n’est pas en FNBC.</p>
+<p>D’après les DF, il subsiste des redondances que l’on peut illustrer par les tuples :</p>
 <table class="caption-top">
 <thead><tr class="header">
 <th style="text-align: center;">#projet</th>
@@ -1631,66 +1753,7 @@ On peut vérifier :
 </tr>
 </tbody>
 </table>
-<p>On constate bien une redondance.</p>
-<!--
-## FNBC : exemple 2
-
-Schéma `Films(titre, année, durée, genre, producteur, acteur)`
-
-
-- On a la dépendance suivante `titre, année ⟶ durée, genre, producteur`
-
-- `titre, année, acteur` est la seule clef
-
-- La DF  `titre, année` ⟶ `durée, genre, producteur` ne respecte pas la condition de FNBC
-
-
-
-
-## Exemple de décomposition
-
-
-Schéma :
-
-`Films(titre, année, durée, genre, producteur, acteur)`
-
-. . .
-
-Une décomposition :
-
-`Films1(titre, année, durée, genre, producteur)`
-
-`Films2(titre, année, acteur)`
-
-- `Films1` est en FNBC.
-- `Films2` est en FNBC.
--->
-<!--
-## Schéma avec deux attributs
-
-::: {.callout-important}
-
-### Proposition
-
-Soit $\mathcal{A}=\{A,B\}$ un schéma avec deux attributs et $\Sigma$ un ensemble de DF non triviales.
-
-$\mathcal{A}$ est toujours en FNBC par rapport à $\Sigma$
-
-:::
-
-. . .
-
-::: {.proof}
-
-On distingue 4 cas
-
-- $\Sigma=\emptyset$
-- $\Sigma=\{A\rightarrow B\}$
-- $\Sigma=\{B\rightarrow A\}$
-- $\Sigma=\{A\rightarrow B, B\rightarrow A\}$
-
-:::
--->
+</div>
 </section><section id="pourquoi-deux-notions-de-forme-normale" class="slide level2 center"><h2>Pourquoi deux notions de forme normale ?</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -1707,31 +1770,10 @@ On distingue 4 cas
 </div>
 <div class="fragment">
 
-<!--
-::: {.aside}
-
-Le schéma $\mathcal{A} =$ `{Ville, Rue, Numéro, #Bureau_vote}` est en FN3 relativement à `Σ = { Ville, Nom, Rue → #Bureau_vote,  #Bureau_vote  →  Ville }`
-
-Mais ce schéma n'est pas en FNBC.
-
-:::
--->
 </div>
 <aside><div>
 <p>La réciproque est fausse</p>
-</div></aside></section><section id="exercice" class="slide level2 center"><h2>Exercice</h2>
-<p><span class="math inline">\(\mathcal{A}=\)</span> <code>(A, B, C, D, E)</code> et <code>Σ={A → C, BC → D, AD → E}</code></p>
-<ul>
-<li>Quelles sont les clés ?</li>
-<li>Le schéma est-il en FNBC ?</li>
-<li>Si non, proposer une décomposition SPI en FNBC. Est-elle sans perte de DF?</li>
-</ul>
-<div class="fragment">
-<p>On a calculé précédemment la décomposition FN3 SPI et SPD :</p>
-<p><span class="math display">\[\{(\texttt{A,C}), (\texttt{B,C,D}), (\texttt{A,D,E}), (\texttt{AB})\}\]</span></p>
-<p>Est-elle FNBC ?</p>
-</div>
-</section><section id="niveaux-de-décomposition-dune-relation" class="slide level2 center"><h2>Niveaux de décomposition d’une relation</h2>
+</div></aside></section><section id="niveaux-de-décomposition-dune-relation" class="slide level2 center"><h2>Niveaux de décomposition d’une relation</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1747,7 +1789,7 @@ Mais ce schéma n'est pas en FNBC.
 </div>
 </div>
 
-<img data-src="..\images/fn/FN_emboitement.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section></section><section><section id="décomposition-fnbc-spi" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition FNBC SPI</h1>
+<img data-src="..\images/fn/FN_emboitement.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section></section><section><section id="algorithme-de-décomposition-fnbc-spi" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Algorithme de décomposition FNBC SPI</h1>
 
 </section><section id="méthode-de-décomposition-fnbc-spi" class="slide level2 center scrollable"><h2>Méthode de décomposition FNBC SPI</h2>
 <div class="callout callout-important callout-titled callout-style-default">
@@ -1763,7 +1805,7 @@ Mais ce schéma n'est pas en FNBC.
 <ol type="1">
 <li>
 <code>D</code> est initialisée à <span class="math inline">\(\{\mathcal{A}\}\)</span>,</li>
-<li>Soit <code>B</code> une relation de <code>D</code> qui n’est pas FNBC à cause d’une DF non triviale <code>X → a</code> telle que <code>X</code> n’est pas clé de <code>B</code> et que <code>a</code> n’est pas un attribut de <code>X</code>.
+<li>Soit <code>B</code> une relation de <code>D</code> qui n’est pas FNBC à cause d’une DF non triviale <code>X → a</code> telle que <code>X</code> n’est pas clé de <code>B</code>.
 <ul>
 <li>On définit <code>Y</code> comme l’ensemble des attributs de <code>B\X</code> déterminés par <code>X</code>.</li>
 <li>On décompose alors <code>B</code> en :
@@ -1844,6 +1886,152 @@ return D
 </ul>
 </div>
 </div>
+</div>
+</section><section id="exemple-1-3" class="slide level2 smaller center scrollable"><h2>Exemple 1</h2>
+<p><span class="math inline">\(\mathcal{A}=(\verb!V#, Vnom, Vville, P#, Pnom, Pprix, Qte!)\)</span></p>
+<p><span class="math inline">\(\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}\)</span></p>
+<div class="fragment">
+<p><span class="math inline">\(\texttt{V\#} \to \texttt{Vnom Vville}\)</span> ne respecte pas la FNBC car <span class="math inline">\(\texttt{V\#}\)</span> n’est pas une sur-clé.</p>
+<p>On a calculé une décomposition FN3 et on a vu qu’elle était FNBC. Que donne l’algorithme de décomposition FNBC ?</p>
+</div>
+<div class="fragment">
+<ol type="1">
+<li>
+<span class="math inline">\(\verb!V#! \to \texttt{Vnom Vville}\)</span> ne respecte pas la FNBC.
+<ul>
+<li>l’ensemble des attributs de <span class="math inline">\(\mathcal{A}\setminus\{\verb!V#!\}\)</span> déterminés par <span class="math inline">\(\verb!V#!\)</span> est <span class="math inline">\(Y=\{\verb!Vnom, Vville!\}\)</span>
+</li>
+<li>on décompose <span class="math inline">\(\mathcal{A}\)</span> en <span class="math inline">\(\mathcal{A_1}=(\verb!V#, Vnom, Vville!)\)</span> et <span class="math inline">\(\mathcal{B_1}=\mathcal{A}\setminus Y=(\verb!V#, P#, Pnom, Pprix, Qte!)\)</span>.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>
+<span class="math inline">\(\mathcal{B_1}\)</span> a pour clé <span class="math inline">\(\verb!(V#, P#)!\)</span> donc <span class="math inline">\(\verb!P#! \to \texttt{Pnom Pprix}\)</span> ne respecte pas la FNBC pour <span class="math inline">\(\mathcal{B_1}\)</span>.
+<ul>
+<li>l’ensemble des attributs de <span class="math inline">\(\mathcal{B_1}\setminus\{\verb!P#!\}\)</span> déterminés par <span class="math inline">\(\verb!P#!\)</span> est <span class="math inline">\(Y=\{\verb!Pnom, Pprix!\}\)</span>
+</li>
+<li>on décompose <span class="math inline">\(\mathcal{B_1}\)</span> en <span class="math inline">\(\mathcal{A_2}=(\verb!P#, Pnom, Pprix!)\)</span> et <span class="math inline">\(\mathcal{A_3}=\mathcal{B_1}\setminus Y=(\verb!V#, P#, Qte!)\)</span>.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li><ul>
+<li>
+<span class="math inline">\(\mathcal{A_1}=(\verb!V#, Vnom, Vville!)\)</span> a pour clé <span class="math inline">\(\verb!V#!\)</span> et est FNBC.</li>
+<li>
+<span class="math inline">\(\mathcal{A_2}=(\verb!P#, Pnom, Pprix!)\)</span> a pour clé <span class="math inline">\(\verb!P#!\)</span> et est FNBC.</li>
+<li>
+<span class="math inline">\(\mathcal{A_3}=(\verb!V#, P#, Qte!)\)</span> a pour clé <span class="math inline">\(\verb!(V#, P#)!\)</span> et est FNBC.</li>
+</ul></li>
+</ol>
+<p>On a obtenue la même décomposition que celle déjà connue. On sait qu’elle est SPI et SPD.</p>
+</div>
+</section><section id="exemple-2-2" class="slide level2 smaller center scrollable"><h2>Exemple 2</h2>
+<p>Schéma <span class="math inline">\(\verb!Projet! = (\verb!#projet, #employé, localisation, fonction!)\)</span></p>
+<p><span class="math inline">\(\Sigma = \{\verb! #projet #employé! \to \verb!localisation fonction ! , \verb! localisation! \to \verb!#projet! \}\)</span></p>
+<p>Le schéma <span class="math inline">\(\verb!Projet!\)</span> est en FN3 mais n’est pas en FNBC. Que donne l’algorithme de décomposition FNBC ?</p>
+<div class="fragment">
+<ol type="1">
+<li>
+<span class="math inline">\(\verb! localisation! \to \verb!#projet!\)</span> ne respecte pas la FNBC.
+<ul>
+<li>l’ensemble des attributs de <span class="math inline">\(\verb!Projet!\setminus\{\verb!localisation!\}\)</span> déterminés par $\verb!localisation!$ est <span class="math inline">\(Y=\{\verb!#projet!\}\)</span>
+</li>
+<li>on décompose <span class="math inline">\(\verb!Projet!\)</span> en <span class="math inline">\(\mathcal{A_1}=(\verb!localisation, #projet!)\)</span> et <span class="math inline">\(\mathcal{A_2}=\verb!Projet!\setminus Y=(\verb!#employé, localisation, fonction!)\)</span>.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li><ul>
+<li>
+<span class="math inline">\(\mathcal{A_1}=(\verb!localisation, #projet!)\)</span> a pour clé <span class="math inline">\(\verb!localisation!\)</span>, toutes les DF respectent la FNBC.</li>
+<li>
+<span class="math inline">\(\mathcal{A_2}=(\verb!#employé, localisation, fonction!)\)</span> a pour clé <span class="math inline">\(\verb!(#employé,localisation)!\)</span>, toutes les DF respectent la FNBC.</li>
+</ul></li>
+</ol>
+</div>
+<div class="fragment">
+<p>On peut vérifier que la décomposition est SPI avec l’algorithme de poursuite. Mais <strong>elle n’est pas SPD</strong>.</p>
+</div>
+<div class="fragment">
+<p>La dépendance <span class="math inline">\(\verb! #projet #employé! \to \verb!localisation fonction !\)</span> est perdue car l’algorithme de calcul de la fermeture par rapport aux DF projetées donne : <span class="math inline">\(\{\verb!#projet, #employé!\}^+ = \{\verb!#projet, #employé!\}\)</span>.</p>
+</div>
+</section><section id="exemple-3-1" class="slide level2 smaller center"><h2>Exemple 3</h2>
+<p><span class="math inline">\(\mathcal{A}= (\verb!A, B, C, D, E!)\)</span> et <span class="math inline">\(\Sigma=\{\verb!A → C ; BC → D ; AD → E!\}\)</span></p>
+<ul>
+<li>Quelles sont les clés ?</li>
+<li>Le schéma est-il en FNBC ?</li>
+<li>Si non, proposer une décomposition SPI en FNBC. Est-elle sans perte de DF?</li>
+</ul>
+<div class="fragment">
+<p>On a précédemment déterminer que l’unique clé est <span class="math inline">\(\verb!AB!\)</span>. Aucune des DF ne respecte la FNBC.</p>
+<p>On a calculé aussi une décomposition FN3 SPI et SPD :</p>
+<p><span class="math display">\[\{(\texttt{A,C}), (\texttt{B,C,D}), (\texttt{A,D,E}), (\texttt{AB})\}\]</span></p>
+<p>Est-elle FNBC ?</p>
+</div>
+<div class="fragment">
+<p>Oui elle est FNBC car</p>
+<ul>
+<li>
+<span class="math inline">\((\texttt{A,C})\)</span> a pour clé <span class="math inline">\(\verb!A!\)</span> donc vérifie la FNBC.</li>
+<li>
+<span class="math inline">\((\texttt{B,C,D})\)</span> a pour clé <span class="math inline">\(\verb!BC!\)</span> donc vérifie la FNBC.</li>
+<li>
+<span class="math inline">\((\texttt{A,D,E})\)</span> a pour clé <span class="math inline">\(\verb!AD!\)</span> donc vérifie la FNBC.</li>
+<li>
+<span class="math inline">\((\texttt{A,B})\)</span> a pour clé <span class="math inline">\(\verb!AB!\)</span> donc vérifie la FNBC.</li>
+</ul>
+</div>
+</section><section id="exemple-3-suite" class="slide level2 smaller center scrollable"><h2>Exemple 3 (suite)</h2>
+<p>Comparons avec la décomposition obtenue par l’algorithme de décomposition FNBC.</p>
+<p>Le schéma initial <span class="math inline">\(\mathcal{A}= (\verb!A, B, C, D, E!)\)</span> de clé <span class="math inline">\(\verb!AB!\)</span>, et <span class="math inline">\(\Sigma=\{\verb!A → C ; BC → D ; AD → E!\}\)</span></p>
+<div class="fragment">
+<ol type="1">
+<li>
+<span class="math inline">\(\verb!A → C!\)</span> ne respecte pas la FNBC.
+<ul>
+<li>l’ensemble des attributs de <span class="math inline">\(\mathcal{A}\setminus\{\verb!A!\}\)</span> déterminés par <span class="math inline">\(\{\verb!A!\}\)</span> est <span class="math inline">\(Y=\{\verb!C!\}\)</span>
+</li>
+<li>on décompose <span class="math inline">\(\mathcal{A}\)</span> en <span class="math inline">\(\mathcal{A_1}=(\verb!A,C!)\)</span> et <span class="math inline">\(\mathcal{B_1}=\mathcal{A}\setminus Y=(\verb!A,B,D,E!)\)</span>.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>
+<span class="math inline">\(\mathcal{B_1}\)</span> a pour clé <span class="math inline">\(\verb!AB!\)</span> donc <span class="math inline">\(\verb!BC → D!\)</span> ne respecte pas la FNBC pour <span class="math inline">\(\mathcal{B_1}\)</span>.
+<ul>
+<li>l’ensemble des attributs de <span class="math inline">\(\mathcal{B_1}\setminus\{\verb!B,C!\}\)</span> déterminés par <span class="math inline">\(\{\verb!B,C!\}\)</span> est <span class="math inline">\(Y=\{\verb!D!\}\)</span>
+</li>
+<li>on décompose <span class="math inline">\(\mathcal{B_1}\)</span> en <span class="math inline">\(\mathcal{A_2}=(\verb!B,C,D!)\)</span> et <span class="math inline">\(\mathcal{A_3}=\mathcal{B_1}\setminus Y=(\verb!A,B,E!)\)</span>.</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li><ul>
+<li>
+<span class="math inline">\(\mathcal{A_1}=(\verb!A,C!)\)</span> a pour clé <span class="math inline">\(\verb!A!\)</span> et est FNBC.</li>
+<li>
+<span class="math inline">\(\mathcal{A_2}=(\verb!B,C,D!)\)</span> a pour clé <span class="math inline">\(\verb!BC!\)</span> et est FNBC.</li>
+<li>
+<span class="math inline">\(\mathcal{A_3}=(\verb!A,B,E!)\)</span> a pour clé <span class="math inline">\(\verb!AB!\)</span> et est FNBC.</li>
+</ul></li>
+</ol>
+<p><strong>Nous n’obtenons pas la même décomposition qu’avec l’algorithme de décomposition FN3</strong>.</p>
+<p>On peut vérifier que la décomposition est SPI (exercice ?) mais elle <strong>n’est pas SPD</strong>.</p>
+</div>
+<div class="fragment">
+<p>La DF <span class="math inline">\(\verb!AD → E!\)</span> n’est pas préservée ! On le montre par le calcul de la fermeture de <span class="math inline">\(\verb!{A,D}!\)</span> par rapport au DF projetées, on obtient <span class="math inline">\(\verb!{A,D}!^+ = \verb!{A,D}!\)</span></p>
 </div>
 </section></section><section><section id="décomposition-fnbc-et-pertes-de-df" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition FNBC et pertes de DF</h1>
 
