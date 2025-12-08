@@ -4921,5 +4921,12 @@
     "title": "Normalisation II : Décompositions FN3 et FNBC",
     "section": "Exemple 3 (suite)",
     "text": "Exemple 3 (suite)\nComparons avec la décomposition obtenue par l’algorithme de décomposition FNBC.\nLe schéma initial \\(\\mathcal{A}= (\\verb!A, B, C, D, E!)\\) de clé \\(\\verb!AB!\\), et \\(\\Sigma=\\{\\verb!A → C ; BC → D ; AD → E!\\}\\)\n\n\n\n\\(\\verb!A → C!\\) ne respecte pas la FNBC.\n\nl’ensemble des attributs de \\(\\mathcal{A}\\setminus\\{\\verb!A!\\}\\) déterminés par \\(\\{\\verb!A!\\}\\) est \\(Y=\\{\\verb!C!\\}\\)\n\non décompose \\(\\mathcal{A}\\) en \\(\\mathcal{A_1}=(\\verb!A,C!)\\) et \\(\\mathcal{B_1}=\\mathcal{A}\\setminus Y=(\\verb!A,B,D,E!)\\).\n\n\n\n\n\n\n\n\\(\\mathcal{B_1}\\) a pour clé \\(\\verb!AB!\\) donc \\(\\verb!BC → D!\\) ne respecte pas la FNBC pour \\(\\mathcal{B_1}\\).\n\nl’ensemble des attributs de \\(\\mathcal{B_1}\\setminus\\{\\verb!B,C!\\}\\) déterminés par \\(\\{\\verb!B,C!\\}\\) est \\(Y=\\{\\verb!D!\\}\\)\n\non décompose \\(\\mathcal{B_1}\\) en \\(\\mathcal{A_2}=(\\verb!B,C,D!)\\) et \\(\\mathcal{A_3}=\\mathcal{B_1}\\setminus Y=(\\verb!A,B,E!)\\).\n\n\n\n\n\n\n\n\n\\(\\mathcal{A_1}=(\\verb!A,C!)\\) a pour clé \\(\\verb!A!\\) et est FNBC.\n\n\\(\\mathcal{A_2}=(\\verb!B,C,D!)\\) a pour clé \\(\\verb!BC!\\) et est FNBC.\n\n\\(\\mathcal{A_3}=(\\verb!A,B,E!)\\) a pour clé \\(\\verb!AB!\\) et est FNBC.\n\n\nNous n’obtenons pas la même décomposition qu’avec l’algorithme de décomposition FN3.\nOn peut vérifier que la décomposition est SPI (exercice ?) mais elle n’est pas SPD.\n\n\nLa DF \\(\\verb!AD → E!\\) n’est pas préservée ! On le montre par le calcul de la fermeture de \\(\\verb!{A,D}!\\) par rapport au DF projetées, on obtient \\(\\verb!{A,D}!^+ = \\verb!{A,D}!\\)"
+  },
+  {
+    "objectID": "slides/DF_norm_3.html#forme-normale-de-boyce-codd-fnbc-1",
+    "href": "slides/DF_norm_3.html#forme-normale-de-boyce-codd-fnbc-1",
+    "title": "Normalisation II : Décompositions FN3 et FNBC",
+    "section": "Forme normale de Boyce-Codd (FNBC)",
+    "text": "Forme normale de Boyce-Codd (FNBC)\n\n\n\n\n\n\nDéfinition\n\n\nUn schéma \\(\\mathcal{A}\\) est en FNBC par rapport à un ensemble de dépendances fonctionnelles \\(\\Sigma\\) sur \\(\\mathcal{A}\\) ssi\n\npour toute DF non triviale \\(X\\rightarrow Y\\) impliquée par \\(\\Sigma\\), \\(X\\) est une sur-clé (ou super-clé)."
   }
 ]
