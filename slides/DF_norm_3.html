@@ -238,422 +238,428 @@
   <p class="date">2025-12-08</p>
 </section><section id="TOC"><nav role="doc-toc"><h2 id="toc-title">Plan</h2>
 <ul>
-<li><a href="#/couverture-irredondante-dun-ensemble-de-df" id="/toc-couverture-irredondante-dun-ensemble-de-df">Couverture irredondante d’un ensemble de DF</a></li>
-<li><a href="#/forme-normale-3-fn3" id="/toc-forme-normale-3-fn3">Forme Normale 3 (FN3)</a></li>
-<li><a href="#/algorithme-de-d%C3%A9composition-en-fn3" id="/toc-algorithme-de-décomposition-en-fn3">Algorithme de Décomposition en FN3</a></li>
-<li><a href="#/forme-normale-de-boyce-codd" id="/toc-forme-normale-de-boyce-codd">Forme normale de Boyce-Codd</a></li>
 <li><a href="#/d%C3%A9composition-dune-relation" id="/toc-décomposition-dune-relation">Décomposition d’une relation</a></li>
+<li><a href="#/perte-de-d%C3%A9pendance-fonctionnelle" id="/toc-perte-de-dépendance-fonctionnelle">Perte de dépendance fonctionnelle</a></li>
 <li><a href="#/d%C3%A9composition-sans-perte-dinformation" id="/toc-décomposition-sans-perte-dinformation">Décomposition sans perte d’information</a></li>
 <li><a href="#/algorithme-de-poursuite" id="/toc-algorithme-de-poursuite">Algorithme de poursuite</a></li>
+<li><a href="#/forme-normale-3-fn3" id="/toc-forme-normale-3-fn3">Forme Normale 3 (FN3)</a></li>
+<li><a href="#/algorithme-de-d%C3%A9composition-en-fn3-spi-et-spd" id="/toc-algorithme-de-décomposition-en-fn3-spi-et-spd">Algorithme de décomposition en FN3 SPI et SPD</a></li>
+<li><a href="#/forme-normale-de-boyce-codd" id="/toc-forme-normale-de-boyce-codd">Forme normale de Boyce-Codd</a></li>
 <li><a href="#/d%C3%A9composition-fnbc-spi" id="/toc-décomposition-fnbc-spi">Décomposition FNBC SPI</a></li>
 <li><a href="#/d%C3%A9composition-fnbc-et-pertes-de-df" id="/toc-décomposition-fnbc-et-pertes-de-df">Décomposition FNBC et pertes de DF</a></li>
 <li><a href="#/fin" id="/toc-fin">Fin</a></li>
-</ul></nav></section><section><section id="couverture-irredondante-dun-ensemble-de-df" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Couverture irredondante d’un ensemble de DF</h1>
+</ul></nav></section><section><section id="décomposition-dune-relation" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition d’une relation</h1>
 
-</section><section class="slide level2 center"><div class="callout callout-important callout-titled callout-style-default">
+</section><section id="idée" class="slide level2 center"><h2>Idée</h2>
+<p>Dans un système de BDD <em>relationnelles</em>, les données sont représentées par des tuples qui décrivent des relations. Lorsqu’on définit des tables dans une base de données, on décompose ces relations en plusieurs relations <span class="math inline">\(R_1\)</span>, <span class="math inline">\(R_2\)</span>, <span class="math inline">\(\dots\)</span>, les tables de la BDD.</p>
+<p>Mais on ne peut pas décomposer arbitrairement. Toutes les décompositions ne sont pas pertinentes.</p>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Définition de la couverture irredondante d’un ensemble de DFs</strong></p>
+<p><strong>Conditions pour une décomposition <em>pertinente</em> :</strong></p>
 </div>
 <div class="callout-content">
-<p>Soit <span class="math inline">\(\Sigma\)</span> un ensemble de DF, une <em>couverture minimale/irredondante</em> de <span class="math inline">\(\Sigma\)</span> est un ensemble <span class="math inline">\(\Sigma'\)</span> de DF qui vérifie :</p>
 <ul>
-<li><p>Chaque DF de <span class="math inline">\(\Sigma'\)</span> est de la forme <span class="math inline">\(X → A\)</span>, où <span class="math inline">\(A\)</span> est un attribut</p></li>
-<li><p><span class="math inline">\(\Sigma'\)</span> et <span class="math inline">\(\Sigma\)</span> sont équivalents (<span class="math inline">\(\Sigma \models \Sigma'\)</span> et <span class="math inline">\(\Sigma' \models \Sigma\)</span>)</p></li>
-<li><p>Aucun sous-ensemble <em>propre</em> de <span class="math inline">\(\Sigma'\)</span> n’implique <span class="math inline">\(\Sigma\)</span> (<span class="math inline">\(∀ \Sigma^{\prime\prime} ⊊ \Sigma^\prime, \Sigma^{\prime\prime} \not\models \Sigma\)</span>)</p></li>
-<li><p>Pour toute dépendance <span class="math inline">\(X → A\)</span> de <span class="math inline">\(\Sigma'\)</span>, <span class="math inline">\(\forall Y ⊊ X, \Sigma \not\models Y→ A\)</span></p></li>
+<li><p>Décomposition <em>sans perte de dépendance fonctionnelle</em>.</p></li>
+<li><p>Décomposition <em>sans perte d’information</em>.</p></li>
+<li><p>Décomposition qui minimise les redondances : notions de Forme Normale.</p></li>
 </ul>
 </div>
 </div>
 </div>
-</section><section class="slide level2 center"><p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Dans une couverture irredondante, toutes des DFs sont utiles, chaque DF est minimale (c’est vrai pour le membre droit comme pour le membre gauche)</p>
+</div>
+</section><section id="décomposition" class="slide level2 center"><h2>Décomposition</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation, on dit que <span class="math inline">\(\left\{\mathcal{A}_1,\dots ,\mathcal{A}_k\right\}\)</span> est une décomposition de <span class="math inline">\(\mathcal{A}\)</span> si et seulement si,</p>
+<ul>
+<li>pour tout <span class="math inline">\(i\)</span>, <span class="math inline">\(\mathcal{A}_i  \not=\emptyset\)</span>,</li>
+<li><span class="math inline">\({\displaystyle \bigcup_{i=1}^k \mathcal{A}_i  = \mathcal{A}}\)</span></li>
+</ul>
+</div>
+</div>
+</div>
 <div class="fragment">
-<p><i class="fa-solid fa-brain" aria-label="brain"></i> <i class="fa-solid fa-mug-hot" aria-label="mug-hot"></i></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Une décomposition n’est pas une partition. On n’impose pas que les <span class="math inline">\(\mathcal{A}_i\)</span> soient deux à deux disjoints. Comme nous le verrons, ils ne doivent pas l’être, sinon, il n’y a plus de jointure possible.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="exemple-de-décomposition-i" class="slide level2 center"><h2>Exemple de décomposition I</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a></a>Vendeur(V#, Vnom, Vville)</span>
+<span id="cb1-2"><a></a>Produit(P#, Pnom, Pprix)</span>
+<span id="cb1-3"><a></a>Livraison(V#, P#, Qte)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>est une décomposition de la relation</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a></a>R(V#, Vnom, Vville, P#, Pnom, Pprix, Qte)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section></section><section><section id="perte-de-dépendance-fonctionnelle" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Perte de dépendance fonctionnelle</h1>
+
+</section><section id="projection-dun-ensemble-de-df" class="slide level2 center"><h2>Projection d’un ensemble de DF</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Soient <span class="math inline">\(\mathcal{A}\)</span> et <span class="math inline">\(\mathcal{A}_1\)</span> deux shémas tels que <span class="math inline">\(\mathcal{A}_1 \subset \mathcal{A}\)</span>, et <span class="math inline">\(\Sigma\)</span> un ensemble de dépendances.</p>
+<p>On appelle projection de <span class="math inline">\(\Sigma\)</span> sur <span class="math inline">\(\mathcal{A}_1\)</span> et on note <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span> l’ensemble</p>
+<p><span class="math display">\[\pi_{\mathcal{A}_1}(\Sigma)=\left\{ X\to Y \mid \Sigma\models X\to Y \text{ et } X,Y\subset \mathcal{A}_1\right\}\]</span></p>
+<p>Autrement dit, <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span> est l’ensemble des dépendances impliquées par <span class="math inline">\(\Sigma\)</span> qui sont locales à <span class="math inline">\(\mathcal{A}_1\)</span>.</p>
+</div>
+</div>
+</div>
+</section><section id="exemple" class="slide level2 center"><h2>Exemple</h2>
 <ul>
-<li><p>Existence de couvertures irredondantes</p></li>
-<li><p>Unicité</p></li>
-<li><p>Construction de couvertures irredondantes</p></li>
-<li><p>Si pas unicité des couvertures irredondantes, les couvertures irredondantes sont-elles toutes également intéressantes ?</p></li>
+<li><p><span class="math inline">\({\mathcal{A}}=\left\{A,B,C\right\}\)</span> et <span class="math inline">\(\Sigma=\left\{A\to B, B\to C, C\to A\right\}\)</span></p></li>
+<li><p><span class="math inline">\(\pi^{}_{\left\{A,B\right\}}(\Sigma)\)</span> est équivalent à <span class="math inline">\(\left\{A\to B, B\to A\right\}\)</span></p></li>
+</ul></section><section id="fermeture-et-projection-de-df" class="slide level2 center"><h2>Fermeture et projection de DF</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Propriété</strong></p>
+</div>
+<div class="callout-content">
+<p>Si <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> sont des parties de <span class="math inline">\({\mathcal{A}}_1\)</span>, on a l’équivalence <span class="math display">\[X\to Y \in \pi_{{\mathcal{A}}_1}(\Sigma) \iff Y\subset\left\{X\right\}^+\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="algorithme-de-calcul-de-pi_mathcala_1sigma" class="slide level2 center"><h2>Algorithme de calcul de <span class="math inline">\(\pi_{{\mathcal{A}}_1}(\Sigma)\)</span>
+</h2>
+<p>Cet algorithme calcule un ensemble de DF équivalent à <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span></p>
+<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:1em;padding:10px;border:1px solid #220f61ff;">fonction projection(A1, Σ)
+   P := ∅
+   for X ⊂ A1, X ≠ ∅, X ≠ A1
+      Y := X+ ∩ A1  
+      if Y ⊄ X     // X → Y n'est pas triviale
+         P := P ⋃ { X → Y\X }
+   return P
+</pre>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Très coûteux !</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Le nombre de sous-ensembles <span class="math inline">\(X\)</span> considérés est <span class="math inline">\(2^{\#{\mathcal{A}}_1}-2\)</span>.</li>
+<li>
+<span class="math inline">\(P\)</span> n’est pas du tout irredondant.</li>
 </ul>
 </div>
-</section><section id="algorithme-de-construction-de-couverture-irredondante" class="slide level2 scrollable center"><h2>Algorithme de construction de couverture irredondante</h2>
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-no-end="false" data-comment-delimiter="//" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":" data-line-number="true">
-<div class="pseudocode">
-\begin{algorithm} \caption{Couverture irredondante} \begin{algorithmic} \Procedure{MinCover}{$Σ$} \State Σ' ← ∅ \State \Comment{Normaliser les éléments de Σ} \For{$(X → Y) ∈ Σ$} \For{$y ∈ Y$} \State Σ' ← Σ' ∪ {X → y} \EndFor \EndFor \State \Comment{Éliminer les dépendances redondantes dans Σ'} \State \Comment{Miniser les dépendances dans Σ'} \Return Σ' \EndProcedure \end{algorithmic} \end{algorithm}
 </div>
 </div>
-</section><section id="détails" class="slide level2 center"><h2>Détails</h2>
+</section><section id="exemples" class="slide level2 smaller center scrollable"><h2>Exemples</h2>
+<p><span class="math inline">\({\mathcal{A}}=\left\{A,B,C,D,E\right\}\)</span> et <span class="math inline">\(\Sigma=\left\{A\to C, BC\to D, AD\to E\right\}\)</span></p>
+<ol type="1">
+<li>
+<span class="math inline">\(\pi_{\{AC\}}(\Sigma)\)</span> ?
+<ul>
+<li>on initialise <span class="math inline">\(P=\emptyset\)</span> puis on calcule</li>
+<li>
+<span class="math inline">\(\left\{A\right\}^+=\left\{A,C\right\}\)</span> donc <span class="math inline">\(P=\left\{A\to C\right\}\)</span> puis</li>
+<li>
+<span class="math inline">\(\left\{C\right\}^+=\left\{C\right\}\)</span> donc <span class="math inline">\(P\)</span> inchangé.</li>
+<li>L’algorithme se termine avec <span class="math inline">\(P=\left\{A\to C\right\}\)</span>
+</li>
+</ul>
+</li>
+<li>
+<span class="math inline">\(\pi_{ABD}(\Sigma)\)</span> ?
+<ul>
+<li>
+<span class="math inline">\(\left\{A\right\}^+=\left\{A,C\right\}\)</span>, <span class="math inline">\(P\)</span> vide</li>
+<li>
+<span class="math inline">\(\left\{B\right\}^+=\left\{B\right\}\)</span>, <span class="math inline">\(P\)</span> vide</li>
+<li>
+<span class="math inline">\(\left\{D\right\}^+=\left\{D\right\}\)</span>, <span class="math inline">\(P\)</span> vide</li>
+<li>
+<span class="math inline">\(\left\{A,B\right\}^+=\left\{A,B,C,D,E\right\}\)</span>, <span class="math inline">\(P=\left\{AB\to D\right\}\)</span>
+</li>
+<li>
+<span class="math inline">\(\left\{A,D\right\}^+=\left\{A,D,C,E\right\}\)</span>, <span class="math inline">\(P\)</span> inchangé</li>
+<li>
+<span class="math inline">\(\left\{B,D\right\}^+=\left\{B,D\right\}\)</span>, <span class="math inline">\(P\)</span> inchangé.</li>
+<li>L’algorithme se termine avec <span class="math inline">\(P=\left\{AB\to D\right\}\)</span>
+</li>
+</ul>
+</li>
+</ol></section><section id="exemples-suite" class="slide level2 smaller center scrollable"><h2>Exemples (suite)</h2>
+<p><span class="math inline">\({\mathcal{A}}=\left\{A,B,C,D,E\right\}\)</span> et <span class="math inline">\(\Sigma=\left\{A\to C, BC\to D, AD\to E\right\}\)</span></p>
+<ol start="3" type="1">
+<li>
+<span class="math inline">\(\pi_{ABCE}(\Sigma)\)</span> ?
+<ul>
+<li>
+<span class="math inline">\(A^+=AC \quad B^+=B \quad C^+=C \quad E^+=E\)</span><br>
+</li>
+<li>
+<span class="math inline">\(AB^+=ABCDE \quad AC^+=AC \quad AE^+=AEC\)</span><br>
+</li>
+<li>
+<span class="math inline">\(BC^+=BCD \quad BE^+=BE \quad CE^+=CE\)</span><br>
+</li>
+<li>
+<span class="math inline">\(ABC^+=ABCDE \quad ABE^+=ABECD\)</span><br>
+</li>
+<li><span class="math inline">\(BCE^+=BCED \quad ACE^+=ACE\)</span></li>
+<li>L’algorithme se termine avec <span class="math inline">\(P=\left\{A\to C, AB \to CE, AE\to C, ABC\to E, ABE\to C\right\}\)</span>.</li>
+<li>Simplification&nbsp;: <span class="math inline">\(\pi_{ABCE}(\Sigma)\)</span> équivaut à <span class="math inline">\(\left\{A\to C, AB\to E\right\}\)</span> qui est minimal.</li>
+</ul>
+</li>
+</ol></section><section id="décomposition-sans-perte-de-df" class="slide level2 center"><h2>Décomposition sans perte de DF</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Soient <span class="math inline">\(\mathcal{A}\)</span> un schéma, <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span> et <span class="math inline">\(\left\{ \mathcal{A}_1,\dots, \mathcal{A}_k\right\}\)</span> une décomposition de <span class="math inline">\(\mathcal{A}\)</span>.</p>
+<p>La décomposition <span class="math inline">\(\left\{\mathcal{A}_1,\dots, \mathcal{A}_k\right\}\)</span> <em>préserve</em> <span class="math inline">\(\Sigma \quad \quad\)</span> ssi <span class="math inline">\(\quad \quad{\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)}\)</span> est équivalent à <span class="math inline">\(\Sigma\)</span>.</p>
+<p>On dit que la décomposition est <em>sans perte de dépendance (SPD)</em>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Propriété immédiate</strong></p>
+</div>
+<div class="callout-content">
+<p>Si <span class="math inline">\(\Sigma\)</span> est équivalent à un ensemble de <em>dépendances fonctionnelles locales</em>, la décomposition est SPD.</p>
+</div>
+</div>
+</div>
+</section><section id="vérification-quune-df-est-préservée" class="slide level2 center"><h2>Vérification qu’une DF est préservée</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Propriété</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(X\to Y\)</span> est préservée ssi la fermeture de <span class="math inline">\(X\)</span> par rapport à <span class="math inline">\({\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)}\)</span> contient <span class="math inline">\(Y\)</span>.</p>
+</div>
+</div>
+</div>
+</section><section id="algorithme-de-vérification" class="slide level2 center"><h2>Algorithme de vérification</h2>
+<p>L’algorithme retourne la fermeture de <span class="math inline">\(X\)</span> par rapport à <span class="math inline">\({\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)}\)</span>.</p>
 <div class="columns">
-<div class="column" style="width:45%;">
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-no-end="false" data-comment-delimiter="//" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":" data-line-number="true">
-<div class="pseudocode">
-\begin{algorithm} \caption{Éliminer les dépendances redondantes dans Σ' (détail)} \begin{algorithmic} \Repeat \State s ← \True \For{$(X → y) ∈ Σ'$} \If{$Σ' \setminus {X → y} ⊧ X → y$} \State $Σ' ← Σ' \setminus {X → y}$ \State s ← \False \EndIf \EndFor \Until{s} \end{algorithmic} \end{algorithm}
+<div class="column" style="width:60%;">
+<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:0.7em;padding:10px;border:1px solid #220f61ff;">fonction fermeture_decomposition({A1,...,Ak}, Σ, X)
+   Z := X
+   go := True
+   while go
+      For i ∈ {1, ..., k}
+         W := W ⋃ ((W ∩ Ai)+ ∩ Ai)
+      if W ≠ Z
+         Z := W
+      else
+         go := False
+   return Z
+</pre>
+</div><div class="column" style="width:5%;">
+
+</div><div class="column" style="width:35%;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<p><strong>Avertissement</strong></p>
 </div>
-</div><div class="column" style="width:55%;">
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-no-end="false" data-comment-delimiter="//" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":" data-line-number="true">
-<div class="pseudocode">
-\begin{algorithm} \caption{Miniser les dépendances dans Σ' (détail)} \begin{algorithmic} \Repeat \State s ← \True \For{$(X → y) ∈ Σ'$} \For{$x ∈ X$} \If{$Σ' \setminus {X → y} ⊧ X \setminus {x} → y$} \State $Σ' ← (Σ' \setminus {X → y}) ∪ X \setminus {x} → y$ \State s ← \False \Break \EndIf \EndFor \EndFor \Until{s} \end{algorithmic} \end{algorithm}
+<div class="callout-content">
+<ul>
+<li><p>Si au cours du calcul, on obtient que <span class="math inline">\(Y\subset Z\)</span>, on peut conclure immédiatement que <span class="math inline">\(X\to Y\)</span> est préservée.</p></li>
+<li><p>L’intérêt de cet algorithme est qu’il n’est pas nécessaire de calculer les DF locales.</p></li>
+</ul>
+</div>
 </div>
 </div>
 </div></div>
-</section></section><section><section id="forme-normale-3-fn3" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Forme Normale 3 (FN3)</h1>
-
-</section><section id="objectif" class="slide level2 center"><h2>Objectif</h2>
-<div title="Construire">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Construire</strong></p>
-</div>
-<div class="callout-content">
-<p>Une décomposition :</p>
-<ul>
-<li>Sans Perte d’Information (SPI)</li>
-<li>Sans perte de Dépendances Fonctionnelles</li>
-<li>Dont les éléments sont en FN3 par rapports aux dépendances projetées</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</section><section id="pour-réaliser-cet-objectif" class="slide level2 center"><h2>Pour réaliser cet objectif</h2>
-<p>Une étape cruciale : réécrire l’ensemble de DFs</p>
-</section><section id="définition-forme-normale-3-fn3" class="slide level2 center"><h2>Définition : forme normale 3 (FN3)</h2>
+</section><section id="vérification-quune-décomposition-est-spd" class="slide level2 center"><h2>Vérification qu’une décomposition est SPD</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Important</strong></p>
+<p><strong>Propriété</strong></p>
 </div>
 <div class="callout-content">
-<p>Un schéma relationnel <span class="math inline">\(\mathcal{A}\)</span> est en forme normale 3 (FN3) relativement à un ensemble de DF <span class="math inline">\(\Sigma\)</span> ssi pour toute dépendance non triviale <span class="math inline">\(X \to Y\)</span> de <span class="math inline">\(\Sigma\)</span>, on a</p>
+<p>Une décomposition <span class="math inline">\(\left\{\mathcal{A}_1,\dots ,\mathcal{A}_k\right\}\)</span> est sans perte de DF (SPD) si</p>
 <ul>
-<li>le membre gauche <span class="math inline">\(X\)</span> est une super-clé <em>ou</em>
-</li>
-<li>le membre droit <span class="math inline">\(Y\)</span> fait partie d’une clé</li>
+<li>Pour tout <span class="math inline">\(X\to Y \in \Sigma\)</span>, la fermeture de <span class="math inline">\(X\)</span> par rapport <span class="math inline">\({\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)}\)</span> contient <span class="math inline">\(Y\)</span>.</li>
 </ul>
 </div>
 </div>
 </div>
-
-<aside><div>
-<p>Le schéma <span class="math inline">\(\mathcal{A} =\)</span> <code>{Ville, Rue, Numéro, #Bureau_vote}</code> est en FN3 relativement à <code>Σ = { Ville, Nom, Rue → #Bureau_vote,  #Bureau_vote  →  Ville }</code></p>
-<p>Mais ce schéma n’est pas en FNBC.</p>
-</div></aside></section><section id="pourquoi-deux-notions-de-forme-normale" class="slide level2 center"><h2>Pourquoi deux notions de forme normale ?</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Proposition</strong></p>
-</div>
-<div class="callout-content">
-<p>Si un schéma <span class="math inline">\(\mathcal{A}\)</span> est en forme normale Boyce-Codd (FNBC) relativement à un ensemble de DF Σ, alors <span class="math inline">\(\mathcal{A}\)</span> est en forme normale 3 (FN3) relativement à Σ</p>
-</div>
-</div>
-</div>
-
-<aside><div>
-<p>La réciproque est fausse</p>
-</div></aside></section><section id="exercice" class="slide level2 center"><h2>Exercice</h2>
-<p><span class="math inline">\(\mathcal{A}=\)</span> <code>(A, B, C, D, E)</code> et <code>Σ={A → C, BC → D, AD → E}</code></p>
+</section><section id="exemple-i" class="slide level2 smaller center scrollable"><h2>Exemple I</h2>
 <ul>
-<li>Quelles sont les clés ?</li>
-<li>Le schéma est-il en FN3 ?</li>
-</ul></section><section id="intérêt-de-la-forme-normale-3-fn3" class="slide level2 center"><h2>Intérêt de la forme normale 3 (FN3)</h2>
-<p>Redondance limitée</p>
+<li><p><span class="math inline">\(\mathcal{A}=\left\{A,B,C,D\right\}\)</span>,</p></li>
+<li><p><span class="math inline">\(\mathcal{A}_1=\left\{A,B\right\}\)</span>, <span class="math inline">\(\mathcal{A}_2=\left\{B,C\right\}\)</span>, <span class="math inline">\(\mathcal{A}_3=\left\{C,D\right\}\)</span></p></li>
+<li><p><span class="math inline">\(\Sigma=\left\{A\to B, B\to C, C\to D, D\to A\right\}\)</span></p></li>
+<li><p>Est-ce que la décomposition <span class="math inline">\(\left\{\mathcal{A}_1,\mathcal{A}_2,\mathcal{A}_3\right\}\)</span> préserve <span class="math inline">\(\Sigma\)</span> ?</p></li>
+</ul>
 <div class="fragment">
-<p>Possibilité de décomposition SPI et sans perte de Dépendances Fonctionnelles</p>
-</div>
-</section></section><section><section id="algorithme-de-décomposition-en-fn3" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Algorithme de Décomposition en FN3</h1>
-
-</section><section id="algorithme" class="slide level2 smaller center"><h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-no-end="false" data-comment-delimiter="//" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":" data-line-number="true">
-<div class="pseudocode">
-\begin{algorithm} \caption{Decomposition FN3} \begin{algorithmic} \Procedure{DecompositionFN3}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← ∅$ \State \Comment{Mise en forme des courverture minimale de Σ} \State Σ' ← \Call{MinCover}{$Σ$} \State \For{Each distinct determinant $X$ amongst FDs in Σ'} \State $Y ← \{y : X → y ∈ Σ'\}$ \State $D ← D \cup \{X \cup Y\}$ \Comment{ Ajouter $X \cup Y$ à $D$} \EndFor \State \State $\mathcal{B} ← $ Attributes in $\mathcal{A}$ that do not occur in $D$ \State $D ← D \cup \{\mathcal{B}\}$ \State \If{No component of $D$ includes a key for $\mathcal{A}, Σ$} \State $D ← D \cup $ some key for $\mathcal{A}, Σ$ \EndIf \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
-</div>
-</div>
-</section><section class="slide level2 center"><div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Proposition</strong></p>
-</div>
-<div class="callout-content">
-<p>L’algorithme termine en un nombre fini d’itérations</p>
-<p>La décomposition produite par l’algorithme est</p>
 <ul>
-<li><p>en FN3</p></li>
-<li><p>sans perte d’information</p></li>
-<li><p>sans perte de dépendances fonctionnelles</p></li>
+<li><p>Les DF locales <span class="math inline">\(A\to B\)</span>, <span class="math inline">\(B\to C\)</span>, <span class="math inline">\(C\to D\)</span> sont locales donc conservées.</p></li>
+<li><p>Est-ce que les DF locales impliquent <span class="math inline">\(D\to A\)</span> ?</p></li>
 </ul>
 </div>
+<div class="fragment">
+<p>Vérification en appliquant l’algorithme de calcul de <span class="math inline">\(Z^+\)</span> par rapport aux projections de <span class="math inline">\(\Sigma\)</span>.</p>
+<p>Initialisation <span class="math inline">\(Z := \{D\}\)</span></p>
+<ol type="1">
+<li><p><span class="math inline">\((\{D\}\cap\{CD\})^+ \cap \{CD\}=\{D\}^+ \cap\{CD\}=\{DABC\} \cap \{CD\}=\{CD\}\)</span>, <span class="math inline">\(Z := \{CD\}\)</span></p></li>
+<li><p><span class="math inline">\((\{DC\}\cap \{BC\})^+ \cap \{BC\}=\{C\}^+ \cap \{BC\}=\{CDAB\}\cap \{BC\}=\{BC\}\)</span>, <span class="math inline">\(Z := \{BCD\}\)</span></p></li>
+<li><p><span class="math inline">\((\{DCB\}\cap \{AB\})^+ \cap \{AB\}=\{B\}^+ \cap \{AB\}=\{BCDA\} \cap \{AB\}\)</span>, <span class="math inline">\(Z := \{ABCD\}\)</span></p></li>
+<li><p><span class="math inline">\(\{DCBA\}\)</span> contient <span class="math inline">\(A\)</span> donc <span class="math inline">\(D\to A\)</span> est préservée.</p></li>
+</ol>
 </div>
-</div>
-</section><section id="preuves" class="slide level2 center"><h2>Preuves</h2>
-<h3 id="terminaison">Terminaison <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i>
-</h3>
-<h3 id="fn3">FN3 <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i>
-</h3>
-<h3 id="spi">SPI <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i>
-</h3>
-<h3 id="spdf">SPDF <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i>
-</h3>
-</section></section><section><section id="forme-normale-de-boyce-codd" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Forme normale de Boyce-Codd</h1>
-
-</section><section id="forme-normale-de-boyce-codd-fnbc" class="slide level2 center"><h2>Forme normale de Boyce-Codd (FNBC)</h2>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Définition</strong></p>
-</div>
-<div class="callout-content">
-<p>Un schéma <span class="math inline">\(\mathcal{A}\)</span> est en FNBC par rapport à un ensemble de dépendances fonctionnelles <span class="math inline">\(\Sigma\)</span> sur <span class="math inline">\(\mathcal{A}\)</span></p>
-<p>si</p>
-<p>Quelque soit la DF non triviale <span class="math inline">\(X\rightarrow Y\)</span> impliquée par <span class="math inline">\(\Sigma\)</span> (Σ ⊧ X → Y avec <span class="math inline">\(¬ Y ⊂ X\)</span>), <span class="math inline">\(X\)</span> est une <em>super-clef</em></p>
-</div>
-</div>
-</div>
+</section><section id="exemple-i-suite" class="slide level2 center"><h2>Exemple I suite</h2>
+<ul>
+<li>
+<span class="math inline">\(\mathcal{A}=\left\{A,B,C,D\right\}\)</span>,</li>
+<li>
+<span class="math inline">\(\mathcal{A}_1=\left\{A,B\right\}\)</span>, <span class="math inline">\(\mathcal{A}_2=\left\{B,C\right\}\)</span>, <span class="math inline">\(\mathcal{A}_3=\left\{C,D\right\}\)</span>
+</li>
+</ul>
+<p>Mais on pouvait aussi voir que</p>
+<ul>
+<li><p><span class="math inline">\(\Sigma=\left\{A\to B, B\to C, C\to D, D\to A\right\}\)</span> est équivalent à l’ensemble de DF <span class="math inline">\(\Sigma' =\left\{A\to B, B\to A, B\to C, C\to B, C\to D, D\to C\right\}\)</span> car la fermeture de toute partie non vide de <span class="math inline">\(\mathcal{A}\)</span> par <span class="math inline">\(\Sigma'\)</span> est <span class="math inline">\(\mathcal{A}\)</span> comme pour <span class="math inline">\(\Sigma\)</span> (chaque attribut est une clé).</p></li>
+<li><p>les DF de <span class="math inline">\(\Sigma'\)</span> sont locales donc préservées, la décomposition préserve <span class="math inline">\(\Sigma'\)</span> donc <span class="math inline">\(\Sigma\)</span>.</p></li>
+</ul></section><section id="exemple-ii" class="slide level2 smaller center scrollable"><h2>Exemple II</h2>
+<ul>
+<li><p><span class="math inline">\(\mathcal{A}=\)</span> <code>{Ville, CP, Rue, Numero}</code></p></li>
+<li><p><span class="math inline">\(\Sigma=\)</span> <code>{ CP →  Ville, {Ville, Rue, Numero} → CP}</code></p></li>
+<li><p><span class="math inline">\(\mathcal{A}_1=\)</span> <code>{Ville, CP}</code> <span class="math inline">\(\mathcal{A}_2=\)</span> <code>{Rue, Numero, CP}</code></p></li>
+<li><p>Est-ce que la décomposition <span class="math inline">\(\{\mathcal{A}_1, \mathcal{A}_2 \}\)</span> préserve <span class="math inline">\(\Sigma\)</span> ?</p></li>
+</ul>
 <div class="fragment">
 <ul>
 <li>
-<i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> <span class="math inline">\((\mathcal{A},\Sigma)\)</span> est en FNBC si pour toute DF non triviale impliquée par <span class="math inline">\(\Sigma\)</span>, le membre de gauche (le déterminant) est une super-clef</li>
-</ul>
-</div>
-</section><section class="slide level2 center"><div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Proposition</strong></p>
-</div>
-<div class="callout-content">
-<p>Soit <span class="math inline">\(\Sigma'\)</span> un ensemble de DF équivalent à <span class="math inline">\(\Sigma\)</span>.</p>
-<p><span class="math inline">\((\mathcal{A},\Sigma)\)</span> est en FNBC si et seulement si pour toute DF non triviale de <span class="math inline">\(\Sigma'\)</span>, le membre de gauche est une super-clef</p>
-</div>
-</div>
-</div>
-
-<aside><div>
-<p>En effet toute DF impliquée par <span class="math inline">\(\Sigma\)</span> peut être obtenue à partir des DF de <span class="math inline">\(\Sigma'\)</span> en utilisant les règles d’Armstrong</p>
-</div></aside></section><section id="fnbc-exemple-1" class="slide level2 center"><h2>FNBC : exemple 1</h2>
-<ul>
-<li>Schéma <span class="math inline">\(\mathcal{A}=\{\texttt{V\#, Vnom, Vville, P\#, Pnom, Pville, Qte}\}\)</span>
-</li>
-</ul>
-<p>Ensemble de dépendances fonctionnelles <span class="math inline">\(\Sigma\)</span> :</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a></a>V# ⟶ Vnom Vville</span>
-<span id="cb1-2"><a></a>P# ⟶ Pnom Pville</span>
-<span id="cb1-3"><a></a>V# P# ⟶ Qte</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<p><span class="math inline">\(\mathcal{A}\)</span> n’est pas en FNBC par rapport <span class="math inline">\(\Sigma\)</span>.</p>
-<p>En effet ni V# ni P# ne sont des super-clefs</p>
-</div>
-</section><section id="fnbc-exemple-2" class="slide level2 center"><h2>FNBC : exemple 2</h2>
-<p>Schéma <code>Films(titre, année, durée, genre, producteur, acteur)</code></p>
-<ul>
-<li><p>On a la dépendance suivante <code>titre, année ⟶ durée, genre, producteur</code></p></li>
-<li><p><code>titre, année, acteur</code> est la seule clef</p></li>
-<li><p>La DF <code>titre, année</code> ⟶ <code>durée, genre, producteur</code>} viole la condition de FNBC</p></li>
-</ul></section><section id="fnbc-exemple-3" class="slide level2 center"><h2>FNBC : exemple 3</h2>
-<p>Trois schémas en FNBC :</p>
-<table class="caption-top">
-<thead><tr class="header">
-<th style="text-align: left;">Relation</th>
-<th style="text-align: center;">Clef</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><code>Vendeur(V#, Vnom, Vville)</code></td>
-<td style="text-align: center;"><code>V#</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>Produit(P#, Pnom, Pville)</code></td>
-<td style="text-align: center;"><code>P#</code></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>Livraison(V#, P#, Qte)</code></td>
-<td style="text-align: center;"><code>(V#,P#)</code></td>
-</tr>
-</tbody>
-</table></section><section id="schéma-avec-deux-attributs" class="slide level2 center"><h2>Schéma avec deux attributs</h2>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Proposition</strong></p>
-</div>
-<div class="callout-content">
-<p>Soit <span class="math inline">\(\mathcal{A}=\{A,B\}\)</span> un schéma avec deux attributs et <span class="math inline">\(\Sigma\)</span> un ensemble de DF non triviales.</p>
-<p><span class="math inline">\(\mathcal{A}\)</span> est toujours en FNBC par rapport à <span class="math inline">\(\Sigma\)</span></p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="proof">
-<p><span class="proof-title"><em>Preuve</em>. </span>On distingue 4 cas</p>
-<ul>
-<li><span class="math inline">\(\Sigma=\emptyset\)</span></li>
-<li><span class="math inline">\(\Sigma=\{A\rightarrow B\}\)</span></li>
-<li><span class="math inline">\(\Sigma=\{B\rightarrow A\}\)</span></li>
-<li><span class="math inline">\(\Sigma=\{A\rightarrow B, B\rightarrow A\}\)</span></li>
-</ul>
-</div>
-</div>
-</section><section id="pourquoi-deux-notions-de-forme-normale-1" class="slide level2 center"><h2>Pourquoi deux notions de forme normale ?</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Proposition</strong></p>
-</div>
-<div class="callout-content">
-<p>Si un schéma <span class="math inline">\(\mathcal{A}\)</span> est en forme normale Boyce-Codd (FNBC) relativement à un ensemble de DF Σ, alors <span class="math inline">\(\mathcal{A}\)</span> est en forme normale 3 (FN3) relativement à Σ</p>
-</div>
-</div>
-</div>
-
-<aside><div>
-<p>La réciproque est fausse</p>
-</div></aside></section><section id="exercice-1" class="slide level2 center"><h2>Exercice</h2>
-<p><span class="math inline">\(\mathcal{A}=\)</span> <code>(A, B, C, D, E)</code> et <code>Σ={A → C, BC → D, AD → E}</code></p>
-<ul>
-<li>Quelles sont les clés ?</li>
-<li>Le schéma est-il en FNBC ?</li>
-<li>Si non, propopsez une décomposition SPI en FNBC. Est-elle sans perte de DF?</li>
-<li>Le schéma est-il en FN3 ?</li>
-</ul></section></section><section><section id="décomposition-dune-relation" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition d’une relation</h1>
-
-</section><section id="décomposition-dun-schéma-de-relation" class="slide level2 center"><h2>Décomposition d’un schéma de relation</h2>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Définition</strong></p>
-</div>
-<div class="callout-content">
-<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation</p>
-<p>Un <em>décomposition</em> de <span class="math inline">\(\mathcal{A}\)</span> est un ensemble <span class="math inline">\(\{\mathcal{A}_1,..., \mathcal{A}_k\}\)</span> de sous-ensembles de <span class="math inline">\(\mathcal{A}\)</span> tel que</p>
-<p><span class="math display">\[\mathcal{A}_i\not=\emptyset, 1\le i\le k, \quad \text{ et } \quad \mathcal{A} = \bigcup_{i=1}^k \mathcal{A}_i\]</span></p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Une décomposition n’est pas nécessairement une partition. On n’impose pas que les <span class="math inline">\(\mathcal{A}_i\)</span> soient deux à deux disjoints.</p>
-</div>
-</section><section id="exemple-de-décomposition-i" class="slide level2 center"><h2>Exemple de décomposition I</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a></a>Vendeur(V#, Vnom, Vville)</span>
-<span id="cb2-2"><a></a>Produit(P#, Pnom, Pville)</span>
-<span id="cb2-3"><a></a>Livraison(V#, P#, Qte)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>est une décomposition du schéma</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a></a>R(V#, Vnom, Vville, P#, Pnom, Pville, Qte)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</section><section id="exemple-de-décomposition-ii" class="slide level2 center"><h2>Exemple de décomposition II</h2>
-<p>Schéma :</p>
-<p><code>Films(titre, année, durée, genre, producteur, acteur)</code></p>
-<div class="fragment">
-<p>Une décomposition :</p>
-<p><code>Films1(titre, année, durée, genre, producteur)</code></p>
-<p><code>Films2(titre, année, acteur)</code></p>
-<ul>
-<li>
-<code>Films1</code> est FNBC par rapport à <span class="math inline">\(\Sigma_1=\{\texttt{titre, année ⟶ durée, genre, producteur}\}\)</span>
-</li>
-<li>
-<code>Films2</code> est en FNBC par rapport à <span class="math inline">\(\Sigma_2=\emptyset\)</span>
+<code>CP →  Ville</code> est préservée car elle est locale à <span class="math inline">\(\mathcal{A}_1\)</span>
 </li>
 </ul>
 </div>
-</section><section id="propriétés-dune-décomposition" class="slide level2 center"><h2>Propriétés d’une décomposition</h2>
-<p>On ne peut pas décomposer arbitrairement</p>
-<p>Toutes les décompositions ne sont pas intéressantes</p>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Conditions pour une décomposition <em>raisonnable</em> :</strong></p>
-</div>
-<div class="callout-content">
 <ul>
-<li><p>Décomposition <em>sans perte d’information</em></p></li>
-<li><p>Décomposition <em>sans perte de dépendance fonctionnelle</em></p></li>
+<li>Est-ce que <code>{Ville, Rue, Numero} → CP</code> est préservée par <span class="math inline">\(\mathcal{A}_1, \mathcal{A}_2\)</span> ?</li>
 </ul>
 </div>
+<div class="fragment">
+<p><span class="math inline">\(\verb!Z := {Ville, Rue, Numero}!\)</span></p>
+<ol type="1">
+<li><p><span class="math inline">\(\verb!(Z !\cap \verb!{Ville, CP})!^+ \cap \verb!{Ville, CP} = {Ville}!\)</span>, <em>rien à ajouter</em>, <span class="math inline">\(\verb!Z := {Ville, Rue, Numero}!\)</span></p></li>
+<li><p><span class="math inline">\(\verb!(Z !\cap \verb!{Rue, Numero, CP})!^+ \cap \verb!{Rue, Numero, CP} = {Rue, Numero}!\)</span>, <em>rien à ajouter</em>, <span class="math inline">\(\verb!Z := {Ville, Rue, Numero}!\)</span></p></li>
+</ol>
 </div>
-</div>
+<div class="fragment">
+<p>Donc <code>Ville, Rue, Numero → CP</code> n’est pas préservée <i class="fa-solid fa-frown" aria-label="frown"></i></p>
 </div>
 </section></section><section><section id="décomposition-sans-perte-dinformation" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition sans perte d’information</h1>
 
 </section><section id="décomposition-sans-perte-dinformation-1" class="slide level2 center"><h2>Décomposition sans perte d’information</h2>
-<p>Idée : Si on remplace le schéma</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a></a>(V#, Vnom, Vville, P#, Pnom, Pville, Qte)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Idée</strong> : Si on remplace le schéma</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a></a>(V#, Vnom, Vville, P#, Pnom, Pprix, Qte)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>par les trois schémas</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a></a>Vendeur(V#, Vnom, Vville)</span>
-<span id="cb5-2"><a></a>Produit(P#, Pnom, Pville)</span>
-<span id="cb5-3"><a></a>Livraison(V#, P#, Qte)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>alors au lieu de stocker une relation <code>R(V#, Vnom, Vville, P#, Pnom, Pville, Qte)</code>, on stockera ses projections:</p>
-<p><span class="math display">\[\pi_{\texttt{V\#,Vnom,Vville}}(\texttt{R}) \qquad \pi_{\texttt{P\#,Pnom,Pville}}(\texttt{R}) \qquad \pi_{\texttt{V\#,P\#,Qte}}(\texttt{R})\]</span></p>
-<p><i class="fa-solid fa-brain" aria-label="brain"></i> Peut-on retrouver <code>R</code> à partir de ces trois projections ?</p>
-</section><section id="décomposition-sans-perte-dinformation-2" class="slide level2 center"><h2>Décomposition sans perte d’information</h2>
-<ul>
-<li><p>La décomposition doit garantir que pour toute relation <code>R</code>, ses projections contiennent la même information que <code>R</code> au sens que l’on doit pouvoir reconstruire <code>R</code> à partir de ses projections</p></li>
-<li><p>Comment tenter de reconstruire <code>R</code> à partir de ses projections ?</p></li>
-</ul>
-<p>On considère la <em>jointure naturelle</em></p>
-<p><span class="math display">\[\pi_{\texttt{V\#,Vnom,Vville}}(\texttt{R}) \bowtie \pi_{\texttt{P\#,Pnom,Pville}}(\texttt{R}) \bowtie \pi_{\texttt{V\#,P\#,Qte}}(\texttt{R})\]</span></p>
-</section><section id="décomposition-sans-perte-dinformation-3" class="slide level2 center"><h2>Décomposition sans perte d’information</h2>
-<p>La propriété souhaitée s’écrit donc</p>
-<p><span class="math display">\[R = \pi_{\texttt{V\#,Vnom,Vville}}(\texttt{R}) \bowtie \pi_{\texttt{P\#,Pnom,Pville}}(\texttt{R}) \bowtie \pi_{\texttt{V\#,P\#,Qte}}(\texttt{R})\]</span></p>
-<p>pour toute relation <code>R(V#, Vnom, Vville, P#, Pnom, Pville, Qte)</code> satisfaisant les DF</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a></a>Vendeur(V#, Vnom, Vville)</span>
+<span id="cb4-2"><a></a>Produit(P#, Pnom, Pprix)</span>
+<span id="cb4-3"><a></a>Livraison(V#, P#, Qte)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
-<ul>
-<li><p>Est ce vrai?</p></li>
-<li><p>Intuitivement, oui : à partir d’un tuple de <code>Livraison(V#,P#,Qte)</code></p></li>
-<li><p><code>V#</code> permet de récupérer toutes les informations sur le vendeur <code>(V# ⟶ Vnom Vville)</code></p></li>
-<li><p><code>P#</code> permet de récupérer toutes les informations sur le produit <code>(P# ⟶ Pnom Pville)</code></p></li>
-<li><p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> La propriété d’être sans perte d’information est liée à l’ensemble de DF considéré</p></li>
-</ul>
+<p>alors au lieu de stocker une relation <code>R(V#, Vnom, Vville, P#, Pnom, Pprix, Qte)</code>, on stockera ses projections:</p>
+<p><span class="math display">\[\pi_{\texttt{V\#,Vnom,Vville}}(\texttt{R}) \qquad \pi_{\texttt{P\#,Pnom,Pprix}}(\texttt{R}) \qquad \pi_{\texttt{V\#,P\#,Qte}}(\texttt{R})\]</span></p>
 </div>
-</section><section id="décomposition-sans-perte-dinformation-lossless-join" class="slide level2 center"><h2>Décomposition sans perte d’information (lossless join)</h2>
+<div class="fragment">
+<p><i class="fa-solid fa-brain" aria-label="brain"></i> Peut-on retrouver <code>R</code> par jointure à partir de ces trois projections ?</p>
+</div>
+</section><section id="décomposition-sans-perte-dinformation-spi" class="slide level2 center"><h2>Décomposition sans perte d’information (SPI)</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Définition</strong></p>
+<p><strong>Définition : décomposition SPI</strong></p>
 </div>
 <div class="callout-content">
 <p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma de relation et <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span>.</p>
-<p>Une décomposition <span class="math inline">\(\{\mathcal{A}_1,..., \mathcal{A}_k\}\)</span> est <em>sans perte d’information par rapport à</em> <span class="math inline">\(\Sigma\)</span> si pour toute relation <span class="math inline">\(R\)</span> de schéma <span class="math inline">\(\mathcal{A}\)</span> satisfaisant <span class="math inline">\(\Sigma\)</span> on a</p>
-<p><span class="math display">\[R= \pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)\]</span></p>
+<p>Une décomposition <span class="math inline">\(\mathcal{D} = \{\mathcal{A}_1,..., \mathcal{A}_n\}\)</span> est <em>sans perte d’information par rapport à</em> <span class="math inline">\(\Sigma\)</span> si pour toute relation <span class="math inline">\(R\)</span> de schéma <span class="math inline">\(\mathcal{A}\)</span> satisfaisant <span class="math inline">\(\Sigma\)</span>,</p>
+<ul>
+<li><span class="math inline">\(R = R_1 \bowtie R_2 \bowtie...\bowtie R_n \quad\)</span></li>
+<li>où les <span class="math inline">\(\bowtie\)</span> sont des jointures naturelles.</li>
+<li>et où, pour tout <span class="math inline">\(i\)</span>, <span class="math inline">\(R_i\)</span> est la projection de <span class="math inline">\(R\)</span> sur le sous-schéma <span class="math inline">\(\mathcal{A}_i\)</span>.</li>
+</ul>
 </div>
 </div>
 </div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>La jointure est l’opération inverse de la décomposition, on recompose l’information par jointure.</p></li>
+<li><p>La décomposition doit garantir que pour toute relation <code>R</code>, ses projections contiennent la même information que <code>R</code> au sens que l’on doit pouvoir reconstruire <code>R</code> par jointure à partir de ses projections.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> La propriété d’être sans perte d’information est liée à l’ensemble de DF considéré</p>
+</div>
+</section><section id="exemple-de-décomposition-spd" class="slide level2 smaller center"><h2>Exemple de décomposition SPD</h2>
+<p>On décompose une relation <span class="math inline">\(\verb!R!(\texttt{V\#, Vnom, Vville, P\#, Pnom, Pprix, Qte})\)</span> vérifiant</p>
+<p><span class="math inline">\(\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}\)</span> en 3 relations</p>
+<ul>
+<li><span class="math inline">\(\verb!Vendeur!=\pi_{\texttt{V\#,Vnom,Vville}}(R)\)</span></li>
+<li><span class="math inline">\(\verb!Produit!=\pi_{\texttt{P\#,Pnom,Pprix}}(R)\)</span></li>
+<li><span class="math inline">\(\verb!Livraison!=\pi_{\texttt{V\#,P\#,Qte}}(R)\)</span></li>
+</ul>
+<p>Peut-on affirmer que</p>
+<p><span class="math display">\[\verb!R! = \verb!Vendeur! \bowtie \verb!Livraison! \bowtie \verb!Produit! \quad ?\]</span></p>
+<p>D’après notre pratique du SQL, oui car les clés de <span class="math inline">\(Vendeur\)</span> et <span class="math inline">\(Produit\)</span> sont présentes dans <span class="math inline">\(Livraison\)</span> (notion de clés étrangères).</p>
 </section><section id="exemple-de-décomposition-avec-perte-dinformation" class="slide level2 smaller center"><h2>Exemple de décomposition avec perte d’information</h2>
 <p><span class="math inline">\(\mathcal{A}=\{A,B,C\} \quad  \Sigma=\{AB\rightarrow C\}\)</span></p>
 <p>Décomposition <span class="math inline">\(\mathcal{A}_1=\{A,B\}  \quad  \mathcal{A}_2=\{B,C\}\)</span></p>
@@ -745,49 +751,25 @@
 <td style="text-align: center;"><strong>3</strong></td>
 </tr>
 </tbody>
-</table></section></section><section><section id="algorithme-de-poursuite" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Algorithme de poursuite</h1>
+</table>
+<p>Le problème est que la clé de <span class="math inline">\(\{A,B\}\)</span> (c.a.d. <span class="math inline">\((A,B)\)</span>) n’est pas présente dans <span class="math inline">\(\{B,C\}\)</span>.</p>
+</section></section><section><section id="algorithme-de-poursuite" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Algorithme de poursuite</h1>
 
 </section><section id="algorithme-de-poursuite-chase-algorithm" class="slide level2 center"><h2>Algorithme de poursuite (chase algorithm)</h2>
 <ul>
-<li><p>Comment déterminer si une décomposition est sans perte d’information?</p></li>
-<li><p>Si <span class="math inline">\(R\)</span> est une relation de schéma <span class="math inline">\(\mathcal{A}\)</span> on a toujours que</p></li>
-</ul>
-<p><span class="math display">\[R ⊆ \pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)\]</span></p>
-<p>par définition de la jointure naturelle et de la projection</p>
-<ul>
-<li>Le seul problème est que les jointures peuvent générer des tuples supplémentaires</li>
-<li>Mais comme <span class="math inline">\(R\)</span> est supposée vérifier les DF de <span class="math inline">\(\Sigma\)</span>, l’inclusion inverse est garantie dans <em>certains cas</em>
-</li>
-<li>Pour le savoir, un algorithme simple existe appelé <em>algorithme de poursuite</em> <i class="fa-solid fa-champagne-glasses" aria-label="champagne-glasses"></i>
-</li>
+<li><p>Le risque d’une mauvaise décomposition est que les jointures créent des tuples qui n’éxistaient pas dans la relation initiale (voir l’exemple précédent de décomposition avec perte d’information).</p></li>
+<li><p>Pour le savoir, un algorithme simple existe appelé <em>algorithme de poursuite</em></p></li>
 </ul></section><section id="algorithme-de-poursuite-exemple" class="slide level2 center"><h2>Algorithme de poursuite : exemple</h2>
-<p>Si on remplace le schéma <code>(V#, Vnom, Vville, P#, Pnom, Pville, Qte)</code> par</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a></a>Vendeur(V#, Vnom, Vville)}</span>
-<span id="cb6-2"><a></a>Produit(P#, Pnom, Pville)}</span>
-<span id="cb6-3"><a></a>Livraison(V#, P#, Qte)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>A-t-on</p>
-<p><span class="math display">\[\pi_{\texttt{V\#,Vnom,Vville}}(\texttt{R}) \bowtie \pi_{\texttt{P\#,Pnom,Pville}}(\texttt{R}) \bowtie \pi_{\texttt{V\#,P\#,Qte}}(R) \subset \texttt{R} \quad ?\]</span></p>
-</section><section class="slide level2 center"><p>Soit <span class="math inline">\(t\)</span> un tuple dans la jointure</p>
-<table class="caption-top">
-<thead><tr class="header">
-<th style="text-align: center;">V#</th>
-<th style="text-align: left;">Vnom</th>
-<th style="text-align: left;">Vville</th>
-<th style="text-align: center;">P#</th>
-<th style="text-align: left;">Pnom</th>
-<th style="text-align: left;">Pville</th>
-<th style="text-align: left;">Qte</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(a\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(b\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(c\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(d\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(e\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(f\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(g\)</span></td>
-</tr></tbody>
-</table></section><section id="algorithme-de-poursuite-exemple-1" class="slide level2 smaller center"><h2>Algorithme de poursuite : exemple</h2>
+<p>On décompose une relation <span class="math inline">\(\verb!R!(\texttt{V\#, Vnom, Vville, P\#, Pnom, Pprix, Qte})\)</span> vérifiant <span class="math inline">\(\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}\)</span></p>
+<p>en trois relations :</p>
+<ul>
+<li><span class="math inline">\(\verb!Vendeur!=\pi_{\texttt{V\#,Vnom,Vville}}(R)\)</span></li>
+<li><span class="math inline">\(\verb!Produit!=\pi_{\texttt{P\#,Pnom,Pprix}}(R)\)</span></li>
+<li><span class="math inline">\(\verb!Livraison!=\pi_{\texttt{V\#,P\#,Qte}}(R)\)</span></li>
+</ul>
+<p>Par définition des projections et des jointures, on sait que : <span class="math inline">\(\texttt{R} \subset \verb!Vendeur! \bowtie \verb!Livraison! \bowtie \verb!Produit!\)</span></p>
+<p>On veut prouver que : <span class="math inline">\(\verb!Vendeur! \bowtie \verb!Livraison! \bowtie \verb!Produit! \subset \texttt{R}\)</span></p>
+</section><section id="algorithme-de-poursuite-exemple-1" class="slide level2 smaller center"><h2>Algorithme de poursuite : exemple</h2>
 <p>Soit <span class="math inline">\(t\)</span> un tuple dans la jointure</p>
 <table class="caption-top">
 <thead><tr class="header">
@@ -796,7 +778,7 @@
 <th style="text-align: left;">Vville</th>
 <th style="text-align: center;">P#</th>
 <th style="text-align: left;">Pnom</th>
-<th style="text-align: left;">Pville</th>
+<th style="text-align: left;">Pprix</th>
 <th style="text-align: left;">Qte</th>
 </tr></thead>
 <tbody><tr class="odd">
@@ -809,10 +791,12 @@
 <td style="text-align: left;"><span class="math inline">\(g\)</span></td>
 </tr></tbody>
 </table>
+<p>On veut prouver que <span class="math inline">\(t \in R\)</span>.</p>
+<p>Par définition des projections :</p>
 <ul>
-<li><p><span class="math inline">\((a, b, c)\in \pi_{\texttt{V\#,Vnom,Vville}}(\texttt{R})\)</span> donc il existe <span class="math inline">\(e_1, f_1, g_1\)</span> tels que <span class="math inline">\((a, b, c, d_1, e_1, f_1, g_1) \in \texttt{R}\)</span></p></li>
-<li><p><span class="math inline">\((d,e,f) \in \pi_{\texttt{P\#,Pnom,Pville}}(\texttt{R})\)</span> donc il existe <span class="math inline">\(a_2, b_2, c_2, g_2\)</span> tels que <span class="math inline">\((a_2, b_2, c_2, d, e, f, g_2)\in \texttt{R}\)</span></p></li>
-<li><p><span class="math inline">\((a,d,g)\in \pi_{\texttt{V\#,P\#,Qte}}(R)\)</span> donc il existe <span class="math inline">\(b_3,c_3,e_3,f_3\)</span> tels que <span class="math inline">\((a,b_3,c_3,d,e_3,f_3,g)\in \texttt{R}\)</span></p></li>
+<li><p><span class="math inline">\((a, b, c)\in \texttt{Vendeur}\)</span> donc il existe <span class="math inline">\(e_1, f_1, g_1\)</span> tels que <span class="math inline">\((a, b, c, d_1, e_1, f_1, g_1) \in \texttt{R}\)</span></p></li>
+<li><p><span class="math inline">\((d,e,f) \in \texttt{Produit}\)</span> donc il existe <span class="math inline">\(a_2, b_2, c_2, g_2\)</span> tels que <span class="math inline">\((a_2, b_2, c_2, d, e, f, g_2)\in \texttt{R}\)</span></p></li>
+<li><p><span class="math inline">\((a,d,g)\in \texttt{Livraison}\)</span> donc il existe <span class="math inline">\(b_3,c_3,e_3,f_3\)</span> tels que <span class="math inline">\((a,b_3,c_3,d,e_3,f_3,g)\in \texttt{R}\)</span></p></li>
 <li><p>On peut le représenter comme ceci :</p></li>
 </ul>
 <table class="caption-top" style="width:100%;">
@@ -833,7 +817,7 @@
 <th style="text-align: center;"><code>Vville</code></th>
 <th style="text-align: center;"><code>P#</code></th>
 <th style="text-align: center;"><code>Pnom</code></th>
-<th style="text-align: center;"><code>Pville</code></th>
+<th style="text-align: center;"><code>Pprix</code></th>
 <th style="text-align: center;"><code>Qte</code></th>
 </tr></thead>
 <tbody>
@@ -868,11 +852,7 @@
 <td style="text-align: center;"><span class="math inline">\(g\)</span></td>
 </tr>
 </tbody>
-</table>
-
-<aside><div>
-<p>Vendeur (resp. Produit, Livraison) désigne l’ensemble des tuples de <span class="math inline">\(R\)</span> qui se projettent sur <span class="math inline">\(a,b,c\)</span> (resp. <span class="math inline">\(d,e,f\)</span> et <span class="math inline">\(a,d,g\)</span>) lorsque on projette <span class="math inline">\(R\)</span> sur <code>V#,Vnom,Vville</code> (resp. <code>P#, Pnom, Pville</code> et <code>V#, P#, Qte</code>)</p>
-</div></aside></section><section id="algorithme-de-poursuite-exemple-2" class="slide level2 smaller center"><h2>Algorithme de poursuite : exemple</h2>
+</table></section><section id="algorithme-de-poursuite-exemple-2" class="slide level2 smaller center"><h2>Algorithme de poursuite : exemple</h2>
 <table class="caption-top" style="width:100%;">
 <colgroup>
 <col style="width: 14%">
@@ -891,7 +871,7 @@
 <th style="text-align: center;"><code>Vville</code></th>
 <th style="text-align: center;"><code>P#</code></th>
 <th style="text-align: center;"><code>Pnom</code></th>
-<th style="text-align: center;"><code>Pville</code></th>
+<th style="text-align: center;"><code>Pprix</code></th>
 <th style="text-align: center;"><code>Qte</code></th>
 </tr></thead>
 <tbody>
@@ -936,7 +916,7 @@
 <th style="text-align: center;"><code>Vville</code></th>
 <th style="text-align: center;"><code>P#</code></th>
 <th style="text-align: center;"><code>Pnom</code></th>
-<th style="text-align: center;"><code>Pville</code></th>
+<th style="text-align: center;"><code>Pprix</code></th>
 <th style="text-align: center;"><code>Qte</code></th>
 </tr></thead>
 <tbody>
@@ -972,7 +952,7 @@
 </tr>
 </tbody>
 </table></section><section id="algorithme-de-poursuite-exemple-suite" class="slide level2 smaller center"><h2>Algorithme de poursuite : exemple (suite)</h2>
-<p><code>P#⟶ Pnom, Pville</code> donc <span class="math inline">\(e_3=e\)</span> et <span class="math inline">\(f_3=f\)</span></p>
+<p><code>P#⟶ Pnom, Pprix</code> donc <span class="math inline">\(e_3=e\)</span> et <span class="math inline">\(f_3=f\)</span></p>
 <table class="caption-top">
 <thead><tr class="header">
 <th style="text-align: center;"></th>
@@ -981,7 +961,7 @@
 <th style="text-align: center;"><code>Vville</code></th>
 <th style="text-align: center;"><code>P#</code></th>
 <th style="text-align: center;"><code>Pnom</code></th>
-<th style="text-align: center;"><code>Pville</code></th>
+<th style="text-align: center;"><code>Pprix</code></th>
 <th style="text-align: center;"><code>Qte</code></th>
 </tr></thead>
 <tbody>
@@ -1017,8 +997,8 @@
 </tr>
 </tbody>
 </table>
-<p>On a obtenu une ligne égale au tuple <span class="math inline">\(t=(a,b,c,d,e,f,g)\)</span> donc <span class="math inline">\(t\in \texttt{R}\)</span> (tous les tuples qui se projettent sur <span class="math inline">\(a,f,g\)</span> coïncident avec <span class="math inline">\(t\)</span>)</p>
-<p>On en déduit que la décomposition est Sans Perte d’Information (SPI) <i class="fa-solid fa-champagne-glasses" aria-label="champagne-glasses"></i></p>
+<p>On a obtenu une ligne égale au tuple <span class="math inline">\(t=(a,b,c,d,e,f,g)\)</span> donc <span class="math inline">\(t\in \texttt{R}\)</span> (tous les tuples qui se projettent sur <span class="math inline">\(a,f,g\)</span> coïncident avec <span class="math inline">\(t\)</span> du fait des clés des trois relations).</p>
+<p>On en déduit que la décomposition est <strong>Sans Perte d’Information (SPI)</strong>.</p>
 </section><section id="algorithme-de-poursuite-cas-général" class="slide level2 smaller center"><h2>Algorithme de poursuite : cas général</h2>
 <ul>
 <li><p><strong>Entrée</strong> : un schéma <span class="math inline">\(\mathcal{A}\)</span>, une décomposition <span class="math inline">\(\{\mathcal{A}_1,...,\mathcal{A}_k\}\)</span> et un ensemble <span class="math inline">\(\Sigma\)</span> de DF</p></li>
@@ -1031,27 +1011,47 @@
 <ul>
 <li><p>Répéter tant que possible : s’il existe une DF <span class="math inline">\(X\rightarrow Y\)</span> dans <span class="math inline">\(\Sigma\)</span> et deux lignes du tableau en accord sur <span class="math inline">\(X\)</span>, égaliser ces deux lignes sur <span class="math inline">\(Y\)</span></p></li>
 <li><p><strong>Sortie</strong> : Si on obtient une ligne sans valeur indicée, la décomposition est sans perte d’information, sinon il y a perte d’information</p></li>
-</ul></section><section id="commentaires-sur-lalgorithme-de-poursuite" class="slide level2 smaller center"><h2>Commentaires sur l’algorithme de poursuite</h2>
-<p>L’objectif de l’algorithme de poursuite est de vérifier que tout tuple de <span class="math inline">\(\pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)\)</span> est aussi un tuple de <span class="math inline">\(R\)</span></p>
-<p>À l’initialisation, on part d’un tuple de <span class="math inline">\(\pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)\)</span> qu’on note symboliquement <span class="math inline">\((a, b, c, \ldots)\)</span> avec des symboles non indicés</p>
-<p>Pour chaque <span class="math inline">\(i \leq k\)</span>, on utilise le fait que pour chaque tuple de <span class="math inline">\(\pi_{\mathcal{A}_i}(R)\)</span> il existe un ensemble de tuples de <span class="math inline">\(R\)</span> qui coïncident avec <span class="math inline">\((a, b, c, \ldots)\)</span> sur <span class="math inline">\(\mathcal{A}_i\)</span>. On note génériquement ces tuples de <span class="math inline">\(R\)</span> en indiçant les noms de variables par <span class="math inline">\(i\)</span> pour toutes les variables qui ne sont pas dans <span class="math inline">\(\mathcal{A}_i\)</span></p>
-<p>Chacun des sous-ensembles de tuples indicés par <span class="math inline">\(i \leq k\)</span> définit un sous-ensemble de tuples de <span class="math inline">\(R\)</span></p>
-<p>On veut se convaincre que <span class="math inline">\((a, b, c, \ldots)\)</span> appartient à l’un de ces sous-ensembles</p>
-<div class="fragment">
-<p>L’algorithme de poursuite utilise les DF de Σ, pour restreindre les <span class="math inline">\(k\)</span> sous-ensembles</p>
-</div>
-</section><section id="commentaires-suite" class="slide level2 smaller center"><h2>Commentaires (suite)</h2>
-<p>L’algorithme de poursuite est un algorithme de <em>réécriture</em></p>
-<div class="fragment">
-<p>L’algorithme de poursuite est <em>non-déterministe</em> : à chaque étape, il est parfois possible d’invoquer plusieurs DFs pour réécrire une ou plusieurs lignes</p>
-</div>
-<div class="fragment">
-<p>Un point important de l’analyse de l’algorithme de poursuite consiste à vérifier que ce non-déterminisme n’est pas un problème : l’algorithme de poursuite termine par un succès ou un échec (blocage) quelle que soit la suite des choix effectués</p>
-<div class="proof">
-<p><span class="proof-title"><em>Preuve</em> (<i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i>). </span></p>
-</div>
-</div>
-</section><section id="algorithme-de-poursuite-exemple-2-1" class="slide level2 smaller center"><h2>Algorithme de poursuite : exemple 2</h2>
+</ul>
+<!--
+## Commentaires  sur l'algorithme de poursuite {.smaller}
+
+L'objectif de l'algorithme de poursuite est de vérifier que tout tuple de  $\pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)$ est aussi un tuple de $R$
+
+À l'initialisation, on part d'un tuple de $\pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)$ qu'on note symboliquement $(a, b, c, \ldots)$ avec des symboles non indicés
+
+Pour chaque $i \leq k$, on utilise le fait que pour chaque tuple de  $\pi_{\mathcal{A}_i}(R)$ il existe un ensemble de tuples de $R$ 
+qui coïncident avec $(a, b, c, \ldots)$ sur $\mathcal{A}_i$. On note génériquement ces tuples de $R$ en indiçant les noms de variables par $i$ pour toutes les variables qui ne sont pas dans $\mathcal{A}_i$ 
+
+Chacun des  sous-ensembles de tuples indicés par  $i \leq k$   définit un sous-ensemble de tuples de $R$
+
+On veut se convaincre que $(a, b, c, \ldots)$ appartient à l'un de ces sous-ensembles
+
+. . .
+
+L'algorithme de poursuite utilise les DF de Σ, pour restreindre les $k$ sous-ensembles  
+
+
+## Commentaires (suite)  {.smaller}
+
+L'algorithme de poursuite est un algorithme de *réécriture*
+
+. . .
+
+L'algorithme de poursuite est *non-déterministe* : à chaque étape,  il est parfois possible d'invoquer 
+plusieurs DFs pour réécrire une ou plusieurs lignes
+
+. . .
+
+Un point important de l'analyse de l'algorithme de poursuite consiste à vérifier que ce non-déterminisme n'est 
+pas un problème : l'algorithme de poursuite termine par un succès ou un échec (blocage) quelle que soit la suite 
+des choix effectués 
+
+::: {.proof}
+
+### 
+
+:::
+--></section><section id="algorithme-de-poursuite-exemple-2-1" class="slide level2 smaller center"><h2>Algorithme de poursuite : exemple 2</h2>
 <p>Considérons l’exemple : <span class="math inline">\(\mathcal{A}=\{A,B,C,D\}\)</span> avec <span class="math inline">\(\mathcal{A}_1=\{A,B\}\)</span>, <span class="math inline">\(\mathcal{A}_2=\{B,C\}\)</span> et <span class="math inline">\(\mathcal{A}_3=\{C,D\}\)</span></p>
 <p>Soit <span class="math inline">\(\Sigma=\{{C}\rightarrow{D}; {B}\rightarrow{A}\}\)</span>.</p>
 <p>Soit <span class="math inline">\(t=(a,b,c,d)\)</span>. Soit <span class="math inline">\(t_1,t_2,t_3\)</span> les tuples de <span class="math inline">\(R\)</span> suivants:</p>
@@ -1249,6 +1249,10 @@
 </tr>
 </tbody>
 </table>
+<p>On ne peut aller plus loin, la décomposition est avec perte d’information.</p>
+</section></section><section><section id="forme-normale-3-fn3" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Forme Normale 3 (FN3)</h1>
+
+</section><section id="objectif" class="slide level2 center"><h2>Objectif</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1258,19 +1262,553 @@
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p>Mais on ne peut pas aller plus loin : la jointure des projections contient des tuples qui ne sont pas dans la relation originelle</p>
+<p>Construire une décomposition :</p>
+<ul>
+<li>Sans Perte d’Information (SPI)</li>
+<li>Sans perte de Dépendances Fonctionnelles</li>
+<li>Dont les éléments sont en FN3 par rapports aux dépendances projetées</li>
+</ul>
 </div>
 </div>
 </div>
-</section></section><section><section id="décomposition-fnbc-spi" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition FNBC SPI</h1>
+</section><section id="forme-normale-1-fn1" class="slide level2 center"><h2>Forme normale 1 (FN1)</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition : forme normale 1 (FN1)</strong></p>
+</div>
+<div class="callout-content">
+<p>Un schéma relationnel <span class="math inline">\(\mathcal{A}\)</span> est en forme normale 1 (FN1) si tous les attributs ont des valeurs atomiques (pas de liste de valeurs).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Proposition</strong></p>
+</div>
+<div class="callout-content">
+<p>D’après la théorie de l’algèbrer relationnel, toute relation est en FN1.</p>
+</div>
+</div>
+</div>
+</section><section id="forme-normale-2-fn2" class="slide level2 center"><h2>Forme normale 2 (FN2)</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Idée</strong></p>
+</div>
+<div class="callout-content">
+<p>Un schéma relationnel est en deuxième forme normale (FN2) si tout attribut non identifiant (extérieur à une clé) ne dépend pas d’une partie d’une clé mais de toute la clé.</p>
+<p>La FN2 assure seulement une non-redondance partielle de l’information.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition : forme normale 2 (FN2)</strong></p>
+</div>
+<div class="callout-content">
+<p>Un schéma relationnel <span class="math inline">\(\mathcal{A}\)</span> est en forme normale 2 (FN2) relativement à un ensemble de DF <span class="math inline">\(\Sigma\)</span> ssi</p>
+<ul>
+<li>pour toute clé <span class="math inline">\(X\)</span> et tout <span class="math inline">\(Y\)</span> non inclus dans <span class="math inline">\(X\)</span>, il n’existe pas <span class="math inline">\(X'\)</span> strictement inclus dans <span class="math inline">\(X\)</span> tel que <span class="math inline">\(X' \to Y\)</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Méthode pour vérifier la FN2</strong></p>
+</div>
+<div class="callout-content">
+<p>Pour toute clé <span class="math inline">\(X\)</span>, vérifier que la fermeture de tout sous-ensemble strict de <span class="math inline">\(X\)</span> est inclus dans <span class="math inline">\(X\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="forme-normale-3-fn3-1" class="slide level2 center"><h2>Forme normale 3 (FN3)</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Idée</strong></p>
+</div>
+<div class="callout-content">
+<p>Un schéma relationnel est en troisième forme normale (FN3) si il est en FN2 et si tous les attributs non identifiants (extérieur à une clé) dépendent directement d’une clé et pas par transitivité via des attributs qui ne sont pas dans une clé , autrement dit il est en FN3 s’il n’existe pas de dépendance fonctionnelle entre deux attributs non clés.</p>
+<p>La FN3 assure une non-redondance partielle acceptable de l’information.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition : forme normale 3 (FN3)</strong></p>
+</div>
+<div class="callout-content">
+<p>Un schéma relationnel <span class="math inline">\(\mathcal{A}\)</span> est en forme normale 3 (FN3) relativement à un ensemble de DF <span class="math inline">\(\Sigma\)</span> ssi pour toute dépendance non triviale <span class="math inline">\(X \to Y\)</span> de <span class="math inline">\(\Sigma\)</span>, on a</p>
+<ul>
+<li>le membre gauche <span class="math inline">\(X\)</span> est une super-clé</li>
+<li>
+<strong>ou</strong> le membre droit <span class="math inline">\(Y\)</span> fait partie d’une clé.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section><section id="exemple-fn3" class="slide level2 smaller center scrollable"><h2>Exemple FN3</h2>
+<p><span class="math inline">\(\mathcal{A_1}=(\texttt{V\#, Vnom, Vville}) \quad \mathcal{A_2}=(\texttt{P\#, Pnom, Pprix}) \quad \mathcal{A_3}=(\texttt{V\#, P\#, Qte})\)</span></p>
+<p><span class="math inline">\(\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}\)</span></p>
+<p>La décomposition est-elle</p>
+<ol type="1">
+<li>en FN3 ?</li>
+<li>SPD ?</li>
+<li>SPI ?</li>
+</ol>
+<div class="fragment">
+<ol type="1">
+<li><ul>
+<li>
+<span class="math inline">\(\pi_{\mathcal{A_1}}(\Sigma)\)</span> équivaut à <span class="math inline">\(\{\texttt{V\#} \to \texttt{Vnom Vville}\}\)</span> qui vérifie la FN3,</li>
+<li>
+<span class="math inline">\(\pi_{\mathcal{A_2}}(\Sigma)\)</span> équivaut à <span class="math inline">\(\{\texttt{P\#} \to \texttt{Pnom Pprix}\}\)</span> qui vérifie la FN3,</li>
+<li>
+<span class="math inline">\(\pi_{\mathcal{A_3}}(\Sigma)\)</span> équivaut à <span class="math inline">\(\{\texttt{V\# P\#} \to \texttt{Qte}\}\)</span> qui vérifie la FN3.</li>
+<li>La décomposition est donc FN3.</li>
+</ul></li>
+<li>Elle est SPD car les DF de <span class="math inline">\(\Sigma\)</span> sont locales à au moins un sous-schéma donc elles sont préservées.</li>
+<li>Elle est SPI (montré précédemment).</li>
+</ol>
+</div>
+</section><section id="exemple-non-fn3" class="slide level2 smaller center scrollable"><h2>Exemple non FN3</h2>
+<p><span class="math inline">\(\mathcal{A}=\)</span> <code>(A, B, C, D, E)</code> et <code>Σ={A → C, BC → D, AD → E}</code></p>
+<ol type="1">
+<li><p>Quelles sont les clés ?</p></li>
+<li><p>Le schéma est-il en FN3 ? en FN2 ?</p></li>
+<li><p>Clé unique <span class="math inline">\(\verb!AB!\)</span>.</p></li>
+</ol>
+<ul>
+<li>
+<span class="math inline">\(\verb!A!\)</span> et <span class="math inline">\(\verb!B!\)</span> ne sont jamais à droite d’une dépendance donc toute clé doit contenir <span class="math inline">\(\{AB\}\)</span>.</li>
+<li>
+<span class="math inline">\(\{AB\}^+ = \mathcal{A}\)</span>, <span class="math inline">\(\{A\}^+ = \mathcal{AC}\)</span>, <span class="math inline">\(\{B\}^+ = \mathcal{B}\)</span>.</li>
+</ul>
+<ol start="2" type="1">
+<li>Ni FN2, ni FN3 car :
+<ul>
+<li>
+<span class="math inline">\(A → C\)</span> ne vérifie pas la règle FN2.</li>
+<li>Aucune des DF de <span class="math inline">\(\Sigma\)</span> ne vérifie la régle FN3.</li>
+</ul>
+</li>
+</ol></section></section><section><section id="algorithme-de-décomposition-en-fn3-spi-et-spd" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Algorithme de décomposition en FN3 SPI et SPD</h1>
+<!-- //idée mais non SPD chercher un algorithme
+## Décomposition en FN2
 
-</section><section id="algorithme-1" class="slide level2 center"><h2>Algorithme</h2>
-<div class="pseudocode-container quarto-float" data-pseudocode-number="1" data-no-end="false" data-comment-delimiter="//" data-indent-size="1.2em" data-caption-prefix="Algorithme" data-line-number-punc=":" data-line-number="true">
-<div class="pseudocode">
-\begin{algorithm} \caption{Décomposition FNBC} \begin{algorithmic} \Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$} \State \Comment{Initialisation de la décomposition} \State $D ← \{\mathcal{A}\}$ \State \While{$\exists \mathcal{B} \in D$ not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$} \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X\qquad$ \Comment{DF non triviale! $Y \neq \emptyset$} \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$ \EndWhile \State \Return $D$ \EndProcedure \end{algorithmic} \end{algorithm}
+::: {.callout-important}
+### Méthode
+Soit un schéma relationnel $\mathcal{A}$ respectant les DF **irredondantes** $\Sigma$ qui n'est pas FN2, c.a.d.
+
+- il existe une dépendance $X'\to a$ qui n'est pas FN2, c.a.d. il existe une clé $X$, une sous-clé stricte $X'$, un attribut $a$ extérieur à $X$ tels que $X' \to a$. 
+- On pose B = \{ b \in \mathcal{A}\X | \exists (X' \to b) \in \Sigma}
+- On décompose $\mathcal{A}$ en $\mathcal{A_1} = (A\B)$ et $\mathcal{A_2} = (X' \cup B)$
+
+Autrement dit, on enlève de $\mathcal{A}$ les attributs déterminés par la sous clé $X'$ qui ne sont pas dans la clé $X$ et on les place dans un nouvelle relation $\mathcal{A_2}$ avec la sous-clé $X'$.
+
+On applique cette méthode récursivement jusqu'à avoir une décomposition FN2.
+:::
+
+::: {.callout-note}
+On peut vérifier :
+- la décomposition est SPF.
+- la décomposition est SPI car on a laissé la clé $X$ de $\mathcal{A}$ dans $\mathcal{A1}$.
+:::
+
+-->
+</section><section id="décomposition-en-fn3" class="slide level2 center"><h2>Décomposition en FN3</h2>
+</section><section id="algorithme-de-construction-dune-fn3" class="slide level2 center"><h2>Algorithme de construction d’une FN3</h2>
+<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:0.8em;padding:10px;border:1px solid #220f61ff;">fonction decomposition_FN3(A, Σ)
+   D :=  ∅                // initialisation de la décomposition D
+   Σ' := min_cover(Σ)     // calcul d'une couverture minimale de Σ
+   
+   for each distinct left member X of a DF in Σ'
+      Y := {y | X → y ∈ Σ'}
+      D := D ⋃ {(X ⋃ Y)} // Ajouter le schéma (X ⋃ Y) à D
+   // la décomposition doit comprendre tous les attributs
+   B := {attributes in A that do not occur in D}
+   D := D ⋃ {(B)}        // Ajouter le schéma (B) à D
+   // dernière partie pour assurer une décomposition SPI
+   If no schemas includes a key of A, add a schema with a key of A
+
+   return D
+</pre>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><em>Dernière partie de l’algorithme</em> : pour avoir une décomposition SPI, il faut s’assurer qu’il y a au-moins une clé de <span class="math inline">\(\mathcal{A}\)</span> dans une des relations de décomposition. Si ce n’est pas le cas, il faut ajouter une relation contenant une clé de <span class="math inline">\(\mathcal{A}\)</span>.</p>
 </div>
 </div>
-</section><section id="remarques" class="slide level2 center"><h2>Remarques</h2>
+</div>
+</section><section id="propriétés-de-lalgorithme" class="slide level2 center"><h2>Propriétés de l’algorithme</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Proposition</strong></p>
+</div>
+<div class="callout-content">
+<p>L’algorithme termine en un nombre fini d’itérations.</p>
+<p>La décomposition produite par l’algorithme est :</p>
+<ul>
+<li><p>en FN3,</p></li>
+<li><p>sans perte d’informations,</p></li>
+<li><p>sans perte de dépendances fonctionnelles.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="exemple-1" class="slide level2 smaller center"><h2>Exemple 1</h2>
+<p><span class="math inline">\(\mathcal{A}=(\texttt{V\#, Vnom, Vville, P\#, Pnom, Pprix, Qte})\)</span></p>
+<p><span class="math inline">\(\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}\)</span></p>
+<p>Appliquer l’algorithme de décomposition à ce schéma relativement à <span class="math inline">\(\Sigma\)</span>.</p>
+<div class="fragment">
+<p><span class="math inline">\(\Sigma\)</span> a pour couverture irredondante <span class="math display">\[\Sigma' = \{\texttt{V\#} \to \texttt{Vnom}, \ \texttt{V\#} \to \texttt{Vville},\ \texttt{P\#} \to \texttt{Pnom}, \ \texttt{P\#} \to \texttt{Pprix},\ \texttt{V\# P\#} \to \texttt{Qte} \}\]</span></p>
+<ul>
+<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{Vnom, Vville}\}\)</span>. <span class="math inline">\(\mathcal{A_1}= \texttt{V\#} \cup Y = (\texttt{V\#, Vnom, Vville})\)</span> <span class="math inline">\(D=\left\{\mathcal{A_1}\right\}\)</span></p></li>
+<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{Pnom, Pprix}\}\)</span>. <span class="math inline">\(\mathcal{A_2}= \texttt{P\#} \cup Y = (\texttt{P\#, Pnom, Pprix})\)</span>. <span class="math inline">\(D=\left\{\mathcal{A_1}, \mathcal{A_2}\right\}\)</span></p></li>
+<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{Qte}\}\)</span>. <span class="math inline">\(\mathcal{A_3}= \texttt{V\# P\#} \cup Y = (\texttt{V\# P\#, Qte})\)</span>. <span class="math inline">\(D=\left\{\mathcal{A_1}, \mathcal{A_2}, \mathcal{A_3}\right\}\)</span></p></li>
+<li><p><span class="math inline">\(B = \emptyset\)</span></p></li>
+</ul>
+<p>On obtient la même décomposition que celle déjà étudiée.</p>
+</div>
+</section><section id="exemple-2" class="slide level2 smaller center"><h2>Exemple 2</h2>
+<p><span class="math inline">\(\mathcal{A}=\)</span> <code>(A, B, C, D, E)</code> et <code>Σ={A → C, BC → D, AD → E}</code></p>
+<p>Appliquer l’algorithme de décomposition à ce schéma relativement à <span class="math inline">\(\Sigma\)</span>.</p>
+<div class="fragment">
+<p>En utilisant l’algorithme de calcul d’une couverture irredondante :</p>
+<ul>
+<li><p>La première phase de sélection donne <span class="math inline">\(\{A → C, BC → D, AD → E\}\)</span></p></li>
+<li><p>La deuxième phase d’élimination d’attribut ne change rien donc <span class="math inline">\(\Sigma\)</span> est sous forme irredondante.</p></li>
+<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{C}\}\)</span>. <span class="math inline">\(\mathcal{A_1}= (\texttt{A,C})\)</span> <span class="math inline">\(D=\left\{\mathcal{A_1}\right\}\)</span></p></li>
+<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{D}\}\)</span>. <span class="math inline">\(\mathcal{A_2}= (\texttt{B,C,D})\)</span>. <span class="math inline">\(D=\left\{\mathcal{A_1}, \mathcal{A_2}\right\}\)</span></p></li>
+<li><p>Pour le déterminant : <span class="math inline">\(Y = \{\texttt{E}\}\)</span>. <span class="math inline">\(\mathcal{A_3}= (\texttt{A,D,E})\)</span>. <span class="math inline">\(D=\left\{\mathcal{A_1}, \mathcal{A_2}, \mathcal{A_3}\right\}\)</span></p></li>
+<li><p><span class="math inline">\(B = \emptyset\)</span></p></li>
+<li><p>On a vu précédemment que le schéma a une clé unique <span class="math inline">\(\verb!AB!\)</span>.</p></li>
+<li><p>On ajoute le schéma <span class="math inline">\(\mathcal{A_4}=(\texttt{AB})\)</span> à la décomposition pour assurer une décomposition SPI.</p></li>
+<li><p>On obtient la décomposition <span class="math inline">\(\{(\texttt{A,C}), (\texttt{A,B,C,D}), (\texttt{A,D,E}), (\texttt{A,B})\}\)</span>.</p></li>
+</ul>
+</div>
+</section></section><section><section id="forme-normale-de-boyce-codd" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Forme normale de Boyce-Codd</h1>
+
+</section><section id="forme-normale-de-boyce-codd-fnbc" class="slide level2 center"><h2>Forme normale de Boyce-Codd (FNBC)</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Un schéma <span class="math inline">\(\mathcal{A}\)</span> est en FNBC par rapport à un ensemble de dépendances fonctionnelles <span class="math inline">\(\Sigma\)</span> sur <span class="math inline">\(\mathcal{A}\)</span> ssi</p>
+<ul>
+<li>pour toute DF non triviale <span class="math inline">\(X\rightarrow Y\)</span> impliquée par <span class="math inline">\(\Sigma\)</span>, <span class="math inline">\(X\)</span> est une <em>sur-clé</em> (ou <em>super-clé</em>).</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="vérifier-la-fnbc" class="slide level2 center"><h2>Vérifier la FNBC</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Proposition</strong></p>
+</div>
+<div class="callout-content">
+<p>Soit <span class="math inline">\(\Sigma'\)</span> un ensemble de DF équivalent à <span class="math inline">\(\Sigma\)</span>.</p>
+<p><span class="math inline">\((\mathcal{A},\Sigma)\)</span> est en FNBC si et seulement si pour toute DF non triviale de <span class="math inline">\(\Sigma'\)</span>, le membre de gauche est une sur-clé (super-clef).</p>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Méthode</strong></p>
+</div>
+<div class="callout-content">
+<p>Il suffit de vérifier la règle FNBC pour un ensemble de DF équivalent à <span class="math inline">\(\Sigma\)</span>.</p>
+</div>
+</div>
+</div>
+</section><section id="fnbc-exemple-1" class="slide level2 smaller center"><h2>FNBC : exemple 1</h2>
+<ul>
+<li>Schéma <span class="math inline">\(\mathcal{A}=\{\texttt{V\#, Vnom, Vville, P\#, Pnom, Pprix, Qte}\}\)</span>
+</li>
+</ul>
+<p>Ensemble de dépendances fonctionnelles <span class="math inline">\(\Sigma\)</span> :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a></a>V# ⟶ Vnom Vville</span>
+<span id="cb5-2"><a></a>P# ⟶ Pnom Pprix</span>
+<span id="cb5-3"><a></a>V# P# ⟶ Qte</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p><span class="math inline">\(\mathcal{A}\)</span> n’est pas en FNBC par rapport <span class="math inline">\(\Sigma\)</span>. En effet ni <span class="math inline">\(\texttt{V\#}\)</span> ni <span class="math inline">\(\texttt{P\#}\)</span> ne sont des sur-clés.</p>
+</div>
+<div class="fragment">
+<p>Mais la décomposition <span class="math inline">\(\mathcal{A_1}=(\texttt{V\#, Vnom, Vville}) \quad \mathcal{A_2}=(\texttt{P\#, Pnom, Pprix}) \quad \mathcal{A_3}=(\texttt{V\#, P\#, Qte})\)</span> est en FNBC.</p>
+</div>
+</section><section id="fnbc-exemple-2" class="slide level2 smaller center"><h2>FNBC : exemple 2</h2>
+<p>Schéma <code>Projet(#projet, #employé, localisation, fonction)</code></p>
+<p>On suppose qu’on a les dépendances :</p>
+<ul>
+<li><code>#projet, #employé ⟶ localisation, fonction</code></li>
+<li><code>localisation ⟶ #projet</code></li>
+</ul>
+<p>Le schéma <code>Projet</code> est en FN3 mais n’est pas en FNBC.</p>
+<p>D’après les DF, il subsiste des redondances.</p>
+<p>On peut avoir les tuples :</p>
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: center;">#projet</th>
+<th style="text-align: center;">#employé</th>
+<th style="text-align: center;">localisation</th>
+<th style="text-align: center;">fonction</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">p1</td>
+<td style="text-align: center;">e1</td>
+<td style="text-align: center;">l1</td>
+<td style="text-align: center;">f1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">p1</td>
+<td style="text-align: center;">e2</td>
+<td style="text-align: center;">l1</td>
+<td style="text-align: center;">f2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">p1</td>
+<td style="text-align: center;">e3</td>
+<td style="text-align: center;">l1</td>
+<td style="text-align: center;">f3</td>
+</tr>
+</tbody>
+</table>
+<p>On constate bien une redondance.</p>
+<!--
+## FNBC : exemple 2
+
+Schéma `Films(titre, année, durée, genre, producteur, acteur)`
+
+
+- On a la dépendance suivante `titre, année ⟶ durée, genre, producteur`
+
+- `titre, année, acteur` est la seule clef
+
+- La DF  `titre, année` ⟶ `durée, genre, producteur` ne respecte pas la condition de FNBC
+
+
+
+
+## Exemple de décomposition
+
+
+Schéma :
+
+`Films(titre, année, durée, genre, producteur, acteur)`
+
+. . .
+
+Une décomposition :
+
+`Films1(titre, année, durée, genre, producteur)`
+
+`Films2(titre, année, acteur)`
+
+- `Films1` est en FNBC.
+- `Films2` est en FNBC.
+-->
+<!--
+## Schéma avec deux attributs
+
+::: {.callout-important}
+
+### Proposition
+
+Soit $\mathcal{A}=\{A,B\}$ un schéma avec deux attributs et $\Sigma$ un ensemble de DF non triviales.
+
+$\mathcal{A}$ est toujours en FNBC par rapport à $\Sigma$
+
+:::
+
+. . .
+
+::: {.proof}
+
+On distingue 4 cas
+
+- $\Sigma=\emptyset$
+- $\Sigma=\{A\rightarrow B\}$
+- $\Sigma=\{B\rightarrow A\}$
+- $\Sigma=\{A\rightarrow B, B\rightarrow A\}$
+
+:::
+-->
+</section><section id="pourquoi-deux-notions-de-forme-normale" class="slide level2 center"><h2>Pourquoi deux notions de forme normale ?</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Proposition</strong></p>
+</div>
+<div class="callout-content">
+<p>Si un schéma <span class="math inline">\(\mathcal{A}\)</span> est en forme normale Boyce-Codd (FNBC) relativement à un ensemble de DF <span class="math inline">\(\Sigma\)</span>, alors <span class="math inline">\(\mathcal{A}\)</span> est en forme normale 3 (FN3) relativement à <span class="math inline">\(\Sigma\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+
+<!--
+::: {.aside}
+
+Le schéma $\mathcal{A} =$ `{Ville, Rue, Numéro, #Bureau_vote}` est en FN3 relativement à `Σ = { Ville, Nom, Rue → #Bureau_vote,  #Bureau_vote  →  Ville }`
+
+Mais ce schéma n'est pas en FNBC.
+
+:::
+-->
+</div>
+<aside><div>
+<p>La réciproque est fausse</p>
+</div></aside></section><section id="exercice" class="slide level2 center"><h2>Exercice</h2>
+<p><span class="math inline">\(\mathcal{A}=\)</span> <code>(A, B, C, D, E)</code> et <code>Σ={A → C, BC → D, AD → E}</code></p>
+<ul>
+<li>Quelles sont les clés ?</li>
+<li>Le schéma est-il en FNBC ?</li>
+<li>Si non, proposer une décomposition SPI en FNBC. Est-elle sans perte de DF?</li>
+</ul>
+<div class="fragment">
+<p>On a calculé précédemment la décomposition FN3 SPI et SPD :</p>
+<p><span class="math display">\[\{(\texttt{A,C}), (\texttt{B,C,D}), (\texttt{A,D,E}), (\texttt{AB})\}\]</span></p>
+<p>Est-elle FNBC ?</p>
+</div>
+</section><section id="niveaux-de-décomposition-dune-relation" class="slide level2 center"><h2>Niveaux de décomposition d’une relation</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Les formes normales correspondent à des niveaux d’élimination des redondances.</p>
+<p>La FNBC élimine toutes les redondances dues aux DF mais toutes les contraintes d’une relation ne se modélisent pas par des DF !</p>
+</div>
+</div>
+</div>
+
+<img data-src="..\images/fn/FN_emboitement.png" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section></section><section><section id="décomposition-fnbc-spi" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition FNBC SPI</h1>
+
+</section><section id="méthode-de-décomposition-fnbc-spi" class="slide level2 center scrollable"><h2>Méthode de décomposition FNBC SPI</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Méthode</strong></p>
+</div>
+<div class="callout-content">
+<p>Soit un schéma relationnel <span class="math inline">\(\mathcal{A}\)</span> respectant les DF <span class="math inline">\(\Sigma\)</span>.</p>
+<ol type="1">
+<li>
+<code>D</code> est initialisée à <span class="math inline">\(\{\mathcal{A}\}\)</span>,</li>
+<li>Soit <code>B</code> une relation de <code>D</code> qui n’est pas FNBC à cause d’une DF non triviale <code>X → a</code> telle que <code>X</code> n’est pas clé de <code>B</code> et que <code>a</code> n’est pas un attribut de <code>X</code>.
+<ul>
+<li>On définit <code>Y</code> comme l’ensemble des attributs de <code>B\X</code> déterminés par <code>X</code>.</li>
+<li>On décompose alors <code>B</code> en :
+<ul>
+<li>
+<code>B1</code> contenant les attributs de <code>X</code> et de <code>Y</code>.</li>
+<li>
+<code>B2</code> contenant tous les attributs de <code>B</code> sauf ceux de <code>Y</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>On boucle jusqu’à ce que toutes les relations soient FNBC.</li>
+</ol>
+</div>
+</div>
+</div>
+<div title="SPI">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>SPI</strong></p>
+</div>
+<div class="callout-content">
+<p>Chaque étape est SPI car on laisse la clé <code>X</code> de <code>B1</code> dans <code>B2</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="algorithme" class="slide level2 center"><h2>Algorithme</h2>
+<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:1em;padding:10px;border:1px solid #220f61ff;">fonction decomposition_FNBC(A,Σ)
+
+   //Initialisation de la décomposition
+   D :=  {A}
+
+   while (∃ B ∈ D, B not BCNF because of Σ ⊨ X → a)
+      Y := X⁺ ⋂ (B\X)               //DF non triviale!  Y ≠ ∅
+      D := (D\{B}) ⋃ { X⋃Y, B\Y }
+   
+return D
+</pre>
+</section><section id="propriétés-de-lalgorithme-1" class="slide level2 center"><h2>Propriétés de l’algorithme</h2>
 <div title="Proposition">
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
@@ -1282,21 +1820,32 @@
 </div>
 <div class="callout-content">
 <ul>
-<li><p>L’algorithme termine</p></li>
-<li><p>Les éléments de la décomposition finale sont en FNBC</p></li>
-<li><p>La décomposition est Sans Perte d’Information (SPI)</p></li>
+<li><p>L’algorithme termine,</p></li>
+<li><p>Les éléments de la décomposition finale sont en FNBC,</p></li>
+<li><p>La décomposition est Sans Perte d’Information (SPI).</p></li>
 </ul>
 </div>
 </div>
 </div>
 </div>
-</section><section id="preuves-1" class="slide level2 center"><h2>Preuves <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i>
-</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Preuves</strong></p>
+</div>
+<div class="callout-content">
 <ul>
 <li><p>La terminaison est triviale : à chaque itération le nombre de parties de <span class="math inline">\(\mathcal{A}\)</span> dans <span class="math inline">\(D\)</span> augmente de <span class="math inline">\(1\)</span> et ce nombre ne peut dépasser <span class="math inline">\(\# \mathcal{A}\)</span></p></li>
 <li><p>La seconde propriété est triviale aussi</p></li>
 <li><p>La propriété SPI se vérifie avec l’algorithme de poursuite (et son analyse): chaque itération de la boucle <code>While</code> est SPI.</p></li>
-</ul></section></section><section><section id="décomposition-fnbc-et-pertes-de-df" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition FNBC et pertes de DF</h1>
+</ul>
+</div>
+</div>
+</div>
+</section></section><section><section id="décomposition-fnbc-et-pertes-de-df" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition FNBC et pertes de DF</h1>
 
 </section><section id="limites-de-la-décomposition-fnbc" class="slide level2 center"><h2>Limites de la décomposition FNBC</h2>
 <div class="callout callout-note callout-titled callout-style-default">
@@ -1312,7 +1861,7 @@
 </div>
 </div>
 </div>
-</section><section id="section-1" class="slide level2 smaller center"><h2></h2>
+</section><section id="section" class="slide level2 smaller center"><h2></h2>
 <p><span class="math inline">\(\mathcal{A} =\)</span> <code>{Ville, Rue, Numéro, #Bureau_vote}</code></p>
 <p><code>Σ = { Ville, Nom, Rue → #Bureau_vote,  #Bureau_vote  →  Ville }</code></p>
 <div class="fragment">
@@ -1337,7 +1886,7 @@
 <p><strong>À noter</strong></p>
 </div>
 <div class="callout-content">
-<p>On peut vérifier qu’<em>aucune</em> décomposition FNBC de <span class="math inline">\(\mathcal{A}\)</span> ne préserve toutes les dépendances fonctionnelles.</p>
+<p>Pour cet exemple, on peut vérifier qu’<em>aucune</em> décomposition FNBC de <span class="math inline">\(\mathcal{A}\)</span> ne préserve toutes les dépendances fonctionnelles.</p>
 </div>
 </div>
 </div>
