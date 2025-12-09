@@ -214,7 +214,7 @@
   };
   </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <meta property="og:title" content="Normalisation I – MA15E045 - Automne 2025">
-<meta property="og:description" content="Dépendances Fonctionnelles. Décompositions">
+<meta property="og:description" content="Dépendances Fonctionnelles, Clés, Fermetures, Couvertures irredondantes.">
 <meta property="og:site_name" content="MA15E045 - Automne 2025">
 </head>
 <body class="quarto-light">
@@ -222,7 +222,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-color="#1c191c" class="quarto-title-block center"><h1 class="title">Normalisation I</h1>
-  <p class="subtitle">Dépendances Fonctionnelles. Décompositions</p>
+  <p class="subtitle">Dépendances Fonctionnelles, Clés, Fermetures, Couvertures irredondantes.</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -230,7 +230,7 @@
 Équipe BD 
 </div>
         <p class="quarto-title-affiliation">
-            <a href="https://u-paris.fr">LPSM Université Paris-Cité</a>
+            <a href="https://u-paris.fr">Université Paris-Cité</a>
           </p>
     </div>
 </div>
@@ -240,7 +240,7 @@
 <ul>
 <li><a href="#/introduction" id="/toc-introduction">Introduction</a></li>
 <li><a href="#/d%C3%A9pendances-fonctionnelles" id="/toc-dépendances-fonctionnelles">Dépendances fonctionnelles</a></li>
-<li><a href="#/cl%C3%A9-et-sur-cl%C3%A9" id="/toc-clé-et-sur-clé">Clé et sur-clé</a></li>
+<li><a href="#/cl%C3%A9s-et-sur-cl%C3%A9s" id="/toc-clés-et-sur-clés">Clés et sur-clés</a></li>
 <li><a href="#/fermeture-dun-ensemble-dattributs" id="/toc-fermeture-dun-ensemble-dattributs">Fermeture d’un ensemble d’attributs</a></li>
 <li><a href="#/couverture-irredondante-dun-ensemble-de-df" id="/toc-couverture-irredondante-dun-ensemble-de-df">Couverture irredondante d’un ensemble de DF</a></li>
 <li><a href="#/fin" id="/toc-fin">Fin</a></li>
@@ -801,7 +801,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <li><p><span class="math inline">\(XY\to YZ\)</span> est équivalent à <span class="math inline">\(XY\to Z\)</span></p></li>
 </ul>
 </div>
-</section></section><section><section id="clé-et-sur-clé" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Clé et sur-clé</h1>
+</section></section><section><section id="clés-et-sur-clés" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Clés et sur-clés</h1>
 
 </section><section id="définitions" class="slide level2 center"><h2>Définitions</h2>
 <p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma et <span class="math inline">\(\Sigma\)</span> une ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span></p>
@@ -917,7 +917,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p>Montrer que <span class="math inline">\(X^+=\{A,B,C,D,E,G\}\)</span></p>
 <p>Donner une clé de <span class="math inline">\(R\)</span> : par exemple <span class="math inline">\(\{A,B,F\}\)</span>, <span class="math inline">\(\{E,F\}\)</span>, <span class="math inline">\(\{F,G\}\)</span>. Il n’y a pas unicité.</p>
 </div>
-</section><section id="fermeture-et-clé" class="slide level2 center"><h2>Fermeture et clé</h2>
+</section><section id="fermetures-et-clés" class="slide level2 center"><h2>Fermetures et clés</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -939,7 +939,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </div>
 </div>
 </div>
-</section><section id="fermeture-et-implication-de-df" class="slide level2 center"><h2>Fermeture et implication de DF</h2>
+</section><section id="fermetures-et-implications-de-df" class="slide level2 center"><h2>Fermetures et implications de DF</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -958,7 +958,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </div>
 </div>
 </div>
-</section><section id="fermeture-et-équivalence-de-df" class="slide level2 center"><h2>Fermeture et équivalence de DF</h2>
+</section><section id="fermetures-et-équivalences-de-df" class="slide level2 center"><h2>Fermetures et équivalences de DF</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1057,7 +1057,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p> </p>
 </div>
 <div class="header-text">
-<p>Dépendances Fonctionnelles. Clés. Fermetures. Décompositions. Perte d’informations. Perte de DF.</p>
+<p>Dépendances Fonctionnelles, Clés, Fermetures, Couvertures irredondantes.</p>
 </div>
 <div class="sb-title">
 <p> </p>
