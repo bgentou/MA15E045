@@ -81,7 +81,7 @@ Pour voir le schéma d'une table avec le client dBeaver, il suffit de dérouler 
 
 Vous pouvez aussi visualiser toutes les tables du schéma par un clic droit sur le schéma puis `Voir le diagramme`.
 
-[](/images/schema-world.png)
+[](/images/td/world/MRD_world.png){fig-align="center" height="70%"}
 
 Dans la deuxième partie du TP, on s'intéresse aux requêtes, c'est-à-dire, les moyens d'extraire une information pertinente d'une base de données.
 

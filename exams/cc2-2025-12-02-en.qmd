@@ -1,0 +1,231 @@
+---
+format:
+  pdf:
+    code-annotations: below
+    code-fold: false
+    toc: false
+    output-file: cc2-2025-12-02-en.pdf
+    include-in-header:
+      - text: "\\lhead{{\\sf  Base de données (BD5) - english \\\\ CC 2 2025-12-02}}"
+  html:
+    standalone: true
+    code-fold: true
+    output-file: cc2-2025-12-02.html
+params:
+    year: 2025 
+    curriculum: "L3 MIASHS/Ingémath/METIS"
+    university: "Université Paris Cité"
+    homepage: "https://bgentou.github.io/MA15E045/"
+    moodle: "https://moodle.u-paris.fr/course/view.php?id=2313"
+
+engine: knitr
+---
+
+
+
+
+::: {layout="[80,20]"}
+
+::: {#first-column}
+
+- **`r stringr::str_glue('{params$curriculum}')`**
+- **`r stringr::str_glue('[{params$university}](https://www.u-paris.fr)')`**
+- `r stringr::str_glue("[Course Homepage]({params$homepage})")`  
+
+::: 
+
+::: {#second-column}
+![](../images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
+:::
+
+:::
+
+
+# CC2 of December 2, 2025
+
+
+::: {.content-hidden when-profile="solution"}
+::: {.callout-warning}
+
+Documents, phones, or any electronic devices are not permitted.
+
+:::
+:::
+
+
+
+## Exercise 1
+
+We want to design a database to record surgical procedures in a clinic.
+
+The following must be recorded in the database:
+
+- Caregivers with a number, surname and first name.
+- Patients with a surname, first name and social security number. A new patient is registered before the procedure concerning him is created.
+
+The future interface for entering an operation will look like this:
+
+- Enter the patient number.
+- Enter the date-time and duration.
+- Enter the list of specialities required, with the number of hours x people required for each speciality. At least one speciality is required for each operation.
+- Specialities are selected from a list previously stored in the database.
+
+Once the operation has been recorded in the database, a second interface will allow the necessary healthcare professionals to be assigned to each operation: 
+
+- For each operation, the healthcare professionals who will be involved and the speciality in which each will be involved are recorded, along with the number of hours they will be involved in that speciality.
+
+
+::: {.callout-note}
+
+### Question 
+
+Write an E/A diagram, with cardinalities, representing the conceptual modelling of the data. 
+
+**Briefly justify** the cardinalities of each association (a few lines maximum per association).
+
+No justifications are required for the choice of entities and associations.
+
+:::
+
+::::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+Explications de certaines cardinalités :
+
+- chaque fois qu'il y a une liste, cela correspond à une cardinalité maximale *plusieurs*.
+- lors de la création d'une opération dans la base, au moins une spécialité est requise donc la cardinalité minimale de l'association *requiert* est 1 du côté *opération*.
+- l'enregistrement des soignants intervenant sur une opération est effectué après la création de l'opération dans la base, donc la cardinalité minimale de l'association *intervient* est 0 du côté *opération*.
+
+![](../images/td/clinique/MCD_clinique.png){fig-align="center" width="80%"}
+
+:::
+
+:::::
+
+
+## Exercise 2
+
+We want to create a database to record the list of actors who have starred in films in their original language and the list of those who have provided the voices for the dubbed versions. We have chosen the conceptual data model below.
+
+Additional information:
+
+- The entity *FILM DOUBLÉ* represents non-original versions of films.
+- The association *joue* records the actors in each original version film, indicating the name of the role played.
+- The association *doublure* records, for each non-original version of a film and each actor who plays in it (role *acteur*), the name of the person who does the dubbing (role *voix*).
+
+
+![](../images/td/cinema/MCD_cinema_VO.png){fig-align="center" width="80%"}
+
+::: {.callout-note}
+
+### Question 
+
+Convert this E/A diagram into a relational model. Do not simplify the E/A diagram.
+
+No justifications required. 
+
+:::
+
+::::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+![](../images/td/cinema/MRD_cinema_VO.png){fig-align="center" width="80%"}
+
+:::
+
+:::::
+
+
+### Question 
+::: {.callout-note}
+
+Which foreign keys should have a `NOT NULL` or `UNIQUE` constraint added when defining tables in SQL? **Justify**.
+
+:::
+
+::::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+Lors de la définition des tables en SQL, il faudra ajouter :
+
+- D'après le MCD, une contrainte `NOT NULL` sur la colonne `id_film_vo` de la table `FILM_DOUBLE` pour traduire la cardinalité minimale 1 de l'association *traduction* du côté de *FILM DOUBLÉ*. 
+- D'après le MCD, une contrainte `NOT NULL` sur la colonne `id_film_vo` de la table `FILM_DOUBLE` pour traduire la cardinalité minimale 1 de l'association *dans la langue* du côté de *FILM DOUBLÉ*. 
+
+:::
+
+:::::
+
+
+
+## Exercise 3
+
+Here is the relational model of data in an IS:
+
+![](../images/td/commandes/MRD_commandes.png){fig-align="centre" width="90%"}
+
+We also know the following constraints:
+
+- Attributes named `numéro` are integers.
+- A *client* (customer) must have a *nom*.
+- A *produit* (product) must have a *prix* that will be of type `money`.
+- There is no *commande* (order) without a customer number.
+- The *date* of a *commande* is of type `timestamptz`, it cannot be empty and is defined by default as the time the order was created.
+- The *quantité* (quantity) of an *ligne de commande* (order line) is an integer, it cannot be empty.
+
+::: {.callout-note}
+
+### Question 
+
+Translate this relational model into SQL by coding all known information. 
+
+No justification required.
+
+:::
+
+::::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+CREATE TABLE client(
+   numero INTEGER,
+   nom VARCHAR(50) NOT NULL,
+   CONSTRAINT client_pk PRIMARY KEY (numero)  
+);
+
+CREATE TABLE commande(
+   numero INTEGER,
+   client INTEGER NOT NULL,
+   date TIMESTAMPTZ DEFAULT now(),
+   CONSTRAINT commande_pk PRIMARY KEY (numero),
+   CONSTRAINT commande_client_fk 
+      FOREIGN KEY (client)
+      REFERENCES client(numero)
+);
+
+CREATE TABLE produit(
+   numero INTEGER,
+   nom VARCHAR(50),
+   prix MONEY NOT NULL,
+   CONSTRAINT produit_pk PRIMARY KEY (numero)  
+);
+
+CREATE TABLE ligne_commande(
+   commande INTEGER,
+   produit INTEGER,
+   quantite INTEGER NOT NULL,
+   CONSTRAINT ligne_commande_pk PRIMARY KEY (commande,produit),
+   CONSTRAINT ligne_commande_commande_fk 
+      FOREIGN KEY (commande)  
+      REFERENCES commande(numero),
+   CONSTRAINT ligne_commande_produit_fk 
+      FOREIGN KEY (produit)  
+      REFERENCES produit(numero)
+);
+```
+
+:::
+
+:::::

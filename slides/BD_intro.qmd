@@ -607,7 +607,7 @@ part de la population d'un état/territoire (désigné par `countrycode`) qui pa
 
 ## Détails du schema `world`
 
-![Image World](/images//world.png)
+![Image World](/images/modelisation/MRD_world2.svg)
 
 ::: {.aside}
 

@@ -2,21 +2,21 @@
   author: "Licence MIASHS UParis Cité"
   date: "2025-09-18"
   path: "schemas/schema-world.html"
-  categories: ["`world`", crowfoot]
+  categories: ["`world`", MRD]
 - title: "Dell DVD Store"
   date: "2025-09-22"
   path: "schemas/schema-dellstore.html"
-  categories: ["`dellstore`",Dell DVD store , crowfoot]
+  categories: ["`dellstore`",Dell DVD store , MRD]
 - title: "Babynames"
   author: "Licence MIASHS UParis Cité"
   date: "2025-09-18"
   path: "schemas/schema-babynames.html"
-  categories: ["`babynames`", INSEE, counts, crowfoot]
+  categories: ["`babynames`", INSEE, counts, MRD]
 - title: "NYCflights"
   author: "Licence MIASHS UParis Cité"
   date: "2025-09-18"
   path: "schemas/schema-nycflights.html"
-  categories: ["`nycflights13`", messy data, roles, datetime, star, crowfoot]
+  categories: ["`nycflights13`", messy data, roles, datetime, star, MRD]
 # - title: "French towns"
 #   author: "Licence MIASHS UParis Cité"
 #   date: "2025-09-18"

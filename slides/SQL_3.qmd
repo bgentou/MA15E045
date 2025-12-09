@@ -1021,9 +1021,11 @@ Mais les fonctions de fenêtre permettent de faire des calculs différents de ce
 
 Soit `f` est une fonction d'agrégation (`SUM`, `AVG`, `MAX`, `MIN`, `COUNT`, etc.)
 ```{sql}
-f(...) OVER (PARTITION BY attribut),  
+f(...) OVER (PARTITION BY attribut) 
 ```
-effectue le calcul sur le groupe de lignes auquel appartient la ligne courante après un partitionnement selon `attribut`  (la "fenêtre" de la ligne courante).
+effectue le calcul sur le groupe de lignes auquel appartient la ligne courante après un partitionnement selon `attribut`.
+
+Ce groupe de lignes est le cadre de la fonction fenêtre pour la ligne courante.
 
 
 
@@ -1095,12 +1097,18 @@ FROM country co NATURAL JOIN R
 
 ## Fonctions fenêtres avec une clause `ORDER BY`
 
-:::{.callout-important}
-Avec une clause `ORDER BY`, la fenêtre est restreinte aux lignes qui précèdent la ligne courante (selon l'ordre indiqué dans `ORDER BY`), après partitionnement.
+```{sql}
+f(...) OVER (
+    PARTITION BY attribut1
+    ORDER BY attribut2 
+  )
+```
+La clause `ORDER BY attribut2` :
 
-La ligne courante est incluse dans le calcul. 
-:::
+- ordonne les lignes de la fenêtre définie par `PARTITION BY attribut1`,
+- restreint le cadre de la fenêtre, selon cet ordre, de la première ligne jusqu'aux lignes pour lesquelles `attribut2` à la même valeur que dans la ligne courante.
 
+<!--
 . . .
 
 :::::{.columns}
@@ -1136,9 +1144,9 @@ Les 3 premières lignes :
 :::{.callout-note}
 La colonne `min` n'a pas changé car la première ligne de la fenêtre contient la valeur minimale de la fenêtre puisqu'on a fait `ORDER BY lifeexpectancy`.
 
-La colonne `max` a changé. Elle est maintenant identique à la colonne `lifeexpectancy` car la ligne courante contient la valeur maximale parmi les lignes qui la précèdent dans "la fenêtre" selon l'ordre `lifeexpectancy`. 
+La colonne `max` a changé. Elle est maintenant identique à la colonne `lifeexpectancy` car la ligne courante contient la valeur maximale parmi les lignes du cadre de la fenêtre défini par `ORDER BY lifeexpectancy`. 
 :::
-
+-->
 
 ## Exemple de fonction fenêtre avec une clause `ORDER BY`
 
@@ -1310,7 +1318,65 @@ order by region, gnp DESC;
 |Western Europe  |Monaco                       |100       |
 ```
 
+## Clause RANGE dans une fonction fenêtre
 
+Il est possible d'ajouter une clause `RANGE` à une clause `ORDER BY` pour modifier le cadre de la fenêtre :
+
+```{.sql}
+f(...) OVER (
+    PARTITION BY attribut1
+    ORDER BY attribut2 
+    RANGE BETWEEN ... AND ...
+  )
+````
+On utilise les mots clés `UNBOUNDED`, `PRECEDING`, `FOLLOWING` et `CURRENT ROW` pour spécifier les bornes de l'intervalle que doit respecter `attribut2`.
+
+
+:::{.callout-note}
+
+- `RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING` : le cadre s'étend à tout le groupe défini par la partition.
+- `RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW` : le cadre s'étend de la première ligne du groupe défini par la partition à la ligne courante.
+
+:::
+
+## Exemples de clause RANGE dans une fonction fenêtre
+
+::::: {.columns}
+::: {.column}
+
+Calcul d'une moyenne mobile sur l'intervalle [GNP ligne courante - 1000 , GNP ligne courante + 1000]
+
+```{.sql}
+SELECT 
+  continent, name_country, 
+  AVG(gnp) OVER 
+  (
+    PARTITION BY continent  
+    ORDER BY gnp DESC
+    RANGE BETWEEN 10000 PRECEDING AND 10000 FOLLOWING 
+  ) mob_avg_gnp
+FROM world.country c 
+ORDER BY continent, gnp DESC;
+```
+:::
+
+::: {.column}
+Calcul d'une moyenne mobile sur l'intervalle [GNP ligne courante - 1000 , GNP ligne courante]
+
+```{.sql}
+SELECT 
+  continent, name_country, 
+  AVG(gnp) OVER 
+  (
+    PARTITION BY continent  
+    ORDER BY gnp DESC
+    RANGE BETWEEN 10000 PRECEDING AND CURRENT ROW 
+  ) mob_avg_gnp
+FROM world.country c 
+ORDER BY continent, gnp DESC;
+```
+:::
+:::::
 
 ## Limites d'utilisation des fonctions fenêtres
 

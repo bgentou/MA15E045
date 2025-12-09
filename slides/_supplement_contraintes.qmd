@@ -156,7 +156,7 @@ Préciser, après le type : `NOT NULL`
 
 ---
 
-![](/images/layout_world.png)
+![](/images/avt-2025/schemas/layout_world.png)
 
 
 

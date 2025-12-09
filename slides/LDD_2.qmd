@@ -1,12 +1,12 @@
 ---
-title: "BD VII: Corriger le schéma World"
-subtitle: "Définition de données: Contraintes/Ingénieurie"
+title: "BD VII: gestion avancée des contraintes"
+subtitle: "Définition de données: Contraintes"
 date: "2025-10-24"
 
 
 format: 
   revealjs:
-    header: "Corriger et commenter un schéma"
+    header: ""
 ---
 
   
@@ -19,24 +19,24 @@ format:
 ## Schema de world
 
 
-![Schema World en pattes de corbeau](/images/schema-world.png)
+![Modèle relationnel du schéma World](/images/modelisation/MRD_world2.svg)
 
 
 
 
 ## Conraintes sur la table `country`
 
-- Un pays est identifié par son `countrycode` 
+- Un pays est identifié par son `countrycode`, 
 
-- Deux pays ne devraient pas avoir le même nom
+- Deux pays ne devraient pas avoir le même nom,
 
-- Une région ne devrait appartenir qu'à un seul continent 
+- Une région ne devrait appartenir qu'à un seul continent, 
 
-- La capitale d'un pays devrait être une ville connue dans `city`
+- La capitale d'un pays devrait être une ville connue dans `city`,
 
-- La capitale d'un pays devrait être une ville de ce pays
+- La capitale d'un pays devrait être une ville de ce pays,
 
-- Les capitales de deux pays différents devraient être des villes différentes
+- Les capitales de deux pays différents devraient être des villes différentes,
 
 - ...
 
@@ -51,11 +51,11 @@ format:
 
 - Deux pays ne devraient pas avoir le même nom : `UNIQUE`
 
-- **Une région ne devrait appartenir qu'à un seul continent** : ???
+- **Une région ne devrait appartenir qu'à un seul continent** : ??? -> `EXCLUDE`
 
 - La capitale d'un pays devrait être une ville connue dans `city` : `REFERENCES`
 
-- **La capitale d'un pays devrait être une ville de ce pays** : ???
+- **La capitale d'un pays devrait être une ville de ce pays** : ??? -> trigger
 
 - Les capitales de deux pays différents devraient être des villes différentes : `UNIQUE`
 
@@ -68,32 +68,31 @@ format:
 
 
 ```{.sql}
-+--------------------+---------------+-----------+----------+--------------+-------------+
-| Column             | Type          | Modifiers | Storage  | Stats target | Description |
-|--------------------+---------------+-----------+----------+--------------+-------------|
-| countrycode        | character(3)  |  not null | extended | <null>       | <null>      |
-| name_country       | text          |  not null | extended | <null>       | <null>      |
-| continent          | text          |  not null | extended | <null>       | <null>      |
-| region             | text          |  not null | extended | <null>       | <null>      |
-| surfacearea        | real          |  not null | plain    | <null>       | <null>      |
-| indepyear          | smallint      |           | plain    | <null>       | <null>      |
-| population_country | integer       |  not null | plain    | <null>       | <null>      |
-| lifeexpectancy     | real          |           | plain    | <null>       | <null>      |
-| gnp                | numeric(10,2) |           | main     | <null>       | <null>      |
-| gnpold             | numeric(10,2) |           | main     | <null>       | <null>      |
-| localname          | text          |  not null | extended | <null>       | <null>      |
-| governmentform     | text          |  not null | extended | <null>       | <null>      |
-| headofstate        | text          |           | extended | <null>       | <null>      |
-| capital            | integer       |           | plain    | <null>       | <null>      |
-| code2              | character(2)  |  not null | extended | <null>       | <null>      |
-+--------------------+---------------+-----------+----------+--------------+-------------+
++--------------------+---------------+-----------+
+| Column             | Type          | Modifiers | 
+|--------------------+---------------+-----------+-
+| countrycode        | character(3)  |  not null | 
+| name_country       | text          |  not null | 
+| continent          | text          |  not null | 
+| region             | text          |  not null |
+| surfacearea        | real          |  not null |
+| indepyear          | smallint      |           | 
+| population_country | integer       |  not null | 
+| lifeexpectancy     | real          |           | 
+| gnp                | numeric(10,2) |           | 
+| gnpold             | numeric(10,2) |           | 
+| localname          | text          |  not null | 
+| governmentform     | text          |  not null | 
+| headofstate        | text          |           | 
+| capital            | integer       |           | 
+| code2              | character(2)  |  not null | 
++--------------------+---------------+-----------+
 ```
 
+{{< fa hand-point-right >}} Un schéma de table ne se réduit pas à la données des noms et domaines  des colonnes.
 
-{{< fa hand-point-right >}} Un schéma de table ne se réduit pas à la données des noms et domaines  des colonnes
 
-
-##  (continued)   
+##  suite   
 
 
 ```{.sql}
@@ -109,7 +108,6 @@ Check constraints:
                                      continent = 'South America'::text),
 Foreign-key constraints:
     "country_capital_fkey" FOREIGN KEY (capital) REFERENCES city(id)
-    "country_fk" FOREIGN KEY (continent) REFERENCES code_continent(continent)
 ```
 
 
@@ -145,56 +143,83 @@ CREATE TABLE world.country (
 ```
 
 
-
 ## Ajout de contraintes référentielles
 
-```{.sql}
--- world.country foreign keys
-
-ALTER TABLE world.country ADD CONSTRAINT 
-  country_capital_fkey FOREIGN KEY (capital) REFERENCES world.city(id);
-
-ALTER TABLE world.country ADD CONSTRAINT 
-  country_fk FOREIGN KEY (continent) REFERENCES world.code_continent(continent);
-```
-
-{{< fa hand-point-right >}}
-Les contraintes `country_capital_fkey`  et `country_fk` sont émises par 
-la table `country`
-
-
-
-
-## Contraintes ajoutées
-
-```{.sql}
--- world.country foreign keys
-
-ALTER TABLE world.country ADD CONSTRAINT 
-  country_capital_fkey FOREIGN KEY (capital) REFERENCES world.city(id);
-
-ALTER TABLE world.country ADD CONSTRAINT 
-  country_fk FOREIGN KEY (continent) REFERENCES world.code_continent(continent);
-```
-
-{{< fa hand-point-right >}} La contrainte `country_fk` sur `continent` remplit la même fonction que la 
-contrainte `country_continent_check`
+- Une contrainte d'intégrité référentielle impose l'inclusion de l'ensemble des valeurs d'une colonne (la colone qui référence) à l'ensemble des valeurs d'une autre colonne (la colonne référencée). 
 
 . . .
 
-{{< fa lightbulb >}} **Conseil:** 
+- La colonne référencée est quasiment toujours la clé primaire d'une autre table. On peut alors définir la contrainte en n'indiquant que la table référencée (car la clé primaire est unique) :
 
-- Si le domaine est de grande cardinalité, utiliser une table pour représenter le domaine, 
-et une contrainte référentielle
-- Si le domaine est de petite cardinalité, une contrainte `CHECK` est aussi pratique (et sans doute plus efficace)
+```{.sql}
+ALTER TABLE world.country ADD CONSTRAINT 
+  country_capital_fkey FOREIGN KEY (capital) REFERENCES world.city;
+```
 
 . . .
 
-{{< fa brain >}} Comment procéder pour mettre en œuvre une contrainte de domaine sur `region` ? 
+- Si la colonne référencée n'est pas une clé primaire, elle doit vérifier une **contrainte d'unicité**. Il faut alors préciser le nom de la table et le nom de la colonne référencée avec cette syntaxe : `REFERENCES nom_table(nom_colonne)`
+  
+
+
+## Gestion de la mise à jour ou de la suppression d'un attribut référencé
+
+::: {.callout-important}
+
+Après la définition de la contrainte `country_capital_fkey`, la mise à jour ou la suppression d'une valeur de l'attribut `city.id` référencée dans l'attribut `country.capital` est bloquée par le SGBD.
+
+:::
+
+. . .
+
+On peut définir différentes actions pour les rendre possibles : 
+
+- `CASCADE` : supprime ou met à jour en cascade les lignes qui référencent la valeur supprimée ou mise à jour.
+
+. . .
+
+- `SET NULL` : met à `NULL` la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour.
+
+. . .
+
+- `SET DEFAULT` : met à leur valeur par défaut la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour.
 
 
 
-# Une contrainte d'exclusion   {background-color="#1c191c"}
+## Utilisation de l'action `CASCADE`
+
+```{.sql}
+ALTER TABLE world.city 
+  ADD CONSTRAINT city_countrycode_fkey 
+    FOREIGN KEY (countrycode) 
+    REFERENCES world.country
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+```
+
+- Si un `countrycode` est suprrimé dans la table `country`, toutes les lignes de la table `city` où ce code est présent seront supprimées, et si ces lignes sont référencées dans un autre table, les lignes qui les référencent seront elles-mêmes supprimées et ainsi de suite "en cascade".
+
+. . .
+
+- Si un `countrycode` est mis à jour dans la table `country`, toutes les lignes de la table `city` où ce code est présent seront mises à jour, et si ces mises à jour sont référencées dans un autre table, les lignes qui les référencent seront elles-mêmes mises à jour et ainsi de suite "en cascade".
+
+## Utilisation de l'action `SET NULL`
+
+```{.sql}
+ALTER TABLE world.city 
+  ADD CONSTRAINT country_capital_fkey 
+    FOREIGN KEY (capital) 
+    REFERENCES world.city(id)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE;
+```
+- Si un `id` est suprrimé dans la table `city`, les lignes de la table `country` où ce code est présent ne seront pas supprimées, la colonne `capital` sera mise à `NULL`. Cette action est possible car la valeur `NULL` est autorisée pour la colonne `capital`.
+
+
+
+
+
+# Contraintes d'exclusion   {background-color="#1c191c"}
 
 ## Une région n'appartient qu'à un seul continent
 
@@ -219,22 +244,20 @@ $$\texttt{region} \longrightarrow \texttt{continent}$$
 ## Deux attitudes 
 
 Dans sa forme actuelle, la table `country` de `world` contient des informations *redondantes*:
-on répète plusieurs fois que la région `Western Europe` est située dans le continent `Europe`
+on répète plusieurs fois que la région `Western Europe` est située dans le continent `Europe`.
 
-Ces redondances représentent un gaspillage de mémoire (très modeste ici) et un risque pour le maintien
-de la cohérence de la base : chaque insertion, mise-à-jour est susceptible de mettre en défaut la 
-dépendance fonctionnelle
+Ces redondances représentent un gaspillage de mémoire (très modeste ici) et un risque pour le maintien de la cohérence de la base : chaque insertion, mise-à-jour est susceptible de mettre en défaut la dépendance fonctionnelle.
 
 On peut considérer qu'il s'agit d'une *anomalie* de schéma et **normaliser** le schéma. 
 
 La normalisation suppose une révision du schéma. Si le schéma est muni de vues et de fonctions,
 il faudra éventuellement réécrire ces vues et ces fonctions. 
 
-. . .
 
-{{< fa hand-point-right >}}  On peut mettre en place une contrainte d'exclusion avec `EXCLUDE`.
+## Autre possibilité avec une contrainte d'exclusion
 
-De cette façon, on ne touchera pas au schéma, les vues et les fonctions resteront utilisables. 
+Avec une contrainte d'exclusion (`EXCLUDE`), on ne touchera pas au schéma, les vues et les fonctions resteront utilisables.
+
 La contrainte d'exclusion  permettra de maintenir la dépendance fonctionnelle.
 
 
@@ -245,24 +268,42 @@ La contrainte d'exclusion  permettra de maintenir la dépendance fonctionnelle.
 
 ### Objectifs
 
-- Mise en place des dépendances fonctionnelles
-- Mise en place de contraintes de non-recouvrement (données spatiales ou temporelles)
-- Mise en place de contraintes très diverses 
+- Mise en place de dépendances fonctionnelles,
+- Mise en place de contraintes de non-recouvrement (données spatiales ou temporelles),
+- Mise en place de contraintes très diverses. 
 
 :::
+
+
+<!--[Documentation](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-EXCLUSION){target="_blank"}
+-->
+
+## Clause EXCLUDE
+
+Une clause `EXCLUDE` empêche que *deux* lignes vérifient toutes les comparaisons sur les colonnes spécifiées en utilisant les opérateurs indiqués par le mot clé `WITH`.
+
+```{.sql}
+ALTER TABLE country
+   ADD CONSTRAINT xcl_country_region_continent 
+      EXCLUDE USING GIST
+      (
+         region WITH =, 
+         continent WITH <>
+      );
+```
+
+Cette contrainte d'exclusion empèche que deux lignes de la table `country` aient la colonne `region` égale et la colonne `continent` différente.
+
 
 ::: {.callout-note}
 
-### Comment ?
+La clause `USING` définit le type d'index utilisé pour vérifier la contrainte d'exclusion.
 
-L'ajout d'une contrainte d'exclusion crée automatiquement un index du type spécifié dans  déclaration de constrainte
-
+En pratique, le type d'index sera toujours `GiST` ou `SP-GiST` (`GIST` est l'acronyme de *Generalized Search Tree*). 
 :::
 
-[Documentation](https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-EXCLUSION){target="_blank"}
 
-
-
+<!--
 ## Détails syntaxiques
 
 ```{.sql}
@@ -273,11 +314,6 @@ EXCLUDE
   [ WHERE ( predicate ) ] 
 ```
 
-::: {.callout-note}
-
-La clause EXCLUDE définit une contrainte d'exclusion qui garantit que si *deux* lignes sont comparées sur la ou les colonnes spécifiées ou des expressions utilisant le ou les opérateurs spécifiés, seulement certaines de ces comparaisons, mais *pas toutes*, renverront TRUE. 
-
-:::
 
 
 ## Remarques 
@@ -286,7 +322,7 @@ Si tous les opérateurs spécifiés testent une égalité, ceci est équivalent 
 
 Néanmoins, ces contraintes d'exclusion peuvent spécifier des contraintes qui sont plus générales qu'une simple égalité. 
 
-Vous pouvez spécifier qu'il n'y a pas deux lignes/tuples dans la table contenant des cercles se recouvrant surcharge en utilisant l'opérateur &&. 
+Vous pouvez spécifier qu'il n'y a pas deux lignes dans la table contenant des cercles de surcharge en utilisant l'opérateur &&. 
 
 {{< fa hand-point-right >}} Le(s) opérateur(s) doivent être commutatif(s).
 
@@ -317,7 +353,7 @@ Les index de type `B-tree` sont souvent utilisés pour réaliser les équi-joint
 
 GiST: une infrastructure qui permet la mise en  œuvre de différentes stratégies d'indexation. 
 
-Les opérateurs susceptibles d'utiliser un index  GiST peuvent varier selon la stratégie d'indexation
+Les opérateurs susceptibles d'utiliser un index  GiST peuvent varier selon la stratégie d'indexation.
 
 . . .
 
@@ -326,45 +362,41 @@ La distribution standard de PostgreSQL comprend des classes d'opérateurs GiST p
 ```{.sql}
 <<   &<   &>   >>   <<|   &<|   |&>   |>>   @>   <@   ~=   &&
 ```
+-->
 
 
 
-## Dans `world.country`
 
-```{.sql}
-ALTER TABLE world.country
-ADD CONSTRAINT xcl_country_region_continent 
-EXCLUDE  USING GIST  (
-	region WITH =, 
-	continent with <>
-) ;
-```
-
-Avec cette contrainte d'exclusion, on interdit la présence de deux tuples dand la table `country`, coïncidant 
-sur la colonne `region` mais pas sur la colonne `continent`.
-
-## Autre exemple 
-
+<!--
+## Contraintes ajoutées
 
 ```{.sql}
-CREATE TABLE public.zoo (
-  zoo_id INTEGER DEFAULT nextval('public.zoo_zoo_id_seq'::regclass) NOT NULL,
-  PRIMARY KEY, 
-  cage   INTEGER,
-  animal TEXT,
-  CONSTRAINT zoo_pkey PRIMARY KEY ( zoo_id )
-  EXCLUDE USING GIST (
-    cage WITH =, 
-    animal WITH <>)
-);
+-- world.country foreign keys
+
+ALTER TABLE world.country ADD CONSTRAINT 
+  country_capital_fkey FOREIGN KEY (capital) REFERENCES world.city(id);
+
+ALTER TABLE world.country ADD CONSTRAINT 
+  country_fk FOREIGN KEY (continent) REFERENCES world.code_continent(continent);
 ```
 
-## Question 
+{{< fa hand-point-right >}} La contrainte `country_fk` sur `continent` remplit la même fonction que la 
+contrainte `country_continent_check`
 
-{{< fa hand-point-right >}} Comment utiliser les contraintes d'exclusion pour préciser que deux colonnes sont liées par une relation
-de monotonie ?
+. . .
 
+{{< fa lightbulb >}} **Conseil:** 
 
+- Si le domaine est de grande cardinalité, utiliser une table pour représenter le domaine, 
+et une contrainte référentielle
+- Si le domaine est de petite cardinalité, une contrainte `CHECK` est aussi pratique (et sans doute plus efficace)
+
+. . .
+
+{{< fa brain >}} Comment procéder pour mettre en œuvre une contrainte de domaine sur `region` ? 
+-->
+
+<!--
 # Normalisation de $\texttt{country}$   {background-color="#1c191c"}
 
 
@@ -595,27 +627,27 @@ ALTER TABLE monde.countrylanguage
 	CHECK (percentage <= 100.0 AND percentage >=0.0 );
 ```
 
-
+-->
 
 
 <!-- ![](/images//bd_2023-monde.png) -->
 
 
-
-# Vues régionales et continentales  {background-color="#1c191c"}
+<!--
+# Les vues {background-color="#1c191c"}
 
 
 
 ## Synthèse régionale 
 
 ```{.sql}
-CREATE OR REPLACE VIEW monde.regionale AS (
+CREATE OR REPLACE VIEW regionale AS (
 SELECT C.region, 
        SUM(c.population_country) AS population_region,
        SUM(COALESCE(c.surfacearea, 0)) AS surfacearea_region,
        SUM(c.gnp) AS gnp_region,
        SUM(c.gnpold) AS gnpold_region
-FROM monde.country c 
+FROM country c 
 GROUP BY c.region ) ;
 ```
 
@@ -626,9 +658,9 @@ GROUP BY c.region ) ;
 ```{.sql}
 SELECT r.* 
 FROM 
-  monde.regionale r 
+  regionale r 
 JOIN 
-  monde.region_continent rc 
+  region_continent rc 
 ON (r.region=rc.region AND rc.continent='Europe') ;
 ```
 
@@ -637,7 +669,7 @@ ON (r.region=rc.region AND rc.continent='Europe') ;
 ```{.sql}
 SELECT r.* 
 FROM 
-  monde.regionale r 
+  regionale r 
 WHERE 
   r.region IN (
     SELECT 
@@ -692,6 +724,6 @@ GROUP BY rc.continent;) ;
 |Europe       | 730074600|   23049132|9498865.00|9382001.00|
 |Asia         |3705025700|   31881006|7655392.00|8251969.00|
 ```
-
+-->
 
 # Fin  {background-color="#1c191c"}

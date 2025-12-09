@@ -35,7 +35,7 @@ engine: knitr
 ::: 
 
 ::: {#second-column}
-![](../images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
+![](/images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
 :::
 
 :::
@@ -364,8 +364,9 @@ On peut écrire deux autres versions semblables avec `INTERSECT` ou `IN`.
 ```{.sql}
 SELECT DISTINCT ch.numéro
 FROM client cl1
-    JOIN réservation r ON cl1.numéro = r.client
-    JOIN client cl2 ON r.client = cl2.numéro
+    JOIN réservation r1 ON cl1.numéro = r1.client
+    JOIN réservation r2 ON r1.chambre = r2.chambre
+    JOIN client cl2 ON r2.client = cl2.numéro
 WHERE cl1.ville = 'Brest' AND cl2.ville = 'Brest' AND cl1.numéro <> cl2.numéro;
 ```
 

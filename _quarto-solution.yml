@@ -1,6 +1,6 @@
 project:
   render:
-#    - solutions/
+  #  - solutions/
     - exams/
 
 website:

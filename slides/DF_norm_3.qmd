@@ -1,105 +1,100 @@
 ---
-title: "Normalisation II : Décomposition FN3"
-subtitle: "Pertes de Dépendances Fonctionnelles. Décomposition FN3"
-date: "2025-11-28"
+title: "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC"
+subtitle: "Décompositions, Pertes de DF, Pertes d'informations, Décompositions FN3, Décompositions FNBC."
+date: "2025-12-08"
 
 format: 
   revealjs:
-    header: "Pertes de Dépendances Fonctionnelles. Décomposition FN3"
+    header: "Décompositions, Pertes de DF, Pertes d'informations, Décompositions FN3, Décompositions FNBC."
 
 engine: knitr
 ---
 
 
-# Décompositions : rappels {background-color="#1c191c"}
+
+# Décomposition d'une relation {background-color="#1c191c"}
+
+## Idée
+
+Dans un système de BDD *relationnelles*, les données sont représentées par des tuples qui décrivent des relations. Lorsqu'on définit des tables dans une base de données, on décompose ces relations en plusieurs relations $R_1$, $R_2$, $\dots$, les tables de la BDD.
 
 
----
+Mais on ne peut pas décomposer arbitrairement. Toutes les décompositions ne sont pas pertinentes.
+
+. . .
 
 ::: {.callout-important}
 
+### Conditions pour une décomposition *pertinente* :
+
+- Décomposition *sans perte de dépendance fonctionnelle*.
+
+- Décomposition *sans perte d'information*.
+
+- Décomposition qui minimise les redondances : notions de Forme Normale.
+
+:::
+
+
+## Décomposition
+ 
+::: {.callout-important}
 ### Définition 
+Soit $\mathcal{A}$ un schéma de relation, on dit que $\left\{\mathcal{A}_1,\dots ,\mathcal{A}_k\right\}$ est une décomposition de $\mathcal{A}$ si et seulement si,
 
-Soit $\mathcal{A}$ un schéma de relation
-
-Un *décomposition* de $\mathcal{A}$ est un ensemble $\{\mathcal{A}_1,..., \mathcal{A}_k\}$
-de sous-ensembles de $\mathcal{A}$ tel que
-
-$$\mathcal{A}_i\not=\emptyset, 1\le i\le k, \quad \text{ et } \quad \mathcal{A} = \bigcup_{i=1}^k \mathcal{A}_i$$
-
-:::
-
-
----
-
-
-
-::: {.callout-important}
-
-### Définition
-
-Soit $\mathcal{A}$ un schéma de relation et $\Sigma$ un ensemble de DF sur $\mathcal{A}$.
-
-Une décomposition $\{\mathcal{A}_1,..., \mathcal{A}_k\}$ est *sans perte d'information par rapport à* $\Sigma$
-si pour toute relation $R$  de schéma $\mathcal{A}$ satisfaisant $\Sigma$ on a
-
-$$R= \pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)$$
-
-:::
-
-## Résultat de la [séance précédente](/slides/DF_norm_1.qmd#/décomposition-fnbc-spi) 
-
-::: {.callout-important}
-
-On peut décomposer une relation $\mathcal{A}$ relativement à un ensemble de DF $\Sigma$ de façon à obtenir une décomposition :
-
-- dont tous les membres sont en FNBC relativement à $\Sigma$
-  
-- SPI
-
+- pour tout $i$, $\mathcal{A}_i  \not=\emptyset$,
+- ${\displaystyle \bigcup_{i=1}^k \mathcal{A}_i  = \mathcal{A}}$
 :::
 
 . . .
 
-{{< fa skull-crossbones >}} Ce résultat ne fournit pas toujours une solution complètement satisfaisante
+:::{.callout-note}
+
+{{< fa hand-point-right >}} Une décomposition n'est pas une partition. On n'impose pas que les $\mathcal{A}_i$ soient deux à deux disjoints. Comme nous le verrons, ils ne doivent pas l'être, sinon, il n'y a plus de jointure possible.
+:::
 
 
-# Projection d'un ensemble de dépendances fonctionnelles {background-color="#1c191c"}
+
+## Exemple de décomposition I
+ 
+
+```{verbatim}
+Vendeur(V#, Vnom, Vville)
+Produit(P#, Pnom, Pprix)
+Livraison(V#, P#, Qte)
+```
+
+est une décomposition de la relation
+
+```{verbatim}
+R(V#, Vnom, Vville, P#, Pnom, Pprix, Qte)
+```
+
+
+
+
+
+
+# Perte de dépendance fonctionnelle {background-color="#1c191c"}
 
 
 ## Projection d'un ensemble de DF
 
-Soientt $\mathcal{A}$ un schéma de relation ($\mathcal{A}$ est un ensemble d'attributs) et $\Sigma$ un ensemble de DF sur $\mathcal{A}$
-
-Soit $\mathcal{A}_1\subset  \mathcal{A}$ un sous-ensemble  d'attributs
-
 ::: {.callout-important}
+### Définition 
+Soient $\mathcal{A}$ et $\mathcal{A}_1$ deux shémas tels que $\mathcal{A}_1 \subset \mathcal{A}$, et $\Sigma$ un ensemble de dépendances.
 
-### Définition
+On appelle projection de $\Sigma$ sur $\mathcal{A}_1$  et on note $\pi_{\mathcal{A}_1}(\Sigma)$ l'ensemble
 
 $$\pi_{\mathcal{A}_1}(\Sigma)=\left\{ X\to Y \mid \Sigma\models X\to Y \text{ et } X,Y\subset \mathcal{A}_1\right\}$$
 
-:::
-
-::: {.aside}
-
-$\pi_{\mathcal{A}_1}(\Sigma)$ est l'ensemble des DF de la forme $X\to Y$ impliquées par $\Sigma$ et telles que $X\subset \mathcal{A}_1$ et $Y\subset \mathcal{A}_1$
-
+Autrement dit, $\pi_{\mathcal{A}_1}(\Sigma)$ est l'ensemble des dépendances impliquées par $\Sigma$ qui sont locales à $\mathcal{A}_1$.
 :::
 
 
-::: {.callout-important}
-
-### Caractérisation
-
-Si $X\subset {\mathcal{A}}_1$ on a l'équivalence
-$$X\to Y \in \pi_{{\mathcal{A}}_1}(\Sigma) \iff Y\subset\left\{X\right\}^+∩{\mathcal{A}}_1$$
 
 
-:::
-
-
-## Exemple
+## Exemple {.smaller}
 
 -   ${\mathcal{A}}=\left\{A,B,C\right\}$ et
     $\Sigma=\left\{A\to B, B\to C, C\to A\right\}$
@@ -108,164 +103,183 @@ $$X\to Y \in \pi_{{\mathcal{A}}_1}(\Sigma) \iff Y\subset\left\{X\right\}^+∩{\m
     $\left\{A\to B, B\to A\right\}$
 
 
+## Fermeture et projection de DF
+
+::: {.callout-important}
+
+### Propriété immédiate
+
+Si $X$ et $Y$ sont des parties de ${\mathcal{A}}_1$, on a l'équivalence
+$$X\to Y \in \pi_{{\mathcal{A}}_1}(\Sigma) \iff Y\subset\left\{X\right\}^+$$
+
+:::
+
+C'est une traduction de la définition.
 
 
-## Calcul de $\pi_{{\mathcal{A}}_1}(\Sigma)$ 
+## Algorithme de calcul de $\pi_{{\mathcal{A}}_1}(\Sigma)$ 
 
-On calcule un ensemble de DF équivalent à $\pi_{\mathcal{A}_1}(\Sigma)$
+Cet algorithme utilise la propriété précédente pour calculer un ensemble de DF équivalent à $\pi_{\mathcal{A}_1}(\Sigma)$
 
-```pseudocode
-#| html-indent-size: "1.2em"
-#| html-comment-delimiter: "//"
-#| html-line-number: true
-#| html-line-number-punc: ":"
-#| html-no-end: false
-
-\begin{algorithm}
-\caption{Projection de DF}
-\begin{algorithmic}
-\Procedure{Projection}{$\mathcal{A}_1, Σ$}
-
-\State P ← ∅
-
-\For{$X ⊂ \mathcal{A}_1$, $X ≠ ∅$, $X ≠ \mathcal{A}_1$}
-  \State Y ← $X^+ ∩ \mathcal{A}_1$  
-  \State P ← P ∪ $\{ X → Y\}$
-\EndFor
-
-\Return P
-
-\EndProcedure
-
-\end{algorithmic}
-\end{algorithm}
+```{=html}
+<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:1em;padding:10px;border:1px solid #220f61ff;">
+fonction projection(A1, Σ)
+   P := ∅
+   for X ⊂ A1, X ≠ ∅, X ≠ A1
+      Y := X⁺ ∩ A1  
+      if Y ⊄ X     // X → Y n'est pas triviale
+         P := P ⋃ { X → Y\X }
+   return P
+</pre>
 ```
 
+::: {.callout-warning}
+### Très coûteux !
 
-::: {.aside}
-
-L'ensemble de DF obtenu est équivalent à $\pi_{{\mathcal{A}}_1}(\Sigma)$\
-[Très coûteux !]{.alert} Le nombre de sous-ensembles $X$ considérés est
-$2^{\#{\mathcal{A}}_1}-2$
+- Le nombre de sous-ensembles $X$ considérés est $2^{\#{\mathcal{A}}_1}-2$.
+- $P$ n'est pas du tout irredondant.
 :::
 
 
-## Exemple  {.smaller}
+## Exemples {.smaller}
 
--   ${\mathcal{A}}=\left\{A,B,C,D,E\right\}$ et
-    [$\Sigma=\left\{A\to C, BC\to D, AD\to E\right\}$]{.alert}
+${\mathcal{A}}=\left\{A,B,C,D,E\right\}$ et
+    $\Sigma=\left\{A\to C, BC\to D, AD\to E\right\}$
 
-. . .
-
--   $\pi_{AC}(\Sigma)$ est équivalent à $\left\{A\to C\right\}$ car\
-    $\left\{A\right\}^+=\left\{A,C\right\}$ et
-    $\left\{C\right\}^+=\left\{C\right\}$
-
-. . .
-
--   $\pi_{ABD}(\Sigma)$ est équivalent à $\left\{AB\to D\right\}$ car\
-    $\left\{A\right\}^+=\left\{A,C\right\}$,
-    $\left\{B\right\}^+=\left\{D\right\}$,
-    $\left\{D\right\}^+=\left\{D\right\}$,\
-    $\left\{A,B\right\}^+=\left\{A,B,C,D,E\right\}$,
-    $\left\{A,D\right\}^+=\left\{A,D,C,E\right\}$,
-    $\left\{B,D\right\}^+=\left\{B,D\right\}$
-
-. . .
-
--   $\pi_{ABCE}(\Sigma)$ est équivalent à
-    $\left\{A\to C, AB \to CE, AE\to C, ABC\to E, ABE\to C\right\}$\
-    $A^+=AC \quad B^+=B \quad C^+=C \quad E^+=E$\
-    $AB^+=ABCDE \quad AC^+=AC \quad AE^+=AEC$\
-    $BC^+=BCD \quad BE^+=BE \quad CE^+=CE$\
-    $ABC^+=ABCDE \quad ABE^+=ABECD$\
-    $BCE^+=BCED \quad ACE^+=ACE$
-
-. . .
-
--   Simplification : $\pi_{ABCE}(\Sigma)$ équivaut à
-    $\left\{A\to C, AB\to E\right\}$
+1.  $\pi_{\{AC\}}(\Sigma)$ ?
+    * on initialise $P=\emptyset$ puis on calcule
+    * $\left\{A\right\}^+=\left\{A,C\right\}$ donc $P=\left\{A\to C\right\}$ puis
+    * $\left\{C\right\}^+=\left\{C\right\}$ donc $P$ inchangé.
+    * L'algorithme se termine avec $P=\left\{A\to C\right\}$
 
 
 
-# Perte de dépendances fonctionnelles   {background-color="#1c191c"}
+2.  $\pi_{ABD}(\Sigma)$ ?
+    * $\left\{A\right\}^+=\left\{A,C\right\}$, $P$ vide
+    * $\left\{B\right\}^+=\left\{B\right\}$, $P$ vide
+    * $\left\{D\right\}^+=\left\{D\right\}$, $P$ vide
+    * $\left\{A,B\right\}^+=\left\{A,B,C,D,E\right\}$, $P=\left\{AB\to D\right\}$
+    * $\left\{A,D\right\}^+=\left\{A,D,C,E\right\}$, $P$ inchangé
+    * $\left\{B,D\right\}^+=\left\{B,D\right\}$, $P$ inchangé.
+    * L'algorithme se termine avec $P=\left\{AB\to D\right\}$
+
+## Exemples (suite)   {.smaller}
+
+${\mathcal{A}}=\left\{A,B,C,D,E\right\}$ et
+    $\Sigma=\left\{A\to C, BC\to D, AD\to E\right\}$
 
 
-## Préservation de dépendances fonctionnelles
+3.  $\pi_{ABCE}(\Sigma)$ ?
+    * $A^+=AC \quad B^+=B \quad C^+=C \quad E^+=E$\
+    * $AB^+=ABCDE \quad AC^+=AC \quad AE^+=AEC$\
+    * $BC^+=BCD \quad BE^+=BE \quad CE^+=CE$\
+    * $ABC^+=ABCDE \quad ABE^+=ABECD$\
+    * $BCE^+=BCED \quad ACE^+=ACE$
+    * L'algorithme se termine avec $P=\left\{A\to C, AB \to CE, AE\to C, ABC\to E, ABE\to C\right\}$.
+    * Simplification : $\pi_{ABCE}(\Sigma)$ équivaut à
+    $\left\{A\to C, AB\to E\right\}$ qui est minimal.
+
+
+
+
+##  Décomposition sans perte de DF
 
 ::: {.callout-important}
 
 ###  Définition
 
-Soit $\mathcal{A}$ un schéma de relation et $\Sigma$ un ensemble de DF sur $\mathcal{A}$.
+Soient $\mathcal{A}$ un schéma,  $\Sigma$ un ensemble de DF sur $\mathcal{A}$ et
+ $\left\{ \mathcal{A}_1,\dots, \mathcal{A}_k\right\}$ une décomposition de $\mathcal{A}$.
 
-Soit $\left\{ \mathcal{A}_1,\dots, \mathcal{A}_k\right\}$ une décomposition du schéma $\mathcal{A}$
-($\mathcal{A}_i\neq \emptyset, 1\leq i\leq k$ et $\mathcal{A}= \bigcup_{i=1}^k \mathcal{A}_i$)
+La décomposition $\left\{\mathcal{A}_1,\dots, \mathcal{A}_k\right\}$ *préserve* $\Sigma \quad \quad$
+ssi $\quad \quad{\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)}$ est équivalent à $\Sigma$.
 
-La décomposition $\left\{\mathcal{A}_1,\dots, \mathcal{A}_k\right\}$ *préserve* $\Sigma$
-si l'ensemble des *dépendances fonctionnelles locales*
-$\bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)$ est équivalent à $\Sigma$
-
+On dit que la décomposition est *sans perte de dépendance (SPD)*.
 :::
 
 
-::: {.aside}
+::: {.callout-note}
+### Propriété immédiate
 
-Puisque $\Sigma ⊧ \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)$, la décomposition
-préserve $\Sigma$ si et seulement si toutes les DF de $\Sigma$ sont impliquées par les DF locales
-
+Si $\Sigma$ est équivalent à un ensemble de *dépendances fonctionnelles locales*,
+la décomposition est SPD.
 :::
 
 
 
+## Vérification qu'une DF est préservée
 
+::: {.callout-important}
+### Propriété
+$X\to Y$ est préservée ssi la fermeture de $X$ par rapport à 
+${\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)}$ contient $Y$.
 
+:::
 
+::: {.callout-note}
+### Notations
 
-# Détection de perte de DF {background-color="#1c191c"}
+Dans la suite du cours, on note :
 
+- $\Sigma_{\mathcal{A}_1,...,\mathcal{A}_k}={\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)}$
+- $X^+_{\mathcal{A}_1,...,\mathcal{A}_k}$ la fermeture de $X$ par rapport à $\Sigma_{\mathcal{A}_1,...,\mathcal{A}_k}$.
+:::
 
-## Algorithme pour tester si  $\bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma) \models X \rightarrow Y$  {.smaller}
+## Algorithme de vérification 
 
+L'algorithme retourne $X^+_{\mathcal{A}_1,...,\mathcal{A}_k}$
 
-```pseudocode
-#| html-indent-size: "1.2em"
-#| html-comment-delimiter: "//"
-#| html-line-number: true
-#| html-line-number-punc: ":"
-#| html-no-end: false
+:::::{.columns}
 
-\begin{algorithm}
-\caption{X → Y est-elle impliquée par les dépendances projetées?}
-\begin{algorithmic}
-\Procedure{Implique}{$\left\{ \mathcal{A}_1,\dots, \mathcal{A}_k\right\}, Σ, X, Y$}
+:::{.column width="60%"}
 
-\State Z ← X
-\State continuer ← \True
-
-\While{continuer}
-  \State $W ← Z$
-  \For{i ∈ 1, ..., k}
-    \State $W ← W ∪ \bigl((W ∩ \mathcal{A}_i)^+ ∩ \mathcal{A}_i\bigr)$
-  \EndFor
-  \If{W ≠ Z}
-        \State Z ← W
-  \Else
-        \State continuer ← \False
-  \EndIf
-\EndWhile
-
-\If{Y ⊆ Z}
-  \Return \True
-\Else
-  \Return \False
-\EndIf 
-
-\EndProcedure
-
-\end{algorithmic}
-\end{algorithm}
+```{=html}
+<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:0.7em;padding:10px;border:1px solid #220f61ff;">
+fonction fermeture_decomposition({A1,...,Ak}, Σ, X)
+   Z := X
+   go := True
+   while go
+      W := Z
+      For i ∈ {1, ..., k}
+         W := W ⋃ ((W ∩ Ai)⁺ ∩ Ai)
+      if W ≠ Z
+         Z := W
+      else
+         go := False
+   return Z
+</pre>
 ```
+
+:::
+
+:::{.column width="5%"}
+
+:::
+
+:::{.column width="35%"} 
+
+:::{.callout-warning}
+
+- Si au cours du calcul, on obtient que $Y\subset Z$, on peut conclure immédiatement que $X\to Y$ est préservée.
+
+- L'intérêt de cet algorithme est qu'il n'est pas nécessaire de calculer les DF locales.
+
+:::
+
+:::
+
+:::::
+
+## Vérification qu'une décomposition est SPD
+
+::: {.callout-important}
+### Propriété
+
+Une décomposition $\left\{\mathcal{A}_1,\dots ,\mathcal{A}_k\right\}$ est sans perte de DF (SPD) si 
+
+- Pour tout $X\to Y \in \Sigma$, $\quad X^+_{\mathcal{A}_1,...,\mathcal{A}_k}$ contient $Y$.
+
+:::
 
 
 
@@ -281,131 +295,1154 @@ préserve $\Sigma$ si et seulement si toutes les DF de $\Sigma$ sont impliquées
 
 . . .
 
-- Les DF locales impliquent $A\to B$, $B\to C$, $C\to D$ (ce sont DF locales)
+- Les DF locales $A\to B$, $B\to C$, $C\to D$ sont locales donc conservées.
 
-. . .
-
-- Est-ce que les DF locales impliquent $D\to A$ ?
+- Est-ce que les DF locales impliquent $D\to A$ ? 
 
 . . . 
 
-Commencer avec $Z ← \{D\}$
+Vérification en appliquant l'algorithme de calcul de $\{D\}^+_{\mathcal{A}_1,\mathcal{A}_2,\mathcal{A}_3}$.
 
-::: {.incremental}
+Initialisation $Z := \{D\}$
 
-1. $(\{D\}∩\{CD\})^+ ∩ \{CD\}=\{D\}^+ ∩\{CD\}=\{DABC\} ∩ \{CD\}=\{CD\}$, ajouter $C$
+1. $(\{D\}\cap\{CD\})^+ \cap \{CD\}=\{D\}^+ \cap\{CD\}=\{DABC\} \cap \{CD\}=\{CD\}$, $Z := \{CD\}$
 
-2. $(\{DC\}∩ \{BC\})^+ ∩ \{BC\}=\{C\}^+ ∩ \{BC\}=\{CDAB\}∩ \{BC=B\}$, ajouter $B$
+2. $(\{DC\}\cap \{BC\})^+ \cap \{BC\}=\{C\}^+ \cap \{BC\}=\{CDAB\}\cap \{BC\}=\{BC\}$, $Z := \{BCD\}$
 
-3. $(\{DCB\}∩ \{AB\})^+ ∩ \{AB\}=\{B\}^+ ∩ \{AB\}=\{BCDA\} ∩ \{AB\}$, ajouter $A$
+3. $(\{DCB\}\cap \{AB\})^+ \cap \{AB\}=\{B\}^+ \cap \{AB\}=\{BCDA\} \cap \{AB\}$, $Z := \{ABCD\}$
 
-4. $\{DCBA\}$ contient $A$ donc $D\to A$ est préservée
+4. $\{DCBA\}$ contient $A$ donc $D\to A$ est préservée.
 
-:::
+
+## Exemple I suite   {.smaller}
+
+- $\mathcal{A}=\left\{A,B,C,D\right\}$, 
+- $\mathcal{A}_1=\left\{A,B\right\}$, $\mathcal{A}_2=\left\{B,C\right\}$, $\mathcal{A}_3=\left\{C,D\right\}$
+
+On pouvait voir aussi que 
+
+- $\Sigma=\left\{A\to B, B\to C, C\to D, D\to A\right\}$ est équivalent à l'ensemble de DF $\Sigma' =\left\{A\to B, B\to A, B\to C, C\to B, C\to D, D\to C\right\}$ car la fermeture de toute partie non vide de $\mathcal{A}$ par $\Sigma'$ est $\mathcal{A}$ comme pour $\Sigma$ (chaque attribut est une clé). 
+
+- les DF de $\Sigma'$ sont locales donc préservées, la décomposition préserve  $\Sigma'$ donc  $\Sigma$. 
+
+
 
 ## Exemple II {.smaller}
 
 
-- $\mathcal{A}=$ `{Ville, CP, Rue, Numero}`
+- $\mathcal{A}= \{\verb!Ville, CP, Rue, Numero!\}$
 
-- $\Sigma=$ `{ CP →  Ville, {Ville, Rue, Numero} → CP}`
+- $\Sigma= \{\verb!CP →  Ville ; Ville Rue Numero → CP!\}$
 
-- $\mathcal{A}_1=$ `{Ville, CP}` $\mathcal{A}_2=$ `{Rue, Numero, CP}`
+- $\mathcal{A}_1=\{\verb!Ville, CP!\}$ et $\mathcal{A}_2=\{\verb!Rue, Numero, CP!\}$
 
 - Est-ce que la décomposition  $\{\mathcal{A}_1, \mathcal{A}_2 \}$ préserve $\Sigma$ ?
 
 . . .
 
-- `CP →  Ville` est préservée car elle est locale à $\mathcal{A}_1$
+- $\verb!CP →  Ville!$ est préservée car elle est locale à $\mathcal{A}_1$
 
 
 . . .
 
 
-- Est-ce que `{Ville, Rue, Numero} → CP` est préservée par $\mathcal{A}_1, \mathcal{A}_2$ ?
+- Est-ce que $\verb!Ville Rue Numero → CP!$ est préservée par $\mathcal{A}_1, \mathcal{A}_2$ ?
 
 . . .
 
+on calcule la fermeture $\{\verb!Ville, Rue, Numero!\}^+_{\mathcal{A}_1,\mathcal{A}_2}$.
 
-`Z ← {Ville, Rue, Numero}`
+$\verb!Z! := \{\verb!Ville, Rue, Numero!\}$
 
-1. $(\texttt{Z} ∩ \texttt{{Ville, CP}})^+$ ∩ `{Ville, CP}` = `{Ville}`  *rien à ajouter*
+1. $(\verb!Z !\cap \{\verb!Ville, CP!\})^+ \cap \{\verb!Ville, CP!\} = \{\verb!Ville!\}$,   *rien à ajouter*.
 
-2. $(\texttt{Z} ∩ \texttt{{Rue, Numero, CP}})^+$ ∩ `{Rue, Numero, CP}` = `{Rue, Numero}`, *rien à ajouter*
+2. $\verb!(Z !\cap \{\verb!Rue, Numero, CP!\})^+ \cap \{\verb!Rue, Numero, CP!\} = \{\verb!Rue, Numero!\}$, *rien à ajouter*.
 
 . . .
 
-Donc `Ville, Rue, Numero → CP` n'est pas préservée  {{< fa frown >}}
+$\{\verb!Ville, Rue, Numero!\}^+_{\mathcal{A}_1,\mathcal{A}_2}= \{\verb!Ville, Rue, Numero!\}\quad$ donc $\verb!Ville Rue Numero → CP!$ n'est pas préservée.
 
 
-# Décomposition FNBC et pertes de DF {background-color="#1c191c"}
+
+# Décomposition sans perte d'information  {background-color="#1c191c"}
+
+## Décomposition sans perte d'information
+
+**Idée** : Si on remplace le schéma
+
+```{verbatim}
+(V#, Vnom, Vville, P#, Pnom, Pprix, Qte)
+```
+
+par les trois schémas
+
+```{verbatim}
+Vendeur(V#, Vnom, Vville)
+Produit(P#, Pnom, Pprix)
+Livraison(V#, P#, Qte)
+```
+
+. . .
+
+alors au lieu de stocker une relation `R(V#, Vnom, Vville, P#, Pnom, Pprix, Qte)`, on stockera
+ses projections:
 
 
-## Rappels  [séance précédente](/slides/DF_norm_1.qmd#/décomposition-fnbc-spi) (bis)
+$$\pi_{\texttt{V\#,Vnom,Vville}}(\texttt{R}) \qquad \pi_{\texttt{P\#,Pnom,Pprix}}(\texttt{R}) \qquad \pi_{\texttt{V\#,P\#,Qte}}(\texttt{R})$$
+
+. . .
+
+{{< fa brain >}} Peut-on retrouver `R` par jointure à partir de ces trois projections ?
+
+
+
+## Décomposition sans perte d'information (SPI)
+
+
+::: {.callout-important}
+
+### Définition : décomposition SPI
+
+Soit $\mathcal{A}$ un schéma de relation et $\Sigma$ un ensemble de DF sur $\mathcal{A}$.
+
+Une décomposition $\mathcal{D} = \{\mathcal{A}_1,..., \mathcal{A}_n\}$ est *sans perte d'information par rapport à* $\Sigma$ si pour toute relation $R$  de schéma $\mathcal{A}$ satisfaisant $\Sigma$,  
+
+- $R = R_1 \bowtie R_2 \bowtie...\bowtie R_n \quad$ 
+- où les $\bowtie$ sont des jointures naturelles.
+- et où, pour tout $i$, $R_i$ est la projection de $R$ sur le sous-schéma  $\mathcal{A}_i$.
+:::
+
+. . .
+
+:::{.callout-note}
+
+- La jointure est l'opération inverse de la décomposition, on recompose l'information par jointure. 
+
+- La décomposition doit garantir que pour toute relation `R`, ses projections contiennent
+la même information que `R` au sens que l'on doit pouvoir reconstruire `R` par jointure à partir de ses projections.
+
+:::
+
+
+{{< fa hand-point-right >}} La propriété d'être sans perte d'information est liée à l'ensemble de DF considéré
+
+## Exemple de décomposition SPD  {.smaller}
+
+On décompose une relation $\verb!R!(\texttt{V\#, Vnom, Vville, P\#, Pnom, Pprix, Qte})$ vérifiant
+
+$\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}$
+en 3 relations 
+
+- $\verb!Vendeur!=\pi_{\texttt{V\#,Vnom,Vville}}(R)$
+- $\verb!Produit!=\pi_{\texttt{P\#,Pnom,Pprix}}(R)$
+- $\verb!Livraison!=\pi_{\texttt{V\#,P\#,Qte}}(R)$
+
+Peut-on affirmer que
+
+$$\verb!R! = \verb!Vendeur! \bowtie \verb!Livraison! \bowtie \verb!Produit! \quad ?$$
+
+On a envie de dire mais pourquoi et comment le prouver ?
+
+
+
+## Exemple de décomposition avec perte d'information  {.smaller}
+
+$\mathcal{A}=\{A,B,C\} \quad  \Sigma=\{AB\rightarrow C\}$
+
+Décomposition $\mathcal{A}_1=\{A,B\}  \quad  \mathcal{A}_2=\{B,C\}$
+
+::::: {.columns}
+::: {.column width="30%"}
+
+Soit $R$ la relation
+
+| A   |  B  |  C  |
+|:---:|:---:|:---:|
+|1 | 2 | 3 |
+|4 | 2 | 5 |
+
+:::
+
+::: {.column width="30%"}
+
+$\pi_{AB}(R)=$
+
+| A |  B |
+|:---:|:---:|
+| 1 | 2  |
+| 4 | 2  |
+
+:::
+
+
+::: {.column width="30%"}
+
+$\pi_{BC}(R)=$
+
+| B |  C |
+|:---:|:---:|
+| 2 | 3  |
+| 2 | 5  |
+
+:::
+
+:::::
+
+$\pi_{AB}(R) \bowtie \pi_{BC}(R)=$
+
+| A   |  B  |  C  |
+|:---:|:---:|:---:|
+|   1 | 2   | 3   |
+|   4 | 2   | 5   |
+| **1** | **2** | **5** |
+| **4** | **2** | **3** |
+
+
+
+
+# Algorithme de poursuite  {background-color="#1c191c"}
+
+
+
+## Algorithme de poursuite  (chase algorithm)
+
+- Le risque d'une mauvaise décomposition est que les jointures créent des tuples qui n'éxistaient pas dans la relation initiale (voir l'exemple précédent de décomposition avec perte d'information).
+
+- Pour le savoir, un algorithme simple existe appelé *algorithme de poursuite*
+
+
+
+## Algorithme de poursuite : exemple
+
+
+On décompose  une relation $\verb!R!(\texttt{V\#, Vnom, Vville, P\#, Pnom, Pprix, Qte})$ vérifiant
+$\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}$
+
+en trois relations :
+
+- $\verb!Vendeur!=\pi_{\texttt{V\#,Vnom,Vville}}(R)$
+- $\verb!Produit!=\pi_{\texttt{P\#,Pnom,Pprix}}(R)$
+- $\verb!Livraison!=\pi_{\texttt{V\#,P\#,Qte}}(R)$
+
+Par définition des projections et des jointures, on sait que : $\texttt{R} \subset \verb!Vendeur! \bowtie \verb!Livraison! \bowtie \verb!Produit!$
+
+
+On veut prouver que : $\verb!Vendeur! \bowtie \verb!Livraison! \bowtie \verb!Produit! \subset \texttt{R}$
+
+
+
+
+
+## Algorithme de poursuite : exemple  {.smaller}
+
+
+Soit $t$ un tuple dans la jointure
+
+| V# |  Vnom |  Vville |  P# |  Pnom |  Pprix |  Qte |
+|:--:|:------|:------|:---:|:------|:------|:------|
+| $a$ | $b$ | $c$ | $d$ | $e$ | $f$ | $g$ |
+
+On veut prouver que $t \in R$.
+
+Par définition des projections :
+
+- $(a, b, c)\in \texttt{Vendeur}$ donc
+il existe $e_1, f_1, g_1$ tels que  $(a, b, c, d_1, e_1, f_1, g_1) \in \texttt{R}$
+
+- $(d,e,f) \in \texttt{Produit}$ donc il existe $a_2, b_2, c_2, g_2$ tels que
+$(a_2, b_2, c_2, d, e, f, g_2)\in \texttt{R}$
+
+- $(a,d,g)\in \texttt{Livraison}$ donc il existe $b_3,c_3,e_3,f_3$ tels que
+$(a,b_3,c_3,d,e_3,f_3,g)\in \texttt{R}$
+
+- On peut le représenter comme ceci :
+
+|       | `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pprix` |  `Qte` |
+:------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|Vendeur | $a$  | $b$  | $c$  | $d_1$ | $e_1$ | $f_1$ | $g_1$ |
+|Produit | $a_2$ | $b_2$ | $c_2$ | $d$  | $e$  | $f$  | $g_2$ |
+|Livraison | $a$  | $b_3$ | $c_3$ | $d$  | $e_3$ | $f_3$ | $g$  |
+
+
+
+
+
+## Algorithme de poursuite : exemple   {.smaller}
+
+
+|         | `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pprix` |  `Qte` |
+|:------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|Vendeur | $a$  | $b$  | $c$  | $d_1$ | $e_1$ | $f_1$ | $g_1$ |
+|Produit | $a_2$ | $b_2$ | $c_2$ | $d$  | $e$  | $f$  | $g_2$ |
+|Livraison | $a$  | $b_3$ | $c_3$ | $d$  | $e_3$ | $f_3$ | $g$  |
+
+
+
+`V#` → `Vnom`, `Vville` donc $b_3=b$ et $c_3=c$
+
+| | `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pprix` |  `Qte` |
+|:------: |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|Vendeur | $a$  | $b$  | $c$  | $d_1$ | $e_1$ | $f_1$ | $g_1$ |
+|Produit | $a_2$ | $b_2$ | $c_2$ | $d$  | $e$  | $f$  | $g_2$ |
+|Livraison | $a$  | $b$ | $c$ | $d$  | $e_3$ | $f_3$ | $g$  |
+
+
+
+## Algorithme de poursuite : exemple (suite)  {.smaller}
+
+`P#→ Pnom, Pprix` donc $e_3=e$ et $f_3=f$
+
+
+| | `V#` |  `Vnom` |  `Vville` |  `P#` |  `Pnom` |  `Pprix` |  `Qte` |
+|:------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|Vendeur | $a$  | $b$  | $c$  | $d_1$ | $e_1$ | $f_1$ | $g_1$ |
+|Produit | $a_2$ | $b_2$ | $c_2$ | $d$  | $e$  | $f$  | $g_2$ |
+|Livraison | $a$  | $b$ | $c$ | $d$  | $e$ | $f$ | $g$  |
+
+On a obtenu une ligne égale au tuple $t=(a,b,c,d,e,f,g)$ donc $t\in \texttt{R}$ (tous les tuples qui se projettent sur $a,f,g$ coïncident avec $t$ du fait des clés des trois relations).
+
+On en déduit que la décomposition est **Sans Perte d'Information (SPI)**.
+
+
+## Algorithme de poursuite : cas général  {.smaller}
+
+- **Entrée** : un schéma $\mathcal{A}$, une décomposition $\{\mathcal{A}_1,...,\mathcal{A}_k\}$ et un ensemble $\Sigma$ de DF
+
+- Pour chaque attribut de $\mathcal{A}$, choisir un symbole (par exemple $a$, $b$, $c$,...). La correspondance doit être injective.
+
+- Construire un tableau dont les colonnes sont les attributs de $\mathcal{A}$
+
+Le tableau a une ligne pour chaque $\mathcal{A}_i$
+
+Sur la ligne associée à $\mathcal{A}_i$, les positions correspondant à $\mathcal{A}_i$ sont remplies avec les symboles choisis.
+
+Les autres positions sont remplies avec les symboles indicés par $i$
+
+- Répéter tant que possible : s'il existe une DF $X\rightarrow Y$ dans $\Sigma$ et deux lignes du tableau
+en accord sur $X$, égaliser ces deux lignes sur $Y$
+
+- **Sortie** : Si on obtient une ligne sans valeur indicée, la décomposition est sans perte d'information, sinon il y a perte d'information
+
+<!--
+## Commentaires  sur l'algorithme de poursuite {.smaller}
+
+L'objectif de l'algorithme de poursuite est de vérifier que tout tuple de  $\pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)$ est aussi un tuple de $R$
+
+À l'initialisation, on part d'un tuple de $\pi_{\mathcal{A}_1}(R) \bowtie \pi_{\mathcal{A}_2}(R) \bowtie...\bowtie\pi_{\mathcal{A}_k}(R)$ qu'on note symboliquement $(a, b, c, \ldots)$ avec des symboles non indicés
+
+Pour chaque $i \leq k$, on utilise le fait que pour chaque tuple de  $\pi_{\mathcal{A}_i}(R)$ il existe un ensemble de tuples de $R$ 
+qui coïncident avec $(a, b, c, \ldots)$ sur $\mathcal{A}_i$. On note génériquement ces tuples de $R$ en indiçant les noms de variables par $i$ pour toutes les variables qui ne sont pas dans $\mathcal{A}_i$ 
+
+Chacun des  sous-ensembles de tuples indicés par  $i \leq k$   définit un sous-ensemble de tuples de $R$
+
+On veut se convaincre que $(a, b, c, \ldots)$ appartient à l'un de ces sous-ensembles
+
+. . .
+
+L'algorithme de poursuite utilise les DF de Σ, pour restreindre les $k$ sous-ensembles  
+
+
+## Commentaires (suite)  {.smaller}
+
+L'algorithme de poursuite est un algorithme de *réécriture*
+
+. . .
+
+L'algorithme de poursuite est *non-déterministe* : à chaque étape,  il est parfois possible d'invoquer 
+plusieurs DFs pour réécrire une ou plusieurs lignes
+
+. . .
+
+Un point important de l'analyse de l'algorithme de poursuite consiste à vérifier que ce non-déterminisme n'est 
+pas un problème : l'algorithme de poursuite termine par un succès ou un échec (blocage) quelle que soit la suite 
+des choix effectués 
+
+::: {.proof}
+
+### {{< fa person-chalkboard >}}
+
+:::
+-->
+
+## Algorithme de poursuite : exemple 2 {.smaller}
+
+Considérons l'exemple : $\mathcal{A}=\{A,B,C,D\}$ avec $\mathcal{A}_1=\{A,B\}$, $\mathcal{A}_2=\{B,C\}$ et $\mathcal{A}_3=\{C,D\}$
+
+Soit $\Sigma=\{{C}\rightarrow{D}; {B}\rightarrow{A}\}$.
+
+Soit $t=(a,b,c,d)$. Soit $t_1,t_2,t_3$ les tuples de $R$ suivants:
+
+
+|  | A | B | C | D  |
+|:----|:----:|:----:|:----:|:----:|
+| $t_1$ | `a` | `b` | $c_1$ | $d_1$  |
+| $t_2$ | $a_2$ | `b` | `c` | $d_2$  |
+| $t_3$ | $a_3$ | $b_3$ | `c` | `d`  |
+
+On a pris  $c_1,d_1, a_2,d_2, a_3,b_3$ comme valeurs variables et `a,b,c,d` comme constantes
+
+
+
+
+
+## Algorithme de poursuite - exemple 2  {.smaller}
+
+
+|  | A | B | C | D  |
+|:----|:----:|:----:|:----:|:----:|
+| $t_1$ | `a` | `b` |  $c_1$| $d_1$  |
+| $t_2$ | $a_2$ | `b` | `c` | $d_2$  |
+| $t_3$ | $a_3$ | $b_3$ | `c` | `d`  |
+
+Par la dépendance ${B}\rightarrow{A}$, il vient :
+
+
+|  | A | B | C | D  |
+|:----|:----:|:----:|:----:|:----:|
+| $t_1$ | `a` | `b` |  $c_1$| $d_1$  |
+| $t_2$ | `a`  | `b` | `c` | $d_2$  |
+| $t_3$ | $a_3$ | $b_3$ | `c` | `d`  |
+
+
+
+## Algorithme de poursuite : exemple 2 {.smaller}
+
+
+Par la dépendance ${C}\rightarrow{D}$, il vient :
+
+|  | A | B | C | D  |
+|:----|:----:|:----:|:----:|:----:|
+| $t_1$ | `a` | `b` |  $c_1$| $d_1$  |
+| $t_2$ |  `a`  | `b` | `c` |  `d`   |
+| $t_3$ | $a_3$ | $b_3$ | `c` | `d`  |
+
+On a bien fait apparaître $t$ qui appartient donc à  $R$.
+
+
+
+## Algorithme de poursuite - exemple 3 {.smaller}
+
+Considérons toujours l'exemple : $\mathcal{A}=\{A,B,C,D\}$ avec
+
+$\mathcal{A}_1=\{A,B\}$, $\mathcal{A}_2=\{B,C\}$ et $\mathcal{A}_3=\{C,D\}$
+
+Mais avec  $\Sigma=\{{B}\rightarrow{AD}\}$.
+
+
+
+
+| A | B | C | D  |
+|:---:|:---:|:---:|:---:|
+| `a` | `b` |  $c_1$ | $d_1$  |
+| $a_2$ | `b` | `c` | $d_2$  |
+|  $a_3$ | $b_3$ | `c` | `d`  |
+
+
+
+Dans ce cas, en utilisant la seule DF ${B}\rightarrow{AD}$, on obtient $a_2=a$ et $d_1=d_2$ :
+
+| A | B | C | D  |
+|:---:|:---:|:---:|:---:|
+| `a` | `b` |  $c_1$ | $d_1$  |
+| `a` | `b` | `c` | $d_1$  |
+|  $a_3$ | $b_3$ | `c` | `d`  |
+
+
+On ne peut pas aller plus loin, la décomposition est avec perte d'information.
+
+
+
+# Forme Normale 3 (FN3)   {background-color="#1c191c"}
+
+## Objectif
+
+
+::: {.callout-note}
+
+Construire une décomposition :
+
+- Sans Perte d'Information (SPI)
+- Sans perte de Dépendances Fonctionnelles
+- Dont les éléments sont en FN3 par rapports aux dépendances projetées 
+
+:::
+
+
+## Forme normale 1 (FN1)
+
+::: {.callout-important}
+
+### Définition : forme normale 1 (FN1)
+
+Un schéma relationnel $\mathcal{A}$ est en forme normale 1 (FN1) si tous les attributs ont des valeurs atomiques (pas de liste de valeurs).
+
+:::
+
+::: {.callout-note}
+
+### Proposition
+D'après la théorie de l'algèbrer relationnel, toute relation est en FN1.
+
+:::
+
+
+
+## Forme normale 2 (FN2)
+
+::: {.callout-note}
+### Idée
+Un schéma relationnel est en deuxième forme normale (FN2) si
+tout attribut non identifiant (extérieur à une clé) ne dépend pas d'une partie d'une clé mais de toute la clé.
+
+La FN2 assure seulement une non-redondance partielle de l'information.
+:::
+
+. . .
+
+::: {.callout-important}
+
+### Définition : forme normale 2 (FN2)
+
+Un schéma relationnel $\mathcal{A}$ est en forme normale 2 (FN2) relativement à un ensemble de DF $\Sigma$ ssi 
+
+- pour toute clé $X$ et tout $Y$ non inclus dans $X$, il n'existe pas $X'$ strictement inclus dans $X$ tel que $X' \to Y$. 
+
+:::
+
+. . .
+
+::: {.callout-note}
+### Méthode pour vérifier la FN2
+ Pour toute clé $X$, vérifier que la fermeture de tout sous-ensemble strict de $X$ est inclus dans $X$.
+:::
+
+
+## Exemple  {.smaller}
+
+Schéma `Employé=(#projet, #employé, nom_employé, fonction)`
+
+On suppose qu'on a les dépendances :
+
+- `#projet, #employé → fonction`
+- `#employé → nom_employé`
+
+Le schéma est-il en FN2 ?
+
+. . .
+
+Le schéma `Employé` n'est pas en FN2 à cause de la DF `#employé → nom_employé`.
+
+On peut illustrer le problème de redondance par ces exemples de tuples :
+
+| `#projet` | `#employé` | `nom_employé` | `fonction` |
+|:---:|:---:|:---:|:---:|
+| p1 | e1 | n1 | f1 |
+| p2 | e1 | n1 | f2 |
+| p3 | e1 | n1 | f3 |
+
+On constate bien une redondance pour la projection sur `(#employé, nom_employé)`.
+
+
+## Forme normale 3 (FN3)
+
+::: {.callout-note}
+### Idée
+
+Un schéma relationnel est en troisième forme normale (FN3) si il est en FN2 et si
+tous les attributs non identifiants (extérieur à une clé) dépendent directement d'une clé et pas par transitivité via des attributs qui ne sont pas dans une clé , autrement dit il est en FN3 s'il n'existe pas de dépendance fonctionnelle entre deux attributs non clés.
+
+La FN3 assure une non-redondance partielle acceptable de l'information.
+:::
+
+. . .
+
+::: {.callout-important}
+### Définition : forme normale 3 (FN3)
+
+Un schéma relationnel $\mathcal{A}$  est en forme normale 3 (FN3) relativement à un ensemble de DF $\Sigma$ ssi pour toute dépendance non triviale $X \to Y$ de $\Sigma$, on a 
+
+- le membre gauche $X$ est une super-clé
+- **ou** le membre droit $Y$ fait partie d'une clé.
+
+:::
+
+
+## Exemple 1 {.smaller}
+
+$\mathcal{A_1}=(\texttt{V\#, Vnom, Vville}) \quad \mathcal{A_2}=(\texttt{P\#, Pnom, Pprix}) \quad \mathcal{A_3}=(\texttt{V\#, P\#, Qte})$
+
+$\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}$
+
+La décomposition est-elle 
+
+1. en FN3 ?
+2. SPD ?
+3. SPI ?
+
+. . .
+
+1. - $\pi_{\mathcal{A_1}}(\Sigma)$ équivaut à $\{\texttt{V\#} \to \texttt{Vnom Vville}\}$ qui vérifie la FN3,
+   - $\pi_{\mathcal{A_2}}(\Sigma)$ équivaut à $\{\texttt{P\#} \to \texttt{Pnom Pprix}\}$ qui vérifie la FN3, 
+   - $\pi_{\mathcal{A_3}}(\Sigma)$ équivaut à $\{\texttt{V\# P\#} \to \texttt{Qte}\}$ qui vérifie la FN3.
+   - La décomposition est donc FN3.
+2. Elle est SPD car les DF de $\Sigma$ sont locales à au moins un sous-schéma donc elles sont préservées.
+3. Elle est SPI (montré précédemment).
+
+
+## Exemple 2  {.smaller}
+
+Schéma `Employé=(#employé, nom_employé, #service, nom_service)`
+
+On suppose qu'on a les dépendances :
+
+- `#employé → nom_employé, #service`
+- `#service → nom_service`
+
+Le schéma est-il en FN2, FN3 ?
+
+. . .
+
+Le schéma `Employé` a pour clé `#employé` qui est réduite à un attribut. Il est donc en FN2.
+
+Il n'est pas en FN3 à cause de la DF `#service → nom_service`.
+
+On peut illustrer les redondances par ces exemples de tuples :
+
+| `#employé` | `nom_employé` | `#service` | `nom_service` |
+|:---:|:----:|:---:|:----:|
+| e1 | n1 | s1 | ns1 |
+| e2 | n2 | s1 | ns1 |
+| e3 | n3 | s1 | ns1 |
+
+On constate bien une redondance pour la projection sur `(#service, nom_service)`.
+
+
+
+## Exemple 3 {.smaller}
+
+
+$\mathcal{A}= (\verb!A, B, C, D, E!)$ et $\Sigma=\{\verb!A → C ; BC → D ; AD → E!\}$
+
+1. Quelles sont les clés ?
+2. Le schéma est-il en FN2 ? en FN3 ?
+
+. . .
+
+1. Clé unique $\verb!AB!$.
+   - $\verb!A!$ et $\verb!B!$ ne sont jamais à droite d'une dépendance donc toute clé doit contenir $\{AB\}$.
+   - $\{AB\}^+ = \mathcal{A}$, $\{A\}^+ = \mathcal{AC}$, $\{B\}^+ = \mathcal{B}$.
+
+2. Ni FN2, ni FN3 car :
+   + $A \to C$ ne vérifie pas la règle FN2.
+   + Aucune des DF de $\Sigma$ ne vérifie la régle FN3. 
+
+
+
+
+# Algorithme de décomposition en FN3 SPI et SPD {background-color="#1c191c"}
+
+<!-- //idée mais non SPD chercher un algorithme
+## Décomposition en FN2
+
+::: {.callout-important}
+### Méthode
+Soit un schéma relationnel $\mathcal{A}$ respectant les DF **irredondantes** $\Sigma$ qui n'est pas FN2, c.a.d.
+
+- il existe une dépendance $X'\to a$ qui n'est pas FN2, c.a.d. il existe une clé $X$, une sous-clé stricte $X'$, un attribut $a$ extérieur à $X$ tels que $X' \to a$. 
+- On pose B = \{ b \in \mathcal{A}\X | \exists (X' \to b) \in \Sigma}
+- On décompose $\mathcal{A}$ en $\mathcal{A_1} = (A\B)$ et $\mathcal{A_2} = (X' \cup B)$
+
+Autrement dit, on enlève de $\mathcal{A}$ les attributs déterminés par la sous clé $X'$ qui ne sont pas dans la clé $X$ et on les place dans un nouvelle relation $\mathcal{A_2}$ avec la sous-clé $X'$.
+
+On applique cette méthode récursivement jusqu'à avoir une décomposition FN2.
+:::
+
+::: {.callout-note}
+On peut vérifier :
+- la décomposition est SPF.
+- la décomposition est SPI car on a laissé la clé $X$ de $\mathcal{A}$ dans $\mathcal{A1}$.
+:::
+
+-->
+
+
+## Algorithme de construction d'une FN3
+
+```{=html}
+<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:0.8em;padding:10px;border:1px solid #220f61ff;">
+fonction decomposition_FN3(A, Σ)
+   D :=  ∅                // initialisation de la décomposition D
+   Σ' := min_cover(Σ)     // calcul d'une couverture minimale de Σ
+   
+   for each distinct left member X of a DF in Σ'
+      Y := {y | X → y ∈ Σ'}
+      D := D ⋃ {(X ⋃ Y)} // Ajouter le schéma (X ⋃ Y) à D
+   // la décomposition doit comprendre tous les attributs
+   B := {attributes in A that do not occur in D}
+   D := D ⋃ {(B)}        // Ajouter le schéma (B) à D
+   // dernière partie pour assurer une décomposition SPI
+   If no schemas includes a key of A, add a schema with a key of A
+
+   return D
+</pre>
+```
+
+::: {.callout-note}
+*Dernière partie de l'algorithme* : pour avoir une décomposition SPI, il faut s'assurer qu'il y a au-moins une clé de $\mathcal{A}$ dans une des relations de décomposition. Si ce n'est pas le cas, il faut
+ajouter une relation contenant une clé de $\mathcal{A}$.
+:::
+
+## Propriétés de l'algorithme
+
+::: {.callout-important}
+
+### Proposition 
+
+L'algorithme termine en un nombre fini d'itérations.
+
+La décomposition produite par l'algorithme est : 
+
+- en FN3,
+
+- sans perte d'informations,
+
+- sans perte de dépendances fonctionnelles.
+
+:::
+
+## Exemple 1 {.smaller}
+
+Schéma $\verb! Employé!=(\verb!#projet, #employé, nom_employé, fonction!)$
+
+$\Sigma = \{\verb! #projet #employé → fonction ; #employé → nom_employé! \}$
+
+. . .
+
+Le schéma $\verb!Employé!$ n'est pas en FN2 à cause de la DF $\verb!#employé → nom_employé!$.
+
+Appliquons l'algorithme de construction d'une décomposition FN3.
+
+. . .
+
+- $\Sigma$ est irredondante. 
+
+- Pour le déterminant $\verb! #employé!$ :  $\  Y = \{\verb!nom_employé!\}$, 
+$\ \mathcal{A_1}= (\verb!#employé!) \cup Y = (\verb!#employé!, \verb!nom_employé!)$,
+
+- Pour le déterminant $\verb! #projet!, \verb!#employé!$ :  $\  Y = \{\verb!fonction!\}$, 
+$\  \mathcal{A_2}= (\verb!#projet!, \verb!#employé!) \cup Y = (\verb!#projet!, \verb!#employé!, \verb!fonction!)$,
+
+- $\  D=\left\{\mathcal{A_1}, \mathcal{A_2}\right\}$, tous les attributs initiaux sont présents dans la décomposition.  $B = \emptyset$. On n'ajoute rien.
+
+- Le schéma initial a pour clé $(\verb!#projet!, \verb!#employé!)$ qui est présente dans $\mathcal{A_2}$ donc on n'ajoute rien à la décomposition.
+
+- $\left\{\mathcal{A_1}, \mathcal{A_2}\right\}$ est une décomposition de $\verb!Employé!$ en FN3 SPI et SPD.
+
+
+
+## Exemple 2  {.smaller}
+
+Schéma $\verb! Employé!=(\verb!#employé, nom_employé, #service, nom_service!)$
+
+$\Sigma = \{ \verb!#employé → nom_employé ; #employé → #service ; #service → nom_service! \}$
+
+. . .
+
+Le schéma $\verb!Employé!$ a pour clé $\verb!#employé!$, il est donc en FN2 mais pas en FN3 à cause de la DF $\verb!#service → nom_service!$.
+
+Appliquons l'algorithme de construction d'une décomposition FN3.
+
+. . .
+
+- $\Sigma$ est irredondante.
+
+- Pour le déterminant $\verb! #employé!$ :  $\  Y = \{\verb!nom_employé, #service!\}$, 
+$\ \mathcal{A_1}= (\verb!#employé!) \cup Y = (\verb!#employé, nom_employé, #service!)$.
+
+- Pour le déterminant $\verb! #service!$ :  $\  Y = \{\verb!nom_service!\}$, 
+$\  \mathcal{A_2}= (\verb!#service!) \cup Y = (\verb!#service!, \verb!nom_service!)$.
+
+- $D=\left\{\mathcal{A_1}, \mathcal{A_2}\right\}$. Tous les attributs initiaux sont présents dans la décomposition.  $B = \emptyset$. On n'ajoute rien.
+
+- Le schéma initial a pour clé $(\verb!#employé!)$ qui est présente dans $\mathcal{A_1}$ donc on n'ajoute rien à la décomposition.
+
+- $\left\{\mathcal{A_1}, \mathcal{A_2}\right\}$ est une décomposition de $\verb!Employé!$ en FN3 SPI et SPD.
+
+
+
+## Exemple 3 {.smaller}
+
+$\mathcal{A}=(\texttt{V\#, Vnom, Vville, P\#, Pnom, Pprix, Qte})$
+
+$\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}$
+
+Appliquer l'algorithme de décomposition à ce schéma relativement à $\Sigma$.
+
+. . .
+
+$\Sigma$ a pour couverture irredondante  $\Sigma' = \{\texttt{V\#} \to \texttt{Vnom}, \ \texttt{V\#} \to \texttt{Vville},\ \texttt{P\#} \to \texttt{Pnom}, \ \texttt{P\#} \to \texttt{Pprix},\ \texttt{V\# P\#} \to \texttt{Qte} \}$
+
+- Pour le déterminant $\texttt{V\#}$ :  $\quad Y = \{\texttt{Vnom, Vville}\}$, 
+$\quad \mathcal{A_1}= (\texttt{V\#}) \cup Y = (\texttt{V\#, Vnom, Vville})$,
+
+- Pour le déterminant $\texttt{P\#}$ :  $\quad Y = \{\texttt{Pnom, Pprix}\}$, 
+$\quad \mathcal{A_2}= (\texttt{P\#}) \cup Y = (\texttt{P\#, Pnom, Pprix})$,
+
+- Pour le déterminant $\texttt{V\# P\#}$ :  $\quad Y = \{\texttt{Qte}\}$. 
+$\quad \mathcal{A_3}= (\texttt{V\# P\#}) \cup Y = (\texttt{V\# P\#, Qte})$,
+
+- $D=\left\{\mathcal{A_1}, \mathcal{A_2}, \mathcal{A_3}\right\}$.
+Tous les attributs initiaux sont présents dans la décomposition.  $B = \emptyset$. On n'ajoute rien.
+
+- Le schéma initial a une clé unique $\verb!V# P#!$. Elle est déjà incluse dans un des schémas présents donc on n'ajoute rien à la décomposition.
+
+On obtient la même décomposition que celle déjà étudiée.
+$\mathcal{A_1}=(\texttt{V\#, Vnom, Vville}), \quad \mathcal{A_2}=(\texttt{P\#, Pnom, Pprix}), \quad \mathcal{A_3}=(\texttt{V\#, P\#, Qte})$
+
+
+## Exemple 4  {.smaller}
+
+
+$\mathcal{A}= (\verb!A, B, C, D, E!)$ et $\Sigma =\{\verb!A → C ; BC → D ; AD → E!\}$
+
+Appliquer l'algorithme de décomposition à ce schéma relativement à $\Sigma$.
+
+. . .
+
+- En utilisant l'algorithme de calcul d'une couverture irredondante :
+
+   + La première phase de sélection donne $\{A → C, BC → D, AD → E\}$,
+   + La deuxième phase d'élimination d'attribut ne change rien.
+   + $\Sigma$ est sous forme irredondante.
+
+. . .
+
+- Pour le déterminant $\texttt{A}$ :  $\quad Y = \{\texttt{C}\}$, $\quad \mathcal{A_1}= (\texttt{A,C})$,
+
+- Pour le déterminant $\texttt{BC}$ :  $\quad Y = \{\texttt{D}\}$, $\quad \mathcal{A_2}= (\texttt{B,C,D})$,
+
+- Pour le déterminant $\texttt{AD}$ :  $\quad Y = \{\texttt{E}\}$, $\quad \mathcal{A_3}= (\texttt{A,D,E})$,
+
+- $D=\left\{\mathcal{A_1}, \mathcal{A_2}, \mathcal{A_3}\right\}$. Tous les attributs initiaux sont présents dans la décomposition.  On n'ajoute rien.
+
+- On a vu précédemment que le schéma initial a une clé unique $\verb!AB!$. **Elle n'est incluse dans aucun des schémas présents donc on ajoute le schéma $\mathcal{A_4}=(\texttt{A,B})$ à la décomposition pour assurer une décomposition SPI**.
+
+- On obtient la décomposition $\{(\texttt{A,C}), (\texttt{A,B,C,D}), (\texttt{A,D,E}), (\texttt{A,B})\}$.
+
+
+
+
+# Forme normale de Boyce-Codd (FNBC) {background-color="#1c191c"}
+
+
+## Forme normale de Boyce-Codd (FNBC)
 
 ::: {.callout-important}
 
 ### Définition
 
-Un schéma $\mathcal{A}$ est en FNBC par rapport à un ensemble de dépendances fonctionnelles $\Sigma$ sur $\mathcal{A}$
+Un schéma $\mathcal{A}$ est en FNBC par rapport à un ensemble de dépendances fonctionnelles $\Sigma$ sur $\mathcal{A}$ ssi
 
-si
-
-pour toute DF $X\rightarrow Y$ impliquée par $\Sigma$ avec $Y\not\subset X$, $X$ est une super-clef
-
+- pour toute DF non triviale $X\rightarrow Y$ impliquée par $\Sigma$, $X$ est une *sur-clé* (ou *super-clé*).
 
 :::
 
 
-
-
-## Algorithme 
-
-```pseudocode
-#| html-indent-size: "1.2em"
-#| html-comment-delimiter: "//"
-#| html-line-number: true
-#| html-line-number-punc: ":"
-#| html-no-end: false
-
-\begin{algorithm}
-\caption{Décomposition FNBC}
-\begin{algorithmic}
-\Procedure{DecompositionFNBC}{$\mathcal{A}, Σ$}
-
-\State \Comment{Initialisation de la décomposition}
-\State $D ←  \{\mathcal{A}\}$
-
-
-\State
-\While{Exists some $\mathcal{B} \in D$ which is not in BCNF w.r.t. $\Sigma \models X → X^+ \cap \mathcal{B}$, $X \subsetneq \mathcal{B}$}
-  \State $Y \leftarrow X^+ \cap \mathcal{B} \setminus X$ 
-  \State $D \leftarrow D \setminus \{\mathcal{B}\} \cup \{ X \cup Y, \mathcal{B} \setminus Y \}$
-\EndWhile
-\State
-\Return $D$
-
-\EndProcedure
-
-\end{algorithmic}
-\end{algorithm}
-```
-
----
-
+## Vérifier la FNBC
 
 ::: {.callout-important}
 
 ### Proposition
 
-- L'algorithme termine
+Soit $\Sigma'$ un ensemble de DF équivalent à $\Sigma$.
 
-- Les éléments de la  décomposition finale sont en FNBC 
-
-- La décomposition est Sans Perte d'Information (SPI)
-
+$(\mathcal{A},\Sigma)$ est en FNBC si et seulement si pour toute DF non triviale de $\Sigma'$, le membre de gauche est une sur-clé (super-clef).
 
 :::
+
+::: {.callout-important}
+
+### Méthode
+
+Il suffit de vérifier la règle FNBC pour un ensemble de DF équivalent à $\Sigma$.
+
+:::
+
+
+
+
+
+## FNBC : exemple 1 {.smaller}
+
+$\mathcal{A}=(\texttt{V\#, Vnom, Vville, P\#, Pnom, Pprix, Qte})$
+
+$\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}$
+
+. . .
+
+$\mathcal{A}$ n'est pas en FNBC par rapport $\Sigma$.
+En effet ni $\texttt{V\#}$ ni $\texttt{P\#}$ ne sont des sur-clés.
+
+. . .
+
+Mais la décomposition $\mathcal{A_1}=(\texttt{V\#, Vnom, Vville}) \quad \mathcal{A_2}=(\texttt{P\#, Pnom, Pprix}) \quad \mathcal{A_3}=(\texttt{V\#, P\#, Qte})$ est en FNBC.
+
+
+## FNBC : exemple 2 {.smaller}
+
+Schéma $\verb!Projet! = (\verb!#projet, #employé, localisation, fonction!)$
+
+$\Sigma = \{\verb! #projet #employé! \to \verb!localisation fonction ! ; \verb! localisation! \to \verb!#projet ! \}$
+
+. . .
+
+Le schéma $\verb!Projet!$ est en FN3 mais n'est pas en FNBC.
+
+D'après les DF, il subsiste des redondances que l'on peut illustrer par les tuples :
+
+| #projet | #employé | localisation | fonction |
+|:---:|:---:|:---:|:---:|
+| p1 | e1 | l1 | f1 |
+| p1 | e2 | l1 | f2 |
+| p1 | e3 | l1 | f3 |
+
+
+
+
+## Pourquoi deux notions de forme normale ?
+
+::: {.callout-note}
+
+### Proposition 
+
+Si un schéma $\mathcal{A}$ est en forme normale Boyce-Codd (FNBC) relativement à un ensemble de DF $\Sigma$, alors $\mathcal{A}$ est en forme normale 3 (FN3) relativement à $\Sigma$.
+
+:::
+
+. . .
+
+::: {.aside}
+
+La réciproque est fausse
+
+:::
+
+
+
+## Niveaux de décomposition d'une relation
+
+::: {.callout-note}
+Les formes normales correspondent à des niveaux d'élimination des redondances.
+
+La FNBC élimine toutes les redondances dues aux DF mais toutes les contraintes d'une relation ne se modélisent pas par des DF !
+:::
+
+![](/images/fn/FN_emboitement.png){fig-align="center" width="50%"}
+
+
+
+
+# Algorithme de décomposition FNBC SPI {background-color="#1c191c"}
+
+## Méthode de décomposition FNBC  SPI
+
+::: {.callout-important}
+### Méthode
+Soit un schéma relationnel $\mathcal{A}$ respectant les DF $\Sigma$. 
+
+1. `D` est initialisée à `{A}`,
+2. Soit `B` une relation de `D` qui n'est pas FNBC à cause d'une DF non triviale `X → a` telle que `X` n'est pas clé de `B`.
+   + On définit `Y` comme l'ensemble des attributs de `B\X` déterminés par `X`.
+   + On décompose alors `B` en :
+      * `B1` contenant les attributs de `X` et de `Y`.
+      * `B2` contenant tous les attributs de `B` sauf ceux de `Y`.
+ 3. On boucle jusqu'à ce que toutes les relations soient FNBC.
+
+:::
+
+::: {.callout-note title="SPI"}
+
+Chaque étape est SPI car on laisse la clé `X` de `B1` dans `B2`. 
+
+:::
+
+
+## Algorithme 
+
+```{=html}
+<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:1em;padding:10px;border:1px solid #220f61ff;">
+fonction decomposition_FNBC(A,Σ)
+
+   //Initialisation de la décomposition
+   D :=  {A}
+
+   while (∃ B ∈ D, B not BCNF because of Σ ⊨ X → a)
+      Y := X⁺ ⋂ (B\X)       // X → a non triviale donc Y ≠ ∅
+      D := (D\{B}) ⋃ { X⋃Y, B\Y }
+   
+return D
+</pre>
+```
+
+## Propriétés de l'algorithme 
+
+::: {.callout-important title="Proposition"}
+
+- L'algorithme termine,
+
+- Les éléments de la  décomposition finale sont en FNBC, 
+
+- La décomposition est Sans Perte d'Information (SPI).
+
+:::
+
+::: {.callout-note}
+
+### Preuves
+
+- La terminaison est triviale : à chaque itération le nombre de parties de $\mathcal{A}$ dans  $D$ augmente de $1$ et ce nombre ne peut dépasser $\# \mathcal{A}$
+
+- La seconde propriété est triviale aussi
+
+- La propriété SPI se vérifie avec l'algorithme de poursuite (et son analyse): chaque itération de la boucle `While` est SPI. 
+
+:::
+
+## Exemple 1 {.smaller}
+
+$\mathcal{A}=(\verb!V#, Vnom, Vville, P#, Pnom, Pprix, Qte!)$
+
+$\Sigma = \{\texttt{V\#} \to \texttt{Vnom Vville}\ , \ \texttt{P\#} \to \texttt{Pnom Pprix}\ , \ \texttt{V\# P\#} \to \texttt{Qte} \}$
+
+. . .
+
+$\texttt{V\#} \to \texttt{Vnom Vville}$ ne respecte pas la FNBC car $\texttt{V\#}$ n'est pas une sur-clé.
+
+On a calculé une décomposition FN3 et on a vu qu'elle était FNBC.
+Que donne l'algorithme de décomposition FNBC ?
+
+. . .
+
+1. $\verb!V#! \to \texttt{Vnom Vville}$ ne respecte pas la FNBC.
+   + l'ensemble des attributs de $\mathcal{A}\setminus\{\verb!V#!\}$ déterminés par $\verb!V#!$ est $Y=\{\verb!Vnom, Vville!\}$
+   + on décompose $\mathcal{A}$ en
+   $\mathcal{A_1}=(\verb!V#, Vnom, Vville!)$ et $\mathcal{B_1}=\mathcal{A}\setminus Y=(\verb!V#, P#, Pnom, Pprix, Qte!)$.
+
+. . .
+
+2. $\mathcal{B_1}$ a pour clé $\verb!(V#, P#)!$ donc $\verb!P#! \to \texttt{Pnom Pprix}$ ne respecte pas la FNBC pour $\mathcal{B_1}$.
+   + l'ensemble des attributs de $\mathcal{B_1}\setminus\{\verb!P#!\}$ déterminés par $\verb!P#!$ est $Y=\{\verb!Pnom, Pprix!\}$
+   + on décompose $\mathcal{B_1}$ en
+   $\mathcal{A_2}=(\verb!P#, Pnom, Pprix!)$ et $\mathcal{A_3}=\mathcal{B_1}\setminus Y=(\verb!V#, P#, Qte!)$.
+
+. . .
+
+3. - $\mathcal{A_1}=(\verb!V#, Vnom, Vville!)$ a pour clé $\verb!V#!$ et est FNBC.
+   - $\mathcal{A_2}=(\verb!P#, Pnom, Pprix!)$ a pour clé $\verb!P#!$ et est FNBC.
+   - $\mathcal{A_3}=(\verb!V#, P#, Qte!)$ a pour clé $\verb!(V#, P#)!$ et est FNBC.
+
+On a obtenue la même décomposition que celle déjà connue. On sait qu'elle est SPI et SPD.
+
+
+
+## Exemple 2 {.smaller}
+
+Schéma $\verb!Projet! = (\verb!#projet, #employé, localisation, fonction!)$
+
+$\Sigma = \{\verb! #projet #employé! \to \verb!localisation fonction ! , \verb! localisation! \to \verb!#projet! \}$
+
+Le schéma $\verb!Projet!$ est en FN3 mais n'est pas en FNBC. 
+Que donne l'algorithme de décomposition FNBC ?
+
+. . .
+
+1. $\verb! localisation! \to \verb!#projet!$ ne respecte pas la FNBC.
+   + l'ensemble des attributs de $\verb!Projet!\setminus\{\verb!localisation!\}$ déterminés par $\\verb!localisation!\$ est $Y=\{\verb!#projet!\}$
+   + on décompose $\verb!Projet!$ en
+   $\mathcal{A_1}=(\verb!localisation, #projet!)$ et $\mathcal{A_2}=\verb!Projet!\setminus Y=(\verb!#employé, localisation, fonction!)$.
+
+. . .
+
+2. + $\mathcal{A_1}=(\verb!localisation, #projet!)$ a pour clé $\verb!localisation!$, toutes les DF respectent la FNBC.
+   + $\mathcal{A_2}=(\verb!#employé, localisation, fonction!)$ a pour clé $\verb!(#employé,localisation)!$, toutes les DF respectent la FNBC.
+
+. . .
+
+On peut vérifier que la décomposition est SPI avec l'algorithme de poursuite. Mais **elle n'est pas SPD**.
+
+. . .
+
+La dépendance $\verb! #projet #employé! \to \verb!localisation fonction !$ est perdue car l'algorithme de calcul de la fermeture par rapport aux DF projetées donne : $\{\verb!#projet, #employé!\}^+_{\mathcal{A_1},\mathcal{A_2}} = \{\verb!#projet, #employé!\}$.
+
+
+
+## Exemple 3 {.smaller}
+
+$\mathcal{A}= (\verb!A, B, C, D, E!)$ et $\Sigma=\{\verb!A → C ; BC → D ; AD → E!\}$
+
+- Quelles sont les clés ?
+- Le schéma est-il en FNBC ?
+- Si non, proposer une décomposition SPI en FNBC. Est-elle sans perte de DF?
+ 
+. . .
+
+On a précédemment déterminer que l'unique clé est $\verb!AB!$. Aucune des DF ne respecte la FNBC. 
+
+On a calculé aussi une décomposition FN3 SPI et SPD :
+
+$$\{(\texttt{A,C}), (\texttt{B,C,D}), (\texttt{A,D,E}), (\texttt{AB})\}$$
+
+Est-elle FNBC ?
+
+. . . 
+
+Oui elle est FNBC car
+
+- $(\texttt{A,C})$ a pour clé $\verb!A!$ donc vérifie la FNBC.
+- $(\texttt{B,C,D})$ a pour clé $\verb!BC!$ donc vérifie la FNBC.
+- $(\texttt{A,D,E})$ a pour clé $\verb!AD!$ donc vérifie la FNBC.
+- $(\texttt{A,B})$ a pour clé $\verb!AB!$ donc vérifie la FNBC.
+
+
+
+
+## Exemple 3 (suite) {.smaller}
+
+Comparons avec la décomposition obtenue par l'algorithme de décomposition FNBC.
+
+Le schéma initial $\mathcal{A}= (\verb!A, B, C, D, E!)$ de clé $\verb!AB!$, et $\Sigma=\{\verb!A → C ; BC → D ; AD → E!\}$
+
+. . .
+
+1. $\verb!A → C!$ ne respecte pas la FNBC.
+   + l'ensemble des attributs de $\mathcal{A}\setminus\{\verb!A!\}$ déterminés par $\{\verb!A!\}$ est $Y=\{\verb!C!\}$
+   + on décompose $\mathcal{A}$ en
+   $\mathcal{A_1}=(\verb!A,C!)$ et $\mathcal{B_1}=\mathcal{A}\setminus Y=(\verb!A,B,D,E!)$.
+
+. . .
+
+2. $\mathcal{B_1}$ a pour clé $\verb!AB!$ donc $\verb!BC → D!$ ne respecte pas la FNBC pour $\mathcal{B_1}$.
+   + l'ensemble des attributs de $\mathcal{B_1}\setminus\{\verb!B,C!\}$ déterminés par $\{\verb!B,C!\}$ est $Y=\{\verb!D!\}$
+   + on décompose $\mathcal{B_1}$ en
+   $\mathcal{A_2}=(\verb!B,C,D!)$ et $\mathcal{A_3}=\mathcal{B_1}\setminus Y=(\verb!A,B,E!)$.
+
+. . .
+
+3. - $\mathcal{A_1}=(\verb!A,C!)$ a pour clé $\verb!A!$ et est FNBC.
+   - $\mathcal{A_2}=(\verb!B,C,D!)$ a pour clé $\verb!BC!$ et est FNBC.
+   - $\mathcal{A_3}=(\verb!A,B,E!)$ a pour clé $\verb!AB!$ et est FNBC.
+
+**Nous n'obtenons pas la même décomposition qu'avec l'algorithme de décomposition FN3**.
+
+On peut vérifier que la décomposition est SPI (exercice ?) mais elle **n'est pas SPD**.
+
+. . .
+
+La DF $\verb!AD → E!$ n'est pas préservée ! On le montre par le calcul de la fermeture de $\verb!{A,D}!$ par rapport au DF projetées, on obtient  $\verb!{A,D}!^+_{\mathcal{A_1},\mathcal{A_2},\mathcal{A_3}} = \verb!{A,D}!$
+
+
+# Décomposition FNBC et pertes de DF {background-color="#1c191c"}
+
 
 ## Limites de la décomposition FNBC
   
@@ -443,306 +1480,9 @@ La décomposition préserve l'information (SPI) mais pas les dépendances foncti
 
 ::: {.callout-caution title="À noter"}
 
-On peut vérifier qu'*aucune* décomposition FNBC de $\mathcal{A}$ ne préserve toutes les dépendances fonctionnelles. 
+Pour cet exemple, on peut vérifier qu'*aucune* décomposition FNBC de $\mathcal{A}$ ne préserve toutes les dépendances fonctionnelles. 
 
 :::
-
-
-## Un nouvel objectif
-
-
-::: {.callout-note title="Construire"}
-
-Une décomposition :
-
-- Sans Perte d'Information (SPI)
-- Sans perte de Dépendances Fonctionnelles
-- Dont les éléments sont en FN3 par rapports aux dépendances projetées 
-
-:::
-
-## Pour réaliser cet objectif
-
-Une étape cruciale : réécrire l'ensemble de DFs
-
-
-
-
-# Couverture irredondante d'un ensemble de DF {background-color="#1c191c"}
-
-
----
-
-::: {.callout-important}
-
-### Définition de la couverture irredondante d'un ensemble de DFs
-
-Soit  $\Sigma$ un ensemble de DF, une *couverture minimale/irredondante* de  $\Sigma$ est un ensemble $\Sigma'$ de DF qui vérifie :
-
-- Chaque DF de $\Sigma'$ est de la forme $X → A$, où $A$ est un attribut
-
-- $\Sigma'$ et $\Sigma$ sont équivalents  ($\Sigma \models \Sigma'$  et $\Sigma' \models \Sigma$)
-
-- Aucun sous-ensemble *propre* de $\Sigma'$ n'implique $\Sigma$  ($∀ \Sigma^{\prime\prime} ⊊ \Sigma^\prime, \Sigma^{\prime\prime} \not\models \Sigma$)
-
-- Pour toute dépendance $X → A$ de $\Sigma'$, $\forall Y ⊊ X, \Sigma \not\models Y→ A$ 
-
-:::
-
----
-
-
-{{< fa hand-point-right >}} Dans une couverture irredondante, toutes des DFs sont utiles, chaque DF est minimale (c'est vrai pour le membre droit comme pour le membre gauche)
-
-. . .
-
-{{< fa brain >}} {{< fa mug-hot >}}
-
-- Existence de couvertures irredondantes 
-
-- Unicité
-  
-- Construction de couvertures irredondantes 
-
-- Si pas unicité des couvertures irredondantes,  les couvertures irredondantes sont-elles toutes également intéressantes ?
- 
-## Algorithme de construction de couverture irredondante  {.scrollable}
-
-```pseudocode
-#| html-indent-size: "1.2em"
-#| html-comment-delimiter: "//"
-#| html-line-number: true
-#| html-line-number-punc: ":"
-#| html-no-end: false
-
-\begin{algorithm}
-\caption{Couverture irredondante}
-\begin{algorithmic}
-\Procedure{MinCover}{$Σ$}
-\State Σ' ← ∅ 
-
-\State \Comment{Normaliser les éléments de Σ}
-
-\For{$(X → Y) ∈ Σ$}
-  \For{$y ∈ Y$}
-    \State Σ' ← Σ' ∪ {X → y}
-  \EndFor
-\EndFor
-
-\State \Comment{Éliminer les dépendances redondantes dans Σ'}
-
-\State \Comment{Miniser les dépendances  dans Σ'}
-
-\Return Σ'
-
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
-```
-
-## Détails
-
-::: {.columns}
-::: {.column width="45%"}
-
-```pseudocode
-#| html-indent-size: "1.2em"
-#| html-comment-delimiter: "//"
-#| html-line-number: true
-#| html-line-number-punc: ":"
-#| html-no-end: false
-
-\begin{algorithm}
-\caption{Éliminer les dépendances redondantes dans Σ' (détail)}
-\begin{algorithmic}
-
-\Repeat
-  \State s ← \True
-  \For{$(X → y) ∈ Σ'$}
-    \If{$Σ' \setminus {X → y} ⊧ X → y$}
-      \State $Σ' ← Σ' \setminus {X → y}$
-      \State s ← \False
-    \EndIf
-  \EndFor
-\Until{s}
-
-\end{algorithmic}
-\end{algorithm}
-```
-
-:::
-
-::: {.column width="55%"}
-
-```pseudocode
-#| html-indent-size: "1.2em"
-#| html-comment-delimiter: "//"
-#| html-line-number: true
-#| html-line-number-punc: ":"
-#| html-no-end: false
-
-\begin{algorithm}
-\caption{Miniser les dépendances  dans Σ' (détail)}
-\begin{algorithmic}
-
-\Repeat
-  \State s ← \True
-  \For{$(X → y) ∈ Σ'$}
-    \For{$x ∈ X$}
-      \If{$Σ' \setminus {X → y} ⊧ X \setminus {x} → y$}
-        \State $Σ' ← (Σ' \setminus {X → y}) ∪ X \setminus {x} → y$
-        \State s ← \False
-        \Break
-      \EndIf
-    \EndFor
-  \EndFor
-\Until{s}
-
-\end{algorithmic}
-\end{algorithm}
-```
-
-:::
-::: 
-
-
-
-
-# Forme Normale 3 (FN3)   {background-color="#1c191c"}
-
-
-## Définition : forme normale 3 (FN3)
-
-::: {.callout-important}
-
-Un schéma relationnel $\mathcal{A}$ est en forme normale 3 (FN3) relativement à un ensemble de DF Σ ssi 
-pour toute dépendance non triviale `X → Y`de Σ, on a 
-
-- le membre gauche `X` est une super-clé  *ou*
-- le membre droit `Y` fait partie d'une clé
-
-:::
-
-
-::: {.aside}
-
-Le schéma $\mathcal{A} =$ `{Ville, Rue, Numéro, #Bureau_vote}` est en FN3 relativement à `Σ = { Ville, Nom, Rue → #Bureau_vote,  #Bureau_vote  →  Ville }`
-
-Mais ce schéma n'est pas en FNBC.
-
-:::
-
-
-## Pourquoi deux notions de forme normale ?
-
-::: {.callout-note}
-
-### Proposition 
-
-Si un schéma $\mathcal{A}$ est en forme normale Boyce-Codd (FNBC) relativement à un ensemble de DF Σ, alors $\mathcal{A}$ est en forme normale 3 (FN3) relativement à  Σ
-
-:::
-
-::: {.aside}
-
-La réciproque est fausse
-
-:::
-
-
-## Exercice 
-
-$\mathcal{A}=$ `(A, B, C, D, E)` et `Σ={A → C, BC → D, AD → E}`
-
-- Quelles sont les clés ?
-- Le schéma est-il en FNBC ?
-- Si non, propopsez une décomposition SPI en FNBC. Est-elle sans perte de DF?
-- Le schéma est-il en FN3 ? 
-
-## Intérêt  de la forme normale 3 (FN3)
-
-Redondance limitée
-
-. . .
-
-Possibilité de décomposition SPI et sans perte de Dépendances Fonctionnelles
-
-
-
-# Algorithme de Décomposition en FN3  {background-color="#1c191c"}
-
-## Algorithme {.smaller}
-
-```pseudocode
-#| html-indent-size: "1.2em"
-#| html-comment-delimiter: "//"
-#| html-line-number: true
-#| html-line-number-punc: ":"
-#| html-no-end: false
-
-\begin{algorithm}
-\caption{Decomposition FN3}
-\begin{algorithmic}
-\Procedure{DecompositionFN3}{$\mathcal{A}, Σ$}
-
-\State \Comment{Initialisation de la décomposition}
-\State $D ←  ∅$
-
-\State \Comment{Mise en forme des courverture minimale de Σ}
-\State Σ' ← \Call{MinCover}{$Σ$}
-\State
-\For{Each distinct determinant $X$ amongst FDs in Σ'}
-  \State $Y ← \{y : X → y ∈ Σ'\}$
-  \State $D ← D \cup \{X \cup Y\}$ \Comment{    Ajouter $X \cup Y$ à $D$}
-\EndFor
-\State
-\State $\mathcal{B} ← $ Attributes in  $\mathcal{A}$  that do not occur in $D$ 
-\State $D ← D \cup \{\mathcal{B}\}$
-\State
-\If{No component of $D$ includes a key for $\mathcal{A}, Σ$}
-  \State $D ← D \cup $ some key for $\mathcal{A}, Σ$
-\EndIf
-\State
-\Return $D$
-
-\EndProcedure
-
-\end{algorithmic}
-\end{algorithm}
-```
-
-
-
----
-
-
-::: {.callout-important}
-
-### Proposition 
-
-L'algorithme termine en un nombre fini d'itérations
-
-La décomposition produite par l'algorithme est 
-
-- en FN3
-
-- sans perte d'information
-
-- sans perte de dépendances fonctionnelles
-
-:::
-
-
-## Preuves 
-
-### Terminaison {{< fa person-chalkboard >}}
-
-### FN3 {{< fa person-chalkboard >}}
-
-### SPI {{< fa person-chalkboard >}}
-
-### SPDF {{< fa person-chalkboard >}}
-
 
 
 

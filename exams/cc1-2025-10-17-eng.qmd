@@ -35,7 +35,7 @@ engine: knitr
 ::: 
 
 ::: {#second-column}
-![](../images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
+![](/images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
 :::
 
 :::

@@ -1,7 +1,7 @@
 ---
 title: "TD 8 : Modélisation"
-subtitle: "Modélisation"
-categories: [Modélisation EA, Pattes de corbeau, Crowfoot notation]
+subtitle: "Modélisation conceptuelle avancée"
+categories: [Modélisation, MCD, EA, contraintes]
 date: "2025-11-21"
 
 
@@ -9,7 +9,7 @@ format:
   pdf:
     output-file: td8.pdf
     include-in-header:
-      - text: "\\lhead{{\\sf  Base de données \\\\ TD 8: Modélisation}}"
+      - text: "\\lhead{{\\sf  Base de données \\\\ TD 8: Modélisation conceptuelle avancée}}"
   html:
     output-file: td8.html
 
@@ -20,1146 +20,385 @@ engine: knitr
 
 ::: {.callout-important title="Objectifs"}
 
-L'objectif de cette séance est construire des modèles Entité-Association sur des problèmes miniatures. 
+L'objectif de cette séance est de compléter des diagrammes E/A avec les outils vus en cours :
 
+- entités faibles,
+- spécialisation et contraintes de spécialisation,
+- contraintes d'intégrité référentielle,
+- contraintes inter-association. 
 
 :::
 
+## Exercice (Supermarché : modèle miniature)
 
-# Modélisation Entité-Association (E/A ou E/R)
+On étudie une partie du SI d'un supermarché concernant la mise en rayon des produits et on a collecté les informations suivantes :
 
-## Exercice (Supermarché)
+- Chaque *produit* a un *nom* et un *prix* et appartient à une *catégorie*. 
+- Le supermarché a plusieurs *rayons*, un rayon étant caractérisé par un *étage* et un *numéro de rangée*. 
+- Les produits d'une même catégorie sont placés dans le même rayon, mais un rayon peut contenir des produits de plusieurs catégories.
+  
+::: {.callout-note}
+
+### Question 
+
+Concevoir un diagramme E/A de ce SI. 
+Vérifier que ce diagramme modélise toutes les informations fournies. 
+
+:::
+
+::::: {.content-visible when-profile="solution"}
+
+### <span style="color:green;">Solution</span>
+
+On distingue les entités :
+
+- *PRODUIT* : *nom*, *prix*.
+- *RAYON* : *étage*, *numéro-rangée*.
+- *CATEGORIE*.
+
+Puis les associations :
+
+- *appartient* entre *PRODUIT* et *CATEGORIE*.
+- *est-placé* entre *CATEGORIE* et *RAYON*.
+
+Les cardinalités qui sont bien décrites par l'énoncé :
+
+- *1:1* pour *appartient* du côté de *PRODUIT*.
+- max *n* pour *appartient* du côté de *CATEGORIE*.
+- max *1* pour *est-placé* du côté de *CATEGORIE*.
+- max *n* pour *est-placé* du côté de *RAYON*.
+
+Les cardinalités qui ne sont pas décrites par l'énoncé :
+
+- min *0* ou *1* pour *appartient* du côté de *CATEGORIE*.
+- min *0* ou *1*  pour *est-placé* du côté de *CATEGORIE*.
+- min *0* ou *1*  pour *est-placé* du côté de *RAYON*.
+
+
+Un MCD possible avec cardinalité est :
+
+![](/images/td/supermarche/MCD_supermarche.png){fig-align="center"}
+
+:::::
+
 
 ::: {.callout-note}
 
 ### Question 
 
-Produire un schéma E/R qui décrit des informations concernant les
-produits d'un supermarché. 
+Faut-il compléter le diagramme E/A ? 
 
 :::
 
+::::: {.content-visible when-profile="solution"}
 
-Chaque *produit* a un *nom* et un *prix* et
-appartient à une *catégorie*. 
+### <span style="color:green;">Solution</span>
 
-Le supermarché a plusieurs *rayons*, un rayon
-étant caractérisé par un *étage* et un *numéro de rangée*. On veut maintenir
-l'emplacement des produits dans les rayons. Les produits d'une même
-catégorie sont placés dans le même rayon, mais un rayon peut contenir
-des produits de plusieurs catégories.
+Le MCD proposé traduit complètement les spécifications de l'énoncé.
+
+
+:::::
+
+
+## Exercice (Tournois)
+
+Lors du dernier TP, vous avez étudié un SI portant sur des tournois.
+
+Le diagramme E/A proposé est le suivant :
+
+![](/images/td/tournois/tournois_MCD.png){fig-align="center" width="100%"}
+
+::: {.callout-note}
+
+### Question 
+
+Il est décidé d'utiliser pour les identifiants des matchs la méthode suivante : pour un tournoi et un type de match (simple F, simple H, etc.) le match n°1 est la finale, les n°2 et 3 sont les demi-finales, etc.
+
+Comment faut-il modifier le modèle ? 
+
+:::
+
+::::: {.content-visible when-profile="solution"}
+
+### <span style="color:green;">Solution</span>
+
+Il faut faire les modifications suivantes :
+
+- *MATCH* devient une entité faible,
+- *appartient* est une association faible identifiante entre *TOURNOI* (entité forte) et *MATCH*,
+-  *de type* est une association faible identifiante entre *TYPE* (entité forte) et *MATCH*,
+-  l'identifiant de *MATCH* devient : *numéro_tournoi+type+numéro_match*.
+-  les cardinalités sont inchangées ainsi que les autres associations auxquelles participent *MATCH*.
+
+:::::
+
 
 
 ::: {.callout-note}
 
 ### Question
 
-Traduire le schéma EA dans le formalisme des pattes de corbeau
+Y-a-t-il des contraintes d'intégrité fonctionnelle (CIF) ?
+
+Pour rappel, les CIF concernent les liaisons de cardinalité maximale $n$ dans les associations ternaires. 
+
+- si parmi les occurences de l'association $A$, on a une dépendance fonctionnelle $E_1 \rightarrow E_2$, on dit qu'on a une CIF $E_1 \rightarrow E_2$ par rapport à $A$.
+- si parmi les occurences de l'association $A$, on a une dépendance fonctionnelle $(E_1, E_2) \rightarrow E_3$, on dit qu'on a une CIF $(E_1,E_2) \rightarrow E_3$ par rapport à $A$.
+
+Par exemple, si on supposait qu'un joueur ne peut pas avoir deux entraineurs en même temps (ce qui n'est pas dit dans l'énoncé), on aurait une CIF (JOUEUR, DATE) $\rightarrow$ ENTRAINEUR par rapport à l'association "est entrainé par".
+
+En reprenant la représentation du cours, on écrit :
+
+![](/images/td/tournois/tournois_CIF1.png){fig-align="center" width="60%"}
+
+
+Mais pour les CIF du type $(E_1, E_2) \rightarrow E_3$, le formalisme suivant est lisible :
+
+![](/images/td/tournois/tournois_CIF.png){fig-align="center" width="60%"}
+
+Cette CIF dit la chose suivante : deux entraineurs différents ne peuvent pas commencer à entrainer un même joueur à la même date.
+
+Est-ce que cette CIF suffit à décrire la totalité de la contrainte ? Que faut-il vérifier au-delà ?
 
 :::
+
+::::: {.content-visible when-profile="solution"}
+
+### <span style="color:green;">Solution</span>
+
+Dans le dernier exemple de la question, la CIF ne suffit à traduire toute la contrainte car il faut vérifier que les périodes pendant lesquelles deux entrainteurs différents entraînent un même joueur sont disjointes, tandis que la CIF impose seulement que les débuts de ces deux périodes sont différents.
+
+Pour le MCD de tournoi, il n'y a pas de CIF à ajouter. On les recherche sur les associations non binaires :
+
+- *est entrainé par* : pas de CIF.
+- *recevoir gain* : pas de CIF.
+- *de nationalité* : on pourrait imaginer une CIF  *(JOUEUR, DATE)* $\rightarrow$ *PAYS* mais un joueur peut avoir simultanément plusieurs nationalités.
+
+
+:::::
+
 
 ::: {.callout-note}
 
 ### Question
 
-Définir le schéma relationnel correspondant en SQL
+Pour la composition des matchs, on pouvait envisager trois solutions :
+
+- *Première solution* : Une association «participer» indique les compositions des matches. Une association «gagner» indique le ou les gagnants (double). 
+- *Seconde solution* : une association «participer» portant une propriété prenant la valeur vrai ou faux selon que le joueur a gagné ou non.
+- *Troisième solution* : deux associations «gagner» et «perdre». 
+
+Si on choisit la première ou la troisième solution, quelle contrainte faut-il ajouter ?
+
+Parmi les trois solutions, lesquelles permettent de décrire complètement le SI ?
+
+Pourquoi a-t-on choisi la deuxième solution ?
 
 :::
+
+::::: {.content-visible when-profile="solution"}
+
+### <span style="color:green;">Solution</span>
+
+Il faut ajouter des contraintes inter-associations :
+
+-  *Première solution* : une contrainte d'inclusion entre *gagner*  et *participer*.  
+- *Troisième solution* : une contrainte d'exlusion entre *gagner* et *perdre*. 
+
+Dans la deuxième solution, ces deux contraintes sont respectées sans ajout au modèle E/A. Cette solution est donc plus simple à implémenter.
+
+Mais dans tous les cas, cela ne suffit pas à décrire toutes les contraintes du SI :
+
+ - dans un match simple, il y a exactement 1 gagnant et 1 perdant.
+ - dans un match double, il y a exactement 2 gagnants et 2 perdants.
+
+Ces contraintes ne peuvent pas être décrites dans le modèle E/A étendu.
+
+:::::
 
 
 ## Exercice (Location de voitures)
 
+On étudie une partie du SI d'une société de location de véhicules.
+
+La société gère un parc de voiture. On a reccueilli les informations suivantes :
+
+- Chaque véhicule a une plaque d'immatriculation, une couleur, une marque et un modèle. 
+
+- Un modèle a un nom, une marque, un nombre de sièges, un volume de chargement. 
+
+- Chaque véhicule appartient obligatoirement à une et une seule catégorie qui détermine le tarif de la location. 
+
+- Tous les véhicules du même modèle appartiennent à la même catégorie.
+
 ::: {.callout-note}
 
 ### Question
 
-Produire un schéma E/R qui décrit des informations concernant des voitures à louer. 
+Ecrire le diagramme des dépendances fonctionnelles de ce SI (Voir la correction du TP précédent)
 
 :::
 
-Chaque *voiture* a une plaque d'*immatriculation*, une
-*couleur* et une *marque*. Le *prix* de la location dépend de la *catégorie*, 
-où chaque catégorie est identifiée par un nom.
+::::: {.content-visible when-profile="solution"}
+
+### <span style="color:green;">Solution</span>
+
+On a les dépéndances fonctionnelles suivantes :
+
+![](/images/td/leasing/DF_leasing.png){fig-align="center" width="50%"}
+
+On n'a pas représenté les dépendances indirectes indiquées dans l'énoncé qui se déduisent du diagramme par transitivité :
+
+- *id véhicules* $\rightarrow$ *marque*.
+- *id véhicules* $\rightarrow$ *catégorie*.
 
 
-::: {.content-visible when-profile='solution'} 
-
-::: {.callout-tip title="Solution"}
-
-
-```{dot}
-//| label: er1
-//| eval: true
-//| echo: false
-graph ER {
-	fontname="Helvetica,Arial,sans-serif"
-	node [fontname="Helvetica,Arial,sans-serif"]
-	edge [fontname="Helvetica,Arial,sans-serif"]
-	layout=neato
-	node [shape=box]; Voiture; Marque; Catégorie;
-	node [shape=ellipse]; {node [label=<<u>nom</u>>]  name1; name2;}
-		{node [label=<<u>immatriculation</u>>] immatriculation}; couleur; {node [label="prix location"] prix_location};
-  node [shape=diamond];  "fabriqué-par" ; "appartient-à" ;
-  
-	name2 -- Marque;
-  name1 -- Catégorie
-	immatriculation -- Voiture;
-  couleur -- Voiture; 
-  Catégorie -- prix_location;
-  Voiture -- "fabriqué-par" [label="1:1",len=1.00];
-  "fabriqué-par" -- Marque   [label="0:n",len=1.00] ;
-  Voiture -- "appartient-à"  [label="1:1",len=1.00] ;
-  "appartient-à" -- Catégorie  [label="0:n",len=1.00] ;
-  //	label = "\n\nEntity Relation Diagram\ndrawn by NEATO";
-//	fontsize=20;
-}
-```
-
-Pas d'entités faibles car chaque entité a son propre identifiant. 
-
-À discuter : pourrait-on utiliser un lien `est-un` ( ◃ ) pour modéliser le fait qu'un véhicule relève d'une catégorie ?
-
-::: 
- 
-:::
+:::::
 
 
 ::: {.callout-note}
 
 ### Question
 
-Modifier ensuite le schéma pour représenter les modèles de voitures.
-
-:::
-
-Un *modèle* a un *nom*, une *marque* et un *nombre de sièges*. 
-
-Toutes les
-voitures du même modèle doivent appartenir à la même catégorie de
-prix. 
-
-
-
-::: {.content-visible when-profile='solution'} 
-
-::: {.callout-tip title="Solution"}
-
-
-```{dot}
-//| label: er2
-//| eval: true
-//| echo: false
-graph ER {
-	fontname="Helvetica,Arial,sans-serif"
-	node [fontname="Helvetica,Arial,sans-serif"]
-	edge [fontname="Helvetica,Arial,sans-serif"]
-	layout=neato
-	node [shape=box]; Voiture; Marque; Catégorie; Modèle
-	node [shape=ellipse]; {node [label=<<u>nom</u>>]  name1; name2; name3}
-		{node [label=<<u>immatriculation</u>>] immatriculation}; couleur; {node [label="prix location"] prix_location};
-  {node [label="nombre de sièges"] nbre_sieges};
-  node [shape=diamond];  "fabriqué-par" ; "appartient-à" ; "relève-de" ;
-  
-  nbre_sieges -- Modèle [len=2.00]; 
-	name2 -- Marque;
-  name1 -- Catégorie ;
-  name3 -- Modèle ;
-	immatriculation -- Voiture;
-  couleur -- Voiture; 
-  Catégorie -- prix_location;
-
-  Voiture -- "relève-de" [label="1:1",len=1.00];
-  "relève-de" -- Modèle [label="0:n",len=1.00] ;
-  Modèle -- "fabriqué-par" [label="1:1",len=1.00];
-  "fabriqué-par" -- Marque   [label="0:n",len=1.00] ;
-  Modèle -- "appartient-à"  [label="1:1",len=2.00] ;
-  "appartient-à" -- Catégorie  [label="0:n",len=2.00] ;
-  //	label = "\n\nEntity Relation Diagram\ndrawn by NEATO";
-//	fontsize=20;
-}
-```
-
-
-::: 
- 
-:::
-
-
-::: {.callout-note title="Question"}
-
-De plus, on veut distinguer les voitures *disponibles* des
-voitures en *location*. Pour les voitures disponibles on représente
-l'*emplacement*. Pour les voitures en location on représente la *date*
-et la *durée de la location*, ainsi que le *nom du client*.
+A l'aide du diagramme précédent, écrire le diagramme E/A de ce SI.
 
 :::
 
 
+::::: {.content-visible when-profile="solution"}
 
-::: {.content-visible when-profile='solution'} 
+### <span style="color:green;">Solution</span>
 
-::: {.callout-tip title="Solution"}
+On déduit du diagramme des dépendances fonctionnelles le MCD suivant :
 
+![](/images/td/leasing/MCD_leasing.png){fig-align="center" width="60%"}
 
-```{dot}
-//| label: er3
-//| eval: true
-//| echo: false
-graph ER {
-	fontname="Helvetica,Arial,sans-serif"
-	node [fontname="Helvetica,Arial,sans-serif"]
-	edge [fontname="Helvetica,Arial,sans-serif"]
-	layout=neato
-	node [shape=box]; Voiture; Marque; Catégorie; Modèle ; Disponible ;  "En location" ;
-	node [shape=ellipse]; {node [label=<<u>nom</u>>]  name1; name2; name3}
-		{node [label=<<u>immatriculation</u>>] immatriculation}; couleur; {node [label="prix location"] prix_location};
-  {node [label="nombre de sièges"] nbre_sieges}; "nom client" ; emplacement ; date ; durée ;
-  node [shape=diamond];  "fabriqué-par" ; "appartient-à" ; "relève-de" ;
-  {node [shape=triangle, label="Est Un"] estun1 ; estun2 }; 
-
-  nbre_sieges -- Modèle [len=2.00]; 
-	name2 -- Marque;
-  name1 -- Catégorie ;
-  name3 -- Modèle ;
-	immatriculation -- Voiture;
-  couleur -- Voiture; 
-  Catégorie -- prix_location;
-  Disponible -- estun1 ;
-  estun1 -- Voiture ; 
-  "En location" -- estun2 ;
-  estun2 -- Voiture ; 
-  Disponible -- emplacement
-  "En location" -- date ;
-  "En location" -- durée ;
-  "En location" -- "nom client"
-
-  Voiture -- "relève-de" [label="1:1",len=1.00];
-  "relève-de" -- Modèle [label="0:n",len=1.00] ;
-  Modèle -- "fabriqué-par" [label="1:1",len=1.00];
-  "fabriqué-par" -- Marque   [label="0:n",len=1.00] ;
-  Modèle -- "appartient-à"  [label="1:1",len=2.00] ;
-  "appartient-à" -- Catégorie  [label="0:n",len=2.00] ;
-  //	label = "\n\nEntity Relation Diagram\ndrawn by NEATO";
-//	fontsize=20;
-}
-```
-
-On utilise ici les liens `Est Un` pour décrire le statut des voitures (spécialisation). 
-
-Il faudrait ajouter une  contrainte d'exclusion totale : une voiture est soit en location, soit disponible. 
-
-On pourrait aussi passer par des attributs `statut`, `emplacement` et une entité faible `Location`. 
-
-
-::: 
- 
-:::
-
-::: {.callout-note}
-
-### Question
-
-Traduire le schéma EA dans le formalisme des pattes de corbeau
-
-:::
-
-
-::: {.content-visible when-profile='solution'} 
-
-::: {.callout-tip title="Solution"}
-
-```{mermaid}
-%%| eval: true
-%%| echo: false
-erDiagram
-    VOITURE
-    MODELE 
-    CATEGORIE
-    MARQUE
-    LOCATION
-    MODELE ||..o{ VOITURE : "releve de"
-    VOITURE {
-      string  immatriculation  PK
-      string couleur
-      boolean disponible 
-      string emplacement 
-      string nom_modele FK
-    }
-    MARQUE ||..o{ MODELE : "fabrique par"
-    MODELE {
-      string nom PK
-      integer nombre_de_sieges 
-      string nom_marque FK
-      string nom_categorie FK
-    }
-    MARQUE {
-      string nom PK
-    }
-    CATEGORIE ||..o{ MODELE : "appartient a"
-    CATEGORIE {
-      string nom PK
-      numeric prix_location
-    }
-    LOCATION |o--|| VOITURE : concerne
-    LOCATION {
-      string date 
-      integer immatriculation PK, FK
-      string duree
-      integer numero_client
-    }
-```
-
-Contraintes externes: 
-
-- Dans `VOITURE`, `disponible` si et seulement si `emplacement` est `NOT NULL`
-- Dans `VOITURE` et `LOCATION`, `NOT disponible` si et seulement si dans `LOCATION`, il existe une instance qui réfère à l'instance de `VOITURE`. 
- 
-{{< fa brain >}} Trouver une meilleure modélisation pour la spécialisation `DISPONIBLE/EN LOCATION`.
-
-::: 
- 
-:::
-
-::: {.content-visible when-profile='solution'} 
- 
-::: {.callout-tip title="Solution avec dbSchema"}
-
-![Schema Avis d'après dbSchema](/images/schema_avis.png)
-
-:::
-
-:::
+:::::
 
 
 ::: {.callout-note}
 
 ### Question
 
-Définir le schéma relationnel correspondant en SQL
+On veut maintenant distinguer les véhicules *disponibles* des
+véhicules en *location* :
+
+- Pour les véhicules disponibles, on enregistre l'agence où le véhicule est disponible. Une agence a un numéro, une adresse, un numéro de téléphone, un email...
+- Pour les véhicules en location, on enregistre le client, la date
+et la durée de la location. Un client a un numéro, une adresse, un numéro de téléphone, un email...
+
+Compléter le diagramme E/A pour modéliser cette partie du SI.
+
+Faut-il ajouter des contraintes ?
 
 :::
 
+::::: {.content-visible when-profile="solution"}
 
-::: {.content-visible when-profile='solution'} 
+### <span style="color:green;">Solution</span>
 
-::: {.callout-tip title="Solution"}
+On ajoute 2 entités :
 
-```{.sql}
-CREATE SCHEMA IF NOT EXISTS schema_avis;
+- *AGENCE* : attributs *nunméro* (identifiant), *adresse*, *téléphone*, *email*.
+- *CLIENT* : attributs *numéro* (identifiant), *adresse*, *téléphone*, *email*.
 
-CREATE  TABLE schema_avis.categorie ( 
-	nom                  text  NOT NULL  ,
-	prix_location        numeric    ,
-	CONSTRAINT pk_categorie PRIMARY KEY ( nom )
- );
+Et 2 associations :
 
-CREATE  TABLE schema_avis.marque ( 
-	nom                  text  NOT NULL  ,
-	CONSTRAINT pk_marque PRIMARY KEY ( nom )
- );
+- *est disponible* entre *VEHICULE* et *AGENCE*. 
+- *est loué* entre *VEHICULE* et *CLIENT* : attributs *date*, *durée*.
 
-CREATE  TABLE schema_avis.modele ( 
-	nom                  text  NOT NULL  ,
-	nombre_sieges        bigint    ,
-	nom_marque           text    ,
-	name_categorie       text    ,
-	CONSTRAINT pk_modele PRIMARY KEY ( nom )
- );
-```
+**Si on considère que le SI ne conserve pas l'historique des locations et des disponibilités**, ou qu'on choisit de le faire par d'autres associations, on a les cardinalités *0:1* du côté de *VEHICULE* pour les deux associations.
 
-:::
+On a alors aussi une contrainte de partitionnement entre les véhicules disponibles et les véhicules loués que l'on peut représenter complètement par une contrainte inter-association de totalité et d'exclusion entre les deux associations du côté de *VEHICULE*.
 
-::: {.callout-tip title="suite"}
+![](/images/td/leasing/MCD_leasing_Agence-Client.png){fig-align="center" height="25%"}
 
-```{.sql}
-CREATE  TABLE schema_avis.voiture ( 
-	immatriculation      bigint  NOT NULL  ,
-	name_modele          text    ,
-	couleur              text    ,
-	disponible           boolean  NOT NULL  ,
-	emplacement          text    ,
-	CONSTRAINT pk_voiture PRIMARY KEY ( immatriculation )
- );
 
-CREATE  TABLE schema_avis.location ( 
-	immatriculation      bigint  NOT NULL  ,
-	"date"               date  NOT NULL  ,
-	duree                bigint  NOT NULL  ,
-	numero_client        bigint  NOT NULL  ,
-	CONSTRAINT pk_location PRIMARY KEY ( immatriculation )
- );
-
-```
-:::
-
-::: {.callout-tip title="suite"}
-
-```{.sql}
-
-ALTER TABLE schema_avis.location 
-ADD CONSTRAINT 
-  fk_location_voiture 
-FOREIGN KEY ( immatriculation ) 
-REFERENCES schema_avis.voiture( immatriculation );
-
-ALTER TABLE schema_avis.modele 
-ADD CONSTRAINT 
-  fk_modele_marque 
-FOREIGN KEY ( nom_marque ) 
-REFERENCES schema_avis.marque( nom ) 
-ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE schema_avis.modele 
-ADD CONSTRAINT 
-  fk_modele_categorie 
-FOREIGN KEY ( name_categorie ) 
-REFERENCES schema_avis.categorie( nom );
-
-ALTER TABLE schema_avis.voiture 
-ADD CONSTRAINT 
-  fk_voiture_modele 
-FOREIGN KEY ( name_modele ) 
-REFERENCES schema_avis.modele( nom ) 
-ON DELETE CASCADE ON UPDATE CASCADE;
-```
-
-::: 
- 
-:::
-
-
-## Exercice (Gestion du personnel d'une entreprise)
-
-Dans une entreprise, chaque *employé* (identifié par un *numéro*) est
-attaché à un *département* de l'entreprise. Il occupe un *bureau* et
-participe à un ou plusieurs *projets* développés par l'entreprise.
-
-De chaque employé, on connait : le *nom*, le *prénom*, les *emplois* qu'il a
-occupés à différentes dates et les *salaires* qu'il a *perçus* dans ces
-emplois.
-
-Chaque *département* est identifié par un *numéro*, a son *budget* propre et
-est dirigé par un *directeur* faisant partie du personnel de l'entreprise.
-
-Chaque *bureau* est identifié par un *numéro*, est rattaché à un *département*
-et est caractérisé par sa *surface* en mètres carrés. Il possède un numéro
-de *téléphone* associé.
-
-Chaque *projet* est identifié par un *numéro*, possède un certain *budget* et
-*emploie* plusieurs *personnes* appartenant à différents *départements*.
-Chaque employé est *affecté* pour un *certain nombre d'heures* à un projet.
-
-::: {.callout-note}
-
-### Question 
-
-Donner un modèle entité-association correspondant à la description
-ci-dessus.
-
-:::
-
-::: {.content-visible when-profile='solution'} 
- 
-::: {.callout-tip title="Solution"}
-
-```{dot}
-//| label: er4
-//| eval: true
-//| echo: false
-graph ER {
-	fontname="Helvetica,Arial,sans-serif"
-	node [fontname="Helvetica,Arial,sans-serif"]
-	edge [fontname="Helvetica,Arial,sans-serif"]
-	layout=neato
-	
-  node [shape=box]; Employé; Département; Bureau; Projet ; Emploi ;
-	
-  node [shape=ellipse]; 
-  {node [label=<<u>numéro</u>>]  num1; num2; num3; num4; num5}	; 
-  surface; 
-  {node [label="budget"] budget1; budget2};
-  {node [label="nom"] nom1; nom2; nom3; nom4}; 
-  {node [label="debut"] debut1} ;
-  {node [label="fin"] fin1} ;
-  "nombre heures" ; téléphone ; salaire ;
-
-  node [shape=diamond];  "dirige" ; "attaché à" ; "affecté à" ; "occupe" ; "participe à"
-  
-  num1 -- Employé ;
-  num2 -- Département ;
-  num3 -- Bureau ;
-  num4 -- Projet ;
-  num5 -- Emploi ;
-  nom1 -- Employé ;
-  nom2 -- Département ;
-  nom3 -- Projet ;
-  nom4 -- Emploi ;
-  
-  surface --  Bureau ;
-  téléphone -- Bureau ;
-  budget1 -- Département ;
-  budget2 -- Projet ;
-  "nombre heures" -- "participe à";
-  debut1 -- "occupe" ;
-  fin1 -- "occupe" ;
-  salaire -- "occupe" ;
-
-  Employé -- "attaché à" [label="1:1",len=1.00];
-  "attaché à" -- Département [label="0:n",len=1.00] ;
-
-  Employé -- "dirige" [label="0:1",len=1.00];
-  "dirige" -- Département [label="1:1",len=1.00] ;
-
-  Employé -- "affecté à" [label="1:1",len=1.00];
-  "affecté à" -- Bureau [label="0:n",len=1.00] ;
-
-  Employé -- "participe à" [label="0:n",len=1.00];
-  "participe à" -- Projet [label="0:n",len=1.00] ;
-
-  Employé -- "occupe" [label="0:n",len=1.00];
-  "occupe" -- Emploi [label="0:n",len=1.00] ;
-
-
-}
-```
-
-::: 
-:::
-
-::: {.callout-note}
-
-### Question 
-
-Modifier votre modélisation pour tenir compte de l'évolution dans le
-temps de la vie de l'entreprise : les projets ont des durées de vie
-limitées, chaque employé est affecté à un projet (mais aussi un
-département) pendant une certaines durée, etc
-
-:::
-
-::: {.content-visible when-profile='solution'} 
-
-::: {.callout-tip title="Solution"}
-
-On munit les associations d'attributs `début` et `fin`. 
-
-{{< fa hand-point-right >}} Il faut aussi changer les cardinalités `0:1` (respectivement `1:1`)  
-en `0:n` (respectivement `1:n`). Les relations *un-plusieurs* deviennent 
-des relations *plusieurs-plusieurs*. La traduction vers les modèles 
-en pattes de corbeau sera plus compliquée. Il faudra transformer les 
-associations *plusieurs-plusieurs* en entité faible, relier ces entités 
-faibles aux entités fortes participant aux associations *plusieurs-plusieurs*
-par des associations faibles *plusieurs-un*.   
-
-```{dot}
-//| label: er5
-//| eval: true
-//| echo: false
-graph ER {
-	fontname="Helvetica,Arial,sans-serif"
-	node [fontname="Helvetica,Arial,sans-serif"]
-	edge [fontname="Helvetica,Arial,sans-serif"]
-	layout=neato
-	
-  node [shape=box]; Employé; Département; Bureau; Projet ; Emploi ;
-	
-  node [shape=ellipse]; 
-  {node [label=<<u>numéro</u>>]  num1; num2; num3; num4}	; 
-  surface; {node [label="budget"] budget1; budget2};
-  {node [label="nom"] nom1; nom2; nom3 ; nom4}; 
-  "nombre heures" ; téléphone ; 
-  {node [label="début"] début1; début2; début3; début4; début5}; 
-  {node [label="fin"] fin1; fin2; fin3; fin4; fin5}; 
-  salaire ;
-  
-  node [shape=diamond];  "dirige" ; "attaché à" ; "affecté à" ; "occupe" ; "participe à"
-  
-  num1 -- Employé ;
-  num2 -- Département ;
-  num3 -- Bureau ;
-  num4 -- Projet ;
-  nom1 -- Employé ;
-  nom2 -- Département ;
-  nom3 -- Projet
-  nom4 -- Emploi ;
-  surface --  Bureau ;
-  téléphone -- Bureau ;
-  budget1 -- Département ;
-  budget2 -- Projet ;
-  "nombre heures" -- "participe à";
-  salaire -- "occupe" ;
-
-  Employé -- "attaché à" [label="0:n",len=2.00];
-  "attaché à" -- Département [label="0:n",len=2.00] ;
-  
-  Employé -- "dirige" [label="0:n",len=2.00];
-  "dirige" -- Département [label="0:n",len=2.00] ;
-
-  Employé -- "affecté à" [label="0:n",len=2.00];
-  "affecté à" -- Bureau [label="0:n",len=1.00] ;
-
-  Employé -- "participe à" [label="0:n",len=2.00];
-  "participe à" -- Projet [label="0:n",len=1.00] ;
-
-  Employé -- "occupe" [label="0:n", len=2.00] ;
-  "occupe" -- Emploi [label="0:n", len=1.00] ;
-
-  début1 -- "participe à" ;
-  fin1 -- "participe à" ;
-
-  début2 -- "occupe" ;
-  fin2 -- "occupe" ;
-
-  début3 -- "attaché à" ;
-  fin3 -- "attaché à" ;
-
-  début4 -- "dirige" ;
-  fin4 -- "dirige" ;
-
-  début5 -- "affecté à" ;
-  fin5 -- "affecté à" ;
-
-
-}
-```
-
-:::
-
-::: {.callout-tip title="Solution"}
-
-```{dot}
-//| label: er6
-//| eval: true
-//| echo: false
-graph ER {
-	fontname="Helvetica,Arial,sans-serif"
-	node [fontname="Helvetica,Arial,sans-serif"]
-	edge [fontname="Helvetica,Arial,sans-serif"]
-	layout=neato
-	
-  node [shape=box]; Employé; Département; Bureau; Projet ; Emploi ;
-	
-  node [shape=ellipse]; 
-  {node [label=<<u>numéro</u>>]  num1; num2; num3; num4}	; 
-  surface; {node [label="budget"] budget1; budget2};
-  {node [label="nom"] nom1; nom2; nom3 ; nom4}; 
-  "nombre heures" ; téléphone ; 
-  {node [label="début"] début1; début2; début3; début4; début5}; 
-  {node [label="fin"] fin1; fin2; fin3; fin4; fin5}; 
-  salaire ;
-  
-  node [shape=box, peripheries=2];  "dirige" ; "attaché à" ; "affecté à" ; "occupe" ; "participe à"
-  
-  node [shape=diamond, peripheries=2, label=""] many1 ; many2 ; many3 ; many4 ; many5 ;
-  one1 ; one2 ; one3 ; one4 ; one5 ;
-
-
-
-  num1 -- Employé ;
-  num2 -- Département ;
-  num3 -- Bureau ;
-  num4 -- Projet ;
-  nom1 -- Employé ;
-  nom2 -- Département ;
-  nom3 -- Projet
-  nom4 -- Emploi ;
-  surface --  Bureau ;
-  téléphone -- Bureau ;
-  budget1 -- Département ;
-  budget2 -- Projet ;
-  "nombre heures" -- "participe à";
-  salaire -- "occupe" ;
-
-  Employé -- "many1" [label="0:n",len=2.00]; 
-  "many1"  -- "attaché à" [label="1:1",len=1.00];
-  "attaché à" -- "one1" [label="1:1",len=1.00];
-  "one1" -- Département [label="0:n",len=2.00] ;
-  
-
-
-  Employé -- "many2" [label="0:n",len=2.00]; 
-  "many2" -- "dirige" [label="1:1",len=2.00];
-  "dirige" -- "one2" [label="1:1",len=1.00];
-  "one2"  -- Département [label="0:n",len=2.00] ;
-
-  Employé -- "many3" [label="0:n",len=2.00]; 
-  "many3" -- "affecté à" [label="1:1",len=1.00];
-  "affecté à"-- "one3" [label="1:1",len=1.00];
-  "one3"  -- Bureau [label="0:n",len=1.00] ;
-
-  Employé -- "many4" [label="0:n",len=2.00]; 
-  "many4" -- "participe à" [label="1:1",len=1.00];
-  "participe à" -- "one4" [label="1:1",len=1.00];
-  "one4"  -- Projet [label="0:n",len=1.00] ;
-
-  Employé -- "many5" [label="0:n",len=2.00]; 
-  "many5" -- "occupe" [label="1:1", len=1.00] ;
-  "occupe" -- "one5" [label="1:1",len=1.00];
-  "one5"  -- Emploi [label="0:n", len=1.00] ;
-
-  début1 -- "participe à" ;
-  fin1 -- "participe à" ;
-
-  début2 -- "occupe" ;
-  fin2 -- "occupe" ;
-
-  début3 -- "attaché à" ;
-  fin3 -- "attaché à" ;
-
-  début4 -- "dirige" ;
-  fin4 -- "dirige" ;
-
-  début5 -- "affecté à" ;
-  fin5 -- "affecté à" ;
-
-
-}
-```
-
-{{< fa hand-point-right >}} Parmi les contraintes externes, il faut ajouter quelques contraintes de non-recouvrement:
-
-- un employé ne peut pas occuper plusieurs emplois simultanément. 
-- un employé ne peut pas être affecté dans  plusieurs bureaux simultanément.
-- un employé ne peut pas être attaché à   plusieurs départements simultanément.
-- un employé ne peut pas participer à  un même projet plusieurs fois simultanément.
-
-{{< fa hand-point-right >}} À un instant donné, 
-la somme des nombres d'heures de participation
-d'un même employé à différents projets ne devrait 
-pas dépasser la durée légale du travail.
-
-{{< fa hand-point-right >}} À un instant donné, le nombre d'occupants d'un bureau ne devrait pas excéder 
-une borne déterminée par la surface du bureau.
-
-:::
-
-
-:::
-
+:::::
 
 
 ::: {.callout-note}
 
 ### Question
 
-Traduire le schéma EA dans le formalisme des pattes de corbeau
+Maintenant, on s'intéresse à l'entretien des véhicules :
+
+- certains véhicules sont possédés par la société et sont entretenus chacun  par un unique garage. Chaque garage a un numéro, un n°SIRET, une adresse, un IBAN, etc. On ne conserve pas l'historique des garages qui ont entretenu le véhicule.
+
+- les autres véhicules sont en leasing auprès de sociétés spécialisées dans ce type de location. Chaque société a un numéro, un n°SIRET, une adresse, un IBAN, etc. 
+
+  + certains de ces véhicules sont entretenus par la société de leasing.
+  + les autres sont entretenus par la société de location dont on étudie le SI, selon le même principe que pour les véhicules qui lui appartiennent.
+
+On essaie de modéliser cette partie du SI uniquement avec les entités VEHICULE, GARAGE, SOCIETE DE LEASING.
+
+Proposer une ou des modélisations E/A et utiliser des contraintes pour décrire complètement le SI décrit.
 
 :::
 
-::: {.content-visible when-profile='solution'} 
- 
-::: {.callout-tip title="Solution"}
+::::: {.content-visible when-profile="solution"}
 
+### <span style="color:green;">Solution</span>
 
-::: {style="width: 600px"}
+Il faut essayer de traduire au mieux et le plus simplement possible la partition de l'ensemble des véhicules en 3 groupes :
 
-```{mermaid}
-%%| eval: true
-%%| echo: false
-%%| fig-width: 6
-erDiagram
-    OCCUPE }o--|| EMPLOYE : employe_num 
-    OCCUPE }o--|| EMPLOI  : emploi_num
-    PARTICIPE }o--|| EMPLOYE : employe_num 
-    PARTICIPE }o--|| PROJET : projet_num
-    MEMBRE }o--|| EMPLOYE : employe_num 
-    MEMBRE }o--|| DEPARTEMENT : departement_num
-    AFFECTE }o--|| EMPLOYE : employe_num
-    AFFECTE }o--|| BUREAU : bureau_num
-    DIRIGE }o--|| EMPLOYE : employe_num
-    DIRIGE }o--|| DEPARTEMENT : departement_num
+- les véhicules possédés en propre qui doivent être entretenus par un garage.
+- les véhicules en leasing sans entretien inclus qui doivent être entretenus par un garage.
+- les véhicules en leasing avec entretien inclus qui ne doivent pas être entretenus par un garage.  
 
-    EMPLOYE {
-      integer num PK
-      string nom  
-      string prenom
-    }
+#### Solution avec 2 associations binaires
 
-    BUREAU {
-      integer num  PK
-      numeric surface 
-      string adresse
-      integer etage 
-    }
+- *entretient* entre *GARAGE* et *VEHICULE*.
+- *loue* entre *SOC LEASING* et *VEHICULE* avec un attribut booléen pour enregistrer si l'entretien est inclus dans la location.
 
-    EMPLOI {
-      integer num PK
-      string nom
-      text description
-    }
+![](/images/td/leasing/MCD_leasing_entretien-2asso-bin.png){fig-align="center"  height="20%"}
 
-    DEPARTEMENT {
-      integer num PK
-      string nom
-    }
+Cette solution a l'avantage de la simplicité et est proche de la pratique des utilisateurs (l'entretien par un garage est une option du leasing) mais le partitionnement n'est pas vérifiable facilement. 
 
-    PROJET {
-      integer num PK
-      string nom
-      numeric budget
-      date debut
-      date fin
-    }
+On peut représenter une contrainte de totalité entre les 2 associations par rapport à *VEHICULE*, mais on ne peut représenter la contrainte de partitionnement.
 
-    PARTICIPE {
-      integer num_employe PK, FK  
-      integer num_projet  PK, FK  
-      date debut PK
-      date fin 
-      integer nbre_heures
-    }
+#### Solution avec 3 associations
 
-    OCCUPE {
-      integer num_employe PK, FK
-      integer num_emploi PK, FK
-      date debut PK
-      date fin 
-      numeric salaire
-    }
-    
-    MEMBRE {
-      integer num_employe PK, FK
-      integer num_departement PK, FK
-      date debut PK
-      date fin 
-    }
+- *entretient* entre *GARAGE* et *VEHICULE*.
+- *loue sans entretien* entre *SOC LEASING* et *VEHICULE* pour le leasing sans entretien inclus.
+- *loue avec entretien* entre *SOC LEASING* et *VEHICULE* pour le leasing avec entretien inclus.
 
-    DIRIGE {
-      integer num_employe PK, FK
-      integer num_departement PK, FK
-      date debut PK
-      date fin 
-    }
+![](/images/td/leasing/MCD_leasing_entretien-3asso-bin.png){fig-align="center"  height="20%"}
 
-    AFFECTE {
-      integer num_employe PK, FK
-      date debut PK
-      date fin 
-    }
+Cette solution reste proche de la pratique des utilisateurs et permet de représenter fidèlement la contrainte de partitionnement mais les 3 contraintes sont complexes à vérifier. 
 
+*Conclusion* : on peut inventer d'autres solutions mais aucune n'est bien satifsfaisante.
 
-```
-
-:::
-
-`MEMBRE` et `DIRIGE` ont en apparence le même schéma. Ce sont les contraintes qui distinguent les deux tables. 
-
-:::
-
-
-::: {.callout-tip title="Solution"}
-
-![Schema entreprise](/images/schema_cho.png)
-
-:::
-
-
-:::
-
+:::::
 
 
 ::: {.callout-note}
 
 ### Question
 
-Définir le schéma relationnel correspondant en SQL
+Comme les solutions précédentes ne sont pas très satisfaisante, on décide d'utiliser des spécialisations de l'entité VEHICULE.
+
+Proposer un nouveau modèle E/A et compléter le pour décrire complètement le SI.
 
 :::
 
+::::: {.content-visible when-profile="solution"}
 
-::: {.content-visible when-profile='solution'} 
- 
-::: {.callout-tip title="Solution"}
+### <span style="color:green;">Solution</span>
 
-```{.sql}
-CREATE SCHEMA IF NOT EXISTS cho;
+Avec des spécialisations, on peut représenter le SI de manière plus satisfaisante.
 
-CREATE  TABLE cho.bureau ( 
-	num                  bigint  NOT NULL  ,
-	surface              numeric    ,
-	etage                integer    ,
-	telephone            text    ,
-	CONSTRAINT unq_bureau_num UNIQUE ( num ) 
- );
+![](/images/td/leasing/MCD_leasing_entretien-specialisation.png){fig-align="center"  height="40%"}
 
-CREATE  TABLE cho.departement ( 
-	num                  bigint  NOT NULL  ,
-	nom                  text    ,
-	CONSTRAINT pk_departement PRIMARY KEY ( num )
- );
+La traduction en MRD ne justifie pas la création d'une table pour chaque spécialisation si elles ne contiennent pas d'attributs propres.
 
-CREATE  TABLE cho.emploi ( 
-	num                  bigint  NOT NULL  ,
-	intitule             text    ,
-	description          text    ,
-	CONSTRAINT pk_emploi PRIMARY KEY ( num )
- );
+On traduira le MCD en MRD ainsi :
 
-CREATE  TABLE cho.employe ( 
-	num                  bigint  NOT NULL  ,
-	nom                  text    ,
-	prenom               text    ,
-	CONSTRAINT pk_employe PRIMARY KEY ( num )
- );
-```
-:::
+- ajout à *VEHICULE* de 2 attributs booléens : *entretien* et *leasing*. 
+- La contrainte de partitionnement entre les spécialisations est équivalente à la contrainte (*entretien* ou *leasing*) = VRAI pour chaque ligne de la table. Elle est facile à coder en SQL et peu couteûse en calculs.
+- Les 2 associations *entretient* de type 1 à plusieurs sont codées par l'ajout dans la table *VEHICULE* d'une seule clé étrangère *garage* qui référence le numéro du garage qui effectue l'entretien. Il faut coder la contrainte *entretien* $\Leftrightarrow$ *garage* IS NOT NULL.
+- Les 2 associations *loue* de type 1 à plusieurs sont codées par l'ajout dans la table *VEHICULE* d'une seule clé étrangère *soc leasing* qui référence le numéro de la société qui effectue le leasing. Il faut coder la contrainte *leasing* $\Leftrightarrow$ *soc leasing* IS NOT NULL.
 
-::: {.callout-tip title="Solution"}
+C'est finalement un modèle relationnel proche ou identique à celui obtenu par conversion du premier MCD de la question précédente avec 2 associations. Mais il représente mieux le SI et permet un meilleur travail.
 
-```{.sql}
--- tables intermédiaires
---
-CREATE  TABLE cho.membre ( 
-	num_employe          bigint  NOT NULL  ,
-	num_departement      bigint  NOT NULL  ,
-	debut_date           date DEFAULT CURRENT_DATE NOT NULL  ,
-	fin_date             date DEFAULT NULL   ,
-	CONSTRAINT pk_membre PRIMARY KEY ( num_employe, num_departement, debut_date )
- );
-
-CREATE  TABLE cho.occupe ( 
-	num_employe          bigint  NOT NULL  ,
-	num_emploi           bigint  NOT NULL  ,
-	debut_date           date DEFAULT CURRENT_DATE NOT NULL  ,
-	fin_date             date DEFAULT NULL   ,
-	salaire              money    ,
-	CONSTRAINT pk_occupe PRIMARY KEY ( num_employe, num_emploi, debut_date )
- );
-
-CREATE  TABLE cho.projet ( 
-	num                  bigint  NOT NULL  ,
-	nom                  text    ,
-	budget               money    ,
-	debut_date           date DEFAULT CURRENT_DATE NOT NULL  ,
-	fin_date             date DEFAULT NULL   ,
-	CONSTRAINT pk_projet PRIMARY KEY ( num )
- );
-
-CREATE  TABLE cho.affecte ( 
-	num_employe          bigint  NOT NULL  ,
-	num_bureau           bigint  NOT NULL  ,
-	debut_date           date DEFAULT CURRENT_DATE NOT NULL  ,
-	fin_date             date DEFAULT NULL   ,
-	CONSTRAINT pk_affecte PRIMARY KEY ( num_employe, num_bureau, debut_date )
- );
-
-CREATE  TABLE cho.dirige ( 
-	num_directrice       bigint  NOT NULL  ,
-	num_departement      bigint  NOT NULL  ,
-	debut_date           date DEFAULT CURRENT_DATE NOT NULL  ,
-	fin_date             date DEFAULT NULL   ,
-	CONSTRAINT pk_dirige PRIMARY KEY ( num_directrice, num_departement, debut_date )
- );
-
-CREATE  TABLE cho.participe ( 
-	num_employe          bigint  NOT NULL  ,
-	num_projet           bigint  NOT NULL  ,
-	debut_date           date DEFAULT CURRENT_DATE NOT NULL  ,
-	fin_date             date DEFAULT NULL   ,
-	nbre_heures          bigint DEFAULT 0   ,
-	CONSTRAINT pk_participe PRIMARY KEY ( num_employe, num_projet, debut_date )
- );
-```
-:::
-
-
-::: {.callout-tip title="Solution"}
-
-```{.sql}
--- contraintes de tuple
-
-ALTER TABLE cho.participe 
-ADD CONSTRAINT cns_participe 
-CHECK (fin_date IS NULL OR fin_date >= debut_date );
-
-ALTER TABLE cho.affecte 
-ADD CONSTRAINT cns_affecte
-CHECK (fin_date IS NULL OR fin_date >= debut_date );
-
-ALTER TABLE cho.dirige 
-ADD CONSTRAINT cns_dirige
-CHECK (fin_date IS NULL OR fin_date >= debut_date );
-
-ALTER TABLE cho.membre 
-ADD CONSTRAINT cns_membre
-CHECK (fin_date IS NULL OR fin_date >= debut_date );
-
-ALTER TABLE cho.occupe 
-ADD CONSTRAINT cns_occupe
-CHECK (fin_date IS NULL OR fin_date >= debut_date );
-```
-:::
-
-::: {.callout-tip title="Solution"}
-
-```{.sql}
--- contraintes referentielles 
---
-ALTER TABLE cho.affecte 
-ADD CONSTRAINT fk_affecte_employe 
-FOREIGN KEY ( num_employe ) REFERENCES cho.employe( num );
-
-ALTER TABLE cho.affecte 
-ADD CONSTRAINT fk_affecte_bureau 
-FOREIGN KEY ( num_bureau ) REFERENCES cho.bureau( num );
-
-ALTER TABLE cho.dirige 
-ADD CONSTRAINT fk_dirige_employe 
-FOREIGN KEY ( num_directrice ) REFERENCES cho.employe( num );
-
-ALTER TABLE cho.dirige 
-ADD CONSTRAINT fk_dirige_departement 
-FOREIGN KEY ( num_departement ) REFERENCES cho.departement( num );
-
-ALTER TABLE cho.membre 
-ADD CONSTRAINT fk_membre_employe 
-FOREIGN KEY ( num_employe ) REFERENCES cho.employe( num );
-
-ALTER TABLE cho.membre 
-ADD CONSTRAINT fk_membre_departement 
-FOREIGN KEY ( num_departement ) REFERENCES cho.departement( num );
-
-ALTER TABLE cho.occupe 
-ADD CONSTRAINT fk_occupe_employe 
-FOREIGN KEY ( num_employe ) REFERENCES cho.employe( num );
-
-ALTER TABLE cho.occupe 
-ADD CONSTRAINT fk_occupe_emploi 
-FOREIGN KEY ( num_emploi ) REFERENCES cho.emploi( num );
-
-ALTER TABLE cho.participe 
-ADD CONSTRAINT fk_participe_employe 
-FOREIGN KEY ( num_employe ) REFERENCES cho.employe( num );
-
-ALTER TABLE cho.participe 
-ADD CONSTRAINT fk_participe_projet 
-FOREIGN KEY ( num_projet ) REFERENCES cho.projet( num );
-```
-
-
-
-::: 
-
-:::
-
-::: {.callout-note title="Question"}
-
-Essayer de coder les contraintes externes (exclusion, vérification, unicité, ...)
-
-On s'intéresse d'abord aux contraintes qui pèsent sur les associations entre `employe` et
-`departement`.
-
-- Un employé ne peut être membre de plusieurs  départements simultanément
-- Un département ne peut pas être dirigé simultanément par plusieurs employés
-- Un employé ne peut pas diiger plusieurs  départements simultanément
-
-:::
-
-
-::: {.content-visible when-profile='solution'} 
- 
-::: {.callout-tip title="Solution"}
-
-
-
-```{.sql}
--- Un employé ne peut être membre de plusieurs  départements simultanément
-ALTER TABLE cho.membre
-ADD CONSTRAINT exc_membre_1 EXCLUDE USING gist (
-  num_employe WITH =,
-  num_departement WITH <>, 
-  daterange(debut_date, fin_date) WITH &&
-) ;
-```
-
-```{.sql}
--- Un département ne peut pas être dirigé simultanément par plusieurs employés
-ALTER TABLE cho.dirige
-ADD CONSTRAINT exc_dirige_1 EXCLUDE USING gist (
-  num_directrice WITH <>,
-  num_departement WITH =, 
-  daterange(debut_date, fin_date) WITH &&
-) ;
-
-```
-
-```{.sql}
--- Un employé ne peut pas diriger simultanément par plusieurs  départements
-ALTER TABLE cho.dirige
-ADD CONSTRAINT exc_dirige_2 EXCLUDE USING gist (
-  num_directrice WITH =,
-  num_departement WITH <>, 
-  daterange(debut_date, fin_date) WITH &&
-) ;
-
-```
-
-::: 
-
-
-:::
-
-::: {.callout-note title="Question"}
-
-Essayer de coder les contraintes externes (exclusion, vérification, unicité, ...)
-
-On s'intéresse maintenant  aux contraintes qui pèsent sur les associations entre `employe` et
-`projet`.
-
-- Un employé ne peut participer à un projet que pendant la durée de vie du projet 
-- Un employé ne peut pas travailler plus de 50 heures par semaine
-
-
-La première contrainte concerne deux tables `projet`  et `participe`: il 
-faut que l'intervalle spécifié par `debut_date, fin_date` dans 
-`participe` soit inclus dans l'intervalle `debut_date, fin_date` de l'instance 
-de `projet` désignée par `num_projet`. Cette vérification
-devrait être effectuée lors des insertions/mises à jour  dans `participe`
-mais aussi lors des mises à jour dans `projet`. 
-
-Pour mettre en place de genre de contraintes, `SQl`  et `PostgreSQL` offre un cadre : celui des 
-gachettes (`TRIGGER`). Cela va au delà de ce cours. Nous allons 
-essayer de faire avec les moyens dont nous disposons : les fonctions `SQL` et les contraintes `CHECK`.
-
-
-```{.sql}
-CREATE FUNCTION cho.chk_participation_in_project_range(
-  p_num_projet bigint,
-  p_debut_date date,
-  p_fin_date date
-)
-RETURNS integer
-LANGUAGE SQL AS 
-$$
-SELECT 
-  COUNT(*)
-FROM 
-  cho.projet pr
-WHERE 
-  p_num_projet=pr.num 
-  AND 
-  daterange(p_debut_date, p_fin_date) <@ daterange(pr.debut_date, pr.fin_date) ;
-$$ ;
-```
-
-```{.sql}
-ALTER TABLE cho.participe 
-ADD CONSTRAINT cns_participe_2 
-CHECK (
-  1 = cho.chk_participation_in_project_range(
-        num_projet,
-        debut_date,
-        fin_date 
-  )
-)
-;
-```
-
-Il faudrait créer une fonction et une contrainte `CHECK` du côté `projet`. 
-
-Il faudrait aussi vérifier que la directrice d'un département est membre du 
-département ...
-
-
-:::
-
+:::::

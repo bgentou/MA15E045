@@ -58,7 +58,7 @@ Présentation de la partie `film` du schéma `pagila`, pour l'entrainement à Po
 
 
 
-![Schema pagila créé par [DbSchema](https://dbschema.com)](../images/schemas-pagila-film.png)
+![Schema pagila créé par [DbSchema](https://dbschema.com)](/images/avt-2025/schemas/schema-pagila-film.png)
 
 ## Contexte
 

@@ -61,7 +61,7 @@ CREATE TABLE membre(
 ```
 
 
-## Contraintes `PRIMARY/FOREIGN KEY`. 
+## Contraintes `PRIMARY/FOREIGN KEY`
 
 Formellement, la contrainte ` PRIMARY KEY` est équivalente à ` UNIQUE` et ` NOT NULL`. C'est un moyen d'identifier de façon unique chaque ligne. Chaque table est censée avoir une clé primaire. La contrainte ` FOREIGN KEY` spécifie que la valeur d'une (ou de plusieurs) colonne contient des valeurs présentes dans une autre table. Par exemple, la colonne ` capital` de ` country` contient une valeur qui doit apparaître dans la colonne ` id` de ` city`. Par exemple:
 
@@ -88,7 +88,7 @@ ALTER TABLE amis ADD
 ```
 
 
-## Contraintes EXCLUDE.
+## Contraintes `EXCLUDE`
 
 Les contraintes `NOT NULL, DEFAULT, KEY, CHECK` portent uniquement sur une ligne tandis que la contrainte `UNIQUE` permet uniquement de tester des égalités entre lignes. On veut parfois vérifier une condition plus riche sur deux lignes. Par exemple, si notre table contient des réservations d'une salle entre `start_date` et `end_date`, on ne veut pas que deux réservations se chevauchent. On écrira:
 
@@ -155,16 +155,9 @@ INSERT INTO chaprot.td_city
 
 Recréer les contraintes qui n'ont pas été copiées pour obtenir des tables qui soient réellement identiques. 
 
+Vérifier que les contraintes sont bien identiques.
 
-Vérifier que les résultats de
-```
-\d  world.country 
-```
-et 
-```
-\d  chaprot.td_country 
-```
-sont bien égaux.
+Avec dBeaver, vous pouvez visualiser les contraintes sur une table en développant le schéma qui la contient puis "tables" puis la table qui vous intéresse. Développez ensuite  "Colonnes", "Contraintes" et "Clés étrangères".
 
 :::
 
@@ -221,7 +214,7 @@ Ajouter la contrainte : La colonne ` percentage` de `chaprot.td_countrylanguage`
 
 ```{.sql}
 alter table chaprot.td_countrylanguage 
-	add check  (cast(0.0 as real)  < percentage and 
+	add check  (cast(0.0 as real)  <= percentage and 
 				percentage <= cast (100 as real)  
 ) ;
 ```

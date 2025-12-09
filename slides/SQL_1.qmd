@@ -372,16 +372,16 @@ Quand l'information est dispersée sur plusieurs tables, on utilise des *jointur
 
 
 
-## Détails du schema `World`
+## Détails du schéma `World`
 
 Images et tables créées grâce à DbSchema (https://dbschema.com){target="_blank"}
 
 
 
 
-## Diagramme en pattes de corbeau
+## Modèle relationnel du schéma  `World`
 
-![img](/images/world.png)
+![img](/images/modelisation/MRD_world2.svg)
 
 
 
@@ -579,7 +579,7 @@ WHERE cl.language = ci.name;
  
 ## Schéma world pour mémoire
 
-![](/images/world.png)
+![](/images/modelisation/MRD_world2.svg)
 
 
 

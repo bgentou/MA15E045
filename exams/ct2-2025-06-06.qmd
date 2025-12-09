@@ -1,0 +1,1023 @@
+---
+format:
+  pdf:
+    code-annotations: below
+    code-fold: false
+    toc: false
+    output-file: ct-2025-06-06.pdf
+    include-in-header:
+      - text: "\\lhead{{\\sf  Base de données (BD5) \\\\ CT  2025-06-06  9h30-12h30}}"
+  html:
+    standalone: true
+    code-fold: true
+    output-file: ct-2025-06-06.html
+params:
+    year: 2024 
+    curriculum: "L3 MIASHS/Ingémath/METIS"
+    university: "Université Paris Cité"
+    homepage: "https://stephane-v-boucheron.fr/courses/bdd"
+    moodle: "https://moodle.u-paris.fr/course/view.php?id=2313"
+
+engine: knitr
+execute: 
+  eval: true
+  echo: false
+---
+
+
+
+
+::: {layout="[80,20]"}
+
+::: {#first-column}
+
+
+- **`r stringr::str_glue('{params$curriculum}')`**
+- **`r stringr::str_glue('[{params$university}](https://www.u-paris.fr)')`**
+- `r stringr::str_glue("Année {params$year}-{params$year+1}")`
+- `r stringr::str_glue("[Course Homepage]({params$homepage})")`  
+- `r stringr::str_glue("[Moodle]({params$moodle})")`
+
+::: 
+
+::: {#second-column}
+![](/images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
+:::
+
+:::
+
+::: {.content-hidden when-profile="solution"}
+::: {.callout-caution}
+
+- Pas de documents autorisés
+- Pas de téléphone portable 
+- Merci d'écrire vos requêtes en respectant les habitudes  d'indentation et de mise en page suivies en cours et dans les documents.
+
+:::
+:::
+
+
+
+::: {layout="[35,65]"}
+
+::: {#first-column}
+
+<!-- ![](/exams/avt-2025/images/taburin_9782070411962_1_75.jpg){width=180px fig-align="left"}  -->
+
+:::
+
+::: {#second-column}
+
+::: {.content-visible when-profile="english"}
+
+A shared bike service allows subscribers to use either mechanical or electrical bikes. Each bike has a number.
+
+Each subscriber enrolls for a one year subscription at a given starting date. Each subscriber has a subscription number, a  name, a  given name, an age, and a gender.
+
+A subscriber borrows a bike from a docklet at a given starting time on a given day. Once the trip has been completed,
+the subscriber locks the bike on a docklet at arrival time.
+
+Bornettes are located  on stations. Each station contains a fixed number of docklets. Stations are numbered, they have names,  each station has a longitude and alatitude,  and also an address.
+
+:::
+
+
+<br>
+
+
+<br>
+
+
+
+:::
+
+:::
+
+
+{{< fa bicycle >}}  Un service de vélos partagés permet aux abonnés d'utiliser des vélos mécaniques ou électriques. Chaque vélo porte un numéro.
+Un vélo entre en service à une date donnée, Il est retiré du service à une date donnée (pas connue à l'avance).  
+
+
+{{< fa biking >}} Chaque abonné souscrit un abonnement pour une durée d'un an à une date donnée. Chaque abonnement possède un numéro, et  un titulaire qui possède  un nom, un prénom, un âge et un sexe. Un abonnement n'est pas renouvelable. Cela n'empêche pas une personne de souscrire un autre abonnement.  
+
+{{< fa flag-checkered >}} Un abonné emprunte un vélo à une bornette à un instant de départ donné. Une fois le trajet effectué, l'abonné verrouille le vélo sur une bornette à l'instant d'arrivée.
+
+{{< fa map-marked >}} Les bornettes  sont situées sur des stations. Chaque station contient un nombre $n$ (qui peut varier d'une station à l'autre, mais est constant pour une station donnée) de bornettes numérotées de $1$ à $n$. Les stations sont numérotées, elles ont un nom et une adresse. Chaque station a une longitude et une latitude.
+
+
+
+
+
+
+
+```{r}
+q_count <-  1
+```
+
+::: {.callout-note}
+
+### `r glue::glue("Question {q_count}")` (4pts)
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+Proposer un diagrammme entité-association (EA) correspondant à cette modélisation.  
+
+On attend un dessin selon les conventions du cours, pas une énumération. 
+
+:::
+
+
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Conseils"}
+
+- Distinguer entités fortes et faibles
+- Distinguer associations fortes et faibles
+- Pour chaque entité préciser l'identifiant (éventuellement relatif)
+- Préciser les cardinalités pour chaque participation à une association
+
+:::
+
+::: {.callout-tip title="Solution"}
+
+### Entités 
+
+::: {}
+
+(@) `Abonné`
+
+    - `AbonnéID` (Identifiant)
+    - `Nom`
+    - `Prénom`
+    - `Age`
+    - `Genre`
+    - `DébutDate` (de souscription)
+
+(@) `Velo`
+
+    - `VeloID` (PK)
+    - `Type` (Mecanique ou  Electrique)
+    - `DebutServiceDate` 
+    - `FinServiceDate`
+
+
+(@) `Bornette`  (entité faible)
+
+    - `BornetteID` (Identifiant relatif)
+
+(@) `Station` 
+
+    - `StationID` (Identifiant)
+    - `Nom`
+    - `Longitude`
+    - `Latitude`
+    - `Addresse`
+    - `#bornettes` 
+
+:::
+
+:::
+
+
+::: {.callout-tip title="Solution"}
+
+
+### Associations
+
+::: {}
+
+1. Trajet
+
+    - `StartTime`
+    - `EndTime`
+
+    Entités participantes 
+
+    - `Abonné`  0:n
+    - `Vélo` 0:n
+    - `Bornette`  (rôle : Départ)  0:n
+    - `Bornette` (rôle : Arrivée)  0:n
+
+
+2. Station–Bornette
+
+    Entités participantes 
+
+    - `Bornette` 1:1
+    - `Station` 1:n
+
+C'est un lien *partie de* entre une entité faible (`Bornette`) et une entité forte (`Station`). Une station comporte plusieurs bornettes. 
+
+:::
+
+:::
+
+
+```{dot}
+//| label: er1
+//| eval: true
+//| echo: false
+//| include: true
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=neato
+	node [shape=box]; "abonne"; "velo" ; "station"  ;
+
+	{
+    node [shape=ellipse]   ; 
+    {node [label=<<u>abonne_id</u>>] abonne_id}  ;
+    {node [label=<<u>velo_id</u>>] velo_id}  ;
+    {node [label=<<u>bornette_id</u>>] bornette_id}  ;
+    {node [label=<<u>station_id</u>>] station_id} ;
+  }
+
+  {
+    node [shape=diamond];  "trajet"  ;
+    node [shape=diamond, peripheries=2];  "partie-de"  ;  
+    node [shape=box, peripheries=2];  "bornette"  ; 
+  }
+
+  "abonne" -- "trajet" [label="0:n",len=1.00] ;
+  "velo" -- "trajet" [label="0:n", len=1.00] ;
+  "bornette" -- "partie-de" [label="1:1",len=1.00] ;
+  "bornette" -- "trajet" [label="0:n depart", len=1.00] ;
+  "bornette" -- "trajet" [label="0:n arrivee", len=1.00] ;
+  "partie-de" -- "station" [label="0:n",len=1.00] ; 
+  abonne_id -- abonne ;
+  station_id -- station
+  bornette_id -- bornette ;
+  velo_id -- velo ; 
+    //	label = "\n\nEntity Relation Diagram\ndrawn by NEATO";
+//	fontsize=20;
+}
+```
+
+
+::: 
+
+
+ 
+
+::: {.callout-note}
+
+
+### `r glue::glue("Question {q_count}")`   (2pts)
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+Lister les contraintes externes
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-note}
+
+- Un vélo ne peut pas être emprunté simultanément par deux abonnés
+- Le nombre de bornettes rattachées à une station ne peut excéder la limite fixée pour la station
+- Un vélo ne peut effectuer de trajets qu'entre sa date de début de service et sa date de retrait de service.
+- Un abonné ne peut pas effectuer de trajet avant la date de début ou après la date de fin d'abonnement.
+- Une bornette ne peut pas être occupée par deux vélos simultanément.
+
+:::
+
+
+:::
+
+::: {.callout-note}
+
+
+### `r glue::glue("Question {q_count}")`   (2pts)
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+Proposer une traduction en pattes de corbeau du diagramme EA proposé en réponse   
+à la première question. 
+
+:::
+
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Conseil"}
+
+Précisez 
+
+- une clé primaire pour chaque table,
+- les tables dites intermédiaires,
+- pour les liens matérialisant les contraintes référentielles, préciser s'ils sont identifiant ou non.
+
+:::
+
+::: {.callout-tip title="Solution"}
+
+```{mermaid}
+%%| label: crow2
+%%| eval: true
+%%| include: true
+%%| echo: false
+%%| fig-width: 6
+erDiagram
+    TRAJET }o..|| VELO : velo_id 
+    TRAJET }o..|| ABONNE  : abonne_id
+    TRAJET }o..|| BORNETTE : bornette_depart_id 
+    TRAJET }o..|| BORNETTE : bornette_arrivee_id 
+    BORNETTE }o--|| STATION : station_id
+
+  VELO {
+    num velo_id PK
+    date DebutServiceDate 
+    date FinServiceDate
+    text type
+  }
+
+  ABONNE {
+    num abonne_id PK
+    text nom
+    text prenom
+    num age
+    date debut
+    text genre 
+  }
+
+  TRAJET {
+    num trajet_id PK
+    num velo_id  FK
+    num abonne_id   FK
+    %% date depart_ts
+    %% date arrivee_ts
+    num bornette_depart_id FK
+    num station_depart_id FK
+    num bornette_arrivee_id FK
+    num station_arrivee_id FK
+  }
+
+  BORNETTE {
+    num station_id PK, FK
+    num bornette_id PK
+  }
+
+  STATION {
+    num station_id PK
+    text nom
+    text adresse
+    num latitude
+    num longitude
+    num bornettes
+  }
+```
+
+:::
+
+
+
+:::
+
+
+
+
+::: {.callout-note}
+
+
+### `r glue::glue("Question {q_count}")`   (1pt)
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+Proposer un mécanisme pour mettre en place les  contraintes externes  en SQL lorsque c'est possible sans utiliser les gachettes 
+(`TRIGGER`).
+  
+
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+On écrit ici en SQL, le schéma correspondant,
+
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+CREATE TABLE Abonné (
+    AbonnéId INT PRIMARY KEY,
+    Nom VARCHAR(100),
+    Prénom VARCHAR(100),
+    Age INT,
+    Genre CHAR(1),
+    DébutDate DATE
+);
+```
+
+```{.sql}
+CREATE TABLE Velo (
+    VéloId INT PRIMARY KEY,
+    Type ENUM('Mecanique', 'Electrique'),
+
+);
+```
+
+
+```{.sql}
+CREATE TABLE Station (
+    StationID INT PRIMARY KEY,
+    Nom VARCHAR(100),
+    Longitude DECIMAL(9,6),
+    Latitude DECIMAL(9,6),
+    Adresse VARCHAR(255),
+    `#Bornettes` INT
+);
+```
+
+```{.sql}
+CREATE TABLE Bornette (
+  StationID INT, 
+  BorneID INT, 
+  PRIMARY KEY (StationID, BorneID),
+  FOREIGN KEY (StationID) REFERENCES Station.StationID
+)
+```
+
+```{.sql}
+CREATE TABLE Trajet (
+    TrajetID INT PRIMARY KEY,
+    DébutTS TIMESTAMP,
+    FinTS TIMESTAMP,
+    AbonnéID INT,
+    VéloID INT,
+    BornetteDépartID INT,
+    BornetteArriveeID INT,
+    StationDepartID INT,
+    StationArriveeID INT,
+    FOREIGN KEY (AbonnéID) REFERENCES Abonné(AbonnéID),
+    FOREIGN KEY (VeloID) REFERENCES Velo(VeloID),
+    FOREIGN KEY (StationDepartID, BornetteDépartID) 
+      REFERENCES Bornette(StationID, BornetteID),
+    FOREIGN KEY (StationArriveeID, BornetteArriveeID) 
+      REFERENCES Bornette(StationID, BornetteID)
+);
+```
+:::
+
+::: {.callout-tip title="Solution"}
+
+
+
+:::
+
+
+:::
+
+On suppose que le schéma est muni des dépendances fonctionnelles déduites de la question précédente
+et de celles qui se déduisent des contraintes de clé primaire. On note cet ensemble de dépendances 
+fonctionnelles $\Sigma$. 
+
+
+::: {.callout-note}
+
+### `r glue::glue("Question {q_count}")`  (1pt)
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+Votre schéma est-il en Forme Normale de Boyce-Codd ? 
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+
+:::
+
+:::
+
+
+{{< pagebreak >}}
+
+::: {.callout-note}
+
+### `r glue::glue("Question {q_count}")`  (2pt)
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+Quelles actions faut-il effectuer sur votre base pour traduire les événements suivants:
+
+a. Souscription d'un abonnement.
+a. Mise en service d'un vélo.
+a. Retrait de service d'un vélo.
+a. Décrochage d'un vélo.
+a. Accrochage d'un vélo.
+
+{{< fa hand-point-right >}} On n'attend pas du code. Juste une phrase qui décrit l'opération
+à effectuer. 
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+a. Insertion d'un nouveau tuple dans la table `ABONNE`
+a. Insertion d'un nouveau tuple dans la table `VELO` avec une date de retrait de service `NULL` ou `'infinity'::date`
+a. Mise à jour d'un tuple dans la table `VELO`, `RetraitServiceDate` est affecté de la date courante 
+a. Insertion d'un nouveau tuple dans la table `TRAJET`. `FinTS`, `BornetteArriveeID` `StationArriveeID` sont `NULL`
+a. Mise à jour d'un tuple dans la table `TRAJET` (le tuple correspondant au trajet en cours 
+du vélo raccroché), modification de  `FinTS`, `BornetteArriveeID` `StationArriveeID`.
+
+
+On note que l'accrochage d'un vélo, supposera la recherche du trajet en cours dans la table `TRAJET`, puis la mise à jour du tuple concerné. 
+
+Une partie des requêtes qui suivent sera compliquée à écrire, parce qu'avec cette modélisation, les trajets en cours sont noyés dans la table `TRAJET`.
+Pour les repérer, il faut examiner la vaneur de  `FinTS` (`NULL` ou `'infinity'::timestamp`). 
+
+Pour se faciliter la vie, nous allons retoucher la modélisation présentée plus haut, introduire une nouvelle table `TRAJET_EN_COURS`. 
+
+::: 
+
+
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+CREATE TABLE Trajet (
+    TrajetID INT PRIMARY KEY,
+    DébutTS TIMESTAMP,
+    FinTS TIMESTAMP,
+    AbonnéID INT,
+    VéloID INT,
+    BornetteDépartID INT,
+    BornetteArriveeID INT,
+    StationDepartID INT,
+    StationArriveeID INT,
+    FOREIGN KEY (AbonnéID) REFERENCES Abonné(AbonnéID),
+    FOREIGN KEY (VeloID) REFERENCES Velo(VeloID),
+    FOREIGN KEY (StationDepartID, BornetteDépartID) 
+      REFERENCES Bornette(StationID, BornetteID),
+    FOREIGN KEY (StationArriveeID, BornetteArriveeID) 
+      REFERENCES Bornette(StationID, BornetteID)
+);
+```
+
+```{.sql}
+CREATE TABLE Trajet_en_cours (
+    TrajetID INT PRIMARY KEY,
+    DébutTS TIMESTAMP,
+    AbonnéID INT UNIQUE,
+    VéloID INT  UNIQUE,
+    BornetteDépartID INT,
+    StationDepartID INT,
+    FOREIGN KEY (AbonnéID) REFERENCES Abonné(AbonnéID),
+    FOREIGN KEY (VeloID) REFERENCES Velo(VeloID),
+    FOREIGN KEY (StationDepartID, BornetteDépartID) 
+      REFERENCES Bornette(StationID, BornetteID),
+);
+```
+
+:::
+
+
+::: {.callout-tip title="Solution"}
+
+```{mermaid}
+%%| label: crow3
+%%| eval: true
+%%| include: true
+%%| echo: false
+%%| caption: "Schéma pattes de corbeau étendu"
+%%| fig-width: 6
+erDiagram
+    TRAJET }o..|| VELO : velo_id 
+    TRAJET }o..|| ABONNE  : abonne_id
+    TRAJET }o..|| BORNETTE : bornette_depart_id 
+    TRAJET_EN_COURS }o..|| VELO : velo_id 
+    TRAJET_EN_COURS }o..|| ABONNE  : abonne_id
+    TRAJET_EN_COURS }o..|| BORNETTE : bornette_depart_id 
+    TRAJET }o..|| BORNETTE : bornette_arrivee_id 
+    BORNETTE }o--|| STATION : station_id
+
+  VELO {
+    num velo_id PK
+    date DebutServiceDate 
+    date FinServiceDate
+    text type
+  }
+
+  ABONNE {
+    num abonne_id PK
+    text nom
+    text prenom
+    num age
+    date debut
+    text genre 
+  }
+
+  TRAJET {
+    num trajet_id PK
+    num velo_id  FK
+    num abonne_id   FK
+    time depart_ts
+    time arrivee_ts
+    num bornette_depart_id FK
+    num station_depart_id FK
+    num bornette_arrivee_id FK
+    num station_arrivee_id FK
+  }
+
+  TRAJET_EN_COURS {
+    num trajet_id PK
+    num velo_id  FK
+    num abonne_id   FK
+    time depart_ts
+    num bornette_depart_id FK
+    num station_depart_id FK
+  }
+
+  BORNETTE {
+    num station_id PK, FK
+    num bornette_id PK
+  }
+
+  STATION {
+    num station_id PK
+    text nom
+    text adresse
+    num latitude
+    num longitude
+    num bornettes
+  }
+```
+
+:::
+
+
+::: {.callout-tip title="Solution"}
+
+Ce modification du schéma, facilite la mise en place de certaines contraintes.
+
+- Pour les tuples de la table `TRAJET_EN_COURS`, les contraintes d'exclusions se réduisent à des contraintes d'unicité sur `velo_id` et `abonne_id`.
+-  
+
+:::
+
+:::
+
+
+::: {.callout-warning title="Attention"}
+
+Dans la suite, vous formulerez les requêtes dans le schéma relationnel défini  par votre schéma en pattes de corbeau. 
+
+{{< fa graduation-cap >}} : 1 point par requête 
+ 
+:::
+
+```{r}
+#| code: "q_count <- 1"
+```
+
+
+::: {.callout-note}
+
+### `r glue::glue("Requête {q_count}")` 
+
+Liste des trajets en cours à un instant donné
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+:::
+
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+
+```
+::: 
+
+:::
+
+::: {.callout-note}
+
+### `r glue::glue("Requête {q_count}")` 
+
+Liste des vélos en trajet depuis plus d'une heure.
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+```
+
+::: 
+
+:::
+
+::: {.callout-note}
+
+### `r glue::glue("Requête {q_count}")` 
+
+
+Nombre de trajets initiés durant chaque heure de la journée pendant le mois de juin 2024.  
+
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+
+:::
+
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+```
+
+
+::: 
+:::
+
+::: {.callout-note}
+
+### `r glue::glue("Requête {q_count}")` 
+
+Liste des velos qui ont participé à un trajet commencé et achevé dans la même station
+pendant la dernière semaine. 
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+
+```
+::: 
+ 
+::: {.callout-note}
+
+### Remarque
+
+
+:::
+
+:::
+
+::: {.callout-note}
+
+### `r glue::glue("Requête {q_count}")` 
+
+Lister d'éventuels couples de trajets suspects impliquant le même vélo à un même instant.  
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+
+```
+
+::: 
+
+:::
+
+::: {.callout-note}
+
+### `r glue::glue("Requête {q_count}")` 
+
+Liste des stations  qui ont été vides ou pleines pendant la semaine écoulée.
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+
+:::
+
+
+::: {.content-visible when-profile='solution'}  
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+```
+
+::: 
+:::
+
+::: {.callout-note}
+
+### `r glue::glue("Requête {q_count}")` 
+
+Liste des vélos en service qui n'ont pas roulé depuis plus d'un mois.
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+
+```
+
+::: 
+ 
+:::
+
+
+::: {.callout-note}
+
+### `r glue::glue("Requête {q_count}")` 
+
+Pour chaque couple de stations, durée moyenne des trajets entre la station de départ 
+et la station d'arrivée.   
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+
+```
+::: 
+:::
+
+::: {.callout-note}
+
+### `r glue::glue("Requête {q_count}")`
+
+Lister pour chaque station le nombre de bornettes occupées à l'instant courant. 
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+```
+::: 
+:::
+
+::: {.callout-note}
+
+### `r glue::glue("Requête {q_count}")` 
+
+Lister les trajets suspects dont le vélo n'est pas en service.
+
+
+```{r}
+#| code: "q_count <-  q_count + 1"
+```
+
+
+:::
+
+::: {.content-visible when-profile='solution'} 
+ 
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+
+```
+::: 
+
+::: {.callout-tip title="Solution"}
+
+
+```{.sql}
+```
+::: 
+
+:::
+
+---
+
+::: {.callout-tip}
+
+En PostgreSQL, pour définir un intervalle à l'aide de deux dates `debut`  et `fin`, il suffit d'écrire `(début, fin)`.
+L'intervalle ne contient pas la date de fin. 
+
+Pour tester l'intersection/le recouvrement de deux intervalles, on utilise l'opérateur `OVERLAPS` 
+
+```{.sql}
+bd_2023-24=# SELECT 
+  ('2025-01-03'::date, '2025-01-10'::date) OVERLAPS 
+  ('2025-01-10'::date, '2025-01-15'::date)  ; 
+ overlaps 
+----------
+ false
+(1 row)
+
+SELECT 
+  ('2025-01-03 20:26:00'::timestamp, '2025-01-03  21:31:01'::timestamp) OVERLAPS                                              
+  ('2025-01-03 20:50:04'::timestamp, '2025-01-03 21:45:00'::timestamp)  ; 
+ overlaps 
+----------
+ t
+(1 row)
+```
+
+:::
+
+::: {.callout-tip}
+
+Pour spécifier un intervalle semi-infini (dont la fin n'est pas connue), 
+on peut utiliser `'infinity'::timestamp` pour décrire la borne supérieure. 
+
+
+```{.sql}
+bd_2023-24=#  SELECT 
+  ('2025-01-03 20:26:00'::timestamp, 'infinity'::timestamp) OVERLAPS 
+  ('2025-01-03 21:32:04'::timestamp, '2025-01-03 21:45:00'::timestamp)  ; 
+ overlaps 
+----------
+ t
+(1 row)
+```
+:::
+
+::: {.callout-tip}
+
+En PostgreSQL, `current_timestamp` s'évalue à l'instant courant (de type `timestamp` avec `timezone`).
+
+En PostgreSQL, pour extraire le mois d'un objet `dd` de type `date`, vous pouvez utiliser 
+`EXTRACT(MONTH FROM dd)`. Le résultat est un entier entre 1 et 12, 1 pour janvier, ...  
+
+```{.sql}
+postgres=# SELECT 
+  current_timestamp AS instant, 
+  EXTRACT( MONTH FROM current_timestamp::date) AS le_mois ;
+            instant            | le_mois 
+-------------------------------+---------
+ 2025-06-05 20:26:12.556256+02 |       6
+```
+:::
+
+
+::: {.callout-tip}
+Pour définir un intervalle de temps, il suffit de décrire l'intervalle par une chaine de 
+caratères et de convertir le résultat en type `interval`
+
+```{.sql}
+bd_2023-24=# select '2025-06-05 21:10:38.732237+02'::timestamp - '7 days'::interval ;
+          ?column?          
+----------------------------
+ 2025-05-29 21:10:38.732237
+
+```
+:::

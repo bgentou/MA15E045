@@ -1142,7 +1142,7 @@ En langage `R`, on dispose d'un type *expression*, la notation proposée ici est
 
 ::: {.column width="35%"}
 
-![](/images/layout_world.png)
+![](/images/modelisation/MRD_world2.svg)
 
 :::
 

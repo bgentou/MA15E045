@@ -72,12 +72,12 @@ La table `countrylanguage` nous indique quelles langues sont parlées dans quels
 
 L'instance du schéma utilisée donne une idée du monde au début des années 2000. 
 
-## Diagrammme en pattes de corbeau (crowfoot)
+## Modèle relationnel
 
-Un diagramme en pattes de corbeau est formé par les tables (pour chaque colonne/attribut, nom et domaine)
-et des arcs qui décrivent des *contraintes référentielles*.
+Un modèle relationnel est formé par les tables (pour chaque colonne/attribut, nom et domaine)
+et des liens qui décrivent des *contraintes référentielles*.
 
-![Schéma world en pattes de corbeau](/images/schema-world.png)
+![Modèle relationnel du schéma World](/images/modelisation/MRD_world2.png)
 
 
 

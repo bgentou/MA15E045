@@ -241,7 +241,7 @@ mis au monde durant l'année `annee` en France.
 # Exercices
 
 
-- Pour chaque année, chaque sexe, donner les dix prénoms les plus populaires et leur rang  de popularité. 
+@. Pour chaque année, chaque sexe, donner les dix prénoms les plus populaires et leur rang  de popularité. 
 
 ```{.sql}
 WITH R AS (
@@ -254,7 +254,7 @@ FROM R
 WHERE rnk <= 10 ;
 ```
 
-- Créer dans votre schéma personnel une vue `top_10` qui, interrogée, renvoie le résultat de la requête précédente
+@. Créer dans votre schéma personnel une vue `top_10` qui, interrogée, renvoie le résultat de la requête précédente
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -278,7 +278,7 @@ CREATE OR REPLACE VIEW babynames.top_10 AS   -- <1>
 :::
 
 
-- Écrire une fonction qui prend en argument un prénom et renvoie une table de schéma `(annee, sexe, rang)`
+@. Écrire une fonction qui prend en argument un prénom et renvoie une table de schéma `(annee, sexe, rang)`
 et indique le rang du prénom pour chaque année et chaque sexe.
 
 ::: {.content-visible when-profile="solution"}
@@ -286,8 +286,7 @@ et indique le rang du prénom pour chaque année et chaque sexe.
 
 
 ```{.sql}
-
-CREATE OR REPLACE FUNCTION babynames.fonc_td4bis_1(p_prenom TEXT) 
+CREATE OR REPLACE FUNCTION babynames.fonc_td5_1(p_prenom TEXT) 
 RETURNS TABLE(annee INT4, sexe TEXT, rang INT4)
 LANGUAGE SQL AS  
 $$
@@ -301,20 +300,18 @@ WHERE prenom = p_prenom ;
 $$ ;
 ```
 ::: {.callout-caution}
-Remplacer `babynames.fonc_td4bis_1`  par `username.fonc_td4bis_1`.
+Remplacer `babynames.fonc_td5_1`  par `username.fonc_td5_1`.
 :::
 
 :::
 :::
 
-- Pour chaque année et sexe, calculez le nombre total de naissances. 
+@. Pour chaque année et sexe, calculez le nombre total de naissances. 
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
 ```{.sql}
-# unilur-solution: true
-
 SELECT b.annee, b.sexe, SUM(nombre) AS nb
 FROM babynames.bebes b
 GROUP BY b.annee, b.sexe  ;
@@ -324,15 +321,13 @@ GROUP BY b.annee, b.sexe  ;
 :::
 
 
-- Créer dans votre schéma personnel une vue `naissances_sexe_annee`  qui, interrogée, renvoie
+@. Créer dans votre schéma personnel une vue `naissances_sexe_annee`  qui, interrogée, renvoie
 le résultat de la requête précédente
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
 
 ```{.sql}
-# unilur-solution: true
-
 CREATE OR REPLACE VIEW babynames.naissances_sexe_annee AS(
 	SELECT b.annee, b.sexe, SUM(nombre)  AS nb
  	FROM babynames.bebes b
@@ -342,7 +337,7 @@ CREATE OR REPLACE VIEW babynames.naissances_sexe_annee AS(
 :::
 :::
 
-- Pour chaque année, calculez le rapport entre  nombre total de naissances féminines et nombre total de naissances masculines.
+@. Pour chaque année, calculez le rapport entre  nombre total de naissances féminines et nombre total de naissances masculines.
 
 ::: {.callout-note}
 On effectue avec les outils SQL une opération qui s'appelle un *pivot en forme élargie*.
@@ -365,7 +360,7 @@ WHERE r1.sexe=2 AND r2.sexe=1 ;
 :::
 :::
 
-- Créer dans votre schéma personnel une vue `naissances_sexe_annee` qui, interrogée, renvoie
+@. Créer dans votre schéma personnel une vue `naissances_sexe_annee` qui, interrogée, renvoie
 le résultat de la requête précédente.
 
 ::: {.content-visible when-profile="solution"}
@@ -381,7 +376,7 @@ WHERE r1.sexe='2' AND r2.sexe='1'
 :::
 :::
 
-- Pour chaque année, calculez le rapport entre  nombre total de naissances féminines et nombre total de naissances
+@. Pour chaque année, calculez le rapport entre  nombre total de naissances féminines et nombre total de naissances
 
 ::: {.content-visible when-profile="solution"}
 ::: {.callout-tip title="Solution"}
@@ -402,7 +397,7 @@ WHERE r1.sexe='2' AND r2.sexe='1' ;
 :::
 :::
 
-- Créer dans votre schéma personnel une vue `naissances_sexe_annee qui, interrogée, renvoie
+@. Créer dans votre schéma personnel une vue `naissances_sexe_annee qui, interrogée, renvoie
 le résultat de la requête précédente
 
 ::: {.content-visible when-profile="solution"}
@@ -420,7 +415,7 @@ CREATE OR REPLACE VIEW babynames.naissances_sexe_annee AS (
 :::
 
 
-- Écrire une fonction qui prend en argument une année `yyyy` et
+@. Écrire une fonction qui prend en argument une année `yyyy` et
 renvoie une table de schéma `(annee, sexe, prenom, prop)`
 où `prenom` est un des dix prénoms les plus populaires donné en l'aneee `yyyy`
 et calculer la proportion de nouveaux-nés portant ce prénom année par année.
@@ -431,7 +426,7 @@ Tenez compte du fait que certains noms peuvent avoir une occurrence nulle pendan
 ::: {.callout-tip title="Solution"}
 
 ```{.sql}
-CREATE OR REPLACE FUNCTION babynames.fonc_td4bis_2(p_annee int4)
+CREATE OR REPLACE FUNCTION babynames.fonc_td5_2(p_annee int4)
 RETURNS TABLE(annee int4, sexe TEXT, prenom TEXT, prop float4) LANGUAGE SQL AS
 $$
 WITH r AS (

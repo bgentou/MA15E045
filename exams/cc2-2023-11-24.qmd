@@ -301,5 +301,5 @@ HAVING SUM(cl.percentage) >= 90 ;
 Toutes les questions portent sur le schéma `world`.
 
 
-![Schéma `world`](/images/world.png){width=8cm}
+![Schéma `world`](./avt-2025/schemas/world.png){width=8cm}
 

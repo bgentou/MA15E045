@@ -18,7 +18,7 @@ listing:
 
 ::: {.callout-note}
 
-Les feuilles d'exercice forment le matériau de base des TDS et TPS. Vous êtes invités à les lire avant la séance et à réfléchir par vous-même. Les corrections seront disponibles sur Moodle.
+Les feuilles d'exercice forment le matériau de base des TDs et TPs. Vous êtes invités à les lire avant la séance et à réfléchir par vous-même. Les corrections seront disponibles dans les jours qui suivront chaque séance.
 
 :::
 
@@ -28,10 +28,3 @@ Les feuilles d'exercice forment le matériau de base des TDS et TPS. Vous êtes 
 :::
 
 
-::: {.callout-tip}
-
-### Conseil 
-
-Avant de travailler sur un exercice, assurez vous que vous maîtrisez/comprenez  le schéma relationnel concerné. 
-
-:::

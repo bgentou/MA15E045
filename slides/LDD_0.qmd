@@ -144,16 +144,20 @@ CREATE TABLE livraison(
 
 ### Valeurs par défaut
 
-- Pour `dateliv`, c'est la date courante lors de l'insertion de la ligne dans la table
+- Pour `dateliv`, c'est la date courante lors de l'insertion de la ligne dans la table,
 
-- Pour `quantite`, c'est une constante 
+- Pour `quantite`, c'est une constante. 
 
 :::
 
----
+
 
 ## Exemple : schéma `world`  {.smaller}
 
+
+![](/images/modelisation/MRD_world2.svg)
+
+---
 
 ```{sql}
 CREATE TABLE world.city (
@@ -176,8 +180,8 @@ CREATE TABLE world.code_continent (
 );
 ```
 
-## Exemple : schéma `world`  avec clé primaire composée {.smaller}
 
+## Exemple : schéma `world`  avec clé primaire composée {.smaller}
 
 ```{sql}
 CREATE TABLE world.countrylanguage (
@@ -198,11 +202,6 @@ CREATE TABLE world.countrylanguage (
 Une clé peut être composée de plusieurs attributs
 
 :::
----
-
-
-![](/images/schema-world.png)
-
 
 
 
@@ -238,10 +237,6 @@ CREATE TABLE world.country (
 );
 ```
 
----
-
-
-![](/images/layout_world.png)
 
 
 ## Suppression d'une table
@@ -267,9 +262,8 @@ Supprimer une table, c'est supprimer son contenu (vidange) mais aussi son schém
 ## Contenu des relations
 
 
-On peut gérer le contenu des tables directement dans le langage `SQL`.
+On peut gérer le contenu des tables directement dans le langage `SQL` :
 
-On peut donc :
 
 ::: {.incremental}
 
@@ -280,6 +274,8 @@ On peut donc :
 - Supprimer des tuples : `DELETE FROM ...`
 
 :::
+
+
 
 # Insertion  {background-color="#1c191c"}
 
@@ -316,7 +312,7 @@ INSERT INTO piece (nomp,couleur) VALUES('x22', 'vert');
 
 ### Attention
 
-- Les valeurs doivent être fournies dans l'ordre de déclaration des attributs
+- Les valeurs doivent être fournies dans l'ordre de déclaration des attributs,
 - Les valeurs non spécifiées sont  affectées à `NULL`
 
 :::
@@ -344,7 +340,7 @@ VALUES(
 ---
 
 
-![](/images/schema-world.png)
+![](/images/modelisation/MRD_world2.svg)
 
 
 ## Remarques 
@@ -359,7 +355,6 @@ est souvent appelée la *liste de valeurs*.
 Une liste de valeurs peut être définie sans référence à une table existante et 
 définir à la volée une nouvelle table virtuelle/éphémère.
 
-
 . . .
 
 
@@ -372,7 +367,7 @@ FROM (
 ) AS l (user_name, description, log_ts);
 ```
 
-::: {.aside}
+::: {.callout-note}
 
 Quand on utilise `VALUES` pour définir une table virtuelle, 
 il faut spécifier le nom des colonnes. 
@@ -396,7 +391,7 @@ INSERT INTO livraison
 
 
 ```{.sql}
--- Avec des colonnes pas renseignées
+-- Avec des colonnes non renseignées
 
 INSERT INTO livraison
    (numliv, dateliv, quantite)
@@ -417,16 +412,6 @@ INSERT INTO livraison
 ```
 
 
-::: {.callout-note}
-
-### Rappel
-
-- Les valeurs doivent être fournies dans l'ordre de déclaration des attributs
-- Les valeurs non spécifiées sont  affectées à `NULL`.
-
-:::
-
-
 
 ## Insertion de tuples par requête
 
@@ -435,6 +420,8 @@ INSERT INTO livraison
 - La clause `VALUES` est remplacée par une requête,
 
 - Les résultats de la requête sont insérés comme valeurs dans la table.
+  
+- Pour respecter les contraintes d'unicité, le mot clé `DISTINCT` peut être nécessaire, en particulier lorsqu'il y a une jointure.
 
 . . .
 
@@ -480,88 +467,133 @@ INSERT INTO monschema.city (
 
 ## Mise à jour de colonnes, de cellules 
 
-- On peut mettre à jour des tuples existants par le biais d'une requête
+On peut mettre à jour des tuples d'une table par le biais d'une requête `UPDATE`.
 
-  - Soit tous les tuples de la table,
-  - Soit l'ensemble des tuples vérifiants une condition donnée
+```{.sql}
+UPDATE nom_table1
+SET nom_attribut = <expression de valeur> 
+    [ , nom_attribut = <expression de valeur> ]
+[FROM nom_table2 [, [JOIN] nom_table3]]
+[WHERE <condition de recherche> ];
+```
+. . .
+
+::: {.callout-note}
+`<expression de valeur>` peut être :
+
+- `NULL`,
+- une constante explicite,
+- une expression arithmétique sur les attributs des tables des clauses `SET` ou `FROM`,
+- le résultat d'une requête scalaire.
+
+:::
 
 . . .
 
+::: {.callout-warning}
 
-```{.sql}
-UPDATE nom_relation
-SET nom_attribut = <expression de valeur> 
-    [ , nom_attribut = <expression de valeur> ]*
-[WHERE <condition de recherche> ];
-```
+**On ne peut pas** utiliser la notation `nom_table.nom_attribut` dans la clause `SET`.
 
+:::
+
+<!-- 
 ## Mise à jour conditionnelle de tuples
 
 Le `WHERE` permet de sélectionner les tuples à mettre à jour
 
 ```{.sql}
 UPDATE Fournisseur
-SET VilleF='St.Petersburg'
-WHERE VilleF='Leningrad';
+SET villef='St.Petersburg'
+WHERE villef='Leningrad';
 ```
 
-On peut aussi effectuer des opérations sur les tuples à mettre à jour.
-
-
-::: {.callout-note}
-
-### La clause `<expression de valeur>` peut être :
-
-- `NULL`
-
-- Une constante (explicite ou via une requête)
-
-- Une expression arithmétique sur les attributs de la table à modifier
-
-:::
+On peut aussi effectuer des opérations sur les tuples à mettre à jour.-->
 
 
 
-## Mise à jour de tuples (exemple)
+## Exemple de mise à jour de tuples
 
 Augmentation du prix d'une pièce
 
 ```{.sql}
 UPDATE Piece
-SET Prix = Prix * 1.05
-WHERE NomP = 'x21';
+SET prix = prix * 1.05
+WHERE nomp = 'x21';
 ```
 
 
 
-## Mise à jour par requête
+## Calcul de la nouvelle valeur par une sous-requête
 
 ```{.sql}
 UPDATE Piece
 SET Prix = (
-    SELECT Prix
+    SELECT prix
     FROM Piece
-    WHERE NomP = 'x21'
+    WHERE nomp = 'x21'
 )
 WHERE Prix <= 1000;
 ```
 
+
+## Utilisation de la clause `FROM`
+
+- On peut avoir besoin de plusieurs tables pour sélectionner les tuples à mettre à jour.
+
+- La syntaxe à utiliser varie un peu selon le SGBD. 
+
+- Avec PostgreSQL, on écrira les tables suplémentaires dans une clause `FROM` (`JOIN` possible si au moins deux tables supplémentaires).
+
+```{.sql}
+UPDATE Piece p
+SET p.prix = p.prix * 1.1
+FROM Livraison l
+WHERE
+    p.nomp = l.nomp
+    AND l.quantite > 2* (SELECT MIN(quantite) FROM Livraison);
+```
+
+::: {.callout-caution}
+Si, pour une même ligne de la table `Piece`, plusieurs lignes de la table `Livraison` vérifient la condition, la mise à jour n'est effectuée qu'une seule fois.
+:::
+
+
+## `UPDATE` avec CTE
+
+Il est parfois pratique d'écrire une CTE pour définir les couples (identifiant, nouvelle valeur).
+
+```{.sql}
+WITH r AS (
+  SELECT p.nomp AS id, p.prix * 1.1 AS newvalue
+  FROM Piece p
+  JOIN Livraison l ON p.nomp = l.nomp
+  WHERE l.quantite > 2* (SELECT MIN(quantite) FROM Livraison)
+)
+UPDATE Piece p
+SET prix = r.newvalue
+FROM r
+WHERE p.nomp = r.id
+```
+
+
+
 # Suppression de tuples {background-color="#1c191c"}
 
-## Suppression de tuples : syntaxe
+## Suppression de tuples
 
 
 ```{.sql}
 DELETE FROM <nom_relation>
+[USING nom_table2 [, [JOIN] nom_table3]]
 [WHERE <condition de recherche>];
 ```
 :::{.callout-important}
 L'oubli de la clause `where` supprime toutes les données de la table.
 :::
 
-. . .
 
-### Exemple
+
+## Exemple de suppression de tuples
 
 ```{.sql}
 DELETE FROM Fournisseur
@@ -584,69 +616,38 @@ WHERE NomP IN (
 ```
 
 
-## `DELETE FROM <table> USING <t> WHERE ... `  
+## Utilisation de la clause `USING`  
 
-::: {.callout-note}
+- On peut avoir besoin de plusieurs tables pour sélectionner les tuples à supprimer.
 
-Souvent, lorsque vous supprimez des données d'une table, 
-vous souhaitez supprimer ces données en fonction de leur présence
-dans un autre ensemble de données. 
+- La syntaxe à utiliser varie un peu selon le SGBD. PostgreSQL ne supporte pas l'utilisation de `JOIN` dans la clause `FROM` d'une instruction `DELETE`.
 
-Spécifiez cet ensemble supplémentaire avec le prédicat `USING`
+- On écrira les tables suplémentaires dans une clause `USING` (`JOIN` possible si au moins deux tables supplémentaires).
 
-:::
-
-
-
-
-## `DELETE FROM <table> USING <t> WHERE ... `   {.smaller}
-
-::: {.callout-tip}
-
-Souvent, lorsque vous supprimez des données d'une table, 
-vous souhaitez supprimer ces données en fonction de leur présence
-dans un autre ensemble de données. 
-
-Spécifiez cet ensemble supplémentaire avec le prédicat `USING`
-
-:::
 
 
 ```{sql}
-DELETE FROM monschema.city 
+DELETE FROM monschema.city AS ci
 USING monschema.country AS co
 WHERE 
-  city.countrycode = co.countrycode AND 
+  ci.countrycode = co.countrycode AND 
   co.region= 'Eastern Europe' AND 
   co.indepyear = 1991 ;
 ```
 
----
 
-::: {.callout-note}
 
-### {{< fa brain >}}
+## Suppression de données et contraintes d'intégrité référentielle
 
-La requête suivante pose-t'elle problème ?
+::: {.callout-warning}
+
+La requête précédente pose-t'elle problème ?
 
 :::
 
-```{.sql}
-DELETE FROM Piece
-WHERE NomP IN (
-  SELECT NomP
-  FROM Livraison
-  WHERE Quantite>10
-);
-```
-
 . . .
 
-Peut-être !
-
-. . .
-
-Cela dépend des contraintes d'intégrité qui pèsent sur la base
+Les identifiants de l'attribut `country.capital` pour les pays vérifiant `country.region = 'Eastern Europe' AND  country.indepyear = 1991` ne seront plus référencés dans la table `city`.
 
 
 

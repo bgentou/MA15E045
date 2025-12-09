@@ -58,7 +58,7 @@ Présentation de la partie `address` du schéma `pagila`, pour l'entrainement à
 
 
 
-![Schema pagila créé par [DbSchema](https://dbschema.com)](/images/schema-pagila-address.png)
+![Schema pagila créé par [DbSchema](https://dbschema.com)](/images/avt-2025/schemas/schema-pagila-address.png)
 
 ## Contexte
 

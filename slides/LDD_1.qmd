@@ -366,7 +366,6 @@ CREATE TABLE fournisseur(
 
 
 # Clef primaire  {background-color="#1c191c"}
-
  
 
 ## Clef primaire : **PRIMARY KEY**
@@ -390,7 +389,7 @@ Ceci nécessite que les valeurs soient à la fois uniques et `NON NULL`.
 
 . . .
 
-Les définitions de table suivantes acceptent de ce fait les mêmes données
+Les définitions de table suivantes acceptent de ce fait les mêmes données :
 
 ::::: {.columns}
 
@@ -428,9 +427,9 @@ CREATE TABLE fournisseur(
 
 - Une contrainte de clef étrangère stipule que les valeurs d'une colonne (ou d'un groupe de colonnes) doivent correspondre aux valeurs qui apparaissent dans les lignes d'une autre table.
 
-- On dit que cela maintient l'*intégrité référentielle* entre les deux tables
+- On dit que cela maintient l'*intégrité référentielle* entre les deux tables.
 
-- Soit les deux tables suivantes
+Soit les deux tables suivantes :
 
 ::::: {.columns}
 
@@ -465,15 +464,15 @@ CREATE TABLE piece(
 
 ## Clef étrangère : REFERENCES
 
-- Soit également une table `livraison` qui stocke les livraisons de ces pièces
+Supposons également une table `livraison` qui stocke les livraisons de ces pièces.
 
-- Il est intéressant de s'assurer que la table  `livraison` ne contient que des 
-références de pièces et de fournisseurs qui existent dans la base
+Il est important de s'assurer que la table  `livraison` ne contient que des 
+références de pièces et de fournisseurs qui existent dans la base.
 
-Pour cela, deux  contraintes de *clef étrangère* sont  *émises* par la table des livraisons 
+Pour cela, deux  contraintes de *clef étrangère* sont  *émises* par la table des livraisons :
 
-- Une contrainte *référence*  `piece` 
-- Une contrainte *référence*  `fournisseur`
+- Une contrainte *référentielle*  vers la table `piece`. 
+- Une contrainte *référentielle*  vers la table  `fournisseur`.
 
 ```{sql}
 --| eval: false
@@ -491,16 +490,15 @@ CREATE TABLE livraison(
 
 ---
 
-- Il est désormais impossible de créer des livraisons pour lesquelles les valeurs non `NULL` de `nomp` 
-n'apparaissent pas dans la table `piece` et les valeurs non `NULL` de `idf` n'apparaissent pas dans la table `fournisseur`
+- Il est désormais impossible de créer des livraisons pour lesquelles les valeurs non `NULL` de `nomp` n'apparaissent pas dans la table `piece` et les valeurs non `NULL` de `idf` n'apparaissent pas dans la table `fournisseur`.
 
-- On dit que la table des livraisons est la table qui référence et la table des pièces est la table référencée
+- On dit que la table des livraisons est la table qui référence et la table des pièces est la table référencée.
 
 
 
 ## Définition de `world.countrylanguage`
 
-```{.sql}                                                                                                
+```{.sql}
 +-------------+--------------+-------------+
 | Column      | Type         | Modifiers   |
 |-------------+--------------+-------------|
@@ -519,7 +517,7 @@ Indexes:
 ::::: {.columns}
 ::: {.column}
 
-```{.sql}                                                                                                
+```{.sql}
 +--------------------+---------------+-------------+
 | Column             | Type          | Modifiers   |
 |--------------------+---------------+-------------|
@@ -580,13 +578,8 @@ Referenced by:
 ```{.sql}
 ALTER TABLE world.country ADD 
     CONSTRAINT country_capital_fkey 
-        FOREIGN KEY (capital)   
+        FOREIGN KEY (capital)  
         REFERENCES world.city(id);  
-
-ALTER TABLE world.country 
-    ADD CONSTRAINT country_fk 
-        FOREIGN KEY (continent)   
-        REFERENCES world.code_continent(continent);  
 ```
 
 

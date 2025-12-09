@@ -263,11 +263,6 @@ Les clefs sont donc $\{\texttt{A},\texttt{B}, \texttt{D}\}$ et $\{\texttt{B},\te
 
 On travaillera par la suite sur le schéma relationnel `villes` et les tables définies par  le code `SQL` suivant.
 
- <!-- résumé dans la figure suivante  -->
-
-<!-- ![](./villes_schema.png) -->
-
-<!-- {{< include villes_layout.md >}} -->
 
 
 ::: {.smaller}

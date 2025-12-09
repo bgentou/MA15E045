@@ -58,7 +58,7 @@ Présentation du schéma `dellstore`, pour l'entrainement à PostGres.
 
 
 
-![Schema dellstore créé par [DbSchema](https://dbschema.com)](/images/schema-dellstore.png)
+![Schema dellstore créé par [DbSchema](https://dbschema.com)](/images/avt-2025/schemas/schema-dellstore.png)
 
 ## Contexte
 

@@ -66,7 +66,7 @@ Ce jeu de données est construit à partir du package {{< fa brands r-project >}
 > - `airports`: airport names and locations
 > - `airlines`: translation between two letter carrier codes and names
 
-![Schema `nycflights` Generated using [DbSchema](https://dbschema.com)](/images/schema-nycflights.png)
+![Schema `nycflights` Generated using [DbSchema](https://dbschema.com)](/images/avt-2025/schemas/schema-nycflights.png)
 
 
 

@@ -1,7 +1,7 @@
 ---
-title: "TD 9 : Normalisation et dépendances"
-subtitle: "Dépendances fonctionnelles"
-categories: [Normalisation, Dépendances fonctionnelles, BCNF, Fermeture, Poursuite, Décomposition, Perte Information]
+title: "TD 9 : Modèle relationnel des données"
+subtitle: "Conversion d'un modèle E/A en un modèle relationnel"
+categories: [Modélisation, MCD, EA, MRD, modèle relationnel, SQL]
 date: "2025-11-28"
 
 
@@ -20,789 +20,283 @@ format:
 
 {{< include _preamble.qmd >}}
 
+::: {.callout-important title="Objectifs"}
+
+L'objectif de cette séance est de traduire un diagramme E/A (MCD) en un modèle relationnel (MRD).
+:::
+
+## Exercice (Supermarché)
+
+L'équipe de conception a étudié le SI d'un supermarché et a fourni le MCD suivant pour la partie approvisionnement et mise en rayon.
+
+La propriété "en stock chez le fournisseur" est un booléen.
+
+![](/images/td/supermarche/MCD_supermarche2.png){fig-align="center" width="60%"}
 
 
+::: {.callout-note}
+
+### Question 
+
+Convertir ce diagramme E/A en un modèle relationnel. 
+
+:::
+
+::::: {.content-visible when-profile="solution"}
+
+### <span style="color:green;">Solution</span>
+
+![](/images/td/supermarche/MRD_supermarche2.png){fig-align="center" width="80%"}
+
+:::::
 
 
-### Définitions
+::: {.callout-note}
 
-Une *dépendance fonctionnelle* est une expression de la forme
-$$A_1,A_2,\ldots,A_k \rightarrow A_{k+1},\ldots,A_n$$
-où $A_1,A_2,\ldots,A_k, A_{k+1},\ldots,A_n$ sont des attributs (colonnes) d'une base de données. 
+### Question 
 
-Elle signifie que deux tuples ayant la même valeur sur $A_1,\ldots,A_k$ doivent avoir la même valeur sur chaque colonnes $A_{k+1},\ldots, A_n$ (en français : $A_1,\ldots,A_k$ *déterminent* $A_{k+1},\ldots,A_n$. On dit que les attributs $A_{k+1},\ldots, A_n$ *dépendent fonctionnellement* de $A_1,A_2,\ldots,A_k$.
+Quelles sont les clés étrangères sur lesquelles il faut ajouter une contrainte `NOT NULL` ou `UNIQUE` ?
 
-La notion de dépendance est transitive : si $A \rightarrow B$ et $B \rightarrow C$ alors $A \rightarrow C$. 
+:::
 
-Un ensemble de dépendances fonctionnelles $\mathcal{F}$ est *irréductible*  si aucune dépendance ne peut être déduite des autres en utilisant les règles suivantes :
+::::: {.content-visible when-profile="solution"}
 
-- trivialité : si $Y\subseteq X$ alors $X\rightarrow Y$
-- augmentation :  si $X\rightarrow Y$ alors $X,Z\rightarrow Y,Z$ pour toute suite  d'attributs $Z$. 
-- transitivité :  si $X\rightarrow Y$ et $Y\rightarrow Z$ alors $X\rightarrow Z$ 
-- union : si $X\rightarrow Y$ et $X\rightarrow Z$ alors $X\rightarrow Y,Z$
-- décomposition/séparation si $X\rightarrow Y$ et $Z\subseteq Y$ alors  $X\rightarrow Z$ 
+### <span style="color:green;">Solution</span>
 
-La *clôture transitive* des attributs $A_1,\ldots, A_k$ pour un ensemble de dépendances fonctionnelles $\mathcal F$ est l'ensemble des attributs $B_1,\ldots, B_{\ell}$ qui dépendent fonctionnellement de $A_1,\ldots, A_k$. 
+D'après le MCD, il faut définir une contrainte `NOT NULL` sur les clés étrangères `rayon` et `catégorie` de la table `produit` pour traduire les cardinalités minimales 1 des associations *mis-en-rayon* et *appartient* du côté de *PRODUIT*. 
 
-On la note 
-$$[A_1,\ldots, A_k]^+_{\mathcal{F}}$$
-en oubliant $\mathcal{F}$ si le contexte est clair. 
-
-Un ensemble d'attributs $A_1,\ldots, A_k$ est une *super-clé pour une relation $R(B_1,\ldots, B_{\ell})$* si ce sont des attributs de $R$ et si sa clôture transitive contient $B_1,\ldots, B_{\ell}$. C'est une clé si elle est minimale, c'est-à-dire, aucun sous-ensemble strict de cette super-clé n'est une clé.
-
-Un schéma est en : 
-
-- $\text{FN}_3$ si pour toute dépendance fonctionnelle non triviale, le membre de gauche contient une clef ou tout attribut du membre de droit appartient à une clef. 
-- FNBC si pour toute dépendance fonctionnelle non triviale, le membre de gauche contient une clef.
- 
-Un schéma et un ensemble de dépendances fonctionnelles peut se *décomposer* en une collection de schémas, dans le sens où chaque relation $R$ peut se décomposer en $R_1,\ldots, R_k$ tels que $R_i = \pi_i(R)$ pour une certaine projection $\pi_i$.
- 
-On dit cette décomposition *sans perte d'information* si toute relation $R$ du schéma d'origine peut être retrouvée à partir des relations $R_1,\ldots, R_k$ : $R = \pi_1(R) \bowtie \ldots \bowtie \pi_k(R)$.
- 
-On dit que cette décomposition *respecte les dépendances fonctionnelles* si celles-ci sont toujours satisfaites par la nouvelle décomposition. 
- 
+:::::
 
 
+::: {.callout-note}
 
-### Exercice
+### Question 
 
-Soit une relation concernant des personnes en France avec les attributs suivants~:
+Ecrire en SQL la définition des données de la partie *PRODUIT*, *CATEGORIE*, *RAYON*, en essayant d'implémenter toutes les contraintes du diagramme E/A.
 
+Une cardinalité n'est pas codable par une contrainte de table ou de champ, laquelle ?
+Comment peut-on généraliser ?
+
+:::
+
+::::: {.content-visible when-profile="solution"}
+
+### <span style="color:green;">Solution</span>
+
+```{.sql}
+CREATE TABLE RAYON(
+   id INT PRIMARY KEY,
+   etage INT NOT NULL,
+   rangee INT NOT NULL
+);
+
+CREATE TABLE CATEGORIE(
+   id INT PRIMARY KEY,
+   nom VARCHAR(50)
+);
+
+CREATE TABLE PRODUIT(
+   id INT PRIMARY KEY,
+   nom VARCHAR(50),
+   prix MONEY NOT NULL,
+   stock INT NOT NULL DEFAULT 0,
+   categorie INT NOT NULL,
+   rayon INT NOT NULL,
+   CONSTRAINT PRODUIT_categorie_fk 
+      FOREIGN KEY (categorie)
+      REFERENCES CATEGORIE(id),
+   CONSTRAINT PRODUIT_rayon_fk 
+      FOREIGN KEY (rayon)
+      REFERENCES RAYON(id)
+);
+
+CREATE TABLE EMPLACEMENT(
+   categorie INT,
+   rayon INT,
+   PRIMARY KEY (categorie,rayon),
+   CONSTRAINT EMPLACEMENT_categorie_fk 
+      FOREIGN KEY (categorie)  
+      REFERENCES CATEGORIE(id),
+   CONSTRAINT EMPLACEMENT_rayon_fk 
+      FOREIGN KEY (rayon)  
+      REFERENCES RAYON(id)
+);
 ```
-Nom, Numéro de sécurité sociale, Commune, Département, Code postal, Numéro de téléphone
+
+::: {.callout-caution}
+
+La cardinalité minimale 1 de l'association *est-placée* du côté de *RAYON* n'est pas codable par une contrainte de table ou de champ. 
+
+On peut généraliser à **toute cadinalité minimale 1 qui se trouve sur un côté *plusieurs*  n'est pas codable par une contrainte de table ou de champ**.
+
+:::
+
+:::::
+
+
+
+::: {.callout-note}
+
+### Question 
+
+Ce modèle E/A présente une erreur de conception, indépendamment de la connaissance du SI qu'il modélise. Laquelle ?
+
+Comment faut-il normaliser ce modèle ?
+
+:::
+
+::::: {.content-visible when-profile="solution"}
+
+
+### <span style="color:green;">Solution</span>
+
+D'après la cardinalité *1:1* entre les entités *PRODUIT* et *CATEGORIE*, il y a une dépendance fonctionnelle `produit.id` $\rightarrow$ `categorie.id`.
+
+Dans la table `approvisionne`, on a donc la dépendance fonctionnelle `produit`$\rightarrow$`categorie` qui contrevient aux règles de normalisation que nous allons voir en cours. L'idée est qu'il y a redondance d'information avec la table `produit` dans laquelle cette dépendance fonctionnelle est déjà enregistrée.
+
+Il faut décomposer l'association `approvisionne` en :
+
+- une association binaire *appartient* qui existe déjà,
+- une association binaire *approvisionne* entre *fournisseur* et *produit*. 
+
+:::::
+
+
+
+## Exercice
+
+On reprend un MCD élaboré dans un TD précédent :
+
+![](/images/td/locvehicules/MCD_locvehicules.png){fig-align="center" width="80%"}
+
+::: {.callout-note}
+
+### Question 
+
+Convertir ce diagramme E/A en un modèle relationnel. 
+
+:::
+
+
+::::: {.content-visible when-profile="solution"}
+
+### <span style="color:green;">Solution</span>
+
+![](/images/td/locvehicules/MRD_locvehicules.png){fig-align="center" width="100%"}
+
+:::::
+
+
+::: {.callout-note}
+
+### Question 
+
+Quelles sont les clés étrangères sur lesquelles il faut ajouter une contrainte `NOT NULL` ou `UNIQUE` ?
+
+:::
+
+::::: {.content-visible when-profile="solution"}
+
+### <span style="color:green;">Solution</span>
+
+Lors de la définition des tables en SQL, il faudra ajouter :
+
+- D'après le MCD, une contrainte `NOT NULL` sur la clé étrangère `type` de la table `véhicule` pour traduire la cardinalité minimale 1 de l'association *est de* du côté de *véhicule*. 
+- D'après le MCD, une contrainte `NOT NULL` sur la clé étrangère `service` de la table `emprunteur` pour traduire la cardinalité minimale 1 de l'association *attaché* du côté de *EMPRUNTEUR*. 
+
+
+:::::
+
+
+
+::: {.callout-note}
+
+### Question 
+
+Ecrire en SQL la définition des données du modèle relationnel en essayant d'implémenter les contraintes du diagramme E/A.
+:::
+
+::::: {.content-visible when-profile="solution"}
+
+### <span style="color:green;">Solution</span>
+
+```{.sql}
+CREATE TABLE TYPE (
+   numero INT PRIMARY KEY,
+   Nom VARCHAR(25) NOT NULL
+);
+
+CREATE TABLE PLAN_REVISION (
+   type INT,
+   km int,
+   PRIMARY KEY (type, km),
+   FOREIGN KEY (type) REFERENCES TYPE(numero),
+);
+
+CREATE TABLE VEHICULE (
+   id INT PRIMARY KEY,
+   immat VARCHAR(10) NOT NULL UNIQUE,
+   type INT NOT NULL,
+   date_mes DATE NOT NULL,
+   km INT NOT NULL,
+   FOREIGN KEY (type) REFERENCES TYPE(numero)
+);
+
+CREATE TABLE GARAGE (
+   numero INT PRIMARY KEY,
+   nom VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE SERVICE (
+   id INT PRIMARY KEY,
+   nom VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE EMPRUNTEUR (
+   numero INT PRIMARY KEY,
+   nom VARCHAR(50) NOT NULL,
+   service INT NOT NULL,
+   FOREIGN KEY (service) REFERENCES SERVICE(id)
+);
+
+CREATE TABLE EMPRUNT (
+   vehicule INT,
+   emprunteur INT,
+   date DATE,
+   essence MONEY,
+   km INT NOT NULL,
+   durée DATE NOT NULL,
+   PRIMARY KEY (vehicule, emprunteur, date),
+   FOREIGN KEY (vehicule) REFERENCES VEHICULE(id),
+   FOREIGN KEY (emprunteur) REFERENCES EMPRUNTEUR(numero)
+);
+
+CREATE TABLE REPARATION (
+   vehicule INT,
+   garage INT,
+   date DATE,
+   prix MONEY NOT NULL,
+   durée DATE,
+   PRIMARY KEY (vehicule, garage, date),
+   FOREIGN KEY (vehicule) REFERENCES VEHICULE(id),
+   FOREIGN KEY (garage) REFERENCES GARAGE(numero)
+);
+
+CREATE TABLE REVISION (
+   vehicule INT,
+   garage INT,
+   date DATE,
+   prix MONEY NOT NULL,
+   durée DATE,
+   PRIMARY KEY (vehicule, garage, date),
+   FOREIGN KEY (vehicule) REFERENCES VEHICULE(id),
+   FOREIGN KEY (garage) REFERENCES GARAGE(numero)
+);
 ```
 
-Quelles sont les dépendances fonctionnelles censées être satisfaites ?
+Des contraintes `NOT NULL` ont été ajoutées aux attributs qui ne sont pas des clés étrangères en fonction du "bon sens".
 
-::: {.content-visible when-profile="solution"}
+On a créé des clés primaires entières pour les tables `vehicule` et `service` car il est plus sûr d'utiliser des clés primaires internes sans signification externe à la BDD. Sinon il y a un risque de modification dans le temps qui imposerait une mise à jour en cascade des clés étrangères. Une telle mise à jour aurait une complexité importante et toute requête devrait cesser pendant cette mise à jour.
 
-::: {.callout-tip title="Solution"}
-
-- `Numéro de sécurité sociale → Nom, Commune, Département, Code postal`
-- `Commune, Département → Code postal`  (presque : Paris est une commune et un département. Paris possède plusieurs codes postaux )
-- `Code postal → Département`
-
-:::
-
-:::
-
-### Exercice
-
-Soit un schéma d'attributs $A_1, A_2,\dots A_n$ et un ensemble de dépendances fonctionnelles.
-Calculer le nombre de super-clefs (en fonction de $n$) dans les cas suivants~:
-
-
-- La seule clef est $\{A_1\}$.
-- Les seules clefs sont $\{A_1\}$ et $\{A_2\}$.
-- Les seules clefs sont $\{A_1,A_2\}$ et $\{A_3,A_4\}$.
-- Les seules clefs sont $\{A_1,A_2\}$ et $\{A_1,A_3\}$.
-
-
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
-
-
-- $2^{n-1}$
-- $3 \times 2^{n-2}$
-- $2^{n-4}\times 3\times 2 + 2^{n-4}$
-- $3\times 2^{n-3}$
-
-
-
-:::
-
-:::
-
-
-
-### Exercice
-
-Soit le schéma $\mathcal{A}=\{A,B,C,D\}$ et l'ensemble de dépendances fonctionnelles
-$$\Sigma = \{ A ⟶ B, B ⟶ C\} $$
-
-
-
-- Quelle est la fermeture $\{A\}^+$ de $\{A\}$ ?
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
-Initialisation :  $X  =\{A\}$
-
-Etape 1 : Il existe une DF dont la partie gauche est incluse dans $ X$ : $A \longrightarrow B$.  On rajoute les attributs en partie droite.
-D'où $X  = \{A, B\}$
-
-Etape 2: Il existe une DF dont la partie gauche est incluse dans  $ X$ : $B \longrightarrow C$.  On rajoute les attributs en partie droite.
-D'où $X  = {A,B,C}$.
-
-C'est fini, plus de DF à utiliser. Conclusion $\{A\}^+={A,B,C}$
-
-:::
-
-:::
-
--  Quelles sont les super-clés ? Les clés ?
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
-Une clef doit contenir $\{A,D\}$ puisque ces deux attributs ne sont à droite d'aucune DF de $\Sigma$.
-
-De plus $\{A,D\}^+=\{A,B,C,D\}$.
-
-La seule clef est donc $\{A,D\}$.
-
-:::
-
-:::
-
-
-
-### Exercice
-
-Soit le schéma $\mathcal{A}=\{A,B,C,D,E,F\}$ et l'ensemble de dépendances fonctionnelles
-$$\Sigma = \Bigl\{ \{A,B\}\to C, \{B,C\}\to \{A,D\}, D\to E, \{C,F\}\to B \Bigr\}$$
-
-
-- Calculer la fermeture $\{A,B\}^+$ de $\{A,B\}$.
-- Est-ce que $\Sigma$ implique la dépendance fonctionnelle $\{A,B\}\to D$~?
-- Est-ce que $\Sigma$ implique la dépendance fonctionnelle $D\to A$~?
-
-
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
-
-
-- On obtient $\{A,B\}^+=\{A,B,C,D,E\}$.
-- Oui car $D\in\{A,B\}^+$
-- Non car $\{D\}^+=\{D,E\}$ ne contient pas $A$.
-
-
-
-:::
-
-:::
-
-
-
-### Exercice
-
-Montrer que les assertions suivantes sont fausses :
-
-
-- $A\to B$ implique $B\to A$.
-- Si $\{A,B\}\to C$ et $A\to C$ alors $B\to C$.
-- Si $\{A,B\}\to C$ alors $A\to C$ ou $B\to C$.
-
-
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
-
-
-- La relation
-
-|   A  |   B   |
-|:----:|:-----:|
-| 1    | 2     | 
-| 4    | 2     |
-
-satisfait $A\to B$ mais pas $B\to A$.
-
-- La relation
-
-| A | B | C  | 
-|:----:|:-----:|:-----:|
-| 1 | 2 | 3  | 
-| 4 | 2 | 4  | 
-
-satisfait $\{A,B\}\to C$ et $A\to C$ mais pas $B\to C$.
-
-- La relation
-
-| A | B | C |
-|:-:|:-:|:-:|:-:|
-| 1 | 2 | 3 |
-| 4 | 2 | 4 |
-| 1 | 3 | 1 |
-
-satisfait $\{A,B\}\to C$ mais ni $A\to C$ ni $B\to C$.
-
-
-:::
-
-:::
-
-
-
-
-### Exercice : déductions  de DF
-
-Soit le schéma $\mathcal{A}=\{A, B,C, D, E, F, G, H\}$ et soit
-
-$$\Sigma = \{AB \longrightarrow C; \ B \longrightarrow D;  \ CD \longrightarrow E;  \ CE \longrightarrow GH; \  G \longrightarrow A\}$$
-
-Est-ce que les dépendances
-
--  $A,B \longrightarrow E$
-
-- $B,G \longrightarrow C$
-
-- $A,B \longrightarrow G$
-
-sont déductibles de $\Sigma$ ?
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
-oui... Méthode à suivre : pour la première et la troisième, on calcule la fermeture de $\{A,B\}$. On a
-$\{A,B\}^+=\{A,B,C,D,E,G,H\}$.
-
-Pour la seconde, on a $\{B,G\}^+=\{A,B,C,D,E,G,H\}$.
-
-:::
-
-:::
-
-$\Sigma$ est elle irréductible/minimale ? 
-
-
-::: {.callout-tip title="Rappel"}
-
-Pour que $\Sigma$ soit minimale, il y a 3 conditions à remplir : 
-
-- $\Sigma$ est sous forme canonique, un seul attribut à droite. 
-- Aucune DF redondante , i.e. aucune DF ne peut être déduite des autres.
-- Aucune DF redondante à gauch, .i.e. les déterminants sont minimaux
-
-:::
-
-
-::: {.content-visible when-profile="solution"} 
-
-::: {.callout-tip title="Solution"}
-
-$\Sigma$ n'est pas minimale/irréductible : $C,E \longrightarrow H$ est redondante à gauche. 
-
-On la remplace par $C \longrightarrow H$. 
-
-De même $A \longrightarrow H$ est redondante. 
-
-Une version minimale est :  
-$$\mathcal{F} = \{A \longrightarrow B ; C \longrightarrow H ; C \longrightarrow E ; A \longrightarrow C\}$$
-
-
-:::
-
-:::
-
-### Exercice : équivalence  d'ensembles de DFs 
-
-
--  Soit
-$$\Sigma_1 = \{A ⟶ B ; C,E \longrightarrow H ; C \longrightarrow E ; A \longrightarrow C,H\}$$
-et $$\Sigma_2 = \{A \longrightarrow B,C ;  C \longrightarrow E,H\}$$
-Les deux ensembles de dépendances fonctionnelles $\Sigma_1$ et $\Sigma_2$ sont-ils *équivalents* ?
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
-Montrons que $\Sigma_1$ implique $\Sigma_2$  ($\Sigma_1 \models \Sigma_2$).
-
-$A\to B$ et $C\to E$ sont dans $\Sigma_1$. $A\to C$ est impliqué par $A\to CH \in \Sigma_1$.
-
-Donc $A\to BC$ se déduit de $\Sigma_1$. De plus $\Sigma_1$ implique $C\to H$ (puisque $\Sigma_1$ contient $C\to E$ et $CE\to H$). 
-
-Donc $\Sigma_1$ implique $C\to EH$. On a montré que toutes les DF de $\Sigma_2$ sont impliquées par $\Sigma_1$.
-
-Montrons que $\Sigma_2$ implique $\Sigma_1$.
-
-- $\Sigma_2$ contient $A\to B$.
-- $\Sigma_2$ contient $C\to EH$ qui implique $C\to H$ qui implique $CE\to H$.
-- $\Sigma_2$ contient $C\to EH$ qui implique $C\to E$.
-- $\Sigma_2$ implique $A\to CH$ ...
-
-:::
-
-:::
-
-
-
-
-
-### Exercice : Décomposition et perte d'information
-
-
-
-
-- On considère le schéma de relation $\mathcal{A}={A,B,C}$ et la dépendance fonctionnelle suivante:
-
-$$\Sigma=\{  A,B \longrightarrow C   \}.$$
-
-Déterminer si la décomposition suivante est sans perte d'information
-
-$$\mathcal{A}_1=\{A,B\} , \quad \mathcal{A}_2=\{B,C\}$$
-
-en étudiant le cas de la table suivante :
-
-
-
-
-
-| A | B | C |
-|:--:|:--:|:--:|
-| 1 | 2 | 3 |
-| 4 | 2 | 5 |
-
-: {.responsive-sm}
-
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
-Cette relation satisfait $AB\to C$.
-De plus, la jointure naturelle des deux projections contient les deux nouveaux tuples (1,2,5)  et (4,2,3).
-Donc il y a perte d'information.
-
-
-:::
-
-:::
-
-### Exercice : poursuite
-
-- On considère le schéma de relation $\mathcal{A}=\{A,B,C,D,E\}$ et les dépendances fonctionnelles suivantes:
-
-$$\Sigma=\{  A \longrightarrow C ; B \longrightarrow C ; C \longrightarrow D ; D,E \longrightarrow C ; C,E \longrightarrow A    \}.$$
-
-Appliquer l'algorithme de poursuite pour
-déterminer si la décomposition suivante est sans perte d'information :
-
-$$ \mathcal{A}_1=\{A,D\} , \mathcal{A}_2=\{A,B\}	, \mathcal{A}_3=\{B,E\} , \mathcal{A}_4=\{C,D,E\}, \mathcal{A}_5=\{A,E\} $$
-
-Même question pour la décomposition:
-$$ \mathcal{A}_1=\{A,D\}, \mathcal{A}_2=\{A,B\}, \mathcal{A}_3=\{B,E\}, \mathcal{A}_4=\{C,D\}, \mathcal{A}_5=\{D,E\}, \mathcal{A}_6=\{A,E\} $$
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
-La première décomposition est SPI.
-On doit montrer que :
-
-$R=\pi_{A,D}(R)\bowtie \pi_{A,B}(R)\bowtie \pi_{B,E}(R)\bowtie \pi_{C,D,E}(R) \bowtie \pi_{A,E}(R)$.
-
-On voit que :
-$$R \subseteq\pi_{A,D}(R)\bowtie \pi_{A,B}(R)\bowtie \pi_{B,E}(R)\bowtie \pi_{C,D,E}(R) \bowtie \pi_{A,E}(R)$$
- et il faut montrer l'autre inclusion.
-
-On considère un tuple $t=(a,b,c,d,e)$ de la jointure naturelle.
-
-Pour $1\le i\le 5$, comme $\pi_{\mathcal{A}_i}(t) \in \pi_{\mathcal{A}_i}(R)$ il existe un tuple $t_i\in R$
-tel que $\pi_{\mathcal{A}_i}(t)=\pi_{\mathcal{A}_i}(t_i)$, ce que l'on représente par le tableau
-
-
- A  | B  | C  | D  | E |
-|:--:|:--:|:--:|:--:|:--:|
-| a  | $b_1$  |  $c_1$ | d  | $e_1$ |
-| a  | b  | $c_2$  | $d_2$  | $e_2$ |
-|  $a_3$ | b  | $c_3$  | $d_3$  | e |
-|  $a_4$  | $b_4$ |  c  | d  | e |
-|  a  | $b_5$  | $c_5$  | $d_5$  | e |
-
-
-Par la dépendance  $A \longrightarrow C$, on sait que deux tuples ayant la même valeur sur $A$, ont la même sur $C$. On remplace dans la table les valeurs indicées par la valeur $c$ quand c'est possible, ou on unifie simplement les valeurs indicées sinon (ici on prendra $c_1$).
-
-
-
-| A | B | C | D | E |
-|:--:|:--:|:--:|:--:|:--:|
-| a  | $b_1$ |   $c_1$ |  d  |  $e_1$  |
-| a  | b |  $c_1$  |  $d_2$  |  $e_2$  |
-|  $a_3$ | b |  $c_3$  |  $d_3$  |  e  |
-|  $a_4$  | $b_4$ |  c  |  d  |  e  |
-|  a  | $b_5$ |  $c_1$  |  $d_5$  |  e  |
-
-
-:::
-
-::: {.callout-tip title="Solution (suite)"}
-
-On traite maintenant $B \longrightarrow C$.
-
-
-| A |  B | C | D | E  |
-|:--:|:--:|:--:|:--:|:--:|
-| a | $b_1$ |  $c_1$| d | $e_1$ |
-| a | b | $c_1$ | $d_2$ | $e_2$ |
-|  $a_3$| b | $c_1$ | $d_3$ | e |
-|  $a_4$ | $b_4$ | c | d | e |
-|  a | $b_5$ | $c_1$ | $d_5$ | e |
-
-
-Pour la dépendance $C \longrightarrow D$, on obtient :
-
-
-| A |  B | C | D | E  |
-|:--:|:--:|:--:|:--:|:--:|
-| a | $b_1$ |  $c_1$| d | $e_1$ |
-| a | b | $c_1$ | d | $e_2$ |
-|  $a_3$| b | $c_1$ | d | e |
-|  $a_4$ | $b_4$ | c | d | e |
-|  a | $b_5$ | $c_1$ | d | e |
-
-:::
-
-::: {.callout-tip title="Solution (suite)"}
-
-Pour $D,E \longrightarrow C$, on a cette fois (notez qu'on remplace tous les $c_1$ du coup comme l'un d'entre eux devait l'être) :
-
-
-| A |  B | C | D | E  |
-|:--:|:--:|:--:|:--:|:--:|
-| a |  $b_1$ |  c | d | $e_1$ |
-| a |  b | c  | d | $e_2$ |
-|  $a_3$|  b | c  | d | e |
-|  $a_4$ |  $b_4$ | c  | d | e |
-|  a |  $b_5$ | c  | d | e |
-
-
-
-Enfin, on termine avec $C,E \longrightarrow A$ :
-
-
-| A |  B | C | D | E  |
-|:--:|:--:|:--:|:--:|:--:|
-| a |  $b_1$ |  c | d | $e_1$ |
-| a |  b | c  | d | $e_2$ |
-|  a|  b | c  | d | e |
-|  a |  $b_4$ | c  | d | e |
-|  a |  $b_5$ | c  | d | e |
-
-
-On voit que le tuple $(a,b,c,d,e)$ apparait.
-
-
-En d'autres termes :
-
-$R \supset\pi_{A,D}(R)\bowtie \pi_{A,B}(R)\bowtie \pi_{B,E}(R)\bowtie \pi_{C,D,E}(R) \bowtie \pi_{A,E}(R)$.
-La décomposition est donc SPI.
-
-:::
-
-::: {.callout-tip title="Solution (suite)"}
-
-
-La seconde décomposition n'est pas SPI: l'algorithme de poursuite échoue.
-
-Le tableau de départ s'écrit :
-
-| A |  B | C | D | E  |
-|:--:|:--:|:--:|:--:|:--:|
-| a |  $b_1$ |  $c_1$| d | $e_1$ |
-| a |  b | $c_2$ | $d_2$ | $e_2$ |
-|  $a_3$|  b | $c_3$ | $d_3$ | e |
-|  $a_4$ |  $b_4$ | c | d | $e_4$ |
-|  $a_5$ |  $b_5$ | $c_5$ | d | e |
-|  a |  $b_6$ | $c_6$ | $d_6$ | e |
-
-
-
-- $A\to C$ donc $c_1=c_2=c_6$
-
-| A |  B | C | D | E  |
-|:--:|:--:|:--:|:--:|:--:|
-| a |  $b_1$ |  $c_1$| d | $e_1$ |
-| a |  b | $c_1$ | $d_2$ | $e_2$ |
-|  $a_3$|  b | $c_3$ | $d_3$ | e |
-|  $a_4$ |  $b_4$ | c | d | $e_4$ |
-|  $a_5$ |  $b_5$ | $c_5$ | d | e |
-|  a |  $b_6$ | $c_1$ | $d_6$ | e |
-
-
-:::
-
-::: {.callout-tip title="Solution (suite)"}
-
-$B\to C$ donc $c_3=c_1$
-
-| A |  B | C | D | E  |
-|:--:|:--:|:--:|:--:|:--:|
-| a |  $b_1$ |  $c_1$| d | $e_1$ |
-| a |  b | $c_1$ | $d_2$ | $e_2$ |
-|  $a_3$|  b | $c_1$ | $d_3$ | e |
-|  $a_4$ |  $b_4$ | c | d | $e_4$ |
-|  $a_5$ |  $b_5$ | $c_5$ | d | e |
-|  a |  $b_6$ | $c_1$ | $d_6$ | e |
-
-$C\to D$ donc $d_1=d_3=d_6=d$
-
-| A |  B | C | D | E  |
-|:--:|:--:|:--:|:--:|:--:|
-| a |  $b_1$ |  $c_1$| d | $e_1$ |
-| a |  b | $c_1$ | d | $e_2$ |
-|  $a_3$|  b | $c_1$ | d | e |
-|  $a_4$ |  $b_4$ | c | d | $e_4$ |
-|  $a_5$ |  $b_5$ | $c_5$ | d | e |
-|  a |  $b_6$ | $c_1$ | d | e |
-
-
-:::
-
-::: {.callout-tip title="Solution (suite)"}
-
-$DE\to C$ donc $c_5=c1$
-
-| A |  B | C | D | E  |
-|:--:|:--:|:--:|:--:|:--:|
-| a |  $b_1$ |  $c_1$| d | $e_1$ |
-| a |  b | $c_1$ | d | $e_2$ |
-|  $a_3$|  b | $c_1$ | d | e |
-|  $a_4$ |  $b_4$ | c | d | $e_4$ |
-|  $a_5$ |  $b_5$ | $c_1$ | d | e |
-|  a |  $b_6$ | $c_1$ | d | e |
-
-$CE\to A$ donc $a_3=a_5=a$
-
-| A |  B | C | D | E  |
-|:--:|:--:|:--:|:--:|:--:|
-| a |  $b_1$ |  $c_1$| d | $e_1$ |
-| a |  b | $c_1$ | d | $e_2$ |
-|  a|  b | $c_1$ | d | e |
-|  $a_4$ |  $b_4$ | c | d | $e_4$ |
-|  a |  $b_5$ | $c_1$ | d | e |
-|  a |  $b_6$ | $c_1$ | d | e |
-
-
-Toutes les DF de $\Sigma$ sont satisfaites et aucune ligne n'est égale à $(a,b,c,d,e)$.
-
-Donc la décomposition n'est pas SPI.
-
-Si on suppose que pour tout $1\le i\le 6$, $a_i\not=a$, $b_i\not=b$, $c_i\not=c$, $d_i\not=d$, $e_i\not=e$, ce dernier tableau fournit un exemple de relation strictement plus petite que la jointure naturelle des projections.
-
-En effet $\Sigma$ est satisfait et $(a,b,c,d,e)$ est clairement dans la jointure naturelles des projections.
-Or $(a,b,c,d,e)$ n'est pas dans la relation.
-
-
-
-
-
-:::
-
-:::
-
-
-
-### Exercice
-
-Soit $\mathcal{A}=\{A,B,C,D,E\}$ un schéma et soit la décomposition $\{\mathcal{A}_1,\mathcal{A}_2,\mathcal{A}_3\}$ où
-$$\mathcal{A}_1={A,B,C}\quad \mathcal{A}_2={B,C,D}\quad \mathcal{A}_3={A,C,E}$$
-Pour chaque ensemble $\Sigma$ de dépendances fonctionnelles ci-dessous, appliquer l'algorithme de poursuite pour déterminer si la décomposition est sans perte d'information.
-Dans le cas où il y a perte d'information, donner une relation $R$ de schéma $\mathcal{A}$ satisfaisant $\Sigma$ et telle que
-$$ \pi_{\mathcal{A}_1}(R)\bowtie\pi_{\mathcal{A}_2}(R)\bowtie\pi_{\mathcal{A}_3}(R)\not\subset R$$
-
-
-- $\Sigma=\{B\rightarrow E, CE\rightarrow A\}$
-- $\Sigma=\{AC\rightarrow E, BC\to D\}$
-- $\Sigma=\{A\rightarrow D, D\to E, B\to D\}$
-- $\Sigma=\{A\rightarrow D, CD\to E, E\to D\}$
-
-
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
--
-
-|  | A | B | C  | D | E   |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
-|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
-|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
-
-$B\to E$ donc $e_1=e_2$. Ensuite $CE\to A$ donc $a_2=a$. On obtient
-
-
-|  | A | B | C  | D | E   |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
-|  {B,C,D} | a | b | c  | d | $e_1$ |
-|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
-
-Toutes les DF de $\Sigma$ sont satisfaites. Donc il y a perte d'information.
-Ce dernier tableau est une relation $R$ qui satisfait $\Sigma$ et telle que
-
-$$\pi_{\mathcal{A}_1}(R)\bowtie\pi_{\mathcal{A}_2}(R)\bowtie\pi_{\mathcal{A}_3}(R)\not\subset R$$
-
-puisque $(a,b,c,d,e)\notin R$.
-
-
-
-
-
-:::
-
-
-::: {.callout-tip title="Solution (suite)"}
-
-
-|  | A | B | C  | D | E   |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
-|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
-|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
-
-
-$AC\to E$ donc $e_1=e$. Ensuite $BC\to D$ donc $d_1=d$. On obtient
-
-
-|  | A | B | C  | D | E   |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| {A,B,C}  | a | b |  c | d | e |
-|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
-|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
- 
-Le premier tuple est $(a,b,c,d,e)$. Donc la décomposition est SPI.
-
-:::
-
-::: {.callout-tip title="Solution (suite)"}
-
--
-
-
-|  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
-|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
-|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
-
-$A\to D$ donc $d_3=d_1$.
-
-
-|  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
-|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
-|  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
-
-$D\to E$ donc $e_1=e$
-
-|  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| {A,B,C}  | a | b |  c | $d_1$ | e |
-|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
-|  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
-
-$B\to D$ donc $d_1=d$
-
-
-|  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| {A,B,C}  | a | b |  c | d | e |
-|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
-|  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
-
-La décomposition est donc SPI.
-
-:::
-
-::: {.callout-tip title="Solution (suite)"}
-
--
-
-|  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
-|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
-|  {A,C,E} | a | $b_3$ | c  | $d_3$ | e |
-
-$A\to D$ donc $d_3=d_1$.
-
-|  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| {A,B,C}  | a | b |  c | $d_1$ | $e_1$ |
-|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
-|  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
-
-$CD\to E$ donc $e_1=e$.
-
-|  | A | B | C  | D | E |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| {A,B,C}  | a | b |  c | $d_1$ | e |
-|  {B,C,D} | $a_2$ | b | c  | d | $e_2$ |
-|  {A,C,E} | a | $b_3$ | c  | $d_1$ | e |
-
-$E\to D$ est satisfaite ainsi que les deux premières DF.
-Donc la décomposition n'est pas SPI.
-
-
-
-
-
-:::
-
-:::
-
-
-### Exercice : Normalisation
-
-On considère le schéma de relation `R(C,T,H,S,E,N)` :
-```
-R(Cours, Enseignant, Horaire, Salle, Étudiant, Note)
-``` 
-et les dépendances fonctionnelles suivantes:
-
-$$\mathcal{F}=\{  \texttt{C} \to \texttt{T}; \quad \texttt{H,S} \to \texttt{C}; \quad \texttt{H,T} \to \texttt{S}; \quad \texttt{C,E} \to \texttt{N}; \quad \texttt{H,E} \to S \}. $$
-
-- Calculer une clé.
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
-`H,E` n'étant jamais à droite, ils font obligatoirement partis d'une clé. Or `HE+ = ALL`
-
-:::
-
-:::
-
-
-- Mettre en Boyce-Codd Normal Form (BCNF), donner plusieurs résultats possibles.
-
-::: {.content-visible when-profile="solution"}
-
-::: {.callout-tip title="Solution"}
-
-
-1er version: 
-
-`C -> T` donne `T1(CT)` et `T2(CHSEN)`.
-
-`CE -> N` donne `T1(CT),T2(C,E,N) T3(CHSE)`
-
-`HE -> S` donne `(HES ; HEC)`
-
-2eme version:
-
-`CE -> N` donne `T1(CENT), T2(CEHS) ...`
-
-
-:::
-
-:::
-
+Par conséquent, les clés primaires récusées `immat` de `vehicule`et `nom` de `service` doivent avoir les contraintes `NOT NULL UNIQUE`.
+:::::

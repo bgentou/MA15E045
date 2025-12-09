@@ -17,42 +17,42 @@
   author: "Licence MIASHS UParis Cité"
   date: "2025-10-17"
   path: "/solutions/td4.html"
-  categories: [Requêtes, Aggrégation, Fenêtres]
+  categories: [Requêtes, Aggrégation, Fenêtres, SQL]
 - title: "TD 5 2025-26"
   author: "Licence MIASHS UParis Cité"
   date: "2025-10-24"
   path: "/solutions/td5.html"
-  categories: [Requêtes Aggrégation, Fenêtres]
+  categories: [Requêtes Aggrégation, Fenêtres, SQL]
 - title: "TD 6 2025-26"
   author: "Licence MIASHS UParis Cité"
   date: "2025-11-07"
   path: "/solutions/td6.html"
-  categories: [Contraintes]
+  categories: [Contraintes, LDD, SQL]
 - title: "TD 7  2025-26"
   author: "Licence MIASHS UParis Cité"
   date: "2025-11-14"
   path: "/solutions/td7.html"
-  categories: [Contraintes]
+  categories: [Modélisation, MCD, Modèle E/A]
 - title: "TD 8 2025-26"
   author: "Licence MIASHS UParis Cité"
   date: "2025-11-21"
   path: "/solutions/td8.html"
-  categories: [Modélisation]
+  categories: [Modélisation, MCD, Modèle E/A, Contraintes]
 - title: "TD 9 2025-26"
   author: "Licence MIASHS UParis Cité"
   date: "2025-11-28"
   path: "/solutions/td9.html"
-  categories: [Modélisation]
+  categories: [Modélisation, MLD, MRD]
 - title: "TD 10 2025-26"
   author: "Licence MIASHS UParis Cité"
   date: "2025-12-05"
   path: "/solutions/td10.html"
-  categories: [Normalisation]
+  categories: [Normalisation, DF, Fermeture, Clé, Perte de dépendance, Décomposition, FN3]
 - title: "TD 11 2025-26"
   author: "Licence MIASHS UParis Cité"
   date: "2025-12-12"
   path: "/solutions/td11.html"
-  categories: [Normalisation]
+  categories: [Normalisation, Décomposition, Perte d'information, FN3, FNBC]
 
 
 

@@ -2,7 +2,8 @@ project:
   type: website
   render:
     - "*.qmd"
-    - "weeks/"
+    - "!weeks/"
+    - "schemas/"  #ajouté en nov 2025
     - "workshops/"
     - "!slides/"
     - "!solutions/"
@@ -26,7 +27,7 @@ website:
   open-graph: true
 
   page-footer:
-    right: "This page is built with blood, sweat, tears, and [Quarto](https://quarto.org/)."
+    right: "This page is built with [Quarto](https://quarto.org/)."
     left: "&copy; Copyright 2025, Stéphane Boucheron & Bertrand Gentou"
     background: "#D9E3E4"
 
@@ -78,14 +79,10 @@ website:
         text: Diapositives
       - href: td-listings.qmd
         text: Exercices
-      # - href: corriges-tds.qmd
-      #   text: Corrections  
       - href: schemas-listings.qmd
         htext: Schémas
       - href: exams-listings.qmd
         text: Annales
-      #- href: journal-listings.qmd
-      #  htext: Journal
 
 format:
   html:

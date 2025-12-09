@@ -41,7 +41,7 @@ execute:
 ::: 
 
 ::: {#second-column}
-![](../images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
+![](/images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
 :::
 
 :::
@@ -62,7 +62,7 @@ execute:
 
 ::: {#first-column}
 
-![](/images/taburin_9782070411962_1_75.jpg){width=180px fig-align="left"} 
+![](/exams/avt-2025/images/taburin_9782070411962_1_75.jpg){width=180px fig-align="left"} 
 
 :::
 

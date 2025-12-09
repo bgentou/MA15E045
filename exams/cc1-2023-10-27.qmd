@@ -39,7 +39,7 @@ params:
 ::: 
 
 ::: {#second-column}
-![](../images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
+![](/images/UniversiteParis_monogramme_couleur_RVB.png){align="right" style="size:50px;" width=75}
 :::
 
 :::
@@ -59,7 +59,7 @@ params:
 
 Toutes les questions portent sur le schéma `world` rappelé ci-dessous.
 
-![Schéma `world`](../images/world.png){width=8cm}
+![Schéma `world`](./avt-2025/schemas/world.png){width=8cm}
 
 
 
