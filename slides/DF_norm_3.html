@@ -1862,7 +1862,7 @@ On peut vérifier :
    D :=  {A}
 
    while (∃ B ∈ D, B not BCNF because of Σ ⊨ X → a)
-      Y := X⁺ ⋂ (B\X)          // X → a non triviale donc Y ≠ ∅
+      Y := X⁺ ⋂ (B\X)       // X → a non triviale donc Y ≠ ∅
       D := (D\{B}) ⋃ { X⋃Y, B\Y }
    
 return D
