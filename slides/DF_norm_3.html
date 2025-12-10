@@ -261,7 +261,7 @@
       white-space: pre-wrap;
       word-wrap: normal;
    }
-   span.commentaire {
+   span.cm {
       font-style: italic;
       color: rgba(37, 118, 19, 1);
    }
@@ -375,10 +375,10 @@
 <pre class="code"><span class="kw">fonction</span> projection(A1, Σ)
    P := ∅
    <span class="kw">for</span> X ⊂ A1, X ≠ ∅, X ≠ A1
-      <span class="commentaire"># Y = {attributs de A1 déterminés par X}</span>
+      <span class="cm"># Y = {attributs de A1 déterminés par X}</span>
       Y := X⁺ ∩ A1  
-      <span class="kw">if</span> Y ⊄ X     <span class="commentaire"># X → Y n'est pas triviale</span>
-         <span class="commentaire"># ajout de la DF X → Y\X</span>
+      <span class="kw">if</span> Y ⊄ X     <span class="cm"># X → Y n'est pas triviale</span>
+         <span class="cm"># ajout de la DF X → Y\X</span>
          P := P ⋃ { X → Y\X }
    <span class="kw">return</span> P
 </pre>
@@ -526,9 +526,9 @@
    <span class="kw">while</span> go
       W := Z
       <span class="kw">for</span> i ∈ {1, ..., k}
-         <span class="commentaire"># pour chaque Ai, ajout des attributs de Ai déterminés par W ∩ Ai</span>
+         <span class="cm"># pour chaque Ai, ajout des attributs de Ai déterminés par W ∩ Ai</span>
          W := W ⋃ ((W ∩ Ai)⁺ ∩ Ai)
-      <span class="commentaire"># si W a augmenté, m.a.j. de Z et on reboucle, sinon arrêt</span>
+      <span class="cm"># si W a augmenté, m.a.j. de Z et on reboucle, sinon arrêt</span>
       <span class="kw">if</span> W ≠ Z
          Z := W
       <span class="kw">else</span>
@@ -1576,17 +1576,17 @@ On peut vérifier :
 -->
 </section><section id="algorithme-de-construction-dune-fn3" class="slide level2 center"><h2>Algorithme de construction d’une FN3</h2>
 <pre class="code"><span class="kw">fonction</span> decomposition_FN3(A, Σ)
-   D :=  ∅                      <span class="commentaire"># initialisation de la décomposition D</span>
-   Σ' := min_cover(Σ)           <span class="commentaire"># calcul d'une couverture irredondante de Σ</span>
+   D :=  ∅                      <span class="cm"># initialisation de la décomposition D</span>
+   Σ' := min_cover(Σ)           <span class="cm"># calcul d'une couverture irredondante de Σ</span>
    
    <span class="kw">for each distinct</span> left member X of a DF in Σ'
-      <span class="commentaire"># Y = {attributs à droite d'une DF de Σ' ayant X comme déterminant}</span>
+      <span class="cm"># Y = {attributs à droite d'une DF de Σ' ayant X comme déterminant}</span>
       Y := {y | X → y ∈ Σ'}
-      D := D ⋃ {X ⋃ Y}            <span class="commentaire"># Ajouter le schéma X ⋃ Y de clé X</span>
-   <span class="commentaire"># la décomposition doit comprendre tous les attributs</span>
+      D := D ⋃ {X ⋃ Y}            <span class="cm"># Ajouter le schéma X ⋃ Y de clé X</span>
+   <span class="cm"># la décomposition doit comprendre tous les attributs</span>
    B := {attributes in A that do not occur in D}
-   D := D ⋃ {B}                            <span class="commentaire"># Ajouter le schéma B à D</span>
-   <span class="commentaire"># dernière partie pour assurer une décomposition SPI</span>
+   D := D ⋃ {B}                            <span class="cm"># Ajouter le schéma B à D</span>
+   <span class="cm"># dernière partie pour assurer une décomposition SPI</span>
    <span class="kw">If</span> no schemas includes a key of A, add a schema with a key of A
 
    <span class="kw">return</span> D
@@ -1877,14 +1877,14 @@ On peut vérifier :
 </section><section id="algorithme" class="slide level2 center"><h2>Algorithme</h2>
 <pre class="code"><span class="kw">fonction</span> decomposition_FNBC(A,Σ)
 
-   <span class="commentaire">#Initialisation de la décomposition</span>
+   <span class="cm">#Initialisation de la décomposition</span>
    D :=  {A}
 
    <span class="kw">while</span> (∃ B ∈ D, B not BCNF because of Σ ⊨ X → a)
-      <span class="commentaire"># Y = {attributs de B\X déterminés par X}</span>
-      Y := X⁺ ⋂ (B\X)    <span class="commentaire"># X → a non triviale donc Y non vide</span>
+      <span class="cm"># Y = {attributs de B\X déterminés par X}</span>
+      Y := X⁺ ⋂ (B\X)    <span class="cm"># X → a non triviale donc Y non vide</span>
 
-      <span class="commentaire"># remplacer le schéma B par les schémas X⋃Y et B\Y</span>
+      <span class="cm"># remplacer le schéma B par les schémas X⋃Y et B\Y</span>
       D := (D\{B}) ⋃ { X⋃Y, B\Y }
    
 <span class="kw">return</span> D
