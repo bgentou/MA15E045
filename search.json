@@ -4647,7 +4647,7 @@
     "href": "slides/DF_norm_1.html#algorithme-de-construction-dune-couverture-irredondante",
     "title": "Normalisation I",
     "section": "Algorithme de construction d’une couverture irredondante",
-    "text": "Algorithme de construction d’une couverture irredondante\nfonction min_cover(Σ)\n   Σ' := ∅ \n   for (X → Y) ∈ Σ    # sélection des DF non redondantes\n      for y ∈ Y\n         if not (Σ' ⊨ X → y)\n            Σ':= Σ' ⋃ {X → y}\n   go = True\n   while go    # élimination d'attributs pour obtenir des DF élémentaires \n      go := False\n      for (X → y) ∈ Σ'\n         for each x ∈ X\n            si on peut retirer x de X en conservant des DF équivalentes\n            if Σ' ⊨ (X\\{x}) → y\n               # remplacer la DF X → y par (X\\{x}) → y dans Σ'\n               Σ' := (Σ'\\{X → y}) ⋃ {(X\\{x}) → y}\n               go := True\n               break\n   return Σ'"
+    "text": "Algorithme de construction d’une couverture irredondante\nfonction min_cover(Σ)\n   Σ' := ∅ \n   for (X → Y) ∈ Σ    # sélection des DF non redondantes\n      for y ∈ Y\n         if not (Σ' ⊨ X → y)\n            Σ':= Σ' ⋃ {X → y}\n   go = True\n   while go    # élimination d'attributs pour obtenir des DF élémentaires \n      go := False\n      for (X → y) ∈ Σ'\n         for each x ∈ X\n            # si on peut retirer x de X en conservant des DF équivalentes\n            if Σ' ⊨ (X\\{x}) → y\n               # remplacer la DF X → y par (X\\{x}) → y dans Σ'\n               Σ' := (Σ'\\{X → y}) ⋃ {(X\\{x}) → y}\n               go := True\n               break\n   return Σ'"
   },
   {
     "objectID": "slides/DF_norm_3.html#exemples-suite",
