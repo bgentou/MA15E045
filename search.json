@@ -4647,7 +4647,7 @@
     "href": "slides/DF_norm_1.html#algorithme-de-construction-dune-couverture-irredondante",
     "title": "Normalisation I",
     "section": "Algorithme de construction d’une couverture irredondante",
-    "text": "Algorithme de construction d’une couverture irredondante\nfonction min_cover(Σ)\n   Σ' := ∅ \n   for (X → Y) ∈ Σ    # sélection des DF non redondantes\n      for y ∈ Y\n         if not (Σ' ⊨ X → y)\n            Σ':= Σ' ⋃ {X → y}\n   go = True\n   while go    # élimination d'attributs pour obtenir des DF élémentaires \n      go := False\n      for (X → y) ∈ Σ'\n         for each x ∈ X\n            # si on peut retirer x de X en conservant des DF équivalentes\n            if Σ' ⊨ (X\\{x}) → y\n               # remplacer la DF X → y par (X\\{x}) → y dans Σ'\n               Σ' := (Σ'\\{X → y}) ⋃ {(X\\{x}) → y}\n               go := True\n               break\n   return Σ'"
+    "text": "Algorithme de construction d’une couverture irredondante\nfonction min_cover(Σ)\n   Σ' := ∅ \n   for (X → Y) ∈ Σ    # sélection des DF non redondantes\n      for y ∈ Y\n         if not (Σ' ⊨ X → y)\n            Σ':= Σ' ⋃ {X → y}\n   go = True\n   while go    # élimination d'attributs pour obtenir des DF élémentaires \n      go := False\n      for (X → y) ∈ Σ'\n         for x ∈ X\n            # si on peut retirer x de X en conservant des DF équivalentes\n            if Σ' ⊨ (X\\{x}) → y\n               # remplacer la DF X → y par (X\\{x}) → y dans Σ'\n               Σ' := (Σ'\\{X → y}) ⋃ {(X\\{x}) → y}\n               go := True\n   return Σ'"
   },
   {
     "objectID": "slides/DF_norm_3.html#exemples-suite",
@@ -4675,7 +4675,7 @@
     "href": "slides/DF_norm_3.html#algorithme-de-vérification",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Algorithme de vérification",
-    "text": "Algorithme de vérification\nL’algorithme retourne \\(X^+_{\\mathcal{A}_1,...,\\mathcal{A}_k}\\)\nfonction fermeture_decomposition({A1,...,Ak}, Σ, X)\n   Z := X\n   go := True\n   while go\n      W := Z\n      For i ∈ {1, ..., k}\n         # pour chaque Ai, ajout des attributs de Ai déterminés par W ∩ Ai\n         W := W ⋃ ((W ∩ Ai)⁺ ∩ Ai)\n      # si W a augmenté, m.a.j. de Z et on reboucle, sinon arrêt\n      if W ≠ Z\n         Z := W\n      else\n         go := False\n   return Z"
+    "text": "Algorithme de vérification\nL’algorithme retourne \\(X^+_{\\mathcal{A}_1,...,\\mathcal{A}_k}\\)\nfonction fermeture_decomposition({A1,...,Ak}, Σ, X)\n   Z := X\n   go := True\n   while go\n      W := Z\n      for i ∈ {1, ..., k}\n         # pour chaque Ai, ajout des attributs de Ai déterminés par W ∩ Ai\n         W := W ⋃ ((W ∩ Ai)⁺ ∩ Ai)\n      # si W a augmenté, m.a.j. de Z et on reboucle, sinon arrêt\n      if W ≠ Z\n         Z := W\n      else\n         go := False\n   return Z"
   },
   {
     "objectID": "slides/DF_norm_3.html#exemple-i-suite",

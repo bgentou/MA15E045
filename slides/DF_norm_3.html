@@ -265,6 +265,9 @@
       font-style: italic;
       color: rgba(37, 118, 19, 1);
    }
+   span.kw {
+      color: rgba(159, 49, 15, 1);
+   }
 </style></section><section><section id="décomposition-dune-relation" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition d’une relation</h1>
 
 </section><section id="idée" class="slide level2 center"><h2>Idée</h2>
@@ -369,15 +372,15 @@
 </section><section id="algorithme-de-calcul-de-pi_mathcala_1sigma" class="slide level2 center"><h2>Algorithme de calcul de <span class="math inline">\(\pi_{{\mathcal{A}}_1}(\Sigma)\)</span>
 </h2>
 <p>Cet algorithme utilise la propriété précédente pour calculer un ensemble de DF équivalent à <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span></p>
-<pre class="code">fonction projection(A1, Σ)
+<pre class="code"><span class="kw">fonction</span> projection(A1, Σ)
    P := ∅
-   for X ⊂ A1, X ≠ ∅, X ≠ A1
+   <span class="kw">for</span> X ⊂ A1, X ≠ ∅, X ≠ A1
       <span class="commentaire"># Y = {attributs de A1 déterminés par X}</span>
       Y := X⁺ ∩ A1  
-      if Y ⊄ X     <span class="commentaire"># X → Y n'est pas triviale</span>
+      <span class="kw">if</span> Y ⊄ X     <span class="commentaire"># X → Y n'est pas triviale</span>
          <span class="commentaire"># ajout de la DF X → Y\X</span>
          P := P ⋃ { X → Y\X }
-   return P
+   <span class="kw">return</span> P
 </pre>
 </section><section class="slide level2 center"><div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
@@ -517,20 +520,20 @@
 </div>
 </section><section id="algorithme-de-vérification" class="slide level2 center"><h2>Algorithme de vérification</h2>
 <p>L’algorithme retourne <span class="math inline">\(X^+_{\mathcal{A}_1,...,\mathcal{A}_k}\)</span></p>
-<pre class="code">fonction fermeture_decomposition({A1,...,Ak}, Σ, X)
+<pre class="code"><span class="kw">fonction</span> fermeture_decomposition({A1,...,Ak}, Σ, X)
    Z := X
    go := True
-   while go
+   <span class="kw">while</span> go
       W := Z
-      For i ∈ {1, ..., k}
+      <span class="kw">for</span> i ∈ {1, ..., k}
          <span class="commentaire"># pour chaque Ai, ajout des attributs de Ai déterminés par W ∩ Ai</span>
          W := W ⋃ ((W ∩ Ai)⁺ ∩ Ai)
       <span class="commentaire"># si W a augmenté, m.a.j. de Z et on reboucle, sinon arrêt</span>
-      if W ≠ Z
+      <span class="kw">if</span> W ≠ Z
          Z := W
-      else
+      <span class="kw">else</span>
          go := False
-   return Z
+   <span class="kw">return</span> Z
 </pre>
 </section><section class="slide level2 center"><div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
@@ -1572,11 +1575,11 @@ On peut vérifier :
 
 -->
 </section><section id="algorithme-de-construction-dune-fn3" class="slide level2 center"><h2>Algorithme de construction d’une FN3</h2>
-<pre class="code">fonction decomposition_FN3(A, Σ)
+<pre class="code"><span class="kw">fonction</span> decomposition_FN3(A, Σ)
    D :=  ∅                      <span class="commentaire"># initialisation de la décomposition D</span>
    Σ' := min_cover(Σ)           <span class="commentaire"># calcul d'une couverture irredondante de Σ</span>
    
-   for each distinct left member X of a DF in Σ'
+   <span class="kw">for each distinct</span> left member X of a DF in Σ'
       <span class="commentaire"># Y = {attributs à droite d'une DF de Σ' ayant X comme déterminant}</span>
       Y := {y | X → y ∈ Σ'}
       D := D ⋃ {X ⋃ Y}            <span class="commentaire"># Ajouter le schéma X ⋃ Y de clé X</span>
@@ -1584,9 +1587,9 @@ On peut vérifier :
    B := {attributes in A that do not occur in D}
    D := D ⋃ {B}                            <span class="commentaire"># Ajouter le schéma B à D</span>
    <span class="commentaire"># dernière partie pour assurer une décomposition SPI</span>
-   If no schemas includes a key of A, add a schema with a key of A
+   <span class="kw">If</span> no schemas includes a key of A, add a schema with a key of A
 
-   return D
+   <span class="kw">return</span> D
 </pre>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -1872,19 +1875,19 @@ On peut vérifier :
 </div>
 </div>
 </section><section id="algorithme" class="slide level2 center"><h2>Algorithme</h2>
-<pre class="code">fonction decomposition_FNBC(A,Σ)
+<pre class="code"><span class="kw">fonction</span> decomposition_FNBC(A,Σ)
 
    <span class="commentaire">#Initialisation de la décomposition</span>
    D :=  {A}
 
-   while (∃ B ∈ D, B not BCNF because of Σ ⊨ X → a)
+   <span class="kw">while</span> (∃ B ∈ D, B not BCNF because of Σ ⊨ X → a)
       <span class="commentaire"># Y = {attributs de B\X déterminés par X}</span>
       Y := X⁺ ⋂ (B\X)    <span class="commentaire"># X → a non triviale donc Y non vide</span>
 
       <span class="commentaire"># remplacer le schéma B par les schémas X⋃Y et B\Y</span>
       D := (D\{B}) ⋃ { X⋃Y, B\Y }
    
-return D
+<span class="kw">return</span> D
 </pre>
 </section><section id="propriétés-de-lalgorithme-1" class="slide level2 center"><h2>Propriétés de l’algorithme</h2>
 <div title="Proposition">
