@@ -248,7 +248,24 @@
 <li><a href="#/algorithme-de-d%C3%A9composition-fnbc-spi" id="/toc-algorithme-de-décomposition-fnbc-spi">Algorithme de décomposition FNBC SPI</a></li>
 <li><a href="#/d%C3%A9composition-fnbc-et-pertes-de-df" id="/toc-décomposition-fnbc-et-pertes-de-df">Décomposition FNBC et pertes de DF</a></li>
 <li><a href="#/fin" id="/toc-fin">Fin</a></li>
-</ul></nav></section><section><section id="décomposition-dune-relation" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition d’une relation</h1>
+</ul></nav></section><section class="slide level2 center"><style>
+  pre.code {
+      background-color: #f0f0ffff;
+      font-family:'Lucida Console','Courier New',monospace;
+      color: #15093aff;
+      font-size: 0.8em;
+      padding: 10px;
+      border:1px solid #220f61ff;
+      border-radius: 5px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: normal;
+   }
+   span.commentaire {
+      font-style: italic;
+      color: rgba(37, 118, 19, 1);
+   }
+</style></section><section><section id="décomposition-dune-relation" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Décomposition d’une relation</h1>
 
 </section><section id="idée" class="slide level2 center"><h2>Idée</h2>
 <p>Dans un système de BDD <em>relationnelles</em>, les données sont représentées par des tuples qui décrivent des relations. Lorsqu’on définit des tables dans une base de données, on décompose ces relations en plusieurs relations <span class="math inline">\(R_1\)</span>, <span class="math inline">\(R_2\)</span>, <span class="math inline">\(\dots\)</span>, les tables de la BDD.</p>
@@ -352,15 +369,17 @@
 </section><section id="algorithme-de-calcul-de-pi_mathcala_1sigma" class="slide level2 center"><h2>Algorithme de calcul de <span class="math inline">\(\pi_{{\mathcal{A}}_1}(\Sigma)\)</span>
 </h2>
 <p>Cet algorithme utilise la propriété précédente pour calculer un ensemble de DF équivalent à <span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span></p>
-<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:1em;padding:10px;border:1px solid #220f61ff;">fonction projection(A1, Σ)
+<pre class="code">fonction projection(A1, Σ)
    P := ∅
    for X ⊂ A1, X ≠ ∅, X ≠ A1
+      <span class="commentaire"># Y = {attributs de A1 déterminés par X}</span>
       Y := X⁺ ∩ A1  
-      if Y ⊄ X     // X → Y n'est pas triviale
+      if Y ⊄ X     <span class="commentaire"># X → Y n'est pas triviale</span>
+         <span class="commentaire"># ajout de la DF X → Y\X</span>
          P := P ⋃ { X → Y\X }
    return P
 </pre>
-<div class="callout callout-warning callout-titled callout-style-default">
+</section><section class="slide level2 center"><div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
@@ -498,25 +517,22 @@
 </div>
 </section><section id="algorithme-de-vérification" class="slide level2 center"><h2>Algorithme de vérification</h2>
 <p>L’algorithme retourne <span class="math inline">\(X^+_{\mathcal{A}_1,...,\mathcal{A}_k}\)</span></p>
-<div class="columns">
-<div class="column" style="width:60%;">
-<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:0.7em;padding:10px;border:1px solid #220f61ff;">fonction fermeture_decomposition({A1,...,Ak}, Σ, X)
+<pre class="code">fonction fermeture_decomposition({A1,...,Ak}, Σ, X)
    Z := X
    go := True
    while go
       W := Z
       For i ∈ {1, ..., k}
+         <span class="commentaire"># pour chaque Ai, ajout des attributs de Ai déterminés par W ∩ Ai</span>
          W := W ⋃ ((W ∩ Ai)⁺ ∩ Ai)
+      <span class="commentaire"># si W a augmenté, m.a.j. de Z et on reboucle, sinon arrêt</span>
       if W ≠ Z
          Z := W
       else
          go := False
    return Z
 </pre>
-</div><div class="column" style="width:5%;">
-
-</div><div class="column" style="width:35%;">
-<div class="callout callout-warning callout-titled callout-style-default">
+</section><section class="slide level2 center"><div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
@@ -527,12 +543,11 @@
 <div class="callout-content">
 <ul>
 <li><p>Si au cours du calcul, on obtient que <span class="math inline">\(Y\subset Z\)</span>, on peut conclure immédiatement que <span class="math inline">\(X\to Y\)</span> est préservée.</p></li>
-<li><p>L’intérêt de cet algorithme est qu’il n’est pas nécessaire de calculer les DF locales.</p></li>
+<li><p>L’intérêt de cet algorithme est qu’il n’est pas nécessaire de calculer les DF locales (qui est un calcul très coûteux).</p></li>
 </ul>
 </div>
 </div>
 </div>
-</div></div>
 </section><section id="vérification-quune-décomposition-est-spd" class="slide level2 center"><h2>Vérification qu’une décomposition est SPD</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
@@ -1557,17 +1572,18 @@ On peut vérifier :
 
 -->
 </section><section id="algorithme-de-construction-dune-fn3" class="slide level2 center"><h2>Algorithme de construction d’une FN3</h2>
-<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:0.8em;padding:10px;border:1px solid #220f61ff;">fonction decomposition_FN3(A, Σ)
-   D :=  ∅                // initialisation de la décomposition D
-   Σ' := min_cover(Σ)     // calcul d'une couverture minimale de Σ
+<pre class="code">fonction decomposition_FN3(A, Σ)
+   D :=  ∅                      <span class="commentaire"># initialisation de la décomposition D</span>
+   Σ' := min_cover(Σ)           <span class="commentaire"># calcul d'une couverture irredondante de Σ</span>
    
    for each distinct left member X of a DF in Σ'
+      <span class="commentaire"># Y = {attributs à droite d'une DF de Σ' ayant X comme déterminant}</span>
       Y := {y | X → y ∈ Σ'}
-      D := D ⋃ {(X ⋃ Y)} // Ajouter le schéma (X ⋃ Y) à D
-   // la décomposition doit comprendre tous les attributs
+      D := D ⋃ {X ⋃ Y}            <span class="commentaire"># Ajouter le schéma X ⋃ Y de clé X</span>
+   <span class="commentaire"># la décomposition doit comprendre tous les attributs</span>
    B := {attributes in A that do not occur in D}
-   D := D ⋃ {(B)}        // Ajouter le schéma (B) à D
-   // dernière partie pour assurer une décomposition SPI
+   D := D ⋃ {B}                            <span class="commentaire"># Ajouter le schéma B à D</span>
+   <span class="commentaire"># dernière partie pour assurer une décomposition SPI</span>
    If no schemas includes a key of A, add a schema with a key of A
 
    return D
@@ -1828,9 +1844,9 @@ On peut vérifier :
 <li>On décompose alors <code>B</code> en :
 <ul>
 <li>
-<code>B1</code> contenant les attributs de <code>X</code> et de <code>Y</code>.</li>
+<code>B1</code> contenant les attributs de <code>X</code> et de <code>Y</code> (clé <code>X</code>).</li>
 <li>
-<code>B2</code> contenant tous les attributs de <code>B</code> sauf ceux de <code>Y</code>.</li>
+<code>B2</code> contenant tous les attributs de <code>B</code> sauf ceux de <code>Y</code> (clé(s) inchangée(s)).</li>
 </ul>
 </li>
 </ul>
@@ -1856,13 +1872,16 @@ On peut vérifier :
 </div>
 </div>
 </section><section id="algorithme" class="slide level2 center"><h2>Algorithme</h2>
-<pre style="background-color: #f0f0ffff;font-family:'Lucida Console','Courier New',monospace; color: #15093aff;font-size:1em;padding:10px;border:1px solid #220f61ff;">fonction decomposition_FNBC(A,Σ)
+<pre class="code">fonction decomposition_FNBC(A,Σ)
 
-   //Initialisation de la décomposition
+   <span class="commentaire">#Initialisation de la décomposition</span>
    D :=  {A}
 
    while (∃ B ∈ D, B not BCNF because of Σ ⊨ X → a)
-      Y := X⁺ ⋂ (B\X)       // X → a non triviale donc Y ≠ ∅
+      <span class="commentaire"># Y = {attributs de B\X déterminés par X}</span>
+      Y := X⁺ ⋂ (B\X)    <span class="commentaire"># X → a non triviale donc Y non vide</span>
+
+      <span class="commentaire"># remplacer le schéma B par les schémas X⋃Y et B\Y</span>
       D := (D\{B}) ⋃ { X⋃Y, B\Y }
    
 return D
