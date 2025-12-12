@@ -377,7 +377,7 @@
    <span class="kw">for</span> X ⊂ A1, X ≠ ∅, X ≠ A1
       <span class="cm"># Y = {attributs de A1 déterminés par X}</span>
       Y := X⁺ ∩ A1  
-      <span class="kw">if</span> Y ⊄ X     <span class="cm"># X → Y n'est pas triviale</span>
+      <span class="kw">if</span> Y ⊄ X   <span class="cm"># si X → Y n'est pas triviale</span>
          <span class="cm"># ajout de la DF X → Y\X</span>
          P := P ⋃ { X → Y\X }
    <span class="kw">return</span> P
@@ -1331,7 +1331,7 @@ des choix effectués
 <p><strong>Proposition</strong></p>
 </div>
 <div class="callout-content">
-<p>D’après la théorie de l’algèbrer relationnel, toute relation est en FN1.</p>
+<p>D’après la théorie de l’algèbre relationnel, toute relation est en FN1.</p>
 </div>
 </div>
 </div>
@@ -1582,10 +1582,10 @@ On peut vérifier :
    <span class="kw">for each distinct</span> left member X of a DF in Σ'
       <span class="cm"># Y = {attributs à droite d'une DF de Σ' ayant X comme déterminant}</span>
       Y := {y | X → y ∈ Σ'}
-      D := D ⋃ {X ⋃ Y}            <span class="cm"># Ajouter le schéma X ⋃ Y de clé X</span>
+      D := D ⋃ {X ⋃ Y}            <span class="cm"># ajouter le schéma X ⋃ Y de clé X</span>
    <span class="cm"># la décomposition doit comprendre tous les attributs</span>
    B := {attributes in A that do not occur in D}
-   D := D ⋃ {B}                            <span class="cm"># Ajouter le schéma B à D</span>
+   D := D ⋃ {B}                            <span class="cm"># ajouter le schéma B à D</span>
    <span class="cm"># dernière partie pour assurer une décomposition SPI</span>
    <span class="kw">If</span> no schemas includes a key of A, add a schema with a key of A
 

@@ -4598,7 +4598,7 @@
     "href": "slides/DF_norm_3.html#algorithme-de-calcul-de-pi_mathcala_1sigma",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Algorithme de calcul de \\(\\pi_{{\\mathcal{A}}_1}(\\Sigma)\\)\n",
-    "text": "Algorithme de calcul de \\(\\pi_{{\\mathcal{A}}_1}(\\Sigma)\\)\n\nCet algorithme utilise la propriété précédente pour calculer un ensemble de DF équivalent à \\(\\pi_{\\mathcal{A}_1}(\\Sigma)\\)\nfonction projection(A1, Σ)\n   P := ∅\n   for X ⊂ A1, X ≠ ∅, X ≠ A1\n      # Y = {attributs de A1 déterminés par X}\n      Y := X⁺ ∩ A1  \n      if Y ⊄ X     # X → Y n'est pas triviale\n         # ajout de la DF X → Y\\X\n         P := P ⋃ { X → Y\\X }\n   return P"
+    "text": "Algorithme de calcul de \\(\\pi_{{\\mathcal{A}}_1}(\\Sigma)\\)\n\nCet algorithme utilise la propriété précédente pour calculer un ensemble de DF équivalent à \\(\\pi_{\\mathcal{A}_1}(\\Sigma)\\)\nfonction projection(A1, Σ)\n   P := ∅\n   for X ⊂ A1, X ≠ ∅, X ≠ A1\n      # Y = {attributs de A1 déterminés par X}\n      Y := X⁺ ∩ A1  \n      if Y ⊄ X   # si X → Y n'est pas triviale\n         # ajout de la DF X → Y\\X\n         P := P ⋃ { X → Y\\X }\n   return P"
   },
   {
     "objectID": "slides/DF_norm_3.html#exemples",
@@ -4710,7 +4710,7 @@
     "href": "slides/DF_norm_3.html#forme-normale-1-fn1",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Forme normale 1 (FN1)",
-    "text": "Forme normale 1 (FN1)\n\n\n\n\n\n\nDéfinition : forme normale 1 (FN1)\n\n\nUn schéma relationnel \\(\\mathcal{A}\\) est en forme normale 1 (FN1) si tous les attributs ont des valeurs atomiques (pas de liste de valeurs).\n\n\n\n\n\n\n\n\n\nProposition\n\n\nD’après la théorie de l’algèbrer relationnel, toute relation est en FN1."
+    "text": "Forme normale 1 (FN1)\n\n\n\n\n\n\nDéfinition : forme normale 1 (FN1)\n\n\nUn schéma relationnel \\(\\mathcal{A}\\) est en forme normale 1 (FN1) si tous les attributs ont des valeurs atomiques (pas de liste de valeurs).\n\n\n\n\n\n\n\n\n\nProposition\n\n\nD’après la théorie de l’algèbre relationnel, toute relation est en FN1."
   },
   {
     "objectID": "slides/DF_norm_3.html#forme-normale-2-fn2",
@@ -4801,7 +4801,7 @@
     "href": "slides/DF_norm_3.html#algorithme-de-construction-dune-fn3",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Algorithme de construction d’une FN3",
-    "text": "Algorithme de construction d’une FN3\nfonction decomposition_FN3(A, Σ)\n   D :=  ∅                      # initialisation de la décomposition D\n   Σ' := min_cover(Σ)           # calcul d'une couverture irredondante de Σ\n   \n   for each distinct left member X of a DF in Σ'\n      # Y = {attributs à droite d'une DF de Σ' ayant X comme déterminant}\n      Y := {y | X → y ∈ Σ'}\n      D := D ⋃ {X ⋃ Y}            # Ajouter le schéma X ⋃ Y de clé X\n   # la décomposition doit comprendre tous les attributs\n   B := {attributes in A that do not occur in D}\n   D := D ⋃ {B}                            # Ajouter le schéma B à D\n   # dernière partie pour assurer une décomposition SPI\n   If no schemas includes a key of A, add a schema with a key of A\n\n   return D\n\n\n\n\n\n\n\nNote\n\n\nDernière partie de l’algorithme : pour avoir une décomposition SPI, il faut s’assurer qu’il y a au-moins une clé de \\(\\mathcal{A}\\) dans une des relations de décomposition. Si ce n’est pas le cas, il faut ajouter une relation contenant une clé de \\(\\mathcal{A}\\)."
+    "text": "Algorithme de construction d’une FN3\nfonction decomposition_FN3(A, Σ)\n   D :=  ∅                      # initialisation de la décomposition D\n   Σ' := min_cover(Σ)           # calcul d'une couverture irredondante de Σ\n   \n   for each distinct left member X of a DF in Σ'\n      # Y = {attributs à droite d'une DF de Σ' ayant X comme déterminant}\n      Y := {y | X → y ∈ Σ'}\n      D := D ⋃ {X ⋃ Y}            # ajouter le schéma X ⋃ Y de clé X\n   # la décomposition doit comprendre tous les attributs\n   B := {attributes in A that do not occur in D}\n   D := D ⋃ {B}                            # ajouter le schéma B à D\n   # dernière partie pour assurer une décomposition SPI\n   If no schemas includes a key of A, add a schema with a key of A\n\n   return D\n\n\n\n\n\n\n\nNote\n\n\nDernière partie de l’algorithme : pour avoir une décomposition SPI, il faut s’assurer qu’il y a au-moins une clé de \\(\\mathcal{A}\\) dans une des relations de décomposition. Si ce n’est pas le cas, il faut ajouter une relation contenant une clé de \\(\\mathcal{A}\\)."
   },
   {
     "objectID": "slides/DF_norm_3.html#niveaux-de-décomposition-dune-relation",
