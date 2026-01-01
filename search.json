@@ -3703,7 +3703,7 @@
     "href": "td-listings.html",
     "title": "Feuilles d’exercices",
     "section": "",
-    "text": "Note\n\n\n\nLes feuilles d’exercice forment le matériau de base des TDs et TPs. Vous êtes invités à les lire avant la séance et à réfléchir par vous-même. Les corrections seront disponibles dans les jours qui suivront chaque séance.\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Titre\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitre\n\n\n\nDescription\n\n\n\n\n\n\n\n\nSep 26, 2025\n\n\nTD 1 : Algèbre relationnelle\n\n\nLogistique et Algèbre relationnelle\n\n\n\n\n\n\nOct 3, 2025\n\n\nTD 2 : SQL\n\n\nSQL Interrogation de données\n\n\n\n\n\n\nOct 10, 2025\n\n\nTD 3 : SQL\n\n\nSQL Interrogation de données, requêtes complexes\n\n\n\n\n\n\nOct 17, 2025\n\n\nTD 4 : SQL\n\n\nAggrégations, Partitions, Fenêtres\n\n\n\n\n\n\nOct 24, 2025\n\n\nTD 5 : SQL\n\n\nFenêtres et fonctions SQL\n\n\n\n\n\n\nNov 7, 2025\n\n\nTD 6 : Contraintes\n\n\nDéfinition de données Contraintes\n\n\n\n\n\n\nNov 14, 2025\n\n\nTD 7 : Modélisation\n\n\nModèle Conceptuel des Données\n\n\n\n\n\n\nNov 21, 2025\n\n\nTD 8 : Modélisation\n\n\nModélisation conceptuelle avancée\n\n\n\n\n\n\nNov 28, 2025\n\n\nTD 9 : Modèle relationnel des données\n\n\nConversion d’un modèle E/A en un modèle relationnel\n\n\n\n\n\n\nDec 5, 2025\n\n\nTD 10 : perte de DF et 3ème Forme Normale (FN3)\n\n\nProjection de DF, Perte de DF, FN3\n\n\n\n\n\n\nDec 12, 2025\n\n\nTD 11 : Normalisation FN3 et FNBC\n\n\nDécomposition SPD, SPI, FN3 et FNBC\n\n\n\n\n\n\nDec 19, 2025\n\n\nTD Récapitulatif SQL\n\n\nTD révision générale\n\n\n\n\n\n\nNo matching items",
+    "text": "Note\n\n\n\nLes feuilles d’exercice forment le matériau de base des TDs et TPs. Vous êtes invités à les lire avant la séance et à réfléchir par vous-même. Les corrections seront disponibles dans les jours qui suivront chaque séance.\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Titre\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitre\n\n\n\nDescription\n\n\n\n\n\n\n\n\nSep 26, 2025\n\n\nTD 1 : Algèbre relationnelle\n\n\nLogistique et Algèbre relationnelle\n\n\n\n\n\n\nOct 3, 2025\n\n\nTD 2 : SQL\n\n\nSQL Interrogation de données\n\n\n\n\n\n\nOct 10, 2025\n\n\nTD 3 : SQL\n\n\nSQL Interrogation de données, requêtes complexes\n\n\n\n\n\n\nOct 17, 2025\n\n\nTD 4 : SQL\n\n\nAggrégations, Partitions, Fenêtres\n\n\n\n\n\n\nOct 24, 2025\n\n\nTD 5 : SQL\n\n\nFenêtres et fonctions SQL\n\n\n\n\n\n\nNov 7, 2025\n\n\nTD 6 : Contraintes\n\n\nDéfinition de données Contraintes\n\n\n\n\n\n\nNov 14, 2025\n\n\nTD 7 : Modélisation\n\n\nModèle Conceptuel des Données\n\n\n\n\n\n\nNov 21, 2025\n\n\nTD 8 : Modélisation\n\n\nModélisation conceptuelle avancée\n\n\n\n\n\n\nNov 28, 2025\n\n\nTD 9 : Modèle relationnel des données\n\n\nConversion d’un modèle E/A en un modèle relationnel\n\n\n\n\n\n\nDec 5, 2025\n\n\nTD 10 : perte de DF et 3ème Forme Normale (FN3)\n\n\nProjection de DF, Perte de DF, FN3\n\n\n\n\n\n\nDec 12, 2025\n\n\nTD 11 : Normalisation FN3 et FNBC\n\n\nDécomposition SPD, SPI, FN3 et FNBC\n\n\n\n\n\n\nDec 19, 2025\n\n\nTD révision SQL\n\n\nLangage de manipulation de données (LMD)\n\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Exercices"
     ]
@@ -4932,7 +4932,7 @@
   {
     "objectID": "workshops/td-recap-sql.html",
     "href": "workshops/td-recap-sql.html",
-    "title": "TD Récapitulatif SQL",
+    "title": "TD révision SQL",
     "section": "",
     "text": "L3 MIASHS\n\n\nUniversité Paris Cité\n\n\nAnnée 2025\n\n\nCourse Homepage\n\n\nMoodle"
   },
@@ -4995,14 +4995,14 @@
   {
     "objectID": "workshops/td-recap-sql.html#exercice-1-schéma-world",
     "href": "workshops/td-recap-sql.html#exercice-1-schéma-world",
-    "title": "TD Récapitulatif SQL",
+    "title": "TD révision SQL",
     "section": "Exercice 1 : schéma world",
     "text": "Exercice 1 : schéma world\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuels sont les pays dont plus de \\(1.000.000\\) d’habitants parlent une langue non officielle ? (72 lignes)\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuels est le nombre de villes par region ?\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuelles sont les noms de villes qui désignent au moins deux villes distinctes ? (65 lignes)\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuelles sont les langues parlées à la fois dans les continents nord-américain et sud-américain ? (10 lignes)\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuels sont les pays qui ont au moins \\(3\\) langues officielles ? (8 lignes)\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuel est le pays qui a le plus de villes recensées dans la table city? Combien de villes ? (363 villes)\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuels sont les pays pour lesquels une langue non officielle est parlée par strictement plus de monde (dans le pays) qu’il n’y a d’habitants dans la capitale ? (118 lignes)"
   },
   {
     "objectID": "workshops/td-recap-sql.html#exercice-2-schéma-pagila",
     "href": "workshops/td-recap-sql.html#exercice-2-schéma-pagila",
-    "title": "TD Récapitulatif SQL",
+    "title": "TD révision SQL",
     "section": "Exercice 2 : schéma pagila",
     "text": "Exercice 2 : schéma pagila\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuel est le prix moyen d’une location de DVD ?\n\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuels sont les clients qui ont loué dans une autre ville que celle dans laquelle ils vivent ? Afficher l’identifiant du client, son nom, son prénom, les noms de la ville de résidence et de la ville de location. (1198 lignes distinctes)\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuel est l’acteur présent dans le plus de films ? (GINA DEGENERES, 42 films)\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuel est le film (id et nom) qui a rapporté le plus d’argent ? (879, TELEGRAPH VOYAGE)"
   }
