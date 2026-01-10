@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html lang="fr-FR"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-a6e161b2431e1f94a14e0f5d32135a3c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.js" defer="true"></script>
+<link href="../site_libs/quarto-contrib/reveal-header-1.0.0/add_header.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/grid-htext-1.0.0/grid_htext.css" rel="stylesheet">
+<script src="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.js"></script>
+<link href="../site_libs/quarto-contrib/pseudocode-2.4.1/pseudocode.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+<meta name="author" content="Équipe BD">
+<meta name="dcterms.date" content="2025-09-12">
+<title>MA15E045 - Automne 2025 – BD I: Algèbre Relationnelle</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+<link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+<style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+<link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-fc22af260e9e2d20ec1df9e302aeb234.css">
+<link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+<link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+<style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+<script>
+  MathJax = {
+    loader: {
+      load: ['[tex]/boldsymbol']
+    },
+    tex: {
+      tags: "all",
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      packages: {
+        '[+]': ['boldsymbol']
+      }
+    }
+  };
+  </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+<meta property="og:title" content="BD I: Algèbre Relationnelle – MA15E045 - Automne 2025">
+<meta property="og:description" content="Cadre formel pour la manipulation de tables">
+<meta property="og:site_name" content="MA15E045 - Automne 2025">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#1c191c" class="quarto-title-block center"><h1 class="title">BD I: Algèbre Relationnelle</h1>
+  <p class="subtitle">Cadre formel pour la manipulation de tables</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Équipe BD 
+</div>
+        <p class="quarto-title-affiliation">
+            <a href="https://u-paris.fr">LPSM Université Paris-Cité</a>
+          </p>
+    </div>
+</div>
+
+  <p class="date">2025-09-12</p>
+</section><section id="TOC"><nav role="doc-toc"><h2 id="toc-title">Plan</h2>
+<ul>
+<li><a href="#/le-mod%C3%A8le-relationnel" id="/toc-le-modèle-relationnel">Le modèle relationnel</a></li>
+<li><a href="#/sch%C3%A9mas-et-relations" id="/toc-schémas-et-relations">Schémas et relations</a></li>
+<li><a href="#/lmd-op%C3%A9rateurs" id="/toc-lmd-opérateurs">LMD : Opérateurs</a></li>
+<li><a href="#/r%C3%A9sum%C3%A9" id="/toc-résumé">Résumé</a></li>
+<li><a href="#/op%C3%A9rations-compl%C3%A9mentaires-les-jointures" id="/toc-opérations-complémentaires-les-jointures">Opérations complémentaires : les jointures</a></li>
+<li><a href="#/encore-des-op%C3%A9rations" id="/toc-encore-des-opérations">Encore des opérations…</a></li>
+<li><a href="#/petite-histoire" id="/toc-petite-histoire">Petite histoire</a></li>
+<li><a href="#/fin" id="/toc-fin">Fin</a></li>
+</ul></nav></section><section><section id="le-modèle-relationnel" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Le modèle relationnel</h1>
+
+</section><section class="slide level2 center"><ul>
+<li><p>Formulé par <a href="https://en.wikipedia.org/wiki/Edgar_F._Codd" target="_blank">E. Codd</a> en 1970.</p></li>
+<li><p>Fondé sur la théorie des <em>relations</em> (partie de la théorie naïve des ensembles).</p></li>
+<li>
+<p>Propose une solution pour</p>
+<ul>
+<li>la modélisation,</li>
+<li>l’interrogation de données;</li>
+</ul>
+</li>
+<li><p>Facile à traduire/mettre en œuvre dans des langages <em>réels</em> comme <code>Structured Query Language (SQL)</code> ou dans des environnements de calcul orientés données comme <code>R/dplyr</code>.</p></li>
+</ul></section><section id="un-peu-de-formalisation" class="slide level2 center"><h2>Un peu de formalisation</h2>
+<p>Rappel sur la notion de relation (au sens classique).</p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Definition : Domaine</strong></p>
+</div>
+<div class="callout-content">
+<p>Un ensemble d’éléments.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Exemples : entiers <span class="math inline">\(\mathbb{Z}\)</span>, flottants, chaines de caractères <span class="math inline">\(\mathcal{A}^*\)</span>, date, …</p>
+<p>Les <em>types</em> d’un langage de programmation comme <code>C</code>, <code>Java</code>, …</p>
+</div>
+</section><section id="remarque" class="slide level2 incremental center"><h2>Remarque</h2>
+<p>Un <em>domaine</em> peut se définir :</p>
+<ul>
+<li><p>en <em>extension</em> (en donnant la liste de toutes les valeurs possibles) ou</p></li>
+<li><p>en <em>intention</em> (en donnant une propriété caractéristique).</p></li>
+</ul></section><section id="produit-cartésien" class="slide level2 center"><h2>Produit cartésien</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition : Produit cartésien d’ensembles/domaines</strong></p>
+</div>
+<div class="callout-content">
+<p>Le <em>Produit cartésien</em> d’une liste de domaines <span class="math inline">\(D_1, D_2, \dots, D_k\)</span>, noté</p>
+<p><span class="math display">\[D_1 \times D_2 \times \dots \times D_k\]</span></p>
+<p>est l’ensemble</p>
+<p><span class="math display">\[\Bigl\{(t_1,t_2,\dots,t_k);\ t_i\in D_i \text{ pour } i=1,\dots,k\Bigr\}\]</span></p>
+<p>Un élément <span class="math inline">\(t=(t_1,t_2,\dots,t_k)\in D_1 \times D_2 \times \dots \times  D_k\)</span> est appelé <span class="math inline">\(k\)</span>-uplet.</p>
+</div>
+</div>
+</div>
+</section><section class="slide level2 center"><div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition classique d’une relation</strong></p>
+</div>
+<div class="callout-content">
+<p>Une <em>Relation</em> <span class="math inline">\(R\)</span> est un sous-ensemble de</p>
+<p><span class="math display">\[D_1\times D_2\times \cdots \times D_k\]</span></p>
+<p>où <span class="math inline">\(D_1,...,D_k\)</span> sont des domaines.</p>
+<p>On a donc :</p>
+<p><span class="math display">\[R \subseteq D_1  \times D_2\times \cdots \times D_k\]</span></p>
+</div>
+</div>
+</div>
+</section><section id="exemple" class="slide level2 smaller center"><h2>Exemple</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
+<p>Deux domaines</p>
+<p><span class="math display">\[D_1=\left\{1,2,5\right\} \quad\text{et}\quad D_2=\left\{2,4\right\}\]</span></p>
+<p>Un produit cartésien</p>
+<p><span class="math display">\[D_1 \times D_2 = \left\{(1,2),(1,4),(2,2),(2,4),(5,2),(5,4)\right\}\]</span></p>
+<p>Une relation</p>
+<p><span class="math display">\[R =\left\{(1,2),(1,4),(5,2),(5,4)\right\}\]</span></p>
+<p>Une relation est un (sous-) ensemble (d’un produit cartésien)</p>
+</div><div class="column" style="width:30%;">
+<p>On peut représenter <span class="math inline">\(R\)</span> par le tableau :</p>
+<div class="center">
+<table class="caption-top">
+<thead><tr class="header">
+<th style="text-align: center;"><span class="math inline">\(X_1\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(X_2\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Chaque ligne de la table correspond à un élément de la relation <span class="math inline">\(R\)</span></p>
+</div></div>
+</section><section id="relations-classiques" class="slide level2 center"><h2>Relations (classiques)</h2>
+<p>Dans ce cours, toutes les relations ont un nombre fini d’éléments !</p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition : <em>Cardinalité</em> de la relation <span class="math inline">\(R\)</span>: <span class="math inline">\(|R|\)</span></strong></p>
+</div>
+<div class="callout-content">
+<p>On appelle <em>cardinalité</em> d’une relation <span class="math inline">\(R\)</span>, notée <span class="math inline">\(|R|\)</span>, le nombre d’éléments de <span class="math inline">\(R\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition : <em>Arité</em> de la relation <span class="math inline">\(R\)</span></strong></p>
+</div>
+<div class="callout-content">
+<p>Soit <span class="math inline">\(R\subset D_1\times D_2\times \cdots \times D_k\)</span>, l’entier <span class="math inline">\(k\)</span> est appelé <em>arité</em> de <span class="math inline">\(R\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>On parle parfois aussi de <em>degré</em> d’une relation.</p>
+</div>
+<div class="fragment">
+<p>Une <em>relation binaire</em> est une relation d’arité <span class="math inline">\(2\)</span></p>
+</div>
+</section></section><section><section id="schémas-et-relations" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Schémas et relations</h1>
+
+</section><section id="relations-et-schémas" class="slide level2 center"><h2>Relations et schémas</h2>
+<ul>
+<li>Une <em>relation</em> (classique) peut se voir comme une <em>table</em> à deux dimensions :
+<ul>
+<li>chaque ligne correspond alors à un <span class="math inline">\(k\)</span>-uplet (si la relation est d’arité <span class="math inline">\(k\)</span>),</li>
+<li>chaque élément d’une colonne est à valeur dans un domaine.</li>
+<li>Un <em>domaine</em> peut apparaître plusieurs fois dans la définition d’une relation.</li>
+</ul>
+</li>
+</ul></section><section class="slide level2 center"><p>En BD relationnelle, on donne un nom à chaque colonne</p>
+<ul>
+<li>
+<em>Attribut</em>: nom de la colonne.</li>
+</ul>
+<p>Ce nom est choisi de manière à être sémantiquement signifiant.</p>
+<p><i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> En BD on ne peut pas avoir deux attributs de même nom dans une même table.</p>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>L’idée de nommer les colonnes plutôt que de les désigner par une position/un numéro se retrouve dans les sytèmes qui manipulent des données tabulaires (<code>Pandas/Python</code>, <code>R</code>, <code>Spark</code>, …).</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="schéma-dune-relation" class="slide level2 center"><h2>Schéma d’une relation</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition : schéma</strong></p>
+</div>
+<div class="callout-content">
+<p>Le <em>Schéma</em> d’une relation <span class="math inline">\(R\)</span> est la donnée des attributs et domaines de la relation.</p>
+</div>
+</div>
+</div>
+<p>Le schéma peut se noter</p>
+<p><span class="math display">\[R(A_1\! :\! D_1,A_2\! :\! D_2,\dots,A_k\! :\! D_k)\]</span></p>
+<p>où <span class="math inline">\(A_i\)</span> : attribut et <span class="math inline">\(D_i\)</span> : domaine.</p>
+</section><section id="exemple-de-schéma-table-bebes-dans-babynames" class="slide level2 smaller center"><h2>Exemple de schéma : table <code>bebes</code> dans <code>babynames</code>
+</h2>
+<div class="columns">
+<div class="column">
+<!--```{.sql}
+bd_2023-24> \dt
++-----------+-------+-------+-----------+
+| Schema    | Name  | Type  | Owner     |
+|-----------+-------+-------+-----------|
+| babynames | bebes | table | boucheron |
++-----------+-------+-------+-----------+
+```
+-->
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a></a>bd_2023<span class="op">-</span><span class="dv">24</span><span class="op">&gt;</span> \d bebes</span>
+<span id="cb1-2"><a></a><span class="op">+</span><span class="co">--------+------------------------+-----------+</span></span>
+<span id="cb1-3"><a></a>| <span class="kw">Column</span> | <span class="kw">Type</span>                   | Modifiers |</span>
+<span id="cb1-4"><a></a>|<span class="co">--------+------------------------+-----------|</span></span>
+<span id="cb1-5"><a></a>| sexe   | <span class="dt">integer</span>                |           |</span>
+<span id="cb1-6"><a></a>| prenom | <span class="dt">character</span> <span class="dt">varying</span>(<span class="dv">500</span>) |           |</span>
+<span id="cb1-7"><a></a>| annee  | <span class="dt">integer</span>                |           |</span>
+<span id="cb1-8"><a></a>| nombre | <span class="dt">integer</span>                |           |</span>
+<span id="cb1-9"><a></a><span class="op">+</span><span class="co">--------+------------------------+-----------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La relation <code>bebes</code> a donc pour schéma : <span class="math inline">\(\left((\textsf{sexe}, \mathbb{Z}), (\textsf{prenom}, \texttt{string}), (\texttt{annee}, \mathbb{Z}), (\texttt{nombre}, \mathbb{Z})\right)\)</span></p>
+</div><div class="column">
+<p>Données INSEE. Une ligne de la table <code>bebes</code> nous informe qu’en France (héxagone?), pendant une <code>annee</code>, le nombre de naissances de sexe <code>sexe</code>, ayant reçu le prénom <code>prenom</code> est donnée par la colonne <code>nombre</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a></a>bd_2023<span class="op">-</span><span class="dv">24</span><span class="op">&gt;</span> <span class="kw">SELECT</span> <span class="op">*</span> </span>
+<span id="cb2-2"><a></a><span class="kw">FROM</span> bebes </span>
+<span id="cb2-3"><a></a><span class="kw">WHERE</span> sexe<span class="op">=</span><span class="dv">1</span> <span class="kw">AND</span> annee<span class="op">=</span><span class="dv">2000</span> <span class="kw">AND</span> prenom<span class="op">=</span><span class="st">'THÉO'</span> ;</span>
+<span id="cb2-4"><a></a></span>
+<span id="cb2-5"><a></a><span class="op">+</span><span class="co">------+--------+-------+--------+</span></span>
+<span id="cb2-6"><a></a>| sexe | prenom | annee | nombre |</span>
+<span id="cb2-7"><a></a>|<span class="co">------+--------+-------+--------|</span></span>
+<span id="cb2-8"><a></a>| <span class="dv">1</span>    | THÉO   | <span class="dv">2000</span>  | <span class="dv">7961</span>   |</span>
+<span id="cb2-9"><a></a><span class="op">+</span><span class="co">------+--------+-------+--------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>L’arité de <code>bebes</code> est <span class="math inline">\(4\)</span>, sa cardinalité est <span class="math inline">\(648 614\)</span>.</p>
+</div></div>
+</section><section id="particularité-de-la-définition-orientée-bdd-dune-relation" class="slide level2 center"><h2>Particularité de la définition orientée BDD d’une relation <!--{background-color="#1c191c"}-->
+</h2>
+<p>En BD, l’ordre des colonnes n’a pas d’importance car on désigne chaque composante d’un <span class="math inline">\(k\)</span>-uplet par son nom d’attribut et non par sa position/rang.</p>
+<!--
+- Soient $\{A_1,...,A_k\}$ un ensemble fini et $D_1,...,D_k$ une suite de domaines.
+
+
+::: {.callout-important}
+
+### Notation
+
+Une relation $R$ de schéma $R(A_1\! :\! D_1,A_2\! :\! D_2,\dots,A_k\! :\! D_k)$ est la donnée d'un ensemble d'éléments, noté $\mathcal{R}$ et de $k$  fonctions $\mathcal{A}_1: \mathcal{R}\rightarrow D_1$, ..., $\mathcal{A}_k: \mathcal{R}\rightarrow D_k$.
+
+Pour tout $t\in \mathcal{R}$ et $i\leq k$, on note $t.A_i=\mathcal{A}_i(t)$ l'image par $\mathcal{A}_i$ de $t$.
+
+Un élément $t$ de $\mathcal{R}$ est appelé *tuple* de la relation $R$
+
+:::
+
+
+---
+
+### Conventions (suite)
+
+- Pour désigner l'ensemble des valeurs $t.A_1,...., t.A_k$ associées à un tuple $t\in \mathcal{R}$,
+on fixe un ordre arbitraire sur les attributs et on note $t=(t.A_1,...., t.A_k)$,
+
+- A un tuple $t$ de $\mathcal{R}$ correspondent les $k$ valeurs $t.A_1, \dots, t.A_k$,
+
+- Par simplicité, on note $R$ le domaine et la relation.
+-->
+<!--
+## Exemple de relations
+-->
+<!--
+::: {.columns}
+
+::: {.column}
+
+```{.sql}
+bd_2023-24> SELECT * 
+FROM bebes 
+WHERE sexe=1 AND 
+  annee> 1960 AND 
+  prenom = 'THEODULE' ;
+```
+
+```{.sql}
++------+----------+-------+--------+
+| sexe | prenom   | annee | nombre |
+|------+----------+-------+--------|
+| 1    | THEODULE | 1961  | 4      |
+| 1    | THEODULE | 1962  | 4      |
+| 1    | THEODULE | 1965  | 4      |
+| 1    | THEODULE | 1969  | 4      |
++------+----------+-------+--------+
+
+```
+:::
+
+::: {.column}
+
+Ces quatre tuples de `bebes` : $t_1, t_2, t_3, t_4$. 
+
+\begin{align*}
+t_1.\text{sexe} & =  1 \\
+t_1.\text{prenom} & = \texttt{THEODULE} \\
+t_1.\text{annee} & = 1961 \\
+t_1.\text{nombre} & = 4
+\end{align*}
+
+:::
+
+::: 
+-->
+</section><section id="résumé-informel" class="slide level2 center"><h2>Résumé informel</h2>
+<ul>
+<li><p>RELATION ↔︎ TABLE À DEUX DIMENSIONS</p></li>
+<li><p>(NOM DE) COLONNE ↔︎ ATTRIBUT</p></li>
+<li><p>EN-TÊTE DU TABLEAU ↔︎ SCHEMA DE LA RELATION</p></li>
+<li><p>LIGNE ↔︎ TUPLE</p></li>
+<li><p>ENSEMBLE DES LIGNES ↔︎ CONTENU DE LA RELATION</p></li>
+</ul></section></section><section><section id="lmd-opérateurs" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>LMD : Opérateurs</h1>
+
+</section><section id="langage-de-manipulation-de-données" class="slide level2 center"><h2>Langage de manipulation de données</h2>
+<p>L’algèbre relationnelle est un système de calcul sur des tables.</p>
+<p>Elle est formée d’une collection d’<em>opérateurs</em> qui prennent en argument des tables et retournent des tables.</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Remarque :</strong></p>
+</div>
+<div class="callout-content">
+<p>Les opérateurs prennent en général des arguments supplémentaires qui ne sont pas des tables. La notion d’algèbre relationnelle est inspirée par les structures algébriques comme les groupes, les anneaux, les corps où des opérations internes opèrent sur un ensemble (par exemple <span class="math inline">\((\mathbb{R}, +, \times)\)</span>), mais elle ne rentre pas exactement dans le cadre.</p>
+</div>
+</div>
+</div>
+<h3 class="smaller" id="section"></h3>
+<p>L’algèbre n’est pas aussi expressive qu’un langage de programmation classique (comme <code>Python</code>). C’est cela qui rend ce modèle de calcul intéressant : il permet de faire des choses pas triviales, mais il est plus facile à utiliser qu’un langage de programmation.</p>
+</section><section id="opérateurs-de-base" class="slide level2 center"><h2>Opérateurs de base</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Liste des opérateurs</strong></p>
+</div>
+<div class="callout-content">
+<p>L’algèbre relationnelle est d’abord un <em>Langage de Manipulation de Données</em> (LMD).</p>
+<ul>
+<li><p>Union: <span class="math inline">\(\Large{\cup}\)</span></p></li>
+<li><p>Intersection: <span class="math inline">\(\Large{\cap}\)</span></p></li>
+<li><p>Différence: <span class="math inline">\(\Large{\backslash}\)</span></p></li>
+<li><p>Projection: <span class="math inline">\(\Large{\Pi}\)</span></p></li>
+<li><p>Sélection: <span class="math inline">\(\Large{\sigma}\)</span></p></li>
+<li><p>Produit cartésien: <span class="math inline">\(\Large{\times}\)</span></p></li>
+<li><p>Renommage: <span class="math inline">\(\Large{\rho}\)</span></p></li>
+</ul>
+<p>Ces opérateurs s’appliquent à des relations pour produire d’autres relations (le résultat).</p>
+</div>
+</div>
+</div>
+</section><section id="union-cup-et-intersection-cap" class="slide level2 center"><h2>Union <span class="math inline">\(\cup\)</span> et intersection <span class="math inline">\(\cap\)</span>
+</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>L’<em>union</em> et l’<em>intersection</em> sont des opérations portant sur deux relations <span class="math inline">\(R_1\)</span> et <span class="math inline">\(R_2\)</span> de <strong>même schéma</strong>,</p></li>
+<li><p><span class="math inline">\(T=R_1\cup R_2\)</span> est constituée des tuples appartenant à <span class="math inline">\(R_1\)</span> <em>ou</em> à <span class="math inline">\(R_2\)</span>,</p></li>
+<li><p><span class="math inline">\(T=R_1\cap R_2\)</span> est constituée des tuples appartenant à <span class="math inline">\(R_1\)</span> <em>et</em> à <span class="math inline">\(R_2\)</span>.</p></li>
+<li><p>Les schémas de <span class="math inline">\(R_1\cup R_2\)</span>, <span class="math inline">\(R_1\cap R_2\)</span> sont les mêmes que ceux de <span class="math inline">\(R_1\)</span> et <span class="math inline">\(R_2\)</span>.</p></li>
+</ul>
+</div>
+</div>
+</div>
+</section><section id="union-exemple" class="slide level2 smaller center"><h2>Union : exemple</h2>
+<!-- 
+
+
+::: {.cell}
+
+```{.sql .cell-code}
+-- | echo: false
+
+SET search_path TO babynames ;
+
+SELECT * 
+FROM bebes AS b
+WHERE b.sexe=1 AND
+  b.prenom ILIKE 'TH_O%' AND
+  b.annee = 2000 ;
+
+
+SELECT * 
+FROM bebes AS b
+WHERE b.sexe=1 AND
+  b.prenom ILIKE 'TH_O%' AND
+  b.annee = 1900 ;
+```
+:::
+
+ -->
+<div class="columns">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a></a><span class="co">-- THEO_1900</span></span>
+<span id="cb3-2"><a></a></span>
+<span id="cb3-3"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb3-4"><a></a>| sexe | prenom    | annee | nombre |</span>
+<span id="cb3-5"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb3-6"><a></a>| <span class="dv">1</span>    | THEOBALD  | <span class="dv">1900</span>  | <span class="dv">6</span>      |</span>
+<span id="cb3-7"><a></a>| <span class="dv">1</span>    | THEODORE  | <span class="dv">1900</span>  | <span class="dv">227</span>    |</span>
+<span id="cb3-8"><a></a>| <span class="dv">1</span>    | THEOPHILE | <span class="dv">1900</span>  | <span class="dv">309</span>    |</span>
+<span id="cb3-9"><a></a>| <span class="dv">1</span>    | THEODOSE  | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb3-10"><a></a>| <span class="dv">1</span>    | THEODULE  | <span class="dv">1900</span>  | <span class="dv">39</span>     |</span>
+<span id="cb3-11"><a></a>| <span class="dv">1</span>    | THEOPHANE | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb3-12"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb3-13"><a></a></span>
+<span id="cb3-14"><a></a><span class="co">-- THEO_2000</span></span>
+<span id="cb3-15"><a></a></span>
+<span id="cb3-16"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb3-17"><a></a>| sexe | prenom    | annee | nombre |</span>
+<span id="cb3-18"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb3-19"><a></a>| <span class="dv">1</span>    | THEO      | <span class="dv">2000</span>  | <span class="dv">6</span>      |</span>
+<span id="cb3-20"><a></a>| <span class="dv">1</span>    | THAO      | <span class="dv">2000</span>  | <span class="dv">4</span>      |</span>
+<span id="cb3-21"><a></a>| <span class="dv">1</span>    | THÉO      | <span class="dv">2000</span>  | <span class="dv">7961</span>   |</span>
+<span id="cb3-22"><a></a>| <span class="dv">1</span>    | THÉO<span class="op">-</span>PAUL | <span class="dv">2000</span>  | <span class="dv">3</span>      |</span>
+<span id="cb3-23"><a></a>| <span class="dv">1</span>    | THEODOR   | <span class="dv">2000</span>  | <span class="dv">3</span>      |</span>
+<span id="cb3-24"><a></a>| <span class="dv">1</span>    | THEOPHANE | <span class="dv">2000</span>  | <span class="dv">47</span>     |</span>
+<span id="cb3-25"><a></a>| <span class="dv">1</span>    | THEODORE  | <span class="dv">2000</span>  | <span class="dv">149</span>    |</span>
+<span id="cb3-26"><a></a>| <span class="dv">1</span>    | THEOPHILE | <span class="dv">2000</span>  | <span class="dv">336</span>    |</span>
+<span id="cb3-27"><a></a>| <span class="dv">1</span>    | THEOPHYLE | <span class="dv">2000</span>  | <span class="dv">4</span>      |</span>
+<span id="cb3-28"><a></a>| <span class="dv">1</span>    | THEOS     | <span class="dv">2000</span>  | <span class="dv">3</span>      |</span>
+<span id="cb3-29"><a></a>| <span class="dv">1</span>    | THEOTIM   | <span class="dv">2000</span>  | <span class="dv">4</span>       |</span>
+<span id="cb3-30"><a></a>| <span class="dv">1</span>    | THEOTIME  | <span class="dv">2000</span>  | <span class="dv">73</span>     |</span>
+<span id="cb3-31"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<p><code>THEO_1900</code> ∪ <code>THEO_2000</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb4-2"><a></a>| sexe | prenom    | annee | nombre |</span>
+<span id="cb4-3"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb4-4"><a></a>| <span class="dv">1</span>    | THEODOR   | <span class="dv">2000</span>  | <span class="dv">3</span>      |</span>
+<span id="cb4-5"><a></a>| <span class="dv">1</span>    | THAO      | <span class="dv">2000</span>  | <span class="dv">4</span>      |</span>
+<span id="cb4-6"><a></a>| <span class="dv">1</span>    | THÉO      | <span class="dv">2000</span>  | <span class="dv">7961</span>   |</span>
+<span id="cb4-7"><a></a>| <span class="dv">1</span>    | THÉO<span class="op">-</span>PAUL | <span class="dv">2000</span>  | <span class="dv">3</span>      |</span>
+<span id="cb4-8"><a></a>| <span class="dv">1</span>    | THEOBALD  | <span class="dv">1900</span>  | <span class="dv">6</span>      |</span>
+<span id="cb4-9"><a></a>| <span class="dv">1</span>    | THEO      | <span class="dv">2000</span>  | <span class="dv">6</span>      |</span>
+<span id="cb4-10"><a></a>| <span class="dv">1</span>    | THEODORE  | <span class="dv">1900</span>  | <span class="dv">227</span>    |</span>
+<span id="cb4-11"><a></a>| <span class="dv">1</span>    | THEODOSE  | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb4-12"><a></a>| <span class="dv">1</span>    | THEODULE  | <span class="dv">1900</span>  | <span class="dv">39</span>     |</span>
+<span id="cb4-13"><a></a>| <span class="dv">1</span>    | THEODORE  | <span class="dv">2000</span>  | <span class="dv">149</span>    |</span>
+<span id="cb4-14"><a></a>| <span class="dv">1</span>    | THEOPHANE | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb4-15"><a></a>| <span class="dv">1</span>    | THEOPHANE | <span class="dv">2000</span>  | <span class="dv">47</span>     |</span>
+<span id="cb4-16"><a></a>| <span class="dv">1</span>    | THEOPHILE | <span class="dv">1900</span>  | <span class="dv">309</span>    |</span>
+<span id="cb4-17"><a></a>| <span class="dv">1</span>    | THEOTIME  | <span class="dv">2000</span>  | <span class="dv">73</span>     |</span>
+<span id="cb4-18"><a></a>| <span class="dv">1</span>    | THEOPHILE | <span class="dv">2000</span>  | <span class="dv">336</span>    |</span>
+<span id="cb4-19"><a></a>| <span class="dv">1</span>    | THEOPHYLE | <span class="dv">2000</span>  | <span class="dv">4</span>      |</span>
+<span id="cb4-20"><a></a>| <span class="dv">1</span>    | THEOS     | <span class="dv">2000</span>  | <span class="dv">3</span>      |</span>
+<span id="cb4-21"><a></a>| <span class="dv">1</span>    | THEOTIM   | <span class="dv">2000</span>  | <span class="dv">4</span>      |</span>
+<span id="cb4-22"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section><section id="intersection-exemple" class="slide level2 smaller center"><h2>Intersection : exemple</h2>
+<div class="columns">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a></a><span class="co">-- THEO_1900</span></span>
+<span id="cb5-2"><a></a></span>
+<span id="cb5-3"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb5-4"><a></a>| sexe | prenom    | annee | nombre |</span>
+<span id="cb5-5"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb5-6"><a></a>| <span class="dv">1</span>    | THEOBALD  | <span class="dv">1900</span>  | <span class="dv">6</span>      |</span>
+<span id="cb5-7"><a></a>| <span class="dv">1</span>    | THEODORE  | <span class="dv">1900</span>  | <span class="dv">227</span>    |</span>
+<span id="cb5-8"><a></a>| <span class="dv">1</span>    | THEOPHILE | <span class="dv">1900</span>  | <span class="dv">309</span>    |</span>
+<span id="cb5-9"><a></a>| <span class="dv">1</span>    | THEODOSE  | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb5-10"><a></a>| <span class="dv">1</span>    | THEODULE  | <span class="dv">1900</span>  | <span class="dv">39</span>     |</span>
+<span id="cb5-11"><a></a>| <span class="dv">1</span>    | THEOPHANE | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb5-12"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb5-13"><a></a></span>
+<span id="cb5-14"><a></a><span class="co">-- THEOD_1900</span></span>
+<span id="cb5-15"><a></a></span>
+<span id="cb5-16"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb5-17"><a></a>| sexe | prenom    | annee | nombre |</span>
+<span id="cb5-18"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb5-19"><a></a>| <span class="dv">1</span>    | THEODORE  | <span class="dv">1900</span>  | <span class="dv">227</span>    |</span>
+<span id="cb5-20"><a></a>| <span class="dv">1</span>    | THEODOSE  | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb5-21"><a></a>| <span class="dv">1</span>    | THEODULE  | <span class="dv">1900</span>  | <span class="dv">39</span>     |</span>
+<span id="cb5-22"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<p><code>THEO_1900</code> ∩ <code>THEOD_1900</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb6-2"><a></a>| sexe | prenom    | annee | nombre |</span>
+<span id="cb6-3"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb6-4"><a></a>| <span class="dv">1</span>    | THEODORE  | <span class="dv">1900</span>  | <span class="dv">227</span>    |</span>
+<span id="cb6-5"><a></a>| <span class="dv">1</span>    | THEODOSE  | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb6-6"><a></a>| <span class="dv">1</span>    | THEODULE  | <span class="dv">1900</span>  | <span class="dv">39</span>     |</span>
+<span id="cb6-7"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>car <code>THEOD_1900</code> ⊂ <code>THEO_1900</code></p>
+</div></div>
+</section><section id="différence" class="slide level2 center"><h2>Différence</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>La <strong>différence</strong> de deux relations <span class="math inline">\(R_1\)</span> et <span class="math inline">\(R_2\)</span> (de même schéma) est une relation <span class="math inline">\(T\)</span>,</p></li>
+<li><p>de même schéma que <span class="math inline">\(R_1\)</span> et <span class="math inline">\(R_2\)</span>,</p></li>
+<li><p>constituée des tuples appartenant à <span class="math inline">\(R_1\)</span> et n’appartenant pas à <span class="math inline">\(R_2\)</span>.</p></li>
+<li><p>On note <span class="math inline">\(T = R_1 - R_2\)</span> ou <span class="math inline">\(T = R_1 \setminus R_2\)</span>.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Opération non <em>commutative</em> !</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(R_1 - R_2\neq  R_2 - R_1\)</span> (en général).</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="différence-exemple" class="slide level2 smaller center"><h2>Différence : exemple</h2>
+<div class="columns">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a></a><span class="co">-- THEO_1900</span></span>
+<span id="cb7-2"><a></a></span>
+<span id="cb7-3"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb7-4"><a></a>| sexe | prenom    | annee | nombre |</span>
+<span id="cb7-5"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb7-6"><a></a>| <span class="dv">1</span>    | THEOBALD  | <span class="dv">1900</span>  | <span class="dv">6</span>      |</span>
+<span id="cb7-7"><a></a>| <span class="dv">1</span>    | THEODORE  | <span class="dv">1900</span>  | <span class="dv">227</span>    |</span>
+<span id="cb7-8"><a></a>| <span class="dv">1</span>    | THEOPHILE | <span class="dv">1900</span>  | <span class="dv">309</span>    |</span>
+<span id="cb7-9"><a></a>| <span class="dv">1</span>    | THEODOSE  | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb7-10"><a></a>| <span class="dv">1</span>    | THEODULE  | <span class="dv">1900</span>  | <span class="dv">39</span>     |</span>
+<span id="cb7-11"><a></a>| <span class="dv">1</span>    | THEOPHANE | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb7-12"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb7-13"><a></a></span>
+<span id="cb7-14"><a></a><span class="co">-- THEOD_1900</span></span>
+<span id="cb7-15"><a></a></span>
+<span id="cb7-16"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb7-17"><a></a>| sexe | prenom    | annee | nombre |</span>
+<span id="cb7-18"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb7-19"><a></a>| <span class="dv">1</span>    | THEODORE  | <span class="dv">1900</span>  | <span class="dv">227</span>    |</span>
+<span id="cb7-20"><a></a>| <span class="dv">1</span>    | THEODOSE  | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb7-21"><a></a>| <span class="dv">1</span>    | THEODULE  | <span class="dv">1900</span>  | <span class="dv">39</span>     |</span>
+<span id="cb7-22"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<p><code>THEO_1900</code> ∖ <code>THEOD_1900</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb8-2"><a></a>| sexe | prenom    | annee | nombre |</span>
+<span id="cb8-3"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb8-4"><a></a>| <span class="dv">1</span>    | THEOBALD  | <span class="dv">1900</span>  | <span class="dv">6</span>      |</span>
+<span id="cb8-5"><a></a>| <span class="dv">1</span>    | THEOPHILE | <span class="dv">1900</span>  | <span class="dv">309</span>    |</span>
+<span id="cb8-6"><a></a>| <span class="dv">1</span>    | THEOPHANE | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb8-7"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section><section id="produit-cartésien-1" class="slide level2 center"><h2>Produit Cartésien</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Soient <span class="math inline">\(R_1\)</span> et <span class="math inline">\(R_2\)</span> dont les schémas <span class="math inline">\(R_1(A_1,A_2,...,A_k)\)</span> et <span class="math inline">\(R_2(B_1,B_2,...,B_\ell)\)</span> n’ont pas d’attributs communs.</p>
+<ul>
+<li><p>Dans le contexte “classique” : <span class="math inline">\(R_1 \times R_2= \{(e_1,e_2): e_1\in R_1, e_2\in R_2\}\)</span>.</p></li>
+<li><p>Dans le contexte BDD, <span class="math inline">\(R_1 \times R_2\)</span> contient tous les tuples formés par concaténation d’un tuple de <span class="math inline">\(R_1\)</span> et d’un tuple de <span class="math inline">\(R_2\)</span>.</p></li>
+<li><p>Le schéma de <span class="math inline">\(R=R_1 \times R_2\)</span> est <span class="math inline">\(R(A_1,A_2,...,A_k,B_1,B_2,...,B_\ell)\)</span> obtenu par concaténation des schémas de <span class="math inline">\(R_1\)</span> et <span class="math inline">\(R_2\)</span>.</p></li>
+</ul>
+<h3 class="smaller" id="section-1"></h3>
+<p>La condition sur les schémas est indispensable pour que le schéma du résultat n’ait pas deux attributs identiques. On peut contourner ce problème avec un renommage (voir plus loin).</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Attention</strong></p>
+</div>
+<div class="callout-content">
+<p>En algèbre relationnelle, on ne tient pas compte de l’ordre des attributs dans le schéma d’une relation puisque que les attributs ont des noms deux à deux distincts. De ce fait, le produit cartésien est commutatif ( <span class="math inline">\(R_1\times R_2 = R_2\times R_1\)</span> ce qui n’est pas vrai classiquement) et associatif.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="produit-cartésien-2" class="slide level2 center"><h2>Produit cartésien</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition formelle</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(R=R_1\times R_2\)</span> est la relation de schéma <span class="math inline">\(R(A_1,A_2,...,A_k,B_1,B_2,...,B_\ell)\)</span> vérifiant :</p>
+<ul>
+<li>Pour tout <span class="math inline">\(t\in R\)</span>, il existe <span class="math inline">\(t_1\in R_1\)</span>, <span class="math inline">\(t_2\in R_2\)</span> tels que :</li>
+</ul>
+<p><span class="math display">\[t.A_1=t_1.A_1, \ldots, t.A_k=t_1.A_k,\quad t.B_1=t_2.B_1, \ldots, t.B_\ell=t_2.B_\ell\]</span></p>
+<ul>
+<li>Réciproquement, pour tout <span class="math inline">\(t_1\in R_1\)</span>, <span class="math inline">\(t_2\in R_2\)</span> , il existe <span class="math inline">\(t\in R\)</span> tels que :</li>
+</ul>
+<p><span class="math display">\[t.A_1=t_1.A_1, \ldots, t.A_k=t_1.A_k,\quad \text{et}\quad t.B_1=t_2.B_1, \ldots, t.B_\ell=t_2.B_\ell\quad \text{et}\]</span></p>
+<p><span class="math display">\[$\forall t_1 \in R_1, \forall t_2 \in R_2, \exists t \in R, \qquad  t.A_1=t_1.A_1, \ldots, t.A_k=t_1.A_k,\quad \text{et} \quad t.B_1=t_2.B_1, \ldots, t.B_\ell=t_2.B_\ell \qquad\qquad\qquad\]</span></p>
+</div>
+</div>
+</div>
+<!-- ## Produit cartésien : exemple -->
+<!-- A faire-->
+</section><section id="projection-largepi" class="slide level2 center"><h2>Projection ( <span class="math inline">\(\Large{\pi}\)</span> )</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>La <em>projection</em> d’une relation <span class="math inline">\(R\)</span> de schéma <span class="math inline">\(R(A_1,\dots, A_k)\)</span> sur les attributs <span class="math inline">\(A_{i_1}, \dots, A_{i_p}\)</span>, avec <span class="math inline">\(i_1,..., i_p\in \{1,...,k\}\)</span>, est la relation <span class="math inline">\(S\)</span>
+<ul>
+<li>de schéma <span class="math inline">\(S(A_{i_1}, \dots,A_{i_p})\)</span>
+</li>
+<li>dont les tuples sont obtenus par élimination des attributs non mentionnés dans <span class="math inline">\(A_{i_1}, \dots, A_{i_p}\)</span> (et par élimination des doublons).</li>
+<li>On note <span class="math inline">\(S = \pi_{A_{i_1}, \dots, A_{i_p}} (R)\)</span>.</li>
+</ul>
+</li>
+<li>Définition formelle : <span class="math inline">\(s\in S\quad  \iff \quad \exists t\in R, \forall k\in\left\{1,\dots,p\right\}\qquad s.A_{i_k}=t.A_{i_k}\)</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Remarque</strong></p>
+</div>
+<div class="callout-content">
+<p>Implicitement, on a <em>élimination des doublons</em> car une projection peut produire plusieurs fois le même tuple. Or une relation est un ensemble de tuples, et un ensemble ne peut pas contenir plusieurs fois le même élément.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section class="slide level2 center"><div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Remarque</strong></p>
+</div>
+<div class="callout-content">
+<p>À la différence des opérations ensemblistes ∩, ∪, ∖, ×, la projection ne fait pas intervenir que des tables.</p>
+<p>On peut considérer la projection comme une fonction à deux arguments, avec un premier argument de type table, et un second argument constitué par une liste d’attributs.</p>
+<p>On peut aussi considérer la projection comme une fonction avec un nombre <em>variable</em> d’arguments. Un premier argument de type table, puis des arguments qui désignent des attributs de la table. Si on accepte ce point de vue, on peut adopter la notation :</p>
+<p><span class="math display">\[S = \pi(R, {A_{i_1}, \dots, A_{i_p}})\quad
+\text{ ou bien } \quad S = \textrm{PROJECTION}(R, {A_{i_1}, \dots, A_{i_p}})\]</span> au lieu de <span class="math inline">\(\quad S = \pi_{A_{i_1}, \dots, A_{i_p}} (R)\)</span></p>
+<p>Dans la suite, nous utiliserons ces notations.</p>
+</div>
+</div>
+</div>
+</section><section id="projection-exemple" class="slide level2 center"><h2>Projection : Exemple</h2>
+<p>PROJECTION(<code>THEOD_1900</code>, <code>prenom</code>, <code>nombre</code>)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a></a><span class="op">+</span><span class="co">-----------+---------+</span></span>
+<span id="cb9-2"><a></a>| prenom    |  nombre |</span>
+<span id="cb9-3"><a></a>|<span class="co">-----------+---------+</span></span>
+<span id="cb9-4"><a></a>| THEODORE  |  <span class="dv">227</span>    |</span>
+<span id="cb9-5"><a></a>| THEODOSE  |  <span class="dv">3</span>      |</span>
+<span id="cb9-6"><a></a>| THEODULE  |  <span class="dv">39</span>     |</span>
+<span id="cb9-7"><a></a><span class="op">+</span><span class="co">-----------+---------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ici, aucune éliminitation de doublons n’a été nécessaire</p>
+</section><section id="sélection-largesigma" class="slide level2 center"><h2>Sélection ( <span class="math inline">\(\Large{\sigma}\)</span> )</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>
+<p>La <em>sélection</em> d’une relation <span class="math inline">\(R\)</span> par une condition <span class="math inline">\(C\)</span> est une relation <span class="math inline">\(S\)</span> :</p>
+<ul>
+<li><p>de même schéma que <span class="math inline">\(R\)</span>,</p></li>
+<li><p>dont les tuples sont ceux de <span class="math inline">\(R\)</span> qui satisfont la condition <span class="math inline">\(C\)</span>.</p></li>
+<li><p>On note <span class="math inline">\(S = \sigma_C (R)\)</span>.</p></li>
+</ul>
+</li>
+<li>
+<p>La condition <span class="math inline">\(C\)</span> :</p>
+<ul>
+<li><p>s’exprime à l’aide des noms d’attributs de la relation et de constantes (pour les opérandes),</p></li>
+<li><p>on peut utiliser des opérateurs arithmétiques de comparaison ( <span class="math inline">\(=, \neq, \leq, \geq, &lt;, &gt;\)</span> ) ainsi que des connecteurs logiques ( <span class="math inline">\(\lnot, \land, \lor\)</span> ).</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p>On peut utiliser le terme <em>Restriction</em> à la place de <em>Sélection</em>.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section class="slide level2 center"><div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Remarque</strong></p>
+</div>
+<div class="callout-content">
+<p>À la différence des opérations ensemblistes ∩, ∪, ∖, ×, , la sélection comme la projection ne font pas intervenir que des tables.</p>
+<p>On peut considérer la sélection comme une fonction à deux arguments, avec un premier argument de type table, et un second argument constitué par une condition (une expression dont l’évaluation sur chaque ligne de la table retourne <code>Vrai</code>, <code>Faux</code>, ou <code>Indéterminé</code>).</p>
+<!--On peut aussi considérer la sélection comme une fonction avec un nombre *variable*  d'arguments. Un premier argument de type  table, puis des arguments qui représentent des expressions susceptibles d'être évaluées sur chaque ligne de la table.
+Une ligne fera partie de la table résultat, si elle satisfait toutes les expressions.-->
+<p>On note <span class="math display">\[S = \sigma(R, C) \quad
+\text{ ou bien } \quad S= \textrm{SELECTION}(R, C)\]</span> au lieu de <span class="math inline">\(\quad S = \sigma_{C} (R)\)</span></p>
+<p>Dans la suite, nous utiliserons ces notations.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Notons que dans un langage comme <code>Python</code>, nous ne disposons pas d’emblée d’un type <em>expression</em> et que la notation proposée ici ne se code pas trivialement en <code>Python</code>.</p>
+<p>En langage <code>R</code>, on dispose d’un type <em>expression</em>, la notation proposée ici est mise en œuvre dans le package <code>dplyr</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="sélection-exemple" class="slide level2 center"><h2>Sélection : Exemple</h2>
+<p>SELECTION(<code>THEO_1900</code>, ¬ <code>prenom</code> <code>LIKE</code> ‘THEOD%’)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb10-2"><a></a>| sexe | prenom    | annee | nombre |</span>
+<span id="cb10-3"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb10-4"><a></a>| <span class="dv">1</span>    | THEOBALD  | <span class="dv">1900</span>  | <span class="dv">6</span>      |</span>
+<span id="cb10-5"><a></a>| <span class="dv">1</span>    | THEOPHILE | <span class="dv">1900</span>  | <span class="dv">309</span>    |</span>
+<span id="cb10-6"><a></a>| <span class="dv">1</span>    | THEOPHANE | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb10-7"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section><section id="renommage" class="slide level2 center"><h2>Renommage</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Soit <span class="math inline">\(R\)</span> de schéma <span class="math inline">\(R(A_1,\dots, A_k)\)</span>, le <em>renommage</em> d’un attribut <span class="math inline">\(A_i\)</span>, <span class="math inline">\(i\leq k\)</span>, en <span class="math inline">\(B\)</span> est une relation <span class="math inline">\(S\)</span> :
+<ul>
+<li>de même contenu (mêmes lignes)</li>
+<li>de schéma <span class="math inline">\(S(A_1,...,A_{i-1},B,A_{i+1},..., A_k)\)</span>
+</li>
+<li>On le note <span class="math inline">\(S=\rho_{A_i\mapsto B}(R)\)</span>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section><section class="slide level2 center"><div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Remarque</strong></p>
+</div>
+<div class="callout-content">
+<p>Comme la projection et la sélection, le renommage ne fait pas intervenir que des tables.</p>
+<p>On peut considérer le renommage comme une fonction avec un nombre <em>variable</em> d’arguments. Un premier argument de type table, puis des arguments qui représentent des expressions indiquant comment doivent être renommées certains attributs.</p>
+<p>On note <span class="math display">\[S = \rho(R, A_{i_1}\mapsto B_1,\ldots, A_{i_p}\mapsto B_p)\quad
+\text{ ou bien } \quad S = RENOMMAGE(R, A_{i_1}\mapsto B_1,\ldots, A_{i_p}\mapsto B_p)\]</span></p>
+<p>au lieu de <span class="math inline">\(\quad S=\rho_{A_{i_1}\mapsto B_1,\ldots, A_{i_p}\mapsto B_p}(R)\)</span></p>
+<p>Dans la suite, nous utiliserons ces notations.</p>
+</div>
+</div>
+</div>
+</section><section id="renommage-exemple" class="slide level2 smaller center"><h2>Renommage : Exemple</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a></a><span class="co">-- THEOD_1900</span></span>
+<span id="cb11-2"><a></a></span>
+<span id="cb11-3"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb11-4"><a></a>| sexe | prenom    | annee | nombre |</span>
+<span id="cb11-5"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb11-6"><a></a>| <span class="dv">1</span>    | THEODORE  | <span class="dv">1900</span>  | <span class="dv">227</span>    |</span>
+<span id="cb11-7"><a></a>| <span class="dv">1</span>    | THEODOSE  | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb11-8"><a></a>| <span class="dv">1</span>    | THEODULE  | <span class="dv">1900</span>  | <span class="dv">39</span>     |</span>
+<span id="cb11-9"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>ρ(<code>THEOD_1900</code>, <code>sexe→sex</code>, <code>prenom→name</code>, <code>annee→year</code>, <code>nombre→count</code>)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a></a><span class="co">-- THEOD_1900</span></span>
+<span id="cb12-2"><a></a></span>
+<span id="cb12-3"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span>
+<span id="cb12-4"><a></a>| sex  | name      | <span class="dt">year</span>  | <span class="fu">count</span>  |</span>
+<span id="cb12-5"><a></a>|<span class="co">------+-----------+-------+--------|</span></span>
+<span id="cb12-6"><a></a>| <span class="dv">1</span>    | THEODORE  | <span class="dv">1900</span>  | <span class="dv">227</span>    |</span>
+<span id="cb12-7"><a></a>| <span class="dv">1</span>    | THEODOSE  | <span class="dv">1900</span>  | <span class="dv">3</span>      |</span>
+<span id="cb12-8"><a></a>| <span class="dv">1</span>    | THEODULE  | <span class="dv">1900</span>  | <span class="dv">39</span>     |</span>
+<span id="cb12-9"><a></a><span class="op">+</span><span class="co">------+-----------+-------+--------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Utilité</em> : le renommage permet d’étendre certains opérateurs à des relations de schémas non-disjoints (c.a.d. ayant des noms d’attributs communs), par exemple le produit cartésien.</p>
+</section></section><section><section id="résumé" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Résumé</h1>
+
+</section><section id="algèbre-relationnelle" class="slide level2 center"><h2>Algèbre relationnelle</h2>
+<p>Pour interroger une BD, on <em>compose</em> les opérateurs :</p>
+<ul>
+<li><p>Opérations ensemblistes classiques : <span class="math inline">\(\cup\)</span>, <span class="math inline">\(\cap\)</span>, <span class="math inline">\(\setminus\)</span>, <span class="math inline">\(\times\)</span>.</p></li>
+<li><p>Projection : élimine des colonnes,</p></li>
+<li><p>Sélection : élimine des lignes.</p></li>
+</ul></section><section id="exemple-1" class="slide level2 center"><h2>Exemple</h2>
+<p>π(σ(<code>THEO_1900</code>, <code>prenom</code> <code>LIKE</code> ‘THEOD%’), <code>prenom</code>, <code>nombre</code>)</p>
+<div class="fragment">
+<p>ρ(π(σ(<code>THEO_1900</code>, <code>prenom</code> <code>LIKE</code> ‘THEOD%’), <code>prenom</code>, <code>nombre</code>), <code>prenom→name</code>, <code>nombre→count</code>)</p>
+</div>
+</section><section id="de-la-composition-aux-tuyaux-pipelines" class="slide level2 center"><h2>De la composition aux tuyaux (pipelines)</h2>
+<p>On peut rendre la composition de fonctions plus lisible (pour l’humain) en reprenant un mécanisme d’<code>Unix</code> : le <em>pipe</em> (tuyau) <code>|&gt;</code> (notation de <i class="fa-brands fa-r-project" aria-label="r-project"></i>)</p>
+<p>Plutôt qu’écrire <span class="math inline">\(g(f(x,y), z, t)\)</span>, on convient d’écrire <code>f(x,y) |&gt; g(z, t)</code> voire <code>x |&gt; f(y) |&gt; g(z,t)</code></p>
+<p>Et pour rendre l’expression encore plus lisible on peut écrire</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a></a>x |<span class="op">&gt;</span> </span>
+<span id="cb13-2"><a></a>  f(y) |<span class="op">&gt;</span> </span>
+<span id="cb13-3"><a></a>  g(z,t)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section><section id="de-la-composition-aux-tuyaux-suite" class="slide level2 center"><h2>De la composition aux tuyaux (suite)</h2>
+<p>On peut ainsi réécrire</p>
+<p>ρ(π(σ(<code>THEO_1900</code>, <code>prenom</code> <code>LIKE</code> ‘THEOD%’), <code>prenom</code>, <code>nombre</code>), <code>prenom→name</code>, <code>nombre→count</code>)</p>
+<p>en</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a></a>THEO_1900  |<span class="op">&gt;</span></span>
+<span id="cb14-2"><a></a>  σ(prenom <span class="kw">LIKE</span> <span class="st">'THEOD%'</span>) |<span class="op">&gt;</span></span>
+<span id="cb14-3"><a></a>  π(prenom, nombre) |<span class="op">&gt;</span></span>
+<span id="cb14-4"><a></a>  ρ(prenom→name, nombre→count)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+
+<aside><div>
+<p>Dans le langage <i class="fa-brands fa-r-project" aria-label="r-project"></i> (&gt; 4.x), le pipe s’écrit <code>|&gt;</code></p>
+</div></aside></section></section><section><section id="opérations-complémentaires-les-jointures" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Opérations complémentaires : les jointures</h1>
+
+</section><section id="les-jointures" class="slide level2 center"><h2>Les jointures</h2>
+<p>On va définir des opérations pratiques pour la manipulation de données : les <em>jointures</em></p>
+<ul>
+<li><p>Jointure</p></li>
+<li><p>Jointure <em>naturelle</em></p></li>
+<li><p><span class="math inline">\(\theta\)</span>-jointure et équi-jointure</p></li>
+</ul></section><section id="jointure" class="slide level2 center"><h2>Jointure</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Considérons deux relations <span class="math inline">\(R_1\)</span> et <span class="math inline">\(R_2\)</span> de schémas disjoints.</p>
+<p>La jointure de <span class="math inline">\(R_1\)</span> et <span class="math inline">\(R_2\)</span> sous la condition <span class="math inline">\(C\)</span> est la relation <span class="math inline">\(T\)</span> :</p>
+<ul>
+<li><p>de schéma la <em>concaténation</em> des schémas de <span class="math inline">\(R_1\)</span> et <span class="math inline">\(R_2\)</span>,</p></li>
+<li><p>formée des tuples du produit cartésien <span class="math inline">\(R_1  \times R_2\)</span> qui satisfont la condition <span class="math inline">\(C\)</span>,</p></li>
+<li><p>on note <span class="math inline">\(T=R_1\bowtie_C R_2\)</span>.</p></li>
+</ul>
+<p>Règles de formation de la <em>condition de jointure</em> : comme pour la sélection.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition formelle</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[R_1 \bowtie_C R_2 = \sigma_C(R_1\times R_2)\]</span></p>
+</div>
+</div>
+</div>
+</div>
+</section><section class="slide level2 center"><div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Remarque</strong></p>
+</div>
+<div class="callout-content">
+<p>Comme la projection, la sélection et le renommage, la jointure ne fait pas intervenir que des tables.</p>
+<p>On peut considérer la jointure comme une fonction avec un nombre <em>variable</em> d’arguments. Deux premiers arguments de type table, puis une expression dont l’évaluation permet de déterminer quels couples de lignes doivent figurer dans la table résultat</p>
+<p>On note <span class="math display">\[T =\ \bowtie(R, S, C)\quad \text{ou} \quad S= \textrm{JOINTURE}(R, S, C)\]</span> au lieu de <span class="math inline">\(\quad T=R  \bowtie_C C\)</span></p>
+<p>Dans la suite, nous utiliserons ces notations.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Comme dit précédemment, dans un langage comme <code>Python</code>, nous ne disposons pas d’emblée d’un type <em>expression</em> et la notation proposée ici ne se code pas trivialement en <code>Python</code>.</p>
+<p>En langage <code>R</code>, on dispose d’un type <em>expression</em>, la notation proposée ici est mise en œuvre dans le package <code>dplyr</code> avec la fonction <code>inner_join()</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="exemple-sur-le-schéma-world" class="slide level2 center"><h2>Exemple sur le schéma <code>world</code>
+</h2>
+<div class="columns">
+<div class="column" style="width:35%;">
+<p><img data-src="..\images/modelisation/MRD_world2.svg"></p>
+</div><div class="column" style="width:65%;">
+<p>Lier les pays (les lignes de <code>country</code>) à leur capitale, c’est à dire les couples de lignes de <code>country</code> et de <code>city</code> qui satisfont <code>capital = id</code></p>
+</div></div>
+</section><section id="exemple-sur-le-schéma-world-suite" class="slide level2 center"><h2>Exemple sur le schéma <code>world</code> (suite)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a></a>T <span class="op">=</span>  JOINTURE(country, city, country.capital <span class="op">=</span> city.<span class="kw">id</span>)</span>
+<span id="cb15-2"><a></a>S <span class="op">=</span>  PROJECTION(T, name_country, name)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a></a></span>
+<span id="cb16-2"><a></a><span class="op">+</span><span class="co">----------------------+------------------+</span></span>
+<span id="cb16-3"><a></a>| name_country         | name             |</span>
+<span id="cb16-4"><a></a>|<span class="co">----------------------+------------------|</span></span>
+<span id="cb16-5"><a></a>| Afghanistan          | Kabul            |</span>
+<span id="cb16-6"><a></a>| Netherlands          | Amsterdam        |</span>
+<span id="cb16-7"><a></a>| Netherlands Antilles | Willemstad       |</span>
+<span id="cb16-8"><a></a>| Albania              | Tirana           |</span>
+<span id="cb16-9"><a></a>| Algeria              | Alger            |</span>
+<span id="cb16-10"><a></a><span class="op">..</span>.</span>
+<span id="cb16-11"><a></a><span class="op">+</span><span class="co">----------------------+------------------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+
+<aside><div>
+<p>On a affiché seulement les cinq premières lignes du résultat.</p>
+</div></aside></section><section id="différentes-variétés-de-jointures" class="slide level2 center"><h2>Différentes variétés de jointures</h2>
+<p>Autour de la jointure <code>⋈(R, S, C)</code> on a pris l’habitude de distinguer des types de jointure selon la forme de l’expression de jointure (la condition <code>C</code>)</p>
+<p>On distingue</p>
+<ul>
+<li>les équi-jointures,</li>
+<li>les θ-jointures,</li>
+<li>les jointures naturelles.</li>
+</ul>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Ces distinctions portent sur la condition <code>C</code>. Elles ne sont pas de même nature que les distinctions qui portent sur la manière dont le résultat final est calculé et qui définissent les jointures <em>internes</em>, <em>externes</em> (voir plus loin).</p>
+</div>
+</div>
+</div>
+</section><section id="équi-jointure" class="slide level2 center"><h2>Équi-jointure</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Jointure où la condition est une égalité entre des attributs de types comparables</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a></a>JOINTURE(country, city, country.capital <span class="op">=</span> city.<span class="kw">id</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="thetajointure" class="slide level2 center"><h2>
+<span class="math inline">\(\theta\)</span>–jointure</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>Condition de jointure entre attributs de types comparables et comportant au moins un opérateur différent de l’égalité, c’est-à-dire dans <span class="math inline">\(\left\{&lt;,&gt;,\leq,\geq, \neq\right\}\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a></a>JOINTURE(country, city, country.capital <span class="op">=</span> city.<span class="kw">id</span>  ∧ city.population <span class="op">&gt;</span> .<span class="dv">5</span> <span class="op">*</span> country.population_country)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="jointure-naturelle" class="slide level2 center"><h2>Jointure naturelle</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>C’est une équi-jointure où la condition portent implicitement sur tous les attributs communs (de même nom) aux schémas des deux relations.</p>
+<p>Dans le résultat, les attributs communs n’apparaissent qu’une seule fois <i class="fa-solid fa-triangle-exclamation" aria-label="triangle-exclamation"></i> puisque la relation résultat ne peut pas avoir deux attributs de même nom.</p>
+<p>On note cette opération : <span class="math inline">\(R_1 \bowtie R_2\)</span>.</p>
+</div>
+</div>
+</div>
+<p>On peut écrire la jointure naturelle comme une équi-jointure sur tous les attributs communs suivie d’une projection pour éliminer les attributs doublons.</p>
+</section><section id="jointure-naturelle-formalisation" class="slide level2 smaller center"><h2>Jointure naturelle (formalisation)</h2>
+<p>Considérons deux relations <span class="math inline">\(R_1(A_1,..,A_k,B_1,...,B_h)\)</span> et <span class="math inline">\(R_2(A_1,..,A_k,B_{h+1},...,B_\ell)\)</span> de schémas <strong>non</strong> disjoints avec :</p>
+<ul>
+<li><p><span class="math inline">\(A_1,..., A_k\)</span> : attributs communs,</p></li>
+<li><p><span class="math inline">\(\{B_1,...,B_h\}\cap \{ B_{h+1},...,B_\ell \}=\emptyset\)</span>,</p></li>
+</ul>
+<p>Soit <span class="math inline">\(A'_1, ...., A'_k\)</span> des noms tels que <span class="math inline">\(\{A_1,..., A_k\}\cap \{ A'_1, ...., A'_k \}=\emptyset\)</span>.</p>
+<p>Considérons la relation <span class="math inline">\(S(A_1',..,A_k',B_{h+1},...,B_l)\)</span> définie par : <span class="math inline">\(\quad S=\rho_{A_1\mapsto A_1'}(\rho_{A_2\mapsto A_2'}(\cdots (\rho_{A_k\mapsto A_k'}(R_2)\cdots ))\)</span></p>
+<p>La <em>jointure naturelle</em> sur les relations <span class="math inline">\(R_1\)</span> et <span class="math inline">\(R_2\)</span> est la relation <span class="math inline">\(R\)</span></p>
+<ul>
+<li><p>de schéma <span class="math inline">\(R(A_1,..,A_k,B_1,...,B_h, B_{h+1},...,B_\ell)\)</span></p></li>
+<li><p>définie par : <span class="math inline">\(\quad R = \pi_{A_1,..,A_k,B_1,...,B_h, B_{h+1},...,B_\ell}(R_1\bowtie_{C} S)\quad\)</span> où <span class="math inline">\(C\)</span> est <span class="math inline">\((A_1=A_1') \wedge (A_2=A'_2) \wedge \ldots \wedge (A_k=A_k')\)</span></p></li>
+</ul>
+
+<aside><div>
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> En préfixant les noms des attributs par ceux de la relation, la condition <span class="math inline">\(C\)</span> s’écrit alors : <span class="math display">\[(R_1.A_1=R_2.A_1) \wedge \ldots \wedge (R_1.A_k=R_2.A_k)\]</span></p>
+</div></aside></section><section id="exemple-de-jointure-naturelle" class="slide level2 smaller center"><h2>Exemple de Jointure naturelle</h2>
+<p>Afficher la liste des langues parlées en France (schéma <code>world</code>).</p>
+<div class="columns">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a></a>bd_2023<span class="op">-</span><span class="dv">24</span><span class="op">&gt;</span> \d countrylanguage</span>
+<span id="cb19-2"><a></a><span class="op">+</span><span class="co">-------------+--------------+-----------+</span></span>
+<span id="cb19-3"><a></a>| <span class="kw">Column</span>      | <span class="kw">Type</span>         | Modifiers |</span>
+<span id="cb19-4"><a></a>|<span class="co">-------------+--------------+-----------|</span></span>
+<span id="cb19-5"><a></a>| countrycode | <span class="dt">character</span>(<span class="dv">3</span>) |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb19-6"><a></a>| language    | text         |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb19-7"><a></a>| isofficial  | <span class="dt">boolean</span>      |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb19-8"><a></a>| percentage  | <span class="dt">real</span>         |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb19-9"><a></a><span class="op">+</span><span class="co">-------------+--------------+-----------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a></a>bd_2023<span class="op">-</span><span class="dv">24</span><span class="op">&gt;</span> \d city</span>
+<span id="cb20-2"><a></a><span class="op">+</span><span class="co">-------------+--------------+-----------+</span></span>
+<span id="cb20-3"><a></a>| <span class="kw">Column</span>      | <span class="kw">Type</span>         | Modifiers |</span>
+<span id="cb20-4"><a></a>|<span class="co">-------------+--------------+-----------|</span></span>
+<span id="cb20-5"><a></a>| <span class="kw">id</span>          | <span class="dt">integer</span>      |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb20-6"><a></a>| name        | text         |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb20-7"><a></a>| countrycode | <span class="dt">character</span>(<span class="dv">3</span>) |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb20-8"><a></a>| district    | text         |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb20-9"><a></a>| population  | <span class="dt">integer</span>      |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb20-10"><a></a><span class="op">+</span><span class="co">-------------+--------------+-----------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a></a>bd_2023<span class="op">-</span><span class="dv">24</span><span class="op">&gt;</span> \d country</span>
+<span id="cb21-2"><a></a><span class="op">+</span><span class="co">--------------------+---------------+-----------+</span></span>
+<span id="cb21-3"><a></a>| <span class="kw">Column</span>             | <span class="kw">Type</span>          | Modifiers |</span>
+<span id="cb21-4"><a></a>|<span class="co">--------------------+---------------+-----------|</span></span>
+<span id="cb21-5"><a></a>| countrycode        | <span class="dt">character</span>(<span class="dv">3</span>)  |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb21-6"><a></a>| name_country       | text          |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb21-7"><a></a>| continent          | text          |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb21-8"><a></a>| region             | text          |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb21-9"><a></a>| surfacearea        | <span class="dt">real</span>          |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb21-10"><a></a>| indepyear          | <span class="dt">smallint</span>      |           |</span>
+<span id="cb21-11"><a></a>| population_country | <span class="dt">integer</span>       |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb21-12"><a></a>| lifeexpectancy     | <span class="dt">real</span>          |           |</span>
+<span id="cb21-13"><a></a>| gnp                | <span class="dt">numeric</span>(<span class="dv">10</span>,<span class="dv">2</span>) |           |</span>
+<span id="cb21-14"><a></a>| gnpold             | <span class="dt">numeric</span>(<span class="dv">10</span>,<span class="dv">2</span>) |           |</span>
+<span id="cb21-15"><a></a>| localname          | text          |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb21-16"><a></a>| governmentform     | text          |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb21-17"><a></a>| headofstate        | text          |           |</span>
+<span id="cb21-18"><a></a>| capital            | <span class="dt">integer</span>       |           |</span>
+<span id="cb21-19"><a></a>| code2              | <span class="dt">character</span>(<span class="dv">2</span>)  |  <span class="kw">not</span> <span class="kw">null</span> |</span>
+<span id="cb21-20"><a></a><span class="op">+</span><span class="co">--------------------+---------------+-----------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section><section id="exemple-de-jointure-naturelle-suite" class="slide level2 center"><h2>Exemple de Jointure naturelle (suite)</h2>
+<div class="columns">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a></a>T <span class="op">=</span> JOINTURE(country, countrylanguage)</span>
+<span id="cb22-2"><a></a>S <span class="op">=</span> SELECTION(T, name_country<span class="op">=</span><span class="st">'France'</span>)</span>
+<span id="cb22-3"><a></a>R <span class="op">=</span> PROJECTION(S, name_country, language)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a></a><span class="op">+</span><span class="co">--------------+------------+</span></span>
+<span id="cb23-2"><a></a>| name_country | language   |</span>
+<span id="cb23-3"><a></a>|<span class="co">--------------+------------|</span></span>
+<span id="cb23-4"><a></a>| France       | French     |</span>
+<span id="cb23-5"><a></a>| France       | Arabic     |</span>
+<span id="cb23-6"><a></a>| France       | Portuguese |</span>
+<span id="cb23-7"><a></a>| France       | Italian    |</span>
+<span id="cb23-8"><a></a>| France       | Spanish    |</span>
+<span id="cb23-9"><a></a>| France       | Turkish    |</span>
+<span id="cb23-10"><a></a><span class="op">+</span><span class="co">--------------+------------+</span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Du point de la complexité des opérations à faire par le serveur, il vaut mieux faire le plus en amont possible les sélections puis les projections et enfin les jointures qui sont plus coûteuses en temps de calcul.</p>
+</div>
+</div>
+</div>
+<p>On écrira donc plutôt :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a></a>S <span class="op">=</span> SELECTION(country, name_country<span class="op">=</span><span class="st">'France'</span>)</span>
+<span id="cb24-2"><a></a>T <span class="op">=</span> JOINTURE(S, countrylanguage)</span>
+<span id="cb24-3"><a></a>R <span class="op">=</span> PROJECTION(T, name_country, language)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<!--
+---
+
+On aurait pu décrire de façon plus explicite la jointure en précisant sur quels attributs s'effectue la jointure 
+
+
+```{.sql}
+country |
+  ⋈(countrylanguage, countrycode) |>
+  σ(country='France') |>
+  π(name_country, language)
+
+```
+-->
+</section><section id="exemples-de-requêtes" class="slide level2 center"><h2>Exemples de requêtes</h2>
+<ul>
+<li>Déterminer les noms des capitales des pays situés en Asie.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a></a>S <span class="op">=</span>  SELECTION(country, continent<span class="op">=</span><span class="st">'Asia'</span>)</span>
+<span id="cb25-2"><a></a>T <span class="op">=</span>  JOINTURE(S, city, S.capital<span class="op">=</span>city.<span class="kw">id</span>)</span>
+<span id="cb25-3"><a></a>R <span class="op">=</span>  PROJECTION(T, name)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Le début de <code>R</code> est</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a></a><span class="op">+</span><span class="co">-------------+</span></span>
+<span id="cb26-2"><a></a>| name        |</span>
+<span id="cb26-3"><a></a>|<span class="co">-------------+</span></span>
+<span id="cb26-4"><a></a>| Kabul       |</span>
+<span id="cb26-5"><a></a>| Abu Dhabi   |</span>
+<span id="cb26-6"><a></a>| Yerevan     | </span>
+<span id="cb26-7"><a></a>| al<span class="op">-</span>Manama   |</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="exemples-de-requêtes-suite" class="slide level2 center"><h2>Exemples de requêtes (suite)</h2>
+<ul>
+<li>Déterminer les langues parlées dans les pays d’Asie.</li>
+</ul>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a></a>S <span class="op">=</span> SELECTION(country, continent<span class="op">=</span><span class="st">'Asia'</span>)</span>
+<span id="cb27-2"><a></a>T <span class="op">=</span> JOINTURE(R1, countrylanguage)</span>
+<span id="cb27-3"><a></a>R <span class="op">=</span> PROJECTION(R2, language)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Le début de <code>R</code> est</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a></a><span class="op">+</span><span class="co">-------------+</span></span>
+<span id="cb28-2"><a></a>| name        |</span>
+<span id="cb28-3"><a></a>|<span class="co">-------------+</span></span>
+<span id="cb28-4"><a></a>| Pashto      |</span>
+<span id="cb28-5"><a></a>| Arabic      |</span>
+<span id="cb28-6"><a></a>| Armenian    | </span>
+<span id="cb28-7"><a></a>| Azerbaijani |</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section></section><section><section id="encore-des-opérations" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Encore des opérations…</h1>
+
+</section><section id="jointure-externe" class="slide level2 center"><h2>Jointure externe</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Perte d’information dans les jointures internes</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans les jointures que nous avons vues, les tuples du produit cartésien ne satisfaisant pas la condition C (non appariés) disparaissent.</p>
+<p>On appelle ces jointures des <em>jointures internes</em>.</p>
+<p>On définit aussi des <em>jointures externes</em> qui n’adoptent pas ce comportement.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>La <em>jointure externe</em> entre <span class="math inline">\(R_1\)</span> et <span class="math inline">\(R_2\)</span> est une jointure qui produit une relation R3 à laquelle on ajoute les tuples de R1 et de R2 exclus par la jointure, en complétant avec des valeurs nulles pour les attributs de l’autre relation.</p>
+<p><em>Notation</em> : <span class="math inline">\(R_1 {}^+\!\bowtie^+ R_2\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="jointure-externe-gauche" class="slide level2 center"><h2>Jointure externe gauche</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>La jointure externe gauche entre R1 et R2 est une jointure externe pour laquelle on ajoute seulement les tuples de R1 (c’est à dire la relation de gauche) ayant été exclus.</p>
+<p><em>Synonyme</em> : Jointure gauche</p>
+<p><em>Notation</em> : <span class="math inline">\(R_1 {}^+\!\bowtie R_2\)</span></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> Le + est du côté où on ajoute les tupes manquants.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="jointure-externe-droite" class="slide level2 center"><h2>Jointure externe droite</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>La jointure externe droite entre R1 et R2 est une jointure externe pour laquelle on ajoute seulement les tuples de R2 (c’est à dire la relation de droite) ayant été exclus.</p>
+<p><em>Synonyme</em> : Jointure droite</p>
+<p><em>Notation</em> : <span class="math inline">\(R_1 \bowtie^+ R_2\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Une jointure externe droite peut être réécrite par une jointure externe gauche (et réciproquement) en échangeant l’ordre de R1 et R2.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>On peut aussi utiliser une notation fonctionnelle et nommer ces jointures par des mots par exemple OUTER JOIN, LEFT JOIN, RIGHT JOIN.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="jointure-externe-exemple" class="slide level2 center"><h2>Jointure externe (exemple)</h2>
+<p>On veut une table formée par les codes ISO, les noms des pays et (si possible) les noms des capitales. Les territoires sans capitale doivent apparaître en fin de table, avec une colonne <em>nom de capitale</em> nulle.</p>
+<div class="smaller">
+<p>Obtenir la première partie de la réponse avec une jointure est facile. Pour trouver les territoires sans capitale, il faudrait faire une sélection dans <code>country</code> sur le critère <code>capital IS NULL</code> puis une <code>UNION</code> des deux relations.</p>
+</div>
+<p>Avec une jointure droite, on peut obtenir le résultat en une opération :</p>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb29-1"><a></a>S = RIGHT JOIN(city, country, city.id = country.capital) </span>
+<span id="cb29-2"><a></a>R = PROJECTION(S, countrycode, name_country, name)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="division" class="slide level2 center"><h2>Division</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Définition</strong></p>
+</div>
+<div class="callout-content">
+<p>La <em>division</em> ou <em>quotient</em></p>
+<ul>
+<li><p>d’une relation <span class="math inline">\(R\)</span> de schéma <span class="math inline">\(R(A_1,A_2,\dots,A_k)\)</span></p></li>
+<li><p>par une relation <span class="math inline">\(S\)</span> de schéma <span class="math inline">\(S(A_{p+1},\dots ,A_k)\)</span></p></li>
+</ul>
+<p>est la relation <span class="math inline">\(T\)</span> de schéma <span class="math inline">\(T(A_1, \dots, A_p)\)</span> formée des tuples qui, complétés par chaque tuple de <span class="math inline">\(S\)</span>, donnent un tuple de <span class="math inline">\(R\)</span>.</p>
+<p>Autrement dit</p>
+<p><span class="math display">\[\begin{array}{l} t\in T(A_1,\dots,A_p)  \quad \text{ si et seulement si } \\
+\forall s\in S(A_{p+1},\dots ,A_k) \quad \exists r\in R \quad \begin{cases}
+t.A_1=r.A_1, \dots, t.A_p=r.A_p\\ s.A_{p+1}=r.A_{p+1},\dots, s.A_{k}=r.A_{k} \end{cases} \end{array}\]</span></p>
+<p>On note : <span class="math inline">\(\quad T = R \div S\)</span></p>
+</div>
+</div>
+</div>
+</section><section id="division-exemple" class="slide level2 center"><h2>Division (exemple)</h2>
+<p>La division permet de répondre à des questions du type :</p>
+<p>“Donner tous les X qui ont toutes les valeurs existantes d’une propriété Y”.</p>
+<p><em>Exemple</em> : lister les langues parlées sur tous les continents.</p>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb30-1"><a></a>J <span class="op">=</span> JOINTURE(country, countrylanguage)</span>
+<span id="cb30-2"><a></a>CL <span class="op">=</span>  PROJECTION(J, continent, language)</span>
+<span id="cb30-3"><a></a>C <span class="op">=</span> PROJECTION(CL, continent)</span>
+<span id="cb30-4"><a></a></span>
+<span id="cb30-5"><a></a>CL ÷ C</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>Autre possibilité sans la division</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb31-1"><a></a>J <span class="op">=</span> JOINTURE(country, countrylanguage)</span>
+<span id="cb31-2"><a></a>CL <span class="op">=</span>  PROJECTION(J, continent, language)</span>
+<span id="cb31-3"><a></a></span>
+<span id="cb31-4"><a></a>C <span class="op">=</span> PROJECTION(CL, continent)</span>
+<span id="cb31-5"><a></a>L <span class="op">=</span> PROJECTION(CL, language)</span>
+<span id="cb31-6"><a></a><span class="co">--- LPPTC Langues Pas Parlées dans Tous les Continents</span></span>
+<span id="cb31-7"><a></a>LPPTC <span class="op">=</span> PROJECTION((C × L  ∖  CL ), language)</span>
+<span id="cb31-8"><a></a></span>
+<span id="cb31-9"><a></a>R <span class="op">=</span> L  ∖  LPPTC</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<!--
+```{.sql}
+CL ← ⋈(country, countrylanguage) |>
+  π(continent, language)
+
+C ← π(CL, continent)
+L ← π(CL, language)
+
+LPPTC ← (C × L  ∖  CL ) |>
+  π(language)
+
+L  ∖  LPPTC
+```
+-->
+</div>
+</section><section id="interdéfinissabilité-des-opérateurs" class="slide level2 center"><h2>Interdéfinissabilité des opérateurs</h2>
+<ul>
+<li><p>L’union, la différence, le produit cartésien, la sélection et la projection et le renommage sont <em>suffisants</em> pour définir tous les opérateurs que l’on a vus.</p></li>
+<li><p>Mais avoir un panier plus large d’opérateurs simplifie l’écriture des requêtes.</p></li>
+</ul></section><section id="définitions-des-autres-opérateurs-à-partir-de-cet-ensemble-minimal" class="slide level2 center"><h2>Définitions des autres opérateurs à partir de cet ensemble minimal</h2>
+<div class="fragment">
+<ul>
+<li>Pour la <em>jointure</em> : <span class="math inline">\(R \bowtie_C S = \sigma_C (R \times S)\)</span>
+</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Pour l’<em>intersection</em> : <span class="math inline">\(A \cap B = A \cup B - ((B - A) \cup (A - B))\)</span>
+</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Pour la <em>division</em> :</li>
+</ul>
+<p>soient <span class="math inline">\(R(A_1,A_2,\dots,A_k)\)</span> et <span class="math inline">\(S(A_{p+1},\dots ,A_k)\)</span>,</p>
+<p><span class="math inline">\(T= R ÷ S\quad\)</span> a pour schéma <span class="math inline">\(\quad T(A_1, \dots, A_p)\)</span> et</p>
+<p><span class="math display">\[T = {\Pi}(R, A) \setminus {\Pi}\left(\left(\left({\Pi}\left(R, A\right) × S\right) \setminus R\right), A\right)\]</span></p>
+<p>où <span class="math inline">\(A = (A_1, \dots, A_p)\)</span>.</p>
+<!--
+Dans la définition de $R ÷ S$, on utilise en deux endroits  $Π(R, A)$. 
+Il serait utile, lors de l'évaluation de  $R ÷ S$, de n'évaluer $Π(R, A)$ qu'une seule fois en créant une table temporaire.
+-->
+</div>
+</section></section><section><section id="petite-histoire" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Petite histoire</h1>
+
+</section><section class="slide level2 center"><p>L’algèbre relationnelle est la définition d’un modèle de calculabilité restreint.</p>
+<p>Comme les modèles de calcul classiques (les langages de programmation comme <code>Python</code>), elle est formée de briques de base (les opérateurs) et de mécanismes d’assemblage (la composition de fonction).</p>
+<p>Le modèle de calcul relationnel est bien plus simple qu celui d’un langage de programmation (pas de boucles <code>while</code>, <code>for</code>). Il est aussi moins expressif. On peut montrer qu’il existe de questions qui sont solubles avec un langage de programmation mais qui ne le sont pas avec l’algèbre relationnelle.</p>
+<p>L’histoire de l’algèbre relationnelle éclaire le développement des bases de données.</p>
+</section><section id="depuis-wikipedia" class="slide level2 smaller center"><h2>Depuis Wikipedia</h2>
+<blockquote>
+<p>In the 1960s and 1970s he [Codd] worked out his theories of data arrangement, issuing his paper “A Relational Model of Data for Large Shared Data Banks” in 1970.[ To his disappointment, IBM proved slow to exploit his suggestions until commercial rivals started implementing them.</p>
+</blockquote>
+<blockquote>
+<p>Initially, IBM refused to implement the relational model to preserve revenue from IMS/DB. Codd then showed IBM customers the potential of the implementation of its model, and they in turn pressured IBM. Then IBM included in its Future Systems project a System R subproject – but put in charge of it developers who were not thoroughly familiar with Codd’s ideas, and isolated the team from Codd. As a result, they did not use Codd’s own Alpha language but created a non-relational one, SEQUEL. Even so, SEQUEL was so superior to pre-relational systems that it was copied, in 1979, based on pre-launch papers presented at conferences, by Larry Ellison, of Relational Software Inc, in his Oracle Database, which actually reached market before SQL/DS – because of the then-already proprietary status of the original name, SEQUEL had been renamed SQL.</p>
+</blockquote>
+<blockquote>
+<p>Codd continued to develop and extend his relational model, sometimes in collaboration with Christopher J. Date. One of the normalised forms, the Boyce–Codd normal form, is named after him.</p>
+</blockquote>
+<blockquote>
+<p>Codd’s theorem, a result proven in his seminal work on the relational model, equates the expressive power of relational algebra and relational calculus.</p>
+</blockquote>
+</section></section><section id="fin" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Fin</h1>
+
+
+<div class="reveal-header">
+<div class="header-logo" data-header-logo-link="https://u-paris.fr">
+<img data-src="..\images/logo.png">
+</div>
+<div class="sc-title">
+<p> </p>
+</div>
+<div class="header-text">
+<p>Algèbre Relationnelle</p>
+</div>
+<div class="sb-title">
+<p> </p>
+</div>
+</div>
+</section>
+</div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="../images/UniversiteParis_monogramme_couleur_RVB.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p><a href="http://bgentou.github.io/MA15E045">MA15E045</a> – Bases de Données – L3 MIASHS – UParis Cité</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="../site_libs/revealjs/dist/reveal.js"></script><!-- reveal.js plugins --><script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script><script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script><script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script><script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script><script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script><script src="../site_libs/revealjs/plugin/notes/notes.js"></script><script src="../site_libs/revealjs/plugin/search/search.js"></script><script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script><script src="../site_libs/revealjs/plugin/math/math.js"></script><script>window.define = window.backupDefine; window.backupDefine = undefined;</script><script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script><script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+    
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+    
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+    
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+    
+      })();
+    </script><script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copié");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copié");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/bgentou\.github\.io\/MA15E045\/");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+                // target, if specified
+                link.setAttribute("target", "_blank");
+                if (link.getAttribute("rel") === null) {
+                  link.setAttribute("rel", "noopener");
+                }
+                // default icon
+                link.classList.add("external");
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+            let selectedAnnoteEl;
+            const selectorForAnnotation = ( cell, annotation) => {
+              let cellAttr = 'data-code-cell="' + cell + '"';
+              let lineAttr = 'data-code-annotation="' +  annotation + '"';
+              const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+              return selector;
+            }
+            const selectCodeLines = (annoteEl) => {
+              const doc = window.document;
+              const targetCell = annoteEl.getAttribute("data-target-cell");
+              const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+              const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+              const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+              const lineIds = lines.map((line) => {
+                return targetCell + "-" + line;
+              })
+              let top = null;
+              let height = null;
+              let parent = null;
+              if (lineIds.length > 0) {
+                  //compute the position of the single el (top and bottom and make a div)
+                  const el = window.document.getElementById(lineIds[0]);
+                  top = el.offsetTop;
+                  height = el.offsetHeight;
+                  parent = el.parentElement.parentElement;
+                if (lineIds.length > 1) {
+                  const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+                  const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+                  height = bottom - top;
+                }
+                if (top !== null && height !== null && parent !== null) {
+                  // cook up a div (if necessary) and position it 
+                  let div = window.document.getElementById("code-annotation-line-highlight");
+                  if (div === null) {
+                    div = window.document.createElement("div");
+                    div.setAttribute("id", "code-annotation-line-highlight");
+                    div.style.position = 'absolute';
+                    parent.appendChild(div);
+                  }
+                  div.style.top = top - 2 + "px";
+                  div.style.height = height + 4 + "px";
+                  div.style.left = 0;
+                  let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+                  if (gutterDiv === null) {
+                    gutterDiv = window.document.createElement("div");
+                    gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                    gutterDiv.style.position = 'absolute';
+                    const codeCell = window.document.getElementById(targetCell);
+                    const gutter = codeCell.querySelector('.code-annotation-gutter');
+                    gutter.appendChild(gutterDiv);
+                  }
+                  gutterDiv.style.top = top - 2 + "px";
+                  gutterDiv.style.height = height + 4 + "px";
+                }
+                selectedAnnoteEl = annoteEl;
+              }
+            };
+            const unselectCodeLines = () => {
+              const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+              elementsIds.forEach((elId) => {
+                const div = window.document.getElementById(elId);
+                if (div) {
+                  div.remove();
+                }
+              });
+              selectedAnnoteEl = undefined;
+            };
+              // Handle positioning of the toggle
+          window.addEventListener(
+            "resize",
+            throttle(() => {
+              elRect = undefined;
+              if (selectedAnnoteEl) {
+                selectCodeLines(selectedAnnoteEl);
+              }
+            }, 10)
+          );
+          function throttle(fn, ms) {
+          let throttle = false;
+          let timer;
+            return (...args) => {
+              if(!throttle) { // first call gets through
+                  fn.apply(this, args);
+                  throttle = true;
+              } else { // all the others get throttled
+                  if(timer) clearTimeout(timer); // cancel #2
+                  timer = setTimeout(() => {
+                    fn.apply(this, args);
+                    timer = throttle = false;
+                  }, ms);
+              }
+            };
+          }
+            const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+            for (let i=0; i<annoteTargets.length; i++) {
+              const annoteTarget = annoteTargets[i];
+              const targetCell = annoteTarget.getAttribute("data-target-cell");
+              const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+              const contentFn = () => {
+                const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+                if (content) {
+                  const tipContent = content.cloneNode(true);
+                  tipContent.classList.add("code-annotation-tip-content");
+                  return tipContent.outerHTML;
+                }
+              }
+              const config = {
+                allowHTML: true,
+                content: contentFn,
+                onShow: (instance) => {
+                  selectCodeLines(instance.reference);
+                  instance.reference.classList.add('code-annotation-active');
+                  window.tippy.hideAll();
+                },
+                onHide: (instance) => {
+                  unselectCodeLines();
+                  instance.reference.classList.remove('code-annotation-active');
+                },
+                maxWidth: 300,
+                delay: [50, 0],
+                duration: [200, 0],
+                offset: [5, 10],
+                arrow: true,
+                appendTo: function(el) {
+                  return el.parentElement.parentElement.parentElement;
+                },
+                interactive: true,
+                interactiveBorder: 10,
+                theme: 'light-border',
+                placement: 'right',
+                popperOptions: {
+                  modifiers: [
+                  {
+                    name: 'flip',
+                    options: {
+                      flipVariations: false, // true by default
+                      allowedAutoPlacements: ['right'],
+                      fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+                    },
+                  },
+                  {
+                    name: 'preventOverflow',
+                    options: {
+                      mainAxis: false,
+                      altAxis: false
+                    }
+                  }
+                  ]        
+                }      
+              };
+              window.tippy(annoteTarget, config); 
+            }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script><script type="text/javascript">
+        (function(d) {
+          d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+            let pseudocodeOptions = {
+              indentSize: el.dataset.indentSize || "1.2em",
+              commentDelimiter: el.dataset.commentDelimiter || "//",
+              lineNumber: el.dataset.lineNumber === "true" ? true : false,
+              lineNumberPunc: el.dataset.lineNumberPunc || ":",
+              noEnd: el.dataset.noEnd === "true" ? true : false,
+              titlePrefix: el.dataset.captionPrefix || "Algorithm"
+            };
+            pseudocode.renderElement(el.querySelector(".pseudocode"), pseudocodeOptions);
+          });
+        })(document);
+        (function(d) {
+          d.querySelectorAll(".pseudocode-container").forEach(function(el) {
+            let captionSpan = el.querySelector(".ps-root > .ps-algorithm > .ps-line > .ps-keyword")
+            if (captionSpan !== null) {
+              let captionPrefix = el.dataset.captionPrefix + " ";
+              let captionNumber = "";
+              if (el.dataset.pseudocodeNumber) {
+                captionNumber = el.dataset.pseudocodeNumber + " ";
+                if (el.dataset.chapterLevel) {
+                  captionNumber = el.dataset.chapterLevel + "." + captionNumber;
+                }
+              }
+              captionSpan.innerHTML = captionPrefix + captionNumber;
+            }
+          });
+        })(document);
+        </script>
+
+
+</body></html>
