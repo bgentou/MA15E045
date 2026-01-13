@@ -4778,8 +4778,8 @@ window.Quarto = {
 <p>On utilise l’algorithme vu en cours.</p>
 <p>initialisation <span class="math inline">\(Z := \{\verb!#vehicule!\}\)</span>.</p>
 <ul>
-<li><p><span class="math inline">\(Z \cap F = \{\verb!#vehicule!\}\)</span>, <span class="math inline">\(\{\verb!#vehicule!\}^+ =\)</span> <span class="math inline">\(\{\verb!#vehicule!, \verb!immatriculation!,\verb!#modèle!,\)</span> <span class="math inline">\(\verb!nom!, \verb!marque!, \verb!catégorie!,\)</span> <span class="math inline">\(\verb!tarif!\}\)</span>, puis <span class="math inline">\(\{\verb!#vehicule!\}^+ \cap F = F\)</span>, <span class="math inline">\(Z := Z \cup F = F\)</span>.</p></li>
-<li><p><span class="math inline">\(Z \cap M = \emptyset\)</span>, <span class="math inline">\(Z\)</span> est inchangé.</p></li>
+<li><p><span class="math inline">\(Z \cap F = \{\verb!#vehicule!\}\)</span>, <span class="math inline">\(\{\verb!#vehicule!\}^+ =\)</span> <span class="math inline">\(\{\verb!#vehicule!, \verb!immatriculation!,\verb!#modèle!,\)</span> <span class="math inline">\(\verb!nom!, \verb!marque!, \verb!catégorie!,\)</span> <span class="math inline">\(\verb!tarif!\}\)</span>, puis <span class="math inline">\((Z \cap F)^+ \cap F = F\)</span>, <span class="math inline">\(Z := Z \cup F = F\)</span>.</p></li>
+<li><p><span class="math inline">\(Z \cap M = \{ \verb!catégorie! \}\)</span>, <span class="math inline">\(\{\verb!catégorie!\}^+ =\{ \verb!catégorie!,\verb!tarif!\}\)</span>, <span class="math inline">\((Z \cap M)^+ \cap M = \{ \verb!catégorie! \}\)</span>, <span class="math inline">\(Z\)</span> est inchangé.</p></li>
 </ul>
 <p>La répétition des deux étapes précédentes n’augmente pas <span class="math inline">\(Z\)</span> donc <span class="math inline">\(\{\verb!#vehicule!\}^+_{F,M} = F\)</span> qui ne contient pas <span class="math inline">\(\verb!#modèle!\)</span> (CQFD).</p>
 </div>
