@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://bgentou.github.io/MA15E045/workshops/td9.html</loc>
-    <lastmod>2025-12-09T20:20:38.326Z</lastmod>
+    <lastmod>2026-06-05T15:11:53.434Z</lastmod>
   </url>
   <url>
     <loc>https://bgentou.github.io/MA15E045/workshops/td7.html</loc>
@@ -78,7 +78,7 @@
   </url>
   <url>
     <loc>https://bgentou.github.io/MA15E045/exams-listings.html</loc>
-    <lastmod>2026-01-10T09:26:23.646Z</lastmod>
+    <lastmod>2026-06-05T14:14:24.153Z</lastmod>
   </url>
   <url>
     <loc>https://bgentou.github.io/MA15E045/schemas-listings.html</loc>
@@ -125,8 +125,88 @@
     <lastmod>2025-11-27T08:03:11.895Z</lastmod>
   </url>
   <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/SQL_3.html</loc>
+    <lastmod>2025-11-02T14:45:40.025Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/SQL_1.html</loc>
+    <lastmod>2025-11-26T09:38:39.814Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/Modelisation_2.html</loc>
+    <lastmod>2025-11-28T16:40:18.686Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/LDD_2.html</loc>
+    <lastmod>2025-11-26T09:26:21.841Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/LDD_0.html</loc>
+    <lastmod>2025-11-26T09:35:38.898Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/DF_norm_1.html</loc>
+    <lastmod>2025-12-10T10:10:46.286Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/BD_intro.html</loc>
+    <lastmod>2025-11-26T09:39:18.080Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/DF_norm_3.html</loc>
+    <lastmod>2025-12-12T14:31:49.992Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/LDD_1.html</loc>
+    <lastmod>2025-11-02T18:09:33.713Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/Modelisation_1.html</loc>
+    <lastmod>2025-11-24T11:37:01.472Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/SQL_0.html</loc>
+    <lastmod>2025-11-26T09:40:59.753Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/slides/SQL_2.html</loc>
+    <lastmod>2025-10-02T17:00:30.454Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/exams/ct2-2026-06-04.html</loc>
+    <lastmod>2026-06-05T13:30:50.501Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/exams/ct-2026-01-09.html</loc>
+    <lastmod>2026-01-14T10:47:30.621Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/exams/ct-2026-01-09-access.html</loc>
+    <lastmod>2026-01-09T09:01:32.414Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/exams/cc3-2024-12-13.html</loc>
+    <lastmod>2025-11-26T09:50:44.380Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/exams/cc2-2025-12-02-en.html</loc>
+    <lastmod>2026-06-05T14:30:03.309Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/exams/cc1-2025-10-17.html</loc>
+    <lastmod>2026-06-05T14:36:40.122Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/exams/cc1-2024-10-25.html</loc>
+    <lastmod>2025-11-26T09:50:44.336Z</lastmod>
+  </url>
+  <url>
     <loc>https://bgentou.github.io/MA15E045/exams/cc1-2025-10-17-eng.html</loc>
     <lastmod>2026-06-05T14:36:47.102Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/exams/cc2-2024-11-15.html</loc>
+    <lastmod>2025-11-26T09:54:11.402Z</lastmod>
   </url>
   <url>
     <loc>https://bgentou.github.io/MA15E045/exams/cc2-2025-12-02.html</loc>
@@ -137,7 +217,11 @@
     <lastmod>2025-11-26T09:50:44.385Z</lastmod>
   </url>
   <url>
-    <loc>https://bgentou.github.io/MA15E045/exams/ct-2025-06-06.html</loc>
-    <lastmod>2025-11-26T09:50:44.389Z</lastmod>
+    <loc>https://bgentou.github.io/MA15E045/exams/ct-2026-01-09-en.html</loc>
+    <lastmod>2026-01-09T09:08:00.391Z</lastmod>
+  </url>
+  <url>
+    <loc>https://bgentou.github.io/MA15E045/exams/ct2-2025-06-06.html</loc>
+    <lastmod>2026-06-05T14:47:12.172Z</lastmod>
   </url>
 </urlset>
