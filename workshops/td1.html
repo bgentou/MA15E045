@@ -4358,19 +4358,6 @@ window.Quarto = {
 </header>
 
 
-<div class="callout callout-style-simple callout-warning callout-empty-content callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Avec solutions
-</div>
-</div>
-<div class="callout-body-container callout-body">
-
-</div>
-</div>
 <div class="quarto-layout-panel" data-layout="[80,20]">
 <div class="quarto-layout-row">
 <div id="first-column" class="quarto-layout-cell" style="flex-basis: 80.0%;justify-content: center;">
@@ -4479,309 +4466,60 @@ Ces deux opérations peuvent être écrites en SQL ainsi :
 <ol class="example" type="1">
 <li>Quelles sont les régions ? (25 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi(\texttt{country},\texttt{ region} )\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> region</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="2" class="example" type="1">
 <li>Quelles sont les régions situées en Europe ? (6 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( \sigma(\texttt{country},\texttt{ continent = &#39;Europe&#39;}), \texttt{ region}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> region</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> continent <span class="op">=</span> <span class="st">&#39;Europe&#39;</span> ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="3" class="example" type="1">
 <li>Quels sont les pays situés en Europe du sud (‘Southern Europe’) ? (15 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( {\Large \sigma}(\texttt{country},\texttt{ region = &#39;Southern Europe&#39;}),\texttt{ name\_country}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name_country</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> region <span class="op">=</span> <span class="st">&#39;Southern Europe&#39;</span> ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="4" class="example" type="1">
 <li>Quelles sont les capitales des pays situés en Europe de l’Ouest ? (quel est le type de la colonne <code>capital</code> dans la table <code>country</code>?) (9 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big({\Large \sigma}(\texttt{country},\texttt{ region = &#39;Western Europe&#39;}),\texttt{ capital}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> capital</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> region <span class="op">=</span> <span class="st">&#39;Western Europe&#39;</span> ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="5" class="example" type="1">
 <li>A partir de la table <code>countrylanguage</code>, quels sont les langues qui sont officielles dans au moins un pays ? (102 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( {\Large \sigma}(\texttt{ countrylanguage},\texttt{ isofficial}), \texttt{ language}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> language </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> countrylanguage </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> isofficial ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La variante de l’algèbre relationnelle vue en cours opérant sur les ensembles, <code>DISTINCT</code> est toujours implicitement implémenté par la requête algébrique. Ce n’est pas le cas en SQL (variante multi-ensembliste de l’algèbre relationnelle), il existe donc un opérateur d’élimination des doublons : <code>DISTINCT</code>.</p>
-</div>
-</div>
 <ol start="6" class="example" type="1">
 <li>Quels sont les codes des pays où le français est langue officielle ? (18 lignes) Même question pour les langues de votre choix ?</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( {\Large \sigma}(\texttt{ countrylanguage},\texttt{ language = &#39;French&#39;} \wedge \texttt{ isofficial}),\texttt{ countrycode}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> countrycode</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> countrylanguage</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> language <span class="op">=</span> <span class="st">&#39;French&#39;</span> <span class="kw">AND</span> isofficial ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="7" class="example" type="1">
 <li>Quelle est la date d’indépendance de la France ?</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( {\Large \sigma}(\texttt{country},\texttt{ countrycode = &#39;FRA&#39;}),\texttt{ indepyear}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> indepyear</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> countrycode <span class="op">=</span> <span class="st">&#39;FRA&#39;</span> ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="8" class="example" type="1">
 <li>Quelles sont les dates d’indépendance des pays d’Europe ? (46 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( {\Large \sigma}(\texttt{country} , \texttt{ continent = &#39;Europe&#39;}),\texttt{ name\_country , indepyear}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name_country , indepyear</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> continent <span class="op">=</span> <span class="st">&#39;Europe&#39;</span> ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="9" class="example" type="1">
 <li>Quelles sont les villes françaises de plus de 200 000 habitants ? (10 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( {\Large \sigma}(\texttt{ city}, \texttt{ countrycode = &#39;FRA&#39;}\wedge \texttt{population &gt; 200000}), \texttt{ name , population}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name , population</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> city</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> countrycode <span class="op">=</span> <span class="st">&#39;FRA&#39;</span> <span class="kw">AND</span> population <span class="op">&gt;</span> <span class="dv">200000</span> ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="10" class="example" type="1">
 <li>Pour chaque pays européen, calculer la densité, le GNP par habitant, et l’espérance de vie, ordonner par densité décroissante. (46 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\({\small\texttt{R1 = }\Pi\big( {\Large \sigma}(\texttt{country},  \texttt{ continent=&#39;Europe&#39;}), \texttt{ name\_country}, \texttt{ population\_country/surfacearea}},\)</span></p>
-<p><span class="math inline">\(\qquad {\small \texttt{gnp/population\_country}, \texttt{ lifeexpectancy}\big)}\)</span></p>
-<p><span class="math inline">\({\small\texttt{R = }{\Large \rho}( \texttt{R1,} \texttt{ population\_country} / \texttt{surfacearea} \mapsto \texttt{density}, \texttt{gnp/population\_country} \mapsto \texttt{gnp\_per\_hab})}\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name_country , population_country <span class="op">/</span> surfacearea <span class="kw">as</span> density ,</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>       gnp <span class="op">/</span> population_country <span class="kw">as</span> gnp_per_hab , lifeexpectancy</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> continent <span class="op">=</span> <span class="st">&#39;Europe&#39;</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> density <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="11" class="example" type="1">
 <li>Quels sont les pays où l’espérance de vie n’est pas inférieure à 77 ans et le pnb par habitant n’est pas supérieur à (0.010) ? (10 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( {\Large \sigma}(\texttt{country}, \neg \texttt{(lifeexpectancy&lt;77)}\wedge\ \neg \texttt{(gnp/population\_country&gt;0,01)}), \texttt{ name\_country}\big)\)</span></p>
-<p>ou, de manière équivalente</p>
-<p><span class="math inline">\(\Pi \big( \sigma(\texttt{country}, \texttt{(lifeexpectancy&gt;=77)}\wedge \texttt{(gnp/population\_country&lt;=0.01)}), \texttt{ name\_country}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name_country </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">NOT</span> (lifeexpectancy <span class="op">&lt;</span> <span class="dv">77</span>) <span class="kw">AND</span> </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>      <span class="kw">NOT</span> (gnp <span class="op">/</span> population_country <span class="op">&gt;</span> <span class="fl">0.01</span>) ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="12" class="example" type="1">
 <li>Quels sont les pays tels que la condition (espérance de vie supérieure ou égale à 77 ans ou PNB par habitant inférieur à (0.01)) n’est pas vérifée ? (16 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( {\Large \sigma}(\texttt{country}, \neg (\texttt{(lifeexpectancy&gt;=77)} \vee \texttt{(gnp/population\_country&lt;0,01)})) , \texttt{ name\_country}\big)\)</span></p>
-<p>ou, de manière équivalente</p>
-<p><span class="math inline">\(\Pi \big( \sigma(\texttt{country}, \texttt{ (lifeexpectancy&lt;77)}\wedge \texttt{(gnp/population\_country &gt;= 0.01)}), \texttt{ name\_country}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name_country</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">NOT</span> (lifeexpectancy <span class="op">&gt;=</span> <span class="dv">77</span> <span class="kw">OR</span> (gnp <span class="op">/</span> population_country <span class="op">&lt;</span> <span class="fl">0.01</span>) );</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="13" class="example" type="1">
 <li>Quels sont les pays où une langue est officielle sans être parlée par au moins la moitié de la population ? (92 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( {\Large \sigma}(\texttt{countrylanguage}, \texttt{ isofficial }\wedge\texttt{ percentage&lt;50}), \texttt{ countrycode}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> countrycode</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> countrylanguage</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> isofficial <span class="kw">AND</span> percentage <span class="op">&lt;</span> <span class="dv">50</span> ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="14" class="example" type="1">
 <li>Quels sont les codes des pays qui ont au moins une langue officielle ? (190 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( {\Large \sigma}(\texttt{countrylanguage}, \texttt{ isofficial}), \texttt{ countrycode}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> countrycode </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> countrylanguage </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> isofficial ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="15" class="example" type="1">
 <li>Quels sont les noms des pays qui comptent plus de 100 000 000 d’habitants ? (10 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi \big( {\Large \sigma}(\texttt{country}, \texttt{ population\_country &gt; 100000000}), \texttt{ name\_country}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name_country </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> population_country <span class="op">&gt;</span> <span class="dv">100000000</span> ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 </section>
 </section>
 <section id="requêtes-multi-tables" class="level1">
 <h1>Requêtes multi-tables</h1>
 <p>On peut aussi combiner plusieurs tables. Pour ce TP, nous allons seulement présenter le produit cartésien de deux tables: <span class="math inline">\(T \times S\)</span> est la table dont les colonnes sont les colonnes de <span class="math inline">\(S\)</span> et les colonnes de <span class="math inline">\(T\)</span> et dont les lignes sont tous les couples <span class="math inline">\((l_1,l_2)\)</span> où <span class="math inline">\(l_1\)</span> est une ligne de <span class="math inline">\(T\)</span> et <span class="math inline">\(l_2\)</span> est une ligne de <span class="math inline">\(S\)</span>. En SQL, on écrira:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> col1,col2 </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> table1,table2 </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> condition;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> col1,col2 </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> table1,table2 </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> condition;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Par exemple,</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> language</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country <span class="kw">as</span> co, countrylanguage <span class="kw">as</span> l</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> co.countrycode <span class="op">=</span> l.countrycode <span class="kw">and</span> co.continent <span class="op">=</span> <span class="st">&#39;Europe&#39;</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> language</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country <span class="kw">as</span> co, countrylanguage <span class="kw">as</span> l</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> co.countrycode <span class="op">=</span> l.countrycode <span class="kw">and</span> co.continent <span class="op">=</span> <span class="st">&#39;Europe&#39;</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>affichera les langues parlées en Europe. Remarquez l’utilisation des <code>as</code> pour donner de nouveaux noms aux tables et l’utilisation de <code>co.countrycode</code> pour lever l’ambiguité sur des noms de colonnes qui seraient éventuellement les mêmes.</p>
 <section id="éxercice-2" class="level2">
 <h2 class="anchored" data-anchor-id="éxercice-2">Éxercice 2</h2>
@@ -4789,206 +4527,27 @@ Ces deux opérations peuvent être écrites en SQL ainsi :
 <ol start="16" class="example" type="1">
 <li>Quels sont les noms des capitales sud-américaines ? (14 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\({\small \Pi \big( \sigma (\rho(\texttt{city}, \texttt{countrycode} \mapsto \texttt{city\_countrycode}) \bowtie_{\texttt{capital=id}} \texttt{country}, \texttt{region=&#39;South America&#39;}\big), \texttt{name} \big)}\)</span></p>
-<p>En toute rigueur la relation qui résulte d’une opération ne peut pas contenir deux attributs de même nom, d’où le renommage utilisé dans la requête algébrique ci-dessus. En pratique, on suppose que les renommages <code>attribut</code><span class="math inline">\(\mapsto\)</span><code>table.attribut</code> sont faits implicitement chaque fois que nécessaire.</p>
-<p>On peut alors écrire plus simplement :</p>
-<p><span class="math inline">\(\Pi \big( \sigma (\texttt{city} \bowtie_{\texttt{capital=id}} \texttt{country}, \texttt{ region=&#39;South America&#39;}\big), \texttt{ name} \big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country , city</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> capital <span class="op">=</span> <span class="kw">id</span> <span class="kw">AND</span> region <span class="op">=</span> <span class="st">&#39;South America&#39;</span> ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Il est préférable d’utiliser l’opération de jointure :</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country <span class="kw">JOIN</span> city <span class="kw">ON</span> capital <span class="op">=</span> <span class="kw">id</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> region <span class="op">=</span> <span class="st">&#39;South America&#39;</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="17" class="example" type="1">
 <li>Quels sont les noms des pays où le français est langue officielle ? (18 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\({\small\Pi \big( \sigma(\texttt{country} \bowtie_{\texttt{countrycode}} \texttt{countrylanguage}, \texttt{ isofficial}\wedge \texttt{language=&#39;French&#39;}), \texttt{ name\_country}\big)}\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> co.name_country</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country co <span class="kw">JOIN</span> countrylanguage l <span class="kw">ON</span> co.countrycode <span class="op">=</span> l.countrycode</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> l.isofficial <span class="kw">AND</span> l.language <span class="op">=</span> <span class="st">&#39;French&#39;</span> ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="18" class="example" type="1">
 <li>Quelles sont les pays où l’espagnol est langue officielle et la forme de gouvernement est ‘Federal Republic’ ? (3 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi\big( \sigma(\texttt{country} \bowtie_{\texttt{countrycode}} \texttt{countrylanguage},\)</span></p>
-<p><span class="math inline">\(\texttt{ isofficial}\wedge \texttt{language=&#39;Spanish&#39;}\wedge \texttt{governmentform=&#39;Federal Republic&#39;}),\texttt{ name\_country}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> co.name_country</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country co <span class="kw">JOIN</span> countrylanguage l <span class="kw">ON</span> co.countrycode <span class="op">=</span> l.countrycode</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> l.isofficial <span class="kw">AND</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>      l.language <span class="op">=</span> <span class="st">&#39;Spanish&#39;</span> <span class="kw">AND</span> </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>      co.governmentform <span class="op">=</span> <span class="st">&#39;Federal Republic&#39;</span> ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="19" class="example" type="1">
 <li>Quels sont les pays qui ont au moins deux langues officielles ? (38 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\(\Pi\big( \sigma (\texttt{country} \bowtie_{\texttt{countrycode}} \texttt{l1} \bowtie_{\texttt{countrycode}} \texttt{l2},\)</span></p>
-<p><span class="math inline">\(\texttt{ l1.isofficial}\wedge \texttt{l2.isofficial} \wedge \texttt{l1.language}\neq \texttt{l2.language}), \texttt{ name\_country}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> co.name_country</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>   country <span class="kw">AS</span> co </span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">JOIN</span> countrylanguage <span class="kw">AS</span> l1 <span class="kw">ON</span> co.countrycode <span class="op">=</span> l1.countrycode</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>   <span class="kw">JOIN</span> countrylanguage <span class="kw">AS</span> l2 <span class="kw">ON</span> co.countrycode <span class="op">=</span> l2.countrycode </span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                              <span class="kw">AND</span> <span class="kw">NOT</span> (l1.language <span class="op">=</span> l2.language)</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> l1.isofficial <span class="kw">AND</span> l2.isofficial ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>On dispose aussi de la syntaxe <span class="math inline">\(\texttt{JOIN … USING (a}_\texttt{1}\texttt{,}\dots\texttt{,a}_\texttt{k}\texttt{)}\)</span> pour faire des jointures naturelles qui ne considèrent que les attributs communs <span class="math inline">\(\texttt{a}_\texttt{1}\)</span> à <span class="math inline">\(\texttt{a}_\texttt{k}\)</span>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> name_country</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">JOIN</span> countrylanguage <span class="kw">AS</span> l1 <span class="kw">USING</span> (countrycode)  </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">JOIN</span> countrylanguage <span class="kw">AS</span> l2 <span class="kw">USING</span> (countrycode)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> l1.isofficial <span class="kw">AND</span> l2.isofficial <span class="kw">AND</span> l1.language <span class="op">&lt;&gt;</span> l2.language ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="20" class="example" type="1">
 <li>Quels sont les pays qui n’ont pas de langue officielle ? (49 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math inline">\({\small \Pi\big(\texttt{country}, \texttt{name\_country}\big) -\Pi\big( \sigma(\texttt{country} \bowtie_{\texttt{countrycode}} \texttt{countrylanguage} , \texttt{isofficial}),\texttt{name\_country}\big)}\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">SELECT</span> name_country </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">FROM</span> country</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="kw">EXCEPT</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>   <span class="kw">SELECT</span> name_country </span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>   <span class="kw">FROM</span> country <span class="kw">JOIN</span> countrylanguage <span class="kw">USING</span> (countrycode) </span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>   <span class="kw">WHERE</span> isofficial</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="21" class="example" type="1">
 <li>Quels sont les pays qui comportent au moins deux villes de plus de 1 000 000 habitants ? (32 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p></p>
-<p></p>
-<p><span class="math inline">\(\Pi\big( \sigma(\texttt{country} \bowtie_{\texttt{countrycode}} \texttt{c1} \bowtie_{\texttt{countrycode}} \texttt{c2}, \texttt{ c1.population\_city&gt;1000000 }\wedge\)</span></p>
-<p><span class="math inline">\(\texttt{c2.population\_city&gt;1000000 }\wedge\)</span> <span class="math inline">\(\texttt{c1.id}\neq \texttt{c2.id}), \texttt{name\_country}\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">DISTINCT</span> name_country</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country <span class="kw">AS</span> co </span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">JOIN</span> city <span class="kw">AS</span> c1 <span class="kw">ON</span> co.countrycode <span class="op">=</span> c1.countrycode</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">JOIN</span> city <span class="kw">AS</span> c2 <span class="kw">ON</span> co.countrycode <span class="op">=</span> c2.countrycode <span class="kw">AND</span> (<span class="kw">NOT</span> c1.<span class="kw">id</span> <span class="op">=</span> c2.<span class="kw">id</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> c1.population <span class="op">&gt;</span> <span class="dv">1000000</span> <span class="kw">AND</span> c2.population <span class="op">&gt;</span> <span class="dv">1000000</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="22" class="example" type="1">
 <li>Quelles sont les régions qui ne comportent qu’une seule forme de gouvernement ? (3 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p></p>
-<p></p>
-<p><span class="math inline">\(\Pi\big( \texttt{country } , \texttt{ region})\)</span></p>
-<p><span class="math inline">\(-\ \Pi \big( \sigma(\texttt{c1} \bowtie_{\texttt{region}} \texttt{c2}, \texttt{ c1.governmentform&lt;&gt;c2.governmentform})\big)\)</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>(  </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">SELECT</span> <span class="kw">DISTINCT</span> region </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">FROM</span> country</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="kw">EXCEPT</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>(  </span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>   <span class="kw">SELECT</span> <span class="kw">DISTINCT</span> c1.region </span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>   <span class="kw">FROM</span> country <span class="kw">as</span> c1 </span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>      <span class="kw">JOIN</span> country <span class="kw">as</span> c2 <span class="kw">ON</span> c1.region <span class="op">=</span> c2.region </span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>                        <span class="kw">AND</span> c1.governmentform <span class="op">&lt;&gt;</span> c2.governmentform</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>) ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 <ol start="23" class="example" type="1">
 <li>Quelles sont les régions où on ne trouve pas de monarchie ? (9 lignes)</li>
 </ol>
-<div class="callout callout-style-simple callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>La requête algébrique a la même forme que la précédente mais nécessite d’introduire une opération <code>LIKE</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>(  </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">SELECT</span> region </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">FROM</span> country</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="kw">EXCEPT</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>(  </span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>   <span class="kw">SELECT</span> region </span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>   <span class="kw">FROM</span> country</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>   <span class="kw">WHERE</span> governmentform <span class="kw">LIKE</span> <span class="st">&#39;%Monarchy%&#39;</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>) ;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
 
 
 </section>
