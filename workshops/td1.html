@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-09-26">
+<meta name="dcterms.date" content="2026-09-18">
 
-<title>TD 1 : Algèbre relationnelle – MA15E045 - Automne 2025</title>
+<title>TD 1 : Algèbre relationnelle, requêtes SQL simples – MA15E045 - Automne 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3999,8 +3999,8 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="TD 1 : Algèbre relationnelle – MA15E045 - Automne 2025">
-<meta property="og:description" content="Logistique et Algèbre relationnelle">
+<meta property="og:title" content="TD 1 : Algèbre relationnelle, requêtes SQL simples – MA15E045 - Automne 2025">
+<meta property="og:description" content="Algèbre relationnelle et requêtes SQL simples sur le schéma world">
 <meta property="og:image" content="https://bgentou.github.io/MA15E045/images/UniversiteParis_monogramme_couleur_RVB.png">
 <meta property="og:site_name" content="MA15E045 - Automne 2025">
 <meta property="og:image:height" content="722">
@@ -4178,7 +4178,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">TD 1 : Algèbre relationnelle</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">TD 1 : Algèbre relationnelle, requêtes SQL simples</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -4327,14 +4327,12 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">TD 1 : Algèbre relationnelle</h1>
-<p class="subtitle lead">Logistique et Algèbre relationnelle</p>
+<h1 class="title">TD 1 : Algèbre relationnelle, requêtes SQL simples</h1>
+<p class="subtitle lead">Algèbre relationnelle et requêtes SQL simples sur le schéma <code>world</code></p>
   <div class="quarto-categories">
     <div class="quarto-category">Algèbre relationnelle</div>
-    <div class="quarto-category">world</div>
-    <div class="quarto-category">psql</div>
-    <div class="quarto-category">pgcli</div>
     <div class="quarto-category">SQL</div>
+    <div class="quarto-category">world</div>
   </div>
   </div>
 
@@ -4346,7 +4344,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 26, 2025</p>
+      <p class="date">September 18, 2026</p>
     </div>
   </div>
   
@@ -4400,7 +4398,8 @@ window.Quarto = {
 </section>
 <section id="schémas" class="level2">
 <h2 class="anchored" data-anchor-id="schémas">Schémas</h2>
-<p>Les schémas sont une abstraction spécifique à PostgreSQL. Les schémas permettent de faire cohabiter dans une même base de données (un “catalogue” dans le jargon PostgreSQL) plusieurs ensembles d’informations de natures différentes.</p>
+<p>Les schémas sont une abstraction spécifique à PostgreSQL. Malheureusement, cet usage se télescope avec le concept de schéma d’une relation ou d’une table, terme vu en cours.</p>
+<p><strong>Dans le jargon PostgreSQL</strong>, un “schéma” correspond à la notion habituelle de base de données, c.a.d. un ensemble de tables d’un même système d’information, et un “catalogue” regroupe différents “schémas”.</p>
 <p>Dans ce TP, nous allons nous concentrer sur le schéma <code>world</code> qui contient des informations concernant des villes et des pays/territoires du monde entier. Au cours de ce semestre, nous serons amenés à utiliser d’autres schémas : <code>pagila</code> qui contient des informations concernant des films, …</p>
 <p>Dans dBeaver, vous pouvez lister les schémas du catalogue <code>bd_2023-24</code>, en développant la connexion <code>bd_2023-24</code>.</p>
 <p>Puis en développant le schéma <code>world</code>, vous pouvez lister les tables qu’il contient.</p>
@@ -4432,9 +4431,7 @@ window.Quarto = {
 <section id="écriture-dune-requête" class="level1">
 <h1>Écriture d’une requête</h1>
 <p>Pour extraire des informations d’une base de données, on utilise l’algèbre relationnelle (pour la théorie) et le langage SQL (pour la pratique).</p>
-<p>A la fin du TP, vous devez rendre sur Moodle vos fichiers scripts (a priori un par exercice). Chaque fichier contient une liste de requêtes SQL. <em>Lorsque c’est demandé, il faut écrire en commentaire l’expression correspondante en algèbre relationnelle</em>.</p>
-<p>Pour écrire un commentaire en SQL : <code>--</code> en début de ligne.</p>
-<p><em>NB</em> : pensez à documenter vos scripts en utilisant les commantaire SQL</p>
+<p><em>NB</em> : pensez à documenter vos scripts en utilisant les commentaire SQL : <code>--</code> en début de ligne.</p>
 </section>
 <section id="requêtes-monotables" class="level1">
 <h1>Requêtes monotables</h1>
@@ -4451,9 +4448,9 @@ Ces deux opérations peuvent être écrites en SQL ainsi :
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> colonne1, colonne2, <span class="op">..</span>. </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="kw">table</span> </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> condition;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>affiche les colonnes de <code>table</code> indiquées après le <code>SELECT</code> qui respectent la <code>condition</code>.</p>
+<p>affiche les colonnes <code>colonne1, colonne2, ...</code> de <code>table</code> pour les lignes qui respectent <code>condition</code>.</p>
 <p>C’est la transcription de</p>
-<p><span class="math display">\[{\Pi}_{\texttt{colonne1, colonne2}}\left({\Large \sigma}_{\texttt{condition}}\left(\texttt{table}\right)\right)\]</span></p>
+<p><span class="math inline">\({\Pi}\left({\Large \sigma}\left(\texttt{table, condition}\right), \texttt{colonne1, colonne2} \right)\)</span></p>
 <p>Par exemple:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> name_country, lifeexpectancy</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country</span>
@@ -4464,90 +4461,166 @@ Ces deux opérations peuvent être écrites en SQL ainsi :
 <h2 class="anchored" data-anchor-id="éxercice-1">Éxercice 1</h2>
 <p>Ecrire des requêtes en algèbre relationnelle et en SQL pour extraire les informations suivantes du schéma <code>world</code>:</p>
 <ol class="example" type="1">
-<li>Quelles sont les régions ? (25 lignes)</li>
+<li>Quelles sont les régions ? On ne veut pas de doublons. (25 lignes)</li>
 </ol>
+<p>L’algèbre relationnelle vue en cours opérant sur les ensembles, <code>DISTINCT</code> est toujours implicitement implémenté par la requête algébrique. Ce n’est pas le cas en SQL (variante multi-ensembliste de l’algèbre relationnelle), il existe donc un opérateur d’élimination des doublons : <code>DISTINCT</code>.</p>
 <ol start="2" class="example" type="1">
-<li>Quelles sont les régions situées en Europe ? (6 lignes)</li>
+<li>Quelles sont les régions situées en Europe (pas de doublons) ? (6 lignes)</li>
 </ol>
+<!--
+@. Quelles sont les dates d'indépendance des pays d'Europe ? (46 lignes)
+  
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+$\Pi \big( {\Large \sigma}(\texttt{country} , \texttt{ continent = 'Europe'}),\texttt{ name\_country , indepyear}\big)$
+
+```{.sql}
+SELECT name_country , indepyear
+FROM country
+WHERE continent = 'Europe' ;
+```
+:::
+:::
+-->
 <ol start="3" class="example" type="1">
 <li>Quels sont les pays situés en Europe du sud (‘Southern Europe’) ? (15 lignes)</li>
 </ol>
 <ol start="4" class="example" type="1">
-<li>Quelles sont les capitales des pays situés en Europe de l’Ouest ? (quel est le type de la colonne <code>capital</code> dans la table <code>country</code>?) (9 lignes)</li>
-</ol>
-<ol start="5" class="example" type="1">
 <li>A partir de la table <code>countrylanguage</code>, quels sont les langues qui sont officielles dans au moins un pays ? (102 lignes)</li>
 </ol>
-<ol start="6" class="example" type="1">
+<ol start="5" class="example" type="1">
 <li>Quels sont les codes des pays où le français est langue officielle ? (18 lignes) Même question pour les langues de votre choix ?</li>
 </ol>
-<ol start="7" class="example" type="1">
-<li>Quelle est la date d’indépendance de la France ?</li>
-</ol>
-<ol start="8" class="example" type="1">
-<li>Quelles sont les dates d’indépendance des pays d’Europe ? (46 lignes)</li>
-</ol>
-<ol start="9" class="example" type="1">
+<!--
+@. Quelle est la date d'indépendance de la France ?
+  
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+$\Pi \big( {\Large \sigma}(\texttt{country},\texttt{ countrycode = 'FRA'}),\texttt{ indepyear}\big)$
+
+```{.sql}
+SELECT indepyear
+FROM country
+WHERE countrycode = 'FRA' ;
+```
+:::
+:::
+-->
+<ol start="6" class="example" type="1">
 <li>Quelles sont les villes françaises de plus de 200 000 habitants ? (10 lignes)</li>
 </ol>
-<ol start="10" class="example" type="1">
-<li>Pour chaque pays européen, calculer la densité, le GNP par habitant, et l’espérance de vie, ordonner par densité décroissante. (46 lignes)</li>
-</ol>
-<ol start="11" class="example" type="1">
-<li>Quels sont les pays où l’espérance de vie n’est pas inférieure à 77 ans et le pnb par habitant n’est pas supérieur à (0.010) ? (10 lignes)</li>
-</ol>
-<ol start="12" class="example" type="1">
-<li>Quels sont les pays tels que la condition (espérance de vie supérieure ou égale à 77 ans ou PNB par habitant inférieur à (0.01)) n’est pas vérifée ? (16 lignes)</li>
-</ol>
-<ol start="13" class="example" type="1">
+<ol start="7" class="example" type="1">
 <li>Quels sont les pays où une langue est officielle sans être parlée par au moins la moitié de la population ? (92 lignes)</li>
 </ol>
-<ol start="14" class="example" type="1">
-<li>Quels sont les codes des pays qui ont au moins une langue officielle ? (190 lignes)</li>
+<ol start="8" class="example" type="1">
+<li>Pour chaque pays européen, calculer la densité, le GNP par habitant, et l’espérance de vie, ordonner par densité décroissante. (46 lignes)</li>
 </ol>
-<ol start="15" class="example" type="1">
-<li>Quels sont les noms des pays qui comptent plus de 100 000 000 d’habitants ? (10 lignes)</li>
+<ol start="9" class="example" type="1">
+<li>Quels sont les pays où l’espérance de vie n’est pas inférieure à 77 ans et le pnb par habitant n’est pas supérieur à (0.010) ? (10 lignes)</li>
 </ol>
+<ol start="10" class="example" type="1">
+<li>En option : quels sont les pays tels que la condition (espérance de vie supérieure ou égale à 77 ans ou PNB par habitant inférieur à (0.01)) n’est pas vérifée ? (16 lignes)</li>
+</ol>
+<!--
+@. Quels sont les codes des pays qui ont au moins une langue officielle ? (190 lignes)
+    
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+$\Pi \big( {\Large \sigma}(\texttt{countrylanguage}, \texttt{ isofficial}), \texttt{ countrycode}\big)$  
+
+```{.sql}
+SELECT DISTINCT countrycode 
+FROM countrylanguage 
+WHERE isofficial ;
+```
+
+:::
+:::
+-->
+<!--
+@. Quels sont les noms des pays qui comptent plus de 100 000 000
+d'habitants ? (10 lignes)
+    
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+$\Pi \big( {\Large \sigma}(\texttt{country}, \texttt{ population\_country > 100000000}), \texttt{ name\_country}\big)$
+
+```{.sql}
+SELECT name_country 
+FROM country
+WHERE population_country > 100000000 ;
+```
+
+:::
+:::
+-->
 </section>
 </section>
 <section id="requêtes-multi-tables" class="level1">
 <h1>Requêtes multi-tables</h1>
-<p>On peut aussi combiner plusieurs tables. Pour ce TP, nous allons seulement présenter le produit cartésien de deux tables: <span class="math inline">\(T \times S\)</span> est la table dont les colonnes sont les colonnes de <span class="math inline">\(S\)</span> et les colonnes de <span class="math inline">\(T\)</span> et dont les lignes sont tous les couples <span class="math inline">\((l_1,l_2)\)</span> où <span class="math inline">\(l_1\)</span> est une ligne de <span class="math inline">\(T\)</span> et <span class="math inline">\(l_2\)</span> est une ligne de <span class="math inline">\(S\)</span>. En SQL, on écrira:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> col1,col2 </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> table1,table2 </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> condition;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Par exemple,</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> language</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country <span class="kw">as</span> co, countrylanguage <span class="kw">as</span> l</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> co.countrycode <span class="op">=</span> l.countrycode <span class="kw">and</span> co.continent <span class="op">=</span> <span class="st">&#39;Europe&#39;</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On peut aussi combiner plusieurs tables. Par exemple,</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> language</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> country <span class="kw">as</span> co <span class="kw">JOIN</span> countrylanguage <span class="kw">as</span> l</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">ON</span> co.countrycode <span class="op">=</span> l.countrycode</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> co.continent <span class="op">=</span> <span class="st">&#39;Europe&#39;</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>affichera les langues parlées en Europe. Remarquez l’utilisation des <code>as</code> pour donner de nouveaux noms aux tables et l’utilisation de <code>co.countrycode</code> pour lever l’ambiguité sur des noms de colonnes qui seraient éventuellement les mêmes.</p>
 <section id="éxercice-2" class="level2">
 <h2 class="anchored" data-anchor-id="éxercice-2">Éxercice 2</h2>
 <p>Ecrire des requêtes pour les questions suivantes:</p>
-<ol start="16" class="example" type="1">
+<ol start="11" class="example" type="1">
 <li>Quels sont les noms des capitales sud-américaines ? (14 lignes)</li>
 </ol>
-<ol start="17" class="example" type="1">
+<ol start="12" class="example" type="1">
 <li>Quels sont les noms des pays où le français est langue officielle ? (18 lignes)</li>
 </ol>
-<ol start="18" class="example" type="1">
+<ol start="13" class="example" type="1">
+<li>Quelles sont les langues officielles d’Asie (pas de doublons) ? (38 lignes)</li>
+</ol>
+<ol start="14" class="example" type="1">
 <li>Quelles sont les pays où l’espagnol est langue officielle et la forme de gouvernement est ‘Federal Republic’ ? (3 lignes)</li>
 </ol>
-<ol start="19" class="example" type="1">
+<ol start="15" class="example" type="1">
+<li>Quels sont les villes de plus de 1 000 000 habitants situé dans un pays où l’espagnol est langue officielle ? Il faut préciser aussi le pays. (28 lignes)</li>
+</ol>
+<ol start="16" class="example" type="1">
 <li>Quels sont les pays qui ont au moins deux langues officielles ? (38 lignes)</li>
 </ol>
-<ol start="20" class="example" type="1">
+<ol start="17" class="example" type="1">
 <li>Quels sont les pays qui n’ont pas de langue officielle ? (49 lignes)</li>
 </ol>
-<ol start="21" class="example" type="1">
+<ol start="18" class="example" type="1">
 <li>Quels sont les pays qui comportent au moins deux villes de plus de 1 000 000 habitants ? (32 lignes)</li>
 </ol>
-<ol start="22" class="example" type="1">
+<ol start="19" class="example" type="1">
 <li>Quelles sont les régions qui ne comportent qu’une seule forme de gouvernement ? (3 lignes)</li>
 </ol>
-<ol start="23" class="example" type="1">
-<li>Quelles sont les régions où on ne trouve pas de monarchie ? (9 lignes)</li>
-</ol>
+<!--
+@. Quelles sont les régions où on ne trouve pas de monarchie ? (9 lignes)
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+La requête algébrique a la même forme que la précédente mais nécessite d'introduire une opération `LIKE`.
+
+```{.sql}
+(  
+   SELECT region 
+   FROM country
+)
+EXCEPT
+(  
+   SELECT region 
+   FROM country
+   WHERE governmentform LIKE '%Monarchy%'
+) ;
+```
+
+:::
+:::
+-->
 
 
 </section>
