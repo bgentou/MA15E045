@@ -670,7 +670,7 @@
 <p>Quels sont les pays qui portent le même nom que leur capitale ?</p>
 <div class="fragment">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a></a><span class="kw">SELECT</span> name_country</span>
-<span id="cb14-2"><a></a><span class="kw">FROM</span> country co <span class="kw">join</span> city ci </span>
+<span id="cb14-2"><a></a><span class="kw">FROM</span> country co <span class="kw">JOIN</span> city ci </span>
 <span id="cb14-3"><a></a><span class="kw">ON</span> co.capital<span class="op">=</span>ci.<span class="kw">id</span>  </span>
 <span id="cb14-4"><a></a><span class="kw">WHERE</span> co.name_country <span class="op">=</span> ci.name;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>qui correspond à</p>
