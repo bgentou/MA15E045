@@ -413,8 +413,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#serveur" id="toc-serveur" class="nav-link active" data-scroll-target="#serveur">Serveur</a></li>
   <li><a href="#clients" id="toc-clients" class="nav-link" data-scroll-target="#clients">Clients</a></li>
-  <li><a href="#connexions-ssh-linuxmacoswindows" id="toc-connexions-ssh-linuxmacoswindows" class="nav-link" data-scroll-target="#connexions-ssh-linuxmacoswindows">Connexions <code>ssh</code> (Linux/MacOS/Windows)</a></li>
-  <li><a href="#connexions-ssh-avec-tunnel" id="toc-connexions-ssh-avec-tunnel" class="nav-link" data-scroll-target="#connexions-ssh-avec-tunnel">Connexions <code>ssh</code> avec <em>tunnel</em></a></li>
+  <li><a href="#connexion-ssh-linuxmacoswindows" id="toc-connexion-ssh-linuxmacoswindows" class="nav-link" data-scroll-target="#connexion-ssh-linuxmacoswindows">Connexion <code>ssh</code> (Linux/MacOS/Windows)</a></li>
+  <li><a href="#connexion-ssh-avec-tunnel" id="toc-connexion-ssh-avec-tunnel" class="nav-link" data-scroll-target="#connexion-ssh-avec-tunnel">Connexion <code>ssh</code> avec <em>tunnel</em></a></li>
   <li><a href="#client-dbeaver" id="toc-client-dbeaver" class="nav-link" data-scroll-target="#client-dbeaver">Client <code>dbeaver</code></a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/bgentou/MA15E045/edit/main/computing-access.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/bgentou/MA15E045/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -465,8 +465,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Puis vous aprendrez à établir un tunnel <code>ssh</code> avec redirection de port pour travailler sur un client hébergé par votre poste de travail.</p>
 <p>Une fois que vous aurez appris à faire ces deux manipulations, vous pourrez utiliser le client dBeaver sur votre poste de travail en salle de TP comme à l’extérieur.</p>
 </section>
-<section id="connexions-ssh-linuxmacoswindows" class="level1">
-<h1>Connexions <code>ssh</code> (Linux/MacOS/Windows)</h1>
+<section id="connexion-ssh-linuxmacoswindows" class="level1">
+<h1>Connexion <code>ssh</code> (Linux/MacOS/Windows)</h1>
 <p>Pour accéder au serveur <code>Postgres</code> (SGBD), il faut d’abord se connecter à la machine qui héberge ce serveur <code>etu-pgsql.math.univ-paris-diderot.fr</code>.</p>
 <p>Pour se connecter à <code>etu-pgsql.math.univ-paris-diderot.fr</code>, on utilise le protocole <a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank"><code>ssh</code></a>, avec son identifiant et son mot de passe <code>ENT</code>.</p>
 <p>Il faut ouvrir un terminal (de préférence PowerShell sous Windows) puis lancer la commande suivante en remplaçant <code>username</code> par votre nom de login.</p>
@@ -535,8 +535,8 @@ Important
 </div>
 </div>
 </section>
-<section id="connexions-ssh-avec-tunnel" class="level1">
-<h1>Connexions <code>ssh</code> avec <em>tunnel</em></h1>
+<section id="connexion-ssh-avec-tunnel" class="level1">
+<h1>Connexion <code>ssh</code> avec <em>tunnel</em></h1>
 <p>Mais utiliser une connexion <code>ssh</code> et un <em>client base de données</em> qui s’exécute sur le serveur n’est pas la manière la plus confortable de travailler.</p>
 <p>Il est plus pratique d’utiliser un <em>client base de données</em> qui s’exécute sur sa propre machine (en local) et qui interagit avec le serveur PostGres au travers d’un <em>tunnel</em> <code>ssh</code>.</p>
 <p>La commande suivante établit un tunnel (remplacer `username` par votre nom de login).</p>
