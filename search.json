@@ -3822,7 +3822,7 @@
     "href": "slides/SQL_2.html#exemple-1-de-sous-requête-avec-in",
     "title": "BD II: SQL II",
     "section": "Exemple 1 de sous-requête avec IN",
-    "text": "Exemple 1 de sous-requête avec IN\nLister les villes de fournisseurs qui ont livré la pièce ‘x21’.\n\n\n\nSELECT DISTINCT VilleF \n\nFROM Fournisseur \n\nWHERE NomF IN ( \n  SELECT NomF  \n  FROM Livraison \n  WHERE NomP = 'x21'\n) ;  \n\nest équivalente à :\nSELECT DISTINCT F.VilleF \n\nFROM Fournisseur F, Livraison L \n\nWHERE (F.NomF = L.NomF) AND \n  (L.NomP = 'x21');"
+    "text": "Exemple 1 de sous-requête avec IN\nLister les villes de fournisseurs qui ont livré la pièce ‘x21’.\n\n\n\nSELECT DISTINCT VilleF \n\nFROM Fournisseur \n\nWHERE NomF IN ( \n  SELECT NomF  \n  FROM Livraison \n  WHERE NomP = 'x21'\n) ;  \n\nest équivalente à :\nSELECT DISTINCT F.VilleF \n\nFROM Fournisseur F JOIN Livraison L \n   ON F.NomF = L.NomF\n\nWHERE L.NomP = 'x21';"
   },
   {
     "objectID": "slides/SQL_2.html#exemple-2-de-sous-requête-avec-in",
@@ -3892,7 +3892,7 @@
     "href": "slides/SQL_2.html#exemple-3-de-sous-requête-avec-exists",
     "title": "BD II: SQL II",
     "section": "Exemple 3 de sous-requête avec EXISTS",
-    "text": "Exemple 3 de sous-requête avec EXISTS\nLes régions qui ont au moins une langue officielle :\nSELECT DISTINCT region \nFROM country AS co\nWHERE EXISTS (\n  SELECT * \n  FROM countrylanguage AS cl\n  WHERE co.countrycode = cl.countrycode  AND cl.isofficial\n);\néquivalent à\nSELECT DISTINCT region \nFROM country AS co join world.countrylanguage as cl \non co.countrycode = cl.countrycode and cl.isofficial;"
+    "text": "Exemple 3 de sous-requête avec EXISTS\nLes régions qui ont au moins une langue officielle :\nSELECT DISTINCT region \nFROM country AS co\nWHERE EXISTS (\n  SELECT * \n  FROM countrylanguage AS cl\n  WHERE co.countrycode = cl.countrycode  AND cl.isofficial\n);\néquivalent à\nSELECT DISTINCT region \nFROM country AS co join countrylanguage as cl \non co.countrycode = cl.countrycode and cl.isofficial;"
   },
   {
     "objectID": "slides/SQL_2.html#sous-requête-scalaire",
