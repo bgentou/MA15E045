@@ -4436,49 +4436,92 @@ WHERE continent = 'Europe' AND population > 1000000;
 </section>
 <section id="questions" class="level2">
 <h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<!--
+@. Quels sont les pays dont le gouvernement est monarchique (constitutionnelle ou pas) ? (43 lignes)
+  
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT name_country 
+FROM world.country 
+WHERE governmentform LIKE '%Monarchy%';
+```
+::: 
+:::
+-->
+<!--
+@. Quels sont les noms des capitales Sud-Américaines ? (14 lignes)
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT name
+FROM world.city JOIN world.country ON capital=id
+WHERE continent = 'South America';
+```
+::: 
+:::
+-->
+<!--
+@. Quels sont les noms des pays où le français est langue officielle ? (18 lignes)
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT name_country
+FROM world.country JOIN world.countrylanguage USING (countrycode)
+WHERE isofficial AND language='French';
+```
+::: 
+:::
+-->
+<!--
+
+@.  Quelles sont les langues officielles des pays dont la capitale compte plus de 5 000 000 d'habitants ? (12 lignes)
+
+::: {.content-visible when-profile="solution"}
+::: {.callout-tip title="Solution"}
+
+```{.sql}
+SELECT DISTINCT language
+FROM country co JOIN city ci ON co.capital=ci.id
+     JOIN countrylanguage cl ON co.countrycode=cl.countrycode
+WHERE population > 5000000 and isofficial;
+```
+::: 
+:::
+-->
 <ol class="example" type="1">
-<li>Quels sont les noms des capitales Sud-Américaines ? (14 lignes)</li>
+<li>Quelles sont les monarchies d’Europe dont la capitale compte moins d’un million d’habitants ? (8 lignes) Proposer une solution avec une CTE qui sélectionne les pays européens dont le gouvernement est monarchique.</li>
 </ol>
 <ol start="2" class="example" type="1">
-<li>Quels sont les noms des pays où le français est langue officielle ? (18 lignes)</li>
+<li>Quels sont les pays où l’anglais et le français sont des <em>langues officielles</em> ? (3 lignes) Proposer une solution avec une CTE qui sélectionne les codes des pays où l’anglais et le français sont des langues officielles.</li>
 </ol>
 <ol start="3" class="example" type="1">
-<li>Quels sont les pays dont le gouvernement est monarchique (constitutionnelle ou pas) ? (43 lignes)</li>
+<li>Quelles sont les régions où on ne trouve pas de monarchie ? (9 lignes) Proposer une solution avec une CTE et une différence.</li>
 </ol>
 <ol start="4" class="example" type="1">
-<li>Quelles sont les monarchies d’Europe dont la capitale compte moins d’un million d’habitants ? (8 lignes)</li>
+<li>Quelles sont les langues qui ne sont officielles dans aucun pays ? (355 lignes)</li>
 </ol>
 <ol start="5" class="example" type="1">
-<li>Quelles sont les régions où on ne trouve pas de monarchie ? (9 lignes)</li>
-</ol>
-<ol start="6" class="example" type="1">
-<li>Quelles sont les langues qui ne sont langues officielles dans aucun pays ? (355 lignes)</li>
-</ol>
-<ol start="7" class="example" type="1">
 <li>Quels sont les pays qui n’ont pas de langue officielle ? (49 lignes)</li>
 </ol>
-<ol start="8" class="example" type="1">
-<li>Quels sont les pays dont la seule langue officielle est le français ? (9 lignes)</li>
-</ol>
-<ol start="9" class="example" type="1">
-<li>Les noms des pays où le français n’est pas la seule langue officielle. (9 lignes)</li>
-</ol>
-<ol start="10" class="example" type="1">
+<ol start="6" class="example" type="1">
 <li>Quelles sont les régions qui ne comportent qu’une seule forme de gouvernement ? (3 lignes)</li>
 </ol>
-<ol start="11" class="example" type="1">
-<li>Quelles sont les langues officielles des pays dont la capitale compte plus de 5 000 000 d’habitants ? (12 lignes)</li>
+<ol start="7" class="example" type="1">
+<li>Quels sont les pays dont la seule langue officielle est le français ? (9 lignes)</li>
 </ol>
-<ol start="12" class="example" type="1">
+<ol start="8" class="example" type="1">
+<li>Quels sont les noms des pays où le français n’est pas la seule langue officielle. (9 lignes)</li>
+</ol>
+<ol start="9" class="example" type="1">
 <li>Quels sont les pays où au moins trois langues sont parlées chacune par strictement plus de <span class="math inline">\(10\%\)</span> de la population ? (35 lignes)</li>
 </ol>
-<ol start="13" class="example" type="1">
-<li>Quelles sont les régions où il existe deux pays dont les espérances de vie diffèrent par au moins <span class="math inline">\(10\)</span> ans ? (16 lignes)</li>
-</ol>
-<ol start="14" class="example" type="1">
-<li>Quels sont les pays où l’anglais et le français sont des <em>langues officielles</em> ? (3 lignes)</li>
-</ol>
-<ol start="15" class="example" type="1">
+<ol start="10" class="example" type="1">
 <li>Montrer comment calculer l’<em>intersection</em> de deux tables avec une <em>jointure</em> (sous certaines conditions).</li>
 </ol>
 
