@@ -815,20 +815,21 @@ WHERE L.NomP = P.NomP AND
 <span id="cb27-3"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> name_country;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section>
-<section id="exemple-2-avec-lateral" class="slide level2 center">
-<h2>Exemple 2 avec <code>LATERAL</code></h2>
-<p>Plus intéressant : pour chaque pays, donner la ville la plus peuplée.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a></a><span class="kw">SELECT</span> co.name_country, sr.name </span>
-<span id="cb28-2"><a></a><span class="kw">FROM</span> country co, LATERAL (  </span>
-<span id="cb28-3"><a></a>  <span class="kw">SELECT</span> name       </span>
-<span id="cb28-4"><a></a>  <span class="kw">FROM</span> city ci            </span>
-<span id="cb28-5"><a></a>  <span class="kw">WHERE</span> ci.countrycode<span class="op">=</span>co.countrycode</span>
-<span id="cb28-6"><a></a>  <span class="kw">ORDER</span> <span class="kw">BY</span> ci.population <span class="kw">DESC</span></span>
-<span id="cb28-7"><a></a>  <span class="kw">LIMIT</span> <span class="dv">1</span></span>
-<span id="cb28-8"><a></a>) sr</span>
-<span id="cb28-9"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> co.name_country;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="exemple-typique-dutilisation-de-lateral" class="slide level2 center">
+<h2>Exemple typique d’utilisation de <code>LATERAL</code></h2>
+<p>Pour chaque pays, donner les 3 villes les plus peuplées, par ordre alphabétique des pays puis par ordre décroissant de la population des villes.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb28-1"><a></a><span class="kw">SELECT</span> co.name_country, sr.name, sr.population</span>
+<span id="cb28-2"><a></a><span class="kw">FROM</span> country co <span class="kw">JOIN</span> LATERAL </span>
+<span id="cb28-3"><a></a>(  </span>
+<span id="cb28-4"><a></a>  <span class="kw">SELECT</span> name, population      </span>
+<span id="cb28-5"><a></a>  <span class="kw">FROM</span> city ci            </span>
+<span id="cb28-6"><a></a>  <span class="kw">WHERE</span> ci.countrycode<span class="op">=</span>co.countrycode</span>
+<span id="cb28-7"><a></a>  <span class="kw">ORDER</span> <span class="kw">BY</span> ci.population <span class="kw">DESC</span></span>
+<span id="cb28-8"><a></a>  <span class="kw">LIMIT</span> <span class="dv">3</span></span>
+<span id="cb28-9"><a></a>) sr <span class="kw">ON</span> <span class="kw">TRUE</span></span>
+<span id="cb28-10"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> co.name_country, sr.population <span class="kw">DESC</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Evaluation : si la table dérivée est vide, le tuple <span class="math inline">\(u\)</span> de la table <code>country</code> n’est pas retenu car <span class="math inline">\(\lbrace u\rbrace \times \emptyset = \emptyset\)</span>.</p>
-<p>Donc les pays sans ville ne sont pas affichés.</p>
+<p>Donc les pays sans ville ne sont pas affichés. On peut les afficher en utilisant une <strong>jointure externe gauche</strong> (LEFT JOIN LATERAL).</p>
 </section></section>
 <section>
 <section id="les-ctes-avec-with" class="title-slide slide level1 center" data-background-color="#1c191c">

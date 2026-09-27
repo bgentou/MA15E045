@@ -1137,6 +1137,25 @@ Combien de fois calculez vous l'espérance de minimale pour chaque région ?
 <span id="cb51-8"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> continent </span>
 <span id="cb51-9"><a></a><span class="kw">HAVING</span> <span class="fu">AVG</span>(<span class="fl">1e6</span><span class="op">*</span>gnpold<span class="op">/</span>population_country) <span class="op">&gt;=</span> <span class="dv">1000</span> </span>
 <span id="cb51-10"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> continent;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</section><section id="conséquence-de-lordre-des-opérations" class="slide level2 center"><h2>Conséquence de l’ordre des opérations</h2>
+<p>Il n’est pas possible dans une même requête de compter selon deux sélections différentes, sauf en ayant recours à des astuces. En général, la meilleure solution est de faire des CTEs.</p>
+<p>Exemple : une méthode (discutable) avec <code>COUNT</code> pour lister les pays où le Français et l’Anglais sont langues officielles.</p>
+<div class="fragment">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb52-1"><a></a><span class="kw">SELECT</span> countrycode </span>
+<span id="cb52-2"><a></a><span class="kw">FROM</span> countrylanguage </span>
+<span id="cb52-3"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> countrycode</span>
+<span id="cb52-4"><a></a><span class="kw">HAVING</span> <span class="fu">COUNT</span>(</span>
+<span id="cb52-5"><a></a>    <span class="cf">CASE</span> </span>
+<span id="cb52-6"><a></a>      <span class="cf">WHEN</span> language <span class="op">=</span> <span class="st">'French'</span> <span class="kw">and</span> isofficial <span class="cf">THEN</span> countrycode </span>
+<span id="cb52-7"><a></a>      <span class="cf">ELSE</span> <span class="kw">NULL</span> </span>
+<span id="cb52-8"><a></a>    <span class="cf">END</span>) <span class="op">&gt;=</span> <span class="dv">1</span></span>
+<span id="cb52-9"><a></a>    <span class="kw">AND</span> <span class="fu">COUNT</span>(</span>
+<span id="cb52-10"><a></a>    <span class="cf">CASE</span> </span>
+<span id="cb52-11"><a></a>      <span class="cf">WHEN</span> language <span class="op">=</span> <span class="st">'English'</span> <span class="kw">and</span> isofficial <span class="cf">THEN</span> countrycode </span>
+<span id="cb52-12"><a></a>      <span class="cf">ELSE</span> <span class="kw">NULL</span> </span>
+<span id="cb52-13"><a></a>    <span class="cf">END</span>) <span class="op">&gt;=</span> <span class="dv">1</span></span>
+<span id="cb52-14"><a></a>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section></section><section><section id="fonctions-fenêtres-window-functions" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Fonctions fenêtres (Window functions)</h1>
 
 </section><section id="principe-des-fonctions-fenêtres" class="slide level2 center"><h2>Principe des fonctions fenêtres</h2>
@@ -1168,7 +1187,7 @@ Combien de fois calculez vous l'espérance de minimale pour chaque région ?
 </section><section id="fonctions-fenêtres" class="slide level2 center"><h2>Fonctions fenêtres</h2>
 <p>Soit <code>f</code> est une fonction d’agrégation (<code>SUM</code>, <code>AVG</code>, <code>MAX</code>, <code>MIN</code>, <code>COUNT</code>, etc.)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb52-1"><a></a>f(<span class="op">..</span>.) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> attribut) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb53-1"><a></a>f(<span class="op">..</span>.) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> attribut) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>effectue le calcul sur le groupe de lignes auquel appartient la ligne courante après un partitionnement selon <code>attribut</code>.</p>
 <p>Ce groupe de lignes est le cadre de la fonction fenêtre pour la ligne courante.</p>
@@ -1176,13 +1195,13 @@ Combien de fois calculez vous l'espérance de minimale pour chaque région ?
 <p>Présenter pour chaque pays dont la région comprend le motif <code>Countries</code>, l’espérance de vie du pays et les espérance de vie maximale et minimale des pays de la région.</p>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb53-1"><a></a><span class="kw">SELECT</span> region, name_country, lifeexpectancy, </span>
-<span id="cb53-2"><a></a>     <span class="fu">min</span>(lifeexpectancy) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> region),  </span>
-<span id="cb53-3"><a></a>     <span class="fu">max</span>(lifeexpectancy) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> region)   </span>
-<span id="cb53-4"><a></a><span class="kw">FROM</span> country </span>
-<span id="cb53-5"><a></a><span class="kw">WHERE</span> region <span class="kw">LIKE</span> <span class="st">'%Countries'</span></span>
-<span id="cb53-6"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> region, lifeexpectancy  </span>
-<span id="cb53-7"><a></a><span class="kw">LIMIT</span> <span class="dv">6</span> ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb54-1"><a></a><span class="kw">SELECT</span> region, name_country, lifeexpectancy, </span>
+<span id="cb54-2"><a></a>     <span class="fu">min</span>(lifeexpectancy) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> region),  </span>
+<span id="cb54-3"><a></a>     <span class="fu">max</span>(lifeexpectancy) <span class="kw">OVER</span> (<span class="kw">PARTITION</span> <span class="kw">BY</span> region)   </span>
+<span id="cb54-4"><a></a><span class="kw">FROM</span> country </span>
+<span id="cb54-5"><a></a><span class="kw">WHERE</span> region <span class="kw">LIKE</span> <span class="st">'%Countries'</span></span>
+<span id="cb54-6"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> region, lifeexpectancy  </span>
+<span id="cb54-7"><a></a><span class="kw">LIMIT</span> <span class="dv">6</span> ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <pre><code>+------------------+-----------------+---------------+-----+-----+
 | Region           | Name of country |Life expectancy| min | max |
@@ -1218,24 +1237,24 @@ Combien de fois calculez vous l'espérance de minimale pour chaque région ?
 </ol>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb55-1"><a></a><span class="kw">WITH</span> R <span class="kw">AS</span> (</span>
-<span id="cb55-2"><a></a>  <span class="kw">SELECT</span> region, <span class="fu">min</span>(lifeexpectancy) <span class="kw">AS</span> minlex, <span class="fu">max</span>(lifeexpectancy) <span class="kw">AS</span> maxlex</span>
-<span id="cb55-3"><a></a>  <span class="kw">FROM</span> country</span>
-<span id="cb55-4"><a></a>  <span class="kw">WHERE</span> region <span class="kw">LIKE</span> <span class="st">'%Countries'</span> <span class="kw">AND</span> lifeexpectancy <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span> </span>
-<span id="cb55-5"><a></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> region</span>
-<span id="cb55-6"><a></a>)</span>
-<span id="cb55-7"><a></a></span>
-<span id="cb55-8"><a></a><span class="kw">SELECT</span> region, name_country, lifeexpectancy, minlex, maxlex</span>
-<span id="cb55-9"><a></a><span class="kw">FROM</span> country co <span class="kw">NATURAL</span> <span class="kw">JOIN</span> R</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb56-1"><a></a><span class="kw">WITH</span> R <span class="kw">AS</span> (</span>
+<span id="cb56-2"><a></a>  <span class="kw">SELECT</span> region, <span class="fu">min</span>(lifeexpectancy) <span class="kw">AS</span> minlex, <span class="fu">max</span>(lifeexpectancy) <span class="kw">AS</span> maxlex</span>
+<span id="cb56-3"><a></a>  <span class="kw">FROM</span> country</span>
+<span id="cb56-4"><a></a>  <span class="kw">WHERE</span> region <span class="kw">LIKE</span> <span class="st">'%Countries'</span> <span class="kw">AND</span> lifeexpectancy <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span> </span>
+<span id="cb56-5"><a></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> region</span>
+<span id="cb56-6"><a></a>)</span>
+<span id="cb56-7"><a></a></span>
+<span id="cb56-8"><a></a><span class="kw">SELECT</span> region, name_country, lifeexpectancy, minlex, maxlex</span>
+<span id="cb56-9"><a></a><span class="kw">FROM</span> country co <span class="kw">NATURAL</span> <span class="kw">JOIN</span> R</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section><section id="fonctions-fenêtres-avec-une-clause-order-by" class="slide level2 center"><h2>Fonctions fenêtres avec une clause <code>ORDER BY</code>
 </h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb56-1"><a></a>f(<span class="op">..</span>.) <span class="kw">OVER</span> (</span>
-<span id="cb56-2"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> attribut1</span>
-<span id="cb56-3"><a></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> attribut2 </span>
-<span id="cb56-4"><a></a>  )</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb57-1"><a></a>f(<span class="op">..</span>.) <span class="kw">OVER</span> (</span>
+<span id="cb57-2"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> attribut1</span>
+<span id="cb57-3"><a></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> attribut2 </span>
+<span id="cb57-4"><a></a>  )</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>La clause <code>ORDER BY attribut2</code> :</p>
 <ul>
@@ -1287,18 +1306,18 @@ La colonne `max` a changé. Elle est maintenant identique à la colonne `lifeexp
 <p>Pour les pays d’Asie, lister la région, le nom du pays, le rang du pays dans sa région pour l’espérance de vie et le rang du pays dans sa région pour le PNB par habitant.</p>
 </div>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb57-1"><a></a><span class="kw">SELECT</span> region, name_country, </span>
-<span id="cb57-2"><a></a>  <span class="fu">row_number</span>() <span class="kw">OVER</span> (</span>
-<span id="cb57-3"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> region   </span>
-<span id="cb57-4"><a></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> lifeexpectancy <span class="kw">DESC</span></span>
-<span id="cb57-5"><a></a>  ) <span class="kw">AS</span> rk_lifeexpectancy,</span>
-<span id="cb57-6"><a></a>  <span class="fu">row_number</span>() <span class="kw">OVER</span> (</span>
-<span id="cb57-7"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> region   </span>
-<span id="cb57-8"><a></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> gnp <span class="op">/</span> population_country <span class="kw">DESC</span></span>
-<span id="cb57-9"><a></a>  ) <span class="kw">AS</span> rk_gnp </span>
-<span id="cb57-10"><a></a><span class="kw">FROM</span> world.country </span>
-<span id="cb57-11"><a></a><span class="kw">WHERE</span> continent <span class="kw">LIKE</span> <span class="st">'Asi%'</span> <span class="kw">and</span> lifeexpectancy <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">and</span> gnp <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
-<span id="cb57-12"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> region, lifeexpectancy <span class="kw">DESC</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb58-1"><a></a><span class="kw">SELECT</span> region, name_country, </span>
+<span id="cb58-2"><a></a>  <span class="fu">row_number</span>() <span class="kw">OVER</span> (</span>
+<span id="cb58-3"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> region   </span>
+<span id="cb58-4"><a></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> lifeexpectancy <span class="kw">DESC</span></span>
+<span id="cb58-5"><a></a>  ) <span class="kw">AS</span> rk_lifeexpectancy,</span>
+<span id="cb58-6"><a></a>  <span class="fu">row_number</span>() <span class="kw">OVER</span> (</span>
+<span id="cb58-7"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> region   </span>
+<span id="cb58-8"><a></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> gnp <span class="op">/</span> population_country <span class="kw">DESC</span></span>
+<span id="cb58-9"><a></a>  ) <span class="kw">AS</span> rk_gnp </span>
+<span id="cb58-10"><a></a><span class="kw">FROM</span> world.country </span>
+<span id="cb58-11"><a></a><span class="kw">WHERE</span> continent <span class="kw">LIKE</span> <span class="st">'Asi%'</span> <span class="kw">and</span> lifeexpectancy <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span> <span class="kw">and</span> gnp <span class="kw">IS</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb58-12"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> region, lifeexpectancy <span class="kw">DESC</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1374,17 +1393,17 @@ La colonne `max` a changé. Elle est maintenant identique à la colonne `lifeexp
 <p>Calculer, pour chaque pays d’Europe, le pourcentage des PNB supérieur ou égal à celui du pays parmi ceux de sa région.</p>
 </div>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb59-1"><a></a><span class="kw">SELECT</span> </span>
-<span id="cb59-2"><a></a>  region, name_country,  </span>
-<span id="cb59-3"><a></a>  <span class="fu">ROUND</span>(<span class="fu">SUM</span>(gnp) <span class="kw">OVER</span> (</span>
-<span id="cb59-4"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> region  </span>
-<span id="cb59-5"><a></a>  <span class="kw">ORDER</span> <span class="kw">BY</span> gnp <span class="kw">DESC</span>) </span>
-<span id="cb59-6"><a></a>  <span class="op">/</span> <span class="fu">sum</span>(gnp) <span class="kw">OVER</span> (</span>
-<span id="cb59-7"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> region), <span class="dv">4</span>)<span class="op">*</span><span class="dv">100</span>  </span>
-<span id="cb59-8"><a></a>  <span class="kw">AS</span> pc_sum_GNP    </span>
-<span id="cb59-9"><a></a><span class="kw">FROM</span> world.country c </span>
-<span id="cb59-10"><a></a><span class="kw">WHERE</span> continent <span class="op">=</span> <span class="st">'Europe'</span></span>
-<span id="cb59-11"><a></a><span class="kw">order</span> <span class="kw">by</span> region, gnp <span class="kw">DESC</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb60-1"><a></a><span class="kw">SELECT</span> </span>
+<span id="cb60-2"><a></a>  region, name_country,  </span>
+<span id="cb60-3"><a></a>  <span class="fu">ROUND</span>(<span class="fu">SUM</span>(gnp) <span class="kw">OVER</span> (</span>
+<span id="cb60-4"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> region  </span>
+<span id="cb60-5"><a></a>  <span class="kw">ORDER</span> <span class="kw">BY</span> gnp <span class="kw">DESC</span>) </span>
+<span id="cb60-6"><a></a>  <span class="op">/</span> <span class="fu">sum</span>(gnp) <span class="kw">OVER</span> (</span>
+<span id="cb60-7"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> region), <span class="dv">4</span>)<span class="op">*</span><span class="dv">100</span>  </span>
+<span id="cb60-8"><a></a>  <span class="kw">AS</span> pc_sum_GNP    </span>
+<span id="cb60-9"><a></a><span class="kw">FROM</span> world.country c </span>
+<span id="cb60-10"><a></a><span class="kw">WHERE</span> continent <span class="op">=</span> <span class="st">'Europe'</span></span>
+<span id="cb60-11"><a></a><span class="kw">order</span> <span class="kw">by</span> region, gnp <span class="kw">DESC</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section><section class="slide level2 center"><pre><code>|region          |name_country                 |pc_sum_gnp|
 |----------------|-----------------------------|----------|
@@ -1436,11 +1455,11 @@ La colonne `max` a changé. Elle est maintenant identique à la colonne `lifeexp
 |Western Europe  |Monaco                       |100       |</code></pre>
 </section><section id="clause-range-dans-une-fonction-fenêtre" class="slide level2 center"><h2>Clause RANGE dans une fonction fenêtre</h2>
 <p>Il est possible d’ajouter une clause <code>RANGE</code> à une clause <code>ORDER BY</code> pour modifier le cadre de la fenêtre :</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb61-1"><a></a>f(<span class="op">..</span>.) <span class="kw">OVER</span> (</span>
-<span id="cb61-2"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> attribut1</span>
-<span id="cb61-3"><a></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> attribut2 </span>
-<span id="cb61-4"><a></a>    <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="op">..</span>. <span class="kw">AND</span> <span class="op">..</span>.</span>
-<span id="cb61-5"><a></a>  )</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb62-1"><a></a>f(<span class="op">..</span>.) <span class="kw">OVER</span> (</span>
+<span id="cb62-2"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> attribut1</span>
+<span id="cb62-3"><a></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> attribut2 </span>
+<span id="cb62-4"><a></a>    <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="op">..</span>. <span class="kw">AND</span> <span class="op">..</span>.</span>
+<span id="cb62-5"><a></a>  )</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <p>On utilise les mots clés <code>UNBOUNDED</code>, <code>PRECEDING</code>, <code>FOLLOWING</code> et <code>CURRENT ROW</code> pour spécifier les bornes de l’intervalle que doit respecter <code>attribut2</code>.</p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -1464,28 +1483,28 @@ La colonne `max` a changé. Elle est maintenant identique à la colonne `lifeexp
 <div class="columns">
 <div class="column">
 <p>Calcul d’une moyenne mobile sur l’intervalle [GNP ligne courante - 1000 , GNP ligne courante + 1000]</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb62-1"><a></a><span class="kw">SELECT</span> </span>
-<span id="cb62-2"><a></a>  continent, name_country, </span>
-<span id="cb62-3"><a></a>  <span class="fu">AVG</span>(gnp) <span class="kw">OVER</span> </span>
-<span id="cb62-4"><a></a>  (</span>
-<span id="cb62-5"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> continent  </span>
-<span id="cb62-6"><a></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> gnp <span class="kw">DESC</span></span>
-<span id="cb62-7"><a></a>    <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dv">10000</span> <span class="kw">PRECEDING</span> <span class="kw">AND</span> <span class="dv">10000</span> <span class="kw">FOLLOWING</span> </span>
-<span id="cb62-8"><a></a>  ) mob_avg_gnp</span>
-<span id="cb62-9"><a></a><span class="kw">FROM</span> world.country c </span>
-<span id="cb62-10"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> continent, gnp <span class="kw">DESC</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column">
-<p>Calcul d’une moyenne mobile sur l’intervalle [GNP ligne courante - 1000 , GNP ligne courante]</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb63-1"><a></a><span class="kw">SELECT</span> </span>
 <span id="cb63-2"><a></a>  continent, name_country, </span>
 <span id="cb63-3"><a></a>  <span class="fu">AVG</span>(gnp) <span class="kw">OVER</span> </span>
 <span id="cb63-4"><a></a>  (</span>
 <span id="cb63-5"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> continent  </span>
 <span id="cb63-6"><a></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> gnp <span class="kw">DESC</span></span>
-<span id="cb63-7"><a></a>    <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dv">10000</span> <span class="kw">PRECEDING</span> <span class="kw">AND</span> <span class="kw">CURRENT</span> <span class="kw">ROW</span> </span>
+<span id="cb63-7"><a></a>    <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dv">10000</span> <span class="kw">PRECEDING</span> <span class="kw">AND</span> <span class="dv">10000</span> <span class="kw">FOLLOWING</span> </span>
 <span id="cb63-8"><a></a>  ) mob_avg_gnp</span>
 <span id="cb63-9"><a></a><span class="kw">FROM</span> world.country c </span>
 <span id="cb63-10"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> continent, gnp <span class="kw">DESC</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<p>Calcul d’une moyenne mobile sur l’intervalle [GNP ligne courante - 1000 , GNP ligne courante]</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb64-1"><a></a><span class="kw">SELECT</span> </span>
+<span id="cb64-2"><a></a>  continent, name_country, </span>
+<span id="cb64-3"><a></a>  <span class="fu">AVG</span>(gnp) <span class="kw">OVER</span> </span>
+<span id="cb64-4"><a></a>  (</span>
+<span id="cb64-5"><a></a>    <span class="kw">PARTITION</span> <span class="kw">BY</span> continent  </span>
+<span id="cb64-6"><a></a>    <span class="kw">ORDER</span> <span class="kw">BY</span> gnp <span class="kw">DESC</span></span>
+<span id="cb64-7"><a></a>    <span class="kw">RANGE</span> <span class="kw">BETWEEN</span> <span class="dv">10000</span> <span class="kw">PRECEDING</span> <span class="kw">AND</span> <span class="kw">CURRENT</span> <span class="kw">ROW</span> </span>
+<span id="cb64-8"><a></a>  ) mob_avg_gnp</span>
+<span id="cb64-9"><a></a><span class="kw">FROM</span> world.country c </span>
+<span id="cb64-10"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> continent, gnp <span class="kw">DESC</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 </section><section id="limites-dutilisation-des-fonctions-fenêtres" class="slide level2 center"><h2>Limites d’utilisation des fonctions fenêtres</h2>
 <div class="callout callout-warning callout-titled callout-style-default">
@@ -1632,9 +1651,9 @@ China       |Asia     |        1277558000|
 </section><section class="slide level2 center"><p>On suppose que les colonnes <code>c1</code> et <code>c2</code> de la table <code>t</code> ne contiennent chacune que 2 valeurs distinctes.</p>
 <p>La requête</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb64-1"><a></a><span class="kw">SELECT</span> c1, c2, aggregate_function( <span class="op">..</span>. ) <span class="kw">as</span> f</span>
-<span id="cb64-2"><a></a><span class="kw">FROM</span> t</span>
-<span id="cb64-3"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="fu">GROUPING</span> SETS ((c1,c2), (c2), ());   </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb65-1"><a></a><span class="kw">SELECT</span> c1, c2, aggregate_function( <span class="op">..</span>. ) <span class="kw">as</span> f</span>
+<span id="cb65-2"><a></a><span class="kw">FROM</span> t</span>
+<span id="cb65-3"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="fu">GROUPING</span> SETS ((c1,c2), (c2), ());   </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>donne un résultat de la forme :</p>
 <pre><code>|c1    |c2    |f    |
@@ -1648,11 +1667,11 @@ China       |Asia     |        1277558000|
 |      |      |z7   |</code></pre>
 </section><section id="exemple-avec-grouping-sets" class="slide level2 center"><h2>Exemple avec <code>GROUPING SETS</code>
 </h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb66-1"><a></a><span class="kw">SELECT</span> continent, region, <span class="fu">max</span>(lifeexpectancy)</span>
-<span id="cb66-2"><a></a><span class="kw">FROM</span> country c </span>
-<span id="cb66-3"><a></a><span class="kw">WHERE</span> continent <span class="kw">LIKE</span> <span class="st">'%America'</span></span>
-<span id="cb66-4"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="fu">GROUPING</span> SETS  ((continent, region), (continent), ())  </span>
-<span id="cb66-5"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> continent, region ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb67"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb67-1"><a></a><span class="kw">SELECT</span> continent, region, <span class="fu">max</span>(lifeexpectancy)</span>
+<span id="cb67-2"><a></a><span class="kw">FROM</span> country c </span>
+<span id="cb67-3"><a></a><span class="kw">WHERE</span> continent <span class="kw">LIKE</span> <span class="st">'%America'</span></span>
+<span id="cb67-4"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="fu">GROUPING</span> SETS  ((continent, region), (continent), ())  </span>
+<span id="cb67-5"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> continent, region ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <pre><code>|continent    |region         |max |
 |-------------|---------------|----|
 |North America|Caribbean      |78,9|
@@ -1675,11 +1694,11 @@ China       |Asia     |        1277558000|
 </section><section id="exemple-avec-rollup" class="slide level2 center"><h2>Exemple avec <code>ROLLUP</code>
 </h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb69-1"><a></a><span class="kw">SELECT</span> continent, region, <span class="fu">max</span>(lifeexpectancy)</span>
-<span id="cb69-2"><a></a><span class="kw">FROM</span> country c </span>
-<span id="cb69-3"><a></a><span class="kw">WHERE</span> continent <span class="kw">LIKE</span> <span class="st">'%America'</span></span>
-<span id="cb69-4"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">ROLLUP</span>  (continent, region)  </span>
-<span id="cb69-5"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> continent, region ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb70-1"><a></a><span class="kw">SELECT</span> continent, region, <span class="fu">max</span>(lifeexpectancy)</span>
+<span id="cb70-2"><a></a><span class="kw">FROM</span> country c </span>
+<span id="cb70-3"><a></a><span class="kw">WHERE</span> continent <span class="kw">LIKE</span> <span class="st">'%America'</span></span>
+<span id="cb70-4"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">ROLLUP</span>  (continent, region)  </span>
+<span id="cb70-5"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> continent, region ;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <pre><code>+-------------+---------------+----+
 |Continent    |Region         |max |
@@ -1708,13 +1727,13 @@ China       |Asia     |        1277558000|
 <div class="columns">
 <div class="column" style="width:43%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb72-1"><a></a><span class="kw">SELECT</span> continent, region, governmentform, </span>
-<span id="cb72-2"><a></a>       <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">AS</span> cnt, </span>
-<span id="cb72-3"><a></a>       <span class="fu">max</span>(lifeexpectancy)</span>
-<span id="cb72-4"><a></a><span class="kw">FROM</span> country c </span>
-<span id="cb72-5"><a></a><span class="kw">WHERE</span> continent <span class="kw">LIKE</span> <span class="st">'%America'</span></span>
-<span id="cb72-6"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">CUBE</span> (continent,region,governmentform)</span>
-<span id="cb72-7"><a></a><span class="kw">HAVING</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="op">&gt;</span> <span class="dv">5</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb73-1"><a></a><span class="kw">SELECT</span> continent, region, governmentform, </span>
+<span id="cb73-2"><a></a>       <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">AS</span> cnt, </span>
+<span id="cb73-3"><a></a>       <span class="fu">max</span>(lifeexpectancy)</span>
+<span id="cb73-4"><a></a><span class="kw">FROM</span> country c </span>
+<span id="cb73-5"><a></a><span class="kw">WHERE</span> continent <span class="kw">LIKE</span> <span class="st">'%America'</span></span>
+<span id="cb73-6"><a></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="kw">CUBE</span> (continent,region,governmentform)</span>
+<span id="cb73-7"><a></a><span class="kw">HAVING</span> <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="op">&gt;</span> <span class="dv">5</span>;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:57%;">
 <pre><code>|continent    |region         |governmentform               |cnt|max |
@@ -1745,17 +1764,17 @@ China       |Asia     |        1277558000|
 </section></section><section><section id="résumé" class="title-slide slide level1 center" data-background-color="#1c191c"><h1>Résumé</h1>
 
 </section><section id="portrait-robot-dune-requête" class="slide level2 center"><h2>Portrait robot d’une requête</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb74"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb74-1"><a></a><span class="kw">SELECT</span> <span class="op">&lt;</span>attributs<span class="op">&gt;</span>           <span class="co">-- les colonnes de la table résultat</span></span>
-<span id="cb74-2"><a></a></span>
-<span id="cb74-3"><a></a><span class="kw">FROM</span> <span class="op">&lt;</span>relations<span class="op">&gt;</span>             <span class="co">-- la/les table/s qui émettent les données</span></span>
-<span id="cb74-4"><a></a></span>
-<span id="cb74-5"><a></a>[<span class="kw">WHERE</span> <span class="op">&lt;</span>condition<span class="op">&gt;</span> ]         <span class="co">-- filtre</span></span>
-<span id="cb74-6"><a></a></span>
-<span id="cb74-7"><a></a>[<span class="kw">GROUP</span> <span class="kw">BY</span> <span class="op">&lt;</span>attributs de partitionnement<span class="op">&gt;</span>   <span class="co">-- découpage en groupes</span></span>
-<span id="cb74-8"><a></a></span>
-<span id="cb74-9"><a></a>[<span class="kw">HAVING</span> <span class="op">&lt;</span>condition<span class="op">&gt;</span>]]      <span class="co">-- filtrage des groupes</span></span>
-<span id="cb74-10"><a></a></span>
-<span id="cb74-11"><a></a>[<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="op">&lt;</span>critere<span class="op">&gt;</span>]       <span class="co">-- trier </span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb75"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb75-1"><a></a><span class="kw">SELECT</span> <span class="op">&lt;</span>attributs<span class="op">&gt;</span>           <span class="co">-- les colonnes de la table résultat</span></span>
+<span id="cb75-2"><a></a></span>
+<span id="cb75-3"><a></a><span class="kw">FROM</span> <span class="op">&lt;</span>relations<span class="op">&gt;</span>             <span class="co">-- la/les table/s qui émettent les données</span></span>
+<span id="cb75-4"><a></a></span>
+<span id="cb75-5"><a></a>[<span class="kw">WHERE</span> <span class="op">&lt;</span>condition<span class="op">&gt;</span> ]         <span class="co">-- filtre</span></span>
+<span id="cb75-6"><a></a></span>
+<span id="cb75-7"><a></a>[<span class="kw">GROUP</span> <span class="kw">BY</span> <span class="op">&lt;</span>attributs de partitionnement<span class="op">&gt;</span>   <span class="co">-- découpage en groupes</span></span>
+<span id="cb75-8"><a></a></span>
+<span id="cb75-9"><a></a>[<span class="kw">HAVING</span> <span class="op">&lt;</span>condition<span class="op">&gt;</span>]]      <span class="co">-- filtrage des groupes</span></span>
+<span id="cb75-10"><a></a></span>
+<span id="cb75-11"><a></a>[<span class="kw">ORDER</span> <span class="kw">BY</span> <span class="op">&lt;</span>critere<span class="op">&gt;</span>]       <span class="co">-- trier </span></span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>
 <code>SELECT</code> : attributs du résultat (avec agrégations éventuelles)</li>

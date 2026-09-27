@@ -4278,5 +4278,19 @@
     "title": "TD 9 : Modèle relationnel des données",
     "section": "Exercice",
     "text": "Exercice\nOn reprend un MCD élaboré dans un TD précédent :\n\n\n\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nConvertir ce diagramme E/A en un modèle relationnel.\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nQuelles sont les clés étrangères sur lesquelles il faut ajouter une contrainte NOT NULL ou UNIQUE ?\n\n\n\n\n\n\n\n\nNoteQuestion\n\n\n\nEcrire en SQL la définition des données du modèle relationnel en essayant d’implémenter les contraintes du diagramme E/A."
+  },
+  {
+    "objectID": "slides/SQL_2.html#exemple-typique-dutilisation-de-lateral",
+    "href": "slides/SQL_2.html#exemple-typique-dutilisation-de-lateral",
+    "title": "BD II: SQL II",
+    "section": "Exemple typique d’utilisation de LATERAL",
+    "text": "Exemple typique d’utilisation de LATERAL\nPour chaque pays, donner les 3 villes les plus peuplées, par ordre alphabétique des pays puis par ordre décroissant de la population des villes.\nSELECT co.name_country, sr.name, sr.population\nFROM country co JOIN LATERAL \n(  \n  SELECT name, population      \n  FROM city ci            \n  WHERE ci.countrycode=co.countrycode\n  ORDER BY ci.population DESC\n  LIMIT 3\n) sr ON TRUE\nORDER BY co.name_country, sr.population DESC;\nEvaluation : si la table dérivée est vide, le tuple \\(u\\) de la table country n’est pas retenu car \\(\\lbrace u\\rbrace \\times \\emptyset = \\emptyset\\).\nDonc les pays sans ville ne sont pas affichés. On peut les afficher en utilisant une jointure externe gauche (LEFT JOIN LATERAL)."
+  },
+  {
+    "objectID": "slides/SQL_3.html#conséquence-de-lordre-des-opérations",
+    "href": "slides/SQL_3.html#conséquence-de-lordre-des-opérations",
+    "title": "BD IV: SQL III",
+    "section": "Conséquence de l’ordre des opérations",
+    "text": "Conséquence de l’ordre des opérations\nIl n’est pas possible dans une même requête de compter selon deux sélections différentes, sauf en ayant recours à des astuces. En général, la meilleure solution est de faire des CTEs.\nExemple : une méthode (discutable) avec COUNT pour lister les pays où le Français et l’Anglais sont langues officielles.\n\nSELECT countrycode \nFROM countrylanguage \nGROUP BY countrycode\nHAVING COUNT(\n    CASE \n      WHEN language = 'French' and isofficial THEN countrycode \n      ELSE NULL \n    END) &gt;= 1\n    AND COUNT(\n    CASE \n      WHEN language = 'English' and isofficial THEN countrycode \n      ELSE NULL \n    END) &gt;= 1\n;"
   }
 ]
