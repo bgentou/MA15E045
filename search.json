@@ -4291,6 +4291,6 @@
     "href": "slides/SQL_3.html#conséquence-de-lordre-des-opérations",
     "title": "BD IV: SQL III",
     "section": "Conséquence de l’ordre des opérations",
-    "text": "Conséquence de l’ordre des opérations\nIl n’est pas possible dans une même requête de compter selon deux sélections différentes, sauf en ayant recours à des astuces. En général, la meilleure solution est de faire des CTEs.\nExemple : une méthode (discutable) avec COUNT pour lister les pays où le Français et l’Anglais sont langues officielles.\n\nSELECT countrycode \nFROM countrylanguage \nGROUP BY countrycode\nHAVING COUNT(\n    CASE \n      WHEN language = 'French' and isofficial THEN countrycode \n      ELSE NULL \n    END) &gt;= 1\n    AND COUNT(\n    CASE \n      WHEN language = 'English' and isofficial THEN countrycode \n      ELSE NULL \n    END) &gt;= 1\n;"
+    "text": "Conséquence de l’ordre des opérations\nIl n’est pas possible dans une même requête de compter selon deux sélections différentes simultanément, sauf en ayant recours à des astuces. En général, la meilleure solution est de faire des CTEs puis des jointures.\nExemple : une méthode (discutable) avec COUNT pour lister les pays où le Français et l’Anglais sont langues officielles.\n\nSELECT countrycode \nFROM countrylanguage \nGROUP BY countrycode\nHAVING COUNT(\n    CASE \n      WHEN language = 'French' and isofficial THEN countrycode \n      ELSE NULL \n    END) &gt;= 1\n    AND COUNT(\n    CASE \n      WHEN language = 'English' and isofficial THEN countrycode \n      ELSE NULL \n    END) &gt;= 1\n;"
   }
 ]

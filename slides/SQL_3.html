@@ -1138,7 +1138,7 @@ Combien de fois calculez vous l'espérance de minimale pour chaque région ?
 <span id="cb51-9"><a></a><span class="kw">HAVING</span> <span class="fu">AVG</span>(<span class="fl">1e6</span><span class="op">*</span>gnpold<span class="op">/</span>population_country) <span class="op">&gt;=</span> <span class="dv">1000</span> </span>
 <span id="cb51-10"><a></a><span class="kw">ORDER</span> <span class="kw">BY</span> continent;</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </section><section id="conséquence-de-lordre-des-opérations" class="slide level2 center"><h2>Conséquence de l’ordre des opérations</h2>
-<p>Il n’est pas possible dans une même requête de compter selon deux sélections différentes, sauf en ayant recours à des astuces. En général, la meilleure solution est de faire des CTEs.</p>
+<p>Il n’est pas possible dans une même requête de compter selon deux sélections différentes simultanément, sauf en ayant recours à des astuces. En général, la meilleure solution est de faire des CTEs puis des jointures.</p>
 <p>Exemple : une méthode (discutable) avec <code>COUNT</code> pour lister les pays où le Français et l’Anglais sont langues officielles.</p>
 <div class="fragment">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb52-1"><a></a><span class="kw">SELECT</span> countrycode </span>
