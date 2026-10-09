@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
 width: 0.8em;
 margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
 }
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+}
+pre.numberSource { margin-left: 3em; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -4239,24 +4274,55 @@ vertical-align: -.125em;
 <li>Afficher les identifiants et les modèles des avions du fabricant ‘AIRBUS INDUSTRIE’ fabriqués avant 2000 exclu (attribut <code>year</code>) ou de moteur de type ‘Turbo-jet’ (attribut <code>engine</code>) ? (273 lignes) Ecrire la requête en SQL et en algèbre relationnelle.</li>
 </ol>
 <ol start="3" class="example" type="1">
-<li>Quels sont les avions (identifiant, modèle) du fabricant ‘CANADAIR’ qui ont volé en janvier 2013 ? Ecrire la requête en SQL et en algèbre relationnelle.</li>
+<li>Quels sont les avions (identifiant, modèle) du fabricant ‘CANADAIR’ qui ont volé en janvier 2013 ? (8 lignes) Ecrire la requête en SQL et en algèbre relationnelle.</li>
 </ol>
 <ol start="4" class="example" type="1">
-<li><p>Quels sont les avions (identifiant et modèle) qui n’ont pas volé en janvier 2013 ? Proposer plusieurs solutions. Ecrire les requêtes en SQL et en algèbre relationnelle.</p></li>
-<li><p>Quels sont les avions (identifiants, modèles) qui ont volé le 5 et le 6 janvier ? Proposer plusieurs solutions. Ecrire la requête en SQL et en algèbre relationnelle.</p></li>
-<li><p>Quels sont les avions (identifiants, modèles) qui ont eu au moins un retard à l’arrivée en 2013 ? Proposer plusieurs solutions.</p></li>
-<li><p>Quels sont les avions (identifiants, modèles) qui n’ont pas eu de retard à l’arrivée en 2013 ? Proposer plusieurs solutions.</p></li>
-<li><p>Quels sont les fabricants dont aucun avion n’a eu un retard à l’arrivée en 2013 ? Proposer plusieurs solutions.</p></li>
-<li><p>Quelle est la capacité maximale d’un avion ?</p></li>
-<li><p>Combien d’avions différents ont volé en janvier 2013 ?</p></li>
-<li><p>Combien y-a-t-il eu de vols en janvier 2013 pour les avions de capacité supérieure à 300 ?</p></li>
-<li><p>Quelle est la proportion des vols de 2013 qui ont été retardés à l’arrivée ? Un vol retardé à l’arrivée est un vol dont l’attribut <code>arr_delay</code> est strictement supérieur à 0.</p></li>
-<li><p>Quels sont les aéroports d’arrivée (identifiants, noms) qui ont au moins 10 vols retardés à l’arrivée en 2013 ? (94 lignes) L’aéroport d’arrivée est celui qui est indiqué dans la colonne <code>dest</code> de la table <code>flights</code>.</p></li>
-<li><p>Quelle est, par aéroport d’arrivée et par mois, la moyenne des retards à l’arrivée des vols ? Les résultats doivent être triés par aéroport puis par mois. On ne calcule la moyenne des retards à l’arrivée que pour les vols retardés à l’arrivée (arr_delay &gt; 0).</p></li>
-<li><p>Quels sont les mois de l’année 2013 où le nombre de vols retardés à l’arrivée sont parmi les 3 plus élevés ?</p></li>
-<li><p>Quels sont les aéroports d’arrivée qui ont plus de 10 vols retardés à l’arrivée sur un des mois de l’année 2013 ?</p></li>
-<li><p>Y-a-t-il une corrélation entre les retards des vols à l’arrivée et la lattitude des aéroports d’arrivée (sont-ils plus au nord ou plus au sud que la moyenne) ? On veut étudier cette correlation en calculant l’écart entre la latitude moyenne des aéroports d’arrivée dont la moyenne des retards est supérieure à la moyenne des retards des vols, et la latitude moyenne de tous les aéroports d’arrivée.</p></li>
+<li>Quels sont les avions (identifiant et modèle) qui n’ont pas volé en janvier 2013 ? (713 lignes) Proposer plusieurs solutions. Ecrire les requêtes en SQL et en algèbre relationnelle.</li>
 </ol>
+<ol start="5" class="example" type="1">
+<li>Quels sont les avions (identifiants, modèles) qui ont volé le 5 et le 6 janvier ? (241 lignes) Proposer plusieurs solutions. Ecrire la requête en SQL et en algèbre relationnelle.</li>
+</ol>
+<ol start="6" class="example" type="1">
+<li>Quels sont les avions (identifiants, modèles) qui ont eu au moins un retard à l’arrivée en 2013 ? (3176 lignes) Un vol retardé à l’arrivée est un vol dont l’attribut <code>arr_delay</code> est strictement supérieur à 0. Proposer plusieurs solutions.</li>
+</ol>
+<ol start="7" class="example" type="1">
+<li>Quels sont les avions (identifiants, modèles) qui n’ont pas eu de retard à l’arrivée en 2013 ? (146 lignes) Proposer plusieurs solutions.</li>
+</ol>
+<ol start="8" class="example" type="1">
+<li>Quels sont les fabricants dont aucun avion n’a eu un retard à l’arrivée en 2013 ? (0 ligne) Proposer plusieurs solutions.</li>
+</ol>
+<ol start="9" class="example" type="1">
+<li>Quelle est la capacité maximale d’un avion ? (450 places)</li>
+</ol>
+<ol start="10" class="example" type="1">
+<li>Combien d’avions différents ont volé en janvier 2013 ? (3148)</li>
+</ol>
+<ol start="11" class="example" type="1">
+<li>Combien y-a-t-il eu de vols en janvier 2013 pour les avions de capacité supérieure ou égaleà 300 ? (377)</li>
+</ol>
+<ol start="12" class="example" type="1">
+<li>Quelle est la proportion des vols de 2013 qui ont été retardés à l’arrivée ? (39,49 %) Attention, il faut penser à convertir les entiers en nombres à virgule avant de faire la division, car la division entre entiers retourne le quotient entier. Pour convertir par exemple dans le type <code>numeric</code>, on peut utiliser la fonction <code>cast</code> ou l’opérateur <code>::</code>. Par exemple, <code>cast(1 as numeric)</code> ou <code>1::numeric</code> convertit l’entier 1 en nombre à virgule.</li>
+</ol>
+<ol start="13" class="example" type="1">
+<li>Quels sont les aéroports d’arrivée (identifiants, noms) qui ont au moins 10 vols retardés à l’arrivée en 2013 ? (94 lignes) L’aéroport d’arrivée est celui qui est indiqué dans la colonne <code>dest</code> de la table <code>flights</code>.</li>
+</ol>
+<ol start="14" class="example" type="1">
+<li>Quelle est, par aéroport d’arrivée et par mois, la moyenne des retards à l’arrivée des vols de l’année 2013 ? On veut afficher les identifiants et les noms d’aéroport, les résultats doivent être triés par aéroport puis par mois. On ne calcule la moyenne des retards à l’arrivée que pour les vols retardés à l’arrivée (arr_delay &gt; 0).</li>
+</ol>
+<ol start="15" class="example" type="1">
+<li>Quels sont les mois de l’année 2013 où le nombre de vols retardés à l’arrivée sont parmi les 3 plus élevés ? Résultat attendu : 3 lignes (mois 12, 7 et 4). ::::: {.content-visible when-profile=“solution”} ::: {.callout-tip title=“Solution”}</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>::: :::::</p>
+<ol start="16" class="example" type="1">
+<li>Quels sont les aéroports d’arrivée (identifiants, noms) qui ont au moins 10 vols retardés à l’arrivée sur un des mois de l’année 2013 ? (91 lignes)</li>
+</ol>
+<ol start="17" class="example" type="1">
+<li>Y-a-t-il une corrélation entre les retards des vols à l’arrivée et la lattitude des aéroports d’arrivée (sont-ils plus au nord ou plus au sud que la moyenne) ? On veut étudier cette correlation en calculant l’écart entre la latitude moyenne des aéroports d’arrivée dont la moyenne des retards est supérieure à la moyenne des retards des vols, et la latitude moyenne de tous les aéroports d’arrivée.</li>
+</ol>
+<p>Pour que la moyenne des retard soit significative, on veut faire les moyennes dees retards sur tous les vols non annulés (<code>arr_delay</code> non <code>NULL</code>), en remplaçant les valeurs négatives de <code>arr_delay</code> (vols arrivés en avance) par 0.</p>
+<p><strong>Réponse</strong> : -4,45</p>
+<p>Le retard moyen calculé selon la méthode indiquée est de 16,39.</p>
 
 
 </section>
