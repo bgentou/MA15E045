@@ -214,7 +214,7 @@
   };
   </script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <meta property="og:title" content="BD IV: SQL III – MA15E045 - Automne 2025">
-<meta property="og:description" content="Langage Manipulation de Données 3 : Aggrégation/Fenêtres/Partitions">
+<meta property="og:description" content="Langage Manipulation de Données 3 : Agrégation/Fenêtres/Partitions">
 <meta property="og:site_name" content="MA15E045 - Automne 2025">
 </head>
 <body class="quarto-light">
@@ -222,7 +222,7 @@
     <div class="slides">
 
 <section id="title-slide" data-background-color="#1c191c" class="quarto-title-block center"><h1 class="title">BD IV: SQL III</h1>
-  <p class="subtitle">Langage Manipulation de Données 3 : Aggrégation/Fenêtres/Partitions</p>
+  <p class="subtitle">Langage Manipulation de Données 3 : Agrégation/Fenêtres/Partitions</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -1231,7 +1231,7 @@ Combien de fois calculez vous l'espérance de minimale pour chaque région ?
 </h2>
 <p>Pour calculer ce résultat sans fonctions fenêtres :</p>
 <ol type="1">
-<li><p>On effectue une partition selon la <code>region</code>, une aggrégation par groupe pour calculer <code>min(lifeexpectancy)</code> et <code>max(lifeexpectancy)</code>. On obtient une table à trois colonnes.</p></li>
+<li><p>On effectue une partition selon la <code>region</code>, une agrégation par groupe pour calculer <code>min(lifeexpectancy)</code> et <code>max(lifeexpectancy)</code>. On obtient une table à trois colonnes.</p></li>
 <li><p>On calcule une (équi)-jointure avec la table <code>country</code> originelle sur la colonne commune <code>region</code>.</p></li>
 <li><p>On projette le résultat sur les cinq colonnes pertinentes.</p></li>
 </ol>
@@ -1639,8 +1639,8 @@ China       |Asia     |        1277558000|
 
 </section><section id="introduction" class="slide level2 center"><h2>Introduction</h2>
 <p>Introduits dans SQL avec la mode du <code>Data mining</code> (Fouille de données) dans les années 1990.</p>
-<p>Permet de réaliser de facon apparemment simultanée des aggrégations de régularités emboîtées.</p>
-<p>Dans le monde des statistiques, lorsqu’on aggrège des comptages de grains différents, on parle de tables de contingences (<em>contingency tables</em>).</p>
+<p>Permet de réaliser de facon apparemment simultanée des agrégations de régularités emboîtées.</p>
+<p>Dans le monde des statistiques, lorsqu’on agrège des comptages de grains différents, on parle de tables de contingences (<em>contingency tables</em>).</p>
 <p><a href="https://www.postgresql.org/docs/current/queries-table-expressions.html#QUERIES-GROUPING-SETS" target="_blank">Documentation PostgreSQL</a></p>
 </section><section id="grouping-sets" class="slide level2 center"><h2>GROUPING SETS</h2>
 <p>Un <code>GROUPING SETS</code> permet d’effectuer simultanément des calculs d’agrégats pour différentes partitions de la table.</p>
@@ -1829,7 +1829,7 @@ ORDER BY      -- sort
 <p> </p>
 </div>
 <div class="header-text">
-<p>Requêtes SQL : Aggrégation/Fenêtres/Partition</p>
+<p>Requêtes SQL : Agrégation/Fenêtres/Partition</p>
 </div>
 <div class="sb-title">
 <p> </p>
