@@ -4263,10 +4263,10 @@ vertical-align: -.125em;
 <li>Combien d’avions de la table <code>planes</code> ont volé en janvier 2013 ? (2609)</li>
 </ol>
 <ol start="11" class="example" type="1">
-<li>Combien y-a-t-il eu de vols en janvier 2013 pour les avions de la table <code>planes</code> de capacité supérieure ou égaleà 300 ? (377)</li>
+<li>Combien y-a-t-il eu de vols en janvier 2013 pour les avions de la table <code>planes</code> de capacité supérieure ou égale à 300 ? (377)</li>
 </ol>
 <ol start="12" class="example" type="1">
-<li>Quelle est la proportion des vols de la table <code>flights</code> en 2013 qui ont été retardés à l’arrivée ? (39,49 %) Attention, il faut penser à convertir les entiers en nombres à virgule avant de faire la division, car la division entre entiers retourne le quotient entier. Pour convertir par exemple dans le type <code>numeric</code>, on peut utiliser la fonction <code>cast</code> ou l’opérateur <code>::</code>. Par exemple, <code>cast(1 as numeric)</code> ou <code>1::numeric</code> convertit l’entier 1 en nombre à virgule.</li>
+<li>Quelle est la proportion des vols de la table <code>flights</code> en 2013 qui ont été retardés à l’arrivée, la proportion se rapporte à tous les vols, y compris les vols annulés ? (39,49 %) Attention, il faut penser à convertir les entiers en nombres à virgule avant de faire la division, car la division entre entiers retourne le quotient entier. Pour convertir par exemple dans le type <code>numeric</code>, on peut utiliser la fonction <code>cast</code> ou l’opérateur <code>::</code>. Par exemple, <code>cast(1 as numeric)</code> ou <code>1::numeric</code> convertit l’entier 1 en nombre à virgule.</li>
 </ol>
 <ol start="13" class="example" type="1">
 <li>Quels sont les aéroports de la table <code>airports</code> (identifiants, noms) qui ont au moins 10 vols retardés à l’arrivée en 2013 ? (94 lignes) L’aéroport d’arrivée est celui qui est indiqué dans la colonne <code>dest</code> de la table <code>flights</code>.</li>
