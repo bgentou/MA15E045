@@ -823,7 +823,7 @@
     "href": "slides-listings.html",
     "title": "Diapositives",
     "section": "",
-    "text": "Les diapositives fournissent le canevas du cours. Vous pouvez les utiliser pour vous familiariser avec le matériel du prochain cours, pour revoir les cours passés et, pour réviser.\nLes diapositives marquées par l’image  renvoient à des développements effectués en classes.\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Titre\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Description\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitre\n\n\n\nDescription\n\n\n\n\n\n\n\n\nSep 7, 2026\n\n\nIntroduction aux Bases de Données\n\n\nBases de données, Systèmes d’information, Modèle relationnel, OLTP, OLAP\n\n\n\n\n\n\nSep 7, 2026\n\n\nAlgèbre relationnelle\n\n\nAlgèbre relationnelle, Sélection, Projection, Jointure\n\n\n\n\n\n\nSep 14, 2026\n\n\nSQL : requêtes simples\n\n\nAlgèbre relationnelle, SQL, Sélection, Projection, Jointure\n\n\n\n\n\n\nSep 21, 2026\n\n\nSQL : requêtes imbriquées\n\n\nRequêtes imbriquées, CTE\n\n\n\n\n\n\nSep 28, 2026\n\n\nSQL : Agrégations, Partitions, Fenêtres\n\n\nAggrégations, Partitions, Fenêtres\n\n\n\n\n\n\nOct 5, 2026\n\n\nSQL : Définition de données\n\n\nCréation de tables, Insertion, Suppression, Mises à jour\n\n\n\n\n\n\nOct 12, 2026\n\n\nSQL : Définition de données, Contraintes simples\n\n\nContraintes, Check, Primary Key, Foreign Key\n\n\n\n\n\n\nOct 19, 2026\n\n\nSQL : Définition de données, Contraintes d’exclusion\n\n\nContraintes, Exclude, Contraintes multitables\n\n\n\n\n\n\nOct 26, 2026\n\n\nModélisation : Entité-Association\n\n\nModélisation, MCD, Entité-Association, Cardinalités\n\n\n\n\n\n\nNov 9, 2026\n\n\nModélisation Entité-Association : notions avancées\n\n\nModélisation, Entités faibles, Décomposition d’association, Spécialisation/Généralisation, contraintes de spécialisation, CIF, contraintes inter-associations\n\n\n\n\n\n\nNov 16, 2026\n\n\nModélisation : conversion du MCD vers le MLD\n\n\nModélisation, conversion, MCD, MLD, MRD\n\n\n\n\n\n\nNov 23, 2026\n\n\nDépendances Fonctionnelles, Calcul de dépendances, Clés, Fermetures, Couvertures irredondantes.\n\n\nDépendances Fonctionnelles, Clés, Fermetures, Couvertures irredondantes\n\n\n\n\n\n\nNov 30, 2026\n\n\nNormalisation : Décompositions SPD, SPI, FN3 et FNBC\n\n\nNormalisation, Décomposition, Perte de DF, Perte d’information, SDP, SPI, FN2, FN3, FNBC\n\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\nNoteMode d’emploi\n\n\n\nLes diapositives utilisent la bibliothèque revealjs de . Elles s’affichent dans votre navigateur. Vous pouvez accéder au mode d’emploi en tappant",
+    "text": "Les diapositives fournissent le canevas du cours. Vous pouvez les utiliser pour vous familiariser avec le matériel du prochain cours, pour revoir les cours passés et, pour réviser.\nLes diapositives marquées par l’image  renvoient à des développements effectués en classes.\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Titre\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Description\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitre\n\n\n\nDescription\n\n\n\n\n\n\n\n\nSep 7, 2026\n\n\nIntroduction aux Bases de Données\n\n\nBases de données, Systèmes d’information, Modèle relationnel, OLTP, OLAP\n\n\n\n\n\n\nSep 7, 2026\n\n\nAlgèbre relationnelle\n\n\nAlgèbre relationnelle, Sélection, Projection, Jointure\n\n\n\n\n\n\nSep 14, 2026\n\n\nSQL : requêtes simples\n\n\nAlgèbre relationnelle, SQL, Sélection, Projection, Jointure\n\n\n\n\n\n\nSep 21, 2026\n\n\nSQL : requêtes imbriquées\n\n\nRequêtes imbriquées, CTE\n\n\n\n\n\n\nSep 28, 2026\n\n\nSQL : Agrégations, Partitions, Fenêtres\n\n\nAggrégations, Partitions, Fenêtres\n\n\n\n\n\n\nOct 18, 2026\n\n\nSQL : Définition de données\n\n\nCréation de tables, Insertion, Suppression, Mises à jour\n\n\n\n\n\n\nOct 18, 2026\n\n\nSQL : Définition de données, Contraintes simples\n\n\nContraintes, Check, Primary Key, Foreign Key\n\n\n\n\n\n\nNov 2, 2026\n\n\nModélisation : Entité-Association\n\n\nModélisation, MCD, Entité-Association, Cardinalités\n\n\n\n\n\n\nNov 9, 2026\n\n\nModélisation Entité-Association : notions avancées\n\n\nModélisation, Entités faibles, Décomposition d’association, Spécialisation/Généralisation, contraintes de spécialisation, CIF, contraintes inter-associations\n\n\n\n\n\n\nNov 16, 2026\n\n\nModélisation : conversion du MCD vers le MLD\n\n\nModélisation, conversion, MCD, MLD, MRD\n\n\n\n\n\n\nNov 23, 2026\n\n\nDépendances Fonctionnelles, Calcul de dépendances, Clés, Fermetures, Couvertures irredondantes.\n\n\nDépendances Fonctionnelles, Clés, Fermetures, Couvertures irredondantes\n\n\n\n\n\n\nNov 30, 2026\n\n\nNormalisation : Décompositions SPD, SPI, FN3 et FNBC\n\n\nNormalisation, Décomposition, Perte de DF, Perte d’information, SDP, SPI, FN2, FN3, FNBC\n\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\nNoteMode d’emploi\n\n\n\nLes diapositives utilisent la bibliothèque revealjs de . Elles s’affichent dans votre navigateur. Vous pouvez accéder au mode d’emploi en tappant",
     "crumbs": [
       "Diapositives"
     ]
@@ -4439,5 +4439,110 @@
     "title": "TD de révision : SQL",
     "section": "Pour aller plus loin : les vues",
     "text": "Pour aller plus loin : les vues\nLes vues permettent de donner un nom à une requête afin de pouvoir l’appeler plus tard sans la réécrire à chaque fois. Une vue s’enregistre dans un schéma. Par exemple, dans le schéma World, on pourrait créer une vue VillesRepublic qui contiendrait toutes les villes de la table city qui sont dans une république.\nOn crée une vue avec CREATE VIEW nom AS requete. Étant donné que vous ne pouvez écrire que dans votre schéma personnel, il faudra nommer vos vues entid.nom où entid est votre identifiant en salle de TP.\nCREATE VIEW entid.VillesRepublic AS\n   SELECT \n      ci.*\n   FROM \n      world.country as co JOIN \n      world.city as ci USING (countrycode)\n   WHERE \n      co.governmentform like '%Republic%';\nCette requête crée une vue dans votre schéma personnel. Désormais, si on veut sélectionner les villes qui sont dans une république et dont la population est supérieure à \\(1000000\\), on pourra simplement écrire :\nSELECT * \nFROM \n    entid.VillesRepublic \nWHERE \n    population&gt;=1000000;\n\n\n\n\n\n\nRemarquez la différence entre WITH et une vue. WITH nomme une requête temporairement, seulement à l’échelle de la requête courante tandis qu’une vue est enregistrée de façon permanente. Cependant, chaque fois que vous appelez votre vue, elle est réévaluée par le système de gestion de base de données.\n\n\n\nNotez aussi que SQL n’est pas sensible à la casse. La vue entid.VillesRepublic peut être aussi désignée par entid.villesrepublic.\nPour supprimer une vue existante, on utilise la commande DROP VIEW suivie du nom de la vue à supprimer. Par exemple l’instruction\nDROP VIEW entid.VillesRepublic ;\nsupprime la vue créée précédemment.\n\nQUESTION Dans votre schéma personnel entid (il faut remplacer entid par votre nom de login), écrire une vue film_id_horror qui renvoie la liste des films de catégorie ‘Horror’. Puis avec cette vue, écrire une requête qui affiche les titres des films de cette catégorie. (56 lignes)"
+  },
+  {
+    "objectID": "slides/LDD_1.html#schema-de-world",
+    "href": "slides/LDD_1.html#schema-de-world",
+    "title": "BD : Contraintes",
+    "section": "Schema de world",
+    "text": "Schema de world\n\nModèle relationnel du schéma World"
+  },
+  {
+    "objectID": "slides/LDD_1.html#conraintes-sur-la-table-country",
+    "href": "slides/LDD_1.html#conraintes-sur-la-table-country",
+    "title": "BD : Contraintes",
+    "section": "Conraintes sur la table country\n",
+    "text": "Conraintes sur la table country\n\n\nUn pays est identifié par son countrycode,\nDeux pays ne devraient pas avoir le même nom,\nUne région ne devrait appartenir qu’à un seul continent,\nLa capitale d’un pays devrait être une ville connue dans city,\nLa capitale d’un pays devrait être une ville de ce pays,\nLes capitales de deux pays différents devraient être des villes différentes,\n…\n\n Ce ne sont pas les seules contraintes possibles"
+  },
+  {
+    "objectID": "slides/LDD_1.html#mise-en-œuvre-des-contraintes",
+    "href": "slides/LDD_1.html#mise-en-œuvre-des-contraintes",
+    "title": "BD : Contraintes",
+    "section": "Mise en œuvre des contraintes",
+    "text": "Mise en œuvre des contraintes\n\nUn pays est identifié par son countrycode : PRIMARY KEY\nDeux pays ne devraient pas avoir le même nom : UNIQUE\nUne région ne devrait appartenir qu’à un seul continent : ??? -&gt; EXCLUDE\nLa capitale d’un pays devrait être une ville connue dans city : REFERENCES\nLa capitale d’un pays devrait être une ville de ce pays : ??? -&gt; trigger\nLes capitales de deux pays différents devraient être des villes différentes : UNIQUE\nDeux pays différents ne peuvent avoir le même code2 : UNIQUE"
+  },
+  {
+    "objectID": "slides/LDD_1.html#examen-du-schema-de-country",
+    "href": "slides/LDD_1.html#examen-du-schema-de-country",
+    "title": "BD : Contraintes",
+    "section": "Examen du schema de country\n",
+    "text": "Examen du schema de country\n\n+--------------------+---------------+-----------+\n| Column             | Type          | Modifiers | \n|--------------------+---------------+-----------+-\n| countrycode        | character(3)  |  not null | \n| name_country       | text          |  not null | \n| continent          | text          |  not null | \n| region             | text          |  not null |\n| surfacearea        | real          |  not null |\n| indepyear          | smallint      |           | \n| population_country | integer       |  not null | \n| lifeexpectancy     | real          |           | \n| gnp                | numeric(10,2) |           | \n| gnpold             | numeric(10,2) |           | \n| localname          | text          |  not null | \n| governmentform     | text          |  not null | \n| headofstate        | text          |           | \n| capital            | integer       |           | \n| code2              | character(2)  |  not null | \n+--------------------+---------------+-----------+\n Un schéma de table ne se réduit pas à la données des noms et domaines des colonnes."
+  },
+  {
+    "objectID": "slides/LDD_1.html#suite",
+    "href": "slides/LDD_1.html#suite",
+    "title": "BD : Contraintes",
+    "section": "suite",
+    "text": "suite\nIndexes:\n    \"country_pkey\" PRIMARY KEY, btree (countrycode)\nCheck constraints:\n    \"country_continent_check\" CHECK (continent = 'Asia'::text OR \n                                     continent = 'Europe'::text OR \n                                     continent = 'North America'::text OR \n                                     continent = 'Africa'::text OR\n                                     continent = 'Oceania'::text OR\n                                     continent = 'Antarctica'::text OR\n                                     continent = 'South America'::text),\nForeign-key constraints:\n    \"country_capital_fkey\" FOREIGN KEY (capital) REFERENCES city(id)"
+  },
+  {
+    "objectID": "slides/LDD_1.html#ddl-pour-country",
+    "href": "slides/LDD_1.html#ddl-pour-country",
+    "title": "BD : Contraintes",
+    "section": "DDL pour country\n",
+    "text": "DDL pour country\n\nCREATE TABLE world.country (\n    countrycode bpchar(3) NOT NULL,\n    name_country text NOT NULL,\n    continent text NOT NULL,\n    region text NOT NULL,\n    surfacearea float4 NOT NULL,\n    indepyear int2 NULL,\n    population_country int4 NOT NULL,\n    lifeexpectancy float4 NULL,\n    gnp numeric(10, 2) NULL,\n    gnpold numeric(10, 2) NULL,\n    localname text NOT NULL,\n    governmentform text NOT NULL,\n    headofstate text NULL,\n    capital int4 NULL,\n    code2 bpchar(2) NOT NULL,\n    CONSTRAINT country_continent_check CHECK (((continent = 'Asia'::text) \n    OR (continent = 'Europe'::text) \n    OR (continent = 'North America'::text) \n    OR (continent = 'Africa'::text) \n    OR (continent = 'Oceania'::text)\n    OR (continent = 'Antarctica'::text) \n    OR (continent = 'South America'::text))),\n    CONSTRAINT country_pkey PRIMARY KEY (countrycode)\n);"
+  },
+  {
+    "objectID": "slides/LDD_1.html#ajout-de-contraintes-référentielles",
+    "href": "slides/LDD_1.html#ajout-de-contraintes-référentielles",
+    "title": "BD : Contraintes",
+    "section": "Ajout de contraintes référentielles",
+    "text": "Ajout de contraintes référentielles\n\nUne contrainte d’intégrité référentielle impose l’inclusion de l’ensemble des valeurs d’une colonne (la colone qui référence) à l’ensemble des valeurs d’une autre colonne (la colonne référencée).\n\n\n\nLa colonne référencée est quasiment toujours la clé primaire d’une autre table. On peut alors définir la contrainte en n’indiquant que la table référencée (car la clé primaire est unique) :\n\nALTER TABLE world.country ADD CONSTRAINT \n  country_capital_fkey FOREIGN KEY (capital) REFERENCES world.city;\n\n\n\nSi la colonne référencée n’est pas une clé primaire, elle doit vérifier une contrainte d’unicité. Il faut alors préciser le nom de la table et le nom de la colonne référencée avec cette syntaxe : REFERENCES nom_table(nom_colonne)"
+  },
+  {
+    "objectID": "slides/LDD_1.html#gestion-de-la-mise-à-jour-ou-de-la-suppression-dun-attribut-référencé",
+    "href": "slides/LDD_1.html#gestion-de-la-mise-à-jour-ou-de-la-suppression-dun-attribut-référencé",
+    "title": "BD : Contraintes",
+    "section": "Gestion de la mise à jour ou de la suppression d’un attribut référencé",
+    "text": "Gestion de la mise à jour ou de la suppression d’un attribut référencé\n\n\n\n\n\n\nImportant\n\n\nAprès la définition de la contrainte country_capital_fkey, la mise à jour ou la suppression d’une valeur de l’attribut city.id référencée dans l’attribut country.capital est bloquée par le SGBD.\n\n\n\n\nOn peut définir différentes actions pour les rendre possibles :\n\n\nCASCADE : supprime ou met à jour en cascade les lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\n\n\nSET NULL : met à NULL la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\n\n\nSET DEFAULT : met à leur valeur par défaut la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour."
+  },
+  {
+    "objectID": "slides/LDD_1.html#utilisation-de-laction-cascade",
+    "href": "slides/LDD_1.html#utilisation-de-laction-cascade",
+    "title": "BD : Contraintes",
+    "section": "Utilisation de l’action CASCADE\n",
+    "text": "Utilisation de l’action CASCADE\n\nALTER TABLE world.city \n  ADD CONSTRAINT city_countrycode_fkey \n    FOREIGN KEY (countrycode) \n    REFERENCES world.country\n    ON DELETE CASCADE\n    ON UPDATE CASCADE;\n\nSi un countrycode est suprrimé dans la table country, toutes les lignes de la table city où ce code est présent seront supprimées, et si ces lignes sont référencées dans un autre table, les lignes qui les référencent seront elles-mêmes supprimées et ainsi de suite “en cascade”.\n\n\n\nSi un countrycode est mis à jour dans la table country, toutes les lignes de la table city où ce code est présent seront mises à jour, et si ces mises à jour sont référencées dans un autre table, les lignes qui les référencent seront elles-mêmes mises à jour et ainsi de suite “en cascade”."
+  },
+  {
+    "objectID": "slides/LDD_1.html#utilisation-de-laction-set-null",
+    "href": "slides/LDD_1.html#utilisation-de-laction-set-null",
+    "title": "BD : Contraintes",
+    "section": "Utilisation de l’action SET NULL\n",
+    "text": "Utilisation de l’action SET NULL\n\nALTER TABLE world.city \n  ADD CONSTRAINT country_capital_fkey \n    FOREIGN KEY (capital) \n    REFERENCES world.city(id)\n    ON DELETE SET NULL\n    ON UPDATE CASCADE;\n\nSi un id est suprrimé dans la table city, les lignes de la table country où ce code est présent ne seront pas supprimées, la colonne capital sera mise à NULL. Cette action est possible car la valeur NULL est autorisée pour la colonne capital."
+  },
+  {
+    "objectID": "slides/LDD_1.html#une-région-nappartient-quà-un-seul-continent",
+    "href": "slides/LDD_1.html#une-région-nappartient-quà-un-seul-continent",
+    "title": "BD : Contraintes",
+    "section": "Une région n’appartient qu’à un seul continent",
+    "text": "Une région n’appartient qu’à un seul continent\nCette contrainte signifie que le résultat de la requête suivante est vide :\nSELECT *\nFROM \n  world.country c1 \nJOIN \n  world.country c2 ON (c1.continent&lt;&gt; c2.continent AND c1.region=c2.region);\n\nOn exclut l’existence de deux lignes qui coïncideraient sur region mais pas sur continent\nNous postulons l’existence d’une dépendance fonctionnelle\n\\[\\texttt{region} \\longrightarrow \\texttt{continent}\\]"
+  },
+  {
+    "objectID": "slides/LDD_1.html#deux-attitudes",
+    "href": "slides/LDD_1.html#deux-attitudes",
+    "title": "BD : Contraintes",
+    "section": "Deux attitudes",
+    "text": "Deux attitudes\nDans sa forme actuelle, la table country de world contient des informations redondantes: on répète plusieurs fois que la région Western Europe est située dans le continent Europe.\nCes redondances représentent un gaspillage de mémoire (très modeste ici) et un risque pour le maintien de la cohérence de la base : chaque insertion, mise-à-jour est susceptible de mettre en défaut la dépendance fonctionnelle.\nOn peut considérer qu’il s’agit d’une anomalie de schéma et normaliser le schéma.\nLa normalisation suppose une révision du schéma. Si le schéma est muni de vues et de fonctions, il faudra éventuellement réécrire ces vues et ces fonctions."
+  },
+  {
+    "objectID": "slides/LDD_1.html#autre-possibilité-avec-une-contrainte-dexclusion",
+    "href": "slides/LDD_1.html#autre-possibilité-avec-une-contrainte-dexclusion",
+    "title": "BD : Contraintes",
+    "section": "Autre possibilité avec une contrainte d’exclusion",
+    "text": "Autre possibilité avec une contrainte d’exclusion\nAvec une contrainte d’exclusion (EXCLUDE), on ne touchera pas au schéma, les vues et les fonctions resteront utilisables.\nLa contrainte d’exclusion permettra de maintenir la dépendance fonctionnelle."
+  },
+  {
+    "objectID": "slides/LDD_1.html#les-contraintes-dexclusion",
+    "href": "slides/LDD_1.html#les-contraintes-dexclusion",
+    "title": "BD : Contraintes",
+    "section": "Les contraintes d’exclusion",
+    "text": "Les contraintes d’exclusion\n\n\n\n\n\n\nObjectifs\n\n\n\nMise en place de dépendances fonctionnelles,\nMise en place de contraintes de non-recouvrement (données spatiales ou temporelles),\nMise en place de contraintes très diverses."
+  },
+  {
+    "objectID": "slides/LDD_1.html#clause-exclude",
+    "href": "slides/LDD_1.html#clause-exclude",
+    "title": "BD : Contraintes",
+    "section": "Clause EXCLUDE",
+    "text": "Clause EXCLUDE\nUne clause EXCLUDE empêche que deux lignes vérifient toutes les comparaisons sur les colonnes spécifiées en utilisant les opérateurs indiqués par le mot clé WITH.\nALTER TABLE country\n   ADD CONSTRAINT xcl_country_region_continent \n      EXCLUDE USING GIST\n      (\n         region WITH =, \n         continent WITH &lt;&gt;\n      );\nCette contrainte d’exclusion empèche que deux lignes de la table country aient la colonne region égale et la colonne continent différente.\n\n\n\n\n\n\nNote\n\n\nLa clause USING définit le type d’index utilisé pour vérifier la contrainte d’exclusion.\nEn pratique, le type d’index sera toujours GiST ou SP-GiST (GIST est l’acronyme de Generalized Search Tree)."
   }
 ]
