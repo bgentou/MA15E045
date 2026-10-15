@@ -4266,27 +4266,39 @@ vertical-align: -.125em;
 <li>Combien y-a-t-il eu de vols en janvier 2013 pour les avions de la table <code>planes</code> de capacité supérieure ou égale à 300 ? (377)</li>
 </ol>
 <ol start="12" class="example" type="1">
-<li>Quelle est la proportion des vols de la table <code>flights</code> en 2013 qui ont été retardés à l’arrivée, la proportion se rapporte à tous les vols, y compris les vols annulés ? (39,49 %) Attention, il faut penser à convertir les entiers en nombres à virgule avant de faire la division, car la division entre entiers retourne le quotient entier. Pour convertir par exemple dans le type <code>numeric</code>, on peut utiliser la fonction <code>cast</code> ou l’opérateur <code>::</code>. Par exemple, <code>cast(1 as numeric)</code> ou <code>1::numeric</code> convertit l’entier 1 en nombre à virgule.</li>
+<li>Quels sont les aéroports de la table <code>airports</code> (identifiants, noms) qui ont au moins 100 vols annulés au départ en 2013 ? (3 lignes) Dans la table <code>flights</code>, les vols annulés sont caractérisés par une valeur <code>NULL</code> dans la colonne <code>tailnum</code> et l’aéroport de départ est indiqué dans la colonne <code>origin</code>. On indiquera le nombre de vols annulés pour chaque ligne.</li>
 </ol>
 <ol start="13" class="example" type="1">
-<li>Quels sont les aéroports de la table <code>airports</code> (identifiants, noms) qui ont au moins 10 vols retardés à l’arrivée en 2013 ? (94 lignes) L’aéroport d’arrivée est celui qui est indiqué dans la colonne <code>dest</code> de la table <code>flights</code>.</li>
+<li>Quelle est la proportion des vols de la table <code>flights</code> en 2013 qui ont été retardés à l’arrivée, la proportion se rapporte à tous les vols, y compris les vols annulés ? (39,49 %) Attention, il faut penser à convertir les entiers en nombres à virgule avant de faire la division, car la division entre entiers retourne le quotient entier. Pour convertir par exemple dans le type <code>numeric</code>, on peut utiliser la fonction <code>cast</code> ou l’opérateur <code>::</code>. Par exemple, <code>cast(1 as numeric)</code> ou <code>1::numeric</code> convertit l’entier 1 en nombre à virgule.</li>
 </ol>
 <ol start="14" class="example" type="1">
-<li>Quelle est, par aéroport de la table <code>airports</code> et par mois, la moyenne des retards à l’arrivée des vols de l’année 2013 ? On veut afficher les identifiants et les noms d’aéroport, les résultats doivent être triés par nom d’aéroport puis par mois. On ne calcule la moyenne des retards à l’arrivée que pour les vols retardés à l’arrivée (arr_delay &gt; 0). La première ligne est <code>CAK  Akron Canton Regional Airport   1   30.75</code></li>
+<li>Quels sont les aéroports de la table <code>airports</code> (identifiants, noms) qui ont au plus 10 vols retardés à l’arrivée en 2013 ? (6 lignes) L’aéroport d’arrivée est celui qui est indiqué dans la colonne <code>dest</code> de la table <code>flights</code>.</li>
 </ol>
 <ol start="15" class="example" type="1">
-<li>Quels sont les mois de l’année 2013 où le nombre de vols de la table <code>flights</code> retardés à l’arrivée sont parmi les 3 plus élevés ? Résultat attendu : 3 lignes (mois 12, 7 et 4).</li>
+<li>Quelle est, par aéroport de la table <code>airports</code> et par mois, la moyenne des retards à l’arrivée des vols de l’année 2013 ? On veut afficher les identifiants et les noms d’aéroport, les résultats doivent être triés par nom d’aéroport puis par mois. On ne calcule la moyenne des retards à l’arrivée que pour les vols non annulés et retardés à l’arrivée (arr_delay &gt; 0). La première ligne est <code>CAK  Akron Canton Regional Airport   1   30.75</code></li>
 </ol>
 <ol start="16" class="example" type="1">
-<li>Quels sont les aéroports de la table <code>airports</code> (identifiants, noms) qui ont au moins 10 vols retardés à l’arrivée sur un des mois de l’année 2013 ? (91 lignes)</li>
+<li>Quels sont les mois de l’année 2013 où le nombre de vols de la table <code>flights</code> retardés à l’arrivée sont parmi les 3 plus élevés ? Résultat attendu : 3 lignes (mois 12, 7 et 4).</li>
 </ol>
 <ol start="17" class="example" type="1">
+<li>Quels sont les aéroports de la table <code>airports</code> (identifiants, noms) qui ont au moins 10 vols retardés à l’arrivée sur un des mois de l’année 2013 ? (91 lignes)</li>
+</ol>
+<ol start="18" class="example" type="1">
 <li>Y-a-t-il une corrélation entre les retards des vols à l’arrivée et la lattitude des aéroports d’arrivée (sont-ils plus au nord ou plus au sud que la moyenne) ? On veut étudier cette correlation en calculant l’écart entre la latitude moyenne des aéroports d’arrivée dont la moyenne des retards est supérieure à la moyenne des retards des vols, et la latitude moyenne de tous les aéroports d’arrivée.</li>
 </ol>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
 <p>Il faut calculer les moyennes sur les mêmes ensembles. Comme il y a des aéroports de la tables <code>flights</code> qui ne sont pas référencés dans la table <code>airports</code>, il faut limiter tous les calculs à l’ensemble des aéroports présents dans la table <code>airports</code>.</p>
 <p>De plus, on veut faire les moyennes des retards sur tous les vols non annulés (<code>arr_delay</code> non <code>NULL</code>), en remplaçant les valeurs négatives de <code>arr_delay</code> (vols arrivés en avance) par 0.</p>
-<p><strong>Réponse</strong> : -4.454557364153029</p>
-<p>Le retard moyen calculé selon la méthode indiquée est de 16.482925746304826.</p>
+<p><strong>Réponse</strong> : <code>-3.5606983858561545</code></p>
+<p>Le retard moyen calculé selon la méthode indiquée est de <code>16.482925746304826</code>.</p>
+</div>
+</div>
+</div>
 
 
 </section>
