@@ -4415,7 +4415,13 @@ window.Quarto = {
 </section>
 <section id="contraintes-de-colonne-default-not-null-unique" class="level2">
 <h2 class="anchored" data-anchor-id="contraintes-de-colonne-default-not-null-unique">Contraintes de colonne <code>DEFAULT / NOT NULL / UNIQUE</code></h2>
-<p>Ces contraintes s’appliquent à une colonne en particulier. La contrainte <code>DEFAULT</code> spécifie une valeur par défaut pour remplir une colonne lorsque sa valeur n’est pas spécifiée, <code>NOT NULL</code> que la valeur de la colonne ne peut pas être <code>NULL</code> et <code>UNIQUE</code> que deux lignes différentes de la table ne peuvent pas avoir la même valeur sur les colonnes indiquées. Par exemple:</p>
+<p>Ces contraintes s’appliquent à une colonne en particulier.</p>
+<ul>
+<li>Une contrainte <code>DEFAULT</code> spécifie la valeur par défaut d’une colonne lorsque sa valeur n’est pas spécifiée,</li>
+<li>Une contrainte <code>NOT NULL</code> spécifie que la valeur de la colonne ne peut pas être <code>NULL</code></li>
+<li>Une contrainte <code>UNIQUE</code> spécifie que deux lignes différentes de la table ne peuvent pas avoir la même valeur pour les colonnes indiquées.</li>
+</ul>
+<p>Par exemple:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> membre(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    nom <span class="dt">VARCHAR</span>(<span class="dv">50</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    prenom <span class="dt">VARCHAR</span>(<span class="dv">50</span>) <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
@@ -4426,9 +4432,9 @@ window.Quarto = {
 <section id="contraintes-de-table-primaryforeign-key" class="level2">
 <h2 class="anchored" data-anchor-id="contraintes-de-table-primaryforeign-key">Contraintes de table <code>PRIMARY/FOREIGN KEY</code></h2>
 <ul>
-<li>Formellement, la contrainte <code>PRIMARY KEY</code> est équivalente à <code>UNIQUE</code> et <code>NOT NULL</code>. C’est une ou plusieurs colonnes qui permettent d’identifier de façon unique chaque ligne. Dans une base de données bien conçue, chaque table doit avoir une clé primaire.</li>
+<li>Formellement, la contrainte <code>PRIMARY KEY</code> est équivalente à <code>UNIQUE</code> et <code>NOT NULL</code>. Elle spécifie une ou plusieurs colonnes qui permettent d’identifier de façon unique chaque ligne. Dans une base de données bien conçue, chaque table doit avoir une clé primaire.</li>
 <li>On ne peut définir qu’une seule contrainte <code>PRIMARY KEY</code> sur une table.</li>
-<li>La contrainte <code>FOREIGN KEY</code> spécifie que la valeur d’une (ou de plusieurs) colonne contient des valeurs présentes dans une autre table. Par exemple, la colonne <code>capital</code> de <code>country</code> contient une valeur qui doit apparaître dans la colonne <code>id</code> de <code>city</code>.</li>
+<li>La contrainte <code>FOREIGN KEY</code> spécifie que la valeur d’une (ou de plusieurs) colonne contient des valeurs doivent être présentes dans une autre table. Par exemple, la colonne <code>capital</code> de <code>country</code> contient des valeurs qui doivent être présentes dans la colonne <code>id</code> de <code>city</code>.</li>
 <li>On peut définir plusieurs contraintes <code>FOREIGN KEY</code> sur une table.</li>
 </ul>
 <p>Exemple:</p>
