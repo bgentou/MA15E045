@@ -4587,12 +4587,14 @@ window.Quarto = {
 <li>Ajouter la contrainte : dans <code>td_country</code>, pour chaque pays, il n’existe pas un autre pays de la même <code>region</code> qui n’est pas dans le même <code>continent</code>. Il s’agit d’une contrainte correspondant à la <em>dépendance fonctionnelle</em> <code>region → continent</code>, c.a.d. que tous les pays d’une même région doivent être sur un même continent.</li>
 </ol>
 <p>Après la définition de la contrainte, tester l’insertion suivante :</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> td_country(countrycode, name_country, continent, region, code2, localname, governmentform, population_country, surfacearea) </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>   <span class="kw">select</span> <span class="st">&#39;FR2&#39;</span>, name_country, <span class="st">&#39;Asia&#39;</span>, region, code2, localname, governmentform, population_country, surfacearea </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">from</span> td_country </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>   <span class="kw">where</span> countrycode <span class="op">=</span> <span class="st">&#39;FRA&#39;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> td_country(countrycode, name_country, continent, region, code2, </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                  localname, governmentform, population_country, surfacearea) </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">select</span> <span class="st">&#39;FR2&#39;</span>, name_country, <span class="st">&#39;Asia&#39;</span>, region, code2, localname, governmentform, </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>            population_country, surfacearea </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>   <span class="kw">from</span> td_country </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>   <span class="kw">where</span> countrycode <span class="op">=</span> <span class="st">&#39;FRA&#39;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Vous devez obtenir une message d’erreur indiquant que la contrainte définie n’est pas respectée.</p>
 
 
