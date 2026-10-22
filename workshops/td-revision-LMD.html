@@ -4401,10 +4401,10 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="prérequis">Prérequis</h2>
 <ul>
 <li>schéma <a href="../schemas/schema-nycflights.html" target="_blank"><code>NYCflights</code></a>,</li>
-<li>cours <a href="https://bgentou.github.io/MA15E045/slides/SQL_0.html" target="_blank">Algèbre relationnelle</a>,</li>
-<li>cours <a href="https://bgentou.github.io/MA15E045/slides/SQL_1.html" target="_blank">Requêtes simples et jointures</a>,</li>
-<li>cours <a href="https://bgentou.github.io/MA15E045/slides/SQL_2.html" target="_blank">Requêtes imbriquées, CTEs</a>,</li>
-<li>cours <a href="https://bgentou.github.io/MA15E045/slides/SQL_3.html" target="_blank">Agrégation, Partitions, Fenêtres</a>.</li>
+<li>cours <a href="..\slides/SQL_0.html" target="_blank">Algèbre relationnelle</a>,</li>
+<li>cours <a href="..\slides/SQL_1.html" target="_blank">Requêtes simples et jointures</a>,</li>
+<li>cours <a href="..\slides/SQL_2.html" target="_blank">Requêtes imbriquées, CTEs</a>,</li>
+<li>cours <a href="..\slides/SQL_3.html" target="_blank">Agrégation, Partitions, Fenêtres</a>.</li>
 </ul>
 <div class="callout callout-style-simple callout-important">
 <div class="callout-body d-flex">
@@ -4542,7 +4542,7 @@ window.Quarto = {
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> tailnum <span class="kw">not</span> <span class="kw">in</span> (</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">select</span> <span class="kw">distinct</span> tailnum </span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>   <span class="kw">from</span> flights</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>   <span class="kw">where</span> <span class="dt">year</span> <span class="op">=</span> <span class="dv">2013</span> <span class="kw">and</span> <span class="dt">month</span> <span class="op">=</span> <span class="dv">1</span> <span class="kw">and</span> tailnum <span class="kw">is</span> <span class="kw">not</span> <span class="kw">null</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>   <span class="kw">where</span> tailnum <span class="kw">is</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">and</span> <span class="dt">year</span> <span class="op">=</span> <span class="dv">2013</span> <span class="kw">and</span> <span class="dt">month</span> <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
@@ -4560,9 +4560,13 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <p>Algèbre relationnelle avec une jointure :</p>
-<p><span class="math inline">\(\texttt{R1} =  \sigma(\texttt{planes} \bowtie_{\texttt{tailnum}} \texttt{flights}, \texttt{ flights.year = 2013} \wedge \texttt{flights.month = 1} \wedge \texttt{flights.day = 5})\)</span> <span class="math inline">\(\texttt{R2} =  \sigma(\texttt{planes} \bowtie_{\texttt{tailnum}} \texttt{flights}, \texttt{ flights.year = 2013} \wedge \texttt{flights.month = 1} \wedge \texttt{flights.day = 6})\)</span> <span class="math inline">\(\texttt{R} = \Pi(\texttt{R1} \bowtie_{\texttt{tailnum}} \texttt{R2}, \texttt{ R1.tailnum}, \texttt{ R1.model})\)</span></p>
+<p><span class="math inline">\(\texttt{R1} =  \sigma(\texttt{planes} \bowtie_{\texttt{tailnum}} \texttt{flights}, \texttt{ flights.year = 2013} \wedge \texttt{flights.month = 1} \wedge \texttt{flights.day = 5})\)</span></p>
+<p><span class="math inline">\(\texttt{R2} =  \sigma(\texttt{planes} \bowtie_{\texttt{tailnum}} \texttt{flights}, \texttt{ flights.year = 2013} \wedge \texttt{flights.month = 1} \wedge \texttt{flights.day = 6})\)</span></p>
+<p><span class="math inline">\(\texttt{R} = \Pi(\texttt{R1} \bowtie_{\texttt{tailnum}} \texttt{R2}, \texttt{ R1.tailnum}, \texttt{ R1.model})\)</span></p>
 <p>Algèbre relationnelle avec une intersection :</p>
-<p><span class="math inline">\(\texttt{R1} =  \sigma(\texttt{planes} \bowtie_{\texttt{tailnum}} \texttt{flights}, \texttt{ flights.year = 2013} \wedge \texttt{flights.month = 1} \wedge \texttt{flights.day = 5})\)</span> <span class="math inline">\(\texttt{R2} =  \sigma(\texttt{planes} \bowtie_{\texttt{tailnum}} \texttt{flights}, \texttt{ flights.year = 2013} \wedge \texttt{flights.month = 1} \wedge \texttt{flights.day = 6})\)</span> <span class="math inline">\(\texttt{R} = \Pi(\texttt{R1}, \texttt{ tailnum}, \texttt{ model}) \cap \Pi( \texttt{ R2}, \texttt{ tailnum}, \texttt{ model})\)</span></p>
+<p><span class="math inline">\(\texttt{R1} =  \sigma(\texttt{planes} \bowtie_{\texttt{tailnum}} \texttt{flights}, \texttt{ flights.year = 2013} \wedge \texttt{flights.month = 1} \wedge \texttt{flights.day = 5})\)</span></p>
+<p><span class="math inline">\(\texttt{R2} =  \sigma(\texttt{planes} \bowtie_{\texttt{tailnum}} \texttt{flights}, \texttt{ flights.year = 2013} \wedge \texttt{flights.month = 1} \wedge \texttt{flights.day = 6})\)</span></p>
+<p><span class="math inline">\(\texttt{R} = \Pi(\texttt{R1}, \texttt{ tailnum}, \texttt{ model}) \cap \Pi( \texttt{ R2}, \texttt{ tailnum}, \texttt{ model})\)</span></p>
 <p>SQL avec une jointure :</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">with</span> planes_5_janv_2013 <span class="kw">as</span>(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>   <span class="kw">select</span> p.tailnum, p.model </span>

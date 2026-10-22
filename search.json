@@ -823,7 +823,7 @@
     "href": "slides-listings.html",
     "title": "Diapositives",
     "section": "",
-    "text": "Les diapositives fournissent le canevas du cours. Vous pouvez les utiliser pour vous familiariser avec le matériel du prochain cours, pour revoir les cours passés et, pour réviser.\nLes diapositives marquées par l’image  renvoient à des développements effectués en classes.\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Titre\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Description\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitre\n\n\n\nDescription\n\n\n\n\n\n\n\n\nSep 7, 2026\n\n\nIntroduction aux Bases de Données\n\n\nBases de données, Systèmes d’information, Modèle relationnel, OLTP, OLAP\n\n\n\n\n\n\nSep 7, 2026\n\n\nAlgèbre relationnelle\n\n\nAlgèbre relationnelle, Sélection, Projection, Jointure\n\n\n\n\n\n\nSep 14, 2026\n\n\nSQL : requêtes simples\n\n\nAlgèbre relationnelle, SQL, Sélection, Projection, Jointure\n\n\n\n\n\n\nSep 21, 2026\n\n\nSQL : requêtes imbriquées\n\n\nRequêtes imbriquées, CTE\n\n\n\n\n\n\nSep 28, 2026\n\n\nSQL : Agrégations, Partitions, Fenêtres\n\n\nAggrégations, Partitions, Fenêtres\n\n\n\n\n\n\nOct 18, 2026\n\n\nSQL : Définition de données\n\n\nCréation de tables, Insertion, Suppression, Mises à jour\n\n\n\n\n\n\nOct 18, 2026\n\n\nSQL : Définition de données, Contraintes\n\n\nContraintes, Check, Primary Key, Foreign Key\n\n\n\n\n\n\nNov 2, 2026\n\n\nModélisation : Entité-Association\n\n\nModélisation, MCD, Entité-Association, Cardinalités\n\n\n\n\n\n\nNov 9, 2026\n\n\nModélisation Entité-Association : notions avancées\n\n\nModélisation, Entités faibles, Décomposition d’association, Spécialisation/Généralisation, contraintes de spécialisation, CIF, contraintes inter-associations\n\n\n\n\n\n\nNov 16, 2026\n\n\nModélisation : conversion du MCD vers le MLD\n\n\nModélisation, conversion, MCD, MLD, MRD\n\n\n\n\n\n\nNov 23, 2026\n\n\nDépendances Fonctionnelles, Calcul de dépendances, Clés, Fermetures, Couvertures irredondantes.\n\n\nDépendances Fonctionnelles, Clés, Fermetures, Couvertures irredondantes\n\n\n\n\n\n\nNov 30, 2026\n\n\nNormalisation : Décompositions SPD, SPI, FN3 et FNBC\n\n\nNormalisation, Décomposition, Perte de DF, Perte d’information, SDP, SPI, FN2, FN3, FNBC\n\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\nNoteMode d’emploi\n\n\n\nLes diapositives utilisent la bibliothèque revealjs de . Elles s’affichent dans votre navigateur. Vous pouvez accéder au mode d’emploi en tappant",
+    "text": "Les diapositives fournissent le canevas du cours. Vous pouvez les utiliser pour vous familiariser avec le matériel du prochain cours, pour revoir les cours passés et, pour réviser.\nLes diapositives marquées par l’image  renvoient à des développements effectués en classes.\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Titre\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Description\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitre\n\n\n\nDescription\n\n\n\n\n\n\n\n\nSep 7, 2026\n\n\nIntroduction aux Bases de Données\n\n\nBases de données, Systèmes d’information, Modèle relationnel, OLTP, OLAP\n\n\n\n\n\n\nSep 7, 2026\n\n\nAlgèbre relationnelle\n\n\nAlgèbre relationnelle, Sélection, Projection, Jointure\n\n\n\n\n\n\nSep 14, 2026\n\n\nSQL : requêtes simples\n\n\nAlgèbre relationnelle, SQL, Sélection, Projection, Jointure\n\n\n\n\n\n\nSep 21, 2026\n\n\nSQL : requêtes imbriquées\n\n\nRequêtes imbriquées, CTE\n\n\n\n\n\n\nSep 28, 2026\n\n\nSQL : Agrégations, Partitions, Fenêtres\n\n\nAggrégations, Partitions, Fenêtres\n\n\n\n\n\n\nOct 18, 2026\n\n\nSQL : Définition de données\n\n\nCréation de tables, Insertion, Suppression, Mises à jour\n\n\n\n\n\n\nOct 18, 2026\n\n\nSQL : Définition de contraintes\n\n\nContraintes, Check, Primary Key, Foreign Key\n\n\n\n\n\n\nNov 2, 2026\n\n\nModélisation : Entité-Association\n\n\nModélisation, MCD, Entité-Association, Cardinalités\n\n\n\n\n\n\nNov 9, 2026\n\n\nModélisation Entité-Association : notions avancées\n\n\nModélisation, Entités faibles, Décomposition d’association, Spécialisation/Généralisation, contraintes de spécialisation, CIF, contraintes inter-associations\n\n\n\n\n\n\nNov 16, 2026\n\n\nModélisation : conversion du MCD vers le MLD\n\n\nModélisation, conversion, MCD, MLD, MRD\n\n\n\n\n\n\nNov 23, 2026\n\n\nDépendances Fonctionnelles, Calcul de dépendances, Clés, Fermetures, Couvertures irredondantes.\n\n\nDépendances Fonctionnelles, Clés, Fermetures, Couvertures irredondantes\n\n\n\n\n\n\nNov 30, 2026\n\n\nNormalisation : Décompositions SPD, SPI, FN3 et FNBC\n\n\nNormalisation, Décomposition, Perte de DF, Perte d’information, SDP, SPI, FN2, FN3, FNBC\n\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\nNoteMode d’emploi\n\n\n\nLes diapositives utilisent la bibliothèque revealjs de . Elles s’affichent dans votre navigateur. Vous pouvez accéder au mode d’emploi en tappant",
     "crumbs": [
       "Diapositives"
     ]
@@ -1741,105 +1741,105 @@
   {
     "objectID": "slides/LDD_2.html#schema-de-world",
     "href": "slides/LDD_2.html#schema-de-world",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Schema de world",
     "text": "Schema de world\n\nModèle relationnel du schéma World"
   },
   {
     "objectID": "slides/LDD_2.html#conraintes-sur-la-table-country",
     "href": "slides/LDD_2.html#conraintes-sur-la-table-country",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Conraintes sur la table country",
     "text": "Conraintes sur la table country\n\nUn pays est identifié par son countrycode,\nDeux pays ne devraient pas avoir le même nom,\nUne région ne devrait appartenir qu’à un seul continent,\nLa capitale d’un pays devrait être une ville connue dans city,\nLa capitale d’un pays devrait être une ville de ce pays,\nLes capitales de deux pays différents devraient être des villes différentes,\n…\n\n Ce ne sont pas les seules contraintes possibles"
   },
   {
     "objectID": "slides/LDD_2.html#mise-en-œuvre-des-contraintes",
     "href": "slides/LDD_2.html#mise-en-œuvre-des-contraintes",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Mise en œuvre des contraintes",
     "text": "Mise en œuvre des contraintes\n\nUn pays est identifié par son countrycode : PRIMARY KEY\nDeux pays ne devraient pas avoir le même nom : UNIQUE\nUne région ne devrait appartenir qu’à un seul continent : ??? -&gt; EXCLUDE\nLa capitale d’un pays devrait être une ville connue dans city : REFERENCES\nLa capitale d’un pays devrait être une ville de ce pays : ??? -&gt; trigger\nLes capitales de deux pays différents devraient être des villes différentes : UNIQUE\nDeux pays différents ne peuvent avoir le même code2 : UNIQUE"
   },
   {
     "objectID": "slides/LDD_2.html#examen-du-schema-de-country",
     "href": "slides/LDD_2.html#examen-du-schema-de-country",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Examen du schema de country",
     "text": "Examen du schema de country\n+--------------------+---------------+-----------+\n| Column             | Type          | Modifiers | \n|--------------------+---------------+-----------+-\n| countrycode        | character(3)  |  not null | \n| name_country       | text          |  not null | \n| continent          | text          |  not null | \n| region             | text          |  not null |\n| surfacearea        | real          |  not null |\n| indepyear          | smallint      |           | \n| population_country | integer       |  not null | \n| lifeexpectancy     | real          |           | \n| gnp                | numeric(10,2) |           | \n| gnpold             | numeric(10,2) |           | \n| localname          | text          |  not null | \n| governmentform     | text          |  not null | \n| headofstate        | text          |           | \n| capital            | integer       |           | \n| code2              | character(2)  |  not null | \n+--------------------+---------------+-----------+\n Un schéma de table ne se réduit pas à la données des noms et domaines des colonnes."
   },
   {
     "objectID": "slides/LDD_2.html#suite",
     "href": "slides/LDD_2.html#suite",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "suite",
     "text": "suite\nIndexes:\n    \"country_pkey\" PRIMARY KEY, btree (countrycode)\nCheck constraints:\n    \"country_continent_check\" CHECK (continent = 'Asia'::text OR \n                                     continent = 'Europe'::text OR \n                                     continent = 'North America'::text OR \n                                     continent = 'Africa'::text OR\n                                     continent = 'Oceania'::text OR\n                                     continent = 'Antarctica'::text OR\n                                     continent = 'South America'::text),\nForeign-key constraints:\n    \"country_capital_fkey\" FOREIGN KEY (capital) REFERENCES city(id)"
   },
   {
     "objectID": "slides/LDD_2.html#ddl-pour-country",
     "href": "slides/LDD_2.html#ddl-pour-country",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "DDL pour country",
     "text": "DDL pour country\nCREATE TABLE world.country (\n    countrycode bpchar(3) NOT NULL,\n    name_country text NOT NULL,\n    continent text NOT NULL,\n    region text NOT NULL,\n    surfacearea float4 NOT NULL,\n    indepyear int2 NULL,\n    population_country int4 NOT NULL,\n    lifeexpectancy float4 NULL,\n    gnp numeric(10, 2) NULL,\n    gnpold numeric(10, 2) NULL,\n    localname text NOT NULL,\n    governmentform text NOT NULL,\n    headofstate text NULL,\n    capital int4 NULL,\n    code2 bpchar(2) NOT NULL,\n    CONSTRAINT country_continent_check CHECK (((continent = 'Asia'::text) \n    OR (continent = 'Europe'::text) \n    OR (continent = 'North America'::text) \n    OR (continent = 'Africa'::text) \n    OR (continent = 'Oceania'::text)\n    OR (continent = 'Antarctica'::text) \n    OR (continent = 'South America'::text))),\n    CONSTRAINT country_pkey PRIMARY KEY (countrycode)\n);"
   },
   {
     "objectID": "slides/LDD_2.html#ajout-de-contraintes-référentielles",
     "href": "slides/LDD_2.html#ajout-de-contraintes-référentielles",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Ajout de contraintes référentielles",
     "text": "Ajout de contraintes référentielles\n\nUne contrainte d’intégrité référentielle impose l’inclusion de l’ensemble des valeurs d’une colonne (la colone qui référence) à l’ensemble des valeurs d’une autre colonne (la colonne référencée).\n\n\n\nLa colonne référencée est quasiment toujours la clé primaire d’une autre table. On peut alors définir la contrainte en n’indiquant que la table référencée (car la clé primaire est unique) :\n\nALTER TABLE world.country ADD CONSTRAINT \n  country_capital_fkey FOREIGN KEY (capital) REFERENCES world.city;\n\n\n\nSi la colonne référencée n’est pas une clé primaire, elle doit vérifier une contrainte d’unicité. Il faut alors préciser le nom de la table et le nom de la colonne référencée avec cette syntaxe : REFERENCES nom_table(nom_colonne)"
   },
   {
     "objectID": "slides/LDD_2.html#gestion-de-la-mise-à-jour-ou-de-la-suppression-dun-attribut-référencé",
     "href": "slides/LDD_2.html#gestion-de-la-mise-à-jour-ou-de-la-suppression-dun-attribut-référencé",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Gestion de la mise à jour ou de la suppression d’un attribut référencé",
     "text": "Gestion de la mise à jour ou de la suppression d’un attribut référencé\n\n\n\n\n\n\nImportant\n\n\nAprès la définition de la contrainte country_capital_fkey, la mise à jour ou la suppression d’une valeur de l’attribut city.id référencée dans l’attribut country.capital est bloquée par le SGBD.\n\n\n\n\nOn peut définir différentes actions pour les rendre possibles :\n\nCASCADE : supprime ou met à jour en cascade les lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\n\nSET NULL : met à NULL la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour.\n\n\n\n\nSET DEFAULT : met à leur valeur par défaut la ou les colonnes des lignes qui référencent la valeur supprimée ou mise à jour."
   },
   {
     "objectID": "slides/LDD_2.html#utilisation-de-laction-cascade",
     "href": "slides/LDD_2.html#utilisation-de-laction-cascade",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Utilisation de l’action CASCADE",
     "text": "Utilisation de l’action CASCADE\nALTER TABLE world.city \n  ADD CONSTRAINT city_countrycode_fkey \n    FOREIGN KEY (countrycode) \n    REFERENCES world.country\n    ON DELETE CASCADE\n    ON UPDATE CASCADE;\n\nSi un countrycode est suprrimé dans la table country, toutes les lignes de la table city où ce code est présent seront supprimées, et si ces lignes sont référencées dans un autre table, les lignes qui les référencent seront elles-mêmes supprimées et ainsi de suite “en cascade”.\n\n\n\nSi un countrycode est mis à jour dans la table country, toutes les lignes de la table city où ce code est présent seront mises à jour, et si ces mises à jour sont référencées dans un autre table, les lignes qui les référencent seront elles-mêmes mises à jour et ainsi de suite “en cascade”."
   },
   {
     "objectID": "slides/LDD_2.html#utilisation-de-laction-set-null",
     "href": "slides/LDD_2.html#utilisation-de-laction-set-null",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Utilisation de l’action SET NULL",
     "text": "Utilisation de l’action SET NULL\nALTER TABLE world.city \n  ADD CONSTRAINT country_capital_fkey \n    FOREIGN KEY (capital) \n    REFERENCES world.city(id)\n    ON DELETE SET NULL\n    ON UPDATE CASCADE;\n\nSi un id est suprrimé dans la table city, les lignes de la table country où ce code est présent ne seront pas supprimées, la colonne capital sera mise à NULL. Cette action est possible car la valeur NULL est autorisée pour la colonne capital."
   },
   {
     "objectID": "slides/LDD_2.html#une-région-nappartient-quà-un-seul-continent",
     "href": "slides/LDD_2.html#une-région-nappartient-quà-un-seul-continent",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Une région n’appartient qu’à un seul continent",
     "text": "Une région n’appartient qu’à un seul continent\nCette contrainte signifie que le résultat de la requête suivante est vide :\nSELECT *\nFROM \n  world.country c1 \nJOIN \n  world.country c2 ON (c1.continent&lt;&gt; c2.continent AND c1.region=c2.region);\n\nOn exclut l’existence de deux lignes qui coïncideraient sur region mais pas sur continent\nNous postulons l’existence d’une dépendance fonctionnelle\n\\[\\texttt{region} \\longrightarrow \\texttt{continent}\\]"
   },
   {
     "objectID": "slides/LDD_2.html#deux-attitudes",
     "href": "slides/LDD_2.html#deux-attitudes",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Deux attitudes",
     "text": "Deux attitudes\nDans sa forme actuelle, la table country de world contient des informations redondantes: on répète plusieurs fois que la région Western Europe est située dans le continent Europe.\nCes redondances représentent un gaspillage de mémoire (très modeste ici) et un risque pour le maintien de la cohérence de la base : chaque insertion, mise-à-jour est susceptible de mettre en défaut la dépendance fonctionnelle.\nOn peut considérer qu’il s’agit d’une anomalie de schéma et normaliser le schéma.\nLa normalisation suppose une révision du schéma. Si le schéma est muni de vues et de fonctions, il faudra éventuellement réécrire ces vues et ces fonctions."
   },
   {
     "objectID": "slides/LDD_2.html#autre-possibilité-avec-une-contrainte-dexclusion",
     "href": "slides/LDD_2.html#autre-possibilité-avec-une-contrainte-dexclusion",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Autre possibilité avec une contrainte d’exclusion",
     "text": "Autre possibilité avec une contrainte d’exclusion\nAvec une contrainte d’exclusion (EXCLUDE), on ne touchera pas au schéma, les vues et les fonctions resteront utilisables.\nLa contrainte d’exclusion permettra de maintenir la dépendance fonctionnelle."
   },
   {
     "objectID": "slides/LDD_2.html#les-contraintes-dexclusion",
     "href": "slides/LDD_2.html#les-contraintes-dexclusion",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Les contraintes d’exclusion",
     "text": "Les contraintes d’exclusion\n\n\n\n\n\n\nObjectifs\n\n\n\nMise en place de dépendances fonctionnelles,\nMise en place de contraintes de non-recouvrement (données spatiales ou temporelles),\nMise en place de contraintes très diverses."
   },
   {
     "objectID": "slides/LDD_2.html#clause-exclude",
     "href": "slides/LDD_2.html#clause-exclude",
-    "title": "BD VII: gestion avancée des contraintes",
+    "title": "SQL : Contraintes",
     "section": "Clause EXCLUDE",
     "text": "Clause EXCLUDE\nUne clause EXCLUDE empêche que deux lignes vérifient toutes les comparaisons sur les colonnes spécifiées en utilisant les opérateurs indiqués par le mot clé WITH.\nALTER TABLE country\n   ADD CONSTRAINT xcl_country_region_continent \n      EXCLUDE USING GIST\n      (\n         region WITH =, \n         continent WITH &lt;&gt;\n      );\nCette contrainte d’exclusion empèche que deux lignes de la table country aient la colonne region égale et la colonne continent différente.\n\n\n\n\n\n\nNote\n\n\nLa clause USING définit le type d’index utilisé pour vérifier la contrainte d’exclusion.\nEn pratique, le type d’index sera toujours GiST ou SP-GiST (GIST est l’acronyme de Generalized Search Tree)."
   },
@@ -2945,9 +2945,9 @@
   {
     "objectID": "slides/LDD_1.html#exemple",
     "href": "slides/LDD_1.html#exemple",
-    "title": "BD : Contraintes",
+    "title": "SQL : définitions de données",
     "section": "Exemple",
-    "text": "Exemple\nDans un tuple de Piece, on devrait toujours avoir une valeur du prix positive.\nOn peut imposer cela en ajoutant au schéma de la table Piece une contrainte de type CHECK\n\nCREATE TABLE piece(\n    nomp VARCHAR(20),\n    prix MONEY CHECK (prix&gt;= 0::money), \n    couleur VARCHAR(15)\n);\n\n\n\n\n\n\n\n\nNote\n\n\nHave a look at PostGres Monetary type"
+    "text": "Exemple\nSchéma:\nfournisseur(nomf, villef),\npiece(nomp, prix, couleur),\nlivraison(numliv, nomf, nomp, dateliv, quantite)\n\nCREATE TABLE fournisseur(\n    nomf VARCHAR(20),\n    villef VARCHAR(20)\n);\n\nCREATE TABLE piece(\n    nomp VARCHAR(20),\n    prix REAL,\n    couleur VARCHAR(15)\n);"
   },
   {
     "objectID": "slides/LDD_1.html#exemple-world.country",
@@ -4312,7 +4312,7 @@
     "href": "workshops/td4.html#contraintes-check.",
     "title": "TD 4 : Définition de données, Contraintes",
     "section": "Contraintes CHECK.",
-    "text": "Contraintes CHECK.\nCette contrainte permet de vérifier que les colonnes d’une ligne donnée vérifient une certaine condition. Par exemple, on pourrait vouloir vérifier que la valeur de la colonne percentage de la table countrylanguage est inférieure à 100 ou que la valeur de la colonne return_date de la table rental est soit NULL ou supérieure à rental_date. Ces contraintes se définissent lors de la création de la table. Par exemple :\nCREATE TABLE solde(\n    produit TEXT,\n    reduc_pourcentage INT,\n    CHECK (reduc_pourcentage&lt;=100 AND reduc_pourcentage%10=0)\n);\nOn peut ajouter une contrainte CHECK à une table qui existe déjà. Par exemple :\nALTER TABLE solde ADD \n    CHECK (reduc_pourcentage &gt;=0);\nou bien en nommant la contrainte :\nALTER TABLE solde \n    ADD CONSTRAINT reduc_positive \n    CHECK (reduc_pourcentage &gt;=0);"
+    "text": "Contraintes CHECK.\nCette contrainte permet de vérifier que les colonnes d’une ligne donnée vérifient une certaine condition. Par exemple, on pourrait vouloir vérifier que la valeur de la colonne percentage de la table countrylanguage est inférieure à 100 ou que la valeur de la colonne return_date de la table rental est soit NULL ou supérieure à rental_date. Ces contraintes se définissent lors de la création de la table. Par exemple :\nCREATE TABLE solde(\n    produit TEXT,\n    reduc_pourcentage INT,\n    CHECK (reduc_pourcentage&lt;=100 AND reduc_pourcentage%10=0)\n);\nOn peut ajouter une contrainte CHECK à une table qui existe déjà. Par exemple :\nALTER TABLE solde ADD \n    CHECK (reduc_pourcentage &gt;=0);\nIl est préférable de vérifier qu’une table existe avant de tenter d’ajouter une contrainte :\nALTER TABLE IF EXISTS solde ADD \n    CHECK (reduc_pourcentage &gt;=0);\nou bien en nommant la contrainte :\nALTER TABLE IF EXISTS solde \n    ADD CONSTRAINT reduc_positive \n       CHECK (reduc_pourcentage &gt;=0);"
   },
   {
     "objectID": "workshops/td4.html#contraintes-default-not-null-unique",
@@ -4333,7 +4333,7 @@
     "href": "workshops/td4.html#contraintes-exclude",
     "title": "TD 4 : Définition de données, Contraintes",
     "section": "Contraintes EXCLUDE",
-    "text": "Contraintes EXCLUDE\nLes contraintes NOT NULL, DEFAULT, KEY, CHECK portent uniquement sur une ligne tandis que la contrainte UNIQUE permet uniquement de tester des égalités entre lignes. On veut parfois vérifier une condition plus riche sur deux lignes. Par exemple, si notre table contient des réservations d’une salle entre start_date et end_date, on ne veut pas que deux réservations se chevauchent. On écrira:\nCREATE TABLE reservation(\n    start_date DATE, \n    end_date DATE,\n\n    EXCLUDE USING gist (\n        daterange(start_date, end_date) WITH &&)\n);"
+    "text": "Contraintes EXCLUDE\nLa clause EXCLUDE permet de définir des contraintes d’exclusion entre deux lignes quelconques d’une table, c.a.d. que pour tout couple de lignes de la table, la propriété est exclue.\nOn obtient une contrainte équivalente à la précédente avec la définition suivante :\ncreate table if not exists reservation(\n   id int primary key,\n   start_date date not null, \n   end_date date not null check (end_date &gt; start_date),\n   exclude using gist (\n        daterange(start_date, end_date) with &&)\n);\nExplication :\n\nGiST définit un type d’index pour effectuer les recherches. GiST comme “Generalized Search Tree” désigne une catégorie d’arbres (cf. Wikipedia).\ndaterange calcule un intervalle de dates.\n&& est l’opérateur de comparaison utilisé. En PostgreSQL, il s’agit du test de recouvrement entre deux daterange.\nexclude using gist (daterange(start_date, end_date) with &&) signifie que pour deux lignes r1 et r2, il est interdit que les intervalles daterange(r1.start_date, r1.end_date) et daterange(r2.start_date, r2.end_date) se recouvrent.\n\nVoir la documentation PostgreSQL."
   },
   {
     "objectID": "workshops/td5.html#exercice-1",
@@ -4431,7 +4431,7 @@
     "href": "workshops/td-revision-LMD.html#questions",
     "title": "TD de révision : SQL",
     "section": "Questions",
-    "text": "Questions\n\nAfficher tous les détails des avions du fabricant ‘BOEING’ qui disposent d’au moins 300 places (au sens strict) ? (144 lignes) Ecrire la requête en SQL et en algèbre relationnelle.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAlgèbre relationnelle :\n\\(\\texttt{R} = \\sigma( \\texttt{planes} , \\texttt{ manufacturer = 'BOEING' } \\wedge \\texttt{ seats &gt;= 300} )\\)\nselect *\nFrom planes p\nwhere manufacturer ilike 'BOEING' and seats &gt;= 300;\n\n\n\nAfficher les identifiants et les modèles des avions du fabricant ‘AIRBUS INDUSTRIE’ fabriqués strictement avant 2000 (attribut year) ou de moteur de type ‘Turbo-jet’ (attribut engine) ? (273 lignes) Ecrire la requête en SQL et en algèbre relationnelle.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAlgèbre relationnelle :\n\\(\\texttt{R1} = \\sigma( \\texttt{planes} , \\texttt{ manufacturer = 'AIRBUS INDUSTRIE' } \\wedge (\\texttt{ year &lt; 2000} \\vee \\texttt{engine = 'Turbo-jet'} ) )\\)\n\\(\\texttt{R} = \\Pi\\big( \\texttt{R1}, \\texttt{ tailnum} , \\texttt{ model})\\)\nselect tailnum, model\nFrom planes\nwhere manufacturer ilike 'AIRBUS INDUSTRIE' and (year &lt; 2000 or engine ilike 'Turbo-jet');\n\n\n\nQuels sont les avions (identifiant, modèle) du fabricant ‘CANADAIR’ qui ont volé en janvier 2013 ? (8 lignes) Ecrire la requête en SQL et en algèbre relationnelle.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAlgèbre relationnelle :\n\\(\\texttt{R1} = \\sigma( \\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights} , \\texttt{ planes.manufacturer = 'CANADAIR'} \\wedge \\texttt{flights.year = 2013} \\wedge \\texttt{flights.month = 1})\\)\n\\(\\texttt{R} = \\Pi( \\texttt{R1}, \\texttt{ tailnum}, \\texttt{ model})\\)\nselect distinct tailnum, model\nfrom planes p JOIN\n   flights f USING (tailnum) \nwhere manufacturer ilike 'CANADAIR' and f.year = 2013 and f.month = 1 ;\n\n\n\nQuels sont les avions (identifiant et modèle) de la table planes qui n’ont pas volé en janvier 2013 ? (713 lignes) Proposer plusieurs solutions. Ecrire les requêtes en SQL et en algèbre relationnelle.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAlgèbre relationnelle avec une jointure externe :\n\\(\\texttt{R1} = \\sigma(\\texttt{flights}, \\texttt{ year = 2013} \\wedge \\texttt{month = 1} )\\)\n\\(\\texttt{R2} = \\sigma(\\texttt{planes } {}^+\\bowtie_{\\texttt{tailnum}} \\texttt{R1}, \\texttt{ R1.tailnum = NULL})\\)\n\\(\\texttt{R} = \\Pi( \\texttt{R2} , \\texttt{ tailnum}, \\texttt{ model})\\)\nAlgèbre relationnelle avec une opération de différence :\n\\(\\texttt{R1} = \\sigma(\\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights}, \\texttt{ year = 2013} \\wedge \\texttt{month = 1} )\\)\n\\(\\texttt{R} = \\Pi(\\texttt{planes}, \\texttt{ tailnum}, \\texttt{ model}) \\setminus \\Pi( \\texttt{R1}, \\texttt{ tailnum}, \\texttt{ model})\\)\nAvec une jointure externe :\nwith planes_janv_2013 as(\n   select distinct tailnum from flights\n   where year = 2013 and month = 1\n)\nselect p.tailnum, p.model\nfrom planes p left join planes_janv_2013 pj13 using(tailnum)\nwhere pj13.tailnum is NULL;\nAvec une différence :\nwith planes_janv_2013 as(\n   select p.tailnum, p.model \n   from flights f join planes p using(tailnum)\n   where f.year = 2013 and f.month = 1\n)\n(select tailnum, model from planes)\nexcept\n(select tailnum, model from planes_janv_2013);\nAvec NOT EXISTS :\nselect tailnum, model\nfrom planes\nwhere not exists (\n   select 1\n   from flights\n   where flights.tailnum = planes.tailnum\n   and flights.year = 2013 and flights.month = 1\n);\nSolution erronée avec NOT IN à cause de la logique trivalente car NULL est présent dans la sous-requête (vols annulés). La table retournée est donc vide. Il faut utiliser NOT EXISTS, une différence ou une jointure externe comme ci-dessus.\nselect tailnum, model\nfrom planes\nwhere tailnum not in (\n   select distinct tailnum \n   from flights\n   where year = 2013 and month = 1\n)\nSolution correcte avec NOT IN en excluant les valeurs null du résultat de la sous-requête:\nselect tailnum, model\nfrom planes\nwhere tailnum not in (\n   select distinct tailnum \n   from flights\n   where year = 2013 and month = 1 and tailnum is not null\n);\n\n\n\nQuels sont les avions (identifiants, modèles) de la table planes qui ont volé le 5 et le 6 janvier ? (210 lignes) Proposer plusieurs solutions. Ecrire la requête en SQL et en algèbre relationnelle.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAlgèbre relationnelle avec une jointure :\n\\(\\texttt{R1} =  \\sigma(\\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights}, \\texttt{ flights.year = 2013} \\wedge \\texttt{flights.month = 1} \\wedge \\texttt{flights.day = 5})\\) \\(\\texttt{R2} =  \\sigma(\\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights}, \\texttt{ flights.year = 2013} \\wedge \\texttt{flights.month = 1} \\wedge \\texttt{flights.day = 6})\\) \\(\\texttt{R} = \\Pi(\\texttt{R1} \\bowtie_{\\texttt{tailnum}} \\texttt{R2}, \\texttt{ R1.tailnum}, \\texttt{ R1.model})\\)\nAlgèbre relationnelle avec une intersection :\n\\(\\texttt{R1} =  \\sigma(\\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights}, \\texttt{ flights.year = 2013} \\wedge \\texttt{flights.month = 1} \\wedge \\texttt{flights.day = 5})\\) \\(\\texttt{R2} =  \\sigma(\\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights}, \\texttt{ flights.year = 2013} \\wedge \\texttt{flights.month = 1} \\wedge \\texttt{flights.day = 6})\\) \\(\\texttt{R} = \\Pi(\\texttt{R1}, \\texttt{ tailnum}, \\texttt{ model}) \\cap \\Pi( \\texttt{ R2}, \\texttt{ tailnum}, \\texttt{ model})\\)\nSQL avec une jointure :\nwith planes_5_janv_2013 as(\n   select p.tailnum, p.model \n   from flights f join planes p using(tailnum)\n   where f.year = 2013 and f.month = 1 and f.day = 5\n),\nplanes_6_janv_2013 as(\n   select p.tailnum, p.model \n   from flights f join planes p using(tailnum)\n   where f.year = 2013 and f.month = 1 and f.day = 6\n)\nselect distinct p5.tailnum, p5.model  \nfrom planes_5_janv_2013 p5 join planes_6_janv_2013 p6 using(tailnum);\nSQL avec une intersection :\nwith planes_5_janv_2013 as(\n   select p.tailnum, p.model \n   from flights f join planes p using(tailnum)\n   where f.year = 2013 and f.month = 1 and f.day = 5\n),\nplanes_6_janv_2013 as(\n   select p.tailnum, p.model \n   from flights f join planes p using(tailnum)\n   where f.year = 2013 and f.month = 1 and f.day = 6\n)\n(select * from planes_5_janv_2013)\nintersect\n(select * from planes_6_janv_2013);\n\n\n\nQuels sont les avions (identifiants, modèles) de la table planes qui ont eu au moins un retard à l’arrivée en 2013 ? (3176 lignes) Un vol retardé à l’arrivée est un vol dont l’attribut arr_delay est strictement supérieur à 0. Proposer plusieurs solutions.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nNB : la valeur NULL est interdite sur la colonne tailnum de la table planes (clé primaire) mais pas sur la colonne tailnum de la table flights.\nAvec une jointure :\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n)\nselect p.tailnum, p.model\nfrom planes p join delayed_2013 d using(tailnum);\nAvec IN (le résultat de la sous-requête peut contenir NULL) :\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n)\nselect tailnum, model\nfrom planes\nwhere tailnum in (select * from delayed_2013);\nAvec EXISTS\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n)\nselect tailnum, model\nfrom planes p\nwhere exists (\n   select 1 \n   from delayed_2013 d\n   where d.tailnum = p.tailnum);\n\n\n\nQuels sont les avions (identifiants, modèles) de la table planes qui n’ont pas eu de retard à l’arrivée en 2013 ? (146 lignes) Proposer plusieurs solutions.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAttention : la valeur NULL est interdite sur la colonne tailnum de la table planes (clé primaire) mais pas sur la colonne tailnum de la table flights.\nAvec une jointure externe :\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n)\nselect p.tailnum, p.model\nfrom planes p left join delayed_2013 d using(tailnum)\nwhere d.tailnum is NULL;\nAvec une différence :\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n),\nnot_delayed_2013 as(\n   select tailnum from planes\n   except\n   select tailnum from delayed_2013\n)\nselect p.tailnum, p.model\nfrom planes p join not_delayed_2013 using(tailnum);\nAvec NOT IN (en retirant NULL des résultats de la sous-requête car NULL est autorisé pour tailnum dans flights)\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where tailnum is not null and arr_delay &gt; 0 and year = 2013\n)\nselect tailnum, model \nfrom planes\nwhere tailnum not in (\n   select tailnum from delayed_2013\n)\n\n\n\nQuels sont les fabricants dont aucun avion de la table planes n’a eu un retard à l’arrivée en 2013 ? (0 ligne) Proposer plusieurs solutions.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAttention, la valeur NULL n’est pas interdite sur la colonne manufacturer.\nOn peut faire la différence avec une jointure externe :\nwith manufacturer_delayed_2013 as(\n   select distinct p.manufacturer \n   from flights f join planes p using(tailnum)\n   where f.arr_delay &gt; 0 and f.year = 2013\n)\nselect distinct p.manufacturer \nfrom planes p natural left join manufacturer_delayed_2013 d\nwhere d.manufacturer is null;\nIci, les valeurs NULL de planes.manufacturer ou de manufacturer_delayed_2013 sont exclues par l’équijointure de la requête principale car si au moins un des membres d’un test d’égalité est NULL, le test n’est pas True.\nOu avec EXCEPT\nwith manufacturer_delayed_2013 as(\n   select distinct p.manufacturer \n   from flights f join planes p using(tailnum)\n   where f.arr_delay &gt; 0 and f.year = 2013\n)\n(\n   select manufacturer \n   from planes \n   where manufacturer is not null\n)\nexcept\nselect manufacturer from manufacturer_delayed_2013;\nIci, les valeurs NULL de planes.manufacturer ne sont pas exclues par EXCEPT car les opérations ensemblistes traitent les valeurs NULL comme les autres. On ajoute donc une condition pour les exclure.\nOu encore avec NOT IN en excluant de la sous-requête les valeurs NULL :\nwith manufacturer_delayed_2013 as(\n   select distinct p.manufacturer \n   from flights f join planes p using(tailnum)\n   where p.manufacturer is not null and f.arr_delay &gt; 0 and f.year = 2013\n)\nselect distinct manufacturer \nfrom planes\nwhere manufacturer not in (\n   select *\n   from manufacturer_delayed_2013\n);\nCette requête n’est pas correcte : elle donne la liste des fabricants dont au moins un avion n’a jamais eu de retard à l’arrivée en 2013\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n)\nselect distinct p.manufacturer\nfrom planes p left join delayed_2013 d using(tailnum)\nwhere d.tailnum is NULL;\n\n\n\nQuelle est la capacité maximale d’un avion de la table planes ? (450 places)\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect max(seats)\nfrom planes;\n\n\n\nCombien d’avions de la table planes ont volé en janvier 2013 ? (2609)\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect count(distinct p.tailnum)\nfrom flights f join planes p using(tailnum)\nwhere f.year = 2013 and f.month = 1;\n\n\n\nCombien y-a-t-il eu de vols en janvier 2013 pour les avions de la table planes de capacité supérieure ou égale à 300 ? (377)\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect count(*)\nfrom flights f join planes p using(tailnum)\nwhere f.year = 2013 and f.month = 1 and p.seats &gt;=300 ;\n\n\n\nQuels sont les aéroports de la table airports (identifiants, noms) qui ont au moins 100 vols annulés au départ en 2013 ? (3 lignes) Dans la table flights, les vols annulés sont caractérisés par une valeur NULL dans la colonne tailnum et l’aéroport de départ est indiqué dans la colonne origin. On indiquera le nombre de vols annulés pour chaque ligne.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect a.faa, a.name, count(f.*)\nfrom airports a join flights f on a.faa = f.origin \nwhere tailnum is null and year = 2013\ngroup by a.faa, a.name\nhaving count(f.*)&gt;=10;\n\n\n\nQuelle est la proportion des vols de la table flights en 2013 qui ont été retardés à l’arrivée, la proportion se rapporte à tous les vols, y compris les vols annulés ? (39,49 %) Attention, il faut penser à convertir les entiers en nombres à virgule avant de faire la division, car la division entre entiers retourne le quotient entier. Pour convertir par exemple dans le type numeric, on peut utiliser la fonction cast ou l’opérateur ::. Par exemple, cast(1 as numeric) ou 1::numeric convertit l’entier 1 en nombre à virgule.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nwith nb_delayed_2013 as(\n   select count(*) as nb_delayed\n   from flights\n   where arr_delay is not null and arr_delay &gt; 0 and year = 2013\n),\nnb_flighs_2013 as(\n   select count(*) as nb_flights\n   from flights \n   where year = 2013\n)\nselect round(100*nb_delayed::numeric/nb_flights::numeric,2) as percentage_delayed\nfrom nb_delayed_2013, nb_flighs_2013;\n\n\n\nQuels sont les aéroports de la table airports (identifiants, noms) qui ont au plus 10 vols retardés à l’arrivée en 2013 ? (6 lignes) L’aéroport d’arrivée est celui qui est indiqué dans la colonne dest de la table flights.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect a.faa, a.name\nfrom airports a join flights f on a.faa = f.dest \nwhere arr_delay is not null and arr_delay &gt; 0 and year = 2013\ngroup by a.faa, a.name\nhaving count(f.*)&gt;=10;\n\n\n\nQuelle est, par aéroport de la table airports et par mois, la moyenne des retards à l’arrivée des vols de l’année 2013 ? On veut afficher les identifiants et les noms d’aéroport, les résultats doivent être triés par nom d’aéroport puis par mois. On ne calcule la moyenne des retards à l’arrivée que pour les vols non annulés et retardés à l’arrivée (arr_delay &gt; 0). La première ligne est CAK  Akron Canton Regional Airport   1   30.75\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect a.faa, a.name,  f.month, avg(arr_delay) as avg_arr_delay\nfrom airports a join flights f on a.faa = f.dest \nwhere arr_delay is not null and arr_delay &gt; 0 and year = 2013\ngroup by a.faa, a.name, f.month\norder by a.name, f.month;\n\n\n\nQuels sont les mois de l’année 2013 où le nombre de vols de la table flights retardés à l’arrivée sont parmi les 3 plus élevés ? Résultat attendu : 3 lignes (mois 12, 7 et 4).\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect month, count(*) as nb_arr_delay\nfrom flights \nwhere arr_delay is not null and arr_delay &gt; 0 and year = 2013\ngroup by month\norder by nb_arr_delay desc \nlimit 3;\n\n\n\nQuels sont les aéroports de la table airports (identifiants, noms) qui ont au moins 10 vols retardés à l’arrivée sur un des mois de l’année 2013 ? (91 lignes)\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect distinct a.faa, a.name\nfrom airports a join flights f on a.faa = f.dest \nwhere arr_delay is not null and arr_delay &gt; 0 and year = 2013\ngroup by a.faa, a.name, f.month\nhaving count(f.*)&gt;=10;\n\n\n\nY-a-t-il une corrélation entre les retards des vols à l’arrivée et la lattitude des aéroports d’arrivée (sont-ils plus au nord ou plus au sud que la moyenne) ? On veut étudier cette correlation en calculant l’écart entre la latitude moyenne des aéroports d’arrivée dont la moyenne des retards est supérieure à la moyenne des retards des vols, et la latitude moyenne de tous les aéroports d’arrivée.\n\n\n\n\n\n\n\nIl faut calculer les moyennes sur les mêmes ensembles. Comme il y a des aéroports de la tables flights qui ne sont pas référencés dans la table airports, il faut limiter tous les calculs à l’ensemble des aéroports présents dans la table airports.\nDe plus, on veut faire les moyennes des retards sur tous les vols non annulés (arr_delay non NULL), en remplaçant les valeurs négatives de arr_delay (vols arrivés en avance) par 0.\nRéponse : -3.5606983858561545\nLe retard moyen calculé selon la méthode indiquée est de 16.482925746304826.\n\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nBien que la fonction AVG ne calcule la maoyenne que sur les valeurs non NULL, il est préférable de gérer explicitement les valeurs NULL, surtout si cela correspond à une condition exigée sur la sélection des lignes (non annulation des vols).\nwith avg_lat as(\n   select avg(lat) avg_lat\n   from airports\n),\navg_arr_delay as(\n   select avg(case \n      when f.arr_delay &lt; 0 then 0\n      else f.arr_delay\n    end) avg_delay\n   from flights f join airports a on a.faa = f.dest\n   where f.arr_delay is not null \n),\navg_arr_delay_per_airport as(\n   select a.faa, a.name, a.lat,\n   avg (case \n      when arr_delay &lt; 0 then 0\n      else arr_delay\n    end) avg_delay\n   from airports a join flights f on a.faa = f.dest\n   where year = 2013\n   group by a.faa, a.name, a.lat\n)\nselect avg(lat-al.avg_lat)\nfrom avg_arr_delay_per_airport adpa, avg_arr_delay ad, avg_lat al\nwhere adpa.avg_delay &gt; ad.avg_delay;"
+    "text": "Questions\n\nAfficher tous les détails des avions du fabricant ‘BOEING’ qui disposent d’au moins 300 places (au sens strict) ? (144 lignes) Ecrire la requête en SQL et en algèbre relationnelle.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAlgèbre relationnelle :\n\\(\\texttt{R} = \\sigma( \\texttt{planes} , \\texttt{ manufacturer = 'BOEING' } \\wedge \\texttt{ seats &gt;= 300} )\\)\nselect *\nFrom planes p\nwhere manufacturer ilike 'BOEING' and seats &gt;= 300;\n\n\n\nAfficher les identifiants et les modèles des avions du fabricant ‘AIRBUS INDUSTRIE’ fabriqués strictement avant 2000 (attribut year) ou de moteur de type ‘Turbo-jet’ (attribut engine) ? (273 lignes) Ecrire la requête en SQL et en algèbre relationnelle.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAlgèbre relationnelle :\n\\(\\texttt{R1} = \\sigma( \\texttt{planes} , \\texttt{ manufacturer = 'AIRBUS INDUSTRIE' } \\wedge (\\texttt{ year &lt; 2000} \\vee \\texttt{engine = 'Turbo-jet'} ) )\\)\n\\(\\texttt{R} = \\Pi\\big( \\texttt{R1}, \\texttt{ tailnum} , \\texttt{ model})\\)\nselect tailnum, model\nFrom planes\nwhere manufacturer ilike 'AIRBUS INDUSTRIE' and (year &lt; 2000 or engine ilike 'Turbo-jet');\n\n\n\nQuels sont les avions (identifiant, modèle) du fabricant ‘CANADAIR’ qui ont volé en janvier 2013 ? (8 lignes) Ecrire la requête en SQL et en algèbre relationnelle.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAlgèbre relationnelle :\n\\(\\texttt{R1} = \\sigma( \\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights} , \\texttt{ planes.manufacturer = 'CANADAIR'} \\wedge \\texttt{flights.year = 2013} \\wedge \\texttt{flights.month = 1})\\)\n\\(\\texttt{R} = \\Pi( \\texttt{R1}, \\texttt{ tailnum}, \\texttt{ model})\\)\nselect distinct tailnum, model\nfrom planes p JOIN\n   flights f USING (tailnum) \nwhere manufacturer ilike 'CANADAIR' and f.year = 2013 and f.month = 1 ;\n\n\n\nQuels sont les avions (identifiant et modèle) de la table planes qui n’ont pas volé en janvier 2013 ? (713 lignes) Proposer plusieurs solutions. Ecrire les requêtes en SQL et en algèbre relationnelle.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAlgèbre relationnelle avec une jointure externe :\n\\(\\texttt{R1} = \\sigma(\\texttt{flights}, \\texttt{ year = 2013} \\wedge \\texttt{month = 1} )\\)\n\\(\\texttt{R2} = \\sigma(\\texttt{planes } {}^+\\bowtie_{\\texttt{tailnum}} \\texttt{R1}, \\texttt{ R1.tailnum = NULL})\\)\n\\(\\texttt{R} = \\Pi( \\texttt{R2} , \\texttt{ tailnum}, \\texttt{ model})\\)\nAlgèbre relationnelle avec une opération de différence :\n\\(\\texttt{R1} = \\sigma(\\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights}, \\texttt{ year = 2013} \\wedge \\texttt{month = 1} )\\)\n\\(\\texttt{R} = \\Pi(\\texttt{planes}, \\texttt{ tailnum}, \\texttt{ model}) \\setminus \\Pi( \\texttt{R1}, \\texttt{ tailnum}, \\texttt{ model})\\)\nAvec une jointure externe :\nwith planes_janv_2013 as(\n   select distinct tailnum from flights\n   where year = 2013 and month = 1\n)\nselect p.tailnum, p.model\nfrom planes p left join planes_janv_2013 pj13 using(tailnum)\nwhere pj13.tailnum is NULL;\nAvec une différence :\nwith planes_janv_2013 as(\n   select p.tailnum, p.model \n   from flights f join planes p using(tailnum)\n   where f.year = 2013 and f.month = 1\n)\n(select tailnum, model from planes)\nexcept\n(select tailnum, model from planes_janv_2013);\nAvec NOT EXISTS :\nselect tailnum, model\nfrom planes\nwhere not exists (\n   select 1\n   from flights\n   where flights.tailnum = planes.tailnum\n   and flights.year = 2013 and flights.month = 1\n);\nSolution erronée avec NOT IN à cause de la logique trivalente car NULL est présent dans la sous-requête (vols annulés). La table retournée est donc vide. Il faut utiliser NOT EXISTS, une différence ou une jointure externe comme ci-dessus.\nselect tailnum, model\nfrom planes\nwhere tailnum not in (\n   select distinct tailnum \n   from flights\n   where year = 2013 and month = 1\n)\nSolution correcte avec NOT IN en excluant les valeurs null du résultat de la sous-requête:\nselect tailnum, model\nfrom planes\nwhere tailnum not in (\n   select distinct tailnum \n   from flights\n   where tailnum is not null and year = 2013 and month = 1\n);\n\n\n\nQuels sont les avions (identifiants, modèles) de la table planes qui ont volé le 5 et le 6 janvier ? (210 lignes) Proposer plusieurs solutions. Ecrire la requête en SQL et en algèbre relationnelle.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAlgèbre relationnelle avec une jointure :\n\\(\\texttt{R1} =  \\sigma(\\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights}, \\texttt{ flights.year = 2013} \\wedge \\texttt{flights.month = 1} \\wedge \\texttt{flights.day = 5})\\)\n\\(\\texttt{R2} =  \\sigma(\\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights}, \\texttt{ flights.year = 2013} \\wedge \\texttt{flights.month = 1} \\wedge \\texttt{flights.day = 6})\\)\n\\(\\texttt{R} = \\Pi(\\texttt{R1} \\bowtie_{\\texttt{tailnum}} \\texttt{R2}, \\texttt{ R1.tailnum}, \\texttt{ R1.model})\\)\nAlgèbre relationnelle avec une intersection :\n\\(\\texttt{R1} =  \\sigma(\\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights}, \\texttt{ flights.year = 2013} \\wedge \\texttt{flights.month = 1} \\wedge \\texttt{flights.day = 5})\\)\n\\(\\texttt{R2} =  \\sigma(\\texttt{planes} \\bowtie_{\\texttt{tailnum}} \\texttt{flights}, \\texttt{ flights.year = 2013} \\wedge \\texttt{flights.month = 1} \\wedge \\texttt{flights.day = 6})\\)\n\\(\\texttt{R} = \\Pi(\\texttt{R1}, \\texttt{ tailnum}, \\texttt{ model}) \\cap \\Pi( \\texttt{ R2}, \\texttt{ tailnum}, \\texttt{ model})\\)\nSQL avec une jointure :\nwith planes_5_janv_2013 as(\n   select p.tailnum, p.model \n   from flights f join planes p using(tailnum)\n   where f.year = 2013 and f.month = 1 and f.day = 5\n),\nplanes_6_janv_2013 as(\n   select p.tailnum, p.model \n   from flights f join planes p using(tailnum)\n   where f.year = 2013 and f.month = 1 and f.day = 6\n)\nselect distinct p5.tailnum, p5.model  \nfrom planes_5_janv_2013 p5 join planes_6_janv_2013 p6 using(tailnum);\nSQL avec une intersection :\nwith planes_5_janv_2013 as(\n   select p.tailnum, p.model \n   from flights f join planes p using(tailnum)\n   where f.year = 2013 and f.month = 1 and f.day = 5\n),\nplanes_6_janv_2013 as(\n   select p.tailnum, p.model \n   from flights f join planes p using(tailnum)\n   where f.year = 2013 and f.month = 1 and f.day = 6\n)\n(select * from planes_5_janv_2013)\nintersect\n(select * from planes_6_janv_2013);\n\n\n\nQuels sont les avions (identifiants, modèles) de la table planes qui ont eu au moins un retard à l’arrivée en 2013 ? (3176 lignes) Un vol retardé à l’arrivée est un vol dont l’attribut arr_delay est strictement supérieur à 0. Proposer plusieurs solutions.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nNB : la valeur NULL est interdite sur la colonne tailnum de la table planes (clé primaire) mais pas sur la colonne tailnum de la table flights.\nAvec une jointure :\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n)\nselect p.tailnum, p.model\nfrom planes p join delayed_2013 d using(tailnum);\nAvec IN (le résultat de la sous-requête peut contenir NULL) :\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n)\nselect tailnum, model\nfrom planes\nwhere tailnum in (select * from delayed_2013);\nAvec EXISTS\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n)\nselect tailnum, model\nfrom planes p\nwhere exists (\n   select 1 \n   from delayed_2013 d\n   where d.tailnum = p.tailnum);\n\n\n\nQuels sont les avions (identifiants, modèles) de la table planes qui n’ont pas eu de retard à l’arrivée en 2013 ? (146 lignes) Proposer plusieurs solutions.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAttention : la valeur NULL est interdite sur la colonne tailnum de la table planes (clé primaire) mais pas sur la colonne tailnum de la table flights.\nAvec une jointure externe :\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n)\nselect p.tailnum, p.model\nfrom planes p left join delayed_2013 d using(tailnum)\nwhere d.tailnum is NULL;\nAvec une différence :\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n),\nnot_delayed_2013 as(\n   select tailnum from planes\n   except\n   select tailnum from delayed_2013\n)\nselect p.tailnum, p.model\nfrom planes p join not_delayed_2013 using(tailnum);\nAvec NOT IN (en retirant NULL des résultats de la sous-requête car NULL est autorisé pour tailnum dans flights)\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where tailnum is not null and arr_delay &gt; 0 and year = 2013\n)\nselect tailnum, model \nfrom planes\nwhere tailnum not in (\n   select tailnum from delayed_2013\n)\n\n\n\nQuels sont les fabricants dont aucun avion de la table planes n’a eu un retard à l’arrivée en 2013 ? (0 ligne) Proposer plusieurs solutions.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nAttention, la valeur NULL n’est pas interdite sur la colonne manufacturer.\nOn peut faire la différence avec une jointure externe :\nwith manufacturer_delayed_2013 as(\n   select distinct p.manufacturer \n   from flights f join planes p using(tailnum)\n   where f.arr_delay &gt; 0 and f.year = 2013\n)\nselect distinct p.manufacturer \nfrom planes p natural left join manufacturer_delayed_2013 d\nwhere d.manufacturer is null;\nIci, les valeurs NULL de planes.manufacturer ou de manufacturer_delayed_2013 sont exclues par l’équijointure de la requête principale car si au moins un des membres d’un test d’égalité est NULL, le test n’est pas True.\nOu avec EXCEPT\nwith manufacturer_delayed_2013 as(\n   select distinct p.manufacturer \n   from flights f join planes p using(tailnum)\n   where f.arr_delay &gt; 0 and f.year = 2013\n)\n(\n   select manufacturer \n   from planes \n   where manufacturer is not null\n)\nexcept\nselect manufacturer from manufacturer_delayed_2013;\nIci, les valeurs NULL de planes.manufacturer ne sont pas exclues par EXCEPT car les opérations ensemblistes traitent les valeurs NULL comme les autres. On ajoute donc une condition pour les exclure.\nOu encore avec NOT IN en excluant de la sous-requête les valeurs NULL :\nwith manufacturer_delayed_2013 as(\n   select distinct p.manufacturer \n   from flights f join planes p using(tailnum)\n   where p.manufacturer is not null and f.arr_delay &gt; 0 and f.year = 2013\n)\nselect distinct manufacturer \nfrom planes\nwhere manufacturer not in (\n   select *\n   from manufacturer_delayed_2013\n);\nCette requête n’est pas correcte : elle donne la liste des fabricants dont au moins un avion n’a jamais eu de retard à l’arrivée en 2013\nwith delayed_2013 as(\n   select distinct tailnum \n   from flights\n   where arr_delay &gt; 0 and year = 2013\n)\nselect distinct p.manufacturer\nfrom planes p left join delayed_2013 d using(tailnum)\nwhere d.tailnum is NULL;\n\n\n\nQuelle est la capacité maximale d’un avion de la table planes ? (450 places)\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect max(seats)\nfrom planes;\n\n\n\nCombien d’avions de la table planes ont volé en janvier 2013 ? (2609)\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect count(distinct p.tailnum)\nfrom flights f join planes p using(tailnum)\nwhere f.year = 2013 and f.month = 1;\n\n\n\nCombien y-a-t-il eu de vols en janvier 2013 pour les avions de la table planes de capacité supérieure ou égale à 300 ? (377)\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect count(*)\nfrom flights f join planes p using(tailnum)\nwhere f.year = 2013 and f.month = 1 and p.seats &gt;=300 ;\n\n\n\nQuels sont les aéroports de la table airports (identifiants, noms) qui ont au moins 100 vols annulés au départ en 2013 ? (3 lignes) Dans la table flights, les vols annulés sont caractérisés par une valeur NULL dans la colonne tailnum et l’aéroport de départ est indiqué dans la colonne origin. On indiquera le nombre de vols annulés pour chaque ligne.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect a.faa, a.name, count(f.*)\nfrom airports a join flights f on a.faa = f.origin \nwhere tailnum is null and year = 2013\ngroup by a.faa, a.name\nhaving count(f.*)&gt;=10;\n\n\n\nQuelle est la proportion des vols de la table flights en 2013 qui ont été retardés à l’arrivée, la proportion se rapporte à tous les vols, y compris les vols annulés ? (39,49 %) Attention, il faut penser à convertir les entiers en nombres à virgule avant de faire la division, car la division entre entiers retourne le quotient entier. Pour convertir par exemple dans le type numeric, on peut utiliser la fonction cast ou l’opérateur ::. Par exemple, cast(1 as numeric) ou 1::numeric convertit l’entier 1 en nombre à virgule.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nwith nb_delayed_2013 as(\n   select count(*) as nb_delayed\n   from flights\n   where arr_delay is not null and arr_delay &gt; 0 and year = 2013\n),\nnb_flighs_2013 as(\n   select count(*) as nb_flights\n   from flights \n   where year = 2013\n)\nselect round(100*nb_delayed::numeric/nb_flights::numeric,2) as percentage_delayed\nfrom nb_delayed_2013, nb_flighs_2013;\n\n\n\nQuels sont les aéroports de la table airports (identifiants, noms) qui ont au plus 10 vols retardés à l’arrivée en 2013 ? (6 lignes) L’aéroport d’arrivée est celui qui est indiqué dans la colonne dest de la table flights.\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect a.faa, a.name\nfrom airports a join flights f on a.faa = f.dest \nwhere arr_delay is not null and arr_delay &gt; 0 and year = 2013\ngroup by a.faa, a.name\nhaving count(f.*)&gt;=10;\n\n\n\nQuelle est, par aéroport de la table airports et par mois, la moyenne des retards à l’arrivée des vols de l’année 2013 ? On veut afficher les identifiants et les noms d’aéroport, les résultats doivent être triés par nom d’aéroport puis par mois. On ne calcule la moyenne des retards à l’arrivée que pour les vols non annulés et retardés à l’arrivée (arr_delay &gt; 0). La première ligne est CAK  Akron Canton Regional Airport   1   30.75\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect a.faa, a.name,  f.month, avg(arr_delay) as avg_arr_delay\nfrom airports a join flights f on a.faa = f.dest \nwhere arr_delay is not null and arr_delay &gt; 0 and year = 2013\ngroup by a.faa, a.name, f.month\norder by a.name, f.month;\n\n\n\nQuels sont les mois de l’année 2013 où le nombre de vols de la table flights retardés à l’arrivée sont parmi les 3 plus élevés ? Résultat attendu : 3 lignes (mois 12, 7 et 4).\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect month, count(*) as nb_arr_delay\nfrom flights \nwhere arr_delay is not null and arr_delay &gt; 0 and year = 2013\ngroup by month\norder by nb_arr_delay desc \nlimit 3;\n\n\n\nQuels sont les aéroports de la table airports (identifiants, noms) qui ont au moins 10 vols retardés à l’arrivée sur un des mois de l’année 2013 ? (91 lignes)\n\n\n\n\n\n\n\nTipSolution\n\n\n\nselect distinct a.faa, a.name\nfrom airports a join flights f on a.faa = f.dest \nwhere arr_delay is not null and arr_delay &gt; 0 and year = 2013\ngroup by a.faa, a.name, f.month\nhaving count(f.*)&gt;=10;\n\n\n\nY-a-t-il une corrélation entre les retards des vols à l’arrivée et la lattitude des aéroports d’arrivée (sont-ils plus au nord ou plus au sud que la moyenne) ? On veut étudier cette correlation en calculant l’écart entre la latitude moyenne des aéroports d’arrivée dont la moyenne des retards est supérieure à la moyenne des retards des vols, et la latitude moyenne de tous les aéroports d’arrivée.\n\n\n\n\n\n\n\nIl faut calculer les moyennes sur les mêmes ensembles. Comme il y a des aéroports de la tables flights qui ne sont pas référencés dans la table airports, il faut limiter tous les calculs à l’ensemble des aéroports présents dans la table airports.\nDe plus, on veut faire les moyennes des retards sur tous les vols non annulés (arr_delay non NULL), en remplaçant les valeurs négatives de arr_delay (vols arrivés en avance) par 0.\nRéponse : -3.5606983858561545\nLe retard moyen calculé selon la méthode indiquée est de 16.482925746304826.\n\n\n\n\n\n\n\n\n\nTipSolution\n\n\n\nBien que la fonction AVG ne calcule la maoyenne que sur les valeurs non NULL, il est préférable de gérer explicitement les valeurs NULL, surtout si cela correspond à une condition exigée sur la sélection des lignes (non annulation des vols).\nwith avg_lat as(\n   select avg(lat) avg_lat\n   from airports\n),\navg_arr_delay as(\n   select avg(case \n      when f.arr_delay &lt; 0 then 0\n      else f.arr_delay\n    end) avg_delay\n   from flights f join airports a on a.faa = f.dest\n   where f.arr_delay is not null \n),\navg_arr_delay_per_airport as(\n   select a.faa, a.name, a.lat,\n   avg (case \n      when arr_delay &lt; 0 then 0\n      else arr_delay\n    end) avg_delay\n   from airports a join flights f on a.faa = f.dest\n   where year = 2013\n   group by a.faa, a.name, a.lat\n)\nselect avg(lat-al.avg_lat)\nfrom avg_arr_delay_per_airport adpa, avg_arr_delay ad, avg_lat al\nwhere adpa.avg_delay &gt; ad.avg_delay;"
   },
   {
     "objectID": "workshops/td-revision-LMD.html#pour-aller-plus-loin-les-vues",
@@ -4628,5 +4628,355 @@
     "title": "TD SQL bonus : notions avancées",
     "section": "Fonctions qui retournent une table",
     "text": "Fonctions qui retournent une table\nEcrire une fonction qui prend en argument une région et renvoie la table des capitales de la région (schéma world).\n\nTable de schéma explicite\nOn se contente d’abord de renvoyer le nom de la capitale. On explicite le schéma de la table résultat\nCREATE OR REPLACE FUNCTION username.capitales_region(p_region text)\nRETURNS TABLE (name_capital text) LANGUAGE SQL AS\n$$\nSELECT cc.name \nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region ;\n$$ ;\nTester cette fonction.\n\n\nTable de même schéma qu’une autre table\nDocumentation\nOn veut maintenant récupérer une table de même schéma que city.\n\n\n\n\n\n\nLa solution est très simple. On profite de ce qu’à chaque table correspond un type de même nom et on utilise le mot-clé SETOF.\n\n\n\nCREATE OR REPLACE FUNCTION username.capitales_region_large(p_region text)\nRETURNS SETOF world.city  LANGUAGE SQL AS\n$$\nSELECT cc.* \nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region ;\n$$ ;\nTester cette fonction."
+  },
+  {
+    "objectID": "workshops/td4.html#questions",
+    "href": "workshops/td4.html#questions",
+    "title": "TD 4 : Définition de données, Contraintes",
+    "section": "Questions",
+    "text": "Questions\n\n\n\n\n\n\nModifiez le search_path pour inclure votre schéma personnel.\n\n\n\n\nCréer dans votre schéma trois tables de mêmes structures que celles de world.\n\n\nInsérer dans les nouvelles tables les valeurs des tables originelles du schéma world.\n\n\nRecréer les contraintes qui n’ont pas été copiées pour obtenir des tables qui soient réellement identiques. Vérifier cette identité en utilisant la note précisée en début d’exercice.\n\n\nAjouter la contrainte : la colonne percentage de td_countrylanguage contient un réel compris entre 0 et 100.\n\n\nComment ajouter une contrainte unique sur le couple (countrycode, language) de la table td_countrylanguage ? Est-il utile d’ajouter cette contrainte à celles préalablement définies ?\n\n\nMettre à jour dans td_city les populations des capitales du continent Africa en les multipliant par 1,1. Après cette mise à jour, la population de Djibouti est 421 300.\n\n\nSupprimer les pays de la table td_country où aucune langue n’est parlée et qui n’ont pas de capitale (utiliser des CTEs). (6 lignes supprimées).\n\n\nRéécrire la requête d’insertion des données de la table world.country dans la table td_country en filtrant les lignes qui ne respectent pas les contraintes d’unicité par rapport aux données de la table td_country avant l’insertion. Après la suppression de la question précédente, réinsérer avec cette nouvelle requête, les données de la table world.country. Si votre requête est correcte, son exécution ne doit pas provoquer de message d’erreur et td_country doit contenir à l’issue les mêmes données que world.country.\n\nNB : la valeur NULLest autorisée pour la colonne capital.\n\nAjouter la contrainte : dans td_country, pour chaque pays, il n’existe pas un autre pays de la même region qui n’est pas dans le même continent. Il s’agit d’une contrainte correspondant à la dépendance fonctionnelle region → continent, c.a.d. que tous les pays d’une même région doivent être sur un même continent.\n\nAprès la définition de la contrainte, tester l’insertion suivante :\ninsert into td_country(countrycode, name_country, continent, region, code2, localname, governmentform, population_country, surfacearea) \n(\n   select 'FR2', name_country, 'Asia', region, code2, localname, governmentform, population_country, surfacearea \n   from td_country \n   where countrycode = 'FRA'\n);\nVous devez obtenir une message d’erreur indiquant que la contrainte définie n’est pas respectée."
+  },
+  {
+    "objectID": "workshops/td4.html#prérequis",
+    "href": "workshops/td4.html#prérequis",
+    "title": "TD 4 : Définition de données, Contraintes",
+    "section": "Prérequis",
+    "text": "Prérequis\n\nschéma world,\ncours Création de tables, Insertion, Suppression, Mises à jour.\ncours Contraintes, Check, Primary Key, Foreign Key."
+  },
+  {
+    "objectID": "workshops/td4.html#contraintes-de-colonne-default-not-null-unique",
+    "href": "workshops/td4.html#contraintes-de-colonne-default-not-null-unique",
+    "title": "TD 4 : Définition de données, Contraintes",
+    "section": "Contraintes de colonne DEFAULT / NOT NULL / UNIQUE",
+    "text": "Contraintes de colonne DEFAULT / NOT NULL / UNIQUE\nCes contraintes s’appliquent à une colonne en particulier. La contrainte DEFAULT spécifie une valeur par défaut pour remplir une colonne lorsque sa valeur n’est pas spécifiée, NOT NULL que la valeur de la colonne ne peut pas être NULL et UNIQUE que deux lignes différentes de la table ne peuvent pas avoir la même valeur sur les colonnes indiquées. Par exemple:\nCREATE TABLE membre(\n    nom VARCHAR(50) NOT NULL,\n    prenom VARCHAR(50) NOT NULL,\n    date_inscription DATE DEFAULT NOW(),\n    UNIQUE(nom, prenom)  \n);"
+  },
+  {
+    "objectID": "workshops/td4.html#contraintes-de-table-primaryforeign-key",
+    "href": "workshops/td4.html#contraintes-de-table-primaryforeign-key",
+    "title": "TD 4 : Définition de données, Contraintes",
+    "section": "Contraintes de table PRIMARY/FOREIGN KEY",
+    "text": "Contraintes de table PRIMARY/FOREIGN KEY\n\nFormellement, la contrainte PRIMARY KEY est équivalente à UNIQUE et NOT NULL. C’est une ou plusieurs colonnes qui permettent d’identifier de façon unique chaque ligne. Dans une base de données bien conçue, chaque table doit avoir une clé primaire.\nOn ne peut définir qu’une seule contrainte PRIMARY KEY sur une table.\nLa contrainte FOREIGN KEY spécifie que la valeur d’une (ou de plusieurs) colonne contient des valeurs présentes dans une autre table. Par exemple, la colonne capital de country contient une valeur qui doit apparaître dans la colonne id de city.\nOn peut définir plusieurs contraintes FOREIGN KEY sur une table.\n\nExemple:\nCREATE TABLE IF NOT EXISTS membre(\n    id INT, \n    nom VARCHAR(50) NOT NULL, \n    prenom VARCHAR(50) NOT NULL, \n   PRIMARY KEY (id)\n);\n\n-- si la clé primaire ne contient qu'une colonne, \n-- on peut aussi la définir au niveau de la colonne\n-- idem pour la clé étrangère\nCREATE TABLE IF NOT EXISTS amis(\n    id1 INT PRIMARY KEY, \n    id2 INT,\n   FOREIGN KEY (id1) REFERENCES membre (id)\n);\nNB : ici, on a ajouté la clause IF NOT EXISTS pour éviter une erreur d’exécution si la table existe déjà. Dans ce cas, la requête ne fait rien. Si on veut recréer une table, il faut d’abord la supprimer.\nOn peut aussi ajouter ces contraintes après la définition de la table (il est alors préférable de vérifier que la table existe avant de tenter d’ajouter une contrainte) :\nALTER TABLE IF EXISTS amis ADD \n    PRIMARY KEY (id1);\nALTER TABLE IF EXISTS amis ADD \n    FOREIGN KEY (id2) REFERENCES membre;"
+  },
+  {
+    "objectID": "slides/LDD_2.html#problème",
+    "href": "slides/LDD_2.html#problème",
+    "title": "SQL : Contraintes",
+    "section": "Problème",
+    "text": "Problème\n\nLa définition d’un schéma de base ne s’arrête pas à la définition des tables, des colonnes et des types des colonnes\n\n\n\nLes contraintes décrivent des propriétés que devront vérifier toutes les mises en oeuvre (instances) du schéma durant toute sa durée de vie\n\n Pour spécifier une contrainte, il suffit de préciser que le résultat d’une certaine requête doit toujours être vide"
+  },
+  {
+    "objectID": "slides/LDD_2.html#famille-de-contraintes",
+    "href": "slides/LDD_2.html#famille-de-contraintes",
+    "title": "SQL : Contraintes",
+    "section": "Famille de contraintes",
+    "text": "Famille de contraintes\n\nContraintes d’attribut\n\nContrainte de type\n\nContrainte de non-nullité\n\n\n\n\nContraintes de tupe\n\nContrainte de vérification"
+  },
+  {
+    "objectID": "slides/LDD_2.html#contrainte-de-type",
+    "href": "slides/LDD_2.html#contrainte-de-type",
+    "title": "SQL : Contraintes",
+    "section": "Contrainte de type",
+    "text": "Contrainte de type\nUne contrainte de type spécifie le type/domaine d’une colonne\nLes contrainte de type sont les plus simples à mettre en oeuvre.\n\nAu delà des types de base varchar, integer, ... PostgreSQL propose des types sophistiqués pour :\n\ndates,\nles estampilles avec ou sans fuseau horaire,\ndes types intervalles (rangetype),\ndes types énumérés,\ndes types tableaux,\netc"
+  },
+  {
+    "objectID": "slides/LDD_2.html#consulter-la-liste-des-types",
+    "href": "slides/LDD_2.html#consulter-la-liste-des-types",
+    "title": "SQL : Contraintes",
+    "section": "Consulter la liste des types",
+    "text": "Consulter la liste des types\nhttps://docs.postgresql.fr/docs/current/datatype.html\n\n\n\n\n\n\nConseil\n\n\nIl faut essayer d’utiliser autant que possible ces types pour préciser les contenus des colonnes\nCela permet de contraindre les contenus\nCela permet d’utiliser une foule de fonctions de manipulation très pratiques, notamment pour l’arithmétique du temps\n\n\n\n\n\n\n\n\n\n\nMise en garde\n\n\nLes types disponibles diffèrent d’un SGBD à l’autre (Mysql, Postgres, Oracle, SQL Server, …)"
+  },
+  {
+    "objectID": "slides/LDD_2.html#contraintes-de-tuple",
+    "href": "slides/LDD_2.html#contraintes-de-tuple",
+    "title": "SQL : Contraintes",
+    "section": "Contraintes de tuple",
+    "text": "Contraintes de tuple\nUne contrainte de tuple peut être vérifiée tuple par tuple (ligne par ligne)\n\nLors d’une insertion ou d’une modification de tuple, il suffit de vérifier que la contrainte est respectée par le nouveau tuple"
+  },
+  {
+    "objectID": "slides/LDD_2.html#exemple",
+    "href": "slides/LDD_2.html#exemple",
+    "title": "SQL : Contraintes",
+    "section": "Exemple",
+    "text": "Exemple\nDans un tuple de Piece, on devrait toujours avoir une valeur du prix positive.\nOn peut imposer cela en ajoutant au schéma de la table Piece une contrainte de type CHECK\n\nCREATE TABLE piece(\n    nomp VARCHAR(20),\n    prix MONEY CHECK (prix&gt;= 0::money), \n    couleur VARCHAR(15)\n);\n\n\n\n\n\n\n\n\nNote\n\n\nHave a look at PostGres Monetary type"
+  },
+  {
+    "objectID": "slides/LDD_2.html#exemple-world.country",
+    "href": "slides/LDD_2.html#exemple-world.country",
+    "title": "SQL : Contraintes",
+    "section": "Exemple world.country",
+    "text": "Exemple world.country\nDans un tuple de country, les colonnes numériques ne devraient pas prendre de valeur négative\n\n--| echo: true\n--| eval: false\n--| code-line-numbers: \"|6,9,17-22\"\nCREATE TABLE world.country (\n    countrycode BPCHAR(3) NOT NULL,\n    name_country TEXT NOT NULL,\n    continent TEXT NOT NULL,\n    region TEXT NOT NULL,\n    surfacearea FLOAT4 CHECK (surfacearea&gt;= 0) NOT NULL, \n    indepyear INT2 NULL,\n    population_country INT4 NOT NULL,\n    lifeexpectancy FLOAT4 CHECK (lifeexpectancy&gt;= 0) NULL, \n    gnp NUMERIC(10, 2) NULL,    \n    gnpold NUMERIC(10, 2) NULL,  \n    localname TEXT NOT NULL,\n    governmentform TEXT NOT NULL,\n    headofstate TEXT NULL,\n    capital INT4 NULL,\n    code2 BPCHAR(2) NOT NULL,\n    CONSTRAINT country_continent_check CHECK (\n        ((continent = 'Asia'::text) OR (continent = 'Europe'::text) OR \n         (continent = 'North America'::text) OR (continent = 'Africa'::text) OR \n         (continent = 'Oceania'::text) OR (continent = 'Antarctica'::text) OR \n         (continent = 'South America'::text))),\n    CONSTRAINT country_pkey PRIMARY KEY (countrycode)\n);"
+  },
+  {
+    "objectID": "slides/LDD_2.html#contrainte-de-vérification---exemple-suite",
+    "href": "slides/LDD_2.html#contrainte-de-vérification---exemple-suite",
+    "title": "SQL : Contraintes",
+    "section": "Contrainte de vérification - Exemple (suite)",
+    "text": "Contrainte de vérification - Exemple (suite)\n--| eval: false\n--| echo: true\n--| code-line-numbers: \"|3,4,6\"\nCREATE TABLE piece(\n    nomp VARCHAR(20),\n    prix moNey CHECK (prix&gt;= 0::money),  \n    prix_promo MONEY CHECK (prix_promo &gt;= 0::MONEY), \n    couleur VARCHAR(15),\n    CHECK(prix &gt; prix_promo) \n); \n\nINSERT INTO piece \n  VALUES\n  ('x21', 1.51, 1.61,'rouge');\nERROR:  new row for relation \"piece\" violates check constraint piece_check \n\n\nINSERT INTO piece VALUES('x21', 1.51, null,'rouge');\nest accepté"
+  },
+  {
+    "objectID": "slides/LDD_2.html#valeurs-nulles-et-contraintes-de-tuple",
+    "href": "slides/LDD_2.html#valeurs-nulles-et-contraintes-de-tuple",
+    "title": "SQL : Contraintes",
+    "section": " Valeurs nulles et contraintes de tuple",
+    "text": "Valeurs nulles et contraintes de tuple\nLes contraintes CHECK sont satisfaites si l’expression associée vaut TRUE ou UNKNOWN\n\nComme une expression composée vaut parfois UNKNOWN si l’un des opérandes vaut lui-même NULL, les contraintes CHECK ne suffisent pas à prévenir l’insertion de valeurs nulles\n\n\n\n\n\n\n\n\nAstuce\n\n\nIl faut compléter les contraintes de tuple avec des contraintes de non-nullité"
+  },
+  {
+    "objectID": "slides/LDD_2.html#pourquoi-imposer-quune-colonne-soit-toujours-renseignée",
+    "href": "slides/LDD_2.html#pourquoi-imposer-quune-colonne-soit-toujours-renseignée",
+    "title": "SQL : Contraintes",
+    "section": "Pourquoi imposer qu’une colonne soit toujours renseignée ?",
+    "text": "Pourquoi imposer qu’une colonne soit toujours renseignée ?\n\n\n\n\n\n\nImportant\n\n\nLa présence possible des valeurs nulles rend beaucoup d’opérations complexes\nIl faut avoir en tête que en SQL,\n\non utilise une logique trivalente : TRUE, FALSE et UNKNOWN,\nle fait qu’une expression ne vaille pas FALSE ne veut pas dire qu’elle vaut TRUE …\n\n\n\n\n\nPour imposer qu’une colonne soit renseignée :\n\npréciser après le type : NOT NULL"
+  },
+  {
+    "objectID": "slides/LDD_2.html#contrainte-de-non-nullité-exemple",
+    "href": "slides/LDD_2.html#contrainte-de-non-nullité-exemple",
+    "title": "SQL : Contraintes",
+    "section": "Contrainte de non-nullité (Exemple)",
+    "text": "Contrainte de non-nullité (Exemple)\n--| eval: false\n--| echo: true\n--| code-line-numbers: \"|2\"\nCREATE TABLE piece(\n    nomp VARCHAR(20) NOT NULL,\n    prix MONEY CHECK (prix&gt;= 0::MONEY),  \n    prix_promo MONEY CHECK (prix_promo &gt;= 0::MONEY),  \n    couleur VARCHAR(15),\n    CHECK (prix &gt; prix_promo)   \n);"
+  },
+  {
+    "objectID": "slides/LDD_2.html#contrainte-dunicité-1",
+    "href": "slides/LDD_2.html#contrainte-dunicité-1",
+    "title": "SQL : Contraintes",
+    "section": "Contrainte d’unicité",
+    "text": "Contrainte d’unicité\n\nLes contraintes d’unicité garantissent l’unicité des données contenues dans une colonne ou un groupe de colonnes par rapport à toutes les lignes de la table\nC’est une contrainte de table puisqu’elle fait intervenir tous les tuples de la table"
+  },
+  {
+    "objectID": "slides/LDD_2.html#exemple-de-contrainte-dunicité",
+    "href": "slides/LDD_2.html#exemple-de-contrainte-dunicité",
+    "title": "SQL : Contraintes",
+    "section": "Exemple de contrainte d’unicité",
+    "text": "Exemple de contrainte d’unicité\n--| eval: false\n--| echo: true\n--| code-line-numbers: \"|2\"\nCREATE TABLE piece(\n    nomp VARCHAR(20) NOT NULL UNIQUE,  \n    prix money CHECK (prix&gt;= 0::money),\n    prix_promo MONEY CHECK (prix_promo &gt;= 0::MONEY),\n    couleur VARCHAR(15),\n    CHECK (prix &gt; prix_promo)\n);"
+  },
+  {
+    "objectID": "slides/LDD_2.html#contrainte-dunicité-2",
+    "href": "slides/LDD_2.html#contrainte-dunicité-2",
+    "title": "SQL : Contraintes",
+    "section": "Contrainte d’unicité",
+    "text": "Contrainte d’unicité\n\n\n\n\n\n\nNote\n\n\nLa contrainte d’unicité peut porter sur un groupe de colonnes\n\n\n\n--| eval: false\n--| echo: true\n--| code-line-numbers: \"|4\"\nCREATE TABLE fournisseur(\n    nomf VARCHAR(20) NOT NULL,\n    villef VARCHAR(20) NOT NULL,\n    UNIQUE(nomf, villef)  \n);\n\n\n Il ne peut pas y avoir deux lignes identiques dans la table fournisseur"
+  },
+  {
+    "objectID": "slides/LDD_2.html#clef-primaire-primary-key",
+    "href": "slides/LDD_2.html#clef-primaire-primary-key",
+    "title": "SQL : Contraintes",
+    "section": "Clef primaire : PRIMARY KEY",
+    "text": "Clef primaire : PRIMARY KEY\n\n\n\n\n\n\nDéfinition\n\n\nUne contrainte de type clef primaire indique qu’une colonne, ou un groupe de colonnes, peut être utilisée comme identifiant unique de ligne pour cette table.\n Une table a au plus une clef primaire\n\n\n\n\n\n\n\n\n\n\nNote\n\n\nCeci nécessite que les valeurs soient à la fois uniques et NON NULL.\n\n\n\n\n\nLes définitions de table suivantes acceptent de ce fait les mêmes données :\n\n\nCREATE TABLE fournisseur(\n    nomf VARCHAR(20) NOT NULL,\n    villef VARCHAR(20) NOT NULL,\n    UNIQUE(nomf, villef)  \n);\n\nCREATE TABLE fournisseur(\n    nomf VARCHAR(20),\n    villef VARCHAR(20),\n    PRIMARY KEY (nomf, villef)  \n);"
+  },
+  {
+    "objectID": "slides/LDD_2.html#clef-étrangère-1",
+    "href": "slides/LDD_2.html#clef-étrangère-1",
+    "title": "SQL : Contraintes",
+    "section": "Clef étrangère",
+    "text": "Clef étrangère\n\nUne contrainte de clef étrangère stipule que les valeurs d’une colonne (ou d’un groupe de colonnes) doivent correspondre aux valeurs qui apparaissent dans les lignes d’une autre table.\nOn dit que cela maintient l’intégrité référentielle entre les deux tables.\n\nSoit les deux tables suivantes :\n\n\nCREATE TABLE fournisseur(\n    idf INT PRIMARY KEY,\n    nomf VARCHAR(20),\n    villef VARCHAR(20)\n);\n\nCREATE TABLE piece(\n    nomp VARCHAR(20) PRIMARY KEY,\n    prix MONEY CHECK (prix&gt;= 0::MONEY),\n    prix_promo MONEY CHECK (prix_promo &gt;= 0::MONEY),\n    couleur VARCHAR(15),\n    CHECK (prix &gt; prix_promo)\n);"
+  },
+  {
+    "objectID": "slides/LDD_2.html#clef-étrangère-references",
+    "href": "slides/LDD_2.html#clef-étrangère-references",
+    "title": "SQL : Contraintes",
+    "section": "Clef étrangère : REFERENCES",
+    "text": "Clef étrangère : REFERENCES\nSupposons également une table livraison qui stocke les livraisons de ces pièces.\nIl est important de s’assurer que la table livraison ne contient que des références de pièces et de fournisseurs qui existent dans la base.\nPour cela, deux contraintes de clef étrangère sont émises par la table des livraisons :\n\nUne contrainte référentielle vers la table piece.\nUne contrainte référentielle vers la table fournisseur.\n\n--| eval: false\n--| echo: true\n--| code-line-numbers: \"|3,4\"\nCREATE TABLE livraison(\n    numliv INT PRIMARY KEY,\n    idf INT REFERENCES fournisseur,   \n    nomp VARCHAR(20) REFERENCES piece,  \n    dateLiv DATE DEFAULT NOW(),\n    quantite INT DEFAULT 1 CHECK (quantite&gt;=0)\n);"
+  },
+  {
+    "objectID": "slides/LDD_2.html#définition-de-world.countrylanguage",
+    "href": "slides/LDD_2.html#définition-de-world.countrylanguage",
+    "title": "SQL : Contraintes",
+    "section": "Définition de world.countrylanguage",
+    "text": "Définition de world.countrylanguage\n+-------------+--------------+-------------+\n| Column      | Type         | Modifiers   |\n|-------------+--------------+-------------|\n| countrycode | character(3) |  not null   |\n| language    | text         |  not null   |\n| isofficial  | boolean      |  not null   |\n| percentage  | real         |  not null   |\n+-------------+--------------+-------------+\nIndexes:\n    \"countrylanguage_pkey\" PRIMARY KEY, btree (countrycode, language)"
+  },
+  {
+    "objectID": "slides/LDD_2.html#définition-de-world.country",
+    "href": "slides/LDD_2.html#définition-de-world.country",
+    "title": "SQL : Contraintes",
+    "section": "Définition de world.country",
+    "text": "Définition de world.country\n\n\n+--------------------+---------------+-------------+\n| Column             | Type          | Modifiers   |\n|--------------------+---------------+-------------|\n| countrycode        | character(3)  |  not null   |\n| name_country       | text          |  not null   |\n| continent          | text          |  not null   |\n| region             | text          |  not null   |\n| surfacearea        | real          |  not null   |\n| indepyear          | smallint      |             |\n| population_country | integer       |  not null   |\n| lifeexpectancy     | real          |             |\n| gnp                | numeric(10,2) |             |\n| gnpold             | numeric(10,2) |             |\n| localname          | text          |  not null   |\n| governmentform     | text          |  not null   |\n| headofstate        | text          |             |\n| capital            | integer       |             |\n| code2              | character(2)  |  not null   |\n+--------------------+---------------+-------------+\n\nIndexes:\n    \"country_pkey\" PRIMARY KEY, btree (countrycode)\nCheck constraints:\n    \"country_continent_check\" CHECK\n    (continent = 'Asia'::text OR \n      continent = 'Europe'::text OR \n      continent = 'North America'::text OR \n      continent = 'Africa'::text OR \n      continent = 'Oceania'::text OR \n      continent = 'Antarctica'::text OR \n      continent = 'South America'::text)\nForeign-key constraints:\n    \"country_capital_fkey\" \n        FOREIGN KEY (capital) \n        REFERENCES world.city(id)  \nReferenced by:\n    TABLE \"world.countrylanguage\"\n    CONSTRAINT \"countrylanguage_countrycode_fkey\" \n        FOREIGN KEY (countrycode)\n        REFERENCES country(countrycode)"
+  },
+  {
+    "objectID": "slides/LDD_2.html#foreign-keys-emitted-by-world.country",
+    "href": "slides/LDD_2.html#foreign-keys-emitted-by-world.country",
+    "title": "SQL : Contraintes",
+    "section": "Foreign keys emitted by world.country",
+    "text": "Foreign keys emitted by world.country\nALTER TABLE world.country ADD \n    CONSTRAINT country_capital_fkey \n        FOREIGN KEY (capital)  \n        REFERENCES world.city(id);"
+  },
+  {
+    "objectID": "slides/LDD_1.html#définition-de-données",
+    "href": "slides/LDD_1.html#définition-de-données",
+    "title": "SQL : définitions de données",
+    "section": "Définition de données",
+    "text": "Définition de données\nSQL est un monde à part entière\nOn peut :\n\nInterroger des données par des requêtes (déjà vu en partie)\nAdministrer les bases de données :\n\nCréer celles-ci : définition des tables (schémas, etc), contraintes..\nCréer de nouvelles données, en insérer, supprimer, mettre à jour, etc\nCréer et gérer les utilisateurs, leurs droits sur les objets de la base,\n…\n\n\n\nDans ce cours : création des tables (version simplifiée) et des données"
+  },
+  {
+    "objectID": "slides/LDD_1.html#création-de-tables-1",
+    "href": "slides/LDD_1.html#création-de-tables-1",
+    "title": "SQL : définitions de données",
+    "section": "Création de tables",
+    "text": "Création de tables\n\nInstruction : CREATE TABLE ...\n\nPermet de définir :\n\nLes noms et les domaines (type) des attributs ainsi que des contraintes d’intégrité comme :\n\nContraintes de clés primaires (PRIMARY KEY)\nContraintes référentielles (clés étrangères FOREIGN KEY, par exemple)\n\nDes contraintes assez générales (de contrôle des données)\nDes index (pour la recherche et l’exécution efficaces)"
+  },
+  {
+    "objectID": "slides/LDD_1.html#création-de-tables-noms-et-domaines-dattributs",
+    "href": "slides/LDD_1.html#création-de-tables-noms-et-domaines-dattributs",
+    "title": "SQL : définitions de données",
+    "section": "Création de tables : noms et domaines d’attributs",
+    "text": "Création de tables : noms et domaines d’attributs\nChaque relation est définie par un nom de relation et une liste d’attributs\nCREATE TABLE &lt;nom_relation&gt; (\n  &lt;element de relation&gt;\n  &lt;,element de relation&gt;*\n  &lt;,contrainte de relation&gt;* );\n\nChaque attribut est défini par un nom d’attribut et un type de données\n&lt;element de relation&gt; ::= &lt;nom_attrib&gt;&lt;type_donnees&gt;[&lt;contrainte_attrib&gt;*]\n\n\nExemples de types\n&lt;type_donnees&gt; ::=  VARCHAR &lt;longueur&gt;| INT | REAL | DATE"
+  },
+  {
+    "objectID": "slides/LDD_1.html#exemple-avec-valeurs-par-défaut",
+    "href": "slides/LDD_1.html#exemple-avec-valeurs-par-défaut",
+    "title": "SQL : définitions de données",
+    "section": "Exemple avec valeurs par défaut",
+    "text": "Exemple avec valeurs par défaut\nCREATE TABLE livraison(\n    numLiv INT,\n    nomf VARCHAR(20),\n    nomp VARCHAR(20),\n    dateliv DATE DEFAULT NOW(),\n    quantite INT DEFAULT 1\n);\n\n\n\n\n\n\n\nValeurs par défaut\n\n\n\nPour dateliv, c’est la date courante lors de l’insertion de la ligne dans la table,\nPour quantite, c’est une constante."
+  },
+  {
+    "objectID": "slides/LDD_1.html#exemple-schéma-world",
+    "href": "slides/LDD_1.html#exemple-schéma-world",
+    "title": "SQL : définitions de données",
+    "section": "Exemple : schéma world",
+    "text": "Exemple : schéma world"
+  },
+  {
+    "objectID": "slides/LDD_1.html#exemple-schéma-world-avec-clé-primaire-composée",
+    "href": "slides/LDD_1.html#exemple-schéma-world-avec-clé-primaire-composée",
+    "title": "SQL : définitions de données",
+    "section": "Exemple : schéma world avec clé primaire composée",
+    "text": "Exemple : schéma world avec clé primaire composée\nCREATE TABLE world.countrylanguage (\n    countrycode bpchar(3) NOT NULL,\n    \"language\" text NOT NULL,\n    isofficial bool NOT NULL,\n    percentage float4 NOT NULL,\n    CONSTRAINT countrylanguage_pkey\n        PRIMARY KEY (countrycode, language)\n);\n\n\n\n\n\n\n\nAttention\n\n\nUne clé peut être composée de plusieurs attributs"
+  },
+  {
+    "objectID": "slides/LDD_1.html#exemple-schéma-world-suite",
+    "href": "slides/LDD_1.html#exemple-schéma-world-suite",
+    "title": "SQL : définitions de données",
+    "section": "Exemple: schéma world (suite)",
+    "text": "Exemple: schéma world (suite)\nCREATE TABLE world.country (\n    countrycode bpchar(3) NOT NULL,\n    name_country text NOT NULL,\n    continent text NOT NULL,\n    region text NOT NULL,\n    surfacearea float4 NOT NULL,\n    indepyear int2 NULL,\n    population_country int4 NOT NULL,\n    lifeexpectancy float4 NULL,\n    gnp numeric(10, 2) NULL,\n    gnpold numeric(10, 2) NULL,\n    localname text NOT NULL,\n    governmentform text NOT NULL,\n    headofstate text NULL,\n    capital int4 NULL,\n    code2 bpchar(2) NOT NULL,\n    CONSTRAINT country_continent_check CHECK (\n        ((continent = 'Asia'::text) OR (\n            continent = 'Europe'::text) OR\n            (continent = 'North America'::text) OR\n            (continent = 'Africa'::text) OR\n            (continent = 'Oceania'::text) OR\n            (continent = 'Antarctica'::text) OR\n            (continent = 'South America'::text))),\n    CONSTRAINT country_pkey PRIMARY KEY (countrycode)\n);"
+  },
+  {
+    "objectID": "slides/LDD_1.html#suppression-dune-table",
+    "href": "slides/LDD_1.html#suppression-dune-table",
+    "title": "SQL : définitions de données",
+    "section": "Suppression d’une table",
+    "text": "Suppression d’une table\nDROP TABLE fournisseur;\nDROP TABLE piece;\nDROP TABLE livraison;\n\n\n\n\n\n\nSuppression n’est pas vidange\n\n\nSupprimer une table, c’est supprimer son contenu (vidange) mais aussi son schéma"
+  },
+  {
+    "objectID": "slides/LDD_1.html#contenu-des-relations",
+    "href": "slides/LDD_1.html#contenu-des-relations",
+    "title": "SQL : définitions de données",
+    "section": "Contenu des relations",
+    "text": "Contenu des relations\nOn peut gérer le contenu des tables directement dans le langage SQL :\n\nAjouter des tuples à une table : INSERT INTO ...\nMettre à jour des tuples d’une relation : UPDATE ...\nSupprimer des tuples : DELETE FROM ..."
+  },
+  {
+    "objectID": "slides/LDD_1.html#insertion-de-tuples-syntaxe",
+    "href": "slides/LDD_1.html#insertion-de-tuples-syntaxe",
+    "title": "SQL : définitions de données",
+    "section": "Insertion de tuples : syntaxe",
+    "text": "Insertion de tuples : syntaxe\nINSERT INTO &lt;nom_relation&gt;\n    [(nom_attrib [, nom_attrib]*)]\n    VALUES (valeur [, valeur]*);\n\nINSERT INTO piece VALUES('x21', 1.51, 'rouge');\n\nINSERT INTO piece (nomp,couleur) VALUES('x22', 'vert');\n\n+--------+--------+-----------+\n| nomp   | prix   | couleur   |\n|--------+--------+-----------|\n| x21    | 1.51   | rouge     |\n| x22    | &lt;null&gt; | vert      |\n+--------+--------+-----------+\n\n\n\n\n\n\nAttention\n\n\n\nLes valeurs doivent être fournies dans l’ordre de déclaration des attributs,\nLes valeurs non spécifiées sont affectées à NULL"
+  },
+  {
+    "objectID": "slides/LDD_1.html#insertion-exemple-suite",
+    "href": "slides/LDD_1.html#insertion-exemple-suite",
+    "title": "SQL : définitions de données",
+    "section": "Insertion, exemple (suite)",
+    "text": "Insertion, exemple (suite)\nINSERT INTO world.Country\n  (countrycode, name_country, continent,\n   region, surfacearea, indepyear, population_country,\n   lifeexpectancy, gnp, gnpold,\n   localname, governmentform, headofstate, capital, code2)\nVALUES(\n    'SYL', 'Syldavia', 'Europe',\n    'Eastern Europe', 200000, 1918, 21345717, 81.2, 25213, 24878,\n    'Syldavie', 'Constitutional Monarchy', 'Ottokar II', 0, 'SY'\n);"
+  },
+  {
+    "objectID": "slides/LDD_1.html#remarques",
+    "href": "slides/LDD_1.html#remarques",
+    "title": "SQL : définitions de données",
+    "section": "Remarques",
+    "text": "Remarques\nLa dernière partie du constructeur multiligne, qui commence avec VALUES est souvent appelée la liste de valeurs.\n\nUne liste de valeurs peut être définie sans référence à une table existante et définir à la volée une nouvelle table virtuelle/éphémère.\n\n\nSELECT *\nFROM (\n  VALUES\n    ('robe', 'logged in', '2011-01-10 10:15 AM EST'::timestamptz),\n    ('lhsu', 'logged out', '2011-01-11 10:20 AM EST'::timestamptz)\n) AS l (user_name, description, log_ts);\n\n\n\n\n\n\nNote\n\n\nQuand on utilise VALUES pour définir une table virtuelle, il faut spécifier le nom des colonnes.\nPar défaut, les types des colonnes sont inférés. Si l’inférence de type n’est pas possible, il faut effectuer explicitement des conversions de type comme ici avec ::timestamptz."
+  },
+  {
+    "objectID": "slides/LDD_1.html#exemple-insertion-de-tuples-suite",
+    "href": "slides/LDD_1.html#exemple-insertion-de-tuples-suite",
+    "title": "SQL : définitions de données",
+    "section": "Exemple : Insertion de tuples (suite)",
+    "text": "Exemple : Insertion de tuples (suite)\nINSERT INTO livraison\n    VALUES\n    (1, 'fournisseur1', 'x21', '2019-07-13', 2);\n\n-- Avec des colonnes non renseignées\n\nINSERT INTO livraison\n   (numliv, dateliv, quantite)\n    VALUES\n   (2, '2018-07-29', 10);\n\n\n+----------+--------------+--------+------------+------------+\n| numliv   | nomf         | nomp   | dateliv    | quantite   |\n|----------+--------------+--------+------------+------------|\n| 1        | fournisseur1 | x21    | 2019-07-13 | 2          |\n| 2        | &lt;null&gt;       | &lt;null&gt; | 2018-07-29 | 10         |\n+----------+--------------+--------+------------+------------+"
+  },
+  {
+    "objectID": "slides/LDD_1.html#insertion-de-tuples-par-requête",
+    "href": "slides/LDD_1.html#insertion-de-tuples-par-requête",
+    "title": "SQL : définitions de données",
+    "section": "Insertion de tuples par requête",
+    "text": "Insertion de tuples par requête\n\nOn peut faire une insertion par le biais d’une requête,\nLa clause VALUES est remplacée par une requête,\nLes résultats de la requête sont insérés comme valeurs dans la table.\nPour respecter les contraintes d’unicité, le mot clé DISTINCT peut être nécessaire, en particulier lorsqu’il y a une jointure.\n\n\nExemple 1\nINSERT INTO FournisseursParisiens (\n  SELECT *\n  FROM Fournisseur\n  WHERE VilleF='Paris'\n);"
+  },
+  {
+    "objectID": "slides/LDD_1.html#exemple-2",
+    "href": "slides/LDD_1.html#exemple-2",
+    "title": "SQL : définitions de données",
+    "section": "Exemple 2",
+    "text": "Exemple 2\nCREATE TABLE monschema.city () \n  INHERITS (world.city) ;\n\nCREATE TABLE monschema.country () \n  INHERITS (world.country) ;\n\nINSERT INTO monschema.country (\n    SELECT * \n    FROM world.country\n    WHERE continent = 'Europe' \n);\n\nINSERT INTO monschema.city (\n    SELECT ci.*  \n    FROM world.city ci NATURAL JOIN \n      world.country co\n    WHERE co.continent = 'Europe'\n) ;"
+  },
+  {
+    "objectID": "slides/LDD_1.html#mise-à-jour-de-colonnes-de-cellules",
+    "href": "slides/LDD_1.html#mise-à-jour-de-colonnes-de-cellules",
+    "title": "SQL : définitions de données",
+    "section": "Mise à jour de colonnes, de cellules",
+    "text": "Mise à jour de colonnes, de cellules\nOn peut mettre à jour des tuples d’une table par le biais d’une requête UPDATE.\nUPDATE nom_table1\nSET nom_attribut = &lt;expression de valeur&gt; \n    [ , nom_attribut = &lt;expression de valeur&gt; ]\n[FROM nom_table2 [, [JOIN] nom_table3]]\n[WHERE &lt;condition de recherche&gt; ];\n\n\n\n\n\n\n\nNote\n\n\n&lt;expression de valeur&gt; peut être :\n\nNULL,\nune constante explicite,\nune expression arithmétique sur les attributs des tables des clauses SET ou FROM,\nle résultat d’une requête scalaire.\n\n\n\n\n\n\n\n\n\n\n\n\nAvertissement\n\n\nOn ne peut pas utiliser la notation nom_table.nom_attribut dans la clause SET."
+  },
+  {
+    "objectID": "slides/LDD_1.html#exemple-de-mise-à-jour-de-tuples",
+    "href": "slides/LDD_1.html#exemple-de-mise-à-jour-de-tuples",
+    "title": "SQL : définitions de données",
+    "section": "Exemple de mise à jour de tuples",
+    "text": "Exemple de mise à jour de tuples\nAugmentation du prix d’une pièce\nUPDATE Piece\nSET prix = prix * 1.05\nWHERE nomp = 'x21';"
+  },
+  {
+    "objectID": "slides/LDD_1.html#calcul-de-la-nouvelle-valeur-par-une-sous-requête",
+    "href": "slides/LDD_1.html#calcul-de-la-nouvelle-valeur-par-une-sous-requête",
+    "title": "SQL : définitions de données",
+    "section": "Calcul de la nouvelle valeur par une sous-requête",
+    "text": "Calcul de la nouvelle valeur par une sous-requête\nUPDATE Piece\nSET Prix = (\n    SELECT prix\n    FROM Piece\n    WHERE nomp = 'x21'\n)\nWHERE Prix &lt;= 1000;"
+  },
+  {
+    "objectID": "slides/LDD_1.html#utilisation-de-la-clause-from",
+    "href": "slides/LDD_1.html#utilisation-de-la-clause-from",
+    "title": "SQL : définitions de données",
+    "section": "Utilisation de la clause FROM",
+    "text": "Utilisation de la clause FROM\n\nOn peut avoir besoin de plusieurs tables pour sélectionner les tuples à mettre à jour.\nLa syntaxe à utiliser varie un peu selon le SGBD.\nAvec PostgreSQL, on écrira les tables suplémentaires dans une clause FROM (JOIN possible si au moins deux tables supplémentaires).\n\nUPDATE Piece p\nSET p.prix = p.prix * 1.1\nFROM Livraison l\nWHERE\n    p.nomp = l.nomp\n    AND l.quantite &gt; 2* (SELECT MIN(quantite) FROM Livraison);"
+  },
+  {
+    "objectID": "slides/LDD_1.html#update-avec-cte",
+    "href": "slides/LDD_1.html#update-avec-cte",
+    "title": "SQL : définitions de données",
+    "section": "UPDATE avec CTE",
+    "text": "UPDATE avec CTE\nIl est parfois pratique d’écrire une CTE pour définir les couples (identifiant, nouvelle valeur).\nWITH r AS (\n  SELECT p.nomp AS id, p.prix * 1.1 AS newvalue\n  FROM Piece p\n  JOIN Livraison l ON p.nomp = l.nomp\n  WHERE l.quantite &gt; 2* (SELECT MIN(quantite) FROM Livraison)\n)\nUPDATE Piece p\nSET prix = r.newvalue\nFROM r\nWHERE p.nomp = r.id"
+  },
+  {
+    "objectID": "slides/LDD_1.html#suppression-de-tuples-1",
+    "href": "slides/LDD_1.html#suppression-de-tuples-1",
+    "title": "SQL : définitions de données",
+    "section": "Suppression de tuples",
+    "text": "Suppression de tuples\nDELETE FROM &lt;nom_relation&gt;\n[USING nom_table2 [, [JOIN] nom_table3]]\n[WHERE &lt;condition de recherche&gt;];\n\n\n\n\n\n\nImportant\n\n\nL’oubli de la clause where supprime toutes les données de la table."
+  },
+  {
+    "objectID": "slides/LDD_1.html#exemple-de-suppression-de-tuples",
+    "href": "slides/LDD_1.html#exemple-de-suppression-de-tuples",
+    "title": "SQL : définitions de données",
+    "section": "Exemple de suppression de tuples",
+    "text": "Exemple de suppression de tuples\nDELETE FROM Fournisseur\nWHERE NomF = 'FastDelivery';\nOn supprime dans Fournisseur les tuples correspondant au fournisseur nommé 'FastDelivery'"
+  },
+  {
+    "objectID": "slides/LDD_1.html#suppression-de-tuples-avec-requête-imbriquée",
+    "href": "slides/LDD_1.html#suppression-de-tuples-avec-requête-imbriquée",
+    "title": "SQL : définitions de données",
+    "section": "Suppression de tuples avec requête imbriquée",
+    "text": "Suppression de tuples avec requête imbriquée\nDELETE FROM Livraison\nWHERE NomP IN (\n    SELECT NomP\n    FROM Piece\n    WHERE Couleur='Rouge'\n);"
+  },
+  {
+    "objectID": "slides/LDD_1.html#utilisation-de-la-clause-using",
+    "href": "slides/LDD_1.html#utilisation-de-la-clause-using",
+    "title": "SQL : définitions de données",
+    "section": "Utilisation de la clause USING",
+    "text": "Utilisation de la clause USING\n\nOn peut avoir besoin de plusieurs tables pour sélectionner les tuples à supprimer.\nLa syntaxe à utiliser varie un peu selon le SGBD. PostgreSQL ne supporte pas l’utilisation de JOIN dans la clause FROM d’une instruction DELETE.\nOn écrira les tables suplémentaires dans une clause USING (JOIN possible si au moins deux tables supplémentaires).\n\nDELETE FROM monschema.city AS ci\nUSING monschema.country AS co\nWHERE \n  ci.countrycode = co.countrycode AND \n  co.region= 'Eastern Europe' AND \n  co.indepyear = 1991 ;"
+  },
+  {
+    "objectID": "slides/LDD_1.html#suppression-de-données-et-contraintes-dintégrité-référentielle",
+    "href": "slides/LDD_1.html#suppression-de-données-et-contraintes-dintégrité-référentielle",
+    "title": "SQL : définitions de données",
+    "section": "Suppression de données et contraintes d’intégrité référentielle",
+    "text": "Suppression de données et contraintes d’intégrité référentielle\n\n\n\n\n\n\nAvertissement\n\n\nLa requête précédente pose-t’elle problème ?\n\n\n\n\nLes identifiants de l’attribut country.capital pour les pays vérifiant country.region = 'Eastern Europe' AND  country.indepyear = 1991 ne seront plus référencés dans la table city."
+  },
+  {
+    "objectID": "workshops/td4.html#contraintes-utilisant-une-fonction",
+    "href": "workshops/td4.html#contraintes-utilisant-une-fonction",
+    "title": "TD 4 : Définition de données, Contraintes",
+    "section": "Contraintes utilisant une fonction",
+    "text": "Contraintes utilisant une fonction\nLes contraintes NOT NULL, DEFAULT, KEY, CHECK portent uniquement sur une ligne tandis que la contrainte UNIQUE permet uniquement de tester des égalités entre lignes. On veut parfois vérifier une condition plus riche entre des lignes. Par exemple, si notre table contient des réservations d’hôtel entre start_date et end_date, on ne veut pas que deux réservations se chevauchent.\nOn peut alors utiliser une fonction dans une contrainte CHECK :\ncreate table if not exists reservation(\n   id int primary key,\n   start_date date not null, \n   end_date date not null check (end_date &gt; start_date)\n);\n\ncreate or replace function compat (id_res int, start_res date)\nreturns boolean\nlanguage sql as\n$$\n   select count (*) = 0\n   from reservation r\n   where id_res &lt;&gt; r.id\n      and start_res &gt;=  r.start_date\n      and start_res &lt;  r.end_date; \n$$\n-- il est possible aussi d'utiliser daterange(start_date, end_date)\n\nalter table if exists reservation \n   add constraint check_compat check (compat (id,start_date)) ;\n\ninsert into reservation values(1,'01/01/2026','01/10/2026'); -- est accepté\ninsert into reservation values(2,'01/10/2026','01/12/2026'); -- est accepté\ninsert into reservation values(3,'01/05/2026','01/10/2026'); -- est refusé\n\n\n\n\n\n\nImportantMode de vérification des contraintes CHECK\n\n\n\nLes contraintes CHECK sont vérifiées uniquement lors de l’insertion et de la mise à jour. Les données de la table utilisées par la fonction sont celles existantes avant l’insertion et la mise à jour. Les paramètres de la fonction sont les attributs de la ligne que l’on veut insérer ou mettre à jour."
   }
 ]
