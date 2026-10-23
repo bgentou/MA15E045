@@ -4488,24 +4488,29 @@ window.Quarto = {
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>   end_date <span class="dt">date</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">check</span> (end_date <span class="op">&gt;</span> start_date)</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>);</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">or</span> <span class="kw">replace</span> <span class="kw">function</span> compat (id_res <span class="dt">int</span>, start_res <span class="dt">date</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">or</span> <span class="kw">replace</span> <span class="kw">function</span> compat (id_res <span class="dt">int</span>, start_res <span class="dt">date</span>, end_res <span class="dt">date</span>)</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>returns <span class="dt">boolean</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>language sql <span class="kw">as</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>   <span class="kw">select</span> <span class="fu">count</span> (<span class="op">*</span>) <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>   <span class="kw">from</span> reservation r</span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>   <span class="kw">where</span> id_res <span class="op">&lt;&gt;</span> r.<span class="kw">id</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="kw">and</span> start_res <span class="op">&gt;=</span>  r.start_date</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>      <span class="kw">and</span> start_res <span class="op">&lt;</span>  r.end_date; </span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">-- il est possible aussi d&#39;utiliser daterange(start_date, end_date)</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> <span class="cf">if</span> <span class="kw">exists</span> reservation </span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>   <span class="kw">add</span> <span class="kw">constraint</span> check_compat <span class="kw">check</span> (compat (<span class="kw">id</span>,start_date)) ;</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> reservation <span class="kw">values</span>(<span class="dv">1</span>,<span class="st">&#39;01/01/2026&#39;</span>,<span class="st">&#39;01/10/2026&#39;</span>); <span class="co">-- est accepté</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> reservation <span class="kw">values</span>(<span class="dv">2</span>,<span class="st">&#39;01/10/2026&#39;</span>,<span class="st">&#39;01/12/2026&#39;</span>); <span class="co">-- est accepté</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> reservation <span class="kw">values</span>(<span class="dv">3</span>,<span class="st">&#39;01/05/2026&#39;</span>,<span class="st">&#39;01/10/2026&#39;</span>); <span class="co">-- est refusé</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="kw">and</span> ((start_res <span class="op">&gt;=</span>  r.start_date</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">and</span> start_res <span class="op">&lt;</span>  r.end_date)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>         <span class="kw">or</span> (r.start_date <span class="op">&gt;=</span>  start_res</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>            <span class="kw">and</span> r.start_date <span class="op">&lt;</span>  end_res)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>         );</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co">-- il est possible aussi d&#39;utiliser daterange(start_date, end_date)</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> <span class="cf">if</span> <span class="kw">exists</span> reservation </span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>   <span class="kw">add</span> <span class="kw">constraint</span> check_compat <span class="kw">check</span> (compat (<span class="kw">id</span>,start_date,end_date)) ;</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> reservation <span class="kw">values</span>(<span class="dv">1</span>,<span class="st">&#39;01/01/2026&#39;</span>,<span class="st">&#39;01/10/2026&#39;</span>); <span class="co">-- est accepté</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> reservation <span class="kw">values</span>(<span class="dv">2</span>,<span class="st">&#39;01/10/2026&#39;</span>,<span class="st">&#39;01/12/2026&#39;</span>); <span class="co">-- est accepté</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> reservation <span class="kw">values</span>(<span class="dv">3</span>,<span class="st">&#39;01/05/2026&#39;</span>,<span class="st">&#39;01/10/2026&#39;</span>); <span class="co">-- est refusé</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> reservation <span class="kw">values</span>(<span class="dv">4</span>,<span class="st">&#39;12/30/2025&#39;</span>,<span class="st">&#39;01/02/2025&#39;</span>); <span class="co">-- est refusé</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-style-simple callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4583,7 +4588,7 @@ window.Quarto = {
 </div>
 </div>
 <ol class="example" type="1">
-<li>Créer dans votre schéma trois tables de mêmes structures que celles de <code>world</code>.</li>
+<li>Créer dans votre schéma trois tables <code>td_country</code>, <code>td_countrylanguage</code> et <code>td_city</code> de mêmes structures que celles de <code>world</code>.</li>
 </ol>
 <ol start="2" class="example" type="1">
 <li>Insérer dans les nouvelles tables les valeurs des tables originelles du schéma <code>world</code>.</li>
