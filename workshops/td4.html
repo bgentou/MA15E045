@@ -4396,7 +4396,7 @@ window.Quarto = {
 <p><a href="https://www.postgresql.org/docs/current/ddl-constraints.html" target="_blank">Documentation PostgreSQL</a>.</p>
 <section id="contraintes-check." class="level2">
 <h2 class="anchored" data-anchor-id="contraintes-check.">Contraintes CHECK.</h2>
-<p>Cette contrainte permet de vérifier que les colonnes d’une ligne donnée vérifient une certaine condition. Par exemple, on pourrait vouloir vérifier que la valeur de la colonne <code>percentage</code> de la table <code>countrylanguage</code> est inférieure à 100 ou que la valeur de la colonne <code>return_date</code> de la table <code>rental</code> est soit <code>NULL</code> ou supérieure à <code>rental_date</code>. Ces contraintes se définissent lors de la création de la table. Par exemple :</p>
+<p>Cette contrainte permet de vérifier que les colonnes d’une ligne donnée vérifient une certaine condition. Par exemple, on pourrait vouloir vérifier que la valeur de la colonne <code>percentage</code> de la table <code>countrylanguage</code> est inférieure à 100 ou que la valeur de la colonne <code>return_date</code> d’une table <code>rental</code> (pour stocker des locations) est <code>NULL</code> ou supérieure à <code>rental_date</code>. Ces contraintes se définissent lors de la création de la table. Par exemple :</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> solde(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    produit TEXT,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    reduc_pourcentage <span class="dt">INT</span>,</span>
@@ -4405,7 +4405,16 @@ window.Quarto = {
 <p>On peut ajouter une contrainte CHECK à une table qui existe déjà. Par exemple :</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> solde <span class="kw">ADD</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CHECK</span> (reduc_pourcentage <span class="op">&gt;=</span><span class="dv">0</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Il est préférable de vérifier qu’une table existe avant de tenter d’ajouter une contrainte :</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Il est préférable de vérifier qu’une table existe avant de tenter d’ajouter une contrainte.</p>
+</div>
+</div>
+</div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> solde <span class="kw">ADD</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">CHECK</span> (reduc_pourcentage <span class="op">&gt;=</span><span class="dv">0</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>ou bien en nommant la contrainte :</p>
@@ -4453,7 +4462,16 @@ window.Quarto = {
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    id2 <span class="dt">INT</span>,</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>   <span class="kw">FOREIGN</span> <span class="kw">KEY</span> (id1) <span class="kw">REFERENCES</span> membre (<span class="kw">id</span>)</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>NB</strong> : ici, on a ajouté la clause <code>IF NOT EXISTS</code> pour éviter une erreur d’exécution si la table existe déjà. Dans ce cas, la requête ne fait rien. Si on veut recréer une table, il faut d’abord la supprimer.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Ici, on a ajouté la clause <code>IF NOT EXISTS</code> pour éviter une erreur d’exécution si la table existe déjà. Dans ce cas, la requête ne fait rien. Si on veut recréer une table, il faut d’abord la supprimer.</p>
+</div>
+</div>
+</div>
 <p>On peut aussi ajouter ces contraintes après la définition de la table (il est alors préférable de vérifier que la table existe avant de tenter d’ajouter une contrainte) :</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">EXISTS</span> amis <span class="kw">ADD</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">PRIMARY</span> <span class="kw">KEY</span> (id1);</span>
@@ -4586,22 +4604,54 @@ window.Quarto = {
 <li>Supprimer les pays de la table <code>td_country</code> où aucune langue n’est parlée et qui n’ont pas de capitale (utiliser des CTEs). (6 lignes supprimées).</li>
 </ol>
 <ol start="8" class="example" type="1">
-<li>Réécrire la requête d’insertion des données de la table <code>world.country</code> dans la table <code>td_country</code> en filtrant les lignes qui ne respectent pas les contraintes d’unicité par rapport aux données de la table <code>td_country</code> avant l’insertion. Après la suppression de la question précédente, réinsérer avec cette nouvelle requête, les données de la table <code>world.country</code>. Si votre requête est correcte, son exécution ne doit pas provoquer de message d’erreur et <code>td_country</code> doit contenir à l’issue les mêmes données que <code>world.country</code>.</li>
+<li>Réécrire la requête d’insertion des données de la table <code>world.country</code> dans la table <code>td_country</code> en filtrant les lignes qui créeraient des doublons sur les colonnes de la table <code>td_country</code> ayant une contrainte <code>UNIQUE</code>. On suppose que les lignes insérées vérifient entre elles les contraintes d’unicité et on souhaite vérifier qu’elles ne créent pas de doublons avec les lignes présentes dans la table <code>td_country</code> avant l’insertion. Après la suppression de la question précédente, réinsérer avec cette nouvelle requête, les données de la table <code>world.country</code>. Si votre requête est correcte, son exécution ne doit pas provoquer de message d’erreur et à l’issue, les tables <code>world.country</code> et <code>td_country</code> doivent contenir les mêmes lignes.</li>
 </ol>
-<p><strong>NB</strong> : la valeur <code>NULL</code> est autorisée pour la colonne <code>capital</code>.</p>
+<div class="callout callout-style-simple callout-caution">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>La colonne <code>capital</code> a une contrainte <code>UNIQUE</code> mais pas de contrainte <code>NOT NULL</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>On peut tester l’identité des lignes des deux tables avec un <code>FULL JOIN</code> :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> world.country c <span class="kw">full</span> <span class="kw">join</span> td_country tc <span class="kw">using</span>(countrycode)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> c.countrycode <span class="kw">is</span> <span class="kw">null</span> <span class="kw">or</span> tc.countrycode <span class="kw">is</span> <span class="kw">null</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Le résultat doit être vide.</p>
+</div>
+</div>
+</div>
 <ol start="9" class="example" type="1">
 <li>Ajouter la contrainte : dans <code>td_country</code>, pour chaque pays, il n’existe pas un autre pays de la même <code>region</code> qui n’est pas dans le même <code>continent</code>. Il s’agit d’une contrainte correspondant à la <em>dépendance fonctionnelle</em> <code>region → continent</code>, c.a.d. que tous les pays d’une même région doivent être sur un même continent.</li>
 </ol>
-<p>Après la définition de la contrainte, tester l’insertion suivante :</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> td_country(countrycode, name_country, continent, region, code2, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                  localname, governmentform, population_country, surfacearea) </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">select</span> <span class="st">&#39;FR2&#39;</span>, name_country, <span class="st">&#39;Asia&#39;</span>, region, code2, localname, governmentform, </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>            population_country, surfacearea </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>   <span class="kw">from</span> td_country </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>   <span class="kw">where</span> countrycode <span class="op">=</span> <span class="st">&#39;FRA&#39;</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Après la définition de la contrainte, testez l’insertion suivante :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">insert</span> <span class="kw">into</span> td_country(countrycode, name_country, continent, region, code2, </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>               localname, governmentform, population_country, surfacearea) </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">select</span> <span class="st">&#39;FR2&#39;</span>, name_country, <span class="st">&#39;Asia&#39;</span>, region, code2, localname, </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>            governmentform, population_country, surfacearea </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>   <span class="kw">from</span> td_country </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>   <span class="kw">where</span> countrycode <span class="op">=</span> <span class="st">&#39;FRA&#39;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Vous devez obtenir une message d’erreur indiquant que la contrainte définie n’est pas respectée.</p>
+</div>
+</div>
+</div>
 
 
 </section>
