@@ -156,7 +156,7 @@
   {
     "objectID": "workshops/td-recap-sql.html",
     "href": "workshops/td-recap-sql.html",
-    "title": "TD supplémentaire SQL",
+    "title": "TD révision SQL",
     "section": "",
     "text": "L3 MIASHS\n\n\nUniversité Paris Cité\n\n\nAnnée 2025\n\n\nCourse Homepage\n\n\nMoodle"
   },
@@ -4476,7 +4476,7 @@
     "href": "workshops/td-recap-sql.html#objectifs",
     "title": "TD supplémentaire SQL",
     "section": "Objectifs",
-    "text": "Objectifs\n\nrévision des requêtes de manipulation de données (LMD) en SQL,\nrévision des requêtes de définition de données (LDD) en SQL.\n\n\n\n\n\n\n\nLe TD utilise le schéma pagila. Pensez à adapter le search_path de votre base de données pour alléger le code !"
+    "text": "Objectifs\n\nrévision des requêtes de manipulation de données (LMD) en SQL,\nrévision des requêtes de définition de données (LDD) en SQL.\n\n\n\n\n\n\n\nLe TD utilise le schéma pagila et votre schéma personnel. Pensez à adapter le search_path de votre base de données pour alléger le code !"
   },
   {
     "objectID": "workshops/td-recap-sql.html#questions",
@@ -4540,5 +4540,26 @@
     "title": "TD SQL bonus : notions avancées",
     "section": "Fonctions qui retournent une table",
     "text": "Fonctions qui retournent une table\nEcrire une fonction qui prend en argument une région et renvoie la table des capitales de la région (schéma world).\n\nTable de schéma explicite\nOn se contente d’abord de renvoyer le nom de la capitale. On explicite le schéma de la table résultat\nCREATE OR REPLACE FUNCTION username.capitales_region(p_region text)\nRETURNS TABLE (name_capital text) LANGUAGE SQL AS\n$$\nSELECT cc.name \nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region ;\n$$ ;\nTester cette fonction.\n\n\nTable de même schéma qu’une autre table\nDocumentation\nOn veut maintenant récupérer une table de même schéma que city.\n\n\n\n\n\n\nLa solution est très simple. On profite de ce qu’à chaque table correspond un type de même nom et on utilise le mot-clé SETOF.\n\n\n\nCREATE OR REPLACE FUNCTION username.capitales_region_large(p_region text)\nRETURNS SETOF world.city  LANGUAGE SQL AS\n$$\nSELECT cc.* \nFROM world.country c JOIN world.city cc ON (c.capital=cc.id)\nWHERE c.region=p_region ;\n$$ ;\nTester cette fonction."
+  },
+  {
+    "objectID": "workshops/td-SQL-supplementaire.html",
+    "href": "workshops/td-SQL-supplementaire.html",
+    "title": "TD supplémentaire SQL",
+    "section": "",
+    "text": "L3 MIASHS\n\n\nUniversité Paris Cité\n\n\nAnnée 2025\n\n\nCourse Homepage\n\n\nMoodle"
+  },
+  {
+    "objectID": "workshops/td-SQL-supplementaire.html#objectifs",
+    "href": "workshops/td-SQL-supplementaire.html#objectifs",
+    "title": "TD supplémentaire SQL",
+    "section": "Objectifs",
+    "text": "Objectifs\n\nrévision des requêtes de manipulation de données (LMD) en SQL,\nrévision des requêtes de définition de données (LDD) en SQL.\n\n\n\n\n\n\n\nLe TD utilise le schéma pagila et votre schéma personnel. Pensez à adapter le search_path de votre base de données pour alléger le code !"
+  },
+  {
+    "objectID": "workshops/td-SQL-supplementaire.html#questions",
+    "href": "workshops/td-SQL-supplementaire.html#questions",
+    "title": "TD supplémentaire SQL",
+    "section": "Questions",
+    "text": "Questions\n\nAfficher les acteurs (identifiant,nom et prénom) dont le nom de famille se termine par la lettre “a” (peu importe la casse). Trier les résultats par nom de famille dans l’ordre alphabétique.\n\n\nAfficher les films (identifiant, titre, tarif de location) dont le tarif de location (‘rental_rate’) est strictement inférieur à 3. Trier les résultats du tarif le plus élevé au plus bas.\n\n\nAfficher la liste sans doublons de tous les districts présents dans la table “address”. Trier les districts par ordre alphabétique.\n\n\nAfficher les films (identifiant, titre, description) dont la description contient le mot “dog” ou le mot “cat”, insensible à la casse.\n\n\nAfficher la liste de tous les acteurs avec tous les films dans lesquels ils ont joué. Il faut afficher les colonnes identifiant d’acteur, prénom, nom, identifiant du film et titre du film. Trier les résultats par nom puis prénom d’acteur puis par titre de film.\n\n\nAfficher sans doublons les films (identifiant et titre), dans lesquels joue au moins une actrice ou un acteur dont le nom commence par la lettre ‘B’ et au moins une actrice ou un acteur dont le nom commence par la lettre ‘M’. Trier les résultats par titre de film. (172 lignes attendues)\n\n\nAfficher le coût de remplacement (‘replacement_cost’) minimum, maximum et moyen de l’ensemble des films.\n\n\nAfficher, pour chaque client, la dépense totale théorique basée sur la somme du montant (‘amount’) de la table “payment” des films loués. Trier du plus gros total au plus faible. Les colonnes à afficher sont l’identifiant du client, le prénom, le nom et la dépense totale théorique.\n\n\nAfficher toutes les locations dont la durée (‘return_date’ - ‘rental_date’) est supérieure à la durée moyenne de toutes les locations. Les colonnes à afficher sont : ‘rental_id’, ‘customer_id’, ‘duree_location’ (alias)\n\n\nAfficher les films de la catégorie “Horror” dont la durée (‘length’) est inférieure à la durée moyenne des films d’horreur. Les colonnes à afficher sont l’identifiant du film, le titre et la durée. Trier les résultats par durée décroissante.\n\n\nDans votre schéma personnel, créer une table film de structure identique à la table “film” du schéma “pagila”. Les contraintes internes aux deux tables doivent être identiques.\n\n\nInsérer dans la table film de votre schéma les films de la table film du schéma pagila dans lesquels jouent au moins une actrice ou un acteur dont le nom commence par la lettre ‘B’.\n\n\nSans supprimer les données existantes dans votre table film et sans propovoquer d’erreur d’exécution, insérer dans votre table film les films de la table film du schéma pagila dans lesquels jouent au moins une actrice ou un acteur dont le nom commence par la lettre ‘M’."
   }
 ]
