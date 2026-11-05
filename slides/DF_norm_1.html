@@ -437,14 +437,8 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a></a>V# ⟶ Vnom Vville</span>
 <span id="cb3-2"><a></a>P# ⟶ Pnom Pville</span>
 <span id="cb3-3"><a></a>V# P# ⟶ Qte</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Cela signifie que l’on ne considère que des relations R qui satisfont :</li>
-<li>si 2 tuples de <code>R</code> ont la même valeur de <code>V#</code> alors ils ont la même valeur de <code>Vnom</code> et <code>Vville</code>
-</li>
-<li>si 2 tuples de <code>R</code> ont la même valeur de <code>P#</code> alors ils ont la même valeur de <code>Pnom</code> et <code>Pville</code>
-</li>
-<li>…</li>
-</ul></section><section id="df-exemple-suite" class="slide level2 smaller center"><h2>DF exemple (suite)</h2>
+<p>Cela signifie que l’on ne considère que des relations R qui satisfont : - si 2 tuples de <code>R</code> ont la même valeur de <code>V#</code> alors ils ont la même valeur de <code>Vnom</code> et <code>Vville</code> - si 2 tuples de <code>R</code> ont la même valeur de <code>P#</code> alors ils ont la même valeur de <code>Pnom</code> et <code>Pville</code> - …</p>
+</section><section id="df-exemple-suite" class="slide level2 smaller center"><h2>DF exemple (suite)</h2>
 <table class="caption-top">
 <thead><tr class="header">
 <th style="text-align: right;">V#</th>
@@ -612,7 +606,7 @@
 <p><span class="math display">\[X \to Y\]</span></p>
 <p>où <span class="math inline">\(X \subseteq \mathcal{A}\)</span> et <span class="math inline">\(Y \subseteq \mathcal{A}\)</span></p>
 <p>Une relation <span class="math inline">\(R\)</span> de schéma <span class="math inline">\(\mathcal{A}\)</span> satisfait <span class="math inline">\(X \to Y\)</span> si pour tous tuples <span class="math inline">\(s,t ∈ R\)</span> on a</p>
-<p><span class="math display">\[\bigl(∀ A∈ X\ s.A=t.A\bigr) ⟹ \bigl(\forall A∈ Y\ s.A=t.A\bigr)\]</span></p>
+<p><span class="math display">\[\bigl(∀  A ∈ X\ s.A = t.A\bigr) ⟹ \bigl(\forall A ∈ Y\ s.A = t.A\bigr)\]</span></p>
 <p>(si <span class="math inline">\(s\)</span> et <span class="math inline">\(t\)</span> coïncident sur <span class="math inline">\(X\)</span> alors <span class="math inline">\(s\)</span> et <span class="math inline">\(t\)</span> coïncident sur <span class="math inline">\(Y\)</span>)</p>
 <p>Une relation <span class="math inline">\(R\)</span>, de schéma <span class="math inline">\(\mathcal{A}\)</span>, satisfait un ensemble <span class="math inline">\(\Sigma\)</span> de DF si <span class="math inline">\(R\)</span> satisfait chaque DF de <span class="math inline">\(\Sigma\)</span></p>
 </div>
