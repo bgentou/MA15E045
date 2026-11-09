@@ -2691,7 +2691,7 @@
     "href": "slides/DF_norm_1.html#exemple",
     "title": "Normalisation I",
     "section": "Exemple",
-    "text": "Exemple\nR(V#, Vnom, Vville, P#, Pnom, Pville, Qte)\nUn ensemble de dépendances fonctionnelles qu’on peut raisonnablement supposer :\nV# ⟶ Vnom Vville\nP# ⟶ Pnom Pville\nV# P# ⟶ Qte\nCela signifie que l’on ne considère que des relations R qui satisfont : - si 2 tuples de R ont la même valeur de V# alors ils ont la même valeur de Vnom et Vville - si 2 tuples de R ont la même valeur de P# alors ils ont la même valeur de Pnom et Pville - …"
+    "text": "Exemple\nR(V#, Vnom, Vville, P#, Pnom, Pville, Qte)\nUn ensemble de dépendances fonctionnelles qu’on peut raisonnablement supposer :\nV# ⟶ Vnom Vville\nP# ⟶ Pnom Pville\nV# P# ⟶ Qte\nCela signifie que l’on ne considère que des relations R qui satisfont :\n\nsi 2 tuples de R ont la même valeur de V# alors ils ont la même valeur de Vnom et Vville\n\nsi 2 tuples de R ont la même valeur de P# alors ils ont la même valeur de Pnom et Pville\n\n…"
   },
   {
     "objectID": "slides/DF_norm_1.html#df-exemple-suite",
@@ -2726,7 +2726,7 @@
     "href": "slides/DF_norm_1.html#dépendance-fonctionnelle-élémentaire",
     "title": "Normalisation I",
     "section": "Dépendance fonctionnelle élémentaire",
-    "text": "Dépendance fonctionnelle élémentaire\n\n\n\n\n\n\nDéfinition : dépendance élémentaire\n\n\n\\(A_1,...,A_p \\to Y\\) est une dépendance élémentaire si pour tout \\(j\\leqslant p\\) : \\(A_1,...,A_{j-1}, A_{j+1},..., A_p\\not\\to Y\\)\n\n\n\n\n\nNo_insee ⟶ sexe, mois_naiss, jour_naiss est élémentaire.\nNo_insee, jour_naiss ⟶ sexe, mois_naiss, ville_naiss n’est pas élémentaire …\n\n\n\n\n\n\n\nNote\n\n\nNo_insee suffit"
+    "text": "Dépendance fonctionnelle élémentaire\n\n\n\n\n\n\nDéfinition : dépendance élémentaire\n\n\nSoient \\(A_1,...,A_p\\) et \\(Y\\) des attributs d’un schéma \\(\\mathcal{A}\\).\n\\(A_1,...,A_p \\to Y\\) est une dépendance élémentaire si pour tout \\(j\\leqslant p\\) : \\(A_1,...,A_{j-1}, A_{j+1},..., A_p\\not\\to Y\\)\n\n\n\n\n\nNo_insee ⟶ sexe, mois_naiss, jour_naiss est élémentaire.\nNo_insee, jour_naiss ⟶ sexe, mois_naiss, ville_naiss n’est pas élémentaire …\n\n\n\n\n\n\n\nNote\n\n\nNo_insee suffit"
   },
   {
     "objectID": "slides/DF_norm_1.html#dépendance-fonctionnelle-triviale",

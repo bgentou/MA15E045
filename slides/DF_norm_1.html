@@ -437,8 +437,14 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a></a>V# ⟶ Vnom Vville</span>
 <span id="cb3-2"><a></a>P# ⟶ Pnom Pville</span>
 <span id="cb3-3"><a></a>V# P# ⟶ Qte</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Cela signifie que l’on ne considère que des relations R qui satisfont : - si 2 tuples de <code>R</code> ont la même valeur de <code>V#</code> alors ils ont la même valeur de <code>Vnom</code> et <code>Vville</code> - si 2 tuples de <code>R</code> ont la même valeur de <code>P#</code> alors ils ont la même valeur de <code>Pnom</code> et <code>Pville</code> - …</p>
-</section><section id="df-exemple-suite" class="slide level2 smaller center"><h2>DF exemple (suite)</h2>
+<p>Cela signifie que l’on ne considère que des relations R qui satisfont :</p>
+<ul>
+<li>si 2 tuples de <code>R</code> ont la même valeur de <code>V#</code> alors ils ont la même valeur de <code>Vnom</code> et <code>Vville</code>
+</li>
+<li>si 2 tuples de <code>R</code> ont la même valeur de <code>P#</code> alors ils ont la même valeur de <code>Pnom</code> et <code>Pville</code>
+</li>
+<li>…</li>
+</ul></section><section id="df-exemple-suite" class="slide level2 smaller center"><h2>DF exemple (suite)</h2>
 <table class="caption-top">
 <thead><tr class="header">
 <th style="text-align: right;">V#</th>
@@ -627,6 +633,7 @@
 <p><strong>Définition : dépendance élémentaire</strong></p>
 </div>
 <div class="callout-content">
+<p>Soient <span class="math inline">\(A_1,...,A_p\)</span> et <span class="math inline">\(Y\)</span> des attributs d’un schéma <span class="math inline">\(\mathcal{A}\)</span>.</p>
 <p><span class="math inline">\(A_1,...,A_p \to Y\)</span> est une dépendance <em>élémentaire</em> si pour tout <span class="math inline">\(j\leqslant p\)</span> : <span class="math inline">\(A_1,...,A_{j-1}, A_{j+1},..., A_p\not\to Y\)</span></p>
 </div>
 </div>
