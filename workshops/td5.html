@@ -4338,64 +4338,77 @@ window.Quarto = {
 </div>
 <section id="exercice-1" class="level3">
 <h3 class="anchored" data-anchor-id="exercice-1">Exercice 1</h3>
-<p>Soit le schéma <span class="math inline">\(\mathcal{A}=\{A,B,C,D,E,F\}\)</span> et l’ensemble de dépendances fonctionnelles <span class="math display">\[\Sigma = \{ AB\to C, BC\to AD, D\to E, CF\to B\}\]</span></p>
+<p>Soit le schéma <span class="math inline">\(\mathcal{A}=\{A,B,C,D,E,F\}\)</span> qui suit l’ensemble de dépendances fonctionnelles <span class="math display">\[\Sigma = \{ AB\to C, BC\to AD, B\to E, E\to DF \}\]</span></p>
 <ul>
 <li>Calculer la fermeture <span class="math inline">\(\left\{A,B\right\}^+\)</span>.</li>
 <li>Est-ce que <span class="math inline">\(\Sigma\)</span> implique la dépendance fonctionnelle <span class="math inline">\(AB\to D\)</span> ?</li>
 <li>Est-ce que <span class="math inline">\(\Sigma\)</span> implique la dépendance fonctionnelle <span class="math inline">\(D\to A\)</span> ?</li>
+<li>Les dépendances fonctionnelles de <span class="math inline">\(\Sigma\)</span> sont-elles élémentaires?</li>
 </ul>
-<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout callout-style-simple callout-note callout-titled" title="Rappel">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Rappel de cours
+<span class="screen-reader-only">Note</span>Rappel
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<section id="définition" class="level4">
-<h4 class="anchored" data-anchor-id="définition">Définition</h4>
-<p>Soient <span class="math inline">\(\mathcal{A}\)</span> un schéma, <span class="math inline">\(X \subset \mathcal{A}\)</span> et <span class="math inline">\(\Sigma\)</span> un ensemble de dépendances fonctionnelles.</p>
-<ul>
-<li><span class="math inline">\(X\)</span> est une sur-clé (super-clé) de <span class="math inline">\(\mathcal{A}\)</span> relativement à <span class="math inline">\(\Sigma\)</span> si <span class="math inline">\(X^+ = \mathcal{A}\)</span>.</li>
-<li><span class="math inline">\(X\)</span> est une clé de <span class="math inline">\(\mathcal{A}\)</span> relativement à <span class="math inline">\(\Sigma\)</span> si <span class="math inline">\(X\)</span> est une sur-clé (super-clé) minimale au sens de l’inclusion.</li>
-</ul>
+<p>Par exemple, pour déterminer si <span class="math inline">\(AB\to C\)</span> est élémentaire, on vérfie si <span class="math inline">\(\Sigma \models A\to C\)</span> et <span class="math inline">\(\Sigma \models B\to C\)</span>. Si l’une de ces deux propositions est vraie, alors <span class="math inline">\(AB\to C\)</span> n’est pas élémentaire.</p>
+</div>
+</div>
 </section>
-<section id="propriété" class="level4">
-<h4 class="anchored" data-anchor-id="propriété">Propriété</h4>
-<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma, <span class="math inline">\(\Sigma_1\)</span> et <span class="math inline">\(\Sigma_2\)</span> deux ensembles de DF sur <span class="math inline">\(\mathcal{A}\)</span>.</p>
-<ul>
-<li><strong><span class="math inline">\(\Sigma_1\)</span> et <span class="math inline">\(\Sigma_2\)</span> sont équivalents si et seulement si <span class="math inline">\(\quad \forall X \subset \mathcal{A},\ \ X^+_{\Sigma_1} = X^+_{\Sigma_2}\)</span></strong></li>
-</ul>
-<p>où <span class="math inline">\(X^+_{\Sigma_1}\)</span> et <span class="math inline">\(X^+_{\Sigma_2}\)</span> sont les fermetures transitives de <span class="math inline">\(X\)</span> respectivement selon <span class="math inline">\(\Sigma_1\)</span> et <span class="math inline">\(\Sigma_2\)</span>.</p>
-</section>
+<section id="exercice-2" class="level3">
+<h3 class="anchored" data-anchor-id="exercice-2">Exercice 2</h3>
+<p>Soient <span class="math inline">\(\mathcal{A}=\left\{A,B,C,D,E\right\}\)</span> un schéma qui suit un ensemble de dépendances fonctionnelles <span class="math inline">\(\Sigma\)</span>.</p>
+<p>Pour chaque ensemble <span class="math inline">\(\Sigma\)</span> ci-dessous, répondre aux questions suivantes :</p>
+<ol type="1">
+<li><span class="math inline">\({A}^+\)</span>, <span class="math inline">\({AB}^+\)</span>, <span class="math inline">\({ABC}^+\)</span>.</li>
+<li>A-t-on les DF suivantes : <span class="math inline">\(A\to \mathcal{A}\)</span>, <span class="math inline">\(AB\to \mathcal{A}\)</span>, <span class="math inline">\(ABC\to \mathcal{A}\)</span> ?</li>
+<li>Déterminer la liste des clés possibles pour <span class="math inline">\(\mathcal{A}\)</span> relativement à <span class="math inline">\(\Sigma\)</span>.</li>
+<li>Déterminer une couverture irredondante de <span class="math inline">\(\Sigma\)</span>.</li>
+</ol>
+<ol type="a">
+<li><span class="math inline">\(\Sigma=\left\{A\to D, BD\to E, AC\to E, DE\to B\right\}\)</span></li>
+<li><span class="math inline">\(\Sigma=\left\{AB\to D, AC\to E, BC\to D, D\to A, E\to B\right\}\)</span></li>
+<li><span class="math inline">\(\Sigma=\left\{A\to B, B\to C, C\to D, D\to E, E\to A\right\}\)</span></li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Algorithme de construction d&#39;une couverture irredondante">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Algorithme de construction d’une couverture irredondante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre class="code"><span class="kw">fonction</span> min_cover(Σ)
+   Σ&#39; := ∅ 
+   <span class="kw">for</span> (X → Y) ∈ Σ    <span class="cm"># sélection des DF non redondantes</span>
+      <span class="kw">for</span> y ∈ Y
+         <span class="kw">if not</span> (Σ&#39; ⊨ X → y)
+            Σ&#39;:= Σ&#39; ⋃ {X → y}
+   go = True
+   <span class="kw">while</span> go    <span class="cm"># élimination d&#39;attributs pour obtenir des DF élémentaires</span> 
+      go := False
+      <span class="kw">for</span> (X → y) ∈ Σ&#39;
+         <span class="kw">for</span> x ∈ X
+            <span class="cm"># si on peut retirer x de X en conservant des DF équivalentes</span>
+            <span class="kw">if</span> Σ&#39; ⊨ (X\{x}) → y
+               <span class="cm"># remplacer la DF X → y par (X\{x}) → y dans Σ&#39;</span>
+               Σ&#39; := (Σ&#39;\{X → y}) ⋃ {(X\{x}) → y}
+               go := True
+   <span class="kw">return</span> Σ&#39;
+</pre>
 </div>
 </div>
 </section>
 <section id="exercice-3" class="level3">
 <h3 class="anchored" data-anchor-id="exercice-3">Exercice 3</h3>
-<p>Soient <span class="math inline">\(\mathcal{A}=\left\{A,B,C,D,E\right\}\)</span> un schéma et <span class="math inline">\(\mathcal{A}_1=\left\{A,B,C\right\}\)</span>.</p>
-<p>Pour chaque ensemble <span class="math inline">\(\Sigma\)</span> de dépendances fonctionnelles ci-dessous, déterminer une couverture irredondante et donner la liste des clés possibles pour <span class="math inline">\(\mathcal{A}\)</span> relativement à <span class="math inline">\(\Sigma\)</span>.</p>
-<ol type="1">
-<li><span class="math inline">\(\Sigma=\left\{A\to D, BD\to E, AC\to E, DE\to B\right\}\)</span></li>
-<li><span class="math inline">\(\Sigma=\left\{AB\to D, AC\to E, BC\to D, D\to A, E\to B\right\}\)</span></li>
-<li><span class="math inline">\(\Sigma=\left\{A\to B, B\to C, C\to D, D\to E, E\to A\right\}\)</span></li>
-</ol>
-</section>
-<section id="exercice-4" class="level3">
-<h3 class="anchored" data-anchor-id="exercice-4">Exercice 4</h3>
-<p>Soient <span class="math inline">\(\mathcal{A}=\left\{A,B,C,D,E\right\}\)</span> un schéma.</p>
-<ol type="1">
-<li><span class="math inline">\(\Sigma=\left\{AC\rightarrow E, BC\to D\right\}\)</span></li>
-<li><span class="math inline">\(\Sigma=\left\{A\rightarrow D, D\to E, B\to D\right\}\)</span></li>
-<li><span class="math inline">\(\Sigma=\left\{A\rightarrow D, CD\to E, E\to D\right\}\)</span></li>
-</ol>
-</section>
-<section id="exercice-5" class="level3">
-<h3 class="anchored" data-anchor-id="exercice-5">Exercice 5</h3>
-<p>On considère le schéma <span class="math inline">\(\mathcal{A}\)</span>={}$.</p>
-<p>Un nuplet/tuple <span class="math inline">\(\verb!(o, a, n, np, nr, p)!\)</span> a la signification suivante : la personne <code>o</code> habite à l’adresse <code>a</code> l’appartement de numéro <code>n</code> avec <code>np</code> personnes ayant <code>nr</code> pièces dont le propriétaire est <code>p</code>.</p>
+<p>On considère le schéma <span class="math inline">\(\mathcal{A}=\{\verb!Occupant, Adresse, Noapt, Nbpièces, Nbpersonnes, Propriétaire!\}\)</span>.</p>
+<p>Un tuple <span class="math inline">\(\verb!(o, a, n, np, nr, p)!\)</span> a la signification suivante : la personne <code>o</code> habite à l’adresse <code>a</code> l’appartement de numéro <code>n</code> avec <code>np</code> personnes ayant <code>nr</code> pièces dont le propriétaire est <code>p</code>.</p>
 <p><span class="math inline">\(\mathcal{A}\)</span> vérifie l’ensemble <span class="math inline">\(\Sigma\)</span> des dépendances fonctionnelles suivantes</p>
 <pre><code>Occupant → Adresse
 Occupant → Noapt
@@ -4404,9 +4417,8 @@ Adresse → Propriétaire
 Adresse, Noapt → Occupant
 Adresse, Noapt → Nbpièces</code></pre>
 <ol type="1">
-<li>La décomposition est-elle sans perte de DF ?</li>
-<li>Déterminer la ou les clés de chaque sous-schéma <span class="math inline">\(\mathcal{A_i}\)</span>.</li>
-<li>Le schéma est-il en FN1, FN2, FN3 ?</li>
+<li>Déterminer la liste des clés possibles pour <span class="math inline">\(\mathcal{A}\)</span> relativement à <span class="math inline">\(\Sigma\)</span>.</li>
+<li>Déterminer une couverture irredondante de <span class="math inline">\(\Sigma\)</span>.</li>
 </ol>
 
 
