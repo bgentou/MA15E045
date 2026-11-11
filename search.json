@@ -2831,7 +2831,7 @@
     "href": "slides/DF_norm_1.html#terminaison-de-lalgorithme",
     "title": "Normalisation I",
     "section": "Terminaison de l’algorithme",
-    "text": "Terminaison de l’algorithme\n \\(X^c\\) grandit à chaque itération\nComme \\(\\mathcal{A}\\) est fini, l’algorithme se termine en au plus \\(|\\mathcal{A}|\\) itérations"
+    "text": "Terminaison de l’algorithme\n \\(F\\) grandit à chaque itération\nComme \\(\\mathcal{A}\\) est fini, l’algorithme se termine en au plus \\(|\\mathcal{A}|\\) itérations"
   },
   {
     "objectID": "slides/DF_norm_1.html#correction-de-lalgorithme-de-fermeture",
