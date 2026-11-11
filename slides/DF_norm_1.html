@@ -885,33 +885,44 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </div>
 <div class="callout-content">
 <p>La fermeture de <span class="math inline">\(X\)</span> par rapport à <span class="math inline">\(\Sigma\)</span> est</p>
-<p><span class="math display">\[X^+=\{ A\in\mathcal{A} \mid \Sigma\models X\to A \}\]</span></p>
+<p><span class="math display">\[X^+_{\Sigma}=\{ A\in\mathcal{A} \mid \Sigma\models X\to A \}\]</span></p>
+<p>Autrement dit <span class="math inline">\(X^+_{\Sigma}\)</span> est l’ensemble des attributs déterminés par <span class="math inline">\(X\)</span>.</p>
 </div>
 </div>
 </div>
-
-<aside><div>
-<p>Autrement dit <span class="math inline">\(X^+\)</span> est l’ensemble des attributs déterminés par <span class="math inline">\(X\)</span></p>
-</div></aside></section><section id="exemple-de-fermeture" class="slide level2 center"><h2>Exemple de fermeture</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>On peut aussi écrire <span class="math inline">\(X^+\)</span> au lieu de <span class="math inline">\(X^+_{\Sigma}\)</span> si <span class="math inline">\(\Sigma\)</span> est clair dans le contexte.</p>
+</div>
+</div>
+</div>
+</section><section id="exemple-de-fermeture" class="slide level2 center"><h2>Exemple de fermeture</h2>
 <ul>
 <li><span class="math inline">\(R(ABCDE)\)</span></li>
 <li><span class="math inline">\(\Sigma=\{AB\to C, C\to D, E\to D\}\)</span></li>
 <li><span class="math inline">\(\{A,B\}^+=\{A,B,C,D\}\)</span></li>
 </ul></section><section id="algorithme-de-calcul-dune-fermeture" class="slide level2 center"><h2>Algorithme de calcul d’une fermeture</h2>
-<p>L’algorithme retourne <span class="math inline">\(X^+\)</span> relativement à un ensemble de DF <span class="math inline">\(\Sigma\)</span>.</p>
+<p>L’algorithme retourne <span class="math inline">\(X^+_{\Sigma}\)</span>.</p>
 <pre class="code"><span class="kw">fonction</span> fermeture(X, Σ)
-   X⁺ :=  X
-   <span class="kw">while</span> (exists Y → Z in Σ with Y ⊂ X⁺ and Z ⊄ X⁺)
-      X⁺ := X⁺ ⋃ Z
-   <span class="kw">return</span> X⁺
+   F :=  X
+   <span class="kw">while</span> (exists Y → Z in Σ with Y ⊂ F and Z ⊄ F)
+      F := F ⋃ Z
+   <span class="kw">return</span> F
 </pre>
 </section><section id="exemple-de-calcul-de-fermeture" class="slide level2 center"><h2>Exemple de calcul de fermeture</h2>
 <p><span class="math inline">\(\mathcal{A}=\{ABCDEF\}\)</span>, <span class="math inline">\(\Sigma=\{A\to C, BC\to D, AD\to E\}\)</span>, <span class="math inline">\(X=\{A,B\}\)</span></p>
 <ul>
-<li><p><span class="math inline">\(X_c=\{A,B\}\)</span></p></li>
-<li><p><span class="math inline">\(A\to C\)</span> donc on obtient <span class="math inline">\(X_c=\{A,B,C\}\)</span></p></li>
-<li><p><span class="math inline">\(BC\to D\)</span> donc on obtient <span class="math inline">\(X_c=\{A,B,C,D\}\)</span></p></li>
-<li><p><span class="math inline">\(AD\to E\)</span> donc on obtient <span class="math inline">\(X_c=\{A,B,C,D, E\}\)</span></p></li>
+<li><p><span class="math inline">\(F=\{A,B\}\)</span></p></li>
+<li><p><span class="math inline">\(A\to C\)</span> donc on obtient <span class="math inline">\(F=\{A,B,C\}\)</span></p></li>
+<li><p><span class="math inline">\(BC\to D\)</span> donc on obtient <span class="math inline">\(F=\{A,B,C,D\}\)</span></p></li>
+<li><p><span class="math inline">\(AD\to E\)</span> donc on obtient <span class="math inline">\(F=\{A,B,C,D, E\}\)</span></p></li>
 <li><p>On obtient <span class="math inline">\(X^+=\{A,B,C,D, E\}\)</span></p></li>
 </ul></section><section id="terminaison-de-lalgorithme" class="slide level2 center"><h2>Terminaison de l’algorithme</h2>
 <p><i class="fa-solid fa-hand-point-right" aria-label="hand-point-right"></i> <span class="math inline">\(X^c\)</span> grandit à chaque itération</p>
@@ -919,12 +930,12 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 </section><section id="correction-de-lalgorithme-de-fermeture" class="slide level2 center"><h2>Correction de l’algorithme de fermeture <i class="fa-solid fa-person-chalkboard" aria-label="person-chalkboard"></i>
 </h2>
 <ul>
-<li><p>L’algorithme calcule uniquement des attributs dans la fermeture car on a toujours <span class="math inline">\(X^c \subset X^+\)</span> (récurrence sur le nombre d’itérations de la boucle <code>while</code>).</p></li>
-<li><p>L’algorithme calcule tous les attributs dans la fermeture: <span class="math inline">\(X_c=X^+\)</span> quand l’algorithme se termine.</p></li>
+<li><p>L’algorithme calcule uniquement des attributs dans la fermeture car on a toujours <span class="math inline">\(F \subset X^+\)</span> (récurrence sur le nombre d’itérations de la boucle <code>while</code>).</p></li>
+<li><p>L’algorithme calcule tous les attributs dans la fermeture: <span class="math inline">\(F = X^+\)</span> quand l’algorithme se termine.</p></li>
 </ul>
 
 <aside><div>
-<p>Le dernier point est le plus délicat. Que peut signifier le fait qu’il existe au moins un attribut <span class="math inline">\(Y\in X^+\)</span> qui n’appartienne pas à la valeur terminale de <span class="math inline">\(X^c\)</span> ?</p>
+<p>Le dernier point est le plus délicat. Que peut signifier le fait qu’il existe au moins un attribut <span class="math inline">\(Y\in X^+\)</span> qui n’appartienne pas à la valeur terminale de <span class="math inline">\(F\)</span> ?</p>
 </div></aside></section><section id="calcul-de-la-fermeture-transitive-exemple" class="slide level2 center"><h2>Calcul de la fermeture transitive : exemple</h2>
 <div class="columns">
 <div class="column" style="width:75%;">
@@ -949,7 +960,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p><strong>Propriété</strong></p>
 </div>
 <div class="callout-content">
-<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma, <span class="math inline">\(X \subset \mathcal{A}\)</span> est une clé de <span class="math inline">\(\mathcal{A}\)</span> si et seulement si</p>
+<p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma qui suit un ensemble de dépendances fonctionnelles <span class="math inline">\(\Sigma\)</span>, <span class="math inline">\(X \subset \mathcal{A}\)</span> est une clé de <span class="math inline">\(\mathcal{A}\)</span> si et seulement si</p>
 <ul>
 <li>
 <span class="math inline">\(X^+ = \mathcal{A}\)</span>,</li>
@@ -974,7 +985,7 @@ si p ⇒ q et q ⇒ r alors p ⇒ r</p>
 <p>Soit <span class="math inline">\(\mathcal{A}\)</span> un schéma, X,Y des parties de <span class="math inline">\(\mathcal{A}\)</span>, <span class="math inline">\(\Sigma\)</span> un ensemble de DF sur <span class="math inline">\(\mathcal{A}\)</span>.</p>
 <ul>
 <li>
-<span class="math inline">\(\Sigma \models X\to Y \quad\)</span> ssi <span class="math inline">\(\quad Y \subset X^+\)</span>
+<span class="math inline">\(\Sigma \models X\to Y \quad\)</span> ssi <span class="math inline">\(\quad Y \subset X^+_{\Sigma}\)</span>
 </li>
 </ul>
 </div>
