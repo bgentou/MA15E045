@@ -4222,43 +4222,43 @@ vertical-align: -.125em;
 <section id="questions" class="level2">
 <h2 class="anchored" data-anchor-id="questions">Questions</h2>
 <ol class="example" type="1">
-<li>Afficher les acteurs (identifiant,nom et prénom) dont le nom de famille se termine par la lettre “a” (peu importe la casse). Trier les résultats par nom de famille dans l’ordre alphabétique.</li>
+<li>Afficher les acteurs (identifiant,nom et prénom) dont le nom de famille se termine par la lettre “a” (peu importe la casse). Trier les résultats par nom de famille dans l’ordre alphabétique. <em>3 lignes attendues</em>.</li>
 </ol>
 <ol start="2" class="example" type="1">
-<li>Afficher les films (identifiant, titre, tarif de location) dont le tarif de location (‘rental_rate’) est strictement inférieur à 3. Trier les résultats du tarif le plus élevé au plus bas.</li>
+<li>Afficher les films (identifiant, titre, tarif de location) dont le tarif de location (‘rental_rate’) est strictement inférieur à 3. Trier les résultats par tarif de location décroissant. <em>664 lignes attendues</em>.</li>
 </ol>
 <ol start="3" class="example" type="1">
-<li>Afficher la liste sans doublons de tous les districts présents dans la table “address”. Trier les districts par ordre alphabétique.</li>
+<li>Afficher la liste sans doublons de tous les districts présents dans la table “address”. Trier les districts par ordre alphabétique. <em>378 lignes attendues</em>.</li>
 </ol>
 <ol start="4" class="example" type="1">
-<li>Afficher les films (identifiant, titre, description) dont la description contient le mot “dog” ou le mot “cat”, insensible à la casse.</li>
+<li>Afficher les films (identifiant, titre, description) dont la description contient le mot “dog” ou le mot “cat”, insensible à la casse. <em>167 lignes attendues</em>.</li>
 </ol>
 <ol start="5" class="example" type="1">
-<li>Afficher la liste de tous les acteurs avec tous les films dans lesquels ils ont joué. Il faut afficher les colonnes identifiant d’acteur, prénom, nom, identifiant du film et titre du film. Trier les résultats par nom puis prénom d’acteur puis par titre de film.</li>
+<li>Afficher la liste de tous les acteurs avec tous les films dans lesquels ils ont joué. Il faut afficher les colonnes identifiant d’acteur, prénom, nom, identifiant du film et titre du film. Trier les résultats par nom puis prénom d’acteur puis par titre de film. <em>5462 lignes attendues</em>.</li>
 </ol>
 <ol start="6" class="example" type="1">
-<li>Afficher sans doublons les films (identifiant et titre), dans lesquels joue au moins une actrice ou un acteur dont le nom commence par la lettre ‘B’ et au moins une actrice ou un acteur dont le nom commence par la lettre ‘M’. Trier les résultats par titre de film. (172 lignes attendues)</li>
+<li>Afficher sans doublons les films (identifiant et titre), dans lesquels joue au moins une actrice ou un acteur dont le nom commence par la lettre ‘B’ et au moins une actrice ou un acteur dont le nom commence par la lettre ‘M’. Trier les résultats par titre de film. <em>172 lignes attendues</em>.</li>
 </ol>
 <ol start="7" class="example" type="1">
-<li>Afficher le coût de remplacement (‘replacement_cost’) minimum, maximum et moyen de l’ensemble des films.</li>
+<li>Afficher le coût de remplacement (‘replacement_cost’) minimum, maximum et moyen de l’ensemble des films. <em>Valeurs attendues : minimum = 9.99, maximum = 29.99 et moyen = 19,984</em>.</li>
 </ol>
 <ol start="8" class="example" type="1">
-<li>Afficher, pour chaque client, la dépense totale théorique basée sur la somme du montant (‘amount’) de la table “payment” des films loués. Trier du plus gros total au plus faible. Les colonnes à afficher sont l’identifiant du client, le prénom, le nom et la dépense totale théorique.</li>
+<li>Afficher, pour chaque client, la dépense totale théorique basée sur la somme du montant (‘amount’) de la table “payment” des films loués. Trier du plus gros total au plus faible. Les colonnes à afficher sont l’identifiant du client, le prénom, le nom et la dépense totale théorique. <em>599 lignes attendues, la première ligne est : 526 KARL SEAL 221,55</em>.</li>
 </ol>
 <ol start="9" class="example" type="1">
-<li>Afficher toutes les locations dont la durée (‘return_date’ - ‘rental_date’) est supérieure à la durée moyenne de toutes les locations. Les colonnes à afficher sont : ‘rental_id’, ‘customer_id’, ‘duree_location’ (alias)</li>
+<li>Afficher toutes les locations dont la durée (‘return_date’ - ‘rental_date’) est supérieure à la durée moyenne de toutes les locations. Trier les résultats par durée décroissante. Les colonnes à afficher sont : ‘rental_id’, ‘customer_id’, ‘duree_location’ (alias). <em>7923 lignes attendues, la première ligne est : 2412 127 9 days 05:59:00</em>.</li>
 </ol>
 <ol start="10" class="example" type="1">
-<li>Afficher les films de la catégorie “Horror” dont la durée (‘length’) est inférieure à la durée moyenne des films d’horreur. Les colonnes à afficher sont l’identifiant du film, le titre et la durée. Trier les résultats par durée décroissante.</li>
+<li>Afficher les films de la catégorie “Horror” dont la durée (‘length’) est inférieure à la durée moyenne des films d’horreur. Les colonnes à afficher sont l’identifiant du film, le titre et la durée. Trier les résultats par durée décroissante. <em>28 lignes attendues, la première ligne est : 965 WATERSHIP FRONTIER 112</em>.</li>
 </ol>
 <ol start="11" class="example" type="1">
-<li>Dans votre schéma personnel, créer une table <code>film</code> de structure identique à la table “film” du schéma “pagila”. Les contraintes internes aux deux tables doivent être identiques.</li>
+<li>Dans votre schéma personnel, créer une table <code>td_film</code> de structure identique à la table “film” du schéma “pagila”. Les contraintes internes aux deux tables doivent être identiques.</li>
 </ol>
 <ol start="12" class="example" type="1">
-<li>Insérer dans la table <code>film</code> de votre schéma les films de la table <code>film</code> du schéma <code>pagila</code> dans lesquels jouent au moins une actrice ou un acteur dont le nom commence par la lettre ‘B’.</li>
+<li>Insérer dans la table <code>td_film</code> de votre schéma les films de la table <code>pagila.film</code> dans lesquels jouent au moins une actrice ou un acteur dont le nom commence par la lettre ‘B’. <em>449 lignes insérées attendues</em>.</li>
 </ol>
 <ol start="13" class="example" type="1">
-<li>Sans supprimer les données existantes dans votre table <code>film</code> et sans provoquer d’erreur d’exécution, insérer dans votre table <code>film</code> les films de la table <code>film</code> du schéma <code>pagila</code> dans lesquels jouent au moins une actrice ou un acteur dont le nom commence par la lettre ‘M’.</li>
+<li>Sans supprimer les données existantes dans votre table <code>td_film</code> et sans provoquer d’erreur d’exécution, insérer dans votre table <code>td_film</code> les films de la table <code>pagila.film</code> dans lesquels jouent au moins une actrice ou un acteur dont le nom commence par la lettre ‘M’. <em>168 lignes insérées attendues</em>.</li>
 </ol>
 
 
