@@ -350,11 +350,40 @@
 </div>
 </div>
 </div>
-</section><section id="exemple" class="slide level2 smaller center"><h2>Exemple</h2>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(\pi_{\mathcal{A}_1}(\Sigma)\)</span> <strong>n’est pas</strong> l’ensemble des DF de <span class="math inline">\(\Sigma\)</span> qui sont locales à <span class="math inline">\(\mathcal{A}_1\)</span> <strong>mais</strong> l’ensemble des DF impliquées par <span class="math inline">\(\Sigma\)</span> qui sont locales à <span class="math inline">\(\mathcal{A}_1\)</span>.</p>
+</div>
+</div>
+</div>
+</section><section id="exemple" class="slide level2 center"><h2>Exemple</h2>
 <ul>
 <li><p><span class="math inline">\({\mathcal{A}}=\left\{A,B,C\right\}\)</span> et <span class="math inline">\(\Sigma=\left\{A\to B, B\to C, C\to A\right\}\)</span></p></li>
-<li><p><span class="math inline">\(\pi^{}_{\left\{A,B\right\}}(\Sigma)\)</span> est équivalent à <span class="math inline">\(\left\{A\to B, B\to A\right\}\)</span></p></li>
-</ul></section><section id="fermeture-et-projection-de-df" class="slide level2 center"><h2>Fermeture et projection de DF</h2>
+<li><p><span class="math inline">\(\pi^{}_{\left\{A,B\right\}}(\Sigma)\)</span> est équivalent à <span class="math inline">\(\left\{A\to B, B\to A\right\}\)</span>. On dit aussi que <span class="math inline">\(\pi^{}_{\left\{A,B\right\}}(\Sigma)\)</span> <strong>est engendré par</strong> <span class="math inline">\(\left\{A\to B, B\to A\right\}\)</span>.</p></li>
+</ul>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Propriété</strong></p>
+</div>
+<div class="callout-content">
+<p>On a toujours : <span class="math inline">\(\Sigma \models \pi_{\mathcal{A}_1}(\Sigma)\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section id="fermeture-et-projection-de-df" class="slide level2 center"><h2>Fermeture et projection de DF</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -479,10 +508,25 @@
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>L’implication <span class="math inline">\(\Sigma \models {\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)}\)</span> est toujours vraie. Seule l’implication inverse <span class="math inline">\({\displaystyle \bigcup_{i=1}^k \pi_{\mathcal{A}_i}(\Sigma)} \models \Sigma\)</span> doit être vérifiée.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
 <p><strong>Propriété immédiate</strong></p>
 </div>
 <div class="callout-content">
 <p>Si <span class="math inline">\(\Sigma\)</span> est équivalent à un ensemble de <em>dépendances fonctionnelles locales</em>, la décomposition est SPD.</p>
+</div>
 </div>
 </div>
 </div>
@@ -578,7 +622,7 @@
 <div class="fragment">
 <ul>
 <li><p>Les DF locales <span class="math inline">\(A\to B\)</span>, <span class="math inline">\(B\to C\)</span>, <span class="math inline">\(C\to D\)</span> sont locales donc conservées.</p></li>
-<li><p>Est-ce que les DF locales impliquent <span class="math inline">\(D\to A\)</span> ?</p></li>
+<li><p>Est-ce que <span class="math inline">\(D\to A\)</span> est conservée ?</p></li>
 </ul>
 </div>
 <div class="fragment">
@@ -698,7 +742,7 @@
 </ul>
 <p>Peut-on affirmer que</p>
 <p><span class="math display">\[\verb!R! = \verb!Vendeur! \bowtie \verb!Livraison! \bowtie \verb!Produit! \quad ?\]</span></p>
-<p>On a envie de dire mais pourquoi et comment le prouver ?</p>
+<p>On a envie de dire oui mais pourquoi et comment le prouver ?</p>
 </section><section id="exemple-de-décomposition-avec-perte-dinformation" class="slide level2 smaller center"><h2>Exemple de décomposition avec perte d’information</h2>
 <p><span class="math inline">\(\mathcal{A}=\{A,B,C\} \quad  \Sigma=\{AB\rightarrow C\}\)</span></p>
 <p>Décomposition <span class="math inline">\(\mathcal{A}_1=\{A,B\}  \quad  \mathcal{A}_2=\{B,C\}\)</span></p>
@@ -1451,7 +1495,7 @@ des choix effectués
 <div class="callout-content">
 <p>Un schéma relationnel <span class="math inline">\(\mathcal{A}\)</span> est en forme normale 3 (FN3) relativement à un ensemble de DF <span class="math inline">\(\Sigma\)</span> ssi pour toute dépendance non triviale <span class="math inline">\(X \to Y\)</span> de <span class="math inline">\(\Sigma\)</span>, on a</p>
 <ul>
-<li>le membre gauche <span class="math inline">\(X\)</span> est une super-clé</li>
+<li>le membre gauche <span class="math inline">\(X\)</span> est une sur-clé</li>
 <li>
 <strong>ou</strong> le membre droit <span class="math inline">\(Y\)</span> fait partie d’une clé.</li>
 </ul>
@@ -1713,7 +1757,7 @@ On peut vérifier :
 <div class="callout-content">
 <p>Un schéma <span class="math inline">\(\mathcal{A}\)</span> est en FNBC par rapport à un ensemble de dépendances fonctionnelles <span class="math inline">\(\Sigma\)</span> sur <span class="math inline">\(\mathcal{A}\)</span> ssi</p>
 <ul>
-<li>pour toute DF non triviale <span class="math inline">\(X\rightarrow Y\)</span> impliquée par <span class="math inline">\(\Sigma\)</span>, <span class="math inline">\(X\)</span> est une <em>sur-clé</em> (ou <em>super-clé</em>).</li>
+<li>pour toute DF non triviale <span class="math inline">\(X\rightarrow Y\)</span> impliquée par <span class="math inline">\(\Sigma\)</span>, <span class="math inline">\(X\)</span> est une <em>sur-clé</em>.</li>
 </ul>
 </div>
 </div>
@@ -1729,7 +1773,7 @@ On peut vérifier :
 </div>
 <div class="callout-content">
 <p>Soit <span class="math inline">\(\Sigma'\)</span> un ensemble de DF équivalent à <span class="math inline">\(\Sigma\)</span>.</p>
-<p><span class="math inline">\((\mathcal{A},\Sigma)\)</span> est en FNBC si et seulement si pour toute DF non triviale de <span class="math inline">\(\Sigma'\)</span>, le membre de gauche est une sur-clé (super-clef).</p>
+<p><span class="math inline">\((\mathcal{A},\Sigma)\)</span> est en FNBC si et seulement si pour toute DF non triviale de <span class="math inline">\(\Sigma'\)</span>, le membre de gauche est une sur-clé.</p>
 </div>
 </div>
 </div>

@@ -4588,14 +4588,14 @@
     "href": "slides/DF_norm_2.html#projection-dun-ensemble-de-df",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Projection d’un ensemble de DF",
-    "text": "Projection d’un ensemble de DF\n\n\n\n\n\n\nDéfinition\n\n\nSoient \\(\\mathcal{A}\\) et \\(\\mathcal{A}_1\\) deux shémas tels que \\(\\mathcal{A}_1 \\subset \\mathcal{A}\\), et \\(\\Sigma\\) un ensemble de dépendances.\nOn appelle projection de \\(\\Sigma\\) sur \\(\\mathcal{A}_1\\) et on note \\(\\pi_{\\mathcal{A}_1}(\\Sigma)\\) l’ensemble\n\\[\\pi_{\\mathcal{A}_1}(\\Sigma)=\\left\\{ X\\to Y \\mid \\Sigma\\models X\\to Y \\text{ et } X,Y\\subset \\mathcal{A}_1\\right\\}\\]\nAutrement dit, \\(\\pi_{\\mathcal{A}_1}(\\Sigma)\\) est l’ensemble des dépendances impliquées par \\(\\Sigma\\) qui sont locales à \\(\\mathcal{A}_1\\)."
+    "text": "Projection d’un ensemble de DF\n\n\n\n\n\n\nDéfinition\n\n\nSoient \\(\\mathcal{A}\\) et \\(\\mathcal{A}_1\\) deux shémas tels que \\(\\mathcal{A}_1 \\subset \\mathcal{A}\\), et \\(\\Sigma\\) un ensemble de dépendances.\nOn appelle projection de \\(\\Sigma\\) sur \\(\\mathcal{A}_1\\) et on note \\(\\pi_{\\mathcal{A}_1}(\\Sigma)\\) l’ensemble\n\\[\\pi_{\\mathcal{A}_1}(\\Sigma)=\\left\\{ X\\to Y \\mid \\Sigma\\models X\\to Y \\text{ et } X,Y\\subset \\mathcal{A}_1\\right\\}\\]\nAutrement dit, \\(\\pi_{\\mathcal{A}_1}(\\Sigma)\\) est l’ensemble des dépendances impliquées par \\(\\Sigma\\) qui sont locales à \\(\\mathcal{A}_1\\).\n\n\n\n\n\n\n\n\n\nMise en garde\n\n\n\\(\\pi_{\\mathcal{A}_1}(\\Sigma)\\) n’est pas l’ensemble des DF de \\(\\Sigma\\) qui sont locales à \\(\\mathcal{A}_1\\) mais l’ensemble des DF impliquées par \\(\\Sigma\\) qui sont locales à \\(\\mathcal{A}_1\\)."
   },
   {
     "objectID": "slides/DF_norm_2.html#exemple",
     "href": "slides/DF_norm_2.html#exemple",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Exemple",
-    "text": "Exemple\n\n\\({\\mathcal{A}}=\\left\\{A,B,C\\right\\}\\) et \\(\\Sigma=\\left\\{A\\to B, B\\to C, C\\to A\\right\\}\\)\n\\(\\pi^{}_{\\left\\{A,B\\right\\}}(\\Sigma)\\) est équivalent à \\(\\left\\{A\\to B, B\\to A\\right\\}\\)"
+    "text": "Exemple\n\n\\({\\mathcal{A}}=\\left\\{A,B,C\\right\\}\\) et \\(\\Sigma=\\left\\{A\\to B, B\\to C, C\\to A\\right\\}\\)\n\\(\\pi^{}_{\\left\\{A,B\\right\\}}(\\Sigma)\\) est équivalent à \\(\\left\\{A\\to B, B\\to A\\right\\}\\). On dit aussi que \\(\\pi^{}_{\\left\\{A,B\\right\\}}(\\Sigma)\\) est engendré par \\(\\left\\{A\\to B, B\\to A\\right\\}\\).\n\n\n\n\n\n\n\n\nPropriété\n\n\nOn a toujours : \\(\\Sigma \\models \\pi_{\\mathcal{A}_1}(\\Sigma)\\)."
   },
   {
     "objectID": "slides/DF_norm_2.html#fermeture-et-projection-de-df",
@@ -4630,7 +4630,7 @@
     "href": "slides/DF_norm_2.html#décomposition-sans-perte-de-df",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Décomposition sans perte de DF",
-    "text": "Décomposition sans perte de DF\n\n\n\n\n\n\nDéfinition\n\n\nSoient \\(\\mathcal{A}\\) un schéma, \\(\\Sigma\\) un ensemble de DF sur \\(\\mathcal{A}\\) et \\(\\left\\{ \\mathcal{A}_1,\\dots, \\mathcal{A}_k\\right\\}\\) une décomposition de \\(\\mathcal{A}\\).\nLa décomposition \\(\\left\\{\\mathcal{A}_1,\\dots, \\mathcal{A}_k\\right\\}\\) préserve \\(\\Sigma \\quad \\quad\\) ssi \\(\\quad \\quad{\\displaystyle \\bigcup_{i=1}^k \\pi_{\\mathcal{A}_i}(\\Sigma)}\\) est équivalent à \\(\\Sigma\\).\nOn dit que la décomposition est sans perte de dépendance (SPD).\n\n\n\n\n\n\n\n\n\nPropriété immédiate\n\n\nSi \\(\\Sigma\\) est équivalent à un ensemble de dépendances fonctionnelles locales, la décomposition est SPD."
+    "text": "Décomposition sans perte de DF\n\n\n\n\n\n\nDéfinition\n\n\nSoient \\(\\mathcal{A}\\) un schéma, \\(\\Sigma\\) un ensemble de DF sur \\(\\mathcal{A}\\) et \\(\\left\\{ \\mathcal{A}_1,\\dots, \\mathcal{A}_k\\right\\}\\) une décomposition de \\(\\mathcal{A}\\).\nLa décomposition \\(\\left\\{\\mathcal{A}_1,\\dots, \\mathcal{A}_k\\right\\}\\) préserve \\(\\Sigma \\quad \\quad\\) ssi \\(\\quad \\quad{\\displaystyle \\bigcup_{i=1}^k \\pi_{\\mathcal{A}_i}(\\Sigma)}\\) est équivalent à \\(\\Sigma\\).\nOn dit que la décomposition est sans perte de dépendance (SPD).\n\n\n\n\n\n\n\n\n\nNote\n\n\nL’implication \\(\\Sigma \\models {\\displaystyle \\bigcup_{i=1}^k \\pi_{\\mathcal{A}_i}(\\Sigma)}\\) est toujours vraie. Seule l’implication inverse \\({\\displaystyle \\bigcup_{i=1}^k \\pi_{\\mathcal{A}_i}(\\Sigma)} \\models \\Sigma\\) doit être vérifiée.\n\n\n\n\n\n\n\n\n\n\nPropriété immédiate\n\n\nSi \\(\\Sigma\\) est équivalent à un ensemble de dépendances fonctionnelles locales, la décomposition est SPD."
   },
   {
     "objectID": "slides/DF_norm_2.html#vérification-quune-df-est-préservée",
@@ -4658,7 +4658,7 @@
     "href": "slides/DF_norm_2.html#exemple-i",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Exemple I",
-    "text": "Exemple I\n\n\\(\\mathcal{A}=\\left\\{A,B,C,D\\right\\}\\),\n\\(\\mathcal{A}_1=\\left\\{A,B\\right\\}\\), \\(\\mathcal{A}_2=\\left\\{B,C\\right\\}\\), \\(\\mathcal{A}_3=\\left\\{C,D\\right\\}\\)\n\\(\\Sigma=\\left\\{A\\to B, B\\to C, C\\to D, D\\to A\\right\\}\\)\nEst-ce que la décomposition \\(\\left\\{\\mathcal{A}_1,\\mathcal{A}_2,\\mathcal{A}_3\\right\\}\\) préserve \\(\\Sigma\\) ?\n\n\n\nLes DF locales \\(A\\to B\\), \\(B\\to C\\), \\(C\\to D\\) sont locales donc conservées.\nEst-ce que les DF locales impliquent \\(D\\to A\\) ?\n\n\n\nVérification en appliquant l’algorithme de calcul de \\(\\{D\\}^+_{\\mathcal{A}_1,\\mathcal{A}_2,\\mathcal{A}_3}\\).\nInitialisation \\(Z := \\{D\\}\\)\n\n\\((\\{D\\}\\cap\\{CD\\})^+ \\cap \\{CD\\}=\\{D\\}^+ \\cap\\{CD\\}=\\{DABC\\} \\cap \\{CD\\}=\\{CD\\}\\), \\(Z := \\{CD\\}\\)\n\\((\\{DC\\}\\cap \\{BC\\})^+ \\cap \\{BC\\}=\\{C\\}^+ \\cap \\{BC\\}=\\{CDAB\\}\\cap \\{BC\\}=\\{BC\\}\\), \\(Z := \\{BCD\\}\\)\n\\((\\{DCB\\}\\cap \\{AB\\})^+ \\cap \\{AB\\}=\\{B\\}^+ \\cap \\{AB\\}=\\{BCDA\\} \\cap \\{AB\\}\\), \\(Z := \\{ABCD\\}\\)\n\\(\\{DCBA\\}\\) contient \\(A\\) donc \\(D\\to A\\) est préservée."
+    "text": "Exemple I\n\n\\(\\mathcal{A}=\\left\\{A,B,C,D\\right\\}\\),\n\\(\\mathcal{A}_1=\\left\\{A,B\\right\\}\\), \\(\\mathcal{A}_2=\\left\\{B,C\\right\\}\\), \\(\\mathcal{A}_3=\\left\\{C,D\\right\\}\\)\n\\(\\Sigma=\\left\\{A\\to B, B\\to C, C\\to D, D\\to A\\right\\}\\)\nEst-ce que la décomposition \\(\\left\\{\\mathcal{A}_1,\\mathcal{A}_2,\\mathcal{A}_3\\right\\}\\) préserve \\(\\Sigma\\) ?\n\n\n\nLes DF locales \\(A\\to B\\), \\(B\\to C\\), \\(C\\to D\\) sont locales donc conservées.\nEst-ce que \\(D\\to A\\) est conservée ?\n\n\n\nVérification en appliquant l’algorithme de calcul de \\(\\{D\\}^+_{\\mathcal{A}_1,\\mathcal{A}_2,\\mathcal{A}_3}\\).\nInitialisation \\(Z := \\{D\\}\\)\n\n\\((\\{D\\}\\cap\\{CD\\})^+ \\cap \\{CD\\}=\\{D\\}^+ \\cap\\{CD\\}=\\{DABC\\} \\cap \\{CD\\}=\\{CD\\}\\), \\(Z := \\{CD\\}\\)\n\\((\\{DC\\}\\cap \\{BC\\})^+ \\cap \\{BC\\}=\\{C\\}^+ \\cap \\{BC\\}=\\{CDAB\\}\\cap \\{BC\\}=\\{BC\\}\\), \\(Z := \\{BCD\\}\\)\n\\((\\{DCB\\}\\cap \\{AB\\})^+ \\cap \\{AB\\}=\\{B\\}^+ \\cap \\{AB\\}=\\{BCDA\\} \\cap \\{AB\\}\\), \\(Z := \\{ABCD\\}\\)\n\\(\\{DCBA\\}\\) contient \\(A\\) donc \\(D\\to A\\) est préservée."
   },
   {
     "objectID": "slides/DF_norm_2.html#exemple-i-suite",
@@ -4693,7 +4693,7 @@
     "href": "slides/DF_norm_2.html#exemple-de-décomposition-spd",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Exemple de décomposition SPD",
-    "text": "Exemple de décomposition SPD\nOn décompose une relation \\(\\verb!R!(\\texttt{V\\#, Vnom, Vville, P\\#, Pnom, Pprix, Qte})\\) vérifiant\n\\(\\Sigma = \\{\\texttt{V\\#} \\to \\texttt{Vnom Vville}\\ , \\ \\texttt{P\\#} \\to \\texttt{Pnom Pprix}\\ , \\ \\texttt{V\\# P\\#} \\to \\texttt{Qte} \\}\\) en 3 relations\n\n\\(\\verb!Vendeur!=\\pi_{\\texttt{V\\#,Vnom,Vville}}(R)\\)\n\\(\\verb!Produit!=\\pi_{\\texttt{P\\#,Pnom,Pprix}}(R)\\)\n\\(\\verb!Livraison!=\\pi_{\\texttt{V\\#,P\\#,Qte}}(R)\\)\n\nPeut-on affirmer que\n\\[\\verb!R! = \\verb!Vendeur! \\bowtie \\verb!Livraison! \\bowtie \\verb!Produit! \\quad ?\\]\nOn a envie de dire mais pourquoi et comment le prouver ?"
+    "text": "Exemple de décomposition SPD\nOn décompose une relation \\(\\verb!R!(\\texttt{V\\#, Vnom, Vville, P\\#, Pnom, Pprix, Qte})\\) vérifiant\n\\(\\Sigma = \\{\\texttt{V\\#} \\to \\texttt{Vnom Vville}\\ , \\ \\texttt{P\\#} \\to \\texttt{Pnom Pprix}\\ , \\ \\texttt{V\\# P\\#} \\to \\texttt{Qte} \\}\\) en 3 relations\n\n\\(\\verb!Vendeur!=\\pi_{\\texttt{V\\#,Vnom,Vville}}(R)\\)\n\\(\\verb!Produit!=\\pi_{\\texttt{P\\#,Pnom,Pprix}}(R)\\)\n\\(\\verb!Livraison!=\\pi_{\\texttt{V\\#,P\\#,Qte}}(R)\\)\n\nPeut-on affirmer que\n\\[\\verb!R! = \\verb!Vendeur! \\bowtie \\verb!Livraison! \\bowtie \\verb!Produit! \\quad ?\\]\nOn a envie de dire oui mais pourquoi et comment le prouver ?"
   },
   {
     "objectID": "slides/DF_norm_2.html#exemple-de-décomposition-avec-perte-dinformation",
@@ -4805,7 +4805,7 @@
     "href": "slides/DF_norm_2.html#forme-normale-3-fn3-1",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Forme normale 3 (FN3)",
-    "text": "Forme normale 3 (FN3)\n\n\n\n\n\n\nIdée\n\n\nUn schéma relationnel est en troisième forme normale (FN3) si il est en FN2 et si tous les attributs non identifiants (extérieur à une clé) dépendent directement d’une clé et pas par transitivité via des attributs qui ne sont pas dans une clé , autrement dit il est en FN3 s’il n’existe pas de dépendance fonctionnelle entre deux attributs non clés.\nLa FN3 assure une non-redondance partielle acceptable de l’information.\n\n\n\n\n\n\n\n\n\n\nDéfinition : forme normale 3 (FN3)\n\n\nUn schéma relationnel \\(\\mathcal{A}\\) est en forme normale 3 (FN3) relativement à un ensemble de DF \\(\\Sigma\\) ssi pour toute dépendance non triviale \\(X \\to Y\\) de \\(\\Sigma\\), on a\n\nle membre gauche \\(X\\) est une super-clé\n\nou le membre droit \\(Y\\) fait partie d’une clé."
+    "text": "Forme normale 3 (FN3)\n\n\n\n\n\n\nIdée\n\n\nUn schéma relationnel est en troisième forme normale (FN3) si il est en FN2 et si tous les attributs non identifiants (extérieur à une clé) dépendent directement d’une clé et pas par transitivité via des attributs qui ne sont pas dans une clé , autrement dit il est en FN3 s’il n’existe pas de dépendance fonctionnelle entre deux attributs non clés.\nLa FN3 assure une non-redondance partielle acceptable de l’information.\n\n\n\n\n\n\n\n\n\n\nDéfinition : forme normale 3 (FN3)\n\n\nUn schéma relationnel \\(\\mathcal{A}\\) est en forme normale 3 (FN3) relativement à un ensemble de DF \\(\\Sigma\\) ssi pour toute dépendance non triviale \\(X \\to Y\\) de \\(\\Sigma\\), on a\n\nle membre gauche \\(X\\) est une sur-clé\n\nou le membre droit \\(Y\\) fait partie d’une clé."
   },
   {
     "objectID": "slides/DF_norm_2.html#exemple-1-1",
@@ -4875,14 +4875,14 @@
     "href": "slides/DF_norm_2.html#forme-normale-de-boyce-codd-fnbc-1",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Forme normale de Boyce-Codd (FNBC)",
-    "text": "Forme normale de Boyce-Codd (FNBC)\n\n\n\n\n\n\nDéfinition\n\n\nUn schéma \\(\\mathcal{A}\\) est en FNBC par rapport à un ensemble de dépendances fonctionnelles \\(\\Sigma\\) sur \\(\\mathcal{A}\\) ssi\n\npour toute DF non triviale \\(X\\rightarrow Y\\) impliquée par \\(\\Sigma\\), \\(X\\) est une sur-clé (ou super-clé)."
+    "text": "Forme normale de Boyce-Codd (FNBC)\n\n\n\n\n\n\nDéfinition\n\n\nUn schéma \\(\\mathcal{A}\\) est en FNBC par rapport à un ensemble de dépendances fonctionnelles \\(\\Sigma\\) sur \\(\\mathcal{A}\\) ssi\n\npour toute DF non triviale \\(X\\rightarrow Y\\) impliquée par \\(\\Sigma\\), \\(X\\) est une sur-clé."
   },
   {
     "objectID": "slides/DF_norm_2.html#vérifier-la-fnbc",
     "href": "slides/DF_norm_2.html#vérifier-la-fnbc",
     "title": "Normalisation II : Décompositions SPD, SPI, FN3 et FNBC",
     "section": "Vérifier la FNBC",
-    "text": "Vérifier la FNBC\n\n\n\n\n\n\nProposition\n\n\nSoit \\(\\Sigma'\\) un ensemble de DF équivalent à \\(\\Sigma\\).\n\\((\\mathcal{A},\\Sigma)\\) est en FNBC si et seulement si pour toute DF non triviale de \\(\\Sigma'\\), le membre de gauche est une sur-clé (super-clef).\n\n\n\n\n\n\n\n\n\nMéthode\n\n\nIl suffit de vérifier la règle FNBC pour un ensemble de DF équivalent à \\(\\Sigma\\)."
+    "text": "Vérifier la FNBC\n\n\n\n\n\n\nProposition\n\n\nSoit \\(\\Sigma'\\) un ensemble de DF équivalent à \\(\\Sigma\\).\n\\((\\mathcal{A},\\Sigma)\\) est en FNBC si et seulement si pour toute DF non triviale de \\(\\Sigma'\\), le membre de gauche est une sur-clé.\n\n\n\n\n\n\n\n\n\nMéthode\n\n\nIl suffit de vérifier la règle FNBC pour un ensemble de DF équivalent à \\(\\Sigma\\)."
   },
   {
     "objectID": "slides/DF_norm_2.html#fnbc-exemple-1",
